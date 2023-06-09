@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
      * Report Routes
      */
     Route::get('/report', 'ReportsController@index')->name('reports.index');
+    Route::get('/report/monthly', 'ReportsController@monthly')->name('reports.monthly');
 
     /*
      * Partners Routes

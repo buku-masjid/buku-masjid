@@ -168,4 +168,18 @@ class ReportsController extends Controller
 
         return $defaultMonthValues->replace($chartData)->values();
     }
+
+    public function monthly(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[1]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+
+        return view('reports.monthly', compact(
+            'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories', 'spendingCategories'
+        ));
+    }
 }
