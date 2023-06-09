@@ -1,0 +1,16 @@
+/*!
+ * Custom css for Laravel
+ * By Nafies Luthfi
+ * Code licensed under the MIT License.
+ * For details, see https://opensource.org/licenses/MIT
+ */
+
+h1.page-title > small {
+    font-size: 1rem;
+}
+
+.strong {
+    font-weight: 700;
+}
+
+a:hover { text-decoration: none; }
