@@ -26,10 +26,6 @@
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-repeat"></i> {{ __('transaction.transaction') }}</span>
             </a>
-            <a class="xs-navbar mr-4" href="{{ route('loans.index') }}" title="{{ __('loan.loan') }}">
-                <i class="fe fe-refresh-cw h3 d-inline d-lg-none"></i>
-                <span class="d-none d-lg-inline"><i class="fe fe-refresh-cw"></i> {{ __('loan.loan') }}</span>
-            </a>
             <a class="xs-navbar mr-4" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
                 <i class="fe fe-bar-chart-2 h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-bar-chart-2"></i> {{ __('report.report') }}</span>
@@ -60,10 +56,6 @@
             <div><i class="fe fe-repeat h3"></i></div>
             {{ __('transaction.transaction') }}
         </a>
-        <a class="col border-right border-primary" href="{{ route('loans.index') }}" title="{{ __('loan.loan') }}">
-            <div><i class="fe fe-refresh-cw h3"></i></div>
-            {{ __('loan.loan') }}
-        </a>
         <a class="col border-right border-primary" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
             <div><i class="fe fe-bar-chart-2 h3"></i></div>
             {{ __('report.report') }}
@@ -74,4 +66,3 @@
         </a>
     </div>
 </nav>
-

@@ -3,7 +3,6 @@
 namespace Tests\Unit\Models;
 
 use App\Category;
-use App\Loan;
 use App\Partner;
 use App\Transaction;
 use App\User;
@@ -43,17 +42,6 @@ class TransactionTest extends TestCase
 
         $this->assertInstanceOf(Partner::class, $transaction->partner);
         $this->assertEquals($transaction->partner_id, $transaction->partner->id);
-    }
-
-    /** @test */
-    public function a_transaction_has_belongs_to_loan_relation()
-    {
-        $user = $this->loginAsUser();
-        $loan = factory(Loan::class)->create(['creator_id' => $user->id]);
-        $transaction = factory(Transaction::class)->make(['creator_id' => $user->id, 'loan_id' => $loan->id]);
-
-        $this->assertInstanceOf(Loan::class, $transaction->loan);
-        $this->assertEquals($transaction->loan_id, $transaction->loan->id);
     }
 
     /** @test */

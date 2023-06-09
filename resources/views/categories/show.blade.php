@@ -44,7 +44,6 @@
                             {{ $transaction->description }}
                             <span class="float-right">
                                 {!!optional($transaction->partner)->name_label !!}
-                                {!!optional($transaction->loan)->type_label !!}
                             </span>
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>

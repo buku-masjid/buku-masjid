@@ -29,7 +29,7 @@ class TransactionSearchController extends Controller
             if ($partnerId) {
                 $transactionQuery->where('partner_id', $partnerId);
             }
-            $transactions = $transactionQuery->with('category', 'partner', 'loan')->limit(100)->get();
+            $transactions = $transactionQuery->with('category', 'partner')->limit(100)->get();
         }
         $partners = $this->getPartnerList();
         $categories = $this->getCategoryList();

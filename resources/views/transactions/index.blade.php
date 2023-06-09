@@ -54,12 +54,6 @@
                         @endif
                         <td>
                             <span class="float-right">
-                                @if ($transaction->loan)
-                                    @php
-                                        $loanRoute = route('loans.show', $transaction->loan);
-                                    @endphp
-                                    <a href="{{ $loanRoute }}">{!! optional($transaction->loan)->type_label !!}</a>
-                                @endif
                                 @if ($transaction->partner)
                                     @php
                                         $partnerRoute = route('partners.show', [

@@ -48,12 +48,6 @@
                             <td>
                                 {{ $transaction->description }}
                                 <div class="float-right">
-                                    @if ($transaction->loan)
-                                        @php
-                                            $loanRoute = route('loans.show', $transaction->loan);
-                                        @endphp
-                                        <a href="{{ $loanRoute }}">{!! $transaction->loan->type_label !!}</a>
-                                    @endif
                                     @if ($transaction->partner)
                                         @php
                                             $partnerRoute = route('partners.show', [

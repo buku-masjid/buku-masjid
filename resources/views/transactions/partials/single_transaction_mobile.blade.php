@@ -17,12 +17,6 @@
     @endcan
 </div>
 <div style="margin-bottom: 6px;">
-    @if ($transaction->loan)
-        @php
-            $loanRoute = route('loans.show', $transaction->loan);
-        @endphp
-        <a href="{{ $loanRoute }}">{!! optional($transaction->loan)->type_label !!}</a>
-    @endif
     @if ($transaction->partner)
         @php
             $partnerRoute = route('partners.show', [
