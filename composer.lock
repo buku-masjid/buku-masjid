@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e29ba7a92d8c5874b1f982c2f5334e5",
+    "content-hash": "f9faff3e78ee009a66aff9eb163cbd9e",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -6957,16 +6957,16 @@
         },
         {
             "name": "luthfi/simple-crud-generator",
-            "version": "dev-laravel_10_support",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nafiesl/SimpleCrudGenerator.git",
-                "reference": "5d75fc6bdd5f8de61a462a711bb1a7f067d46ed7"
+                "reference": "ff91c417e273edaeb14bf958fceca75bdf9d2b0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nafiesl/SimpleCrudGenerator/zipball/5d75fc6bdd5f8de61a462a711bb1a7f067d46ed7",
-                "reference": "5d75fc6bdd5f8de61a462a711bb1a7f067d46ed7",
+                "url": "https://api.github.com/repos/nafiesl/SimpleCrudGenerator/zipball/ff91c417e273edaeb14bf958fceca75bdf9d2b0a",
+                "reference": "ff91c417e273edaeb14bf958fceca75bdf9d2b0a",
                 "shasum": ""
             },
             "require": {
@@ -7011,7 +7011,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nafiesl/SimpleCrudGenerator/issues",
-                "source": "https://github.com/nafiesl/SimpleCrudGenerator/tree/laravel_10_support"
+                "source": "https://github.com/nafiesl/SimpleCrudGenerator/tree/4.0.0"
             },
             "funding": [
                 {
@@ -7027,7 +7027,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-06-11T03:10:10+00:00"
+            "time": "2023-06-11T03:40:52+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -8862,8 +8862,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "backup-manager/laravel": 20,
-        "luthfi/simple-crud-generator": 20
+        "backup-manager/laravel": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
