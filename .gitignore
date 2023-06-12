@@ -13,3 +13,4 @@ yarn-error.log
 .env
 .env.backup
 .phpunit.result.cache
+.phpunit.cache/
