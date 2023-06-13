@@ -11,7 +11,7 @@ class BankAccountController extends Controller
     public function index()
     {
         $editableBankAccount = null;
-        $bankAccounts = BankAccount::all();
+        $bankAccounts = BankAccount::paginate();
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableBankAccount = BankAccount::find(request('id'));
