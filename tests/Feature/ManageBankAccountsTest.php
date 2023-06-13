@@ -47,6 +47,21 @@ class ManageBankAccountsTest extends TestCase
     }
 
     /** @test */
+    public function user_can_see_bank_account_detail()
+    {
+        $creator = $this->loginAsUser();
+        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $creator->id]);
+
+        $this->visit(route('bank_accounts.index'));
+        $this->seeElement('a', ['id' => 'show-bank_account-'.$bankAccount->id]);
+
+        $this->click('show-bank_account-'.$bankAccount->id);
+
+        $this->seeRouteIs('bank_accounts.show', $bankAccount);
+        $this->seeText($bankAccount->name);
+    }
+
+    /** @test */
     public function user_can_edit_a_bank_account()
     {
         $creator = $this->loginAsUser();

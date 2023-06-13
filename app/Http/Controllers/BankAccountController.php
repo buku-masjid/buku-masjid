@@ -37,6 +37,11 @@ class BankAccountController extends Controller
         return redirect()->route('bank_accounts.index');
     }
 
+    public function show(BankAccount $bankAccount)
+    {
+        return view('bank_accounts.show', compact('bankAccount'));
+    }
+
     public function update(Request $request, BankAccount $bankAccount)
     {
         $bankAccountData = $request->validate([

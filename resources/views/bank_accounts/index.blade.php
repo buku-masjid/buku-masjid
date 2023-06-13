@@ -38,6 +38,17 @@
                         <td>{{ $bankAccount->description }}</td>
                         <td class="text-nowrap text-center">{{ $bankAccount->status }}</td>
                         <td class="text-center text-nowrap">
+                            @can('view', $bankAccount)
+                                {{ link_to_route(
+                                    'bank_accounts.show',
+                                    __('app.show'),
+                                    $bankAccount,
+                                    [
+                                        'id' => 'show-bank_account-'.$bankAccount->id,
+                                        'class' => 'btn btn-sm btn-secondary',
+                                    ]
+                                ) }}
+                            @endcan
                             @can('update', $bankAccount)
                                 {{ link_to_route(
                                     'bank_accounts.index',
