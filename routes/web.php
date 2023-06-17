@@ -62,4 +62,5 @@ Route::group(['middleware' => 'auth'], function () {
      * Bank Accounts Routes
      */
     Route::apiResource('bank_accounts', 'BankAccountController');
+    Route::apiResource('bank_accounts.balances', 'BankAccounts\BalanceController');
 });
