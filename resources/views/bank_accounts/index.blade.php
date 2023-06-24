@@ -22,6 +22,8 @@
                 <th class="text-center">{{ __('app.table_no') }}</th>
                 <th class="text-nowrap">{{ __('bank_account.name') }} / {{ __('bank_account.number') }}</th>
                 <th class="text-nowrap">{{ __('bank_account.account_name') }}</th>
+                <th class="text-right">{{ __('bank_account_balance.amount') }}</th>
+                <th class="text-right">{{ __('bank_account_balance.date') }}</th>
                 <th class="text-center">{{ __('app.status') }}</th>
                 <th class="text-center">{{ __('app.action') }}</th>
             </tr>
@@ -32,6 +34,8 @@
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td class="text-nowrap">{{ $bankAccount->name }} / {{ $bankAccount->number }}</td>
                 <td class="text-nowrap">{{ $bankAccount->account_name }}</td>
+                <td class="text-right">&nbsp;</td>
+                <td class="text-right">&nbsp;</td>
                 <td class="text-nowrap text-center">{{ $bankAccount->status }}</td>
                 <td class="text-center text-nowrap">
                     @can('view', $bankAccount)
