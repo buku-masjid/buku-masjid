@@ -8,8 +8,8 @@
     <h1 class="page-title">{{ $bankAccount->name }}</h1>
     <div class="page-subtitle">{{ __('bank_account.bank_account') }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success']) }}
-        {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
+        {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success mr-2']) }}
+        {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
     </div>
 </div>
 
@@ -19,11 +19,13 @@
             <td class="col-xs-2 text-center">{{ __('bank_account.name') }}</td>
             <td class="col-xs-2 text-center">{{ __('bank_account.number') }}</td>
             <td class="col-xs-2 text-center">{{ __('bank_account.account_name') }}</td>
+            <td class="col-xs-2 text-center">{{ __('app.status') }}</td>
         </tr>
         <tr>
             <td class="text-center lead" style="border-top: none;">{{ $bankAccount->name }}</td>
             <td class="text-center lead" style="border-top: none;">{{ $bankAccount->number }}</td>
             <td class="text-center lead" style="border-top: none;">{{ $bankAccount->account_name }}</td>
+            <td class="text-center lead" style="border-top: none;">{{ $bankAccount->status }}</td>
         </tr>
     </table>
 </div>
@@ -32,26 +34,32 @@
     <div class="alert alert-info"><strong>{{ __('app.description') }}:</strong><br>{{ $bankAccount->description }}</div>
 @endif
 
+<div class="page-header">
+    <h2 class="page-title">{{ __('bank_account_balance.bank_account_balance') }}</h2>
+</div>
+
 <div class="card table-responsive">
-    <table class="table table-sm table-responsive-sm table-hover mb-0">
+    <table class="table table-sm table-hover mb-0">
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.table_no') }}</th>
-                <th class="text-nowrap">{{ __('time.date') }}</th>
-                <th class="text-nowrap">{{ __('transaction.amount') }}</th>
-                <th class="text-center">{{ __('app.description') }}</th>
+                <th class="text-nowrap">{{ __('bank_account_balance.date') }}</th>
+                <th class="text-nowrap text-right">{{ __('transaction.amount') }}</th>
+                <th class="">{{ __('app.description') }}</th>
+                <th class="">{{ __('app.created_by') }}</th>
                 <th class="text-center">{{ __('app.action') }}</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($bankAccount->balances as $key => $bankAccountBalance)
+            @forelse($bankAccountBalances as $key => $bankAccountBalance)
             <tr>
                 <td class="text-center">{{ $key + 1 }}</td>
-                <td class="text-nowrap">{{ $bankAccountBalance->name }} / {{ $bankAccountBalance->number }}</td>
-                <td class="text-nowrap">{{ $bankAccountBalance->account_name }}</td>
-                <td class="text-nowrap text-center">{{ $bankAccountBalance->status }}</td>
+                <td class="text-nowrap">{{ $bankAccountBalance->date }}</td>
+                <td class="text-nowrap text-right">{{ $bankAccountBalance->amount_string }}</td>
+                <td class="">{{ $bankAccountBalance->description }}</td>
+                <td class="">{{ $bankAccountBalance->creator->name }}</td>
                 <td class="text-center text-nowrap">
-                    {{-- @can('update', $bankAccountBalance) --}}
+                    @can('update', $bankAccount)
                         {{ link_to_route(
                             'bank_accounts.show',
                             __('app.edit'),
@@ -61,11 +69,11 @@
                                 'class' => 'btn btn-sm btn-warning',
                             ]
                         ) }}
-                    {{-- @endcan --}}
+                    @endcan
                 </td>
             </tr>
             @empty
-            <tr><td colspan="5">{{ __('bank_account.not_found') }}</td></tr>
+            <tr><td colspan="6">{{ __('bank_account_balance.empty') }}</td></tr>
             @endforelse
         </tbody>
     </table>
@@ -73,3 +81,15 @@
 
 @includeWhen(request('action'), 'bank_accounts._bank_account_balance_forms')
 @endsection
+
+
+@push('scripts')
+<script>
+(function () {
+    $('#bankAccountBalanceModal').modal({
+        show: true,
+        backdrop: 'static',
+    });
+})();
+</script>
+@endpush

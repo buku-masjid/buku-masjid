@@ -13,4 +13,8 @@ class BankAccountBalance extends Model
     {
         return $this->belongsTo(User::class)->withDefault(['name' => 'n/a']);
     }
+    public function getAmountStringAttribute()
+    {
+        return number_format($this->amount, 2);
+    }
 }
