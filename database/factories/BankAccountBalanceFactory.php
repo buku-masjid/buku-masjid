@@ -1,23 +1,16 @@
 <?php
 
-namespace Database\Factories;
+use App\Models\BankAccount;
+use App\Models\BankAccountBalance;
+use Faker\Generator as Faker;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BankAccountBalance>
- */
-class BankAccountBalanceFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
-}
+$factory->define(BankAccountBalance::class, function (Faker $faker) {
+    return [
+        'date' => today(),
+        'amount' => 1000001,
+        'description' => $faker->sentence,
+        'bank_account_id' => function () {
+            return factory(BankAccount::class)->create()->id;
+        },
+    ];
+});

@@ -17,4 +17,9 @@ class BankAccount extends Model
     {
         return $this->is_active == 1 ? __('app.active') : __('app.inactive');
     }
+
+    public function balances()
+    {
+        return $this->hasMany(BankAccountBalance::class);
+    }
 }

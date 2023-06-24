@@ -4,7 +4,6 @@ namespace App\Http\Controllers\BankAccounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
-use App\Models\BankAccountBalance;
 use Illuminate\Http\Request;
 
 class BalanceController extends Controller
@@ -16,10 +15,8 @@ class BalanceController extends Controller
             'amount' => 'required|numeric',
             'description' => 'nullable|max:255',
         ]);
-        $newBankAccountBalance['bank_account_id'] = $bankAccount->id;
         $newBankAccountBalance['creator_id'] = auth()->id();
-
-        BankAccountBalance::create($newBankAccountBalance);
+        $bankAccount->balances()->create($newBankAccountBalance);
 
         flash(__('bank_account_balance.created'), 'success');
 

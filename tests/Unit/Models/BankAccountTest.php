@@ -3,6 +3,8 @@
 namespace Tests\Unit\Models;
 
 use App\Models\BankAccount;
+use App\Models\BankAccountBalance;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,5 +20,15 @@ class BankAccountTest extends TestCase
 
         $bankAccount->is_active = 0;
         $this->assertEquals(__('app.inactive'), $bankAccount->status);
+    }
+
+    /** @test */
+    public function bank_account_model_has_has_many_balances_relation()
+    {
+        $bankAccount = factory(BankAccount::class)->create();
+        $balance = factory(BankAccountBalance::class)->create(['bank_account_id' => $bankAccount->id]);
+
+        $this->assertInstanceOf(Collection::class, $bankAccount->balances);
+        $this->assertInstanceOf(BankAccountBalance::class, $bankAccount->balances->first());
     }
 }
