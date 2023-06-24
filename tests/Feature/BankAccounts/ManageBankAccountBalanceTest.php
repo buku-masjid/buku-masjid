@@ -14,7 +14,7 @@ class ManageBankAccountBalanceTest extends TestCase
     /** @test */
     public function user_can_add_bank_account_balance()
     {
-        $this->loginAsUser();
+        $user = $this->loginAsUser();
         $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123']);
 
         $this->visitRoute('bank_accounts.show', $bankAccount);
@@ -35,15 +35,16 @@ class ManageBankAccountBalanceTest extends TestCase
             'date' => '2023-03-01',
             'amount' => '1000000',
             'description' => 'Some procedure description',
+            'creator_id' => $user->id,
         ]);
     }
 
     /** @test */
     public function user_can_edit_bank_account_balance()
     {
-        $this->loginAsUser();
-        $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123']);
-        $bankAccountBalance = factory(BankAccountBalance::class)->create(['bank_account_id' => $bankAccount->id]);
+        $user = $this->loginAsUser();
+        $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123', 'creator_id' => $user->id]);
+        $bankAccountBalance = factory(BankAccountBalance::class)->create(['bank_account_id' => $bankAccount->id, 'creator_id' => $user->id]);
 
         $firstItem = $bankAccount->balances->first();
         $this->visitRoute('bank_accounts.show', $bankAccount);
@@ -73,9 +74,9 @@ class ManageBankAccountBalanceTest extends TestCase
     /** @test */
     public function user_can_delete_bank_account_balance()
     {
-        $this->loginAsUser();
-        $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123']);
-        $bankAccountBalance = factory(BankAccountBalance::class)->create(['bank_account_id' => $bankAccount->id]);
+        $user = $this->loginAsUser();
+        $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123', 'creator_id' => $user->id]);
+        $bankAccountBalance = factory(BankAccountBalance::class)->create(['bank_account_id' => $bankAccount->id, 'creator_id' => $user->id]);
         $firstItem = $bankAccount->balances->first();
 
         $this->visitRoute('bank_accounts.show', $bankAccount);

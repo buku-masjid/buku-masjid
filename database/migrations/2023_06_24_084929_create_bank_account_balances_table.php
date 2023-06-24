@@ -12,12 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bank_account_balances', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('bank_account_id')->constrained()->onDelete('restrict');
+            $table->increments('id');
+            $table->unsignedInteger('bank_account_id');
             $table->date('date');
             $table->unsignedDecimal('amount', 12);
             $table->string('description')->nullable();
+            $table->unsignedInteger('creator_id');
             $table->timestamps();
+
+            $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
