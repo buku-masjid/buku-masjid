@@ -39,7 +39,12 @@ class BankAccountController extends Controller
 
     public function show(BankAccount $bankAccount)
     {
-        return view('bank_accounts.show', compact('bankAccount'));
+        $editableBankAccountBalance = null;
+        if (in_array(request('action'), ['edit_bank_account_balance', 'delete_bank_account_balance']) && request('bank_account_balance_id')) {
+            $editableBankAccountBalance = $bankAccount->balances()->where('id', request('bank_account_balance_id'))->first();
+        }
+
+        return view('bank_accounts.show', compact('bankAccount', 'editableBankAccountBalance'));
     }
 
     public function update(Request $request, BankAccount $bankAccount)

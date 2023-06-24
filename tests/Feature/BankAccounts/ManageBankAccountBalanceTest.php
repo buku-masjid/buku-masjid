@@ -3,6 +3,7 @@
 namespace Tests\Feature\BankAccounts;
 
 use App\Models\BankAccount;
+use App\Models\BankAccountBalance;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -78,6 +79,13 @@ class ManageBankAccountBalanceTest extends TestCase
         $firstItem = $bankAccount->balances->first();
 
         $this->visitRoute('bank_accounts.show', $bankAccount);
+        $this->click('edit-bank_account_balance-'.$firstItem->id);
+        $this->click('delete-bank_account_balance-'.$firstItem->id);
+        $this->seeRouteIs('bank_accounts.show', [
+            $bankAccount,
+            'action' => 'delete_bank_account_balance',
+            'bank_account_balance_id' => $firstItem->id,
+        ]);
 
         $this->press('delete-bank_account_balance-'.$firstItem->id);
 

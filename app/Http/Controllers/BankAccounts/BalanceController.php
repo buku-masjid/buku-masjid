@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BankAccounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
+use App\Models\BankAccountBalance;
 use Illuminate\Http\Request;
 
 class BalanceController extends Controller
@@ -23,38 +24,31 @@ class BalanceController extends Controller
         return redirect()->route('bank_accounts.show', $bankAccount);
     }
 
-    public function show(BankAccount $bankAccount)
+    public function update(Request $request, BankAccount $bankAccount, BankAccountBalance $balance)
     {
-        return view('bank_accounts.show', compact('bankAccount'));
-    }
-
-    public function update(Request $request, BankAccount $bankAccount)
-    {
-        $bankAccountData = $request->validate([
-            'name' => 'required|max:60',
-            'number' => 'required|max:60',
-            'account_name' => 'required|max:60',
+        $bankAccountBalanceData = $request->validate([
+            'date' => 'required|date_format:Y-m-d',
+            'amount' => 'required|numeric',
             'description' => 'nullable|max:255',
-            'is_active' => 'required|in:0,1',
         ]);
 
-        $bankAccount->update($bankAccountData);
+        $balance->update($bankAccountBalanceData);
 
-        flash(__('bank_account.updated'), 'success');
+        flash(__('bank_account_balance.updated'), 'success');
 
-        return redirect()->route('bank_accounts.index');
+        return redirect()->route('bank_accounts.show', $bankAccount);
     }
 
-    public function destroy(BankAccount $bankAccount)
+    public function destroy(BankAccount $bankAccount, BankAccountBalance $balance)
     {
         request()->validate([
-            'bank_account_id' => 'required',
+            'bank_account_balance_id' => 'required',
         ]);
 
-        if (request('bank_account_id') == $bankAccount->id && $bankAccount->delete()) {
-            flash(__('bank_account.deleted'), 'success');
+        if (request('bank_account_balance_id') == $balance->id && $balance->delete()) {
+            flash(__('bank_account_balance.deleted'), 'success');
 
-            return redirect()->route('bank_accounts.index');
+            return redirect()->route('bank_accounts.show', $bankAccount);
         }
 
         return back();
