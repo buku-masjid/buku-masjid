@@ -15,7 +15,7 @@ class ManageBankAccountBalanceTest extends TestCase
     public function user_can_add_bank_account_balance()
     {
         $user = $this->loginAsUser();
-        $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123']);
+        $bankAccount = factory(BankAccount::class)->create(['description' => 'Testing 123', 'creator_id' => $user->id]);
 
         $this->visitRoute('bank_accounts.show', $bankAccount);
         $this->seeElement('a', ['id' => 'create-bank_account_balance']);

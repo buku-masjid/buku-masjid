@@ -1,5 +1,5 @@
-{{-- @can('create', new App\BankAccountBalance) --}}
 @if (request('action') == 'create_bank_account_balance')
+@can('update', $bankAccount)
     <div id="bankAccountBalanceModal" class="modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -27,11 +27,11 @@
             </div>
         </div>
     </div>
+@endcan
 @endif
-{{-- @endcan --}}
 
 @if (request('action') == 'edit_bank_account_balance' && $editableBankAccountBalance)
-{{-- @can('update', $editableBankAccountBalance) --}}
+@can('update', $bankAccount)
     <div id="bankAccountBalanceModal" class="modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -66,11 +66,11 @@
             </div>
         </div>
     </div>
-{{-- @endcan --}}
+@endcan
 @endif
 
 @if (request('action') == 'delete_bank_account_balance' && $editableBankAccountBalance)
-{{-- @can('delete', $editableBankAccountBalance) --}}
+@can('update', $bankAccount)
     <div id="bankAccountBalanceModal" class="modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -114,5 +114,5 @@
             </div>
         </div>
     </div>
-{{-- @endcan --}}
+@endcan
 @endif

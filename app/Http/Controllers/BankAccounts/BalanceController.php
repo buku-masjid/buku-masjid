@@ -11,6 +11,8 @@ class BalanceController extends Controller
 {
     public function store(BankAccount $bankAccount, Request $request)
     {
+        $this->authorize('update', $bankAccount);
+
         $newBankAccountBalance = $request->validate([
             'date' => 'required|date_format:Y-m-d',
             'amount' => 'required|numeric',
@@ -26,6 +28,8 @@ class BalanceController extends Controller
 
     public function update(Request $request, BankAccount $bankAccount, BankAccountBalance $balance)
     {
+        $this->authorize('update', $bankAccount);
+
         $bankAccountBalanceData = $request->validate([
             'date' => 'required|date_format:Y-m-d',
             'amount' => 'required|numeric',
@@ -41,6 +45,8 @@ class BalanceController extends Controller
 
     public function destroy(BankAccount $bankAccount, BankAccountBalance $balance)
     {
+        $this->authorize('update', $bankAccount);
+
         request()->validate([
             'bank_account_balance_id' => 'required',
         ]);
