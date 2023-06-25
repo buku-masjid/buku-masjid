@@ -34,8 +34,8 @@
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td class="text-nowrap">{{ $bankAccount->name }} / {{ $bankAccount->number }}</td>
                 <td class="text-nowrap">{{ $bankAccount->account_name }}</td>
-                <td class="text-right">{{ $bankAccount->lastBalance->amount_string }}</td>
-                <td class="text-right">{{ $bankAccount->lastBalance->date }}</td>
+                <td class="text-right">{{ optional($bankAccount->lastBalance)->amount_string }}</td>
+                <td class="text-right">{{ optional($bankAccount->lastBalance)->date }}</td>
                 <td class="text-nowrap text-center">{{ $bankAccount->status }}</td>
                 <td class="text-center text-nowrap">
                     @can('view', $bankAccount)
