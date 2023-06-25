@@ -41,18 +41,25 @@
                 <td class="text-center text-nowrap">&nbsp;</td>
             </tr>
             <tr><td colspan="5">{{ __('transaction.income') }}</td></tr>
+            @php
+                $key = 0;
+            @endphp
             @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
             <tr>
                 <td class="text-center">{{ ++$key }}</td>
                 <td>{{ $incomeCategory->name }}</td>
                 <td class="text-right text-nowrap">
-                    {{ number_format($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount'), 0) }}
+                    @if ($groupedTransactions->has(1))
+                        {{ number_format($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount'), 0) }}
+                    @else
+                        0
+                    @endif
                 </td>
                 <td class="text-right text-nowrap">-</td>
                 <td class="text-center text-nowrap">&nbsp;</td>
             </tr>
             @endforeach
-            @if (isset($groupedTransactions[1]))
+            @if ($groupedTransactions->has(1))
                 @foreach($groupedTransactions[1]->where('category_id', null) as $transaction)
                 <tr>
                     <td class="text-center">{{ ++$key }}</td>
@@ -71,12 +78,16 @@
                 <td>{{ $spendingCategory->name }}</td>
                 <td class="text-right text-nowrap">-</td>
                 <td class="text-right text-nowrap">
-                    {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount'), 0) }}
+                    @if ($groupedTransactions->has(0))
+                        {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount'), 0) }}
+                    @else
+                        0
+                    @endif
                 </td>
                 <td class="text-center text-nowrap">&nbsp;</td>
             </tr>
             @endforeach
-            @if (isset($groupedTransactions[0]))
+            @if ($groupedTransactions->has(0))
                 @foreach($groupedTransactions[0]->where('category_id', null) as $transaction)
                 <tr>
                     <td class="text-center">{{ ++$key }}</td>
@@ -95,13 +106,19 @@
                 <td>&nbsp;</td>
                 <th class="text-center">{{ __('app.total') }}</th>
                 <th class="text-right">
-                    {{ number_format($lastMonthBalance + $groupedTransactions[1]->sum('amount'), 0) }}
+                    @php
+                        $currentMonthIncome = $groupedTransactions->has(1) ? $groupedTransactions[1]->sum('amount') : 0;
+                    @endphp
+                    {{ number_format($lastMonthBalance + $currentMonthIncome, 0) }}
                 </th>
                 <th class="text-right">
-                    {{ number_format($groupedTransactions[0]->sum('amount'), 0) }}
+                    @php
+                        $currentMonthSpending = $groupedTransactions->has(0) ? $groupedTransactions[0]->sum('amount') : 0;
+                    @endphp
+                    {{ number_format($currentMonthSpending, 0) }}
                 </th>
                 <th class="text-right">
-                    {{ number_format(($lastMonthBalance + $groupedTransactions[1]->sum('amount') - $groupedTransactions[0]->sum('amount')), 0) }}
+                    {{ number_format($lastMonthBalance + $currentMonthIncome - $currentMonthSpending, 0) }}
                 </th>
             </tr>
         </tfoot>
