@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', __('report.monthly', ['year_month' => $yearMonth]))
+@section('title', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ __('report.monthly', ['year_month' => $yearMonth]) }}</h1>
+    <h1 class="page-title">{{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}</h1>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
         {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-2']) }}
