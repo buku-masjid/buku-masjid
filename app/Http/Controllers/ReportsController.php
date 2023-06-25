@@ -17,23 +17,29 @@ class ReportsController extends Controller
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
-        $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($yearMonth, $lastMonthDate);
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
 
         return view('reports.index', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance'
+            'lastMonthBalance', 'currentMonthEndDate'
         ));
     }
 
-    private function getLastBankAccountBalance(string $yearMonth, Carbon $lastMonthDate): BankAccountBalance
+    private function getLastBankAccountBalance(Carbon $currentMonthEndDate): BankAccountBalance
     {
-        $currentMonthBalance = BankAccountBalance::where('date', '<', $yearMonth.'-01')->orderBy('date', 'desc')->first();
+        $currentMonthBalance = BankAccountBalance::where('date', '<=', $currentMonthEndDate->format('Y-m-d'))
+            ->orderBy('date', 'desc')
+            ->first();
         if ($currentMonthBalance) {
             return $currentMonthBalance;
         }
 
-        return new BankAccountBalance(['date' => $lastMonthDate->format('Y-m-d')]);
+        return new BankAccountBalance([
+            'date' => $currentMonthEndDate->format('Y-m-d'),
+            'amount' => 0,
+        ]);
     }
 }

@@ -31,7 +31,7 @@
             <tr><td colspan="5">{{ __('transaction.balance') }}</td></tr>
             <tr>
                 <td class="text-center">1</td>
-                <td>Saldo bank per {{ Carbon\Carbon::parse($lastBankAccountBalanceOfTheMonth->date)->isoFormat('D MMMM Y') }}</td>
+                <td>Saldo per {{ Carbon\Carbon::parse($lastBankAccountBalanceOfTheMonth->date)->isoFormat('D MMMM Y') }} di BANK</td>
                 <td>-</td>
                 <td>-</td>
                 <td class="text-right text-nowrap">{{ number_format($lastBankAccountBalanceOfTheMonth->amount, 2) }}</td>
@@ -107,7 +107,7 @@
         <tfoot>
             <tr>
                 <td>&nbsp;</td>
-                <th class="text-center">{{ __('app.total') }}</th>
+                <th class="text-center">Selisih saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
                 <th class="text-right">
                     @php
                         $currentMonthIncome = $groupedTransactions->has(1) ? $groupedTransactions[1]->sum('amount') : 0;
@@ -129,7 +129,7 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th class="text-center">{{ __('app.total') }}</th>
+                <th class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
                 <th>-</th>
                 <th>-</th>
                 <th class="text-right">
