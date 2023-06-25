@@ -25,16 +25,19 @@
             <th>{{ __('transaction.transaction') }}</th>
             <th class="text-right">{{ __('transaction.income') }}</th>
             <th class="text-right">{{ __('transaction.spending') }}</th>
-            <th class="text-right">{{ __('transaction.difference') }}</th>
+            <th class="text-right">{{ __('transaction.balance') }}</th>
         </thead>
         <tbody>
             <tr><td colspan="5">{{ __('transaction.balance') }}</td></tr>
             <tr>
-                @php
-                    $lastMonthDate = Carbon\Carbon::parse($yearMonth.'-01')->subDay();
-                    $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
-                @endphp
                 <td class="text-center">1</td>
+                <td>Saldo bank per {{ Carbon\Carbon::parse($lastBankAccountBalanceOfTheMonth->date)->isoFormat('D MMMM Y') }}</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="text-right text-nowrap">{{ number_format($lastBankAccountBalanceOfTheMonth->amount, 2) }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">2</td>
                 <td>Sisa saldo per {{ $lastMonthDate->isoFormat('D MMMM Y') }}</td>
                 <td class="text-right text-nowrap">{{ number_format($lastMonthBalance) }}</td>
                 <td class="text-right text-nowrap">-</td>
@@ -118,7 +121,19 @@
                     {{ number_format($currentMonthSpending, 0) }}
                 </th>
                 <th class="text-right">
-                    {{ number_format($lastMonthBalance + $currentMonthIncome - $currentMonthSpending, 0) }}
+                    @php
+                        $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
+                    @endphp
+                    {{ number_format($currentMonthBalance, 0) }}
+                </th>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <th class="text-center">{{ __('app.total') }}</th>
+                <th>-</th>
+                <th>-</th>
+                <th class="text-right">
+                    {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 0) }}
                 </th>
             </tr>
         </tfoot>
