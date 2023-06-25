@@ -9,6 +9,8 @@ return [
     'view_report' => 'Lihat Laporan',
     'this_year' => 'Tahun Ini',
     'this_month' => 'Bulan Ini',
+    'prev_month' => 'Bulan Sblm',
+    'next_month' => 'Bulan Brkt',
     'graph' => 'Grafik Summary',
     'detail' => 'Detail Laporan',
     'view_monthly' => 'Lihat Bulanan',

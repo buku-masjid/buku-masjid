@@ -21,10 +21,13 @@ class ReportsController extends Controller
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
 
+        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
+        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
+
         return view('reports.index', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance', 'currentMonthEndDate'
+            'lastMonthBalance', 'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate'
         ));
     }
 

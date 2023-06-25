@@ -9,6 +9,8 @@ return [
     'view_report' => 'View Report',
     'this_year' => 'This Year',
     'this_month' => 'This Month',
+    'prev_month' => 'Prev Month',
+    'next_month' => 'Next Month',
     'graph' => 'Summary Graph',
     'detail' => 'Report Detail',
     'view_monthly' => 'View Monthly',
