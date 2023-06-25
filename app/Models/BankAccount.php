@@ -22,4 +22,11 @@ class BankAccount extends Model
     {
         return $this->hasMany(BankAccountBalance::class);
     }
+
+    public function lastBalance()
+    {
+        return $this->hasOne(BankAccountBalance::class)->ofMany([
+            'date' => 'max',
+        ]);
+    }
 }
