@@ -82,13 +82,24 @@
 @includeWhen(request('action'), 'bank_accounts._bank_account_balance_forms')
 @endsection
 
+@section('styles')
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
+@endsection
 
 @push('scripts')
+{{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {
     $('#bankAccountBalanceModal').modal({
         show: true,
         backdrop: 'static',
+    });
+    $('.date-select').datetimepicker({
+        timepicker:false,
+        format:'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1
     });
 })();
 </script>
