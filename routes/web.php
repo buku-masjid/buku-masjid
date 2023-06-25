@@ -57,4 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
      * Lang switcher routes
      */
     Route::patch('lang_switch', 'LangSwitcherController@update')->name('lang.switch');
+
+    /*
+     * Bank Accounts Routes
+     */
+    Route::apiResource('bank_accounts', 'BankAccountController');
+    Route::apiResource('bank_accounts.balances', 'BankAccounts\BalanceController');
 });
