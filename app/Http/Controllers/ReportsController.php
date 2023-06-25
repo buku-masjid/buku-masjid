@@ -31,6 +31,20 @@ class ReportsController extends Controller
         ));
     }
 
+    public function inOut(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
+        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
+
+        return view('reports.in_out', compact(
+            'year', 'month', 'yearMonth', 'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate'
+        ));
+    }
+
     private function getLastBankAccountBalance(Carbon $currentMonthEndDate): BankAccountBalance
     {
         $currentMonthBalance = BankAccountBalance::where('date', '<=', $currentMonthEndDate->format('Y-m-d'))
