@@ -59,7 +59,7 @@ class Controller extends BaseController
             }
         });
 
-        return $transactionQuery->orderBy('date', 'desc')->with('category', 'partner')->get();
+        return $transactionQuery->orderBy('date', 'asc')->with('category', 'partner')->get();
     }
 
     /**
