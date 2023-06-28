@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.reports')
 
-@section('title', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('subtitle', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
-@section('content')
+@section('content-report')
 
-<div class="page-header">
+<div class="page-header mt-0">
     <h1 class="page-title">Laporan Pemasukan dan Pengeluaran Kas {{ $currentMonthEndDate->isoFormat('MMMM Y') }}</h1>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
@@ -24,7 +24,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="page-header mt-0 mb-2">
             <h2 class="page-title">{{ __('transaction.income') }}</h2>
         </div>
@@ -67,8 +67,7 @@
             </table>
         </div>
         @endforeach
-    </div>
-    <div class="col-lg-6">
+
         <div class="page-header mt-0 mb-2">
             <h2 class="page-title">{{ __('transaction.spending') }}</h2>
         </div>
