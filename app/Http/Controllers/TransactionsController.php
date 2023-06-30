@@ -8,11 +8,6 @@ use App\Transaction;
 
 class TransactionsController extends Controller
 {
-    /**
-     * Display a listing of the transaction.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $editableTransaction = null;
@@ -23,7 +18,8 @@ class TransactionsController extends Controller
         $defaultStartDate = auth()->user()->account_start_date;
         $startDate = $defaultStartDate ?: $year.'-'.$month.'-01';
 
-        $transactions = $this->getTansactions($yearMonth);
+        $transactions = $this->getTansactionsPerWeek($yearMonth);
+        // dd($transactions->toArray());
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
         $partners = $this->getPartnerList()->prepend('-- '.__('transaction.no_partner').' --', 'null');
@@ -43,12 +39,19 @@ class TransactionsController extends Controller
         ));
     }
 
-    /**
-     * Store a newly created transaction in storage.
-     *
-     * @param  \App\Http\Requests\Transactions\CreateRequest  $transactionCreateForm
-     * @return \Illuminate\Routing\Redirector
-     */
+    private function getTansactionsPerWeek(string $yearMonth)
+    {
+        $transactionsPerWeek = [];
+        $transactions = $this->getTansactions($yearMonth);
+        foreach (get_date_range_per_week($yearMonth) as $weekKey => $dateNumbers) {
+            $transactionsPerWeek[$weekKey] = $transactions->filter(function ($transaction) use ($dateNumbers) {
+                return in_array($transaction->date, $dateNumbers);
+            });
+        }
+
+        return collect($transactionsPerWeek);
+    }
+
     public function store(CreateRequest $transactionCreateForm)
     {
         $transaction = $transactionCreateForm->save();
@@ -64,13 +67,6 @@ class TransactionsController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified transaction in storage.
-     *
-     * @param  \App\Http\Requests\Transactions\UpdateRequest  $transactionUpateForm
-     * @param  \App\Transaction  $transaction
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)
     {
         $this->authorize('update', $transaction);
@@ -112,12 +108,6 @@ class TransactionsController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified transaction from storage.
-     *
-     * @param  \App\Transaction  $transaction
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Transaction $transaction)
     {
         $this->authorize('delete', $transaction);
