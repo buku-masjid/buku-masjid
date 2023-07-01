@@ -13,7 +13,7 @@
 
 Route::view('/', 'auth.login')->middleware('guest');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Change Password Routes
 Route::get('change-password', 'Auth\ChangePasswordController@show');

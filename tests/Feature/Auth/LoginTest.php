@@ -28,7 +28,7 @@ class LoginTest extends TestCase
 
         $this->press(__('auth.logout'));
 
-        $this->seePageIs(route('welcome'));
+        $this->seePageIs('/');
     }
 
     /** @test */
@@ -78,7 +78,7 @@ class LoginTest extends TestCase
         $user = $this->loginAsUser();
 
         $this->seeIsAuthenticated();
-        $this->visit(route('welcome'));
+        $this->visit('/');
         $this->seePageIs(route('home'));
     }
 }
