@@ -13,7 +13,6 @@
 
 // Authentication Routes...
 Route::post('login', 'Api\Auth\LoginController@login')->name('api.login');
-Route::post('register', 'Api\Auth\RegisterController@register')->name('api.register');
 
 // Authentication using Laravel Passport
 // I make in seperate controller and make in different route

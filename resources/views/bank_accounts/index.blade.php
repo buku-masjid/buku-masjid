@@ -15,29 +15,24 @@
     </div>
 </div>
 
-<div class="card table-responsive">
-    <table class="table table-sm table-hover mb-0">
-        <thead>
-            <tr>
-                <th class="text-center">{{ __('app.table_no') }}</th>
-                <th class="text-nowrap">{{ __('bank_account.name') }} / {{ __('bank_account.number') }}</th>
-                <th class="text-nowrap">{{ __('bank_account.account_name') }}</th>
-                <th class="text-right">{{ __('bank_account_balance.amount') }}</th>
-                <th class="text-right">{{ __('bank_account_balance.date') }}</th>
-                <th class="text-center">{{ __('app.status') }}</th>
-                <th class="text-center">{{ __('app.action') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($bankAccounts as $key => $bankAccount)
-            <tr>
-                <td class="text-center">{{ $key + 1 }}</td>
-                <td class="text-nowrap">{{ $bankAccount->name }} / {{ $bankAccount->number }}</td>
-                <td class="text-nowrap">{{ $bankAccount->account_name }}</td>
-                <td class="text-right">{{ optional($bankAccount->lastBalance)->amount_string }}</td>
-                <td class="text-right">{{ optional($bankAccount->lastBalance)->date }}</td>
-                <td class="text-nowrap text-center">{{ $bankAccount->status }}</td>
-                <td class="text-center text-nowrap">
+<div class="row">
+    @forelse ($bankAccounts as $bankAccount)
+        <div class="col-sm-6 col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ $bankAccount->name }}</h3>
+                </div>
+                <div class="card-body">
+                    <span class="float-right">{{ $bankAccount->status }}</span>
+                    <p><span class="text-primary">{{ __('bank_account.number') }}</span>:<br><strong>{{ $bankAccount->number }}</strong></p>
+                    <p><span class="text-primary">{{ __('bank_account.account_name') }}</span>:<br><strong>{{ $bankAccount->account_name }}</strong></p>
+                    @if ($bankAccount->description)
+                    <p><span class="text-primary">{{ __('app.description') }}</span>:<br>{{ $bankAccount->description }}</p>
+                    @endif
+                    <p><span class="text-primary">{{ __('bank_account_balance.amount') }}</span>:<br><strong>Rp. {{ optional($bankAccount->lastBalance)->amount_string }}</strong></p>
+                    <p><span class="text-primary">{{ __('bank_account_balance.date') }}</span>:<br><strong>{{ optional($bankAccount->lastBalance)->date }}</strong></p>
+                </div>
+                <div class="card-footer">
                     @can('view', $bankAccount)
                         {{ link_to_route(
                             'bank_accounts.show',
@@ -45,7 +40,7 @@
                             $bankAccount,
                             [
                                 'id' => 'show-bank_account-'.$bankAccount->id,
-                                'class' => 'btn btn-sm btn-secondary',
+                                'class' => 'btn btn-secondary',
                             ]
                         ) }}
                     @endcan
@@ -56,18 +51,18 @@
                             ['action' => 'edit', 'id' => $bankAccount->id],
                             [
                                 'id' => 'edit-bank_account-'.$bankAccount->id,
-                                'class' => 'btn btn-sm btn-warning',
+                                'class' => 'btn btn-warning',
                             ]
                         ) }}
                     @endcan
-                </td>
-            </tr>
-            @empty
-            <tr><td colspan="5">{{ __('bank_account.not_found') }}</td></tr>
-            @endforelse
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    @empty
+        {{ __('bank_account.not_found') }}
+    @endforelse
 </div>
+
 {{ $bankAccounts->links() }}
 @includeWhen(Request::has('action'), 'bank_accounts.forms')
 @endsection

@@ -26,7 +26,9 @@
 
                         <div class="form-group">
                             <label for="password" class="form-label">
-                                <a class="float-right small" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                @if (Route::has('password.request'))
+                                    <a class="float-right small" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                @endif
                                 {{ __('auth.password') }}
                             </label>
 
@@ -53,7 +55,6 @@
                             <button type="submit" class="btn btn-primary btn-block">
                                 {{ __('Login') }}
                             </button>
-                            {{ link_to_route('register', __('auth.register'), [], ['class' => 'btn btn-link btn-block']) }}
                         </div>
                     </form>
                 </div>

@@ -2,8 +2,6 @@
 
 return [
     // Login & Logout
-    'register' => 'Register',
-    'registered' => 'User registration success.',
     'login' => 'Login',
     'profile' => 'My Profile',
     'welcome' => 'Welcome back, :name.',
