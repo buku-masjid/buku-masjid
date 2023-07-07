@@ -50,6 +50,29 @@ class ReportsController extends Controller
         ));
     }
 
+    public function inWeeks(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
+        $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
+
+        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
+        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
+
+        return view('reports.in_weeks', compact(
+            'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
+            'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
+            'lastMonthBalance', 'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate'
+        ));
+    }
+
     private function getLastBankAccountBalance(Carbon $currentMonthEndDate): BankAccountBalance
     {
         $currentMonthBalance = BankAccountBalance::where('date', '<=', $currentMonthEndDate->format('Y-m-d'))
