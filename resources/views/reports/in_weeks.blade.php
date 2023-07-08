@@ -22,4 +22,29 @@
         {{ Form::close() }}
     </div>
 </div>
+
+@foreach($groupedTransactions as $weekNumber => $weekTransactions)
+<div class="card table-responsive">
+    <table class="table table-sm card-table table-hover table-bordered">
+        <thead>
+            <th class="text-center">{{ __('app.date') }}</th>
+            <th>{{ __('transaction.transaction') }}</th>
+            <th class="text-right">{{ __('transaction.income') }}</th>
+            <th class="text-right">{{ __('transaction.spending') }}</th>
+            <th class="text-right">{{ __('transaction.balance') }}</th>
+        </thead>
+        <tbody>
+            @foreach ($weekTransactions as $transaction)
+            <tr>
+                <td class="text-center">{{ $transaction->date }}</td>
+                <td>{{ $transaction->description }}</td>
+                <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                <td class="text-center text-nowrap">&nbsp;</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endforeach
 @endsection
