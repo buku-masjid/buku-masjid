@@ -26,6 +26,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ url('favicon.ico') }}" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}" />
+    @livewireStyles
     @yield('styles')
 </head>
 <body>
@@ -41,6 +42,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @include('layouts.partials.noty')
+    @livewireScripts
     @stack('scripts')
 </body>
 </html>
