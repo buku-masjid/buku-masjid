@@ -34,14 +34,19 @@
             <th class="text-right">{{ __('transaction.balance') }}</th>
         </thead>
         <tbody>
-            @foreach ($weekTransactions as $transaction)
-            <tr>
-                <td class="text-center">{{ $transaction->date }}</td>
-                <td>{{ $transaction->description }}</td>
-                <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
-                <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
-                <td class="text-center text-nowrap">&nbsp;</td>
-            </tr>
+            @foreach ($weekTransactions as $dayName => $daysTransactions)
+                @if ($dayName)
+                    <tr><th class="text-center">{{ $dayName }}</th><th colspan="4">&nbsp;</th></tr>
+                @endif
+                @foreach ($daysTransactions as $transaction)
+                <tr>
+                    <td class="text-center">{{ $transaction->date }}</td>
+                    <td>{{ $transaction->description }}</td>
+                    <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                    <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                    <td class="text-center text-nowrap">&nbsp;</td>
+                </tr>
+                @endforeach
             @endforeach
         </tbody>
     </table>

@@ -6,6 +6,7 @@ use App\Category;
 use App\Partner;
 use App\Transaction;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -77,6 +78,27 @@ class TransactionTest extends TestCase
         $this->assertEquals('2017', $transaction->year);
         $this->assertEquals('01', $transaction->month);
         $this->assertEquals('31', $transaction->date_only);
+    }
+
+    /** @test */
+    public function a_transaction_has_day_name_attribute()
+    {
+        $date = '2017-01-31';
+        $transaction = factory(Transaction::class)->make(['date' => $date]);
+
+        $this->assertEquals(Carbon::parse($date)->isoFormat('dddd'), $transaction->day_name);
+
+        $transaction = factory(Transaction::class)->make(['date' => null]);
+        $this->assertEquals(null, $transaction->day_name);
+    }
+
+    /** @test */
+    public function a_transaction_has_change_day_name_minggu_to_ahad_attribute()
+    {
+        $date = '2017-01-29';
+        $transaction = factory(Transaction::class)->make(['date' => $date]);
+
+        $this->assertEquals('Ahad', $transaction->day_name);
     }
 
     /** @test */

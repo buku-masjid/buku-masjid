@@ -57,7 +57,7 @@ class ReportsController extends Controller
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
-        $groupedTransactions = $this->getGroupedTransactions($yearMonth);
+        $groupedTransactions = $this->getWeeklyGroupedTransactions($yearMonth);
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
 
         $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
@@ -68,7 +68,8 @@ class ReportsController extends Controller
             'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate'
         ));
     }
-    private function getGroupedTransactions(string $yearMonth): Collection
+
+    private function getWeeklyGroupedTransactions(string $yearMonth): Collection
     {
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
 
@@ -89,7 +90,7 @@ class ReportsController extends Controller
                 ]);
                 $weekTransactions->prepend($firstBalance);
             }
-            $groupedTransactions[$weekNumber] = $weekTransactions;
+            $groupedTransactions[$weekNumber] = $weekTransactions->groupBy('day_name');
             $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
         }
 
