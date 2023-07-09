@@ -23,13 +23,10 @@ class ReportsController extends Controller
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
 
-        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
-        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
-
         return view('reports.index', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance', 'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate'
+            'lastMonthBalance', 'currentMonthEndDate'
         ));
     }
 
@@ -39,15 +36,13 @@ class ReportsController extends Controller
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
-        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
-        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
 
         $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
 
         return view('reports.in_out', compact(
-            'year', 'month', 'yearMonth', 'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate',
+            'year', 'month', 'yearMonth', 'currentMonthEndDate',
             'groupedTransactions', 'incomeCategories', 'spendingCategories'
         ));
     }
