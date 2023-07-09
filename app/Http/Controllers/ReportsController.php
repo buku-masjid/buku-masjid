@@ -60,12 +60,8 @@ class ReportsController extends Controller
         $groupedTransactions = $this->getWeeklyGroupedTransactions($yearMonth);
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
 
-        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
-        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
-
         return view('reports.in_weeks', compact(
-            'year', 'month', 'yearMonth', 'groupedTransactions',
-            'currentMonthEndDate', 'prevMonthDate', 'nextMonthDate'
+            'year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate'
         ));
     }
 
