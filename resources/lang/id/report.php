@@ -16,5 +16,6 @@ return [
     'view_monthly' => 'Lihat Bulanan',
     'monthly' => 'Laporan Bulan :year_month',
     'view_weekly' => 'Lihat Mingguan',
-    'weekly' => 'Laporan Minggu :year_week',
+    'weekly' => 'Laporan KAS per Pekan - :year_month',
+    'categorized_transactions' => 'Laporan Pemasukan dan Pengeluaran KAS - :year_month',
 ];

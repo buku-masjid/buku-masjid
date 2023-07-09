@@ -15,6 +15,6 @@ return [
     'detail' => 'Report Detail',
     'view_monthly' => 'View Monthly',
     'monthly' => 'Report Month :year_month',
-    'view_weekly' => 'View Weekly',
-    'weekly' => 'Report Week :year_week',
+    'weekly' => 'Transaction Report per Week - :year_month',
+    'categorized_transactions' => 'Categorized Transactions Report - :year_month',
 ];

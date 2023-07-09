@@ -90,6 +90,20 @@ class Transaction extends Model
         return Carbon::parse($this->date)->format('Y');
     }
 
+    public function getDayNameAttribute(): string
+    {
+        if (is_null($this->date)) {
+            return '';
+        }
+
+        $dayName = Carbon::parse($this->date)->isoFormat('dddd');
+        if ($dayName == 'Minggu') {
+            $dayName = 'Ahad';
+        }
+
+        return $dayName;
+    }
+
     /**
      * Get transaction amount in string attribute.
      *
