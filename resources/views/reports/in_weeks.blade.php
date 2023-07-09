@@ -1,11 +1,11 @@
 @extends('layouts.reports')
 
-@section('subtitle', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('subtitle', __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
 @section('content-report')
 
 <div class="page-header mt-0">
-    <h1 class="page-title">{{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}</h1>
+    <h1 class="page-title">{{ __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}</h1>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
         {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
