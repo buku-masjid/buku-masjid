@@ -36,12 +36,14 @@
         <tbody>
             @foreach ($weekTransactions as $dayName => $daysTransactions)
                 @if ($dayName)
-                    <tr><th class="text-center">{{ $dayName }}</th><th colspan="4">&nbsp;</th></tr>
+                    <tr><td class="text-center strong">{{ strtoupper($dayName) }}</td><td colspan="4">&nbsp;</td></tr>
                 @endif
                 @foreach ($daysTransactions as $transaction)
-                <tr>
+                <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
                     <td class="text-center">{{ $transaction->date }}</td>
-                    <td>{{ $transaction->description }}</td>
+                    <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
+                        {{ $transaction->description }}
+                    </td>
                     <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
                     <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
                     <td class="text-center text-nowrap">&nbsp;</td>
@@ -49,6 +51,26 @@
                 @endforeach
             @endforeach
         </tbody>
+        <tfoot>
+            <th colspan="2" class="text-right">{{ __('app.total') }}</th>
+            <th class="text-right">
+                @php
+                    $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
+                        return $transaction->in_out ? $transaction->amount : 0;
+                    });
+                @endphp
+                {{ number_format($incomeAmount, 0) }}
+            </th>
+            <th class="text-right">
+                @php
+                    $spendingAmount = $weekTransactions->flatten()->sum(function ($transaction) {
+                        return $transaction->in_out ? 0 : $transaction->amount;
+                    });
+                @endphp
+                {{ number_format($spendingAmount, 0) }}
+            </th>
+            <th class="text-right">{{ number_format($incomeAmount - $spendingAmount, 0) }}</th>
+        </tfoot>
     </table>
 </div>
 @endforeach

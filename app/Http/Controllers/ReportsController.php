@@ -74,7 +74,7 @@ class ReportsController extends Controller
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
 
         $transactions = $this->getTansactions($yearMonth);
-        $groupedTransactions = [];
+        $groupedTransactions = collect([]);
         $lastWeekDate = null;
         foreach (get_date_range_per_week($yearMonth) as $weekNumber => $weekDates) {
             $weekTransactions = $transactions->filter(function ($transaction) use ($weekDates) {
@@ -88,9 +88,10 @@ class ReportsController extends Controller
                     'in_out' => 1,
                     'amount' => balance($lastWeekDate->format('Y-m-d')),
                 ]);
+                $firstBalance->is_strong = 1;
                 $weekTransactions->prepend($firstBalance);
             }
-            $groupedTransactions[$weekNumber] = $weekTransactions->groupBy('day_name');
+            $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('day_name'));
             $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
         }
 
