@@ -16,8 +16,8 @@
             {{ link_to_route('reports.in_weeks', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group">
-            {{ link_to_route('reports.in_weeks', __('report.prev_month'), ['month' => $prevMonthDate->format('m'), 'year' => $prevMonthDate->format('Y')], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.in_weeks', __('report.next_month'), ['month' => $nextMonthDate->format('m'), 'year' => $nextMonthDate->format('Y')], ['class' => 'btn btn-secondary']) }}
+            @livewire('prev-month-button', ['routeName' => 'reports.in_weeks', 'buttonClass' => 'btn btn-secondary mr-1'])
+            @livewire('next-month-button', ['routeName' => 'reports.in_weeks', 'buttonClass' => 'btn btn-secondary'])
         </div>
         {{ Form::close() }}
     </div>

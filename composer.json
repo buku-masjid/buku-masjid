@@ -21,6 +21,7 @@
         "laravel/passport": "^11.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
+        "livewire/livewire": "^2.12",
         "luthfi/formfield": "^2.2",
         "riverskies/laravel-mobile-detect": "^1.3"
     },
