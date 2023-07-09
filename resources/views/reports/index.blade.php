@@ -25,11 +25,13 @@
 <div class="card table-responsive">
     <table class="table table-sm card-table table-hover table-bordered">
         <thead>
-            <th class="text-center">{{ __('app.table_no') }}</th>
-            <th>{{ __('transaction.transaction') }}</th>
-            <th class="text-right">{{ __('transaction.income') }}</th>
-            <th class="text-right">{{ __('transaction.spending') }}</th>
-            <th class="text-right">{{ __('transaction.balance') }}</th>
+            <tr>
+                <th class="text-center">{{ __('app.table_no') }}</th>
+                <th>{{ __('transaction.transaction') }}</th>
+                <th class="text-right">{{ __('transaction.income') }}</th>
+                <th class="text-right">{{ __('transaction.spending') }}</th>
+                <th class="text-right">{{ __('transaction.balance') }}</th>
+            </tr>
         </thead>
         <tbody>
             <tr><td colspan="5">{{ __('transaction.balance') }}</td></tr>
