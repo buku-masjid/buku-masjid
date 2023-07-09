@@ -14,6 +14,7 @@
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.in_weeks', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.in_weeks_pdf', __('report.export_pdf'), ['year' => $year, 'month' => $month], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group">
             @livewire('prev-month-button', ['routeName' => 'reports.in_weeks', 'buttonClass' => 'btn btn-secondary mr-1'])
