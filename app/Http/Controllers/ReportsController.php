@@ -90,9 +90,9 @@ class ReportsController extends Controller
                 ]);
                 $firstBalance->is_strong = 1;
                 $weekTransactions->prepend($firstBalance);
+                $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('day_name'));
+                $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
             }
-            $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('day_name'));
-            $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
         }
 
         return collect($groupedTransactions);
