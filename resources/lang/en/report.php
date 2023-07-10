@@ -17,4 +17,5 @@ return [
     'monthly' => 'Report Month :year_month',
     'weekly' => 'Transaction Report per Week - :year_month',
     'categorized_transactions' => 'Categorized Transactions Report - :year_month',
+    'export_pdf' => 'Export PDF',
 ];

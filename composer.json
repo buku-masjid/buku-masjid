@@ -23,6 +23,7 @@
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.12",
         "luthfi/formfield": "^2.2",
+        "niklasravnsborg/laravel-pdf": "^4.1",
         "riverskies/laravel-mobile-detect": "^1.3"
     },
     "require-dev": {

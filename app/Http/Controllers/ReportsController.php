@@ -60,6 +60,27 @@ class ReportsController extends Controller
         ));
     }
 
+    public function inWeeksPdf(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $groupedTransactions = $this->getWeeklyGroupedTransactions($yearMonth);
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        $passedVariables = compact('year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate');
+
+        // return view('reports.in_weeks_pdf', $passedVariables);
+
+        $pdf = \PDF::loadView('reports.in_weeks_pdf', $passedVariables, [], [
+            'margin_top' => '12',
+            'margin_bottom' => '12',
+            'margin_left' => '12',
+            'margin_right' => '12',
+        ]);
+
+        return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
+    }
+
     private function getWeeklyGroupedTransactions(string $yearMonth): Collection
     {
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
