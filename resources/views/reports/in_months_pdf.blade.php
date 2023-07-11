@@ -1,30 +1,18 @@
-@extends('layouts.reports')
+@extends('layouts.print')
 
-@section('subtitle', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('title', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
-@section('content-report')
+@section('content')
+<htmlpageheader name="wpHeader">
+    {{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
+    <img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
+    <h2 class="text-center strong" style="margin: 1em 0">
+        {{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}
+    </h2>
+</htmlpageheader>
 
-<div class="page-header mt-0">
-    <h1 class="page-title">{{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}</h1>
-    <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('month', get_months(), $month, ['class' => 'form-control mr-1']) }}
-        {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.in_months', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.in_months_pdf', __('report.export_pdf'), ['year' => $year, 'month' => $month], ['class' => 'btn btn-secondary mr-1']) }}
-        </div>
-        <div class="form-group">
-            @livewire('prev-month-button', ['routeName' => 'reports.in_months', 'buttonClass' => 'btn btn-secondary mr-1'])
-            @livewire('next-month-button', ['routeName' => 'reports.in_months', 'buttonClass' => 'btn btn-secondary'])
-        </div>
-        {{ Form::close() }}
-    </div>
-</div>
-<div class="card table-responsive">
-    <table class="table table-sm card-table table-hover table-bordered">
+<div class="">
+    <table class="table">
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.table_no') }}</th>
@@ -147,4 +135,19 @@
         @endif
     </table>
 </div>
+@endsection
+
+@section('style')
+<style>
+    @page {
+        size: auto;
+        margin-top: 160px;
+        margin-bottom: 50px;
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-header: 20px;
+        margin-footer: 20px;
+        header: html_wpHeader;
+    }
+</style>
 @endsection

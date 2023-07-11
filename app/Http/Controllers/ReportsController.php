@@ -30,6 +30,32 @@ class ReportsController extends Controller
         ));
     }
 
+    public function inMonthsPdf(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
+        $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
+
+        $passedVariables = compact(
+            'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
+            'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
+            'lastMonthBalance', 'currentMonthEndDate'
+        );
+
+        // return view('reports.in_months_pdf', $passedVariables);
+
+        $pdf = \PDF::loadView('reports.in_months_pdf', $passedVariables);
+
+        return $pdf->stream(__('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
+    }
+
     public function inOut(Request $request)
     {
         $year = $request->get('year', date('Y'));
