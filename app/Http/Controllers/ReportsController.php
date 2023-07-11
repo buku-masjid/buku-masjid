@@ -47,6 +47,29 @@ class ReportsController extends Controller
         ));
     }
 
+    public function inOutPdf(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+
+        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+
+        $passedVariables = compact(
+            'year', 'month', 'yearMonth', 'currentMonthEndDate',
+            'groupedTransactions', 'incomeCategories', 'spendingCategories'
+        );
+
+        // return view('reports.in_out_pdf', $passedVariables);
+
+        $pdf = \PDF::loadView('reports.in_out_pdf', $passedVariables);
+
+        return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
+    }
+
     public function inWeeks(Request $request)
     {
         $year = $request->get('year', date('Y'));

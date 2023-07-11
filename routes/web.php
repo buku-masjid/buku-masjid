@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'report'], function () {
         Route::get('/', 'ReportsController@index')->name('reports.index');
         Route::get('/in_out', 'ReportsController@inOut')->name('reports.in_out');
+        Route::get('/in_out_pdf', 'ReportsController@inOutPdf')->name('reports.in_out_pdf');
         Route::get('/in_weeks', 'ReportsController@inWeeks')->name('reports.in_weeks');
         Route::get('/in_weeks_pdf', 'ReportsController@inWeeksPdf')->name('reports.in_weeks_pdf');
     });
