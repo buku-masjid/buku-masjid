@@ -94,12 +94,7 @@ class ReportsController extends Controller
 
         // return view('reports.in_weeks_pdf', $passedVariables);
 
-        $pdf = \PDF::loadView('reports.in_weeks_pdf', $passedVariables, [], [
-            'margin_top' => '12',
-            'margin_bottom' => '12',
-            'margin_left' => '12',
-            'margin_right' => '12',
-        ]);
+        $pdf = \PDF::loadView('reports.in_weeks_pdf', $passedVariables);
 
         return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
