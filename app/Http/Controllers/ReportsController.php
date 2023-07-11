@@ -93,7 +93,7 @@ class ReportsController extends Controller
 
         $pdf = \PDF::loadView('reports.in_out_pdf', $passedVariables);
 
-        return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
+        return $pdf->stream(__('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
 
     public function inWeeks(Request $request)
