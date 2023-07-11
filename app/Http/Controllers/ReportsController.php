@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class ReportsController extends Controller
 {
-    public function index(Request $request)
+    public function inMonths(Request $request)
     {
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
@@ -23,7 +23,7 @@ class ReportsController extends Controller
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
 
-        return view('reports.index', compact(
+        return view('reports.in_months', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate'

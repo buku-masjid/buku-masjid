@@ -13,11 +13,11 @@
         {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.index', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.in_months', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group">
-            @livewire('prev-month-button', ['routeName' => 'reports.index', 'buttonClass' => 'btn btn-secondary mr-1'])
-            @livewire('next-month-button', ['routeName' => 'reports.index', 'buttonClass' => 'btn btn-secondary'])
+            @livewire('prev-month-button', ['routeName' => 'reports.in_months', 'buttonClass' => 'btn btn-secondary mr-1'])
+            @livewire('next-month-button', ['routeName' => 'reports.in_months', 'buttonClass' => 'btn btn-secondary'])
         </div>
         {{ Form::close() }}
     </div>
