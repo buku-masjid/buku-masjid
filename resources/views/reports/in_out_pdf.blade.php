@@ -3,6 +3,7 @@
 @section('title', __('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
 @section('content')
+{{-- ref: https://github.com/niklasravnsborg/laravel-pdf#headers-and-footers --}}
 <htmlpageheader name="wpHeader">
     {{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
     <img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
@@ -14,6 +15,7 @@
 <h2>{{ __('transaction.income') }}</h2>
 
 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
+{{-- ref: https://mpdf.github.io/paging/page-breaks.html#tables --}}
 <div style="page-break-inside: avoid">
     <h4>{{ $incomeCategory->name }}</h4>
     <div>
