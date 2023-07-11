@@ -13,10 +13,11 @@ return [
     'next_month' => 'Bulan Brkt',
     'graph' => 'Grafik Summary',
     'detail' => 'Detail Laporan',
-    'view_monthly' => 'Lihat Bulanan',
+    'view_monthly' => 'Laporan KAS Bulanan',
     'monthly' => 'Laporan Bulan :year_month',
-    'view_weekly' => 'Lihat Mingguan',
+    'view_weekly' => 'Laporan KAS per Pekan',
     'weekly' => 'Laporan KAS per Pekan - :year_month',
+    'view_in_out' => 'Laporan KAS per Kategori',
     'categorized_transactions' => 'Laporan Pemasukan dan Pengeluaran KAS - :year_month',
     'export_pdf' => 'Export PDF',
 ];
