@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class ReportsController extends Controller
 {
-    public function index(Request $request)
+    public function inMonths(Request $request)
     {
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
@@ -23,11 +23,37 @@ class ReportsController extends Controller
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
 
-        return view('reports.index', compact(
+        return view('reports.in_months', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate'
         ));
+    }
+
+    public function inMonthsPdf(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
+        $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
+
+        $passedVariables = compact(
+            'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
+            'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
+            'lastMonthBalance', 'currentMonthEndDate'
+        );
+
+        // return view('reports.in_months_pdf', $passedVariables);
+
+        $pdf = \PDF::loadView('reports.in_months_pdf', $passedVariables);
+
+        return $pdf->stream(__('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
 
     public function inOut(Request $request)
@@ -45,6 +71,29 @@ class ReportsController extends Controller
             'year', 'month', 'yearMonth', 'currentMonthEndDate',
             'groupedTransactions', 'incomeCategories', 'spendingCategories'
         ));
+    }
+
+    public function inOutPdf(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+
+        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+
+        $passedVariables = compact(
+            'year', 'month', 'yearMonth', 'currentMonthEndDate',
+            'groupedTransactions', 'incomeCategories', 'spendingCategories'
+        );
+
+        // return view('reports.in_out_pdf', $passedVariables);
+
+        $pdf = \PDF::loadView('reports.in_out_pdf', $passedVariables);
+
+        return $pdf->stream(__('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
 
     public function inWeeks(Request $request)
@@ -71,12 +120,7 @@ class ReportsController extends Controller
 
         // return view('reports.in_weeks_pdf', $passedVariables);
 
-        $pdf = \PDF::loadView('reports.in_weeks_pdf', $passedVariables, [], [
-            'margin_top' => '12',
-            'margin_bottom' => '12',
-            'margin_left' => '12',
-            'margin_right' => '12',
-        ]);
+        $pdf = \PDF::loadView('reports.in_weeks_pdf', $passedVariables);
 
         return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }

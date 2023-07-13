@@ -3,14 +3,15 @@
 @section('title', __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
 @section('content')
+<htmlpageheader name="wpHeader">
+    {{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
+    <img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
+    <h2 class="text-center strong" style="margin: 1em 0">
+        {{ __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}<br>
+    </h2>
+</htmlpageheader>
 
 @foreach($groupedTransactions as $weekNumber => $weekTransactions)
-{{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
-<img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
-<h2 class="text-center strong" style="margin: 1em 0">
-    {{ __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}<br>
-</h2>
-
 <table class="table">
     <thead>
         <tr>
@@ -66,4 +67,19 @@
     <pagebreak />
 @endif
 @endforeach
+@endsection
+
+@section('style')
+<style>
+    @page {
+        size: auto;
+        margin-top: 160px;
+        margin-bottom: 50px;
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-header: 20px;
+        margin-footer: 20px;
+        header: html_wpHeader;
+    }
+</style>
 @endsection
