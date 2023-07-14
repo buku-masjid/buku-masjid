@@ -16,7 +16,7 @@ class TransactionSearchController extends Controller
         $transactions = collect([]);
         $searchQuery = $request->get('search_query');
         $categoryId = $request->get('category_id');
-        $partnerId = $request->get('partner_id');
+        $bookId = $request->get('book_id');
         if ($searchQuery) {
             $transactionQuery = Transaction::orderBy('date', 'desc');
             $transactionQuery->whereBetween('date', [$startDate, $endDate]);
@@ -26,16 +26,16 @@ class TransactionSearchController extends Controller
             if ($categoryId) {
                 $transactionQuery->where('category_id', $categoryId);
             }
-            if ($partnerId) {
-                $transactionQuery->where('partner_id', $partnerId);
+            if ($bookId) {
+                $transactionQuery->where('book_id', $bookId);
             }
-            $transactions = $transactionQuery->with('category', 'partner')->limit(100)->get();
+            $transactions = $transactionQuery->with('category', 'book')->limit(100)->get();
         }
-        $partners = $this->getPartnerList();
+        $books = $this->getBookList();
         $categories = $this->getCategoryList();
 
         return view('transaction_search.index', compact(
-            'searchQuery', 'transactions', 'startDate', 'endDate', 'partners', 'categories'
+            'searchQuery', 'transactions', 'startDate', 'endDate', 'books', 'categories'
         ));
     }
 }

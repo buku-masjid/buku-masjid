@@ -6,7 +6,7 @@ use App\Traits\Models\ConstantsGetter;
 use App\Traits\Models\ForUser;
 use Illuminate\Database\Eloquent\Model;
 
-class Partner extends Model
+class Book extends Model
 {
     use ForUser, ConstantsGetter;
 
@@ -21,7 +21,7 @@ class Partner extends Model
     protected $fillable = ['name', 'description', 'status_id', 'creator_id'];
 
     /**
-     * Partner belongs to user creator relation.
+     * Book belongs to user creator relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -31,7 +31,7 @@ class Partner extends Model
     }
 
     /**
-     * Partner has many transactions relation.
+     * Book has many transactions relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -41,7 +41,7 @@ class Partner extends Model
     }
 
     /**
-     * Get partner name label attribute.
+     * Get book name label attribute.
      *
      * @return string
      */

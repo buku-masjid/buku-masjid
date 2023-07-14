@@ -9,15 +9,15 @@
     {{ $transaction->description }}
 </div>
 <div style="margin-bottom: 6px;">
-    @if ($transaction->partner)
+    @if ($transaction->book)
         @php
-            $partnerRoute = route('partners.show', [
-                $transaction->partner_id,
+            $bookRoute = route('books.show', [
+                $transaction->book_id,
                 'start_date' => $startDate,
                 'end_date' => $endDate,
             ]);
         @endphp
-        <a href="{{ $partnerRoute }}">{!! $transaction->partner->name_label !!}</a>
+        <a href="{{ $bookRoute }}">{!! $transaction->book->name_label !!}</a>
     @endif
     @if ($transaction->category)
         @php

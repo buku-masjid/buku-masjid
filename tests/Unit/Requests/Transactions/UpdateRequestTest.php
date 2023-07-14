@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Requests\Transactions;
 
+use App\Book;
 use App\Category;
 use App\Http\Requests\Transactions\UpdateRequest as TransactionUpdateRequest;
-use App\Partner;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\ValidateFormRequest;
@@ -100,38 +100,38 @@ class UpdateRequestTest extends TestCase
     }
 
     /** @test */
-    public function it_pass_for_user_partner_selection()
+    public function it_pass_for_user_book_selection()
     {
         $user = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['creator_id' => $user->id]);
-        $attributes = $this->getUpdateAttributes(['partner_id' => $partner->id]);
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $attributes = $this->getUpdateAttributes(['book_id' => $book->id]);
 
         $this->assertValidationPasses(new TransactionUpdateRequest(), $attributes);
     }
 
     /** @test */
-    public function it_fails_if_selected_partner_does_not_exists()
+    public function it_fails_if_selected_book_does_not_exists()
     {
-        $attributes = $this->getUpdateAttributes(['partner_id' => 999]);
+        $attributes = $this->getUpdateAttributes(['book_id' => 999]);
 
         $this->assertValidationFails(new TransactionUpdateRequest(), $attributes, function ($errors) {
             $this->assertEquals(
-                __('validation.exists', ['attribute' => 'partner id']),
-                $errors->first('partner_id')
+                __('validation.exists', ['attribute' => 'book id']),
+                $errors->first('book_id')
             );
         });
     }
 
     /** @test */
-    public function it_fails_if_selected_partner_that_belongs_to_other_user()
+    public function it_fails_if_selected_book_that_belongs_to_other_user()
     {
-        $partner = factory(Partner::class)->create();
-        $attributes = $this->getUpdateAttributes(['partner_id' => $partner->id]);
+        $book = factory(Book::class)->create();
+        $attributes = $this->getUpdateAttributes(['book_id' => $book->id]);
 
         $this->assertValidationFails(new TransactionUpdateRequest(), $attributes, function ($errors) {
             $this->assertEquals(
-                __('validation.exists', ['attribute' => 'partner id']),
-                $errors->first('partner_id')
+                __('validation.exists', ['attribute' => 'book id']),
+                $errors->first('book_id')
             );
         });
     }

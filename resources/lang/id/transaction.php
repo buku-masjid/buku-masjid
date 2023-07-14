@@ -22,7 +22,7 @@ return [
     'current_balance' => 'Saldo Saat Ini',
     'balance' => 'Saldo',
     'no_category' => 'Tanpa Kategori',
-    'no_partner' => 'Tanpa Partner',
+    'no_book' => 'Tanpa Book',
 
     // Actions
     'add_income' => 'Input Pemasukan',

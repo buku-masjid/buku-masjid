@@ -13,7 +13,7 @@
         {!! link_to_route('categories.index', __('category.category'), [], ['class' => 'nav-link'.(Request::segment(1) == 'categories' ? ' active' : '')]) !!}
     </li>
     <li class="nav-item">
-        {!! link_to_route('partners.index', __('partner.partner'), [], ['class' => 'nav-link'.(Request::segment(1) == 'partners' ? ' active' : '')]) !!}
+        {!! link_to_route('books.index', __('book.book'), [], ['class' => 'nav-link'.(Request::segment(1) == 'books' ? ' active' : '')]) !!}
     </li>
 </ul>
 

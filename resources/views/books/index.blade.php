@@ -1,14 +1,14 @@
 @extends('layouts.settings')
 
-@section('title', __('partner.list'))
+@section('title', __('book.list'))
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('partner.list') }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}</div>
+    <h1 class="page-title">{{ __('book.list') }}</h1>
+    <div class="page-subtitle">{{ __('app.total') }} : {{ $books->total() }} {{ __('book.book') }}</div>
     <div class="page-options d-flex">
-        @can('create', new App\Partner)
-            {{ link_to_route('partners.index', __('partner.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+        @can('create', new App\Book)
+            {{ link_to_route('books.index', __('book.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
@@ -20,35 +20,35 @@
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
-                        <th class="text-nowrap">{{ __('partner.name') }}</th>
+                        <th class="text-nowrap">{{ __('book.name') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
-                        <th>{{ __('partner.description') }}</th>
+                        <th>{{ __('book.description') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($partners as $key => $partner)
+                    @forelse($books as $key => $book)
                     <tr>
-                        <td class="text-center">{{ $key + $partners->firstItem() }}</td>
-                        <td class="text-nowrap">{{ $partner->name }}</td>
-                        <td class="text-nowrap text-center">{{ $partner->status }}</td>
-                        <td>{{ $partner->description }}</td>
+                        <td class="text-center">{{ $key + $books->firstItem() }}</td>
+                        <td class="text-nowrap">{{ $book->name }}</td>
+                        <td class="text-nowrap text-center">{{ $book->status }}</td>
+                        <td>{{ $book->description }}</td>
                         <td class="text-center text-nowrap">
-                            @can('view', $partner)
+                            @can('view', $book)
                                 {{ link_to_route(
-                                    'partners.show',
-                                    __('partner.view_transactions'),
-                                    $partner,
+                                    'books.show',
+                                    __('book.view_transactions'),
+                                    $book,
                                     ['class' => 'btn btn-sm btn-secondary']
                                 ) }}
                             @endcan
-                            @can('update', $partner)
+                            @can('update', $book)
                                 {{ link_to_route(
-                                    'partners.index',
+                                    'books.index',
                                     __('app.edit'),
-                                    ['action' => 'edit', 'id' => $partner->id],
+                                    ['action' => 'edit', 'id' => $book->id],
                                     [
-                                        'id' => 'edit-partner-'.$partner->id,
+                                        'id' => 'edit-book-'.$book->id,
                                         'class' => 'btn btn-sm btn-warning',
                                     ]
                                 ) }}
@@ -56,16 +56,16 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="4">{{ __('partner.not_found') }}</td></tr>
+                    <tr><td colspan="5">{{ __('book.not_found') }}</td></tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        {{ $partners->links() }}
+        {{ $books->links() }}
     </div>
     <div class="col-md-4">
         @if(Request::has('action'))
-        @include('partners.forms')
+        @include('books.forms')
         @endif
     </div>
 </div>
@@ -74,7 +74,7 @@
 @push('scripts')
 <script>
 (function () {
-    $('#partnerModal').modal({
+    $('#bookModal').modal({
         show: true,
         backdrop: 'static',
     });

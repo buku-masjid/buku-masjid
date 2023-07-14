@@ -56,10 +56,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     /*
-     * Partners Routes
+     * Books Routes
      */
-    Route::get('partners/{partner}/export-csv', 'Transactions\ExportController@byPartner')->name('transactions.exports.by_partner');
-    Route::resource('partners', 'PartnerController');
+    Route::get('books/{book}/export-csv', 'Transactions\ExportController@byBook')->name('transactions.exports.by_book');
+    Route::resource('books', 'BookController');
 
     /*
      * Lang switcher routes

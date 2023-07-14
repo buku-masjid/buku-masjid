@@ -4,9 +4,9 @@
     {{ $transaction->description }}
     @can('update', $transaction)
         {!! link_to_route(
-            'partners.show',
+            'books.show',
             __('app.edit'),
-            [$partner->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
+            [$book->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
             ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
         ) !!}
     @endcan

@@ -26,7 +26,7 @@ class TransactionsController extends Controller
         $transactions = $this->getTansactions($yearMonth);
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
-        $partners = $this->getPartnerList()->prepend('-- '.__('transaction.no_partner').' --', 'null');
+        $books = $this->getBookList()->prepend('-- '.__('transaction.no_book').' --', 'null');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
@@ -38,7 +38,7 @@ class TransactionsController extends Controller
         return view('transactions.index', compact(
             'transactions', 'editableTransaction',
             'yearMonth', 'month', 'year', 'categories',
-            'incomeTotal', 'spendingTotal', 'partners',
+            'incomeTotal', 'spendingTotal', 'books',
             'startDate', 'date'
         ));
     }
@@ -80,10 +80,10 @@ class TransactionsController extends Controller
         flash(__('transaction.updated'), 'success');
 
         if ($referencePage = $transactionUpateForm->get('reference_page')) {
-            if ($referencePage == 'partner') {
-                if ($transaction->partner) {
-                    return redirect()->route('partners.show', [
-                        $transaction->partner_id,
+            if ($referencePage == 'book') {
+                if ($transaction->book) {
+                    return redirect()->route('books.show', [
+                        $transaction->book_id,
                         'start_date' => $transactionUpateForm->get('start_date'),
                         'end_date' => $transactionUpateForm->get('end_date'),
                         'category_id' => $transactionUpateForm->get('category_id'),
@@ -97,7 +97,7 @@ class TransactionsController extends Controller
                         $transaction->category_id,
                         'start_date' => $transactionUpateForm->get('start_date'),
                         'end_date' => $transactionUpateForm->get('end_date'),
-                        'partner_id' => $transactionUpateForm->get('partner_id'),
+                        'book_id' => $transactionUpateForm->get('book_id'),
                         'query' => $transactionUpateForm->get('query'),
                     ]);
                 }
@@ -127,9 +127,9 @@ class TransactionsController extends Controller
             flash(__('transaction.deleted'), 'warning');
 
             if ($referencePage = request('reference_page')) {
-                if ($referencePage == 'partner') {
-                    return redirect()->route('partners.show', [
-                        $transaction->partner_id,
+                if ($referencePage == 'book') {
+                    return redirect()->route('books.show', [
+                        $transaction->book_id,
                         'start_date' => request('start_date'),
                         'end_date' => request('end_date'),
                         'category_id' => request('queried_category_id'),
@@ -141,7 +141,7 @@ class TransactionsController extends Controller
                         $transaction->category_id,
                         'start_date' => request('start_date'),
                         'end_date' => request('end_date'),
-                        'partner_id' => request('queried_partner_id'),
+                        'book_id' => request('queried_book_id'),
                         'query' => request('query'),
                     ]);
                 }

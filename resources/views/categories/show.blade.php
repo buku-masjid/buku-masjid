@@ -43,7 +43,7 @@
                         <td>
                             {{ $transaction->description }}
                             <span class="float-right">
-                                {!!optional($transaction->partner)->name_label !!}
+                                {!!optional($transaction->book)->name_label !!}
                             </span>
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
@@ -52,7 +52,7 @@
                                 {!! link_to_route(
                                     'categories.show',
                                     __('app.edit'),
-                                    [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'partner_id']),
+                                    [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
                                     ['id' => 'edit-transaction-'.$transaction->id]
                                 ) !!}
                             @endcan

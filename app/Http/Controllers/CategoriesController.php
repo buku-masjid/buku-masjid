@@ -53,14 +53,14 @@ class CategoriesController extends Controller
         $categories = [];
         $editableTransaction = null;
         $year = request('year', date('Y'));
-        $partners = $this->getPartnerList()->prepend('-- '.__('transaction.no_partner').' --', 'null');
+        $books = $this->getBookList()->prepend('-- '.__('transaction.no_book').' --', 'null');
 
         $defaultStartDate = auth()->user()->account_start_date ?: date('Y-m').'-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
 
         $transactions = $this->getCategoryTransactions($category, [
-            'partner_id' => request('partner_id'),
+            'book_id' => request('book_id'),
             'start_date' => $startDate,
             'end_date' => $endDate,
             'query' => request('query'),
@@ -75,7 +75,7 @@ class CategoriesController extends Controller
 
         return view('categories.show', compact(
             'category', 'transactions', 'year', 'incomeTotal', 'spendingTotal',
-            'startDate', 'endDate', 'partners', 'editableTransaction', 'categories'
+            'startDate', 'endDate', 'books', 'editableTransaction', 'categories'
         ));
     }
 

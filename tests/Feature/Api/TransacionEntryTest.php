@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api;
 
+use App\Book;
 use App\Category;
-use App\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
@@ -22,7 +22,7 @@ class TransacionEntryTest extends TestCase
         $user = $this->createUser();
         Passport::actingAs($user);
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
-        $partner = factory(Partner::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
 
         $this->postJson(route('api.transactions.store'), [
             'in_out' => 1,
@@ -30,7 +30,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
-            'partner_id' => $partner->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeInDatabase('transactions', [
@@ -39,7 +39,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
-            'partner_id' => $partner->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeStatusCode(201);
@@ -103,7 +103,7 @@ class TransacionEntryTest extends TestCase
             'creator_id' => $user->id,
         ]);
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
-        $partner = factory(Partner::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
 
         $this->patchJson(route('api.transactions.update', $transaction), [
             'in_out' => 1,
@@ -111,7 +111,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Spending description',
             'category_id' => $category->id,
-            'partner_id' => $partner->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeStatusCode(200);
@@ -129,7 +129,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Spending description',
             'category_id' => $category->id,
-            'partner_id' => $partner->id,
+            'book_id' => $book->id,
         ]);
     }
 

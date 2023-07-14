@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
 use App\Category;
-use App\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -37,7 +37,7 @@ class Controller extends BaseController
     protected function getTansactions($yearMonth)
     {
         $categoryId = request('category_id');
-        $partnerId = request('partner_id');
+        $bookId = request('book_id');
 
         $transactionQuery = Transaction::query();
         $transactionQuery->where('date', 'like', $yearMonth.'%');
@@ -51,15 +51,15 @@ class Controller extends BaseController
             }
         });
 
-        $transactionQuery->when($partnerId, function ($queryBuilder, $partnerId) {
-            if ($partnerId == 'null') {
-                $queryBuilder->whereNull('partner_id');
+        $transactionQuery->when($bookId, function ($queryBuilder, $bookId) {
+            if ($bookId == 'null') {
+                $queryBuilder->whereNull('book_id');
             } else {
-                $queryBuilder->where('partner_id', $partnerId);
+                $queryBuilder->where('book_id', $bookId);
             }
         });
 
-        return $transactionQuery->orderBy('date', 'asc')->with('category', 'partner')->get();
+        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
     }
 
     /**
@@ -89,13 +89,13 @@ class Controller extends BaseController
     }
 
     /**
-     * Get partner list.
+     * Get book list.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    protected function getPartnerList()
+    protected function getBookList()
     {
-        return Partner::orderBy('name')->where('status_id', Partner::STATUS_ACTIVE)->pluck('name', 'id');
+        return Book::orderBy('name')->where('status_id', Book::STATUS_ACTIVE)->pluck('name', 'id');
     }
 
     /**
@@ -120,39 +120,39 @@ class Controller extends BaseController
         $query = $criteria['query'];
         $endDate = $criteria['end_date'];
         $startDate = $criteria['start_date'];
-        $partnerId = $criteria['partner_id'];
+        $bookId = $criteria['book_id'];
 
         $transactionQuery = $category->transactions();
         $transactionQuery->whereBetween('date', [$startDate, $endDate]);
         $transactionQuery->when($query, function ($queryBuilder, $query) {
             $queryBuilder->where('description', 'like', '%'.$query.'%');
         });
-        $transactionQuery->when($partnerId, function ($queryBuilder, $partnerId) {
-            if ($partnerId == 'null') {
-                $queryBuilder->whereNull('partner_id');
+        $transactionQuery->when($bookId, function ($queryBuilder, $bookId) {
+            if ($bookId == 'null') {
+                $queryBuilder->whereNull('book_id');
             } else {
-                $queryBuilder->where('partner_id', $partnerId);
+                $queryBuilder->where('book_id', $bookId);
             }
         });
 
-        return $transactionQuery->orderBy('date', 'desc')->with('partner')->get();
+        return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
     }
 
     /**
-     * Get transaction listing of a partner.
+     * Get transaction listing of a book.
      *
-     * @param  \App\Partner  $partner
+     * @param  \App\Book  $book
      * @param  array  $criteria
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    protected function getPartnerTransactions(Partner $partner, array $criteria)
+    protected function getBookTransactions(Book $book, array $criteria)
     {
         $query = $criteria['query'];
         $endDate = $criteria['end_date'];
         $startDate = $criteria['start_date'];
         $categoryId = $criteria['category_id'];
 
-        $transactionQuery = $partner->transactions();
+        $transactionQuery = $book->transactions();
 
         $transactionQuery->when($query, function ($queryBuilder, $query) {
             $queryBuilder->where('description', 'like', '%'.$query.'%');

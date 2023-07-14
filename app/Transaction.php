@@ -17,7 +17,7 @@ class Transaction extends Model
      */
     protected $fillable = [
         'date', 'amount', 'in_out', 'description',
-        'category_id', 'partner_id', 'creator_id',
+        'category_id', 'book_id', 'creator_id',
     ];
 
     /**
@@ -41,13 +41,13 @@ class Transaction extends Model
     }
 
     /**
-     * Transaction belongs to partner relation.
+     * Transaction belongs to book relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function partner()
+    public function book()
     {
-        return $this->belongsTo(Partner::class);
+        return $this->belongsTo(Book::class);
     }
 
     /**
