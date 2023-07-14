@@ -120,19 +120,11 @@ class Controller extends BaseController
         $query = $criteria['query'];
         $endDate = $criteria['end_date'];
         $startDate = $criteria['start_date'];
-        $bookId = $criteria['book_id'];
 
         $transactionQuery = $category->transactions();
         $transactionQuery->whereBetween('date', [$startDate, $endDate]);
         $transactionQuery->when($query, function ($queryBuilder, $query) {
             $queryBuilder->where('description', 'like', '%'.$query.'%');
-        });
-        $transactionQuery->when($bookId, function ($queryBuilder, $bookId) {
-            if ($bookId == 'null') {
-                $queryBuilder->whereNull('book_id');
-            } else {
-                $queryBuilder->where('book_id', $bookId);
-            }
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();

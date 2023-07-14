@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Requests\Transactions;
 
-use App\Book;
 use App\Category;
 use App\Http\Requests\Transactions\UpdateRequest as TransactionUpdateRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -95,43 +94,6 @@ class UpdateRequestTest extends TestCase
             $this->assertEquals(
                 __('validation.exists', ['attribute' => 'category id']),
                 $errors->first('category_id')
-            );
-        });
-    }
-
-    /** @test */
-    public function it_pass_for_user_book_selection()
-    {
-        $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        $attributes = $this->getUpdateAttributes(['book_id' => $book->id]);
-
-        $this->assertValidationPasses(new TransactionUpdateRequest(), $attributes);
-    }
-
-    /** @test */
-    public function it_fails_if_selected_book_does_not_exists()
-    {
-        $attributes = $this->getUpdateAttributes(['book_id' => 999]);
-
-        $this->assertValidationFails(new TransactionUpdateRequest(), $attributes, function ($errors) {
-            $this->assertEquals(
-                __('validation.exists', ['attribute' => 'book id']),
-                $errors->first('book_id')
-            );
-        });
-    }
-
-    /** @test */
-    public function it_fails_if_selected_book_that_belongs_to_other_user()
-    {
-        $book = factory(Book::class)->create();
-        $attributes = $this->getUpdateAttributes(['book_id' => $book->id]);
-
-        $this->assertValidationFails(new TransactionUpdateRequest(), $attributes, function ($errors) {
-            $this->assertEquals(
-                __('validation.exists', ['attribute' => 'book id']),
-                $errors->first('book_id')
             );
         });
     }

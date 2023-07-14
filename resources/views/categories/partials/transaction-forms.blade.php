@@ -26,7 +26,6 @@
                             </div>
                         </div>
                         <div class="col-md-4">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction')]) !!}</div>
-                        <div class="col-md-4">{!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => __('book.empty')]) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -36,12 +35,12 @@
                     {{ Form::hidden('start_date', request('start_date')) }}
                     {{ Form::hidden('end_date', request('end_date')) }}
                     {{ Form::hidden('reference_page', 'category') }}
-                    {{ link_to_route('categories.show', __('app.cancel'), [$category] + request(['start_date', 'end_date', 'query', 'book_id']), ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.show', __('app.cancel'), [$category] + request(['start_date', 'end_date', 'query']), ['class' => 'btn btn-secondary']) }}
                     @can('delete', $editableTransaction)
                         {!! link_to_route(
                             'categories.show',
                             __('app.delete'),
-                            [$category->id, 'action' => 'delete', 'id' => $editableTransaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
+                            [$category->id, 'action' => 'delete', 'id' => $editableTransaction->id] + request(['start_date', 'end_date', 'query']),
                             ['id' => 'del-transaction-'.$editableTransaction->id, 'class' => 'btn btn-danger float-left']
                         ) !!}
                     @endcan
@@ -76,8 +75,6 @@
                         <div class="col-md-6">
                             <label class="control-label">{{ __('category.category') }}</label>
                             <p>{{ optional($editableTransaction->category)->name }}</p>
-                            <label class="control-label">{{ __('book.book') }}</label>
-                            <p>{{ optional($editableTransaction->book)->name }}</p>
                         </div>
                     </div>
                     {!! $errors->first('transaction_id', '<span class="form-error small">:message</span>') !!}

@@ -11,7 +11,6 @@
         'value' => request('end_date'), 'label' => false, 'value' => $endDate,
         'class' => 'form-control-sm mr-2 date-select', 'placeholder' => __('time.end_date'),
     ]) !!}
-    {!! FormField::select('book_id', $books, ['label' => false, 'value' => request('book_id'), 'placeholder' => __('book.all'), 'class' => 'form-control-sm mr-2']) !!}
     <div class="form-group">
         {{ Form::submit(__('app.submit'), ['class' => 'btn btn-primary btn-sm mr-2']) }}
         {{ link_to_route('categories.show', __('app.reset'), $category, ['class' => 'btn btn-secondary btn-sm mr-2']) }}

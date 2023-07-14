@@ -18,7 +18,6 @@
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number']) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => __('book.no_book')]) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -49,7 +48,6 @@
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number']) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => __('book.no_book')]) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -83,7 +81,6 @@
                     <div class="row">
                         <div class="col-md-4">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number']) !!}</div>
                         <div class="col-md-4">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction')]) !!}</div>
-                        <div class="col-md-4">{!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => __('book.empty')]) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -130,8 +127,6 @@
                         <div class="col-md-6">
                             <label class="control-label">{{ __('category.category') }}</label>
                             <p>{{ optional($editableTransaction->category)->name }}</p>
-                            <label class="control-label">{{ __('book.book') }}</label>
-                            <p>{{ optional($editableTransaction->book)->name }}</p>
                         </div>
                     </div>
                     {!! $errors->first('transaction_id', '<span class="form-error small">:message</span>') !!}

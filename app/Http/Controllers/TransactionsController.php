@@ -26,7 +26,6 @@ class TransactionsController extends Controller
         $transactions = $this->getTansactions($yearMonth);
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
-        $books = $this->getBookList()->prepend('-- '.__('transaction.no_book').' --', 'null');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
@@ -38,7 +37,7 @@ class TransactionsController extends Controller
         return view('transactions.index', compact(
             'transactions', 'editableTransaction',
             'yearMonth', 'month', 'year', 'categories',
-            'incomeTotal', 'spendingTotal', 'books',
+            'incomeTotal', 'spendingTotal',
             'startDate', 'date'
         ));
     }
@@ -80,17 +79,6 @@ class TransactionsController extends Controller
         flash(__('transaction.updated'), 'success');
 
         if ($referencePage = $transactionUpateForm->get('reference_page')) {
-            if ($referencePage == 'book') {
-                if ($transaction->book) {
-                    return redirect()->route('books.show', [
-                        $transaction->book_id,
-                        'start_date' => $transactionUpateForm->get('start_date'),
-                        'end_date' => $transactionUpateForm->get('end_date'),
-                        'category_id' => $transactionUpateForm->get('category_id'),
-                        'query' => $transactionUpateForm->get('query'),
-                    ]);
-                }
-            }
             if ($referencePage == 'category') {
                 if ($transaction->category) {
                     return redirect()->route('categories.show', [
@@ -127,15 +115,6 @@ class TransactionsController extends Controller
             flash(__('transaction.deleted'), 'warning');
 
             if ($referencePage = request('reference_page')) {
-                if ($referencePage == 'book') {
-                    return redirect()->route('books.show', [
-                        $transaction->book_id,
-                        'start_date' => request('start_date'),
-                        'end_date' => request('end_date'),
-                        'category_id' => request('queried_category_id'),
-                        'query' => request('query'),
-                    ]);
-                }
                 if ($referencePage == 'category') {
                     return redirect()->route('categories.show', [
                         $transaction->category_id,

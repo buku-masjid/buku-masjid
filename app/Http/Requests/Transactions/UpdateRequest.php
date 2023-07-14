@@ -29,7 +29,6 @@ class UpdateRequest extends FormRequest
             'amount' => 'required|max:60',
             'description' => 'required|max:255',
             'category_id' => 'nullable|exists:categories,id,creator_id,'.auth()->id(),
-            'book_id' => 'nullable|exists:books,id,creator_id,'.auth()->id(),
         ];
     }
 
