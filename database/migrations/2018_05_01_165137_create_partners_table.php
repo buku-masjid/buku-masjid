@@ -1,10 +1,11 @@
 <?php
 
+use App\Partner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePartnersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,6 +19,7 @@ class CreatePartnersTable extends Migration
             $table->string('name', 60);
             $table->string('description')->nullable();
             $table->unsignedInteger('creator_id');
+            $table->unsignedTinyInteger('status_id')->default(Partner::STATUS_ACTIVE);
             $table->timestamps();
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
@@ -33,4 +35,4 @@ class CreatePartnersTable extends Migration
     {
         Schema::dropIfExists('partners');
     }
-}
+};

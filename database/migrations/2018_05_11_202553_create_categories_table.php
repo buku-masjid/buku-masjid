@@ -1,10 +1,11 @@
 <?php
 
+use App\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -19,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('description')->nullable();
             $table->char('color', 7)->default('#00aabb');
             $table->unsignedInteger('creator_id');
+            $table->unsignedTinyInteger('status_id')->default(Category::STATUS_ACTIVE);
             $table->timestamps();
         });
     }
@@ -32,4 +34,4 @@ class CreateCategoriesTable extends Migration
     {
         Schema::dropIfExists('categories');
     }
-}
+};
