@@ -1,6 +1,6 @@
 <?php
 
-use App\Book;
+use App\Models\Book;
 use App\User;
 use Faker\Generator as Faker;
 

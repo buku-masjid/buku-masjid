@@ -1,5 +1,5 @@
 @if (request('action') == 'create')
-@can('create', new App\Book)
+@can('create', new App\Models\Book)
     <div id="bookModal" class="modal" role="dialog">
         <div class="modal-dialog modal-sm">
             <!-- Modal content-->
@@ -38,7 +38,7 @@
                 <div class="modal-body">
                     {!! FormField::text('name', ['required' => true, 'label' => __('book.name')]) !!}
                     {!! FormField::textarea('description', ['label' => __('book.description')]) !!}
-                    {!! FormField::radios('status_id', [App\Book::STATUS_INACTIVE => __('app.inactive'), App\Book::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
+                    {!! FormField::radios('status_id', [App\Models\Book::STATUS_INACTIVE => __('app.inactive'), App\Models\Book::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('book.update'), ['class' => 'btn btn-success']) !!}

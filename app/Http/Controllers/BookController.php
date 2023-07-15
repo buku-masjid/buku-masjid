@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
+use App\Models\Book;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -51,7 +51,7 @@ class BookController extends Controller
     /**
      * Show transaction listing of a book.
      *
-     * @param  \App\Book  $book
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\View\View
      */
     public function show(Book $book)
@@ -89,7 +89,7 @@ class BookController extends Controller
      * Update the specified book in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Book  $book
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Routing\Redirector
      */
     public function update(Request $request, Book $book)
@@ -109,7 +109,7 @@ class BookController extends Controller
     /**
      * Remove the specified book from storage.
      *
-     * @param  \App\Book  $book
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Book $book)

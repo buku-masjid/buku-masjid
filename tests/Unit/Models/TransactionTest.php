@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use App\Book;
 use App\Category;
+use App\Models\Book;
 use App\Transaction;
 use App\User;
 use Carbon\Carbon;

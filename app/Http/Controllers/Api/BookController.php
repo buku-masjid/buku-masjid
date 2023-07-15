@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Book;
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -46,7 +46,7 @@ class BookController extends Controller
      * Update the specified book in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Book  $book
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Book $book)
@@ -69,7 +69,7 @@ class BookController extends Controller
      * Remove the specified book from storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Book  $book
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, Book $book)

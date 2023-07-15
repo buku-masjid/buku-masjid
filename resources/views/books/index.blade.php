@@ -7,7 +7,7 @@
     <h1 class="page-title">{{ __('book.list') }}</h1>
     <div class="page-subtitle">{{ __('app.total') }} : {{ $books->total() }} {{ __('book.book') }}</div>
     <div class="page-options d-flex">
-        @can('create', new App\Book)
+        @can('create', new App\Models\Book)
             {{ link_to_route('books.index', __('book.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
         @endcan
     </div>

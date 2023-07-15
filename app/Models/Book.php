@@ -1,9 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Traits\Models\ConstantsGetter;
 use App\Traits\Models\ForUser;
+use App\Transaction;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model

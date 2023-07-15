@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
 use App\Category;
+use App\Models\Book;
 use App\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -133,7 +133,7 @@ class Controller extends BaseController
     /**
      * Get transaction listing of a book.
      *
-     * @param  \App\Book  $book
+     * @param  \App\Models\Book  $book
      * @param  array  $criteria
      * @return \Illuminate\Database\Eloquent\Collection
      */

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models;
 
-use App\Book;
+use App\Models\Book;
 use App\Transaction;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
