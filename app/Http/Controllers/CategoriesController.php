@@ -18,7 +18,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $editableCategory = null;
-        $bookId = request('book_id', 1);
+        $bookId = request('book_id', config('masjid.default_book_id'));
         $categories = Category::orderBy('name')->where('book_id', $bookId)->with('book')->get();
         $books = $this->getBookList();
 

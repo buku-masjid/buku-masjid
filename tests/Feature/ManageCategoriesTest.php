@@ -53,8 +53,8 @@ class ManageCategoriesTest extends TestCase
     public function user_can_edit_a_category_within_search_query()
     {
         $user = $this->loginAsUser();
-        $book = factory(Book::class)->create();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
 
         $this->visit(route('categories.index'));
         $this->click('edit-category-'.$category->id);
