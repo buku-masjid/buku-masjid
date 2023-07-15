@@ -8,22 +8,11 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    /**
-     * Get a listing of the book.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index()
     {
         return Book::all();
     }
 
-    /**
-     * Store a newly created book in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request)
     {
         $this->authorize('create', new Book);
@@ -42,13 +31,6 @@ class BookController extends Controller
         ], 201);
     }
 
-    /**
-     * Update the specified book in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, Book $book)
     {
         $this->authorize('update', $book);
@@ -65,13 +47,6 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified book from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function destroy(Request $request, Book $book)
     {
         $this->authorize('delete', $book);

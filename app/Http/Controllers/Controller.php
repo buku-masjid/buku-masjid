@@ -62,12 +62,6 @@ class Controller extends BaseController
         return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
     }
 
-    /**
-     * Get income total of a transaction listing.
-     *
-     * @param  \Illuminate\Database\Eloquent\Collection  $transactions
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     protected function getIncomeTotal($transactions)
     {
         return $transactions->sum(function ($transaction) {
@@ -75,12 +69,6 @@ class Controller extends BaseController
         });
     }
 
-    /**
-     * Get spending total of a transaction listing.
-     *
-     * @param  \Illuminate\Database\Eloquent\Collection  $transactions
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     protected function getSpendingTotal($transactions)
     {
         return $transactions->sum(function ($transaction) {
@@ -88,33 +76,16 @@ class Controller extends BaseController
         });
     }
 
-    /**
-     * Get book list.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     protected function getBookList()
     {
         return Book::orderBy('name')->where('status_id', Book::STATUS_ACTIVE)->pluck('name', 'id');
     }
 
-    /**
-     * Get category list.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     protected function getCategoryList()
     {
         return Category::orderBy('name')->where('status_id', Category::STATUS_ACTIVE)->pluck('name', 'id');
     }
 
-    /**
-     * Get transaction listing of a category.
-     *
-     * @param  \App\Category  $category
-     * @param  array  $criteria
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     protected function getCategoryTransactions(Category $category, array $criteria)
     {
         $query = $criteria['query'];
@@ -130,13 +101,6 @@ class Controller extends BaseController
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
     }
 
-    /**
-     * Get transaction listing of a book.
-     *
-     * @param  \App\Models\Book  $book
-     * @param  array  $criteria
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     protected function getBookTransactions(Book $book, array $criteria)
     {
         $query = $criteria['query'];

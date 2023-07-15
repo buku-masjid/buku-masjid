@@ -9,11 +9,6 @@ use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the book.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $editableBook = null;
@@ -27,12 +22,6 @@ class BookController extends Controller
         return view('books.index', compact('books', 'editableBook'));
     }
 
-    /**
-     * Store a newly created book in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(Request $request)
     {
         $this->authorize('create', new Book);
@@ -48,12 +37,6 @@ class BookController extends Controller
         return redirect()->route('books.index');
     }
 
-    /**
-     * Show transaction listing of a book.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\View\View
-     */
     public function show(Book $book)
     {
         $books = [];
@@ -85,13 +68,6 @@ class BookController extends Controller
         ));
     }
 
-    /**
-     * Update the specified book in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(Request $request, Book $book)
     {
         $this->authorize('update', $book);
@@ -106,12 +82,6 @@ class BookController extends Controller
         return redirect()->route('books.index');
     }
 
-    /**
-     * Remove the specified book from storage.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Book $book)
     {
         $this->authorize('delete', $book);

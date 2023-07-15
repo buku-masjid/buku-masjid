@@ -8,11 +8,6 @@ use App\Transaction;
 
 class TransactionsController extends Controller
 {
-    /**
-     * Display a listing of the transaction.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $editableTransaction = null;
@@ -42,12 +37,6 @@ class TransactionsController extends Controller
         ));
     }
 
-    /**
-     * Store a newly created transaction in storage.
-     *
-     * @param  \App\Http\Requests\Transactions\CreateRequest  $transactionCreateForm
-     * @return \Illuminate\Routing\Redirector
-     */
     public function store(CreateRequest $transactionCreateForm)
     {
         $transaction = $transactionCreateForm->save();
@@ -63,13 +52,6 @@ class TransactionsController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified transaction in storage.
-     *
-     * @param  \App\Http\Requests\Transactions\UpdateRequest  $transactionUpateForm
-     * @param  \App\Transaction  $transaction
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)
     {
         $this->authorize('update', $transaction);
@@ -100,12 +82,6 @@ class TransactionsController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified transaction from storage.
-     *
-     * @param  \App\Transaction  $transaction
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(Transaction $transaction)
     {
         $this->authorize('delete', $transaction);
