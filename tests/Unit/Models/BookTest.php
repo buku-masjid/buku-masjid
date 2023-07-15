@@ -23,18 +23,6 @@ class BookTest extends TestCase
     }
 
     /** @test */
-    public function a_book_has_for_user_scope()
-    {
-        $bookOwner = $this->loginAsUser();
-        $book = factory(Book::class)->create([
-            'creator_id' => $bookOwner->id,
-        ]);
-        $othersBook = factory(Book::class)->create();
-
-        $this->assertCount(1, Book::all());
-    }
-
-    /** @test */
     public function a_book_has_many_transactions_relation()
     {
         $bookOwner = $this->loginAsUser();

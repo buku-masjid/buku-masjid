@@ -23,18 +23,6 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function a_category_has_for_user_global_scope()
-    {
-        $categoryOwner = $this->loginAsUser();
-        $category = factory(Category::class)->create([
-            'creator_id' => $categoryOwner->id,
-        ]);
-        $othersCategory = factory(Category::class)->create();
-
-        $this->assertCount(1, Category::get());
-    }
-
-    /** @test */
     public function a_category_has_many_transactions_relation()
     {
         $categoryOwner = $this->loginAsUser();

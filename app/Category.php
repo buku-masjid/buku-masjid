@@ -3,12 +3,11 @@
 namespace App;
 
 use App\Traits\Models\ConstantsGetter;
-use App\Traits\Models\ForUser;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use ForUser, ConstantsGetter;
+    use ConstantsGetter;
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;

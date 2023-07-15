@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Traits\Models\ConstantsGetter;
-use App\Traits\Models\ForUser;
 use App\Transaction;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    use ForUser, ConstantsGetter;
+    use ConstantsGetter;
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
