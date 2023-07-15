@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Category;
 use App\Models\Book;
 use App\Transaction;
 use App\User;
@@ -20,6 +21,16 @@ class BookTest extends TestCase
 
         $this->assertInstanceOf(User::class, $book->creator);
         $this->assertEquals($book->creator_id, $book->creator->id);
+    }
+
+    /** @test */
+    public function book_model_has_has_many_categories_relation()
+    {
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id]);
+
+        $this->assertInstanceOf(Collection::class, $book->categories);
+        $this->assertInstanceOf(Category::class, $book->categories->first());
     }
 
     /** @test */

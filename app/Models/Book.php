@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Category;
 use App\Traits\Models\ConstantsGetter;
 use App\Transaction;
 use App\User;
@@ -24,6 +25,11 @@ class Book extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 
     public function getNameLabelAttribute()

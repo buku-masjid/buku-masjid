@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Category;
+use App\Models\Book;
 use App\Transaction;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,6 +21,15 @@ class CategoryTest extends TestCase
 
         $this->assertInstanceOf(User::class, $category->creator);
         $this->assertEquals($category->creator_id, $category->creator->id);
+    }
+
+    /** @test */
+    public function category_model_has_belongs_to_book_relation()
+    {
+        $category = factory(Category::class)->make();
+
+        $this->assertInstanceOf(Book::class, $category->book);
+        $this->assertEquals($category->book_id, $category->book->id);
     }
 
     /** @test */

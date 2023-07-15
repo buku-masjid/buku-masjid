@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Book;
 use App\Traits\Models\ConstantsGetter;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,7 +20,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'color', 'status_id', 'creator_id'];
+    protected $fillable = ['name', 'description', 'color', 'status_id', 'book_id', 'creator_id'];
 
     /**
      * Category belongs to user creator relation.
@@ -54,5 +55,10 @@ class Category extends Model
     public function getStatusAttribute()
     {
         return $this->status_id == static::STATUS_INACTIVE ? __('app.inactive') : __('app.active');
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
     }
 }
