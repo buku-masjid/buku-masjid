@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Transactions;
 
-use App\Category;
 use App\Models\Book;
+use App\Models\Category;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

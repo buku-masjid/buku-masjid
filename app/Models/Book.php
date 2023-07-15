@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Category;
+use App\Models\Category;
 use App\Traits\Models\ConstantsGetter;
 use App\Transaction;
 use App\User;

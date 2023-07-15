@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Category;
+use App\Models\Category;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -14,7 +14,7 @@ class CategoryPolicy
      * Determine whether the user can create category.
      *
      * @param  \App\User  $user
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
     public function create(User $user, Category $category)
@@ -27,7 +27,7 @@ class CategoryPolicy
      * Determine whether the user can view the category.
      *
      * @param  \App\User  $user
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
     public function view(User $user, Category $category)
@@ -39,7 +39,7 @@ class CategoryPolicy
      * Determine whether the user can update the category.
      *
      * @param  \App\User  $user
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
     public function update(User $user, Category $category)
@@ -52,7 +52,7 @@ class CategoryPolicy
      * Determine whether the user can delete the category.
      *
      * @param  \App\User  $user
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
     public function delete(User $user, Category $category)

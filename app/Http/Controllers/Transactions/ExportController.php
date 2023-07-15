@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Transactions;
 
-use App\Category;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 

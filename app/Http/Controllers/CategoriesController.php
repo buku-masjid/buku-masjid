@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Http\Requests\Categories\CreateRequest;
 use App\Http\Requests\Categories\DeleteRequest;
 use App\Http\Requests\Categories\UpdateRequest;
+use App\Models\Category;
 use App\Transaction;
 
 class CategoriesController extends Controller
@@ -47,7 +47,7 @@ class CategoriesController extends Controller
     /**
      * Show transaction listing of a category.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\View\View
      */
     public function show(Category $category)
@@ -83,7 +83,7 @@ class CategoriesController extends Controller
      * Update the specified category in storage.
      *
      * @param  \App\Http\Requests\Categories\UpdateRequest  $categoryUpdateForm
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Routing\Redirector
      */
     public function update(UpdateRequest $categoryUpdateForm, Category $category)
@@ -99,7 +99,7 @@ class CategoriesController extends Controller
      * Remove the specified category from storage.
      *
      * @param  \App\Http\Requests\Categories\DeleteRequest  $categoryDeleteForm
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(DeleteRequest $categoryDeleteForm, Category $category)

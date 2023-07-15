@@ -14,7 +14,7 @@
             {{ Form::submit(__('app.filter'), ['class' => 'btn btn-info mr-1']) }}
         </div>
         {{ Form::close() }}
-        @can('create', new App\Category)
+        @can('create', new App\Models\Category)
             {{ link_to_route('categories.index', __('category.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
         @endcan
     </div>

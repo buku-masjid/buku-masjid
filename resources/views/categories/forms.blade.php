@@ -1,5 +1,5 @@
 @if (request('action') == 'create')
-@can('create', new App\Category)
+@can('create', new App\Models\Category)
     <div id="categoryModal" class="modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('category.description')]) !!}
-                    {!! FormField::radios('status_id', [App\Category::STATUS_INACTIVE => __('app.inactive'), App\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
+                    {!! FormField::radios('status_id', [App\Models\Category::STATUS_INACTIVE => __('app.inactive'), App\Models\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}

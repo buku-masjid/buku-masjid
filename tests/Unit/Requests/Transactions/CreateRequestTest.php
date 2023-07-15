@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Requests\Transactions;
 
-use App\Category;
 use App\Http\Requests\Transactions\CreateRequest as TransactionCreateRequest;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\ValidateFormRequest;

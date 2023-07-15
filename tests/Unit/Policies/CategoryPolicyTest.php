@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Policies;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

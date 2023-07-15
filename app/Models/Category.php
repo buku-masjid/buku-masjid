@@ -1,9 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Book;
 use App\Traits\Models\ConstantsGetter;
+use App\Transaction;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model

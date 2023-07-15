@@ -8,7 +8,7 @@ class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
         'App\Models\Book' => 'App\Policies\BookPolicy',
-        'App\Category' => 'App\Policies\CategoryPolicy',
+        'App\Models\Category' => 'App\Policies\CategoryPolicy',
         'App\Transaction' => 'App\Policies\TransactionPolicy',
         'App\Models\BankAccount' => 'App\Policies\BankAccountPolicy',
     ];

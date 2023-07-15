@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use App\Category;
 use App\Models\Book;
+use App\Models\Category;
 use App\Transaction;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;

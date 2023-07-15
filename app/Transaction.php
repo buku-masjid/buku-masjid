@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Traits\Models\ForUser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

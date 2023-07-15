@@ -1,7 +1,7 @@
 <?php
 
-use App\Category;
 use App\Models\Book;
+use App\Models\Category;
 use App\User;
 use Faker\Generator as Faker;
 

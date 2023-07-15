@@ -35,7 +35,7 @@ class UpdateRequest extends FormRequest
     /**
      * Update transaction in database.
      *
-     * @return \App\Category
+     * @return \App\Models\Category
      */
     public function save()
     {
