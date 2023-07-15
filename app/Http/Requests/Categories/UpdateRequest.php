@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
             'color' => 'required|string|max:7',
             'description' => 'nullable|string|max:255',
             'status_id' => ['required', Rule::in(Category::getConstants('STATUS'))],
+            'book_id' => 'required|exists:books,id',
         ];
     }
 

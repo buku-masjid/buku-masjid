@@ -3,6 +3,7 @@
 namespace Tests\Unit\Requests\Categories;
 
 use App\Http\Requests\Categories\CreateRequest as CategoryCreateRequest;
+use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\ValidateFormRequest;
@@ -14,14 +15,16 @@ class CreateRequestTest extends TestCase
     /** @test */
     public function it_pass_for_required_attributes()
     {
-        $this->assertValidationPasses(new CategoryCreateRequest(), $this->getCreateAttributes());
+        $book = factory(Book::class)->create();
+        $this->assertValidationPasses(new CategoryCreateRequest(), $this->getCreateAttributes(['book_id' => $book->id]));
     }
 
     /** @test */
     public function it_fails_for_empty_attributes()
     {
         $this->assertValidationFails(new CategoryCreateRequest(), [], function ($errors) {
-            $this->assertCount(2, $errors);
+            $this->assertCount(3, $errors);
+            $this->assertEquals(__('validation.required'), $errors->first('book_id'));
             $this->assertEquals(__('validation.required'), $errors->first('name'));
             $this->assertEquals(__('validation.required'), $errors->first('color'));
         });

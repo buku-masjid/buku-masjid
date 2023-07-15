@@ -20,11 +20,13 @@ class CategoriesController extends Controller
         $editableCategory = null;
         $categories = Category::orderBy('name')->get();
 
+        $books = $this->getBookList();
+
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableCategory = Category::find(request('id'));
         }
 
-        return view('categories.index', compact('categories', 'editableCategory'));
+        return view('categories.index', compact('categories', 'editableCategory', 'books'));
     }
 
     /**

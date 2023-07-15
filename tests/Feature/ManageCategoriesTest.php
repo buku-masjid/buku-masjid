@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Category;
+use App\Models\Book;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -26,14 +27,15 @@ class ManageCategoriesTest extends TestCase
     {
         $this->loginAsUser();
         $this->visit(route('categories.index'));
+        $book = factory(Book::class)->create();
 
         $this->click(__('category.create'));
         $this->seePageIs(route('categories.index', ['action' => 'create']));
-
         $this->submitForm(__('category.create'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'color' => '#00aabb',
+            'book_id' => $book->id,
         ]);
 
         $this->seePageIs(route('categories.index'));
@@ -43,6 +45,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'color' => '#00aabb',
             'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $book->id,
         ]);
     }
 
@@ -50,6 +53,7 @@ class ManageCategoriesTest extends TestCase
     public function user_can_edit_a_category_within_search_query()
     {
         $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
 
         $this->visit(route('categories.index'));
@@ -61,6 +65,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'color' => '#00aabb',
             'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $book->id,
         ]);
 
         $this->seePageIs(route('categories.index'));
@@ -70,6 +75,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'color' => '#00aabb',
             'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $book->id,
         ]);
     }
 
@@ -78,6 +84,7 @@ class ManageCategoriesTest extends TestCase
     {
         $user = $this->loginAsUser();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
 
         $this->visit(route('categories.index'));
         $this->click('edit-category-'.$category->id);
@@ -88,6 +95,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'color' => '#00aabb',
             'status_id' => Category::STATUS_INACTIVE,
+            'book_id' => $book->id,
         ]);
 
         $this->seePageIs(route('categories.index'));
@@ -97,6 +105,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'color' => '#00aabb',
             'status_id' => Category::STATUS_INACTIVE,
+            'book_id' => $book->id,
         ]);
     }
 

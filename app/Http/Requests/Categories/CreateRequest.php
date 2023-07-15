@@ -28,6 +28,7 @@ class CreateRequest extends FormRequest
             'name' => 'required|max:60',
             'color' => 'required|string|max:7',
             'description' => 'nullable|string|max:255',
+            'book_id' => 'required|exists:books,id',
         ];
     }
 

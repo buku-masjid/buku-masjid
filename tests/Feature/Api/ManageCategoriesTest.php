@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\Category;
+use App\Models\Book;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
@@ -29,17 +30,20 @@ class ManageCategoriesTest extends TestCase
     {
         $user = $this->createUser();
         Passport::actingAs($user);
+        $book = factory(Book::class)->create();
 
         $this->postJson(route('api.categories.store'), [
             'name' => 'Category 1 name',
             'color' => '#00aabb',
             'description' => 'Category 1 description',
+            'book_id' => $book->id,
         ]);
 
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
             'color' => '#00aabb',
             'description' => 'Category 1 description',
+            'book_id' => $book->id,
         ]);
 
         $this->seeStatusCode(201);
@@ -48,6 +52,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00aabb',
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
+            'book_id' => $book->id,
         ]);
     }
 
@@ -57,12 +62,14 @@ class ManageCategoriesTest extends TestCase
         $user = $this->createUser();
         Passport::actingAs($user);
         $category = factory(Category::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
 
         $this->patchJson(route('api.categories.update', $category), [
             'name' => 'Category 1 name',
             'color' => '#00aabb',
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $book->id,
         ]);
 
         $this->seeInDatabase('categories', [
@@ -70,6 +77,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00aabb',
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $book->id,
         ]);
 
         $this->seeStatusCode(200);
@@ -79,6 +87,7 @@ class ManageCategoriesTest extends TestCase
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $book->id,
         ]);
     }
 
