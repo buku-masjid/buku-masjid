@@ -18,6 +18,7 @@ return [
     'remark' => 'Remark',
     'level' => 'Level',
     'not_available' => 'Not Available',
+    'system' => 'System',
 
     // Action
     'add' => 'Add',

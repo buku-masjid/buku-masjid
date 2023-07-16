@@ -13,7 +13,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name', 60);
             $table->string('description')->nullable();
-            $table->unsignedInteger('creator_id');
+            $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedTinyInteger('status_id')->default(Book::STATUS_ACTIVE);
             $table->timestamps();
 

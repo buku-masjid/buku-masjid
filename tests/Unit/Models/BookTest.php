@@ -24,6 +24,16 @@ class BookTest extends TestCase
     }
 
     /** @test */
+    public function a_book_can_be_belongs_to_system()
+    {
+        $book = factory(Book::class)->create(['creator_id' => null]);
+
+        $this->assertInstanceOf(User::class, $book->creator);
+        $this->assertFalse($book->creator->exists);
+        $this->assertEquals(__('app.system'), $book->creator->name);
+    }
+
+    /** @test */
     public function book_model_has_has_many_categories_relation()
     {
         $book = factory(Book::class)->create();

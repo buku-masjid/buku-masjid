@@ -19,7 +19,7 @@ class Book extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault(['name' => __('app.system')]);
     }
 
     public function transactions()
