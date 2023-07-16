@@ -18,25 +18,29 @@ class BookPolicyTest extends TestCase
     }
 
     /** @test */
-    public function user_can_only_view_their_own_book_detail()
+    public function user_can_view_book_detail()
     {
         $user = $this->createUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $ownedBook = factory(Book::class)->create(['creator_id' => $user->id]);
         $othersBook = factory(Book::class)->create();
+        $systemsBook = factory(Book::class)->create(['creator_id' => null]);
 
-        $this->assertTrue($user->can('view', $book));
-        $this->assertFalse($user->can('view', $othersBook));
+        $this->assertTrue($user->can('view', $ownedBook));
+        $this->assertTrue($user->can('view', $othersBook));
+        $this->assertTrue($user->can('view', $systemsBook));
     }
 
     /** @test */
-    public function user_can_only_update_their_own_book()
+    public function user_can_update_book()
     {
         $user = $this->createUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
         $othersBook = factory(Book::class)->create();
+        $systemsBook = factory(Book::class)->create(['creator_id' => null]);
 
         $this->assertTrue($user->can('update', $book));
-        $this->assertFalse($user->can('update', $othersBook));
+        $this->assertTrue($user->can('update', $othersBook));
+        $this->assertTrue($user->can('update', $systemsBook));
     }
 
     /** @test */
@@ -45,8 +49,10 @@ class BookPolicyTest extends TestCase
         $user = $this->createUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
         $othersBook = factory(Book::class)->create();
+        $systemsBook = factory(Book::class)->create(['creator_id' => null]);
 
         $this->assertTrue($user->can('delete', $book));
         $this->assertFalse($user->can('delete', $othersBook));
+        $this->assertFalse($user->can('delete', $systemsBook));
     }
 }

@@ -17,12 +17,12 @@ class BookPolicy
 
     public function view(User $user, Book $book)
     {
-        return $user->id == $book->creator_id;
+        return true;
     }
 
     public function update(User $user, Book $book)
     {
-        return $user->id == $book->creator_id;
+        return true;
     }
 
     public function delete(User $user, Book $book)
