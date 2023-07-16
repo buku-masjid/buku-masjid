@@ -35,4 +35,5 @@ return [
     // Relations
     'transactions' => 'List Transaksi Buku',
     'view_transactions' => 'Lihat Transaksi',
+    'creator' => 'Dibuat oleh',
 ];

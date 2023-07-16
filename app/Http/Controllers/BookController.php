@@ -13,7 +13,7 @@ class BookController extends Controller
     {
         $editableBook = null;
         $bookQuery = Book::orderBy('name');
-        $books = $bookQuery->paginate(25);
+        $books = $bookQuery->with('creator')->paginate(25);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableBook = Book::find(request('id'));

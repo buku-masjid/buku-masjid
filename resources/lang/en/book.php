@@ -35,4 +35,5 @@ return [
     // Relations
     'transactions' => 'Book Transactions',
     'view_transactions' => 'View Transactions',
+    'creator' => 'Creator',
 ];
