@@ -97,7 +97,7 @@ class TransactionListingTest extends TestCase
     public function user_can_see_transaction_list_by_selected_book()
     {
         $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
         $todayDate = today()->format('Y-m-d');
         factory(Transaction::class)->create([
             'date' => $todayDate,

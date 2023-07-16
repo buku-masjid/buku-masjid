@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Category;
 use App\Traits\Models\ConstantsGetter;
 use App\Transaction;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
@@ -15,12 +14,7 @@ class Book extends Model
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
 
-    protected $fillable = ['name', 'description', 'status_id', 'creator_id'];
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ['name', 'description', 'status_id'];
 
     public function transactions()
     {

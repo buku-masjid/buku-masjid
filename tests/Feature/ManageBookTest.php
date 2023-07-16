@@ -13,8 +13,8 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_see_book_list_in_book_index_page()
     {
-        $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $this->loginAsUser();
+        $book = factory(Book::class)->create();
 
         $this->visitRoute('books.index');
         $this->see($book->name);
@@ -46,8 +46,8 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_edit_a_book()
     {
-        $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
+        $this->loginAsUser();
+        $book = factory(Book::class)->create(['name' => 'Testing 123']);
 
         $this->visitRoute('books.index');
         $this->click('edit-book-'.$book->id);
@@ -72,8 +72,8 @@ class ManageBookTest extends TestCase
     public function user_can_delete_a_book()
     {
         $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        factory(Book::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        factory(Book::class)->create();
 
         $this->visitRoute('books.index', ['action' => 'edit', 'id' => $book->id]);
         $this->click('del-book-'.$book->id);

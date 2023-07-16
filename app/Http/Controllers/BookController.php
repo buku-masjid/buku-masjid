@@ -30,7 +30,6 @@ class BookController extends Controller
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-        $newBook['creator_id'] = auth()->id();
 
         Book::create($newBook);
 

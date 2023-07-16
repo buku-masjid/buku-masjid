@@ -16,7 +16,7 @@ class ManageBookTest extends TestCase
     {
         $user = $this->createUser();
         Passport::actingAs($user);
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
 
         $this->getJson(route('api.books.index'));
 
@@ -52,7 +52,7 @@ class ManageBookTest extends TestCase
     {
         $user = $this->createUser();
         Passport::actingAs($user);
-        $book = factory(Book::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
+        $book = factory(Book::class)->create(['name' => 'Testing 123']);
 
         $this->patchJson(route('api.books.update', $book), [
             'name' => 'Book 1 name',
@@ -77,7 +77,7 @@ class ManageBookTest extends TestCase
     {
         $user = $this->createUser();
         Passport::actingAs($user);
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
 
         $this->deleteJson(route('api.books.destroy', $book), [
             'book_id' => $book->id,

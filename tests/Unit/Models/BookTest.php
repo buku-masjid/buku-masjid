@@ -5,7 +5,6 @@ namespace Tests\Unit\Models;
 use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
-use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,15 +12,6 @@ use Tests\TestCase;
 class BookTest extends TestCase
 {
     use RefreshDatabase;
-
-    /** @test */
-    public function a_book_has_belongs_to_creator_relation()
-    {
-        $book = factory(Book::class)->make();
-
-        $this->assertInstanceOf(User::class, $book->creator);
-        $this->assertEquals($book->creator_id, $book->creator->id);
-    }
 
     /** @test */
     public function book_model_has_has_many_categories_relation()
@@ -37,9 +27,7 @@ class BookTest extends TestCase
     public function a_book_has_many_transactions_relation()
     {
         $bookOwner = $this->loginAsUser();
-        $book = factory(Book::class)->create([
-            'creator_id' => $bookOwner->id,
-        ]);
+        $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create([
             'book_id' => $book->id,
             'creator_id' => $bookOwner->id,
