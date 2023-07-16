@@ -37,7 +37,8 @@ class TransactionTest extends TestCase
     /** @test */
     public function a_transaction_has_belongs_to_book_relation()
     {
-        $book = factory(Book::class)->create();
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->make(['book_id' => $book->id]);
 
         $this->assertInstanceOf(Book::class, $transaction->book);
