@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -44,10 +45,37 @@ class ManageBookTest extends TestCase
     }
 
     /** @test */
+    public function user_can_create_a_book_with_a_bank_account()
+    {
+        $bankAccount = factory(BankAccount::class)->create();
+        $this->loginAsUser();
+        $this->visitRoute('books.index');
+
+        $this->click(__('book.create'));
+        $this->seeRouteIs('books.index', ['action' => 'create']);
+
+        $this->submitForm(__('book.create'), [
+            'name' => 'Book 1 name',
+            'description' => 'Book 1 description',
+            'bank_account_id' => $bankAccount->id,
+        ]);
+
+        $this->seeRouteIs('books.index');
+
+        $this->seeInDatabase('books', [
+            'name' => 'Book 1 name',
+            'description' => 'Book 1 description',
+            'status_id' => Book::STATUS_ACTIVE,
+            'bank_account_id' => $bankAccount->id,
+        ]);
+    }
+
+    /** @test */
     public function user_can_edit_a_book()
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
+        $bankAccount = factory(BankAccount::class)->create();
 
         $this->visitRoute('books.index');
         $this->click('edit-book-'.$book->id);
@@ -57,6 +85,7 @@ class ManageBookTest extends TestCase
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
+            'bank_account_id' => $bankAccount->id,
         ]);
 
         $this->seeRouteIs('books.index');
@@ -65,6 +94,7 @@ class ManageBookTest extends TestCase
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
+            'bank_account_id' => $bankAccount->id,
         ]);
     }
 

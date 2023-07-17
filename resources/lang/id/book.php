@@ -36,4 +36,5 @@ return [
     'transactions' => 'List Transaksi Buku',
     'view_transactions' => 'Lihat Transaksi',
     'creator' => 'Dibuat oleh',
+    'no_bank_account' => 'Tanpa rekening bank',
 ];

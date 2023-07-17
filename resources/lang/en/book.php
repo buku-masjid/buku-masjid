@@ -36,4 +36,5 @@ return [
     'transactions' => 'Book Transactions',
     'view_transactions' => 'View Transactions',
     'creator' => 'Creator',
+    'no_bank_account' => 'No Bank Account',
 ];

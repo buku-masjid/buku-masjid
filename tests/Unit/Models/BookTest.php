@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
@@ -76,5 +77,29 @@ class BookTest extends TestCase
 
         $book->status_id = Book::STATUS_INACTIVE;
         $this->assertEquals(__('app.inactive'), $book->status);
+    }
+
+    /** @test */
+    public function book_model_has_belongs_to_bank_account_relation()
+    {
+        $bankAccount = factory(BankAccount::class)->create();
+        $book = factory(Book::class)->create([
+            'bank_account_id' => $bankAccount->id,
+        ]);
+
+        $this->assertInstanceOf(BankAccount::class, $book->bankAccount);
+        $this->assertEquals($book->bank_account_id, $book->bankAccount->id);
+    }
+
+    /** @test */
+    public function book_model_might_have_no_bank_account()
+    {
+        $book = factory(Book::class)->create([
+            'bank_account_id' => null,
+        ]);
+
+        $this->assertInstanceOf(BankAccount::class, $book->bankAccount);
+        $this->assertFalse($book->bankAccount->exists);
+        $this->assertEquals(__('book.no_bank_account'), $book->bankAccount->name);
     }
 }

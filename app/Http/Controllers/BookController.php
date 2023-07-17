@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -13,13 +14,14 @@ class BookController extends Controller
     {
         $editableBook = null;
         $bookQuery = Book::orderBy('name');
-        $books = $bookQuery->with('creator')->paginate(25);
+        $books = $bookQuery->with('creator', 'bankAccount')->paginate(25);
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableBook = Book::find(request('id'));
         }
 
-        return view('books.index', compact('books', 'editableBook'));
+        return view('books.index', compact('books', 'editableBook', 'bankAccounts'));
     }
 
     public function store(Request $request)
@@ -29,6 +31,7 @@ class BookController extends Controller
         $newBook = $request->validate([
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
+            'bank_account_id' => 'nullable|exists:bank_accounts,id',
         ]);
         $newBook['creator_id'] = auth()->id();
 
@@ -76,6 +79,7 @@ class BookController extends Controller
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
             'status_id' => ['required', Rule::in(Book::getConstants('STATUS'))],
+            'bank_account_id' => 'nullable|exists:bank_accounts,id',
         ]);
         $book->update($bookData);
 

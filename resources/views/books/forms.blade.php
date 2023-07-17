@@ -12,6 +12,7 @@
                 <div class="modal-body">
                     {!! FormField::text('name', ['required' => true, 'label' => __('book.name')]) !!}
                     {!! FormField::textarea('description', ['label' => __('book.description')]) !!}
+                    {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('bank_account.bank_account')]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('book.create'), ['class' => 'btn btn-success']) !!}
@@ -38,7 +39,15 @@
                 <div class="modal-body">
                     {!! FormField::text('name', ['required' => true, 'label' => __('book.name')]) !!}
                     {!! FormField::textarea('description', ['label' => __('book.description')]) !!}
-                    {!! FormField::radios('status_id', [App\Models\Book::STATUS_INACTIVE => __('app.inactive'), App\Models\Book::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
+                    {!! FormField::select('bank_account_id', $bankAccounts, [
+                        'label' => __('bank_account.bank_account'),
+                        'placeholder' => __('book.no_bank_account'),
+                    ]) !!}
+                    {!! FormField::radios(
+                        'status_id',
+                        [App\Models\Book::STATUS_INACTIVE => __('app.inactive'), App\Models\Book::STATUS_ACTIVE => __('app.active')],
+                        ['label' => __('app.status')]
+                    ) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('book.update'), ['class' => 'btn btn-success']) !!}
@@ -74,6 +83,8 @@
                     <p>{!! $editableBook->name_label !!}</p>
                     <label class="control-label">{{ __('book.description') }}</label>
                     <p>{{ $editableBook->description }}</p>
+                    <label class="control-label">{{ __('bank_account.bank_account') }}</label>
+                    <p>{{ optional($editableBook->bankAccount)->name }}</p>
                     {!! $errors->first('book_id', '<span class="form-error small">:message</span>') !!}
                 </div>
                 <hr style="margin:0">
