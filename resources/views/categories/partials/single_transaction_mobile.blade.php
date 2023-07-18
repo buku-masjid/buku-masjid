@@ -11,5 +11,4 @@
         ) !!}
     @endcan
 </div>
-<div>{!! optional($transaction->book)->name_label !!}</div>
 <hr style="margin: 6px 0">
