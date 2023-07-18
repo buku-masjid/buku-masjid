@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('in_out')->unsigned();
             $table->string('description');
             $table->unsignedInteger('category_id')->nullable();
-            $table->unsignedInteger('book_id')->nullable();
+            $table->unsignedInteger('book_id')->default(config('masjid.default_book_id', 1));
             $table->unsignedInteger('creator_id');
             $table->timestamps();
         });

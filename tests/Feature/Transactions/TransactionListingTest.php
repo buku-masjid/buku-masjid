@@ -102,7 +102,7 @@ class TransactionListingTest extends TestCase
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Unlisted transaction',
-            'book_id' => null,
+            'book_id' => 2,
             'creator_id' => $user->id,
         ]);
         factory(Transaction::class)->create([
