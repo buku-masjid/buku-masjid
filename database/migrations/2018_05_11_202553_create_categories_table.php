@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->char('color', 7)->default('#00aabb');
             $table->unsignedInteger('creator_id');
-            $table->unsignedInteger('book_id')->default(config('masjid.default_book_id', 1));
+            $table->unsignedInteger('book_id')->default(config('masjid.default_book_id'));
             $table->unsignedTinyInteger('status_id')->default(Category::STATUS_ACTIVE);
             $table->timestamps();
         });
