@@ -1,28 +1,28 @@
 @extends('layouts.settings')
 
-@section('title', __('partner.transactions'))
+@section('title', __('book.transactions'))
 
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ __('partner.transactions') }}</div>
+    <h1 class="page-title">{{ $book->name }}</h1>
+    <div class="page-subtitle">{{ __('book.transactions') }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('partners.index', __('partner.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
+        {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
     </div>
 </div>
 
 @include('transactions.partials.stats')
 
-@if ($partner->description)
-    <div class="alert alert-info"><strong>{{ __('app.description') }}:</strong><br>{{ $partner->description }}</div>
+@if ($book->description)
+    <div class="alert alert-info"><strong>{{ __('app.description') }}:</strong><br>{{ $book->description }}</div>
 @endif
 
 <div class="row">
     <div class="col-md-12">
         <div class="card table-responsive">
             <div class="card-header">
-                @include('partners.partials.show_filter')
+                @include('books.partials.show_filter')
             </div>
             @desktop
             <table class="table table-sm table-responsive-sm table-hover table-bordered mb-0">
@@ -50,9 +50,9 @@
                         <td class="text-center">
                             @can('update', $transaction)
                                 {!! link_to_route(
-                                    'partners.show',
+                                    'books.show',
                                     __('app.edit'),
-                                    [$partner->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
+                                    [$book->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
                                     ['id' => 'edit-transaction-'.$transaction->id]
                                 ) !!}
                             @endcan
@@ -77,7 +77,7 @@
             @elsedesktop
             <div class="card-body">
                 @foreach ($transactions as $transaction)
-                    @include('partners.partials.single_transaction_mobile', ['transaction' => $transaction])
+                    @include('books.partials.single_transaction_mobile', ['transaction' => $transaction])
                 @endforeach
             </div>
             @enddesktop
@@ -85,7 +85,7 @@
     </div>
 </div>
 @if(Request::has('action'))
-@include('partners.partials.transaction-forms')
+@include('books.partials.transaction-forms')
 @endif
 @endsection
 

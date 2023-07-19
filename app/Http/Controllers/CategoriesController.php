@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Http\Requests\Categories\CreateRequest;
 use App\Http\Requests\Categories\DeleteRequest;
 use App\Http\Requests\Categories\UpdateRequest;
+use App\Models\Category;
 use App\Transaction;
 
 class CategoriesController extends Controller
@@ -18,13 +18,15 @@ class CategoriesController extends Controller
     public function index()
     {
         $editableCategory = null;
-        $categories = Category::orderBy('name')->get();
+        $bookId = request('book_id', config('masjid.default_book_id'));
+        $categories = Category::orderBy('name')->where('book_id', $bookId)->with('book')->get();
+        $books = $this->getBookList();
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableCategory = Category::find(request('id'));
         }
 
-        return view('categories.index', compact('categories', 'editableCategory'));
+        return view('categories.index', compact('categories', 'editableCategory', 'books', 'bookId'));
     }
 
     /**
@@ -45,7 +47,7 @@ class CategoriesController extends Controller
     /**
      * Show transaction listing of a category.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\View\View
      */
     public function show(Category $category)
@@ -53,14 +55,12 @@ class CategoriesController extends Controller
         $categories = [];
         $editableTransaction = null;
         $year = request('year', date('Y'));
-        $partners = $this->getPartnerList()->prepend('-- '.__('transaction.no_partner').' --', 'null');
 
         $defaultStartDate = auth()->user()->account_start_date ?: date('Y-m').'-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
 
         $transactions = $this->getCategoryTransactions($category, [
-            'partner_id' => request('partner_id'),
             'start_date' => $startDate,
             'end_date' => $endDate,
             'query' => request('query'),
@@ -75,7 +75,7 @@ class CategoriesController extends Controller
 
         return view('categories.show', compact(
             'category', 'transactions', 'year', 'incomeTotal', 'spendingTotal',
-            'startDate', 'endDate', 'partners', 'editableTransaction', 'categories'
+            'startDate', 'endDate', 'editableTransaction', 'categories'
         ));
     }
 
@@ -83,7 +83,7 @@ class CategoriesController extends Controller
      * Update the specified category in storage.
      *
      * @param  \App\Http\Requests\Categories\UpdateRequest  $categoryUpdateForm
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Routing\Redirector
      */
     public function update(UpdateRequest $categoryUpdateForm, Category $category)
@@ -99,7 +99,7 @@ class CategoriesController extends Controller
      * Remove the specified category from storage.
      *
      * @param  \App\Http\Requests\Categories\DeleteRequest  $categoryDeleteForm
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(DeleteRequest $categoryDeleteForm, Category $category)

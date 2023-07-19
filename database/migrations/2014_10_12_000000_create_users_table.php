@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->char('api_token', 24);
             $table->boolean('is_active')->default(1);
             $table->date('account_start_date')->nullable();
+            $table->string('currency_code', 3)->default('IDR');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,4 +36,4 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
-}
+};

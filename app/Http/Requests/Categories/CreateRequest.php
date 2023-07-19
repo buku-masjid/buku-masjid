@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Categories;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -28,13 +28,14 @@ class CreateRequest extends FormRequest
             'name' => 'required|max:60',
             'color' => 'required|string|max:7',
             'description' => 'nullable|string|max:255',
+            'book_id' => 'required|exists:books,id',
         ];
     }
 
     /**
      * Save category to the database.
      *
-     * @return \App\Category
+     * @return \App\Models\Category
      */
     public function save()
     {

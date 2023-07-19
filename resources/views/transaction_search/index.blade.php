@@ -21,7 +21,6 @@
                     {{ Form::text('start_date', $startDate, ['class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0 date-select', 'style' => 'width:100px', 'placeholder' => __('time.start_date')]) }}
                     {{ Form::text('end_date', $endDate, ['class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0 date-select', 'style' => 'width:100px', 'placeholder' => __('time.end_date')]) }}
                     {{ Form::select('category_id', $categories, request('category_id'), ['placeholder' => __('category.all'), 'class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0', ]) }}
-                    {{ Form::select('partner_id', $partners, request('partner_id'), ['placeholder' => __('partner.all'), 'class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0', ]) }}
                     <div class="form-group mt-4 mt-sm-0">
                         {{ Form::submit(__('app.search'), ['class' => 'btn btn-primary btn-sm mr-2']) }}
                         {{ link_to_route('transaction_search.index', __('app.reset'), [], ['class' => 'btn btn-secondary btn-sm']) }}
@@ -48,15 +47,15 @@
                             <td>
                                 {{ $transaction->description }}
                                 <div class="float-right">
-                                    @if ($transaction->partner)
+                                    @if ($transaction->book)
                                         @php
-                                            $partnerRoute = route('partners.show', [
-                                                $transaction->partner_id,
+                                            $bookRoute = route('books.show', [
+                                                $transaction->book_id,
                                                 'start_date' => $startDate,
                                                 'end_date' => $endDate,
                                             ]);
                                         @endphp
-                                        <a href="{{ $partnerRoute }}">{!! $transaction->partner->name_label !!}</a>
+                                        <a href="{{ $bookRoute }}">{!! $transaction->book->name_label !!}</a>
                                     @endif
                                     @if ($transaction->category)
                                         @php

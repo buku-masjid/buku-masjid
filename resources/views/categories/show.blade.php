@@ -40,19 +40,14 @@
                     <tr>
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td class="text-center">{{ $transaction->date }}</td>
-                        <td>
-                            {{ $transaction->description }}
-                            <span class="float-right">
-                                {!!optional($transaction->partner)->name_label !!}
-                            </span>
-                        </td>
+                        <td>{{ $transaction->description }}</td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td class="text-center">
                             @can('update', $transaction)
                                 {!! link_to_route(
                                     'categories.show',
                                     __('app.edit'),
-                                    [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'partner_id']),
+                                    [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
                                     ['id' => 'edit-transaction-'.$transaction->id]
                                 ) !!}
                             @endcan

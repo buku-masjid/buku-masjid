@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Transactions;
 
-use App\Category;
-use App\Partner;
+use App\Models\Book;
+use App\Models\Category;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -94,21 +94,21 @@ class TransactionListingTest extends TestCase
     }
 
     /** @test */
-    public function user_can_see_transaction_list_by_selected_partner()
+    public function user_can_see_transaction_list_by_selected_book()
     {
         $user = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
         $todayDate = today()->format('Y-m-d');
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Unlisted transaction',
-            'partner_id' => null,
+            'book_id' => 2,
             'creator_id' => $user->id,
         ]);
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Today listed transaction',
-            'partner_id' => $partner->id,
+            'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
 
@@ -116,7 +116,7 @@ class TransactionListingTest extends TestCase
         $this->see('Unlisted transaction');
         $this->see('Today listed transaction');
 
-        $this->visitRoute('transactions.index', ['partner_id' => $partner->id]);
+        $this->visitRoute('transactions.index', ['book_id' => $book->id]);
         $this->dontSee('Unlisted transaction');
         $this->see('Today listed transaction');
     }

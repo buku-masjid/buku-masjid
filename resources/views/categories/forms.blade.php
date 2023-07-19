@@ -1,5 +1,5 @@
 @if (request('action') == 'create')
-@can('create', new App\Category)
+@can('create', new App\Models\Category)
     <div id="categoryModal" class="modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -10,9 +10,10 @@
                 </div>
                 {!! Form::open(['route' => 'categories.store']) !!}
                 <div class="modal-body">
+                    {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
+                            {!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => false]) !!}
                         </div>
                         <div class="col-md-6">
                             <div class="form-group required">
@@ -49,9 +50,10 @@
                 </div>
                 {!! Form::model($editableCategory, ['route' => ['categories.update', $editableCategory], 'method' => 'patch']) !!}
                 <div class="modal-body">
+                    {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
+                            {!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => false]) !!}
                         </div>
                         <div class="col-md-6">
                             <div class="form-group required">
@@ -64,7 +66,7 @@
                         </div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('category.description')]) !!}
-                    {!! FormField::radios('status_id', [App\Category::STATUS_INACTIVE => __('app.inactive'), App\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
+                    {!! FormField::radios('status_id', [App\Models\Category::STATUS_INACTIVE => __('app.inactive'), App\Models\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}
@@ -101,6 +103,8 @@
                     <p>{!! $editableCategory->name_label !!}</p>
                     <label class="control-label">{{ __('category.description') }}</label>
                     <p>{{ $editableCategory->description }}</p>
+                    <label class="control-label">{{ __('book.book') }}</label>
+                    <p>{{ optional($editableCategory->book)->name }}</p>
                     {!! $errors->first('category_id', '<span class="form-error small">:message</span>') !!}
                 </div>
                 <hr style="margin:0">
@@ -121,3 +125,5 @@
     </div>
 @endcan
 @endif
+
+{{ $errors }}

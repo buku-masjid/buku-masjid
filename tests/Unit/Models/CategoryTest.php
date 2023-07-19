@@ -2,7 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use App\Category;
+use App\Models\Book;
+use App\Models\Category;
 use App\Transaction;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,15 +24,12 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function a_category_has_for_user_global_scope()
+    public function category_model_has_belongs_to_book_relation()
     {
-        $categoryOwner = $this->loginAsUser();
-        $category = factory(Category::class)->create([
-            'creator_id' => $categoryOwner->id,
-        ]);
-        $othersCategory = factory(Category::class)->create();
+        $category = factory(Category::class)->make();
 
-        $this->assertCount(1, Category::get());
+        $this->assertInstanceOf(Book::class, $category->book);
+        $this->assertEquals($category->book_id, $category->book->id);
     }
 
     /** @test */

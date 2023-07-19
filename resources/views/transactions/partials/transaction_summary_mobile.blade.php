@@ -1,4 +1,4 @@
-@if (request('category_id') || request('partner_id'))
+@if (request('category_id') || request('book_id'))
     <div class="row">
         <div class="col-6 text-right strong">{{ __('transaction.income_total') }}</div>
         <div class="col-6 text-right strong">{{ format_number($incomeTotal) }}</div>

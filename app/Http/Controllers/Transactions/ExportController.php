@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Transactions;
 
-use App\Category;
 use App\Http\Controllers\Controller;
-use App\Partner;
+use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -23,24 +23,24 @@ class ExportController extends Controller
         $startDate = request('start_date', date('Y-m').'-01');
         $endDate = request('end_date', date('Y-m-d'));
         $transactions = $this->getCategoryTransactions($category, [
-            'partner_id' => request('partner_id'),
+            'book_id' => request('book_id'),
             'start_date' => $startDate,
-            'end_date'   => $endDate,
-            'query'      => request('query'),
+            'end_date' => $endDate,
+            'query' => request('query'),
         ]);
 
         return Response::csv($transactions);
     }
 
-    public function byPartner(Partner $partner)
+    public function byBook(Book $book)
     {
         $startDate = request('start_date', date('Y-m').'-01');
         $endDate = request('end_date', date('Y-m-d'));
-        $transactions = $this->getPartnerTransactions($partner, [
+        $transactions = $this->getBookTransactions($book, [
             'category_id' => request('category_id'),
-            'start_date'  => $startDate,
-            'end_date'    => $endDate,
-            'query'       => request('query'),
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'query' => request('query'),
         ]);
 
         return Response::csv($transactions);

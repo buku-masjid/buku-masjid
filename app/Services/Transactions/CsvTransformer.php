@@ -26,7 +26,7 @@ class CsvTransformer
                 $transaction->in_out,
                 $transaction->amount,
                 optional($transaction->category)->name,
-                optional($transaction->partner)->name,
+                optional($transaction->book)->name,
             ]);
             $output .= "\n";
         }
@@ -42,7 +42,7 @@ class CsvTransformer
             __('transaction.in_out'),
             __('transaction.amount'),
             __('category.category'),
-            __('partner.partner'),
+            __('book.book'),
         ]);
 
         return $headerString."\n";

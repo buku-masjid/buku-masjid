@@ -97,30 +97,30 @@ class BalanceFunctionTest extends TestCase
     }
 
     /** @test */
-    public function balance_function_accepts_partner_id_parameter()
+    public function balance_function_accepts_book_id_parameter()
     {
         $user = $this->loginAsUser();
 
-        // Other transaction with different partner_id
-        factory(Transaction::class)->create(['date' => '2015-01-03', 'amount' => 10000, 'in_out' => 1, 'creator_id' => $user->id, 'partner_id' => 1]);
+        // Other transaction with different book_id
+        factory(Transaction::class)->create(['date' => '2015-01-03', 'amount' => 10000, 'in_out' => 1, 'creator_id' => $user->id, 'book_id' => 1]);
 
-        factory(Transaction::class)->create(['date' => '2015-01-05', 'amount' => 900, 'in_out' => 0, 'creator_id' => $user->id, 'partner_id' => 2]);
-        factory(Transaction::class)->create(['date' => '2015-01-20', 'amount' => 4000, 'in_out' => 1, 'creator_id' => $user->id, 'partner_id' => 2]);
+        factory(Transaction::class)->create(['date' => '2015-01-05', 'amount' => 900, 'in_out' => 0, 'creator_id' => $user->id, 'book_id' => 2]);
+        factory(Transaction::class)->create(['date' => '2015-01-20', 'amount' => 4000, 'in_out' => 1, 'creator_id' => $user->id, 'book_id' => 2]);
 
-        // Assert balance from '2015-01-03' until '2015-01-30' with no category and partner_id 2
+        // Assert balance from '2015-01-03' until '2015-01-30' with no category and book_id 2
         $this->assertEquals(3100, balance('2015-01-31', '2015-01-03', null, 2));
     }
 
     /** @test */
-    public function balance_function_accepts_category_id_and_partner_id_parameter()
+    public function balance_function_accepts_category_id_and_book_id_parameter()
     {
         $user = $this->loginAsUser();
 
-        factory(Transaction::class)->create(['date' => '2015-01-03', 'amount' => 10000, 'in_out' => 1, 'creator_id' => $user->id, 'category_id' => 1, 'partner_id' => 1]);
-        factory(Transaction::class)->create(['date' => '2015-01-05', 'amount' => 900, 'in_out' => 0, 'creator_id' => $user->id, 'category_id' => 1, 'partner_id' => 2]);
-        factory(Transaction::class)->create(['date' => '2015-01-20', 'amount' => 4000, 'in_out' => 1, 'creator_id' => $user->id, 'category_id' => 2, 'partner_id' => 2]);
+        factory(Transaction::class)->create(['date' => '2015-01-03', 'amount' => 10000, 'in_out' => 1, 'creator_id' => $user->id, 'category_id' => 1, 'book_id' => 1]);
+        factory(Transaction::class)->create(['date' => '2015-01-05', 'amount' => 900, 'in_out' => 0, 'creator_id' => $user->id, 'category_id' => 1, 'book_id' => 2]);
+        factory(Transaction::class)->create(['date' => '2015-01-20', 'amount' => 4000, 'in_out' => 1, 'creator_id' => $user->id, 'category_id' => 2, 'book_id' => 2]);
 
-        // Assert balance from '2015-01-03' until '2015-01-30' with category_id 1 and partner_id 2
+        // Assert balance from '2015-01-03' until '2015-01-30' with category_id 1 and book_id 2
         $this->assertEquals(-900, balance('2015-01-31', '2015-01-03', 1, 2));
     }
 

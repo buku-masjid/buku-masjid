@@ -38,7 +38,7 @@ function format_number(float $number)
  * @param  string|null  $startDate
  * @return float
  */
-function balance($perDate = null, $startDate = null, $categoryId = null, $partnerId = null)
+function balance($perDate = null, $startDate = null, $categoryId = null, $bookId = null)
 {
     $transactionQuery = DB::table('transactions');
     if ($perDate) {
@@ -50,8 +50,8 @@ function balance($perDate = null, $startDate = null, $categoryId = null, $partne
     if ($categoryId) {
         $transactionQuery->where('category_id', $categoryId);
     }
-    if ($partnerId) {
-        $transactionQuery->where('partner_id', $partnerId);
+    if ($bookId) {
+        $transactionQuery->where('book_id', $bookId);
     }
     $transactions = $transactionQuery->where('creator_id', auth()->id())->get();
 

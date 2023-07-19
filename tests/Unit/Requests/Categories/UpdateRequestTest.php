@@ -2,8 +2,9 @@
 
 namespace Tests\Unit\Requests\Categories;
 
-use App\Category;
 use App\Http\Requests\Categories\UpdateRequest as CategoryUpdateRequest;
+use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\ValidateFormRequest;
@@ -15,14 +16,16 @@ class UpdateRequestTest extends TestCase
     /** @test */
     public function it_pass_for_required_attributes()
     {
-        $this->assertValidationPasses(new CategoryUpdateRequest(), $this->getUpdateAttributes());
+        $book = factory(Book::class)->create();
+        $this->assertValidationPasses(new CategoryUpdateRequest(), $this->getUpdateAttributes(['book_id' => $book->id]));
     }
 
     /** @test */
     public function it_fails_for_empty_attributes()
     {
         $this->assertValidationFails(new CategoryUpdateRequest(), [], function ($errors) {
-            $this->assertCount(3, $errors);
+            $this->assertCount(4, $errors);
+            $this->assertEquals(__('validation.required'), $errors->first('book_id'));
             $this->assertEquals(__('validation.required'), $errors->first('name'));
             $this->assertEquals(__('validation.required'), $errors->first('color'));
             $this->assertEquals(__('validation.required'), $errors->first('status_id'));

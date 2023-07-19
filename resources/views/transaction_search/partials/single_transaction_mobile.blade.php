@@ -9,16 +9,6 @@
     {{ $transaction->description }}
 </div>
 <div style="margin-bottom: 6px;">
-    @if ($transaction->partner)
-        @php
-            $partnerRoute = route('partners.show', [
-                $transaction->partner_id,
-                'start_date' => $startDate,
-                'end_date' => $endDate,
-            ]);
-        @endphp
-        <a href="{{ $partnerRoute }}">{!! $transaction->partner->name_label !!}</a>
-    @endif
     @if ($transaction->category)
         @php
             $categoryRoute = route('categories.show', [

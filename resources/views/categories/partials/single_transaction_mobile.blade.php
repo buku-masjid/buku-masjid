@@ -6,10 +6,9 @@
         {!! link_to_route(
             'categories.show',
             __('app.edit'),
-            [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'partner_id']),
+            [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
             ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
         ) !!}
     @endcan
 </div>
-<div>{!! optional($transaction->partner)->name_label !!}</div>
 <hr style="margin: 6px 0">

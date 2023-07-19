@@ -29,14 +29,13 @@ class UpdateRequest extends FormRequest
             'amount' => 'required|max:60',
             'description' => 'required|max:255',
             'category_id' => 'nullable|exists:categories,id,creator_id,'.auth()->id(),
-            'partner_id' => 'nullable|exists:partners,id,creator_id,'.auth()->id(),
         ];
     }
 
     /**
      * Update transaction in database.
      *
-     * @return \App\Category
+     * @return \App\Models\Category
      */
     public function save()
     {

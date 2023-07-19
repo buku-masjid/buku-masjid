@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Categories;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,13 +30,14 @@ class UpdateRequest extends FormRequest
             'color' => 'required|string|max:7',
             'description' => 'nullable|string|max:255',
             'status_id' => ['required', Rule::in(Category::getConstants('STATUS'))],
+            'book_id' => 'required|exists:books,id',
         ];
     }
 
     /**
      * Update category in database.
      *
-     * @return \App\Category
+     * @return \App\Models\Category
      */
     public function save()
     {

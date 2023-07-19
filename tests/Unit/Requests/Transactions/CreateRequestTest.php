@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Requests\Transactions;
 
-use App\Category;
 use App\Http\Requests\Transactions\CreateRequest as TransactionCreateRequest;
-use App\Partner;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\ValidateFormRequest;
@@ -95,43 +94,6 @@ class CreateRequestTest extends TestCase
             $this->assertEquals(
                 __('validation.exists', ['attribute' => 'category id']),
                 $errors->first('category_id')
-            );
-        });
-    }
-
-    /** @test */
-    public function it_pass_for_user_partner_selection()
-    {
-        $user = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['creator_id' => $user->id]);
-        $attributes = $this->getCreateAttributes(['partner_id' => $partner->id]);
-
-        $this->assertValidationPasses(new TransactionCreateRequest(), $attributes);
-    }
-
-    /** @test */
-    public function it_fails_if_selected_partner_does_not_exists()
-    {
-        $attributes = $this->getCreateAttributes(['partner_id' => 999]);
-
-        $this->assertValidationFails(new TransactionCreateRequest(), $attributes, function ($errors) {
-            $this->assertEquals(
-                __('validation.exists', ['attribute' => 'partner id']),
-                $errors->first('partner_id')
-            );
-        });
-    }
-
-    /** @test */
-    public function it_fails_if_selected_partner_that_belongs_to_other_user()
-    {
-        $partner = factory(Partner::class)->create();
-        $attributes = $this->getCreateAttributes(['partner_id' => $partner->id]);
-
-        $this->assertValidationFails(new TransactionCreateRequest(), $attributes, function ($errors) {
-            $this->assertEquals(
-                __('validation.exists', ['attribute' => 'partner id']),
-                $errors->first('partner_id')
             );
         });
     }

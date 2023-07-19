@@ -6,23 +6,13 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
     protected $policies = [
-        'App\Partner' => 'App\Policies\PartnerPolicy',
-        'App\Category' => 'App\Policies\CategoryPolicy',
+        'App\Models\Book' => 'App\Policies\BookPolicy',
+        'App\Models\Category' => 'App\Policies\CategoryPolicy',
         'App\Transaction' => 'App\Policies\TransactionPolicy',
         'App\Models\BankAccount' => 'App\Policies\BankAccountPolicy',
     ];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
     public function boot()
     {
         //

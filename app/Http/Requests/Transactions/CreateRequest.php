@@ -30,7 +30,6 @@ class CreateRequest extends FormRequest
             'in_out' => 'required|boolean',
             'description' => 'required|max:255',
             'category_id' => 'nullable|exists:categories,id,creator_id,'.auth()->id(),
-            'partner_id' => 'nullable|exists:partners,id,creator_id,'.auth()->id(),
         ];
     }
 

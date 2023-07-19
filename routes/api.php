@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth:api', 'as' => 'api.', 'namespace' => 'Api'],
     Route::resource('categories', 'CategoriesController')->names('categories');
 
     /*
-     * Partners Endpoints
+     * Books Endpoints
      */
-    Route::apiResource('partners', 'PartnerController')->names('partners');
+    Route::apiResource('books', 'BookController')->names('books');
 });

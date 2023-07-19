@@ -54,16 +54,6 @@
                         @endif
                         <td>
                             <span class="float-right">
-                                @if ($transaction->partner)
-                                    @php
-                                        $partnerRoute = route('partners.show', [
-                                            $transaction->partner_id,
-                                            'start_date' => $startDate,
-                                            'end_date' => $year.'-'.$month.'-'.date('t'),
-                                        ]);
-                                    @endphp
-                                    <a href="{{ $partnerRoute }}">{!! optional($transaction->partner)->name_label !!}</a>
-                                @endif
                                 @if ($transaction->category)
                                     @php
                                         $categoryRoute = route('categories.show', [
@@ -93,7 +83,7 @@
                     <tr><td colspan="5">{{ __('transaction.not_found') }}</td></tr>
                     @endforelse
                 </tbody>
-                @if (request('category_id') || request('partner_id'))
+                @if (request('category_id') || request('book_id'))
                 <tfoot>
                     <tr><th colspan="5" class="text-right">&nbsp;</th></tr>
                     <tr>

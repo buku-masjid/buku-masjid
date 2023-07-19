@@ -18,6 +18,7 @@ return [
     'remark' => 'Keterangan',
     'level' => 'Level',
     'not_available' => 'Tidak Tersedia',
+    'system' => 'Sistem',
 
     // Action
     'add' => 'Tambah',

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use App\Category;
-use App\Partner;
+use App\Models\Book;
+use App\Models\Category;
 use App\Transaction;
 use App\User;
 use Carbon\Carbon;
@@ -35,14 +35,14 @@ class TransactionTest extends TestCase
     }
 
     /** @test */
-    public function a_transaction_has_belongs_to_partner_relation()
+    public function a_transaction_has_belongs_to_book_relation()
     {
         $user = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['creator_id' => $user->id]);
-        $transaction = factory(Transaction::class)->make(['partner_id' => $partner->id]);
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $transaction = factory(Transaction::class)->make(['book_id' => $book->id]);
 
-        $this->assertInstanceOf(Partner::class, $transaction->partner);
-        $this->assertEquals($transaction->partner_id, $transaction->partner->id);
+        $this->assertInstanceOf(Book::class, $transaction->book);
+        $this->assertEquals($transaction->book_id, $transaction->book->id);
     }
 
     /** @test */

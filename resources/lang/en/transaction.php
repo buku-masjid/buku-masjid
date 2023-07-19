@@ -22,7 +22,7 @@ return [
     'current_balance' => 'Current Balance',
     'balance' => 'Balance',
     'no_category' => 'No Category',
-    'no_partner' => 'No Partner',
+    'no_book' => 'No Book',
 
     // Actions
     'add_income' => 'Add Income',
