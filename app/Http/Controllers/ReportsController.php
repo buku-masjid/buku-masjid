@@ -156,16 +156,26 @@ class ReportsController extends Controller
 
     private function getLastBankAccountBalance(Carbon $currentMonthEndDate): BankAccountBalance
     {
-        $currentMonthBalance = BankAccountBalance::where('date', '<=', $currentMonthEndDate->format('Y-m-d'))
-            ->orderBy('date', 'desc')
-            ->first();
-        if ($currentMonthBalance) {
-            return $currentMonthBalance;
+        $activeBookBankAccount = auth()->activeBook()->bankAccount;
+        if (is_null($activeBookBankAccount)) {
+            return new BankAccountBalance([
+                'date' => $currentMonthEndDate->format('Y-m-d'),
+                'amount' => 0,
+            ]);
         }
 
-        return new BankAccountBalance([
-            'date' => $currentMonthEndDate->format('Y-m-d'),
-            'amount' => 0,
-        ]);
+        $currentMonthBalance = $activeBookBankAccount->balances()
+            ->where('date', '<=', $currentMonthEndDate->format('Y-m-d'))
+            ->orderBy('date', 'desc')
+            ->first();
+
+        if (is_null($currentMonthBalance)) {
+            return new BankAccountBalance([
+                'date' => $currentMonthEndDate->format('Y-m-d'),
+                'amount' => 0,
+            ]);
+        }
+
+        return $currentMonthBalance;
     }
 }
