@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Book;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +29,14 @@ class AppServiceProvider extends ServiceProvider
                 $activeBook = Book::find(config('masjid.default_book_id'));
             }
             return $activeBook;
+        });
+        SessionGuard::macro('setActiveBook', function ($activeBookId) {
+            $this->getSession()->put('active_book_id', $activeBookId);
+        });
+
+        View::composer(['layouts._top_nav_active_book'], function ($view) {
+            $activeBooks = Book::where('status_id', Book::STATUS_ACTIVE)->pluck('name', 'id');
+            return $view->with('activeBooks', $activeBooks);
         });
     }
 
