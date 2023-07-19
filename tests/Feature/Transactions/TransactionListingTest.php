@@ -23,6 +23,26 @@ class TransactionListingTest extends TestCase
     }
 
     /** @test */
+    public function user_can_see_transaction_list_based_on_the_selected_book()
+    {
+        $user = $this->loginAsUser();
+        $otherBook = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'description' => 'Specific description',
+            'book_id' => $otherBook->id,
+            'creator_id' => $user->id,
+        ]);
+        $selectedBook = factory(Book::class)->create(['creator_id' => $user->id]);
+
+        $this->visitRoute('transactions.index');
+        $this->see($transaction->description);
+
+        $this->press('switch_book_'.$selectedBook->id);
+        $this->seeInSession('active_book_id', $selectedBook->id);
+        $this->dontSee($transaction->description);
+    }
+
+    /** @test */
     public function user_can_see_transaction_list_by_selected_month_and_year()
     {
         $user = $this->loginAsUser();
@@ -97,26 +117,28 @@ class TransactionListingTest extends TestCase
     public function user_can_see_transaction_list_by_selected_book()
     {
         $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $defaultBook = factory(Book::class)->create(['creator_id' => $user->id]);
+        $selectedBook = factory(Book::class)->create(['creator_id' => $user->id]);
         $todayDate = today()->format('Y-m-d');
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Unlisted transaction',
-            'book_id' => 2,
+            'book_id' => $defaultBook->id,
             'creator_id' => $user->id,
         ]);
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Today listed transaction',
-            'book_id' => $book->id,
+            'book_id' => $selectedBook->id,
             'creator_id' => $user->id,
         ]);
 
         $this->visitRoute('transactions.index');
         $this->see('Unlisted transaction');
-        $this->see('Today listed transaction');
+        $this->dontSee('Today listed transaction');
 
-        $this->visitRoute('transactions.index', ['book_id' => $book->id]);
+        session()->put('active_book_id', $selectedBook->id);
+        $this->visitRoute('transactions.index');
         $this->dontSee('Unlisted transaction');
         $this->see('Today listed transaction');
     }

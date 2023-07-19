@@ -7,6 +7,7 @@ use Illuminate\Auth\SessionGuard;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Guards\TokenGuard;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,17 @@ class AppServiceProvider extends ServiceProvider
 
         // Ref: https://dzone.com/articles/how-to-use-laravel-macro-with-example
         SessionGuard::macro('activeBook', function () {
-            $activeBookId = $this->getSession()->get('active_book_id') ?: config('masjid.default_book_id');
-            $activeBook = Book::find($activeBookId);
+            $activeBook = Book::find($this->activeBookId());
             if (is_null($activeBook)) {
                 $activeBook = Book::find(config('masjid.default_book_id'));
             }
             return $activeBook;
+        });
+        SessionGuard::macro('activeBookId', function () {
+            return $this->getSession()->get('active_book_id') ?: config('masjid.default_book_id');
+        });
+        TokenGuard::macro('activeBookId', function () {
+            return request()->get('active_book_id') ?: config('masjid.default_book_id');
         });
         SessionGuard::macro('setActiveBook', function ($activeBookId) {
             $this->getSession()->put('active_book_id', $activeBookId);

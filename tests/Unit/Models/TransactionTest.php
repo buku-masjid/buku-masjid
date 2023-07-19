@@ -100,16 +100,4 @@ class TransactionTest extends TestCase
 
         $this->assertEquals('Ahad', $transaction->day_name);
     }
-
-    /** @test */
-    public function a_transaction_has_for_user_scope()
-    {
-        $transactionOwner = $this->loginAsUser();
-        $transaction = factory(Transaction::class)->create([
-            'creator_id' => $transactionOwner->id,
-        ]);
-        $othersTransaction = factory(Transaction::class)->create();
-
-        $this->assertCount(1, Transaction::all());
-    }
 }

@@ -4,13 +4,13 @@ namespace App;
 
 use App\Models\Book;
 use App\Models\Category;
-use App\Traits\Models\ForUser;
+use App\Traits\Models\ForActiveBook;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    use ForUser;
+    use ForActiveBook;
 
     protected $fillable = [
         'date', 'amount', 'in_out', 'description',
