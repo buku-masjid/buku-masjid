@@ -12,12 +12,14 @@
         </div>
         <div class="nav navbar-nav mx-2 flex-row">
             @auth
-            <a href="{{ route('home') }}" class="xs-navbar mr-4" title="{{ __('transaction.current_balance') }}">
-                <img src="{{ asset('images/icons8-coins-16.png') }}" alt=""> {{ format_number(balance(date('Y-m-d'))) }}
-            </a>
             @include ('layouts.partials.lang_switcher')
             @endauth
         </div>
+        @auth
+            @if (auth()->activeBook())
+                @include ('layouts._top_nav_active_book')
+            @endif
+        @endauth
 
         <!-- Right Side Of Navbar -->
         <div class="nav navbar-nav ml-auto d-none d-sm-block">
