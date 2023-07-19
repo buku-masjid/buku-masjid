@@ -16,6 +16,7 @@
                     <tr><td>{{ __('user.email') }}</td><td>{{ $user->email }}</td></tr>
                     <tr><td>{{ __('user.account_start_date') }}</td><td>{{ $user->account_start_date }}</td></tr>
                     <tr><td>{{ __('user.currency_code') }}</td><td>{{ $user->currency_code }}</td></tr>
+                    <tr><td>{{ __('app.switch_lang') }}</td><td>@include ('layouts.partials.lang_switcher')</td></tr>
                 </tbody>
             </table>
             <div class="card-footer">

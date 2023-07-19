@@ -10,11 +10,6 @@
                 @endguest
             </a>
         </div>
-        <div class="nav navbar-nav mx-2 flex-row">
-            @auth
-            @include ('layouts.partials.lang_switcher')
-            @endauth
-        </div>
         @auth
             @if (auth()->activeBook())
                 @include ('layouts._top_nav_active_book')
