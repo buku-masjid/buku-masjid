@@ -21,7 +21,7 @@ class ReportsController extends Controller
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
-        $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
+        $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
 
         return view('reports.in_months', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
@@ -41,7 +41,7 @@ class ReportsController extends Controller
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
-        $lastMonthBalance = balance($lastMonthDate->format('Y-m-d'));
+        $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
 
         $passedVariables = compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
@@ -142,7 +142,7 @@ class ReportsController extends Controller
                     'date' => null,
                     'description' => 'Saldo per '.$lastWeekDate->isoFormat('D MMMM Y'),
                     'in_out' => 1,
-                    'amount' => balance($lastWeekDate->format('Y-m-d')),
+                    'amount' => auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d')),
                 ]);
                 $firstBalance->is_strong = 1;
                 $weekTransactions->prepend($firstBalance);

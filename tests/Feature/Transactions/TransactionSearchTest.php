@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Models\Book;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -14,7 +15,8 @@ class TransactionSearchTest extends TestCase
     public function user_can_visit_the_search_transactions_page()
     {
         $user = $this->loginAsUser();
-        $transaction = factory(Transaction::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['book_id' => $book->id]);
 
         $this->visitRoute('transactions.index');
         $this->see($transaction->description);

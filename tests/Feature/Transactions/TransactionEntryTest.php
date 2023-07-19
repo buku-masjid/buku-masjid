@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -17,7 +18,8 @@ class TransactionEntryTest extends TestCase
         $year = '2017';
         $date = '2017-01-01';
         $user = $this->loginAsUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_income'));
@@ -49,6 +51,7 @@ class TransactionEntryTest extends TestCase
         $year = '2017';
         $date = '2017-01-01';
         $this->loginAsUser();
+        $book = factory(Book::class)->create();
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_spending'));

@@ -19,7 +19,7 @@
                 $balance = 0;
             @endphp
             @if ($transactions->last())
-                {{ format_number($balance = balance(Carbon\Carbon::parse($transactions->last()->date)->subDay()->format('Y-m-d'))) }}
+                {{ format_number($balance = auth()->activeBook()->getBalance(Carbon\Carbon::parse($transactions->last()->date)->subDay()->format('Y-m-d'))) }}
             @else
                 0
             @endif

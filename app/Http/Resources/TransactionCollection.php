@@ -26,13 +26,13 @@ class TransactionCollection extends ResourceCollection
         $startBalance = 0;
         $endBalance = 0;
         if ($transactions->last()) {
-            $startBalance = balance(
+            $startBalance = auth()->activeBook()->getBalance(
                 Carbon::parse($transactions->last()->date)
                     ->subDay()->format('Y-m-d')
             );
         }
         if ($transactions->first()) {
-            $endBalance = balance($transactions->first()->date);
+            $endBalance = auth()->activeBook()->getBalance($transactions->first()->date);
         }
 
         return [

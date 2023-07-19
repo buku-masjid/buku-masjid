@@ -33,6 +33,13 @@ class AppServiceProvider extends ServiceProvider
         SessionGuard::macro('activeBookId', function () {
             return $this->getSession()->get('active_book_id') ?: config('masjid.default_book_id');
         });
+        TokenGuard::macro('activeBook', function () {
+            $activeBook = Book::find($this->activeBookId());
+            if (is_null($activeBook)) {
+                $activeBook = Book::find(config('masjid.default_book_id'));
+            }
+            return $activeBook;
+        });
         TokenGuard::macro('activeBookId', function () {
             return request()->get('active_book_id') ?: config('masjid.default_book_id');
         });

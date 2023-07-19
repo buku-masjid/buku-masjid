@@ -47,4 +47,24 @@ class Book extends Model
     {
         return $this->belongsTo(BankAccount::class)->withDefault(['name' => __('book.no_bank_account')]);
     }
+
+    public function getBalance($perDate = null, $startDate = null, $categoryId = null): float
+    {
+        $transactionQuery = $this->transactions();
+        if ($perDate) {
+            $transactionQuery->where('date', '<=', $perDate);
+        }
+        if ($startDate) {
+            $transactionQuery->where('date', '>=', $startDate);
+        }
+        if ($categoryId) {
+            $transactionQuery->where('category_id', $categoryId);
+        }
+        $transactionQuery->where('book_id', $this->id);
+        $transactions = $transactionQuery->get();
+
+        return $transactions->sum(function ($transaction) {
+            return $transaction->in_out ? $transaction->amount : -$transaction->amount;
+        });
+    }
 }

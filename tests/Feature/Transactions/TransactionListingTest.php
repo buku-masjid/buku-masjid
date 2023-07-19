@@ -16,7 +16,8 @@ class TransactionListingTest extends TestCase
     public function user_can_see_transaction_list_in_transaction_index_page()
     {
         $user = $this->loginAsUser();
-        $transaction = factory(Transaction::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->visitRoute('transactions.index');
         $this->see($transaction->amount);
@@ -50,9 +51,11 @@ class TransactionListingTest extends TestCase
         $lastMonthNumber = $lastMonth->format('m');
         $lastMonthYear = $lastMonth->format('Y');
         $lastMonthDate = $lastMonth->format('Y-m-d');
+        $book = factory(Book::class)->create();
         $lastMonthTransaction = factory(Transaction::class)->create([
             'date' => $lastMonthDate,
             'description' => 'Last month Transaction',
+            'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
 
@@ -67,18 +70,21 @@ class TransactionListingTest extends TestCase
     public function user_can_see_transaction_list_by_selected_category_and_search_query()
     {
         $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
         $category = factory(Category::class)->create();
         $todayDate = today()->format('Y-m-d');
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Unlisted transaction',
             'category_id' => null,
+            'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
         factory(Transaction::class)->create([
             'date' => $todayDate,
             'description' => 'Today listed transaction',
             'category_id' => $category->id,
+            'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
 
@@ -96,9 +102,11 @@ class TransactionListingTest extends TestCase
     public function transaction_list_for_this_month_by_default()
     {
         $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
         $thisMonthTransaction = factory(Transaction::class)->create([
             'date' => today()->format('Y-m-d'),
             'description' => 'Today Transaction',
+            'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
         $lastMonthDate = today()->subDays(31)->format('Y-m-d');
