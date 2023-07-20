@@ -125,5 +125,3 @@
     </div>
 @endcan
 @endif
-
-{{ $errors }}
