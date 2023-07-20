@@ -47,16 +47,6 @@
                             <td>
                                 {{ $transaction->description }}
                                 <div class="float-right">
-                                    @if ($transaction->book)
-                                        @php
-                                            $bookRoute = route('books.show', [
-                                                $transaction->book_id,
-                                                'start_date' => $startDate,
-                                                'end_date' => $endDate,
-                                            ]);
-                                        @endphp
-                                        <a href="{{ $bookRoute }}">{!! $transaction->book->name_label !!}</a>
-                                    @endif
                                     @if ($transaction->category)
                                         @php
                                             $categoryRoute = route('categories.show', [
