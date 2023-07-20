@@ -66,6 +66,35 @@ class ManageCategoriesTest extends TestCase
     }
 
     /** @test */
+    public function user_can_create_a_category_for_active_book()
+    {
+        $this->loginAsUser();
+        $this->visit(route('categories.index'));
+        $inActiveBook = factory(Book::class)->create();
+        $activeBook = factory(Book::class)->create();
+        session()->put('active_book_id', $activeBook->id);
+
+        $this->click(__('category.create'));
+        $this->seePageIs(route('categories.index', ['action' => 'create']));
+        $this->submitForm(__('category.create'), [
+            'name' => 'Category 1 name',
+            'description' => 'Category 1 description',
+            'color' => '#00aabb',
+            'book_id' => $activeBook->id,
+        ]);
+
+        $this->seePageIs(route('categories.index'));
+
+        $this->seeInDatabase('categories', [
+            'name' => 'Category 1 name',
+            'description' => 'Category 1 description',
+            'color' => '#00aabb',
+            'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $activeBook->id,
+        ]);
+    }
+
+    /** @test */
     public function user_can_edit_a_category_within_search_query()
     {
         $user = $this->loginAsUser();
