@@ -38,7 +38,8 @@ class TransactionListingTest extends TestCase
     {
         $user = $this->createUser();
         Passport::actingAs($user);
-        $transaction = factory(Transaction::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->getJson(route('api.transactions.show', $transaction));
 
