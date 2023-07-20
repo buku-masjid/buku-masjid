@@ -44,7 +44,8 @@
                         <td class="text-center">{{ 1 + $key }}</td>
                         @if ($firstGroup->id == $transaction->id)
                             <td class="text-center text-middle" rowspan="{{ $groupCount }}">
-                                {{ link_to_route('transactions.index', $transaction->date_only, [
+                                {{ $transaction->day_name }},
+                                {{ link_to_route('transactions.index', $transaction->date_only.'-'.$transaction->month_name, [
                                     'date' => $transaction->date_only,
                                     'month' => $month,
                                     'year' => $year,
@@ -146,10 +147,11 @@
             @elsedesktop
             <div class="card-body">
                 @foreach ($transactions->groupBy('date') as $groupedTransactions)
+                    <h5 class="text-center mb-0">{{ $groupedTransactions->first()->day_name }}</h5>
                     @foreach ($groupedTransactions as $date => $transaction)
                         @include('transactions.partials.single_transaction_mobile', ['transaction' => $transaction, 'month' => $month, 'year' => $year])
                     @endforeach
-                    <hr style="margin: 6px 0">
+                    <hr class="my-2">
                 @endforeach
                 @include('transactions.partials.transaction_summary_mobile', ['transactions' => $transactions])
             @enddesktop

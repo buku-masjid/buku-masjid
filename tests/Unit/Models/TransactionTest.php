@@ -77,6 +77,7 @@ class TransactionTest extends TestCase
 
         $this->assertEquals('2017', $transaction->year);
         $this->assertEquals('01', $transaction->month);
+        $this->assertEquals(Carbon::parse('2017-01-31')->isoFormat('MMM'), $transaction->month_name);
         $this->assertEquals('31', $transaction->date_only);
     }
 

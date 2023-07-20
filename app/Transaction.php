@@ -47,6 +47,11 @@ class Transaction extends Model
         return Carbon::parse($this->date)->format('m');
     }
 
+    public function getMonthNameAttribute()
+    {
+        return Carbon::parse($this->date)->isoFormat('MMM');
+    }
+
     public function getYearAttribute()
     {
         return Carbon::parse($this->date)->format('Y');
