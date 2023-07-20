@@ -18,15 +18,14 @@ class CategoriesController extends Controller
     public function index()
     {
         $editableCategory = null;
-        $bookId = request('book_id', config('masjid.default_book_id'));
-        $categories = Category::orderBy('name')->where('book_id', $bookId)->with('book')->get();
+        $categories = Category::orderBy('name')->with('book')->get();
         $books = $this->getBookList();
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableCategory = Category::find(request('id'));
         }
 
-        return view('categories.index', compact('categories', 'editableCategory', 'books', 'bookId'));
+        return view('categories.index', compact('categories', 'editableCategory', 'books'));
     }
 
     /**

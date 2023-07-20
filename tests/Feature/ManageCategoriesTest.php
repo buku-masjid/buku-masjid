@@ -23,6 +23,22 @@ class ManageCategoriesTest extends TestCase
     }
 
     /** @test */
+    public function user_cannot_see_category_list_from_other_books()
+    {
+        $user = $this->loginAsUser();
+        $inActiveBook = factory(Book::class)->create(['creator_id' => $user->id]);
+        $nonVisibleCategory = factory(Category::class)->create(['name' => 'Non visible category', 'book_id' => $inActiveBook->id]);
+        $activeBook = factory(Book::class)->create(['creator_id' => $user->id]);
+        $visibleCategory = factory(Category::class)->create(['name' => 'Visible category', 'book_id' => $activeBook->id]);
+
+        session()->put('active_book_id', $activeBook->id);
+
+        $this->visit(route('categories.index'));
+        $this->see('Visible category');
+        $this->dontSee('Non visible category');
+    }
+
+    /** @test */
     public function user_can_create_a_category()
     {
         $this->loginAsUser();
