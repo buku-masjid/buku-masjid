@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,13 +19,15 @@ class TransactionEditTest extends TestCase
         $year = '2017';
         $date = '2017-01-01';
         $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
             'date' => $date,
             'creator_id' => $user->id,
+            'book_id' => $book->id,
         ]);
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
         $this->click('edit-transaction-'.$transaction->id);
@@ -59,11 +62,13 @@ class TransactionEditTest extends TestCase
         $year = '2017';
         $date = '2017-01-01';
         $user = $this->loginAsUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
             'date' => $date,
+            'book_id' => $book->id,
             'creator_id' => $user->id,
             'category_id' => $category->id,
             'description' => 'Transaction Unique Description',
@@ -100,7 +105,8 @@ class TransactionEditTest extends TestCase
     public function user_can_delete_a_transaction()
     {
         $user = $this->loginAsUser();
-        $transaction = factory(Transaction::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->visitRoute('transactions.index', ['action' => 'edit', 'id' => $transaction->id]);
         $this->click('del-transaction-'.$transaction->id);
@@ -127,11 +133,13 @@ class TransactionEditTest extends TestCase
         $year = '2017';
         $date = '2017-01-01';
         $user = $this->loginAsUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
             'date' => $date,
+            'book_id' => $book->id,
             'creator_id' => $user->id,
             'category_id' => $category->id,
         ]);
@@ -177,11 +185,13 @@ class TransactionEditTest extends TestCase
     public function user_can_delete_a_transaction_from_category_transactions_page()
     {
         $user = $this->loginAsUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
             'date' => '2017-01-01',
+            'book_id' => $book->id,
             'creator_id' => $user->id,
             'category_id' => $category->id,
         ]);

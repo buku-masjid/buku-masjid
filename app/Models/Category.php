@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Models\Book;
 use App\Traits\Models\ConstantsGetter;
+use App\Traits\Models\ForActiveBook;
 use App\Transaction;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use ConstantsGetter;
+    use ConstantsGetter, ForActiveBook;
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;

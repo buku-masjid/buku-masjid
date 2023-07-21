@@ -23,6 +23,8 @@ class Transaction extends JsonResource
             'amount_string' => $transaction->amount_string,
             'description' => $transaction->description,
             'in_out' => (int) $transaction->in_out,
+            'book_id' => $transaction->book_id,
+            'book' => $transaction->book->name,
             'category_id' => $transaction->category_id,
             'category' => optional($transaction->category)->name,
             'category_color' => optional($transaction->category)->color,

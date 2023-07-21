@@ -10,12 +10,11 @@
                 </div>
                 {!! Form::open(['route' => 'categories.store']) !!}
                 <div class="modal-body">
-                    {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                     <div class="row">
-                        <div class="col-md-6">
-                            {!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => false]) !!}
+                        <div class="col-md-8">
+                            {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group required">
                                 <label for="color" class="control-label">{{ __('category.color') }}</label>
                                 <div id="color" class="input-group colorpicker-component">
@@ -29,6 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('category.create'), ['class' => 'btn btn-success']) !!}
+                    {{ Form::hidden('book_id', auth()->activeBookId()) }}
                     {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
                 </div>
                 {{ Form::close() }}
@@ -50,12 +50,11 @@
                 </div>
                 {!! Form::model($editableCategory, ['route' => ['categories.update', $editableCategory], 'method' => 'patch']) !!}
                 <div class="modal-body">
-                    {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                     <div class="row">
-                        <div class="col-md-6">
-                            {!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => false]) !!}
+                        <div class="col-md-8">
+                            {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group required">
                                 <label for="color" class="control-label">{{ __('category.color') }}</label>
                                 <div id="color" class="input-group colorpicker-component">
@@ -69,6 +68,7 @@
                     {!! FormField::radios('status_id', [App\Models\Category::STATUS_INACTIVE => __('app.inactive'), App\Models\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
                 </div>
                 <div class="modal-footer">
+                    {{ Form::hidden('book_id', auth()->activeBookId()) }}
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}
                     {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
                     @can('delete', $editableCategory)
@@ -125,5 +125,3 @@
     </div>
 @endcan
 @endif
-
-{{ $errors }}

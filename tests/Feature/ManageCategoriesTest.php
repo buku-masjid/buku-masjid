@@ -23,6 +23,22 @@ class ManageCategoriesTest extends TestCase
     }
 
     /** @test */
+    public function user_cannot_see_category_list_from_other_books()
+    {
+        $user = $this->loginAsUser();
+        $inActiveBook = factory(Book::class)->create(['creator_id' => $user->id]);
+        $nonVisibleCategory = factory(Category::class)->create(['name' => 'Non visible category', 'book_id' => $inActiveBook->id]);
+        $activeBook = factory(Book::class)->create(['creator_id' => $user->id]);
+        $visibleCategory = factory(Category::class)->create(['name' => 'Visible category', 'book_id' => $activeBook->id]);
+
+        session()->put('active_book_id', $activeBook->id);
+
+        $this->visit(route('categories.index'));
+        $this->see('Visible category');
+        $this->dontSee('Non visible category');
+    }
+
+    /** @test */
     public function user_can_create_a_category()
     {
         $this->loginAsUser();
@@ -46,6 +62,35 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00aabb',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
+        ]);
+    }
+
+    /** @test */
+    public function user_can_create_a_category_for_active_book()
+    {
+        $this->loginAsUser();
+        $this->visit(route('categories.index'));
+        $inActiveBook = factory(Book::class)->create();
+        $activeBook = factory(Book::class)->create();
+        session()->put('active_book_id', $activeBook->id);
+
+        $this->click(__('category.create'));
+        $this->seePageIs(route('categories.index', ['action' => 'create']));
+        $this->submitForm(__('category.create'), [
+            'name' => 'Category 1 name',
+            'description' => 'Category 1 description',
+            'color' => '#00aabb',
+            'book_id' => $activeBook->id,
+        ]);
+
+        $this->seePageIs(route('categories.index'));
+
+        $this->seeInDatabase('categories', [
+            'name' => 'Category 1 name',
+            'description' => 'Category 1 description',
+            'color' => '#00aabb',
+            'status_id' => Category::STATUS_ACTIVE,
+            'book_id' => $activeBook->id,
         ]);
     }
 

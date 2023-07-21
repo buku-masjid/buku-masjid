@@ -14,7 +14,7 @@ class LangSwitcherTest extends TestCase
     {
         $user = $this->loginAsUser();
 
-        $this->visitRoute('home');
+        $this->visitRoute('profile.show');
         $this->seeElement('button', ['id' => 'lang_en']);
 
         $this->press('lang_en');
@@ -27,7 +27,7 @@ class LangSwitcherTest extends TestCase
     {
         $user = $this->loginAsUser();
 
-        $this->visitRoute('home');
+        $this->visitRoute('profile.show');
         $this->seeElement('button', ['id' => 'lang_id']);
 
         $this->press('lang_id');

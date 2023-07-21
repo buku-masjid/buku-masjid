@@ -37,6 +37,7 @@ return [
     'delete_confirm_button' => 'Yes, delete it!',
     'delete_confirm' => 'Are you sure to delete?',
     'done' => 'Done',
+    'switch_lang' => 'Switch Lang',
     'switch_en_lang' => 'Use English',
     'switch_id_lang' => 'Use Bahasa Indonesia',
 

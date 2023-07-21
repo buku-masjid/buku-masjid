@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Books;
 
 use App\Models\BankAccount;
 use App\Models\Book;

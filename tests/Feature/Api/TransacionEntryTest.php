@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,7 +21,8 @@ class TransacionEntryTest extends TestCase
         $date = '2017-01-01';
         $user = $this->createUser();
         Passport::actingAs($user);
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->postJson(route('api.transactions.store'), [
             'in_out' => 1,
@@ -28,6 +30,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeInDatabase('transactions', [
@@ -36,6 +39,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeStatusCode(201);
@@ -45,6 +49,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category' => $category->name,
+            'book_id' => $book->id,
         ]);
     }
 
@@ -56,7 +61,8 @@ class TransacionEntryTest extends TestCase
         $date = '2017-01-01';
         $user = $this->createUser();
         Passport::actingAs($user);
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $book = factory(Book::class)->create();
+        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->postJson(route('api.transactions.store'), [
             'in_out' => 0,
@@ -64,6 +70,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Spending description',
             'category_id' => $category->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeInDatabase('transactions', [
@@ -72,6 +79,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Spending description',
             'category_id' => $category->id,
+            'book_id' => $book->id,
         ]);
 
         $this->seeStatusCode(201);
@@ -81,6 +89,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Spending description',
             'category' => $category->name,
+            'book_id' => $book->id,
         ]);
     }
 

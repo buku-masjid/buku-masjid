@@ -25,14 +25,14 @@ class TransactionCollection extends ResourceCollection
         $spendingTotal = $this->getSpendingTransactionTotal();
         $startBalance = 0;
         $endBalance = 0;
-        if ($transactions->last()) {
-            $startBalance = balance(
-                Carbon::parse($transactions->last()->date)
+        if ($transactions->first()) {
+            $startBalance = auth()->activeBook()->getBalance(
+                Carbon::parse($transactions->first()->date)
                     ->subDay()->format('Y-m-d')
             );
         }
-        if ($transactions->first()) {
-            $endBalance = balance($transactions->first()->date);
+        if ($transactions->last()) {
+            $endBalance = auth()->activeBook()->getBalance($transactions->last()->date);
         }
 
         return [

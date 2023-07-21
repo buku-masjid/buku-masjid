@@ -77,6 +77,7 @@ class TransactionTest extends TestCase
 
         $this->assertEquals('2017', $transaction->year);
         $this->assertEquals('01', $transaction->month);
+        $this->assertEquals(Carbon::parse('2017-01-31')->isoFormat('MMM'), $transaction->month_name);
         $this->assertEquals('31', $transaction->date_only);
     }
 
@@ -99,17 +100,5 @@ class TransactionTest extends TestCase
         $transaction = factory(Transaction::class)->make(['date' => $date]);
 
         $this->assertEquals('Ahad', $transaction->day_name);
-    }
-
-    /** @test */
-    public function a_transaction_has_for_user_scope()
-    {
-        $transactionOwner = $this->loginAsUser();
-        $transaction = factory(Transaction::class)->create([
-            'creator_id' => $transactionOwner->id,
-        ]);
-        $othersTransaction = factory(Transaction::class)->create();
-
-        $this->assertCount(1, Transaction::all());
     }
 }
