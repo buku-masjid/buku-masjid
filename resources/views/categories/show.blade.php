@@ -85,12 +85,10 @@
 @endsection
 
 @section('styles')
-    {{ Html::style(url('css/plugins/bootstrap-colorpicker.min.css')) }}
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
 @endsection
 
 @push('scripts')
-    {{ Html::script(url('js/plugins/bootstrap-colorpicker.min.js')) }}
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {

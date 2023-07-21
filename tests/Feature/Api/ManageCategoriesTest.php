@@ -34,14 +34,14 @@ class ManageCategoriesTest extends TestCase
 
         $this->postJson(route('api.categories.store'), [
             'name' => 'Category 1 name',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'description' => 'Category 1 description',
             'book_id' => $book->id,
         ]);
 
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'description' => 'Category 1 description',
             'book_id' => $book->id,
         ]);
@@ -49,7 +49,7 @@ class ManageCategoriesTest extends TestCase
         $this->seeStatusCode(201);
         $this->seeJson([
             'message' => __('category.created'),
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'book_id' => $book->id,
@@ -66,7 +66,7 @@ class ManageCategoriesTest extends TestCase
 
         $this->patchJson(route('api.categories.update', $category), [
             'name' => 'Category 1 name',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
@@ -74,7 +74,7 @@ class ManageCategoriesTest extends TestCase
 
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
@@ -83,7 +83,7 @@ class ManageCategoriesTest extends TestCase
         $this->seeStatusCode(200);
         $this->seeJson([
             'message' => __('category.updated'),
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,

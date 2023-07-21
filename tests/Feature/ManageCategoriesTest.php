@@ -50,7 +50,7 @@ class ManageCategoriesTest extends TestCase
         $this->submitForm(__('category.create'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'book_id' => $book->id,
         ]);
 
@@ -59,7 +59,7 @@ class ManageCategoriesTest extends TestCase
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
         ]);
@@ -79,7 +79,7 @@ class ManageCategoriesTest extends TestCase
         $this->submitForm(__('category.create'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'book_id' => $activeBook->id,
         ]);
 
@@ -88,7 +88,7 @@ class ManageCategoriesTest extends TestCase
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $activeBook->id,
         ]);
@@ -108,7 +108,7 @@ class ManageCategoriesTest extends TestCase
         $this->submitForm(__('category.update'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
         ]);
@@ -118,7 +118,7 @@ class ManageCategoriesTest extends TestCase
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
         ]);
@@ -138,7 +138,7 @@ class ManageCategoriesTest extends TestCase
         $this->submitForm(__('category.update'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'status_id' => Category::STATUS_INACTIVE,
             'book_id' => $book->id,
         ]);
@@ -148,7 +148,7 @@ class ManageCategoriesTest extends TestCase
         $this->seeInDatabase('categories', [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
-            'color' => '#00aabb',
+            'color' => '#00AABB',
             'status_id' => Category::STATUS_INACTIVE,
             'book_id' => $book->id,
         ]);
