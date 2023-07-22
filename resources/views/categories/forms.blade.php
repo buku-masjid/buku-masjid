@@ -15,13 +15,14 @@
                             {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group required">
-                                <label for="color" class="control-label">{{ __('category.color') }}</label>
-                                <div id="color" class="input-group colorpicker-component">
-                                    <input name="color" type="text" value="#00AABB" class="form-control" />
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
-                            </div>
+                            {!! FormField::radios(
+                                'color',
+                                [
+                                    '#00AABB' => '<span class="badge" style="background-color: #00AABB">'.__('transaction.income').'</span>',
+                                    '#F16867' => '<span class="badge" style="background-color: #F16867">'.__('transaction.spending').'</span>',
+                                ],
+                                ['required' => true, 'label' => __('category.color'), 'list_style' => 'unstyled']
+                            ) !!}
                         </div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('category.description')]) !!}
@@ -55,13 +56,14 @@
                             {!! FormField::text('name', ['required' => true, 'label' => __('category.name')]) !!}
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group required">
-                                <label for="color" class="control-label">{{ __('category.color') }}</label>
-                                <div id="color" class="input-group colorpicker-component">
-                                    <input name="color" type="text" value="{{ $editableCategory->color }}" class="form-control" />
-                                    <span class="input-group-addon"><i></i></span>
-                                </div>
-                            </div>
+                            {!! FormField::radios(
+                                'color',
+                                [
+                                    '#00AABB' => '<span class="badge" style="background-color: #00AABB">'.__('transaction.income').'</span>',
+                                    '#F16867' => '<span class="badge" style="background-color: #F16867">'.__('transaction.spending').'</span>',
+                                ],
+                                ['required' => true, 'label' => __('category.color'), 'list_style' => 'unstyled']
+                            ) !!}
                         </div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('category.description')]) !!}
