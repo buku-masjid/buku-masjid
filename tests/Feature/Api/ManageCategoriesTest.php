@@ -44,6 +44,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00AABB',
             'description' => 'Category 1 description',
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC,
         ]);
 
         $this->seeStatusCode(201);
@@ -53,6 +54,7 @@ class ManageCategoriesTest extends TestCase
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC,
         ]);
     }
 
@@ -70,6 +72,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL,
         ]);
 
         $this->seeInDatabase('categories', [
@@ -88,6 +91,7 @@ class ManageCategoriesTest extends TestCase
             'description' => 'Category 1 description',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL,
         ]);
     }
 

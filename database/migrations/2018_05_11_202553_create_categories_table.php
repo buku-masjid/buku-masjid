@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('creator_id');
             $table->unsignedInteger('book_id')->default(config('masjid.default_book_id'));
             $table->unsignedTinyInteger('status_id')->default(Category::STATUS_ACTIVE);
+            $table->string('report_visibility_code', 10)->default(Category::REPORT_VISIBILITY_PUBLIC);
             $table->timestamps();
         });
     }

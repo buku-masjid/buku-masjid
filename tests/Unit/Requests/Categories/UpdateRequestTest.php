@@ -24,7 +24,8 @@ class UpdateRequestTest extends TestCase
     public function it_fails_for_empty_attributes()
     {
         $this->assertValidationFails(new CategoryUpdateRequest(), [], function ($errors) {
-            $this->assertCount(4, $errors);
+            $this->assertCount(5, $errors);
+            $this->assertEquals(__('validation.required'), $errors->first('report_visibility_code'));
             $this->assertEquals(__('validation.required'), $errors->first('book_id'));
             $this->assertEquals(__('validation.required'), $errors->first('name'));
             $this->assertEquals(__('validation.required'), $errors->first('color'));
@@ -99,6 +100,7 @@ class UpdateRequestTest extends TestCase
             'color' => '#aabbcc',
             'description' => 'Category description.',
             'status_id' => Category::STATUS_ACTIVE,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC,
         ], $overrides);
     }
 }

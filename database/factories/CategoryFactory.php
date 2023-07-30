@@ -11,6 +11,7 @@ $factory->define(Category::class, function (Faker $faker) {
         'description' => $faker->sentence,
         'color' => '#aabbcc',
         'status_id' => Category::STATUS_ACTIVE,
+        'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC,
         'creator_id' => function () {
             return factory(User::class)->create()->id;
         },

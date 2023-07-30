@@ -62,6 +62,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC,
         ]);
     }
 
@@ -91,6 +92,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $activeBook->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC,
         ]);
     }
 
@@ -111,6 +113,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL,
         ]);
 
         $this->seePageIs(route('categories.index'));
@@ -121,6 +124,7 @@ class ManageCategoriesTest extends TestCase
             'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
             'book_id' => $book->id,
+            'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL,
         ]);
     }
 

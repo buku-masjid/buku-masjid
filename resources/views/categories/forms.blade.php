@@ -67,7 +67,17 @@
                         </div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('category.description')]) !!}
-                    {!! FormField::radios('status_id', [App\Models\Category::STATUS_INACTIVE => __('app.inactive'), App\Models\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! FormField::radios('status_id', [App\Models\Category::STATUS_INACTIVE => __('app.inactive'), App\Models\Category::STATUS_ACTIVE => __('app.active')], ['label' => __('app.status')]) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! FormField::radios('report_visibility_code', [
+                                App\Models\Category::REPORT_VISIBILITY_PUBLIC => __('category.report_visibility_public'),
+                                App\Models\Category::REPORT_VISIBILITY_INTERNAL => __('category.report_visibility_internal')
+                            ], ['label' => __('category.report_visibility')]) !!}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
