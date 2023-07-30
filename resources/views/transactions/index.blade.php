@@ -86,29 +86,29 @@
                 </tbody>
                 @if (request('category_id') || request('book_id'))
                 <tfoot>
-                    <tr><th colspan="5" class="text-right">&nbsp;</th></tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.income_total') }}</th>
-                        <th class="text-right">{{ format_number($incomeTotal) }}</th>
-                        <th>&nbsp;</th>
+                    <tr><td colspan="5" class="text-right">&nbsp;</td></tr>
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.income_total') }}</td>
+                        <td class="text-right">{{ format_number($incomeTotal) }}</td>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.spending_total') }}</th>
-                        <th class="text-right">{{ format_number($spendingTotal) }}</th>
-                        <th>&nbsp;</th>
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.spending_total') }}</td>
+                        <td class="text-right">{{ format_number($spendingTotal) }}</td>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.difference') }}</th>
-                        <th class="text-right">{{ number_format($incomeTotal - $spendingTotal, 2) }}</th>
-                        <th>&nbsp;</th>
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.difference') }}</td>
+                        <td class="text-right">{{ number_format($incomeTotal - $spendingTotal, 2) }}</td>
+                        <td>&nbsp;</td>
                     </tr>
                 </tfoot>
                 @else
                 <tfoot>
-                    <tr><th colspan="5" class="text-right">&nbsp;</th></tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.start_balance') }}</th>
-                        <th class="text-right">
+                    <tr><td colspan="5" class="text-right">&nbsp;</td></tr>
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.start_balance') }}</td>
+                        <td class="text-right">
                             @php
                                 $balance = 0;
                             @endphp
@@ -117,29 +117,29 @@
                             @else
                                 0
                             @endif
-                        </th>
-                        <th>&nbsp;</th>
+                        </td>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.income_total') }}</th>
-                        <th class="text-right">{{ format_number($incomeTotal) }}</th>
-                        <th>&nbsp;</th>
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.income_total') }}</td>
+                        <td class="text-right">{{ format_number($incomeTotal) }}</td>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.spending_total') }}</th>
-                        <th class="text-right">{{ format_number($spendingTotal) }}</th>
-                        <th>&nbsp;</th>
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.spending_total') }}</td>
+                        <td class="text-right">{{ format_number($spendingTotal) }}</td>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('transaction.end_balance') }}</th>
-                        <th class="text-right">
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('transaction.end_balance') }}</td>
+                        <td class="text-right">
                             @if ($transactions->first())
                                 {{ format_number($balance + $incomeTotal - $spendingTotal) }}
                             @else
                                 0
                             @endif
-                        </th>
-                        <th>&nbsp;</th>
+                        </td>
+                        <td>&nbsp;</td>
                     </tr>
                 </tfoot>
                 @endif

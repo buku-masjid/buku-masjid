@@ -112,36 +112,36 @@
         </tbody>
         @if (!$groupedTransactions->isEmpty())
         <tfoot>
-            <tr>
+            <tr class="strong">
                 <td>&nbsp;</td>
-                <th class="text-center">Selisih saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
-                <th class="text-right">
+                <td class="text-center">Selisih saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+                <td class="text-right">
                     @php
                         $currentMonthIncome = $groupedTransactions->has(1) ? $groupedTransactions[1]->sum('amount') : 0;
                     @endphp
                     {{ number_format($lastMonthBalance + $currentMonthIncome, 0) }}
-                </th>
-                <th class="text-right">
+                </td>
+                <td class="text-right">
                     @php
                         $currentMonthSpending = $groupedTransactions->has(0) ? $groupedTransactions[0]->sum('amount') : 0;
                     @endphp
                     {{ number_format($currentMonthSpending, 0) }}
-                </th>
-                <th class="text-right">
+                </td>
+                <td class="text-right">
                     @php
                         $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
                     @endphp
                     {{ number_format($currentMonthBalance, 0) }}
-                </th>
+                </td>
             </tr>
-            <tr>
+            <tr class="strong">
                 <td>&nbsp;</td>
-                <th class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
-                <th>-</th>
-                <th>-</th>
-                <th class="text-right">
+                <td class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="text-right">
                     {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 0) }}
-                </th>
+                </td>
             </tr>
         </tfoot>
         @endif

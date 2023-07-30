@@ -57,11 +57,11 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('app.total') }} {{ $incomeCategory->name }}</th>
-                        <th class="text-right">
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('app.total') }} {{ $incomeCategory->name }}</td>
+                        <td class="text-right">
                             {{ number_format($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount'), 2) }}
-                        </th>
+                        </td>
                     </tr>
                 </tfoot>
                 @endif
@@ -100,11 +100,11 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('app.total') }} {{ $spendingCategory->name }}</th>
-                        <th class="text-right">
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('app.total') }} {{ $spendingCategory->name }}</td>
+                        <td class="text-right">
                             - {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount'), 2) }}
-                        </th>
+                        </td>
                     </tr>
                 </tfoot>
                 @endif

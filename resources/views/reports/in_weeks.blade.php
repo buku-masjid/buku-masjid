@@ -55,25 +55,25 @@
             @endforeach
         </tbody>
         <tfoot>
-            <tr>
-                <th colspan="2" class="text-right">{{ __('app.total') }}</th>
-                <th class="text-right">
+            <tr class="strong">
+                <td colspan="2" class="text-right">{{ __('app.total') }}</td>
+                <td class="text-right">
                     @php
                         $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
                             return $transaction->in_out ? $transaction->amount : 0;
                         });
                     @endphp
                     {{ number_format($incomeAmount, 0) }}
-                </th>
-                <th class="text-right">
+                </td>
+                <td class="text-right">
                     @php
                         $spendingAmount = $weekTransactions->flatten()->sum(function ($transaction) {
                             return $transaction->in_out ? 0 : $transaction->amount;
                         });
                     @endphp
                     {{ number_format($spendingAmount, 0) }}
-                </th>
-                <th class="text-right">{{ number_format($incomeAmount - $spendingAmount, 0) }}</th>
+                </td>
+                <td class="text-right">{{ number_format($incomeAmount - $spendingAmount, 0) }}</td>
             </tr>
         </tfoot>
     </table>
