@@ -34,7 +34,7 @@ class CategoriesController extends Controller
 
         return response()->json([
             'message' => __('category.created'),
-            'data' => $category,
+            'data' => $category->fresh(),
         ], 201);
     }
 

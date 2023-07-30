@@ -15,6 +15,8 @@ class Category extends Model
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const REPORT_VISIBILITY_PUBLIC = 'public';
+    const REPORT_VISIBILITY_INTERNAL = 'internal';
 
     protected $appends = ['status'];
 
@@ -23,7 +25,9 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'color', 'status_id', 'book_id', 'creator_id'];
+    protected $fillable = [
+        'name', 'description', 'color', 'status_id', 'book_id', 'creator_id', 'report_visibility_code',
+    ];
 
     /**
      * Category belongs to user creator relation.

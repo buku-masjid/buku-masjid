@@ -32,6 +32,10 @@ return [
     'name' => 'Category Name',
     'description' => 'Category Description',
     'color' => 'Category Color',
+    'visibility' => 'Visibility',
+    'report_visibility' => 'Report Visibility',
+    'report_visibility_public' => 'Public',
+    'report_visibility_internal' => 'Internal',
 
     // Relations
     'transactions' => 'Category Transaction List',

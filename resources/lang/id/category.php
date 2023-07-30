@@ -32,6 +32,10 @@ return [
     'name' => 'Nama Kategori',
     'description' => 'Deskripsi Kategori',
     'color' => 'Warna Kategori',
+    'visibility' => 'Visibilitas',
+    'report_visibility' => 'Visibilitas Laporan',
+    'report_visibility_public' => 'Publik',
+    'report_visibility_internal' => 'Internal',
 
     // Relations
     'transactions' => 'List Transaksi Kategori',

@@ -31,6 +31,7 @@ class UpdateRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'status_id' => ['required', Rule::in(Category::getConstants('STATUS'))],
             'book_id' => 'required|exists:books,id',
+            'report_visibility_code' => ['required', Rule::in(Category::getConstants('REPORT_VISIBILITY'))],
         ];
     }
 

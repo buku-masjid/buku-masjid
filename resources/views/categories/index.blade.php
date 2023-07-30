@@ -23,7 +23,7 @@
                         <th class="text-nowrap">{{ __('book.book') }}</th>
                         <th class="text-nowrap">{{ __('category.name') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
-                        <th>{{ __('category.description') }}</th>
+                        <th class="text-center">{{ __('category.visibility') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@
                         <td>{{ $category->book->name }}</td>
                         <td class="text-nowrap">{!! $category->name_label !!}</td>
                         <td class="text-nowrap text-center">{{ $category->status }}</td>
-                        <td>{{ $category->description }}</td>
+                        <td class="text-center">{{ __('category.report_visibility_'.$category->report_visibility_code) }}</td>
                         <td class="text-center text-nowrap">
                             @can('view', $category)
                                 {{ link_to_route(
