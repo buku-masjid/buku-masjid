@@ -15,6 +15,13 @@ Route::view('/', 'auth.login')->middleware('guest');
 
 Auth::routes(['register' => false]);
 
+Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function () {
+    Route::get('/', 'PublicReportController@inMonths')->name('index');
+    Route::get('/bulanan', 'PublicReportController@inMonths')->name('in_months');
+    Route::get('/mingguan', 'PublicReportController@inWeeks')->name('in_weeks');
+    Route::get('/per_kategori', 'PublicReportController@inOut')->name('in_out');
+});
+
 // Change Password Routes
 Route::get('change-password', 'Auth\ChangePasswordController@show');
 Route::patch('change-password', 'Auth\ChangePasswordController@update')->name('password.change');
