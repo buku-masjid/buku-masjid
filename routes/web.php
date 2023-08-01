@@ -11,7 +11,7 @@
 |
 */
 
-Route::view('/', 'auth.login')->middleware('guest');
+Route::view('/', 'guest.welcome');
 
 Auth::routes(['register' => false]);
 
