@@ -23,11 +23,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 </head>
 <body>
-    <div class="page">
-        <div class="page-single">
-            <div class="container">
-                @yield('content')
-            </div>
+    <div class="page-single">
+        <div class="container">
+            @yield('content')
         </div>
     </div>
     <script src="{{ asset('js/app.js') }}" ></script>
