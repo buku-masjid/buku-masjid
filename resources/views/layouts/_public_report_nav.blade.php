@@ -1,5 +1,3 @@
-<h4 class="page-title mb-3">{{ __('report.report') }}</h4>
-
 <div class="list-group list-group-transparent mb-0">
     <a href="{{ route('public_reports.in_months', Request::all()) }}" class="list-group-item list-group-item-action d-flex align-items-center {{ in_array(Request::segment(2), [null, 'bulanan']) ? 'active' : '' }}">
         <span class="icon mr-2"><i class="fe fe-home"></i></span>{{ __('report.view_monthly') }}
