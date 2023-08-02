@@ -40,16 +40,44 @@
                 @if ($dayName)
                     <tr><td class="text-center strong">{{ strtoupper($dayName) }}</td><td colspan="4">&nbsp;</td></tr>
                 @endif
-                @foreach ($daysTransactions as $transaction)
-                <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
-                    <td class="text-center">{{ $transaction->date }}</td>
-                    <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
-                        {{ $transaction->description }}
-                    </td>
-                    <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
-                    <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
-                    <td class="text-center text-nowrap">&nbsp;</td>
-                </tr>
+                @foreach ($daysTransactions->groupBy('category.report_visibility_code') as $categoryVisibility => $visibilityCategorizedTransactions)
+                    @foreach ($visibilityCategorizedTransactions->groupBy('category.name') as $categoryName => $categorizedTransactions)
+                        @if ($categoryVisibility == App\Models\Category::REPORT_VISIBILITY_INTERNAL)
+                            <tr>
+                                <td class="text-center">{{ $categorizedTransactions->first()->date }}</td>
+                                <td>{{ $categoryName }}</td>
+                                <td class="text-right text-nowrap">
+                                    @php
+                                        $incomeAmount = $categorizedTransactions->sum(function ($transaction) {
+                                            return $transaction->in_out ? $transaction->amount : 0;
+                                        });
+                                    @endphp
+                                    {{ $incomeAmount ? number_format($incomeAmount) : '' }}
+                                </td>
+                                <td class="text-right text-nowrap">
+                                    @php
+                                        $spendingAmount = $categorizedTransactions->sum(function ($transaction) {
+                                            return !$transaction->in_out ? $transaction->amount : 0;
+                                        });
+                                    @endphp
+                                    {{ $spendingAmount ? number_format($spendingAmount) : '' }}
+                                </td>
+                                <td class="text-center text-nowrap">&nbsp;</td>
+                            </tr>
+                        @else
+                            @foreach ($categorizedTransactions as $transaction)
+                            <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
+                                <td class="text-center">{{ $transaction->date }}</td>
+                                <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
+                                    {{ $transaction->description }}
+                                </td>
+                                <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                                <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                                <td class="text-center text-nowrap">&nbsp;</td>
+                            </tr>
+                            @endforeach
+                        @endif
+                    @endforeach
                 @endforeach
             @endforeach
         </tbody>
