@@ -34,12 +34,16 @@
                     <div class="offset-0 offset-lg-2 col-12 col-lg-8">
                     <div class="py-1">
                         <nav class="nav d-flex justify-content-between">
-                            <a class="p-2" href="{{ url('/') }}"><i class="fe fe-home"></i> Beranda</a>
-                            <a class="p-2" href="{{ route('public_reports.index') }}">{{ __('report.view_report') }}</a>
+                            <a class="p-2 {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
+                                <i class="fe fe-home"></i> {{ __('app.home') }}
+                            </a>
+                            <a class="p-2 {{ in_array(Request::segment(1), ['laporan-kas']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_reports.index') }}">
+                                <i class="fe fe-layout"></i> {{ __('report.view_report') }}
+                            </a>
                             @auth
-                            <a class="p-2" href="{{ route('home') }}">{{ auth()->user()->name }}</a>
+                            <a class="p-2 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
                             @else
-                            <a class="p-2" href="{{ route('login') }}">{{ __('auth.login') }}</a>
+                            <a class="p-2 text-dark" href="{{ route('login') }}"><i class="fe fe-user"></i> {{ __('auth.login') }}</a>
                             @endauth
                         </nav>
                     </div>

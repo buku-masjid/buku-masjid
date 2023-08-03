@@ -19,6 +19,8 @@ return [
     'level' => 'Level',
     'not_available' => 'Not Available',
     'system' => 'System',
+    'home' => 'Home',
+    'public_home' => 'Public Home',
 
     // Action
     'add' => 'Add',

@@ -19,6 +19,8 @@ return [
     'level' => 'Level',
     'not_available' => 'Tidak Tersedia',
     'system' => 'Sistem',
+    'home' => 'Beranda',
+    'public_home' => 'Beranda Publik',
 
     // Action
     'add' => 'Tambah',
