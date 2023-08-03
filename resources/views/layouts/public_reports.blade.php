@@ -5,15 +5,9 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-lg-3">
-        @include('layouts._public_report_nav')
-        <hr class="my-2">
-    </div>
-    <div class="col-lg-9">
-        @yield('content-report')
-    </div>
-</div>
+@include('layouts._public_report_nav')
+<hr class="mt-2 mb-4">
+@yield('content-report')
 @endsection
 
 @section('styles')
