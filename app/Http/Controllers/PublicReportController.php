@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\BankAccountBalance;
 use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class PublicReportController extends ReportsController
+class PublicReportController extends Controller
 {
     public function inMonths(Request $request)
     {
