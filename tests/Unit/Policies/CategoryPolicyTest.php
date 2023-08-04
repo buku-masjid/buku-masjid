@@ -13,40 +13,40 @@ class CategoryPolicyTest extends TestCase
     /** @test */
     public function user_can_create_category()
     {
-        $user = $this->createUser();
-        $this->assertTrue($user->can('create', new Category));
+        $admin = $this->createUser('admin');
+        $this->assertTrue($admin->can('create', new Category));
     }
 
     /** @test */
     public function user_can_only_view_their_own_category_detail()
     {
-        $user = $this->createUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $admin = $this->createUser('admin');
+        $category = factory(Category::class)->create(['creator_id' => $admin->id]);
         $othersCategory = factory(Category::class)->create();
 
-        $this->assertTrue($user->can('view', $category));
-        $this->assertFalse($user->can('view', $othersCategory));
+        $this->assertTrue($admin->can('view', $category));
+        $this->assertFalse($admin->can('view', $othersCategory));
     }
 
     /** @test */
     public function user_can_only_update_their_own_category()
     {
-        $user = $this->createUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $admin = $this->createUser('admin');
+        $category = factory(Category::class)->create(['creator_id' => $admin->id]);
         $othersCategory = factory(Category::class)->create();
 
-        $this->assertTrue($user->can('update', $category));
-        $this->assertFalse($user->can('update', $othersCategory));
+        $this->assertTrue($admin->can('update', $category));
+        $this->assertFalse($admin->can('update', $othersCategory));
     }
 
     /** @test */
     public function user_can_only_delete_their_own_category()
     {
-        $user = $this->createUser();
-        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+        $admin = $this->createUser('admin');
+        $category = factory(Category::class)->create(['creator_id' => $admin->id]);
         $othersCategory = factory(Category::class)->create();
 
-        $this->assertTrue($user->can('delete', $category));
-        $this->assertFalse($user->can('delete', $othersCategory));
+        $this->assertTrue($admin->can('delete', $category));
+        $this->assertFalse($admin->can('delete', $othersCategory));
     }
 }

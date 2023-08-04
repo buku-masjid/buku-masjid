@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
         return $user;
     }
 
-    protected function createUser($userDataOverrides = [])
+    protected function createUser($role = 'admin', $userDataOverrides = [])
     {
         return factory(User::class)->create($userDataOverrides);
     }
