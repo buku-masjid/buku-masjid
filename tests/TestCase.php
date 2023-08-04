@@ -21,6 +21,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function createUser($role = 'admin', $userDataOverrides = [])
     {
+        if ($role == 'admin') {
+            $userDataOverrides = array_merge($userDataOverrides, ['role_id' => User::ROLE_ADMIN]);
+        }
+
         return factory(User::class)->create($userDataOverrides);
     }
 }

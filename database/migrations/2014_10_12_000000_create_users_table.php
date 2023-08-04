@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->unsignedTinyInteger('role_id');
             $table->char('api_token', 24);
             $table->boolean('is_active')->default(1);
             $table->date('account_start_date')->nullable();
