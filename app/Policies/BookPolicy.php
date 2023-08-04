@@ -12,7 +12,7 @@ class BookPolicy
 
     public function create(User $user, Book $book)
     {
-        return true;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
     public function view(User $user, Book $book)
@@ -22,11 +22,21 @@ class BookPolicy
 
     public function update(User $user, Book $book)
     {
-        return true;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
     public function delete(User $user, Book $book)
     {
-        return $user->id == $book->creator_id;
+        if ($book->creator_id == null) {
+            return false;
+        }
+        if (!in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE])) {
+            return false;
+        }
+        if (!in_array($user->role_id, [User::ROLE_ADMIN]) && $book->creator_id != $user->id) {
+            return false;
+        }
+
+        return true;
     }
 }
