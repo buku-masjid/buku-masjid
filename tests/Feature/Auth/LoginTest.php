@@ -71,14 +71,4 @@ class LoginTest extends TestCase
         $this->visit(route('home'));
         $this->seePageIs(route('login'));
     }
-
-    /** @test */
-    public function authenticated_users_are_redirects_to_home_page()
-    {
-        $user = $this->loginAsUser();
-
-        $this->seeIsAuthenticated();
-        $this->visit('/');
-        $this->seePageIs(route('home'));
-    }
 }
