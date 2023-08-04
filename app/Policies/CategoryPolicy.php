@@ -10,54 +10,23 @@ class CategoryPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can create category.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Models\Category  $category
-     * @return mixed
-     */
     public function create(User $user, Category $category)
     {
-        // Update $user authorization to create $category here.
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
+    }
+
+    public function view(User $user, Category $category)
+    {
         return true;
     }
 
-    /**
-     * Determine whether the user can view the category.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Models\Category  $category
-     * @return mixed
-     */
-    public function view(User $user, Category $category)
-    {
-        return $user->id == $category->creator_id;
-    }
-
-    /**
-     * Determine whether the user can update the category.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Models\Category  $category
-     * @return mixed
-     */
     public function update(User $user, Category $category)
     {
-        // Update $user authorization to update $category here.
-        return $user->id == $category->creator_id;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    /**
-     * Determine whether the user can delete the category.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Models\Category  $category
-     * @return mixed
-     */
     public function delete(User $user, Category $category)
     {
-        // Update $user authorization to delete $category here.
-        return $user->id == $category->creator_id;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 }
