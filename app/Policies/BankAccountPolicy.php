@@ -12,21 +12,21 @@ class BankAccountPolicy
 
     public function create(User $user, BankAccount $bankAccount)
     {
-        return true;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
     public function view(User $user, BankAccount $bankAccount)
     {
-        return $user->id == $bankAccount->creator_id;
+        return true;
     }
 
     public function update(User $user, BankAccount $bankAccount)
     {
-        return $user->id == $bankAccount->creator_id;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
     public function delete(User $user, BankAccount $bankAccount)
     {
-        return $user->id == $bankAccount->creator_id;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 }
