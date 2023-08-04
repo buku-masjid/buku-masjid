@@ -23,15 +23,15 @@
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <header class="py-5 text-center">
             <a class="h1 text-dark" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
         </header>
     </div>
-        <div class="navbar-light bg-white shadow-sm mb-4">
-            <div class="container">
-                <div class="row">
-                    <div class="offset-0 offset-lg-2 col-12 col-lg-8">
+    <div class="navbar-light bg-white shadow-sm mb-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
                     <div class="py-1">
                         <nav class="nav d-flex justify-content-between">
                             <a class="p-2 {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
@@ -51,9 +51,9 @@
             </div>
         </div>
     </div>
-    <main role="main" class="container">
+    <main role="main" class="container-fluid">
         <div class="row">
-            <div class="offset-lg-2 col-lg-8">
+            <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
                 @yield('content')
             </div>
         </div>
