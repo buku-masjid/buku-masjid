@@ -32,4 +32,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getRoleAttribute()
+    {
+        if ($this->role_id == self::ROLE_CHAIRMAN) {
+            return __('user.role_chairman');
+        }
+        if ($this->role_id == self::ROLE_SECRETARY) {
+            return __('user.role_secretary');
+        }
+        if ($this->role_id == self::ROLE_FINANCE) {
+            return __('user.role_finance');
+        }
+
+        return __('user.role_admin');
+    }
 }
