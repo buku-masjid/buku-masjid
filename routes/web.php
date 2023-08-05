@@ -13,7 +13,7 @@
 
 Route::view('/', 'guest.welcome');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function () {
     Route::get('/', 'PublicReportController@inMonths')->name('index');
