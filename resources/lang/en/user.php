@@ -25,6 +25,13 @@ return [
     'deleted' => 'User has been deleted.',
     'undeleted' => 'User not deleted.',
 
+    // Roles
+    'role' => 'Role',
+    'role_admin' => 'Administrator',
+    'role_chairman' => 'Chairman',
+    'role_secretary' => 'Secretary',
+    'role_finance' => 'Finance',
+
     // Attributes
     'name' => 'User Name',
     'email' => 'Email Address',
