@@ -25,6 +25,12 @@ return [
     'deleted' => 'Hapus data User telah berhasil.',
     'undeleted' => 'Data User gagal dihapus.',
 
+    // Roles
+    'role_admin' => 'Administrator',
+    'role_chairman' => 'Ketua',
+    'role_secretary' => 'Sekretaris',
+    'role_finance' => 'Bendahara',
+
     // Attributes
     'name' => 'Nama User',
     'email' => 'Alamat Email',

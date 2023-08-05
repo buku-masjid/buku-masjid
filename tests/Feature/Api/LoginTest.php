@@ -12,7 +12,7 @@ class LoginTest extends TestCase
     /** @test */
     public function user_can_login_via_api()
     {
-        $user = $this->createUser(['password' => bcrypt('testing')]);
+        $user = $this->createUser('admin', ['password' => bcrypt('testing')]);
         $this->postJson(route('api.login'), [
             'email' => $user->email,
             'password' => 'testing',

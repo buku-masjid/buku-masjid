@@ -13,46 +13,75 @@ class BookPolicyTest extends TestCase
     /** @test */
     public function user_can_create_book()
     {
-        $user = $this->createUser();
-        $this->assertTrue($user->can('create', new Book));
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $this->assertTrue($admin->can('create', new Book));
+        $this->assertFalse($chairman->can('create', new Book));
+        $this->assertFalse($secretary->can('create', new Book));
+        $this->assertTrue($finance->can('create', new Book));
     }
 
     /** @test */
-    public function user_can_view_book_detail()
+    public function user_can_see_book_details()
     {
-        $user = $this->createUser();
-        $ownedBook = factory(Book::class)->create(['creator_id' => $user->id]);
-        $othersBook = factory(Book::class)->create();
-        $systemsBook = factory(Book::class)->create(['creator_id' => null]);
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
 
-        $this->assertTrue($user->can('view', $ownedBook));
-        $this->assertTrue($user->can('view', $othersBook));
-        $this->assertTrue($user->can('view', $systemsBook));
+        $book = factory(Book::class)->create(['creator_id' => $admin->id]);
+        $othersBook = factory(Book::class)->create();
+
+        $this->assertTrue($admin->can('view', $book));
+        $this->assertTrue($admin->can('view', $othersBook));
+        $this->assertTrue($chairman->can('view', $book));
+        $this->assertTrue($secretary->can('view', $book));
+        $this->assertTrue($finance->can('view', $book));
     }
 
     /** @test */
-    public function user_can_update_book()
+    public function admin_and_finance_can_update_book()
     {
-        $user = $this->createUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        $othersBook = factory(Book::class)->create();
-        $systemsBook = factory(Book::class)->create(['creator_id' => null]);
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
 
-        $this->assertTrue($user->can('update', $book));
-        $this->assertTrue($user->can('update', $othersBook));
-        $this->assertTrue($user->can('update', $systemsBook));
+        $book = factory(Book::class)->create(['creator_id' => $admin->id]);
+        $othersBook = factory(Book::class)->create();
+
+        $this->assertTrue($admin->can('update', $book));
+        $this->assertTrue($admin->can('update', $othersBook));
+        $this->assertFalse($chairman->can('update', $book));
+        $this->assertFalse($secretary->can('update', $book));
+        $this->assertTrue($finance->can('update', $book));
     }
 
     /** @test */
-    public function user_can_only_delete_their_own_book()
+    public function admin_and_finance_can_delete_book()
     {
-        $user = $this->createUser();
-        $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        $othersBook = factory(Book::class)->create();
-        $systemsBook = factory(Book::class)->create(['creator_id' => null]);
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
 
-        $this->assertTrue($user->can('delete', $book));
-        $this->assertFalse($user->can('delete', $othersBook));
-        $this->assertFalse($user->can('delete', $systemsBook));
+        $adminBook = factory(Book::class)->create(['creator_id' => $admin->id]);
+        $financeBook = factory(Book::class)->create(['creator_id' => $finance->id]);
+        $systemBook = factory(Book::class)->create(['creator_id' => null]);
+
+        $this->assertTrue($admin->can('delete', $adminBook));
+        $this->assertTrue($admin->can('delete', $financeBook));
+        $this->assertFalse($admin->can('delete', $systemBook));
+
+        $this->assertFalse($chairman->can('delete', $adminBook));
+
+        $this->assertFalse($secretary->can('delete', $adminBook));
+
+        $this->assertFalse($finance->can('delete', $adminBook));
+        $this->assertTrue($finance->can('delete', $financeBook));
+        $this->assertFalse($finance->can('delete', $systemBook));
     }
 }

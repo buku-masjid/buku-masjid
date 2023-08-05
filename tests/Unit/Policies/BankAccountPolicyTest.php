@@ -13,40 +13,68 @@ class BankAccountPolicyTest extends TestCase
     /** @test */
     public function user_can_create_bank_account()
     {
-        $user = $this->createUser();
-        $this->assertTrue($user->can('create', new BankAccount));
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $this->assertTrue($admin->can('create', new BankAccount));
+        $this->assertFalse($chairman->can('create', new BankAccount));
+        $this->assertFalse($secretary->can('create', new BankAccount));
+        $this->assertTrue($finance->can('create', new BankAccount));
     }
 
     /** @test */
-    public function user_can_only_view_their_own_bank_account_detail()
+    public function user_can_see_bank_account_details()
     {
-        $user = $this->createUser();
-        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $user->id]);
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $admin->id]);
         $othersBankAccount = factory(BankAccount::class)->create();
 
-        $this->assertTrue($user->can('view', $bankAccount));
-        $this->assertFalse($user->can('view', $othersBankAccount));
+        $this->assertTrue($admin->can('view', $bankAccount));
+        $this->assertTrue($admin->can('view', $othersBankAccount));
+        $this->assertTrue($chairman->can('view', $bankAccount));
+        $this->assertTrue($secretary->can('view', $bankAccount));
+        $this->assertTrue($finance->can('view', $bankAccount));
     }
 
     /** @test */
-    public function user_can_only_update_their_own_bank_account()
+    public function admin_and_finance_can_update_bank_account()
     {
-        $user = $this->createUser();
-        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $user->id]);
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $admin->id]);
         $othersBankAccount = factory(BankAccount::class)->create();
 
-        $this->assertTrue($user->can('update', $bankAccount));
-        $this->assertFalse($user->can('update', $othersBankAccount));
+        $this->assertTrue($admin->can('update', $bankAccount));
+        $this->assertTrue($admin->can('update', $othersBankAccount));
+        $this->assertFalse($chairman->can('update', $bankAccount));
+        $this->assertFalse($secretary->can('update', $bankAccount));
+        $this->assertTrue($finance->can('update', $bankAccount));
     }
 
     /** @test */
-    public function user_can_only_delete_their_own_bank_account()
+    public function admin_and_finance_can_delete_bank_account()
     {
-        $user = $this->createUser();
-        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $user->id]);
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $admin->id]);
         $othersBankAccount = factory(BankAccount::class)->create();
 
-        $this->assertTrue($user->can('delete', $bankAccount));
-        $this->assertFalse($user->can('delete', $othersBankAccount));
+        $this->assertTrue($admin->can('delete', $bankAccount));
+        $this->assertTrue($admin->can('delete', $othersBankAccount));
+        $this->assertFalse($chairman->can('delete', $bankAccount));
+        $this->assertFalse($secretary->can('delete', $bankAccount));
+        $this->assertTrue($finance->can('delete', $bankAccount));
     }
 }
