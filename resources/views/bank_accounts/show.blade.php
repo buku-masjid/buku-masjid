@@ -8,7 +8,9 @@
     <h1 class="page-title">{{ $bankAccount->name }}</h1>
     <div class="page-subtitle">{{ __('bank_account.bank_account') }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success mr-2']) }}
+        @can('update', $bankAccount)
+            {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success mr-2']) }}
+        @endcan
         {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
     </div>
 </div>
