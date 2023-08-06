@@ -27,8 +27,8 @@
             <tr>
                 <td class="text-center">1</td>
                 <td>Saldo per {{ Carbon\Carbon::parse($lastBankAccountBalanceOfTheMonth->date)->isoFormat('D MMMM Y') }} di BANK</td>
-                <td>-</td>
-                <td>-</td>
+                <td class="text-right">-</td>
+                <td class="text-right">-</td>
                 <td class="text-right text-nowrap">{{ number_format($lastBankAccountBalanceOfTheMonth->amount, 2) }}</td>
             </tr>
             <tr>
@@ -119,16 +119,16 @@
                     @php
                         $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
                     @endphp
-                    {{ number_format($currentMonthBalance, 0) }}
+                    {{ number_format($currentMonthBalance, 2) }}
                 </th>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
-                <th>-</th>
-                <th>-</th>
+                <th class="text-right">-</th>
+                <th class="text-right">-</th>
                 <th class="text-right">
-                    {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 0) }}
+                    {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 2) }}
                 </th>
             </tr>
         </tfoot>
