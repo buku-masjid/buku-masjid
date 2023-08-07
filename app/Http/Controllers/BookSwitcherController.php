@@ -14,6 +14,7 @@ class BookSwitcherController extends Controller
         ]);
 
         auth()->setActiveBook($validatedPayload['switch_book']);
+        flash(__('book.switched', ['book_name' => auth()->activeBook()->name]));
 
         return back();
     }

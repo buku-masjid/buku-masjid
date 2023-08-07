@@ -27,6 +27,8 @@ return [
     'deleted' => 'Book has been deleted.',
     'undeleted' => 'Book not deleted.',
     'undeleteable' => 'Book data cannot be deleted.',
+    'switch' => 'Switch Book',
+    'switched' => 'Book switched to: :book_name',
 
     // Attributes
     'name' => 'Book Name',

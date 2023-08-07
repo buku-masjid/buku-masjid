@@ -38,6 +38,31 @@ class SelectActiveBookTest extends TestCase
 
         $this->press('switch_book_'.$book2->id);
         $this->see($book2->name);
+        $this->seeText(__('book.switched', ['book_name' => $book2->name]));
         $this->seeInSession('active_book_id', $book2->id);
+    }
+
+    /** @test */
+    public function user_can_change_active_book_from_book_list_page()
+    {
+        $user = $this->loginAsUser();
+        $book1 = factory(Book::class)->create(['name' => 'Kegiatan Rutin']);
+        $book2 = factory(Book::class)->create(['name' => 'Ramadhan 2023']);
+
+        $this->visitRoute('books.index');
+        $this->dontSeeElement('button', [
+            'type' => 'submit', 'id' => 'activate_book_'.$book1->id,
+        ]);
+        $this->seeElement('button', [
+            'type' => 'submit', 'id' => 'activate_book_'.$book2->id,
+        ]);
+
+        $this->press('activate_book_'.$book2->id);
+        $this->see($book2->name);
+        $this->seeText(__('book.switched', ['book_name' => $book2->name]));
+        $this->seeInSession('active_book_id', $book2->id);
+        $this->dontSeeElement('button', [
+            'type' => 'submit', 'id' => 'activate_book_'.$book2->id,
+        ]);
     }
 }

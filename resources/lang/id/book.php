@@ -27,6 +27,8 @@ return [
     'deleted' => 'Hapus data Buku telah berhasil.',
     'undeleted' => 'Data Buku gagal dihapus.',
     'undeleteable' => 'Data Buku tidak dapat dihapus.',
+    'switch' => 'Buka Buku',
+    'switched' => 'Pindah buku ke: :book_name',
 
     // Attributes
     'name' => 'Nama Buku',
