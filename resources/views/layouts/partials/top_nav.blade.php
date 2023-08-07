@@ -10,6 +10,9 @@
                 @endguest
             </a>
         </div>
+        <a class="d-block d-sm-none {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
+            <i class="fe fe-home"></i> {{ __('app.public_home') }}
+        </a>
         @auth
             @if (auth()->activeBook())
                 @include ('layouts._top_nav_active_book')
@@ -18,6 +21,10 @@
 
         <!-- Right Side Of Navbar -->
         <div class="nav navbar-nav ml-auto d-none d-sm-block">
+            <a class="xs-navbar mr-4" href="{{ url('/') }}">
+                <i class="fe fe-home h3 d-inline d-lg-none"></i>
+                <span class="d-none d-lg-inline"><i class="fe fe-home"></i> {{ __('app.public_home') }}</span>
+            </a>
             <!-- Authentication Links -->
             <a class="xs-navbar mr-4" href="{{ route('transactions.index') }}" title="{{ __('transaction.transaction') }}">
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>

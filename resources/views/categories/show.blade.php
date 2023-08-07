@@ -58,14 +58,14 @@
                     @endforelse
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <th colspan="3" class="text-right">{{ __('app.total') }}</th>
-                        <th class="text-right">
+                    <tr class="strong">
+                        <td colspan="3" class="text-right">{{ __('app.total') }}</td>
+                        <td class="text-right">
                             {{ format_number($transactions->sum(function ($transaction) {
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}
-                        </th>
-                        <th>&nbsp;</th>
+                        </td>
+                        <td>&nbsp;</td>
                     </tr>
                 </tfoot>
             </table>

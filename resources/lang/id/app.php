@@ -7,7 +7,7 @@ return [
     'yes' => 'Ya',
     'label' => 'Label',
     'action' => 'Pilihan',
-    'welcome' => 'Selamat Datang',
+    'welcome' => 'Assalamu\'alaikum',
     'active' => 'Aktif',
     'inactive' => 'Non Aktif',
     'show_detail_title' => 'Lihat detail :type :name',
@@ -19,6 +19,8 @@ return [
     'level' => 'Level',
     'not_available' => 'Tidak Tersedia',
     'system' => 'Sistem',
+    'home' => 'Beranda',
+    'public_home' => 'Beranda Publik',
 
     // Action
     'add' => 'Tambah',

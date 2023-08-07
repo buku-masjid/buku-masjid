@@ -1,18 +1,29 @@
-@extends('layouts.print')
+@extends('layouts.public_reports')
 
-@section('title', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('subtitle', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
-@section('content')
-<htmlpageheader name="wpHeader">
-    {{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
-    <img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
-    <h2 class="text-center strong" style="margin: 1em 0">
-        {{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}
-    </h2>
-</htmlpageheader>
+@section('content-report')
 
-<div class="">
-    <table class="table">
+<div class="page-header mt-0">
+    <h1 class="page-title">{{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}</h1>
+    <div class="page-options d-flex">
+        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+        {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
+        {{ Form::select('month', get_months(), $month, ['class' => 'form-control mr-1']) }}
+        {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
+        <div class="form-group mt-4 mt-sm-0">
+            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
+            {{ link_to_route('public_reports.in_months', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
+        </div>
+        <div class="form-group">
+            @livewire('prev-month-button', ['routeName' => 'public_reports.in_months', 'buttonClass' => 'btn btn-secondary mr-1'])
+            @livewire('next-month-button', ['routeName' => 'public_reports.in_months', 'buttonClass' => 'btn btn-secondary'])
+        </div>
+        {{ Form::close() }}
+    </div>
+</div>
+<div class="card table-responsive">
+    <table class="table table-sm card-table table-hover table-bordered">
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.table_no') }}</th>
@@ -100,54 +111,39 @@
         </tbody>
         @if (!$groupedTransactions->isEmpty())
         <tfoot>
-            <tr>
+            <tr class="strong">
                 <td>&nbsp;</td>
-                <th class="text-center">Selisih saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
-                <th class="text-right">
+                <td class="text-center">Selisih saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+                <td class="text-right">
                     @php
                         $currentMonthIncome = $groupedTransactions->has(1) ? $groupedTransactions[1]->sum('amount') : 0;
                     @endphp
                     {{ number_format($lastMonthBalance + $currentMonthIncome, 0) }}
-                </th>
-                <th class="text-right">
+                </td>
+                <td class="text-right">
                     @php
                         $currentMonthSpending = $groupedTransactions->has(0) ? $groupedTransactions[0]->sum('amount') : 0;
                     @endphp
                     {{ number_format($currentMonthSpending, 0) }}
-                </th>
-                <th class="text-right">
+                </td>
+                <td class="text-right">
                     @php
                         $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
                     @endphp
                     {{ number_format($currentMonthBalance, 2) }}
-                </th>
+                </td>
             </tr>
-            <tr>
+            <tr class="strong">
                 <td>&nbsp;</td>
-                <th class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
-                <th class="text-right">-</th>
-                <th class="text-right">-</th>
-                <th class="text-right">
+                <td class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+                <td class="text-right">-</td>
+                <td class="text-right">-</td>
+                <td class="text-right">
                     {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 2) }}
-                </th>
+                </td>
             </tr>
         </tfoot>
         @endif
     </table>
 </div>
-@endsection
-
-@section('style')
-<style>
-    @page {
-        size: auto;
-        margin-top: 160px;
-        margin-bottom: 50px;
-        margin-left: 50px;
-        margin-right: 50px;
-        margin-header: 20px;
-        margin-footer: 20px;
-        header: html_wpHeader;
-    }
-</style>
 @endsection

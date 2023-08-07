@@ -1,4 +1,4 @@
-@extends('layouts.reports')
+@extends('layouts.public_reports')
 
 @section('subtitle', __('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
 
@@ -13,12 +13,11 @@
         {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.in_out', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.in_out_pdf', __('report.export_pdf'), ['year' => $year, 'month' => $month], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('public_reports.in_out', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group">
-            @livewire('prev-month-button', ['routeName' => 'reports.in_out', 'buttonClass' => 'btn btn-secondary mr-1'])
-            @livewire('next-month-button', ['routeName' => 'reports.in_out', 'buttonClass' => 'btn btn-secondary'])
+            @livewire('prev-month-button', ['routeName' => 'public_reports.in_out', 'buttonClass' => 'btn btn-secondary mr-1'])
+            @livewire('next-month-button', ['routeName' => 'public_reports.in_out', 'buttonClass' => 'btn btn-secondary'])
         </div>
         {{ Form::close() }}
     </div>
@@ -43,19 +42,22 @@
                     </tr>
                 </thead>
                 @if ($groupedTransactions->has(1))
-                <tbody>
-                    @php
-                        $key = 0;
-                    @endphp
-                    @foreach ($groupedTransactions[1]->where('category_id', $incomeCategory->id) as $transaction)
-                    <tr>
-                        <td class="text-center col-1">{{ ++$key }}</td>
-                        <td class="text-center col-2">{{ $transaction->date }}</td>
-                        <td class="col-4">{{ $transaction->description }}</td>
-                        <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                @if ($incomeCategory->report_visibility_code == App\Models\Category::REPORT_VISIBILITY_INTERNAL)
+                @else
+                    <tbody>
+                        @php
+                            $key = 0;
+                        @endphp
+                        @foreach ($groupedTransactions[1]->where('category_id', $incomeCategory->id) as $transaction)
+                        <tr>
+                            <td class="text-center col-1">{{ ++$key }}</td>
+                            <td class="text-center col-2">{{ $transaction->date }}</td>
+                            <td class="col-4">{{ $transaction->description }}</td>
+                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                @endif
                 <tfoot>
                     <tr class="strong">
                         <td colspan="3" class="text-right">{{ __('app.total') }} {{ $incomeCategory->name }}</td>
@@ -86,19 +88,32 @@
                     </tr>
                 </thead>
                 @if ($groupedTransactions->has(0))
-                <tbody>
-                    @php
-                        $key = 0;
-                    @endphp
-                    @foreach ($groupedTransactions[0]->where('category_id', $spendingCategory->id) as $transaction)
-                    <tr>
-                        <td class="text-center col-1">{{ ++$key }}</td>
-                        <td class="text-center col-2">{{ $transaction->date }}</td>
-                        <td class="col-4">{{ $transaction->description }}</td>
-                        <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                @if ($spendingCategory->report_visibility_code == App\Models\Category::REPORT_VISIBILITY_INTERNAL)
+                    <tbody>
+                        <tr>
+                            <td class="text-center col-1">&nbsp;</td>
+                            <td class="text-center col-2">&nbsp;</td>
+                            <td class="col-4">{{ $spendingCategory->name }}</td>
+                            <td class="text-right col-3">
+                                {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                @else
+                    <tbody>
+                        @php
+                            $key = 0;
+                        @endphp
+                        @foreach ($groupedTransactions[0]->where('category_id', $spendingCategory->id) as $transaction)
+                        <tr>
+                            <td class="text-center col-1">{{ ++$key }}</td>
+                            <td class="text-center col-2">{{ $transaction->date }}</td>
+                            <td class="col-4">{{ $transaction->description }}</td>
+                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                @endif
                 <tfoot>
                     <tr class="strong">
                         <td colspan="3" class="text-right">{{ __('app.total') }} {{ $spendingCategory->name }}</td>
