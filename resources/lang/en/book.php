@@ -31,6 +31,10 @@ return [
     // Attributes
     'name' => 'Book Name',
     'description' => 'Book Description',
+    'visibility' => 'Visibility',
+    'report_visibility' => 'Report Visibility',
+    'report_visibility_public' => 'Public',
+    'report_visibility_internal' => 'Internal',
 
     // Relations
     'transactions' => 'Book Transactions',

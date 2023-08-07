@@ -41,6 +41,7 @@ class ManageBookTest extends TestCase
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
     }
 
@@ -67,6 +68,7 @@ class ManageBookTest extends TestCase
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
     }
 
@@ -74,7 +76,11 @@ class ManageBookTest extends TestCase
     public function user_can_edit_a_book()
     {
         $user = $this->loginAsUser();
-        $book = factory(Book::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
+        $book = factory(Book::class)->create([
+            'name' => 'Testing 123',
+            'creator_id' => $user->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
+        ]);
         $bankAccount = factory(BankAccount::class)->create();
 
         $this->visitRoute('books.index');
@@ -86,6 +92,7 @@ class ManageBookTest extends TestCase
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
         ]);
 
         $this->seeRouteIs('books.index');
@@ -95,6 +102,7 @@ class ManageBookTest extends TestCase
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
         ]);
     }
 

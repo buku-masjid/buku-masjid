@@ -22,6 +22,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('book.name') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
+                        <th class="text-center">{{ __('book.visibility') }}</th>
                         <th>{{ __('bank_account.bank_account') }}</th>
                         <th>{{ __('book.description') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
@@ -33,6 +34,7 @@
                         <td class="text-center">{{ $key + $books->firstItem() }}</td>
                         <td class="text-nowrap">{{ $book->name }}</td>
                         <td class="text-nowrap text-center">{{ $book->status }}</td>
+                        <td class="text-center">{{ __('book.report_visibility_'.$book->report_visibility_code) }}</td>
                         <td>{{ $book->bankAccount->name }}</td>
                         <td>{{ $book->description }}</td>
                         <td class="text-center text-nowrap">

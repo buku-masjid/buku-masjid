@@ -15,8 +15,12 @@ class Book extends Model
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const REPORT_VISIBILITY_PUBLIC = 'public';
+    const REPORT_VISIBILITY_INTERNAL = 'internal';
 
-    protected $fillable = ['name', 'description', 'status_id', 'creator_id', 'bank_account_id'];
+    protected $fillable = [
+        'name', 'description', 'status_id', 'creator_id', 'bank_account_id', 'report_visibility_code',
+    ];
 
     public function creator()
     {
