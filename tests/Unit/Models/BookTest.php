@@ -102,4 +102,13 @@ class BookTest extends TestCase
         $this->assertFalse($book->bankAccount->exists);
         $this->assertEquals(__('book.no_bank_account'), $book->bankAccount->name);
     }
+
+    /** @test */
+    public function book_model_has_nonce_attribute()
+    {
+        $book = factory(Book::class)->create();
+        $nonceString = sha1($book->id.config('app.key'));
+
+        $this->assertEquals($nonceString, $book->nonce);
+    }
 }

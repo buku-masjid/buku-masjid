@@ -71,4 +71,9 @@ class Book extends Model
             return $transaction->in_out ? $transaction->amount : -$transaction->amount;
         });
     }
+
+    public function getNonceAttribute()
+    {
+        return sha1($this->id.config('app.key'));
+    }
 }
