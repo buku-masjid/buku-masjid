@@ -7,6 +7,7 @@ return [
     'view_yearly_label' => 'Lihat Tahun',
     'view_monthly_label' => 'Lihat Bulan',
     'view_report' => 'Lihat Laporan',
+    'select_report' => 'Pilih Laporan',
     'this_year' => 'Tahun Ini',
     'this_month' => 'Bulan Ini',
     'prev_month' => 'Bulan Sblm',

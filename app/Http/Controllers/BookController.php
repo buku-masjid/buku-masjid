@@ -80,6 +80,7 @@ class BookController extends Controller
             'description' => 'nullable|max:255',
             'status_id' => ['required', Rule::in(Book::getConstants('STATUS'))],
             'bank_account_id' => 'nullable|exists:bank_accounts,id',
+            'report_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
         ]);
         $book->update($bookData);
 

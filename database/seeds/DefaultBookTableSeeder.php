@@ -11,6 +11,7 @@ class DefaultBookTableSeeder extends Seeder
             'name' => 'Kegiatan Rutin',
             'description' => 'Buku catatan keuangan kegiatan rutin',
             'creator_id' => null,
+            'report_visibility_code' => 'public',
         ]);
     }
 }

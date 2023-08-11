@@ -7,6 +7,7 @@ return [
     'view_yearly_label' => 'View Yearly',
     'view_monthly_label' => 'View Monthly',
     'view_report' => 'View Report',
+    'select_report' => 'Select Report',
     'this_year' => 'This Year',
     'this_month' => 'This Month',
     'prev_month' => 'Prev Month',

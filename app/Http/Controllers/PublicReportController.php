@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccountBalance;
+use App\Models\Book;
 use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,6 +12,15 @@ use Illuminate\Support\Collection;
 
 class PublicReportController extends Controller
 {
+    public function index()
+    {
+        $books = Book::where('status_id', Book::STATUS_ACTIVE)
+            ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
+            ->get();
+
+        return view('public_reports.index', compact('books'));
+    }
+
     public function inMonths(Request $request)
     {
         $year = $request->get('year', date('Y'));

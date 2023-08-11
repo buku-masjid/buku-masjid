@@ -31,6 +31,13 @@ class AppServiceProvider extends ServiceProvider
             return $activeBook;
         });
         SessionGuard::macro('activeBookId', function () {
+            if (($bookId = request()->get('active_book_id')) && ($nonce = request()->get('nonce'))) {
+                $activeBook = Book::find($bookId);
+                if (!is_null($activeBook) && $activeBook->nonce == $nonce) {
+                    return $bookId;
+                }
+            }
+
             return $this->getSession()->get('active_book_id') ?: config('masjid.default_book_id');
         });
         TokenGuard::macro('activeBook', function () {

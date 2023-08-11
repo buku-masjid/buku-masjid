@@ -27,10 +27,16 @@ return [
     'deleted' => 'Book has been deleted.',
     'undeleted' => 'Book not deleted.',
     'undeleteable' => 'Book data cannot be deleted.',
+    'switch' => 'Switch Book',
+    'switched' => 'Book switched to: :book_name',
 
     // Attributes
     'name' => 'Book Name',
     'description' => 'Book Description',
+    'visibility' => 'Visibility',
+    'report_visibility' => 'Report Visibility',
+    'report_visibility_public' => 'Public',
+    'report_visibility_internal' => 'Internal',
 
     // Relations
     'transactions' => 'Book Transactions',
