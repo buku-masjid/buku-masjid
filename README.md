@@ -1,9 +1,9 @@
-# Dompet
+# Buku Masjid
 
 [![Build Status](https://travis-ci.org/nafiesl/dompet.svg?branch=master)](https://travis-ci.org/nafiesl/dompet)
 [![Coverage Status](https://coveralls.io/repos/github/nafiesl/dompet/badge.svg?branch=master)](https://coveralls.io/github/nafiesl/dompet?branch=master)
 
-Dompet is a personal bookkeeping web application, built with Laravel 5.
+Buku Masjid is a personal bookkeeping web application, built with Laravel 5.
 
 ## Objective
 Easy bookkeeping for personal income and spending (amount of money).
@@ -129,16 +129,16 @@ If you are considering to contribute to this repo. It is really nice.
 
 #### Transaction List on a Month
 
-![Dompet Monthly Transaction List](public/screenshots/01-monthly-transaction-list.jpg)
+![Buku Masjid Monthly Transaction List](public/screenshots/01-monthly-transaction-list.jpg)
 
 #### Transaction List on Selected Date
 
-![Dompet Daily Transaction List](public/screenshots/02-daily-transaction-list.jpg)
+![Buku Masjid Daily Transaction List](public/screenshots/02-daily-transaction-list.jpg)
 
 #### Transaction Summary Report
 
-![Dompet Daily Transaction List](public/screenshots/03-transaction-summary-report.jpg)
+![Buku Masjid Daily Transaction List](public/screenshots/03-transaction-summary-report.jpg)
 
 ## License
 
-Dompet project is a free and open-sourced software under [MIT License](LICENSE).
+Buku Masjid project is a free and open-sourced software under [MIT License](LICENSE).
