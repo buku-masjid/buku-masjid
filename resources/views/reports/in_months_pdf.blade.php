@@ -7,7 +7,11 @@
     {{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
     <img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
     <h2 class="text-center strong" style="margin: 1em 0">
-        {{ __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]) }}
+        @if (isset(auth()->activeBook()->report_titles['in_months']))
+            {{ auth()->activeBook()->report_titles['in_months'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+        @else
+            {{ __('report.monthly') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+        @endif
     </h2>
 </htmlpageheader>
 

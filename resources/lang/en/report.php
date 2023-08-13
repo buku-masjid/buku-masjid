@@ -15,7 +15,7 @@ return [
     'graph' => 'Summary Graph',
     'detail' => 'Report Detail',
     'view_monthly' => 'Monthly Report',
-    'monthly' => 'Report Month :year_month',
+    'monthly' => 'Report Month',
     'view_weekly' => 'Weekly Report',
     'weekly' => 'Transaction Report per Week - :year_month',
     'view_in_out' => 'Categorized Transactions',

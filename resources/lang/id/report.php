@@ -15,7 +15,7 @@ return [
     'graph' => 'Grafik Summary',
     'detail' => 'Detail Laporan',
     'view_monthly' => 'Laporan KAS Bulanan',
-    'monthly' => 'Laporan Bulan :year_month',
+    'monthly' => 'Laporan Bulan',
     'view_weekly' => 'Laporan KAS per Pekan',
     'weekly' => 'Laporan KAS per Pekan - :year_month',
     'view_in_out' => 'Laporan KAS per Kategori',

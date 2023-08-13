@@ -18,13 +18,18 @@ class ReportTitleController extends Controller
             'book_id' => ['required', 'in:'.$book->id],
             'nonce' => ['required', 'in:'.$book->nonce],
         ]);
+        $redirectRoute = 'reports.in_months';
         if ($request->has('reset_report_title.in_out')) {
             $bookData['report_titles']['in_out'] = null;
+            $redirectRoute = 'reports.in_out';
+        }
+        if ($request->has('reset_report_title.in_months')) {
+            $bookData['report_titles']['in_months'] = null;
         }
         $book->update(['report_titles' => $bookData['report_titles']]);
 
         flash(__('report.title_updated'), 'success');
 
-        return redirect()->route('reports.in_out');
+        return redirect()->route($redirectRoute);
     }
 }
