@@ -17,7 +17,7 @@ return [
     'view_monthly' => 'Laporan KAS Bulanan',
     'monthly' => 'Laporan Bulan',
     'view_weekly' => 'Laporan KAS per Pekan',
-    'weekly' => 'Laporan KAS per Pekan - :year_month',
+    'weekly' => 'Laporan KAS per Pekan',
     'view_in_out' => 'Laporan KAS per Kategori',
     'categorized_transactions' => 'Laporan Pemasukan dan Pengeluaran KAS',
     'export_pdf' => 'Export PDF',

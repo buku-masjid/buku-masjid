@@ -19,9 +19,17 @@ class ReportTitleController extends Controller
             'nonce' => ['required', 'in:'.$book->nonce],
         ]);
         $redirectRoute = 'reports.in_months';
+        if ($request->has('report_titles.in_out')) {
+            $redirectRoute = 'reports.in_out';
+        }
+        if ($request->has('report_titles.in_weeks')) {
+            $redirectRoute = 'reports.in_weeks';
+        }
         if ($request->has('reset_report_title.in_out')) {
             $bookData['report_titles']['in_out'] = null;
-            $redirectRoute = 'reports.in_out';
+        }
+        if ($request->has('reset_report_title.in_weeks')) {
+            $bookData['report_titles']['in_weeks'] = null;
         }
         if ($request->has('reset_report_title.in_months')) {
             $bookData['report_titles']['in_months'] = null;

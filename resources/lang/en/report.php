@@ -17,7 +17,7 @@ return [
     'view_monthly' => 'Monthly Report',
     'monthly' => 'Report Month',
     'view_weekly' => 'Weekly Report',
-    'weekly' => 'Transaction Report per Week - :year_month',
+    'weekly' => 'Transaction Report per Week',
     'view_in_out' => 'Categorized Transactions',
     'categorized_transactions' => 'Categorized Transactions Report',
     'export_pdf' => 'Export PDF',
