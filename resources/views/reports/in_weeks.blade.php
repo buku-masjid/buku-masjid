@@ -17,14 +17,14 @@
             @endphp
             {{ Form::text('report_titles[in_weeks]', $reportTitle, [
                 'required' => true,
-                'class' => 'form-control',
+                'class' => 'form-control form-control-sm',
                 'style' => 'width:100%; max-width:430px',
             ]) }}
             {{ Form::hidden('book_id', request('book_id')) }}
             {{ Form::hidden('nonce', request('nonce')) }}
-            {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success']) !!}
-            {{ link_to_route('reports.in_weeks', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
-            {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary', 'name' => 'reset_report_title[in_weeks]']) !!}
+            {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success btn-sm']) !!}
+            {{ link_to_route('reports.in_weeks', __('app.cancel'), [], ['class' => 'btn btn-secondary btn-sm']) }}
+            {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary btn-sm', 'name' => 'reset_report_title[in_weeks]']) !!}
         </div>
         {{ Form::close() }}
     </div>

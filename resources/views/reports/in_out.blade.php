@@ -17,14 +17,14 @@
             @endphp
             {{ Form::text('report_titles[in_out]', $reportTitle, [
                 'required' => true,
-                'class' => 'form-control',
+                'class' => 'form-control form-control-sm',
                 'style' => 'width:100%; max-width:430px',
             ]) }}
             {{ Form::hidden('book_id', request('book_id')) }}
             {{ Form::hidden('nonce', request('nonce')) }}
-            {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success']) !!}
-            {{ link_to_route('reports.in_out', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
-            {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary', 'name' => 'reset_report_title[in_out]']) !!}
+            {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success btn-sm']) !!}
+            {{ link_to_route('reports.in_out', __('app.cancel'), [], ['class' => 'btn btn-secondary btn-sm']) }}
+            {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary btn-sm', 'name' => 'reset_report_title[in_out]']) !!}
         </div>
         {{ Form::close() }}
     </div>
@@ -38,14 +38,16 @@
             {{ __('report.categorized_transactions') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
         @endif
 
-        @can('update', auth()->activeBook())
-            {{ link_to_route(
-                'reports.in_out',
-                __('book.change_report_title'),
-                request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce],
-                ['class' => 'btn btn-success btn-sm', 'id' => 'change_report_title']
-            ) }}
-        @endcan
+        @if (!request('action'))
+            @can('update', auth()->activeBook())
+                {{ link_to_route(
+                    'reports.in_out',
+                    __('book.change_report_title'),
+                    request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce],
+                    ['class' => 'btn btn-success btn-sm', 'id' => 'change_report_title']
+                ) }}
+            @endcan
+        @endif
     </h1>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
