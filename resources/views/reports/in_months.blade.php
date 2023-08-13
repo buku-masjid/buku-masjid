@@ -5,28 +5,39 @@
 @section('content-report')
 
 @if (request('action') && request('book_id') && request('nonce'))
-    <div class="card">
-        {!! Form::open(['route' => ['books.report_titles.update', request('book_id')], 'method' => 'patch', 'class' => 'form-inline']) !!}
-        <div class="card-body">
-            @php
-                $existingReportTitle = __('report.monthly');
-                if (isset(auth()->activeBook()->report_titles['in_months'])) {
-                    $existingReportTitle = auth()->activeBook()->report_titles['in_months'];
-                }
-                $reportTitle = old('report_titles[in_months]', $existingReportTitle);
-            @endphp
-            {{ Form::text('report_titles[in_months]', $reportTitle, [
-                'required' => true,
-                'class' => 'form-control form-control-sm',
-                'style' => 'width:100%; max-width:430px',
-            ]) }}
-            {{ Form::hidden('book_id', request('book_id')) }}
-            {{ Form::hidden('nonce', request('nonce')) }}
-            {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success btn-sm']) !!}
-            {{ link_to_route('reports.in_months', __('app.cancel'), [], ['class' => 'btn btn-secondary btn-sm']) }}
-            {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary btn-sm', 'name' => 'reset_report_title[in_months]']) !!}
+    <div id="reportModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('book.change_report_title') }}</h5>
+                    {{ link_to_route('reports.in_months', '', [], ['class' => 'close']) }}
+                </div>
+                {!! Form::open(['route' => ['books.report_titles.update', request('book_id')], 'method' => 'patch', 'class' => 'form-inline']) !!}
+                <div class="modal-body">
+                    @php
+                        $existingReportTitle = __('report.monthly');
+                        if (isset(auth()->activeBook()->report_titles['in_months'])) {
+                            $existingReportTitle = auth()->activeBook()->report_titles['in_months'];
+                        }
+                        $reportTitle = old('report_titles[in_months]', $existingReportTitle);
+                    @endphp
+                    {{ Form::text('report_titles[in_months]', $reportTitle, [
+                        'required' => true,
+                        'class' => 'form-control',
+                        'style' => 'width:100%; max-width:430px',
+                    ]) }}
+                    {{ Form::hidden('book_id', request('book_id')) }}
+                    {{ Form::hidden('nonce', request('nonce')) }}
+                </div>
+                <div class="modal-footer">
+                    {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success']) !!}
+                    {{ link_to_route('reports.in_months', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary', 'name' => 'reset_report_title[in_months]']) !!}
+                </div>
+                {{ Form::close() }}
+            </div>
         </div>
-        {{ Form::close() }}
     </div>
 @endif
 
@@ -189,3 +200,14 @@
     </table>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+    $('#reportModal').modal({
+        show: true,
+        backdrop: 'static',
+    });
+})();
+</script>
+@endpush
