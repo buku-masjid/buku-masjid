@@ -30,7 +30,7 @@ return [
     'switch' => 'Buka Buku',
     'switched' => 'Pindah buku ke: :book_name',
     'change_report_title' => 'Ganti Judul Laporan',
-    'reset_report_title' => 'Reset Judul Laporan',
+    'reset_report_title' => 'Reset Judul',
 
     // Attributes
     'name' => 'Nama Buku',
