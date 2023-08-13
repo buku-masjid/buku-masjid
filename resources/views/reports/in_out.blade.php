@@ -13,7 +13,7 @@
                     <h5 class="modal-title">{{ __('book.change_report_title') }}</h5>
                     {{ link_to_route('reports.in_out', '', [], ['class' => 'close']) }}
                 </div>
-                {!! Form::open(['route' => ['books.report_titles.update', request('book_id')], 'method' => 'patch', 'class' => 'form-inline']) !!}
+                {!! Form::open(['route' => ['books.report_titles.update', request('book_id')], 'method' => 'patch']) !!}
                 <div class="modal-body">
                     @php
                         $existingReportTitle = __('report.categorized_transactions');
@@ -25,7 +25,6 @@
                     {{ Form::text('report_titles[in_out]', $reportTitle, [
                         'required' => true,
                         'class' => 'form-control',
-                        'style' => 'width:100%; max-width:430px',
                     ]) }}
                     {{ Form::hidden('book_id', request('book_id')) }}
                     {{ Form::hidden('nonce', request('nonce')) }}
