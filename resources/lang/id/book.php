@@ -29,6 +29,8 @@ return [
     'undeleteable' => 'Data Buku tidak dapat dihapus.',
     'switch' => 'Buka Buku',
     'switched' => 'Pindah buku ke: :book_name',
+    'change_report_title' => 'Ganti Judul Laporan',
+    'reset_report_title' => 'Reset Judul Laporan',
 
     // Attributes
     'name' => 'Nama Buku',

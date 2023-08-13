@@ -29,6 +29,8 @@ return [
     'undeleteable' => 'Book data cannot be deleted.',
     'switch' => 'Switch Book',
     'switched' => 'Book switched to: :book_name',
+    'change_report_title' => 'Change Report Title',
+    'reset_report_title' => 'Reset Report Title',
 
     // Attributes
     'name' => 'Book Name',

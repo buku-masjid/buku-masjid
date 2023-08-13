@@ -13,6 +13,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name', 60);
             $table->string('description')->nullable();
+            $table->text('report_titles')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
             $table->string('report_visibility_code', 10)->default(Book::REPORT_VISIBILITY_INTERNAL);
             $table->unsignedTinyInteger('status_id')->default(Book::STATUS_ACTIVE);

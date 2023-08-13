@@ -19,6 +19,7 @@ return [
     'view_weekly' => 'Weekly Report',
     'weekly' => 'Transaction Report per Week - :year_month',
     'view_in_out' => 'Categorized Transactions',
-    'categorized_transactions' => 'Categorized Transactions Report - :year_month',
+    'categorized_transactions' => 'Categorized Transactions Report',
     'export_pdf' => 'Export PDF',
+    'title_updated' => 'Report title updated.',
 ];

@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::post('book_switcher', 'BookSwitcherController@store')->name('book_switcher.store');
     Route::get('books/{book}/export-csv', 'Transactions\ExportController@byBook')->name('transactions.exports.by_book');
+    Route::patch('books_report_titles/{book}', 'Books\ReportTitleController@update')->name('books.report_titles.update');
     Route::resource('books', 'BookController');
 
     /*
