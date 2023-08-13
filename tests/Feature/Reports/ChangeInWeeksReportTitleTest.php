@@ -6,7 +6,7 @@ use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ChangeBookReportTitleTest extends TestCase
+class ChangeInWeeksReportTitleTest extends TestCase
 {
     use RefreshDatabase;
 
