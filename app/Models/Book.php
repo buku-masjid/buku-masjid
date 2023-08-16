@@ -19,7 +19,10 @@ class Book extends Model
     const REPORT_VISIBILITY_INTERNAL = 'internal';
 
     protected $fillable = [
-        'name', 'description', 'status_id', 'creator_id', 'bank_account_id', 'report_visibility_code',
+        'name', 'description', 'status_id', 'creator_id', 'bank_account_id', 'report_visibility_code', 'report_titles',
+    ];
+    protected $casts = [
+        'report_titles' => 'array',
     ];
 
     public function creator()
