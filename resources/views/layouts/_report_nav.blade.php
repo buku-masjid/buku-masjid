@@ -1,6 +1,6 @@
 <h4 class="page-title mb-3">{{ __('report.report') }}</h4>
 
-<div class="list-group list-group-transparent mb-0">
+<div class="list-group list-group-transparent mb-0 text-uppercase">
     <a href="{{ route('reports.in_months', Request::all()) }}" class="list-group-item list-group-item-action d-flex align-items-center {{ in_array(Request::segment(2), [null, 'in_months']) ? 'active' : '' }}">
         <span class="icon mr-2"><i class="fe fe-home"></i></span>{{ __('report.view_monthly') }}
     </a>
