@@ -59,7 +59,7 @@
             </div>
         </div>
     @empty
-        {{ __('bank_account.not_found') }}
+        {{ __('bank_account.empty') }}
     @endforelse
 </div>
 
