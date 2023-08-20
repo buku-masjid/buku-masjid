@@ -9,8 +9,6 @@
 <div class=" text-center mt-0 mb-2">
     <h1 class="page-title">{{ __('book.book') }}: {{ auth()->activeBook()->name }}</h1>
 </div>
-@include('layouts._public_report_nav')
-<hr class="mt-2 mb-4">
 @yield('content-report')
 @endsection
 
