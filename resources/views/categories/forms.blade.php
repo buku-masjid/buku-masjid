@@ -18,8 +18,8 @@
                             {!! FormField::radios(
                                 'color',
                                 [
-                                    '#00AABB' => '<span class="badge" style="background-color: #00AABB">'.__('transaction.income').'</span>',
-                                    '#F16867' => '<span class="badge" style="background-color: #F16867">'.__('transaction.spending').'</span>',
+                                    config('masjid.income_color') => '<span class="badge" style="background-color: '.config('masjid.income_color').'>'.__('transaction.income').'</span>',
+                                    config('masjid.spending_color') => '<span class="badge" style="background-color: '.config('masjid.spending_color').'>'.__('transaction.spending').'</span>',
                                 ],
                                 ['required' => true, 'label' => __('category.color'), 'list_style' => 'unstyled']
                             ) !!}
