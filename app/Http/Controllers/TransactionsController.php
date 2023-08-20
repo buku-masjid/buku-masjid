@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Transactions\CreateRequest;
 use App\Http\Requests\Transactions\UpdateRequest;
+use App\Models\Category;
 use App\Transaction;
 
 class TransactionsController extends Controller
@@ -21,6 +22,20 @@ class TransactionsController extends Controller
         $transactions = $this->getTansactions($yearMonth);
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
+
+        if (in_array(request('action'), ['add-income'])) {
+            $categories = Category::orderBy('name')
+                ->where('color', config('masjid.income_color'))
+                ->where('status_id', Category::STATUS_ACTIVE)
+                ->pluck('name', 'id');
+        }
+
+        if (in_array(request('action'), ['add-spending'])) {
+            $categories = Category::orderBy('name')
+                ->where('color', config('masjid.spending_color'))
+                ->where('status_id', Category::STATUS_ACTIVE)
+                ->pluck('name', 'id');
+        }
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
