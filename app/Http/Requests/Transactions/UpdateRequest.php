@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'date' => 'required|date|date_format:Y-m-d',
             'amount' => 'required|max:60',
             'description' => 'required|max:255',
-            'category_id' => 'nullable|exists:categories,id,creator_id,'.auth()->id(),
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 

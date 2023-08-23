@@ -85,17 +85,12 @@ class UpdateRequestTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_if_selected_category_that_belongs_to_other_user()
+    public function it_passes_if_selected_category_that_belongs_to_other_user()
     {
         $category = factory(Category::class)->create();
         $attributes = $this->getUpdateAttributes(['category_id' => $category->id]);
 
-        $this->assertValidationFails(new TransactionUpdateRequest(), $attributes, function ($errors) {
-            $this->assertEquals(
-                __('validation.exists', ['attribute' => 'category id']),
-                $errors->first('category_id')
-            );
-        });
+        $this->assertValidationPasses(new TransactionUpdateRequest(), $attributes);
     }
 
     private function getUpdateAttributes($overrides = [])
