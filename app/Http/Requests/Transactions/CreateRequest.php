@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             'amount' => 'required|max:60',
             'in_out' => 'required|boolean',
             'description' => 'required|max:255',
-            'category_id' => 'nullable|exists:categories,id,creator_id,'.auth()->id(),
+            'category_id' => 'nullable|exists:categories,id',
             'book_id' => ['required', 'exists:books,id'],
         ];
     }

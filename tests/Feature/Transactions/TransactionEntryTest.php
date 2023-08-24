@@ -19,7 +19,11 @@ class TransactionEntryTest extends TestCase
         $date = '2017-01-01';
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
-        $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
+        $category = factory(Category::class)->create([
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'color' => config('masjid.income_color'),
+        ]);
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_income'));
@@ -83,7 +87,11 @@ class TransactionEntryTest extends TestCase
         $user = $this->loginAsUser();
         $inActiveBook = factory(Book::class)->create();
         $activeBook = factory(Book::class)->create();
-        $category = factory(Category::class)->create(['book_id' => $activeBook->id, 'creator_id' => $user->id]);
+        $category = factory(Category::class)->create([
+            'book_id' => $activeBook->id,
+            'creator_id' => $user->id,
+            'color' => config('masjid.income_color'),
+        ]);
         session()->put('active_book_id', $activeBook->id);
 
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));

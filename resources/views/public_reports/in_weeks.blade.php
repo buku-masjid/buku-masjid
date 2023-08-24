@@ -11,10 +11,12 @@
         {{ Form::select('month', get_months(), $month, ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
+            {{ Form::hidden('active_book_id', request('active_book_id')) }}
+            {{ Form::hidden('nonce', request('nonce')) }}
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('public_reports.in_weeks', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('public_reports.in_weeks', __('report.this_month'), Request::all(), ['class' => 'btn btn-secondary mr-1']) }}
         </div>
-        <div class="form-group">
+        <div class="form-group mb-0">
             @livewire('prev-month-button', ['routeName' => 'public_reports.in_weeks', 'buttonClass' => 'btn btn-secondary mr-1'])
             @livewire('next-month-button', ['routeName' => 'public_reports.in_weeks', 'buttonClass' => 'btn btn-secondary'])
         </div>
