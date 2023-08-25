@@ -80,4 +80,9 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::apiResource('bank_accounts', 'BankAccountController');
     Route::apiResource('bank_accounts.balances', 'BankAccounts\BalanceController');
+
+    /*
+     * LecturingSchedules Routes
+     */
+    Route::resource('lecturing_schedules', App\Http\Controllers\LecturingScheduleController::class);
 });
