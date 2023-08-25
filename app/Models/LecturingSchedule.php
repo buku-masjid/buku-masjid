@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class LecturingSchedule extends Model
 {
-    protected $fillable = ['title', 'description', 'creator_id'];
+    const AUDIENCE_PUBLIC = 'public';
+    const AUDIENCE_MUSLIMAH = 'muslimah';
+
+    protected $fillable = [
+        'audience_code', 'date', 'start_time', 'end_time', 'time_text', 'lecturer', 'title', 'book_title',
+        'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id',
+    ];
 
     public function getTitleLinkAttribute()
     {

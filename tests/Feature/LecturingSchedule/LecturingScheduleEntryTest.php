@@ -13,8 +13,19 @@ class LecturingScheduleEntryTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'title' => 'LecturingSchedule 1 title',
-            'description' => 'LecturingSchedule 1 description',
+            'audience_code' => LecturingSchedule::AUDIENCE_PUBLIC,
+            'date' => '2023-01-03',
+            'start_time' => '06:00',
+            'end_time' => '06:45',
+            'time_text' => 'Ba\'da Subuh',
+            'lecturer' => 'Ustadz Haikal',
+            'title' => 'Lecturing title',
+            'book_title' => 'Book title',
+            'book_writer' => 'Book writer',
+            'book_link' => 'https://drive.google.com',
+            'video_link' => 'https://youtube.com',
+            'audio_link' => 'https://audio.com',
+            'description' => 'Lecturing description',
         ], $overrides);
     }
 
@@ -35,13 +46,13 @@ class LecturingScheduleEntryTest extends TestCase
     }
 
     /** @test */
-    public function validate_lecturing_schedule_title_is_required()
+    public function validate_lecturing_schedule_date_is_required()
     {
         $this->loginAsUser();
 
-        // title empty
-        $this->post(route('lecturing_schedules.store'), $this->getCreateFields(['title' => '']));
-        $this->assertSessionHasErrors('title');
+        // date empty
+        $this->post(route('lecturing_schedules.store'), $this->getCreateFields(['date' => '']));
+        $this->assertSessionHasErrors('date');
     }
 
     /** @test */

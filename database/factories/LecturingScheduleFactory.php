@@ -6,7 +6,18 @@ use Faker\Generator as Faker;
 
 $factory->define(LecturingSchedule::class, function (Faker $faker) {
     return [
-        'title' => $this->faker->word,
+        'audience_code' => LecturingSchedule::AUDIENCE_PUBLIC,
+        'date' => '2023-01-03',
+        'start_time' => '06:00',
+        'end_time' => null,
+        'time_text' => 'Ba\'da Subuh',
+        'lecturer' => 'Ustadz Haikal',
+        'title' => $this->faker->words(3, true),
+        'book_title' => 'Some Book Title',
+        'book_writer' => 'A book writer',
+        'book_link' => $this->faker->url,
+        'video_link' => $this->faker->url,
+        'audio_link' => $this->faker->url,
         'description' => $this->faker->sentence,
         'creator_id' => function () {
             return factory(User::class)->create()->id;
