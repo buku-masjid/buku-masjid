@@ -13,7 +13,6 @@ class LecturingScheduleEditTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'audience_code' => LecturingSchedule::AUDIENCE_PUBLIC,
             'date' => '2023-01-03',
             'start_time' => '06:00',
             'end_time' => '06:45',

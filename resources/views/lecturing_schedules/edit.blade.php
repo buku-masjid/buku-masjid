@@ -31,18 +31,14 @@
         @endcan
         @else
         <div class="card">
-            <div class="card-header">{{ __('lecturing_schedule.edit') }}</div>
+            <div class="card-header">
+                <span class="card-options">{{ $lecturingSchedule->audience }}</span>
+                {{ __('lecturing_schedule.edit') }}
+            </div>
             {{ Form::model($lecturingSchedule, ['route' => ['lecturing_schedules.update', $lecturingSchedule], 'method' => 'patch']) }}
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('lecturing_schedule.date')]) !!}</div>
-                    <div class="col-md-8">
-                        {!! FormField::radios('audience_code', $audienceCodes, [
-                            'required' => true,
-                            'label' => __('lecturing_schedule.audience'),
-                            'list_style' => 'unstyled',
-                        ]) !!}
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-3">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
