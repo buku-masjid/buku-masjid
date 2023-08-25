@@ -23,7 +23,7 @@ class CreateLecturingSchedulesTable extends Migration
             $table->string('video_link')->nullable();
             $table->string('audio_link')->nullable();
             $table->string('description')->nullable();
-            $table->bool('is_off')->default(0);
+            $table->boolean('is_off')->default(0);
             $table->unsignedInteger('creator_id');
             $table->timestamps();
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LecturingSchedule;
-use Illuminate\Http\Request;
 use App\Http\Requests\LecturingSchedules\CreateRequest;
 use App\Http\Requests\LecturingSchedules\UpdateRequest;
+use App\Models\LecturingSchedule;
+use Illuminate\Http\Request;
 
 class LecturingScheduleController extends Controller
 {
@@ -22,8 +22,9 @@ class LecturingScheduleController extends Controller
     public function create()
     {
         $this->authorize('create', new LecturingSchedule);
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('lecturing_schedules.create');
+        return view('lecturing_schedules.create', compact('audienceCodes'));
     }
 
     public function store(CreateRequest $lecturingScheduleCreateForm)
@@ -41,8 +42,9 @@ class LecturingScheduleController extends Controller
     public function edit(LecturingSchedule $lecturingSchedule)
     {
         $this->authorize('update', $lecturingSchedule);
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('lecturing_schedules.edit', compact('lecturingSchedule'));
+        return view('lecturing_schedules.edit', compact('lecturingSchedule', 'audienceCodes'));
     }
 
     public function update(UpdateRequest $lecturingScheduleUpdateForm, LecturingSchedule $lecturingSchedule)
@@ -63,5 +65,14 @@ class LecturingScheduleController extends Controller
         }
 
         return back();
+    }
+
+    private function getAudienceCodeList()
+    {
+        return [
+            LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_PUBLIC),
+            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_MUSLIMAH),
+            LecturingSchedule::AUDIENCE_FRIDAY => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_FRIDAY),
+        ];
     }
 }

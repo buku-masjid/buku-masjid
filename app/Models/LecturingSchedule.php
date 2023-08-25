@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LecturingSchedule extends Model
 {
+    const AUDIENCE_FRIDAY = 'friday';
     const AUDIENCE_PUBLIC = 'public';
     const AUDIENCE_MUSLIMAH = 'muslimah';
 
