@@ -3,6 +3,7 @@
 return [
     // Labels
     'lecturing_schedule' => 'Jadwal Pengajian',
+    'lecturing' => 'Pengajian',
     'list' => 'Daftar Jadwal Pengajian',
     'search' => 'Cari Jadwal Pengajian',
     'search_text' => 'Judul ...',

@@ -3,6 +3,7 @@
 return [
     // Labels
     'bank_account' => 'Rek. Bank',
+    'bank' => 'Bank',
     'list' => 'Daftar Rek. Bank',
     'empty' => 'Belum ada Rek. Bank',
     'back_to_index' => 'Kembali ke daftar Rek. Bank',
