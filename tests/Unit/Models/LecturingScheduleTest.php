@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use App\User;
 use App\Models\LecturingSchedule;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,7 +14,7 @@ class LecturingScheduleTest extends TestCase
     /** @test */
     public function a_lecturing_schedule_has_title_link_attribute()
     {
-        $lecturingSchedule = LecturingSchedule::factory()->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create();
 
         $title = __('app.show_detail_title', [
             'title' => $lecturingSchedule->title, 'type' => __('lecturing_schedule.lecturing_schedule'),
@@ -30,7 +30,7 @@ class LecturingScheduleTest extends TestCase
     /** @test */
     public function a_lecturing_schedule_has_belongs_to_creator_relation()
     {
-        $lecturingSchedule = LecturingSchedule::factory()->make();
+        $lecturingSchedule = factory(LecturingSchedule::class)->make();
 
         $this->assertInstanceOf(User::class, $lecturingSchedule->creator);
         $this->assertEquals($lecturingSchedule->creator_id, $lecturingSchedule->creator->id);

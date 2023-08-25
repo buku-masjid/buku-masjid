@@ -3,13 +3,10 @@
 namespace App\Models;
 
 use App\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LecturingSchedule extends Model
 {
-    use HasFactory;
-
     protected $fillable = ['title', 'description', 'creator_id'];
 
     public function getTitleLinkAttribute()

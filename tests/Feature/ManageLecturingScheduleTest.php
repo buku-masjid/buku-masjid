@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\LecturingSchedule;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ManageLecturingScheduleTest extends TestCase
 {
@@ -13,7 +13,7 @@ class ManageLecturingScheduleTest extends TestCase
     /** @test */
     public function user_can_see_lecturing_schedule_list_in_lecturing_schedule_index_page()
     {
-        $lecturingSchedule = LecturingSchedule::factory()->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create();
 
         $this->loginAsUser();
         $this->visitRoute('lecturing_schedules.index');
@@ -23,7 +23,7 @@ class ManageLecturingScheduleTest extends TestCase
     private function getCreateFields(array $overrides = [])
     {
         return array_merge([
-            'title'       => 'LecturingSchedule 1 title',
+            'title' => 'LecturingSchedule 1 title',
             'description' => 'LecturingSchedule 1 description',
         ], $overrides);
     }
@@ -81,7 +81,7 @@ class ManageLecturingScheduleTest extends TestCase
     private function getEditFields(array $overrides = [])
     {
         return array_merge([
-            'title'       => 'LecturingSchedule 1 title',
+            'title' => 'LecturingSchedule 1 title',
             'description' => 'LecturingSchedule 1 description',
         ], $overrides);
     }
@@ -90,7 +90,7 @@ class ManageLecturingScheduleTest extends TestCase
     public function user_can_edit_a_lecturing_schedule()
     {
         $this->loginAsUser();
-        $lecturingSchedule = LecturingSchedule::factory()->create(['title' => 'Testing 123']);
+        $lecturingSchedule = factory(LecturingSchedule::class)->create(['title' => 'Testing 123']);
 
         $this->visitRoute('lecturing_schedules.show', $lecturingSchedule);
         $this->click('edit-lecturing_schedule-'.$lecturingSchedule->id);
@@ -109,7 +109,7 @@ class ManageLecturingScheduleTest extends TestCase
     public function validate_lecturing_schedule_title_update_is_required()
     {
         $this->loginAsUser();
-        $lecturing_schedule = LecturingSchedule::factory()->create(['title' => 'Testing 123']);
+        $lecturing_schedule = factory(LecturingSchedule::class)->create(['title' => 'Testing 123']);
 
         // title empty
         $this->patch(route('lecturing_schedules.update', $lecturing_schedule), $this->getEditFields(['title' => '']));
@@ -120,7 +120,7 @@ class ManageLecturingScheduleTest extends TestCase
     public function validate_lecturing_schedule_title_update_is_not_more_than_60_characters()
     {
         $this->loginAsUser();
-        $lecturing_schedule = LecturingSchedule::factory()->create(['title' => 'Testing 123']);
+        $lecturing_schedule = factory(LecturingSchedule::class)->create(['title' => 'Testing 123']);
 
         // title 70 characters
         $this->patch(route('lecturing_schedules.update', $lecturing_schedule), $this->getEditFields([
@@ -133,7 +133,7 @@ class ManageLecturingScheduleTest extends TestCase
     public function validate_lecturing_schedule_description_update_is_not_more_than_255_characters()
     {
         $this->loginAsUser();
-        $lecturing_schedule = LecturingSchedule::factory()->create(['title' => 'Testing 123']);
+        $lecturing_schedule = factory(LecturingSchedule::class)->create(['title' => 'Testing 123']);
 
         // description 256 characters
         $this->patch(route('lecturing_schedules.update', $lecturing_schedule), $this->getEditFields([
@@ -146,8 +146,8 @@ class ManageLecturingScheduleTest extends TestCase
     public function user_can_delete_a_lecturing_schedule()
     {
         $this->loginAsUser();
-        $lecturingSchedule = LecturingSchedule::factory()->create();
-        LecturingSchedule::factory()->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create();
+        factory(LecturingSchedule::class)->create();
 
         $this->visitRoute('lecturing_schedules.edit', $lecturingSchedule);
         $this->click('del-lecturing_schedule-'.$lecturingSchedule->id);

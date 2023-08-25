@@ -21,7 +21,7 @@ class LecturingSchedulePolicyTest extends TestCase
     public function user_can_view_lecturing_schedule()
     {
         $user = $this->createUser();
-        $lecturingSchedule = LecturingSchedule::factory()->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create();
         $this->assertTrue($user->can('view', $lecturingSchedule));
     }
 
@@ -29,7 +29,7 @@ class LecturingSchedulePolicyTest extends TestCase
     public function user_can_update_lecturing_schedule()
     {
         $user = $this->createUser();
-        $lecturingSchedule = LecturingSchedule::factory()->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create();
         $this->assertTrue($user->can('update', $lecturingSchedule));
     }
 
@@ -37,7 +37,7 @@ class LecturingSchedulePolicyTest extends TestCase
     public function user_can_delete_lecturing_schedule()
     {
         $user = $this->createUser();
-        $lecturingSchedule = LecturingSchedule::factory()->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create();
         $this->assertTrue($user->can('delete', $lecturingSchedule));
     }
 }
