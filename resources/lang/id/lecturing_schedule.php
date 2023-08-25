@@ -12,6 +12,7 @@ return [
     'detail' => 'Detail Jadwal Pengajian',
     'not_found' => 'Jadwal Pengajian tidak ditemukan',
     'empty' => 'Belum ada Jadwal Pengajian',
+    'friday_empty' => 'Belum ada Jadwal Khatib',
     'back_to_show' => 'Kembali ke detail Jadwal Pengajian',
     'back_to_index' => 'Kembali ke daftar Jadwal Pengajian',
 
@@ -31,7 +32,7 @@ return [
     // Attributes
     'audience' => 'Untuk Jamaah',
     'audience_friday' => 'Jumat',
-    'audience_public' => 'Umum (Muslim dan Musilimah)',
+    'audience_public' => 'Umum (Muslim dan Muslimah)',
     'audience_muslimah' => 'Khusus Muslimah',
     'date' => 'Tanggal',
     'time' => 'Waktu',
@@ -39,6 +40,7 @@ return [
     'end_time' => 'Waktu Selesai',
     'time_text' => 'Waktu Teks',
     'lecturer' => 'Penceramah',
+    'friday_lecturer' => 'Khatib',
     'book_title' => 'Judul Kitab',
     'book' => 'Kitab',
     'book_writer' => 'Penulis Kitab',

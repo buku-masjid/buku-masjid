@@ -20,9 +20,10 @@ class LecturingScheduleController extends Controller
         }
         $lecturingScheduleQuery->where('date', 'like', $yearMonth.'%');
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
-        $lecturingSchedules = $lecturingScheduleQuery->get();
+        $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('lecturing_schedules.index', compact('lecturingSchedules', 'year', 'month'));
+        return view('lecturing_schedules.index', compact('lecturingSchedules', 'year', 'month', 'audienceCodes'));
     }
 
     public function create()
@@ -76,9 +77,9 @@ class LecturingScheduleController extends Controller
     private function getAudienceCodeList()
     {
         return [
+            LecturingSchedule::AUDIENCE_FRIDAY => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_FRIDAY),
             LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_PUBLIC),
             LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_MUSLIMAH),
-            LecturingSchedule::AUDIENCE_FRIDAY => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_FRIDAY),
         ];
     }
 }

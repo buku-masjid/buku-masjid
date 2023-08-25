@@ -36,6 +36,26 @@ class LecturingSchedule extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getDateOnlyAttribute()
+    {
+        return substr($this->date, -2);
+    }
+
+    public function getMonthAttribute()
+    {
+        return Carbon::parse($this->date)->format('m');
+    }
+
+    public function getMonthNameAttribute()
+    {
+        return Carbon::parse($this->date)->isoFormat('MMM');
+    }
+
+    public function getYearAttribute()
+    {
+        return Carbon::parse($this->date)->format('Y');
+    }
+
     public function getDayNameAttribute(): string
     {
         if (is_null($this->date)) {

@@ -79,4 +79,15 @@ class LecturingScheduleTest extends TestCase
         $this->assertInstanceOf(User::class, $lecturingSchedule->creator);
         $this->assertEquals($lecturingSchedule->creator_id, $lecturingSchedule->creator->id);
     }
+
+    /** @test */
+    public function a_lecturing_schedule_has_year_month_and_date_only_attribute()
+    {
+        $lecturingSchedule = factory(LecturingSchedule::class)->make(['date' => '2017-01-31']);
+
+        $this->assertEquals('2017', $lecturingSchedule->year);
+        $this->assertEquals('01', $lecturingSchedule->month);
+        $this->assertEquals(Carbon::parse('2017-01-31')->isoFormat('MMM'), $lecturingSchedule->month_name);
+        $this->assertEquals('31', $lecturingSchedule->date_only);
+    }
 }
