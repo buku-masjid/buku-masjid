@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class LecturingSchedule extends Model
@@ -33,5 +34,19 @@ class LecturingSchedule extends Model
     public function creator()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getDayNameAttribute(): string
+    {
+        if (is_null($this->date)) {
+            return '';
+        }
+
+        $dayName = Carbon::parse($this->date)->isoFormat('dddd');
+        if ($dayName == 'Minggu') {
+            $dayName = 'Ahad';
+        }
+
+        return $dayName;
     }
 }

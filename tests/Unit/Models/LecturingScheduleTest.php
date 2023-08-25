@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\LecturingSchedule;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -56,6 +57,18 @@ class LecturingScheduleTest extends TestCase
 
         $lecturingSchedule->audience_code = LecturingSchedule::AUDIENCE_FRIDAY;
         $this->assertEquals(__('lecturing_schedule.audience_friday'), $lecturingSchedule->audience);
+    }
+
+    /** @test */
+    public function lecturing_schedule_model_has_day_name_attribute()
+    {
+        $date = '2017-01-31';
+        $lecturingSchedule = factory(LecturingSchedule::class)->make(['date' => $date]);
+
+        $this->assertEquals(Carbon::parse($date)->isoFormat('dddd'), $lecturingSchedule->day_name);
+
+        $lecturingSchedule = factory(LecturingSchedule::class)->make(['date' => null]);
+        $this->assertEquals(null, $lecturingSchedule->day_name);
     }
 
     /** @test */

@@ -12,13 +12,17 @@ class LecturingScheduleController extends Controller
     public function index(Request $request)
     {
         $lecturingScheduleQuery = LecturingSchedule::query();
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
         if ($request->get('q')) {
-            $lecturingScheduleQuery->where('title', 'like', '%'.$request->get('q').'%');
+            $lecturingScheduleQuery->where('lecturer', 'like', '%'.$request->get('q').'%');
         }
+        $lecturingScheduleQuery->where('date', 'like', $yearMonth.'%');
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
-        $lecturingSchedules = $lecturingScheduleQuery->paginate(25);
+        $lecturingSchedules = $lecturingScheduleQuery->get();
 
-        return view('lecturing_schedules.index', compact('lecturingSchedules'));
+        return view('lecturing_schedules.index', compact('lecturingSchedules', 'year', 'month'));
     }
 
     public function create()

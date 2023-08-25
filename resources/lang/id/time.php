@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'day_name' => 'Hari',
     'date' => 'Tanggal',
     'week' => 'Minggu',
     'month' => 'Bulan',

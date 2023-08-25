@@ -6,7 +6,7 @@ return [
     'lecturing' => 'Pengajian',
     'list' => 'Daftar Jadwal Pengajian',
     'search' => 'Cari Jadwal Pengajian',
-    'search_text' => 'Judul ...',
+    'search_text' => 'Penceramah ...',
     'all' => 'Semua Jadwal Pengajian',
     'select' => 'Pilih Jadwal Pengajian',
     'detail' => 'Detail Jadwal Pengajian',

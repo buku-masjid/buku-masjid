@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'day_name' => 'Day',
     'date' => 'Date',
     'week' => 'Week',
     'month' => 'Month',
