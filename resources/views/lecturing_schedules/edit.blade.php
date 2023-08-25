@@ -38,12 +38,20 @@
             {{ Form::model($lecturingSchedule, ['route' => ['lecturing_schedules.update', $lecturingSchedule], 'method' => 'patch']) }}
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('lecturing_schedule.date')]) !!}</div>
-                </div>
-                <div class="row">
-                    <div class="col-3">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
-                    <div class="col-3">{!! FormField::text('end_time', ['label' => __('lecturing_schedule.end_time')]) !!}</div>
-                    <div class="col-6">{!! FormField::text('time_text', ['label' => __('lecturing_schedule.time_text')]) !!}</div>
+                    <div class="col-md-6">
+                        {!! FormField::text('date', [
+                            'required' => true,
+                            'label' => __('lecturing_schedule.date'),
+                            'class' => 'date-select',
+                        ]) !!}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
+                            <div class="col-6">{!! FormField::text('end_time', ['label' => __('lecturing_schedule.end_time')]) !!}</div>
+                            <div class="col-12">{!! FormField::text('time_text', ['label' => __('lecturing_schedule.time_text')]) !!}</div>
+                        </div>
+                    </div>
                 </div>
                 {!! FormField::text('lecturer', ['required' => true, 'label' => __('lecturing_schedule.lecturer')]) !!}
                 {!! FormField::text('book_title', ['label' => __('lecturing_schedule.book_title')]) !!}
@@ -67,3 +75,43 @@
 </div>
 @endif
 @endsection
+
+@section('styles')
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
+@endsection
+
+@push('scripts')
+    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
+<script>
+(function () {
+    $('.date-select').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1,
+        inline: true,
+    });
+})();
+</script>
+@endpush
+
+@section('styles')
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
+@endsection
+
+@push('scripts')
+    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
+<script>
+(function () {
+    $('.date-select').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1,
+        inline: true,
+    });
+})();
+</script>
+@endpush

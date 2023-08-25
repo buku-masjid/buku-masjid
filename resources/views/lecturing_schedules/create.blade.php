@@ -9,21 +9,27 @@
             <div class="card-header">{{ __('lecturing_schedule.create') }}</div>
             {{ Form::open(['route' => 'lecturing_schedules.store']) }}
             <div class="card-body">
+                {!! FormField::radios('audience_code', $audienceCodes, [
+                    'required' => true,
+                    'label' => __('lecturing_schedule.audience'),
+                    'value' => old('audience_code', App\Models\LecturingSchedule::AUDIENCE_PUBLIC),
+                ]) !!}
                 <div class="row">
-                    <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('lecturing_schedule.date'), 'value' => old('date', date('Y-m-d'))]) !!}</div>
-                    <div class="col-md-8">
-                        {!! FormField::radios('audience_code', $audienceCodes, [
+                    <div class="col-md-6">
+                        {!! FormField::text('date', [
                             'required' => true,
-                            'label' => __('lecturing_schedule.audience'),
-                            'list_style' => 'unstyled',
-                            'value' => old('audience_code', App\Models\LecturingSchedule::AUDIENCE_PUBLIC),
+                            'label' => __('lecturing_schedule.date'),
+                            'value' => old('date', date('Y-m-d')),
+                            'class' => 'date-select',
                         ]) !!}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 col-md-3">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
-                    <div class="col-6 col-md-3">{!! FormField::text('end_time', ['label' => __('lecturing_schedule.end_time')]) !!}</div>
-                    <div class="col-12 col-md-6">{!! FormField::text('time_text', ['label' => __('lecturing_schedule.time_text')]) !!}</div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
+                            <div class="col-6">{!! FormField::text('end_time', ['label' => __('lecturing_schedule.end_time')]) !!}</div>
+                            <div class="col-12">{!! FormField::text('time_text', ['label' => __('lecturing_schedule.time_text')]) !!}</div>
+                        </div>
+                    </div>
                 </div>
                 {!! FormField::text('lecturer', ['required' => true, 'label' => __('lecturing_schedule.lecturer')]) !!}
                 {!! FormField::text('book_title', ['label' => __('lecturing_schedule.book_title')]) !!}
@@ -43,3 +49,23 @@
     </div>
 </div>
 @endsection
+
+@section('styles')
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
+@endsection
+
+@push('scripts')
+    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
+<script>
+(function () {
+    $('.date-select').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1,
+        inline: true,
+    });
+})();
+</script>
+@endpush
