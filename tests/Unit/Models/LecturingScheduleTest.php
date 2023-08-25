@@ -12,19 +12,50 @@ class LecturingScheduleTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_lecturing_schedule_has_title_link_attribute()
+    public function a_lecturing_schedule_has_time_attribute()
     {
-        $lecturingSchedule = factory(LecturingSchedule::class)->create();
-
-        $title = __('app.show_detail_title', [
-            'title' => $lecturingSchedule->title, 'type' => __('lecturing_schedule.lecturing_schedule'),
+        $lecturingSchedule = factory(LecturingSchedule::class)->make([
+            'start_time' => '19:00',
+            'end_time' => '19:40',
+            'time_text' => 'Ba\'da Magrib',
         ]);
-        $link = '<a href="'.route('lecturing_schedules.show', $lecturingSchedule).'"';
-        $link .= ' title="'.$title.'">';
-        $link .= $lecturingSchedule->title;
-        $link .= '</a>';
+        $this->assertEquals('Ba\'da Magrib, 19:00 s/d 19:40', $lecturingSchedule->time);
 
-        $this->assertEquals($link, $lecturingSchedule->title_link);
+        $lecturingSchedule = factory(LecturingSchedule::class)->make([
+            'start_time' => '19:00',
+            'end_time' => null,
+            'time_text' => 'Ba\'da Magrib',
+        ]);
+        $this->assertEquals('Ba\'da Magrib, 19:00 s/d selesai', $lecturingSchedule->time);
+
+        $lecturingSchedule = factory(LecturingSchedule::class)->make([
+            'start_time' => '19:00',
+            'end_time' => null,
+            'time_text' => null,
+        ]);
+        $this->assertEquals('19:00 s/d selesai', $lecturingSchedule->time);
+
+        $lecturingSchedule = factory(LecturingSchedule::class)->make([
+            'start_time' => '19:00',
+            'end_time' => '19:40',
+            'time_text' => null,
+        ]);
+        $this->assertEquals('19:00 s/d 19:40', $lecturingSchedule->time);
+    }
+
+    /** @test */
+    public function lecturing_schedule_model_has_audience_attribute()
+    {
+        $lecturingSchedule = factory(LecturingSchedule::class)->make([
+            'audience_code' => LecturingSchedule::AUDIENCE_PUBLIC,
+        ]);
+        $this->assertEquals(__('lecturing_schedule.audience_public'), $lecturingSchedule->audience);
+
+        $lecturingSchedule->audience_code = LecturingSchedule::AUDIENCE_MUSLIMAH;
+        $this->assertEquals(__('lecturing_schedule.audience_muslimah'), $lecturingSchedule->audience);
+
+        $lecturingSchedule->audience_code = LecturingSchedule::AUDIENCE_FRIDAY;
+        $this->assertEquals(__('lecturing_schedule.audience_friday'), $lecturingSchedule->audience);
     }
 
     /** @test */

@@ -17,7 +17,7 @@ class LecturingScheduleBrowseTest extends TestCase
 
         $this->loginAsUser();
         $this->visitRoute('lecturing_schedules.index');
-        $this->see($lecturingSchedule->title);
+        $this->see($lecturingSchedule->lecturer);
     }
 
     /** @test */
@@ -27,6 +27,6 @@ class LecturingScheduleBrowseTest extends TestCase
 
         $this->loginAsUser();
         $this->visitRoute('lecturing_schedules.show', $lecturingSchedule);
-        $this->see($lecturingSchedule->title);
+        $this->see($lecturingSchedule->lecturer);
     }
 }

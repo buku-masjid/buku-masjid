@@ -12,8 +12,10 @@ class LecturingScheduleController extends Controller
     public function index(Request $request)
     {
         $lecturingScheduleQuery = LecturingSchedule::query();
-        $lecturingScheduleQuery->where('title', 'like', '%'.$request->get('q').'%');
-        $lecturingScheduleQuery->orderBy('title');
+        if ($request->get('q')) {
+            $lecturingScheduleQuery->where('title', 'like', '%'.$request->get('q').'%');
+        }
+        $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
         $lecturingSchedules = $lecturingScheduleQuery->paginate(25);
 
         return view('lecturing_schedules.index', compact('lecturingSchedules'));

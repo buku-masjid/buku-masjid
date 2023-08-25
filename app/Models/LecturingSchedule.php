@@ -16,17 +16,18 @@ class LecturingSchedule extends Model
         'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id',
     ];
 
-    public function getTitleLinkAttribute()
+    public function getTimeAttribute()
     {
-        $title = __('app.show_detail_title', [
-            'title' => $this->title, 'type' => __('lecturing_schedule.lecturing_schedule'),
-        ]);
-        $link = '<a href="'.route('lecturing_schedules.show', $this).'"';
-        $link .= ' title="'.$title.'">';
-        $link .= $this->title;
-        $link .= '</a>';
+        $time = !$this->time_text ? '' : $this->time_text.', ';
+        $time .= $this->start_time.' s/d ';
+        $time .= !$this->end_time ? 'selesai' : $this->end_time;
 
-        return $link;
+        return $time;
+    }
+
+    public function getAudienceAttribute()
+    {
+        return __('lecturing_schedule.audience_'.$this->audience_code);
     }
 
     public function creator()

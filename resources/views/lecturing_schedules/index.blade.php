@@ -26,8 +26,10 @@
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
-                        <th>{{ __('lecturing_schedule.title') }}</th>
-                        <th>{{ __('lecturing_schedule.description') }}</th>
+                        <th>{{ __('lecturing_schedule.audience') }}</th>
+                        <th>{{ __('lecturing_schedule.date') }}</th>
+                        <th>{{ __('lecturing_schedule.time') }}</th>
+                        <th>{{ __('lecturing_schedule.lecturer') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -35,8 +37,10 @@
                     @foreach($lecturingSchedules as $key => $lecturingSchedule)
                     <tr>
                         <td class="text-center">{{ $lecturingSchedules->firstItem() + $key }}</td>
-                        <td>{{ $lecturingSchedule->title_link }}</td>
-                        <td>{{ $lecturingSchedule->description }}</td>
+                        <td>{{ $lecturingSchedule->audience }}</td>
+                        <td>{{ $lecturingSchedule->date }}</td>
+                        <td>{{ $lecturingSchedule->time }}</td>
+                        <td>{{ $lecturingSchedule->lecturer }}</td>
                         <td class="text-center">
                             @can('view', $lecturingSchedule)
                                 {{ link_to_route(

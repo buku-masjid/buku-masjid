@@ -33,6 +33,7 @@ return [
     'audience_public' => 'Umum (Muslim dan Musilimah)',
     'audience_muslimah' => 'Khusus Muslimah',
     'date' => 'Tanggal',
+    'time' => 'Waktu',
     'start_time' => 'Waktu Mulai',
     'end_time' => 'Waktu Selesai',
     'time_text' => 'Waktu Teks',

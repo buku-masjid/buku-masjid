@@ -14,7 +14,7 @@ class CreateLecturingSchedulesTable extends Migration
             $table->string('date')->nullable();
             $table->char('start_time', 5);
             $table->char('end_time', 5)->nullable();
-            $table->string('time_text', 20);
+            $table->string('time_text', 20)->nullable();
             $table->string('lecturer', 60);
             $table->string('title', 60)->nullable();
             $table->string('book_title', 60)->nullable();
