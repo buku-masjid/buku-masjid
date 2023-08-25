@@ -9,7 +9,7 @@ class CreateLecturingSchedulesTable extends Migration
     public function up()
     {
         Schema::create('lecturing_schedules', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('audience_code', 15);
             $table->string('date')->nullable();
             $table->char('start_time', 5);
@@ -23,8 +23,11 @@ class CreateLecturingSchedulesTable extends Migration
             $table->string('video_link')->nullable();
             $table->string('audio_link')->nullable();
             $table->string('description')->nullable();
-            $table->foreignId('creator_id')->constrained('users')->onDelete('restrict');
+            $table->bool('is_off')->default(0);
+            $table->unsignedInteger('creator_id');
             $table->timestamps();
+
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
