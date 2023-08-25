@@ -17,9 +17,9 @@
             </div>
             <div class="card-footer">
                 @can('update', $lecturingSchedule)
-                    <a href="{{ route('lecturing_schedules.edit', $lecturingSchedule) }}" id="edit-lecturing_schedule-{{ $lecturingSchedule->id }}" class="btn btn-warning">{{ __('lecturing_schedule.edit') }}</a>
+                    {{ link_to_route('lecturing_schedules.edit', __('lecturing_schedule.edit'), [$lecturingSchedule], ['class' => 'btn btn-warning', 'id' => 'edit-lecturing_schedule-'.$lecturingSchedule->id]) }}
                 @endcan
-                <a href="{{ route('lecturing_schedules.index') }}" class="btn btn-link">{{ __('lecturing_schedule.back_to_index') }}</a>
+                {{ link_to_route('lecturing_schedules.index', __('lecturing_schedule.back_to_index'), [], ['class' => 'btn btn-link']) }}
             </div>
         </div>
     </div>

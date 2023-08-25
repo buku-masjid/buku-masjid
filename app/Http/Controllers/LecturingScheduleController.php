@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\LecturingSchedule;
 use Illuminate\Http\Request;
+use App\Http\Requests\LecturingSchedules\CreateRequest;
+use App\Http\Requests\LecturingSchedules\UpdateRequest;
 
 class LecturingScheduleController extends Controller
 {
@@ -24,17 +26,9 @@ class LecturingScheduleController extends Controller
         return view('lecturing_schedules.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $lecturingScheduleCreateForm)
     {
-        $this->authorize('create', new LecturingSchedule);
-
-        $newLecturingSchedule = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
-        ]);
-        $newLecturingSchedule['creator_id'] = auth()->id();
-
-        $lecturingSchedule = LecturingSchedule::create($newLecturingSchedule);
+        $lecturingSchedule = $lecturingScheduleCreateForm->save();
 
         return redirect()->route('lecturing_schedules.show', $lecturingSchedule);
     }
@@ -51,15 +45,9 @@ class LecturingScheduleController extends Controller
         return view('lecturing_schedules.edit', compact('lecturingSchedule'));
     }
 
-    public function update(Request $request, LecturingSchedule $lecturingSchedule)
+    public function update(UpdateRequest $lecturingScheduleUpdateForm, LecturingSchedule $lecturingSchedule)
     {
-        $this->authorize('update', $lecturingSchedule);
-
-        $lecturingScheduleData = $request->validate([
-            'title'       => 'required|max:60',
-            'description' => 'nullable|max:255',
-        ]);
-        $lecturingSchedule->update($lecturingScheduleData);
+        $lecturingSchedule->update($lecturingScheduleUpdateForm->validated());
 
         return redirect()->route('lecturing_schedules.show', $lecturingSchedule);
     }
