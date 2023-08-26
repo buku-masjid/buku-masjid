@@ -6,7 +6,7 @@
 @include('public_schedules._nav')
 
 @foreach ($lecturingSchedules as $audienceCode => $groupedLecturingSchedules)
-    <div class="page-header mb-4">
+    <div class="page-header my-4">
         <h2 class="page-title">{{ __('lecturing_schedule.audience_'.$audienceCode) }}</h2>
     </div>
 
