@@ -13,7 +13,7 @@
                 @foreach($lecturingSchedules[$audienceCode] as $key => $lecturingSchedule)
                 <tr>
                     <td class="text-center">{{ 1 + $key }}</td>
-                    <td class="text-center">{{ $lecturingSchedule->date_only }}</td>
+                    <td class="text-center">{{ $lecturingSchedule->full_date }}</td>
                     <td>{{ $lecturingSchedule->start_time }}</td>
                     <td>{{ $lecturingSchedule->lecturer }}</td>
                     <td class="text-center">

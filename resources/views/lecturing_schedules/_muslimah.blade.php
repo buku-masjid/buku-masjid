@@ -16,8 +16,11 @@
                 <tr>
                     <td class="text-center">{{ 1 + $key }}</td>
                     <td>{{ $lecturingSchedule->day_name }}</td>
-                    <td class="text-center">{{ $lecturingSchedule->date_only }}</td>
-                    <td>{{ $lecturingSchedule->time }}</td>
+                    <td class="text-center">{{ $lecturingSchedule->full_date }}</td>
+                    <td>
+                        {{ $lecturingSchedule->time_text ? $lecturingSchedule->time_text.', ' : '' }}
+                        {{ $lecturingSchedule->time }}
+                    </td>
                     <td>{{ $lecturingSchedule->lecturer }}</td>
                     <td class="text-center">
                         @can('view', $lecturingSchedule)

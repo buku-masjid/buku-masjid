@@ -5,7 +5,7 @@
                 <th class="text-center">{{ __('app.table_no') }}</th>
                 <th>{{ __('time.day_name') }}</th>
                 <th class="text-center">{{ __('time.date') }}</th>
-                <th>{{ __('lecturing_schedule.time') }}</th>
+                <th>{{ __('time.time') }}</th>
                 <th>{{ __('lecturing_schedule.lecturer') }}</th>
                 <th class="text-center">{{ __('app.action') }}</th>
             </tr>
@@ -16,8 +16,11 @@
                 <tr>
                     <td class="text-center">{{ 1 + $key }}</td>
                     <td>{{ $lecturingSchedule->day_name }}</td>
-                    <td class="text-center">{{ $lecturingSchedule->date_only }}</td>
-                    <td>{{ $lecturingSchedule->time }}</td>
+                    <td class="text-center">{{ $lecturingSchedule->full_date }}</td>
+                    <td>
+                        {{ $lecturingSchedule->time_text ? $lecturingSchedule->time_text.', ' : '' }}
+                        {{ $lecturingSchedule->time }}
+                    </td>
                     <td>{{ $lecturingSchedule->lecturer }}</td>
                     <td class="text-center">
                         @can('view', $lecturingSchedule)
