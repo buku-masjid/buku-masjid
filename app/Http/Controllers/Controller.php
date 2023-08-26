@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\LecturingSchedule;
 use App\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -125,5 +126,14 @@ class Controller extends BaseController
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('category')->get();
+    }
+
+    protected function getAudienceCodeList(): array
+    {
+        return [
+            LecturingSchedule::AUDIENCE_FRIDAY => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_FRIDAY),
+            LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_PUBLIC),
+            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_MUSLIMAH),
+        ];
     }
 }

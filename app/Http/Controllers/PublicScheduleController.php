@@ -15,8 +15,9 @@ class PublicScheduleController extends Controller
         $lecturingScheduleQuery->where('date', Carbon::today()->format('Y-m-d'));
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
         $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('public_schedules.index', compact('lecturingSchedules'));
+        return view('public_schedules.index', compact('lecturingSchedules', 'audienceCodes'));
     }
 
     public function tomorrow(Request $request)
@@ -25,8 +26,9 @@ class PublicScheduleController extends Controller
         $lecturingScheduleQuery->where('date', Carbon::tomorrow()->format('Y-m-d'));
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
         $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('public_schedules.index', compact('lecturingSchedules'));
+        return view('public_schedules.index', compact('lecturingSchedules', 'audienceCodes'));
     }
 
     public function thisWeek(Request $request)
@@ -37,8 +39,9 @@ class PublicScheduleController extends Controller
         $lecturingScheduleQuery->whereBetween('date', [$monday, $sunday]);
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
         $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('public_schedules.index', compact('lecturingSchedules'));
+        return view('public_schedules.index', compact('lecturingSchedules', 'audienceCodes'));
     }
 
     public function nextWeek(Request $request)
@@ -49,7 +52,8 @@ class PublicScheduleController extends Controller
         $lecturingScheduleQuery->whereBetween('date', [$monday, $sunday]);
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
         $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+        $audienceCodes = $this->getAudienceCodeList();
 
-        return view('public_schedules.index', compact('lecturingSchedules'));
+        return view('public_schedules.index', compact('lecturingSchedules', 'audienceCodes'));
     }
 }
