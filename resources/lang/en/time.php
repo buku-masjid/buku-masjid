@@ -2,10 +2,11 @@
 
 return [
     'day_name' => 'Day',
-    'today' => 'Hari Ini',
+    'today' => 'Today',
+    'tomorrow' => 'Tomorrow',
     'date' => 'Date',
     'week' => 'Week',
-    'this_week' => 'Pekan Ini',
+    'this_week' => 'This Week',
     'month' => 'Month',
 
     'months' => [

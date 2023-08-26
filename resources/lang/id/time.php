@@ -3,6 +3,7 @@
 return [
     'day_name' => 'Hari',
     'today' => 'Hari Ini',
+    'tomorrow' => 'Besok',
     'date' => 'Tanggal',
     'week' => 'Minggu',
     'this_week' => 'Pekan Ini',

@@ -25,6 +25,7 @@ Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function ()
 Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
     Route::get('/', 'PublicScheduleController@today')->name('index');
     Route::get('/hari_ini', 'PublicScheduleController@today')->name('today');
+    Route::get('/besok', 'PublicScheduleController@tomorrow')->name('tomorrow');
 });
 
 // Change Password Routes
