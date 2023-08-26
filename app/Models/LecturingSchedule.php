@@ -19,8 +19,7 @@ class LecturingSchedule extends Model
 
     public function getTimeAttribute()
     {
-        $time = !$this->time_text ? '' : $this->time_text.', ';
-        $time .= $this->start_time.' s/d ';
+        $time = $this->start_time.' s/d ';
         $time .= !$this->end_time ? 'selesai' : $this->end_time;
 
         return $time;
@@ -70,10 +69,8 @@ class LecturingSchedule extends Model
         return $dayName;
     }
 
-    public function getDayDateAttribute()
+    public function getFullDateAttribute()
     {
-        $date = Carbon::parse($this->date)->isoFormat('D MMMM Y');
-
-        return $this->day_name.', '.$date;
+        return Carbon::parse($this->date)->isoFormat('D MMMM Y');
     }
 }

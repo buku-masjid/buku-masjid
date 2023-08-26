@@ -20,14 +20,14 @@ class LecturingScheduleTest extends TestCase
             'end_time' => '19:40',
             'time_text' => 'Ba\'da Magrib',
         ]);
-        $this->assertEquals('Ba\'da Magrib, 19:00 s/d 19:40', $lecturingSchedule->time);
+        $this->assertEquals('19:00 s/d 19:40', $lecturingSchedule->time);
 
         $lecturingSchedule = factory(LecturingSchedule::class)->make([
             'start_time' => '19:00',
             'end_time' => null,
             'time_text' => 'Ba\'da Magrib',
         ]);
-        $this->assertEquals('Ba\'da Magrib, 19:00 s/d selesai', $lecturingSchedule->time);
+        $this->assertEquals('19:00 s/d selesai', $lecturingSchedule->time);
 
         $lecturingSchedule = factory(LecturingSchedule::class)->make([
             'start_time' => '19:00',
@@ -92,11 +92,11 @@ class LecturingScheduleTest extends TestCase
     }
 
     /** @test */
-    public function lecturing_schedule_model_has_day_date_attribute()
+    public function lecturing_schedule_model_has_full_date_attribute()
     {
         $date = '2017-01-31';
         $lecturingSchedule = factory(LecturingSchedule::class)->make(['date' => $date]);
 
-        $this->assertEquals(Carbon::parse($date)->isoFormat('dddd, D MMMM Y'), $lecturingSchedule->day_date);
+        $this->assertEquals(Carbon::parse($date)->isoFormat('D MMMM Y'), $lecturingSchedule->full_date);
     }
 }

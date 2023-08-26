@@ -9,6 +9,7 @@ return [
     'this_week' => 'This Week',
     'next_week' => 'Next Week',
     'month' => 'Month',
+    'time' => 'Time',
 
     'months' => [
         '01' => 'January',
