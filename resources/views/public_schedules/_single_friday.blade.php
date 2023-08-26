@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <td class="col-4 col-sm-3">&#128467;&#65039; {{ __('time.day_name') }}/{{ __('time.date') }}</td>
-                <td>{{ Carbon\Carbon::parse($lecturingSchedule->date)->isoFormat('dddd, D MMMM Y') }}</td>
+                <td>{{ $lecturingSchedule->day_date }}</td>
             </tr>
             <tr><td>&#9200; {{ __('lecturing_schedule.time') }}</td><td>{{ $lecturingSchedule->start_time }}</td></tr>
             <tr><td>&#128115;&#127997; {{ __('lecturing_schedule.friday_lecturer') }}</td><td>{{ $lecturingSchedule->lecturer }}</td></tr>

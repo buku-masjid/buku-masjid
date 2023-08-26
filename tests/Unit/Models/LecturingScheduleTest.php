@@ -90,4 +90,13 @@ class LecturingScheduleTest extends TestCase
         $this->assertEquals(Carbon::parse('2017-01-31')->isoFormat('MMM'), $lecturingSchedule->month_name);
         $this->assertEquals('31', $lecturingSchedule->date_only);
     }
+
+    /** @test */
+    public function lecturing_schedule_model_has_day_date_attribute()
+    {
+        $date = '2017-01-31';
+        $lecturingSchedule = factory(LecturingSchedule::class)->make(['date' => $date]);
+
+        $this->assertEquals(Carbon::parse($date)->isoFormat('dddd, D MMMM Y'), $lecturingSchedule->day_date);
+    }
 }

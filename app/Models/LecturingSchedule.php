@@ -69,4 +69,11 @@ class LecturingSchedule extends Model
 
         return $dayName;
     }
+
+    public function getDayDateAttribute()
+    {
+        $date = Carbon::parse($this->date)->isoFormat('D MMMM Y');
+
+        return $this->day_name.', '.$date;
+    }
 }
