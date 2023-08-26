@@ -28,4 +28,28 @@ class PublicScheduleController extends Controller
 
         return view('public_schedules.index', compact('lecturingSchedules'));
     }
+
+    public function thisWeek(Request $request)
+    {
+        $lecturingScheduleQuery = LecturingSchedule::query();
+        $monday = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $sunday = Carbon::now()->endOfWeek()->format('Y-m-d');
+        $lecturingScheduleQuery->whereBetween('date', [$monday, $sunday]);
+        $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
+        $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+
+        return view('public_schedules.index', compact('lecturingSchedules'));
+    }
+
+    public function nextWeek(Request $request)
+    {
+        $lecturingScheduleQuery = LecturingSchedule::query();
+        $monday = Carbon::now()->addWeek()->startOfWeek()->format('Y-m-d');
+        $sunday = Carbon::now()->addWeek()->endOfWeek()->format('Y-m-d');
+        $lecturingScheduleQuery->whereBetween('date', [$monday, $sunday]);
+        $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
+        $lecturingSchedules = $lecturingScheduleQuery->get()->groupBy('audience_code');
+
+        return view('public_schedules.index', compact('lecturingSchedules'));
+    }
 }

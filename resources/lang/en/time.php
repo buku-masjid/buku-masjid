@@ -7,6 +7,7 @@ return [
     'date' => 'Date',
     'week' => 'Week',
     'this_week' => 'This Week',
+    'next_week' => 'Next Week',
     'month' => 'Month',
 
     'months' => [

@@ -26,6 +26,8 @@ Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
     Route::get('/', 'PublicScheduleController@today')->name('index');
     Route::get('/hari_ini', 'PublicScheduleController@today')->name('today');
     Route::get('/besok', 'PublicScheduleController@tomorrow')->name('tomorrow');
+    Route::get('/pekan_ini', 'PublicScheduleController@thisWeek')->name('this_week');
+    Route::get('/pekan_depan', 'PublicScheduleController@nextWeek')->name('next_week');
 });
 
 // Change Password Routes

@@ -7,6 +7,7 @@ return [
     'date' => 'Tanggal',
     'week' => 'Minggu',
     'this_week' => 'Pekan Ini',
+    'next_week' => 'Pekan Depan',
     'month' => 'Bulan',
 
     'months' => [
