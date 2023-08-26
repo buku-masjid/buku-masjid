@@ -20,7 +20,7 @@ class CreateRequest extends FormRequest
             'start_time' => ['required', 'date_format:H:i'],
             'end_time' => ['nullable', 'date_format:H:i'],
             'time_text' => ['nullable', 'max:20'],
-            'lecturer' => ['nullable', 'max:60'],
+            'lecturer' => ['required', 'max:60'],
             'title' => ['nullable', 'max:60'],
             'book_title' => ['nullable', 'max:60'],
             'book_writer' => ['nullable', 'max:60'],
