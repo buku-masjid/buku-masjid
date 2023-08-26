@@ -4,6 +4,7 @@ return [
     // Labels
     'lecturing_schedule' => 'Jadwal Pengajian',
     'lecturing' => 'Pengajian',
+    'public_schedule' => 'Jadwal',
     'list' => 'Daftar Jadwal Pengajian',
     'search' => 'Cari Jadwal Pengajian',
     'search_text' => 'Penceramah ...',
@@ -48,6 +49,6 @@ return [
     'book_link' => 'Link Download Buku',
     'video_link' => 'Link Video',
     'audio_link' => 'Link Audio',
-    'title' => 'Topik/Pembahasan',
+    'title' => 'Pembahasan',
     'description' => 'Keterangan',
 ];

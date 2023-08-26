@@ -22,6 +22,11 @@ Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function ()
     Route::get('/per_kategori', 'PublicReportController@inOut')->name('in_out');
 });
 
+Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
+    Route::get('/', 'PublicScheduleController@today')->name('index');
+    Route::get('/hari_ini', 'PublicScheduleController@today')->name('today');
+});
+
 // Change Password Routes
 Route::get('change-password', 'Auth\ChangePasswordController@show');
 Route::patch('change-password', 'Auth\ChangePasswordController@update')->name('password.change');
