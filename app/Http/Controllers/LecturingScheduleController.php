@@ -29,7 +29,10 @@ class LecturingScheduleController extends Controller
     public function create()
     {
         $this->authorize('create', new LecturingSchedule);
-        $audienceCodes = $this->getAudienceCodeList();
+        $audienceCodes = [
+            LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_PUBLIC),
+            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_MUSLIMAH),
+        ];
 
         return view('lecturing_schedules.create', compact('audienceCodes'));
     }
@@ -43,13 +46,21 @@ class LecturingScheduleController extends Controller
 
     public function show(LecturingSchedule $lecturingSchedule)
     {
+        if (in_array($lecturingSchedule->audience_code, [LecturingSchedule::AUDIENCE_FRIDAY])) {
+            return redirect()->route('friday_lecturing_schedules.show', $lecturingSchedule);
+        }
+
         return view('lecturing_schedules.show', compact('lecturingSchedule'));
     }
 
     public function edit(LecturingSchedule $lecturingSchedule)
     {
         $this->authorize('update', $lecturingSchedule);
-        $audienceCodes = $this->getAudienceCodeList();
+
+        $audienceCodes = [
+            LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_PUBLIC),
+            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_MUSLIMAH),
+        ];
 
         return view('lecturing_schedules.edit', compact('lecturingSchedule', 'audienceCodes'));
     }

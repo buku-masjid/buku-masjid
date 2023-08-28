@@ -101,4 +101,37 @@ class LecturingScheduleEditTest extends TestCase
             'id' => $lecturingSchedule->id,
         ]);
     }
+
+    /** @test */
+    public function user_can_edit_a_friday_lecturing_schedule()
+    {
+        $this->loginAsUser();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create(['audience_code' => 'friday']);
+
+        $this->visitRoute('lecturing_schedules.show', $lecturingSchedule);
+        $this->click('edit-lecturing_schedule-'.$lecturingSchedule->id);
+        $this->seeRouteIs('friday_lecturing_schedules.edit', $lecturingSchedule);
+        $this->seeText(__('lecturing_schedule.edit_for_friday'));
+
+        $this->submitForm(__('lecturing_schedule.update'), $this->getEditForFridayFields());
+
+        $this->seeRouteIs('friday_lecturing_schedules.show', $lecturingSchedule);
+
+        $this->seeInDatabase('lecturing_schedules', $this->getEditForFridayFields([
+            'id' => $lecturingSchedule->id,
+        ]));
+    }
+
+    private function getEditForFridayFields(): array
+    {
+        return [
+            'date' => '2023-01-03',
+            'start_time' => '06:00',
+            'lecturer' => 'Ustadz Haikal',
+            'title' => 'Lecturing title',
+            'video_link' => 'https://youtube.com',
+            'audio_link' => 'https://audio.com',
+            'description' => 'Test description',
+        ];
+    }
 }

@@ -78,4 +78,33 @@ class LecturingScheduleEntryTest extends TestCase
         ]));
         $this->assertSessionHasErrors('description');
     }
+
+    /** @test */
+    public function user_can_create_a_friday_lecturing_schedule()
+    {
+        $this->loginAsUser();
+        $this->visitRoute('lecturing_schedules.index');
+
+        $this->click(__('lecturing_schedule.create_for_friday'));
+        $this->seeRouteIs('friday_lecturing_schedules.create');
+
+        $this->submitForm(__('app.create'), $this->getCreateForFridayFields());
+
+        $this->seeRouteIs('friday_lecturing_schedules.show', LecturingSchedule::first());
+
+        $this->seeInDatabase('lecturing_schedules', $this->getCreateForFridayFields());
+    }
+
+    private function getCreateForFridayFields(): array
+    {
+        return [
+            'date' => '2023-01-03',
+            'start_time' => '06:00',
+            'lecturer' => 'Ustadz Haikal',
+            'title' => 'Lecturing title',
+            'video_link' => 'https://youtube.com',
+            'audio_link' => 'https://audio.com',
+            'description' => 'Test description',
+        ];
+    }
 }

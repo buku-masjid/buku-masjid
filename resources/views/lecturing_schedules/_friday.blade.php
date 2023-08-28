@@ -19,7 +19,7 @@
                     <td class="text-center">
                         @can('view', $lecturingSchedule)
                             {{ link_to_route(
-                                'lecturing_schedules.show',
+                                'friday_lecturing_schedules.show',
                                 __('app.show'),
                                 [$lecturingSchedule],
                                 ['id' => 'show-lecturing_schedule-' . $lecturingSchedule->id]

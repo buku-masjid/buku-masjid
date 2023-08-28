@@ -92,5 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * LecturingSchedules Routes
      */
+    Route::resource('friday_lecturing_schedules', App\Http\Controllers\FridayLecturingScheduleController::class)
+        ->parameters(['friday_lecturing_schedules' => 'lecturing_schedule'])
+        ->only(['create', 'store', 'show', 'edit', 'update']);
     Route::resource('lecturing_schedules', App\Http\Controllers\LecturingScheduleController::class);
 });

@@ -23,10 +23,44 @@ class LecturingScheduleBrowseTest extends TestCase
     /** @test */
     public function user_can_see_lecturing_schedule_detail_in_lecturing_schedule_show_page()
     {
-        $lecturingSchedule = factory(LecturingSchedule::class)->create();
+        $lecturingSchedule = factory(LecturingSchedule::class)->create([
+            'audience_code' => LecturingSchedule::AUDIENCE_PUBLIC,
+        ]);
 
         $this->loginAsUser();
         $this->visitRoute('lecturing_schedules.show', $lecturingSchedule);
         $this->see($lecturingSchedule->lecturer);
+    }
+
+    /** @test */
+    public function user_will_be_redirected_to_lecturing_schedule_detail_based_on_the_audience_code()
+    {
+        $publicLecturingSchedule = factory(LecturingSchedule::class)->create([
+            'audience_code' => LecturingSchedule::AUDIENCE_PUBLIC,
+        ]);
+
+        $this->loginAsUser();
+        $this->visitRoute('friday_lecturing_schedules.show', $publicLecturingSchedule);
+        $this->seeRouteIs('lecturing_schedules.show', $publicLecturingSchedule);
+
+        $fridayLecturingSchedule = factory(LecturingSchedule::class)->create([
+            'audience_code' => LecturingSchedule::AUDIENCE_FRIDAY,
+        ]);
+
+        $this->visitRoute('lecturing_schedules.show', $fridayLecturingSchedule);
+        $this->seeRouteIs('friday_lecturing_schedules.show', $fridayLecturingSchedule);
+    }
+
+    /** @test */
+    public function user_can_see_lecturing_schedule_detail_in_friday_lecturing_schedule_show_page()
+    {
+        $lecturingSchedule = factory(LecturingSchedule::class)->create([
+            'audience_code' => LecturingSchedule::AUDIENCE_FRIDAY,
+        ]);
+
+        $this->loginAsUser();
+        $this->visitRoute('friday_lecturing_schedules.show', $lecturingSchedule);
+        $this->seeText(__('lecturing_schedule.friday_lecturer'));
+        $this->seeText($lecturingSchedule->lecturer);
     }
 }

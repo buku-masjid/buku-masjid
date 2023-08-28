@@ -17,7 +17,8 @@
             </div>
             <div class="form-group mt-0 mt-sm-0">
                 @can('create', new App\Models\LecturingSchedule)
-                    {{ link_to_route('lecturing_schedules.create', __('lecturing_schedule.create'), [], ['class' => 'btn btn-success']) }}
+                    {{ link_to_route('lecturing_schedules.create', __('lecturing_schedule.create'), [], ['class' => 'btn btn-success mr-0 mr-sm-2']) }}
+                    {{ link_to_route('friday_lecturing_schedules.create', __('lecturing_schedule.create_for_friday'), [], ['class' => 'btn btn-primary']) }}
                 @endcan
             </div>
         {{ Form::close() }}
