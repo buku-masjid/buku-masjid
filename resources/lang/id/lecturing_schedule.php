@@ -13,6 +13,7 @@ return [
     'detail' => 'Detail Jadwal Pengajian',
     'detail_for_friday' => 'Detail Jadwal Khatib',
     'not_found' => 'Jadwal Pengajian tidak ditemukan',
+    'empty' => 'Belum ada Jadwal Pengajian',
     'friday_empty' => 'Belum ada Jadwal Khatib',
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',
     'muslimah_empty' => 'Belum ada Jadwal Pengajian Muslimah',

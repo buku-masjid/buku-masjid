@@ -16,4 +16,14 @@
     @endif
 @endforeach
 
+@if ($lecturingSchedules->isEmpty())
+    <p class="my-4">
+        {{ __('lecturing_schedule.empty') }}
+        {{ in_array(Request::segment(2), [null, 'hari_ini']) ? __('time.today').'.' : '' }}
+        {{ in_array(Request::segment(2), ['besok']) ? __('time.tomorrow').'.' : '' }}
+        {{ Request::segment(2) == 'pekan_ini' ? __('time.this_week').'.' : '' }}
+        {{ Request::segment(2) == 'pekan_depan' ? __('time.next_week').'.' : '' }}
+    </p>
+@endif
+
 @endsection
