@@ -3,11 +3,11 @@
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.table_no') }}</th>
-                <th>{{ __('time.day_name') }}</th>
-                <th class="text-center">{{ __('time.date') }}</th>
-                <th>{{ __('lecturing_schedule.time') }}</th>
-                <th>{{ __('lecturing_schedule.lecturer') }}</th>
-                <th class="text-center">{{ __('app.action') }}</th>
+                <th class="col-1">{{ __('time.day_name') }}</th>
+                <th class="text-center col-2">{{ __('time.date') }}</th>
+                <th class="col-3">{{ __('lecturing_schedule.time') }}</th>
+                <th class="col-4">{{ __('lecturing_schedule.lecturer') }}</th>
+                <th class="text-center col-2">{{ __('app.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
                 </tr>
                 @endforeach
             @else
-                <tr><td colspan="7">{{ __('lecturing_schedule.empty') }}</td></tr>
+                <tr><td colspan="7">{{ __('lecturing_schedule.muslimah_empty') }}</td></tr>
             @endif
         </tbody>
     </table>

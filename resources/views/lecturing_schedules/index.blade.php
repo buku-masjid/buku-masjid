@@ -30,7 +30,17 @@
         <h2 class="page-title">{{ __('lecturing_schedule.audience_'.$audienceCode) }}</h2>
     </div>
 
-    @include('lecturing_schedules._'.$audienceCode)
+    @desktop
+        @include('lecturing_schedules._'.$audienceCode)
+    @elsedesktop
+        @if (isset($lecturingSchedules[$audienceCode]))
+            @foreach($lecturingSchedules[$audienceCode] as $lecturingSchedule)
+                @include('lecturing_schedules._single_'.$audienceCode)
+            @endforeach
+        @else
+            <p>{{ __('lecturing_schedule.'.$audienceCode.'_empty') }}</p>
+        @endif
+    @enddesktop
 @endforeach
 
 @endsection

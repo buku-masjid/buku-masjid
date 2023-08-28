@@ -3,9 +3,11 @@
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.table_no') }}</th>
-                <th class="text-center">{{ __('time.date') }}</th>
-                <th>{{ __('lecturing_schedule.time') }}</th>
-                <th>{{ __('lecturing_schedule.friday_lecturer') }}</th>
+                <th class="col-1">{{ __('time.day_name') }}</th>
+                <th class="text-center col-2">{{ __('time.date') }}</th>
+                <th class="col-3">{{ __('lecturing_schedule.time') }}</th>
+                <th class="col-4">{{ __('lecturing_schedule.friday_lecturer') }}</th>
+                <th class="text-center col-2">{{ __('app.action') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -13,6 +15,7 @@
                 @foreach($lecturingSchedules[$audienceCode] as $key => $lecturingSchedule)
                 <tr>
                     <td class="text-center">{{ 1 + $key }}</td>
+                    <td>{{ $lecturingSchedule->day_name }}</td>
                     <td class="text-center">{{ $lecturingSchedule->full_date }}</td>
                     <td>{{ $lecturingSchedule->start_time }}</td>
                     <td>{{ $lecturingSchedule->lecturer }}</td>
