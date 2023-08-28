@@ -65,6 +65,7 @@
         scrollInput: false,
         dayOfWeekStart: 1,
         inline: true,
+        scrollMonth: false,
     });
 })();
 </script>
