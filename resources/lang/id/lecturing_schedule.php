@@ -47,6 +47,7 @@ return [
     'start_time' => 'Jam Mulai',
     'end_time' => 'Jam Selesai',
     'time_text' => 'Waktu Teks',
+    'time_text_placeholder' => 'Ba\'da Magrib',
     'lecturer' => 'Penceramah',
     'friday_lecturer' => 'Khatib',
     'book_title' => 'Judul Kitab',
