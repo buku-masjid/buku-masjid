@@ -23,6 +23,7 @@ return [
     'public_home' => 'Beranda Publik',
 
     // Action
+    'create' => 'Input',
     'add' => 'Tambah',
     'submit' => 'Submit',
     'update' => 'Update',

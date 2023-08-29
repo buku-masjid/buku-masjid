@@ -1,0 +1,10 @@
+watch:
+  directories:
+    - app
+    - tests
+    - resources/views
+    - routes
+  fileMask: '*.php'
+notifications:
+  passingTests: true
+  failingTests: true

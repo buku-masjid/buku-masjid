@@ -22,6 +22,14 @@ Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function ()
     Route::get('/per_kategori', 'PublicReportController@inOut')->name('in_out');
 });
 
+Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
+    Route::get('/', 'PublicScheduleController@today')->name('index');
+    Route::get('/hari_ini', 'PublicScheduleController@today')->name('today');
+    Route::get('/besok', 'PublicScheduleController@tomorrow')->name('tomorrow');
+    Route::get('/pekan_ini', 'PublicScheduleController@thisWeek')->name('this_week');
+    Route::get('/pekan_depan', 'PublicScheduleController@nextWeek')->name('next_week');
+});
+
 // Change Password Routes
 Route::get('change-password', 'Auth\ChangePasswordController@show');
 Route::patch('change-password', 'Auth\ChangePasswordController@update')->name('password.change');
@@ -80,4 +88,12 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::apiResource('bank_accounts', 'BankAccountController');
     Route::apiResource('bank_accounts.balances', 'BankAccounts\BalanceController');
+
+    /*
+     * LecturingSchedules Routes
+     */
+    Route::resource('friday_lecturing_schedules', App\Http\Controllers\FridayLecturingScheduleController::class)
+        ->parameters(['friday_lecturing_schedules' => 'lecturing_schedule'])
+        ->only(['create', 'store', 'show', 'edit', 'update']);
+    Route::resource('lecturing_schedules', App\Http\Controllers\LecturingScheduleController::class);
 });

@@ -15,7 +15,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') - {{ config('masjid.name') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -25,7 +25,7 @@
 <body>
     <div class="container-fluid">
         <header class="py-5 text-center">
-            <a class="h1 text-dark" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+            <a class="h1 text-dark" href="{{ url('/') }}">{{ config('masjid.name') }}</a>
         </header>
     </div>
     <div class="navbar-light bg-white shadow-sm mb-4">
@@ -38,7 +38,10 @@
                                 <i class="fe fe-home"></i> {{ __('app.home') }}
                             </a>
                             <a class="p-2 {{ in_array(Request::segment(1), ['laporan-kas']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_reports.index') }}">
-                                <i class="fe fe-layout"></i> {{ __('report.view_report') }}
+                                <i class="fe fe-layout"></i> {{ __('report.report') }}
+                            </a>
+                            <a class="p-2 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
+                                <i class="fe fe-calendar"></i> {{ __('lecturing_schedule.public_schedule') }}
                             </a>
                             @auth
                             <a class="p-2 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
