@@ -29,6 +29,7 @@ class FridayLecturingScheduleController extends Controller
         $newLecturingSchedule['audience_code'] = 'friday';
 
         $lecturingSchedule = LecturingSchedule::create($newLecturingSchedule);
+        flash(__('lecturing_schedule.created'), 'success');
 
         return redirect()->route('friday_lecturing_schedules.show', $lecturingSchedule);
     }
@@ -61,6 +62,7 @@ class FridayLecturingScheduleController extends Controller
             'description' => ['nullable', 'max:255'],
         ]);
         $lecturingSchedule->update($lecturingScheduleData);
+        flash(__('lecturing_schedule.updated'), 'success');
 
         return redirect()->route('friday_lecturing_schedules.show', $lecturingSchedule);
     }

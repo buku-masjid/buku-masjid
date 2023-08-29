@@ -41,6 +41,7 @@ class LecturingScheduleEditTest extends TestCase
         $this->submitForm(__('lecturing_schedule.update'), $this->getEditFields());
 
         $this->seeRouteIs('lecturing_schedules.show', $lecturingSchedule);
+        $this->seeText(__('lecturing_schedule.updated'));
 
         $this->seeInDatabase('lecturing_schedules', $this->getEditFields([
             'id' => $lecturingSchedule->id,
@@ -96,6 +97,9 @@ class LecturingScheduleEditTest extends TestCase
         $this->seeRouteIs('lecturing_schedules.edit', [$lecturingSchedule, 'action' => 'delete']);
 
         $this->press(__('app.delete_confirm_button'));
+        $this->seeRouteIs('lecturing_schedules.index');
+
+        $this->seeText(__('lecturing_schedule.deleted'));
 
         $this->dontSeeInDatabase('lecturing_schedules', [
             'id' => $lecturingSchedule->id,
@@ -116,6 +120,7 @@ class LecturingScheduleEditTest extends TestCase
         $this->submitForm(__('lecturing_schedule.update'), $this->getEditForFridayFields());
 
         $this->seeRouteIs('friday_lecturing_schedules.show', $lecturingSchedule);
+        $this->seeText(__('lecturing_schedule.updated'));
 
         $this->seeInDatabase('lecturing_schedules', $this->getEditForFridayFields([
             'id' => $lecturingSchedule->id,

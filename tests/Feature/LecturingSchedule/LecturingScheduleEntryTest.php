@@ -41,6 +41,7 @@ class LecturingScheduleEntryTest extends TestCase
         $this->submitForm(__('app.create'), $this->getCreateFields());
 
         $this->seeRouteIs('lecturing_schedules.show', LecturingSchedule::first());
+        $this->seeText(__('lecturing_schedule.created'));
 
         $this->seeInDatabase('lecturing_schedules', $this->getCreateFields());
     }
@@ -91,6 +92,7 @@ class LecturingScheduleEntryTest extends TestCase
         $this->submitForm(__('app.create'), $this->getCreateForFridayFields());
 
         $this->seeRouteIs('friday_lecturing_schedules.show', LecturingSchedule::first());
+        $this->seeText(__('lecturing_schedule.created'));
 
         $this->seeInDatabase('lecturing_schedules', $this->getCreateForFridayFields());
     }

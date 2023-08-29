@@ -40,6 +40,7 @@ class LecturingScheduleController extends Controller
     public function store(CreateRequest $lecturingScheduleCreateForm)
     {
         $lecturingSchedule = $lecturingScheduleCreateForm->save();
+        flash(__('lecturing_schedule.created'), 'success');
 
         return redirect()->route('lecturing_schedules.show', $lecturingSchedule);
     }
@@ -68,6 +69,7 @@ class LecturingScheduleController extends Controller
     public function update(UpdateRequest $lecturingScheduleUpdateForm, LecturingSchedule $lecturingSchedule)
     {
         $lecturingSchedule->update($lecturingScheduleUpdateForm->validated());
+        flash(__('lecturing_schedule.updated'), 'success');
 
         return redirect()->route('lecturing_schedules.show', $lecturingSchedule);
     }
@@ -79,8 +81,11 @@ class LecturingScheduleController extends Controller
         $request->validate(['lecturing_schedule_id' => 'required']);
 
         if ($request->get('lecturing_schedule_id') == $lecturingSchedule->id && $lecturingSchedule->delete()) {
+            flash(__('lecturing_schedule.deleted'), 'success');
             return redirect()->route('lecturing_schedules.index');
         }
+
+        flash(__('lecturing_schedule.undeleted'), 'error');
 
         return back();
     }
