@@ -15,7 +15,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') - {{ config('masjid.name') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -25,7 +25,7 @@
 <body>
     <div class="container-fluid">
         <header class="py-5 text-center">
-            <a class="h1 text-dark" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+            <a class="h1 text-dark" href="{{ url('/') }}">{{ config('masjid.name') }}</a>
         </header>
     </div>
     <div class="navbar-light bg-white shadow-sm mb-4">
