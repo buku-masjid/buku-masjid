@@ -13,15 +13,15 @@
             <table class="table card-table table-sm">
                 <tbody>
                     <tr>
-                        <td>{{ __('time.day_name') }}/{{ __('time.date') }}</td>
+                        <td>&#128467;&#65039; {{ __('time.day_name') }}/{{ __('time.date') }}</td>
                         <td>{{ $lecturingSchedule->day_name }}, {{ $lecturingSchedule->full_date }}</td>
                     </tr>
-                    <tr><td>{{ __('lecturing_schedule.time') }}</td><td>{{ $lecturingSchedule->start_time }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.friday_lecturer_name') }}</td><td>{{ $lecturingSchedule->lecturer_name }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.video_link') }}</td><td>{{ $lecturingSchedule->video_link }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.audio_link') }}</td><td>{{ $lecturingSchedule->audio_link }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.title') }}</td><td>{{ $lecturingSchedule->title }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.description') }}</td><td>{{ $lecturingSchedule->description }}</td></tr>
+                    <tr><td>&#9200; {{ __('lecturing_schedule.time') }}</td><td>{{ $lecturingSchedule->start_time }}</td></tr>
+                    <tr><td>&#128115;&#127997; {{ __('lecturing_schedule.friday_lecturer_name') }}</td><td>{{ $lecturingSchedule->lecturer_name }}</td></tr>
+                    <tr><td>&#128250; {{ __('lecturing_schedule.video_link') }}</td><td>{{ $lecturingSchedule->video_link }}</td></tr>
+                    <tr><td>&#128266; {{ __('lecturing_schedule.audio_link') }}</td><td>{{ $lecturingSchedule->audio_link }}</td></tr>
+                    <tr><td>&#128172; {{ __('lecturing_schedule.title') }}</td><td>{{ $lecturingSchedule->title }}</td></tr>
+                    <tr><td>&#128466;&#65039; {{ __('lecturing_schedule.description') }}</td><td>{{ $lecturingSchedule->description }}</td></tr>
                 </tbody>
             </table>
             <div class="card-footer">
