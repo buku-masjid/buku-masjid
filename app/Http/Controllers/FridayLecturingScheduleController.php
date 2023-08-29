@@ -19,7 +19,7 @@ class FridayLecturingScheduleController extends Controller
         $newLecturingSchedule = $request->validate([
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
-            'lecturer' => ['required', 'max:60'],
+            'lecturer_name' => ['required', 'max:60'],
             'title' => ['nullable', 'max:60'],
             'video_link' => ['nullable', 'max:255'],
             'audio_link' => ['nullable', 'max:255'],
@@ -55,7 +55,7 @@ class FridayLecturingScheduleController extends Controller
         $lecturingScheduleData = $request->validate([
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
-            'lecturer' => ['required', 'max:60'],
+            'lecturer_name' => ['required', 'max:60'],
             'title' => ['nullable', 'max:60'],
             'video_link' => ['nullable', 'max:255'],
             'audio_link' => ['nullable', 'max:255'],

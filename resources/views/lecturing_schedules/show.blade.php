@@ -16,7 +16,7 @@
                     <tr><td>{{ __('lecturing_schedule.start_time') }}</td><td>{{ $lecturingSchedule->start_time }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.end_time') }}</td><td>{{ $lecturingSchedule->end_time }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.time_text') }}</td><td>{{ $lecturingSchedule->time_text }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.lecturer') }}</td><td>{{ $lecturingSchedule->lecturer }}</td></tr>
+                    <tr><td>{{ __('lecturing_schedule.lecturer_name') }}</td><td>{{ $lecturingSchedule->lecturer_name }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.book_title') }}</td><td>{{ $lecturingSchedule->book_title }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.book_writer') }}</td><td>{{ $lecturingSchedule->book_writer }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.book_link') }}</td><td>{{ $lecturingSchedule->book_link }}</td></tr>

@@ -17,7 +17,7 @@
                         <td>{{ $lecturingSchedule->day_name }}, {{ $lecturingSchedule->full_date }}</td>
                     </tr>
                     <tr><td>{{ __('lecturing_schedule.time') }}</td><td>{{ $lecturingSchedule->start_time }}</td></tr>
-                    <tr><td>{{ __('lecturing_schedule.friday_lecturer') }}</td><td>{{ $lecturingSchedule->lecturer }}</td></tr>
+                    <tr><td>{{ __('lecturing_schedule.friday_lecturer_name') }}</td><td>{{ $lecturingSchedule->lecturer_name }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.video_link') }}</td><td>{{ $lecturingSchedule->video_link }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.audio_link') }}</td><td>{{ $lecturingSchedule->audio_link }}</td></tr>
                     <tr><td>{{ __('lecturing_schedule.title') }}</td><td>{{ $lecturingSchedule->title }}</td></tr>

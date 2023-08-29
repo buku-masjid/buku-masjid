@@ -17,7 +17,7 @@ class LecturingScheduleEditTest extends TestCase
             'start_time' => '06:00',
             'end_time' => '06:45',
             'time_text' => 'Ba\'da Subuh',
-            'lecturer' => 'Ustadz Haikal',
+            'lecturer_name' => 'Ustadz Haikal',
             'title' => 'Lecturing title',
             'book_title' => 'Book title',
             'book_writer' => 'Book writer',
@@ -132,7 +132,7 @@ class LecturingScheduleEditTest extends TestCase
         return [
             'date' => '2023-01-03',
             'start_time' => '06:00',
-            'lecturer' => 'Ustadz Haikal',
+            'lecturer_name' => 'Ustadz Haikal',
             'title' => 'Lecturing title',
             'video_link' => 'https://youtube.com',
             'audio_link' => 'https://audio.com',

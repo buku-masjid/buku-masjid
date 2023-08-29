@@ -11,7 +11,7 @@ $factory->define(LecturingSchedule::class, function (Faker $faker) {
         'start_time' => '06:00',
         'end_time' => null,
         'time_text' => 'Ba\'da Subuh',
-        'lecturer' => 'Ustadz Haikal',
+        'lecturer_name' => 'Ustadz Haikal',
         'title' => $this->faker->words(3, true),
         'book_title' => 'Some Book Title',
         'book_writer' => 'A book writer',

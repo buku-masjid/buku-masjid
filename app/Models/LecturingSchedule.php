@@ -13,7 +13,7 @@ class LecturingSchedule extends Model
     const AUDIENCE_MUSLIMAH = 'muslimah';
 
     protected $fillable = [
-        'audience_code', 'date', 'start_time', 'end_time', 'time_text', 'lecturer', 'title', 'book_title',
+        'audience_code', 'date', 'start_time', 'end_time', 'time_text', 'lecturer_name', 'title', 'book_title',
         'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id',
     ];
 

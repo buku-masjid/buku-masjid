@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                {!! FormField::text('lecturer', ['required' => true, 'label' => __('lecturing_schedule.lecturer')]) !!}
+                {!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing_schedule.lecturer_name')]) !!}
                 {!! FormField::text('book_title', ['label' => __('lecturing_schedule.book_title')]) !!}
                 {!! FormField::text('book_writer', ['label' => __('lecturing_schedule.book_writer')]) !!}
                 {!! FormField::text('book_link', ['label' => __('lecturing_schedule.book_link')]) !!}

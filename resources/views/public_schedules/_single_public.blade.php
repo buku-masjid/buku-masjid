@@ -7,7 +7,7 @@
             </tr>
             <tr><td>&#128467;&#65039; {{ __('time.date') }}</td><td>{{ $lecturingSchedule->full_date }}</td></tr>
             <tr><td>&#9200; {{ __('lecturing_schedule.time') }}</td><td>{{ $lecturingSchedule->time }}</td></tr>
-            <tr><td>&#128115;&#127997; {{ __('lecturing_schedule.lecturer') }}</td><td>{{ $lecturingSchedule->lecturer }}</td></tr>
+            <tr><td>&#128115;&#127997; {{ __('lecturing_schedule.lecturer_name') }}</td><td>{{ $lecturingSchedule->lecturer_name }}</td></tr>
             @if ($lecturingSchedule->book_title)
                 <tr><td>&#128216; {{ __('lecturing_schedule.book') }}</td><td>{{ $lecturingSchedule->book_title }}</td></tr>
             @endif

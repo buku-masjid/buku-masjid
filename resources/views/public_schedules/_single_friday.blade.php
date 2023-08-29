@@ -6,7 +6,7 @@
                 <td><strong>{{ $lecturingSchedule->day_name }}</strong>, {{ $lecturingSchedule->full_date }}</td>
             </tr>
             <tr><td>&#9200; {{ __('lecturing_schedule.time') }}</td><td>{{ $lecturingSchedule->start_time }}</td></tr>
-            <tr><td>&#128115;&#127997; {{ __('lecturing_schedule.friday_lecturer') }}</td><td>{{ $lecturingSchedule->lecturer }}</td></tr>
+            <tr><td>&#128115;&#127997; {{ __('lecturing_schedule.friday_lecturer_name') }}</td><td>{{ $lecturingSchedule->lecturer_name }}</td></tr>
             @if ($lecturingSchedule->video_link)
                 <tr><td>&#128250; {{ __('lecturing_schedule.video_link') }}</td><td>{{ $lecturingSchedule->video_link }}</td></tr>
             @endif

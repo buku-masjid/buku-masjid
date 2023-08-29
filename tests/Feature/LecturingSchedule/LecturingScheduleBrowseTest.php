@@ -17,7 +17,7 @@ class LecturingScheduleBrowseTest extends TestCase
 
         $this->loginAsUser();
         $this->visitRoute('lecturing_schedules.index');
-        $this->see($lecturingSchedule->lecturer);
+        $this->see($lecturingSchedule->lecturer_name);
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class LecturingScheduleBrowseTest extends TestCase
 
         $this->loginAsUser();
         $this->visitRoute('lecturing_schedules.show', $lecturingSchedule);
-        $this->see($lecturingSchedule->lecturer);
+        $this->see($lecturingSchedule->lecturer_name);
     }
 
     /** @test */
@@ -60,7 +60,7 @@ class LecturingScheduleBrowseTest extends TestCase
 
         $this->loginAsUser();
         $this->visitRoute('friday_lecturing_schedules.show', $lecturingSchedule);
-        $this->seeText(__('lecturing_schedule.friday_lecturer'));
-        $this->seeText($lecturingSchedule->lecturer);
+        $this->seeText(__('lecturing_schedule.friday_lecturer_name'));
+        $this->seeText($lecturingSchedule->lecturer_name);
     }
 }

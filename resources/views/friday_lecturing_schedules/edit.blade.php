@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                {!! FormField::text('lecturer', ['required' => true, 'label' => __('lecturing_schedule.friday_lecturer')]) !!}
+                {!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing_schedule.friday_lecturer_name')]) !!}
                 {!! FormField::text('video_link', ['label' => __('lecturing_schedule.video_link')]) !!}
                 {!! FormField::text('audio_link', ['label' => __('lecturing_schedule.audio_link')]) !!}
                 {!! FormField::text('title', ['label' => __('lecturing_schedule.title')]) !!}

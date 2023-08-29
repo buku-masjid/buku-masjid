@@ -16,7 +16,7 @@ class LecturingScheduleController extends Controller
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
         if ($request->get('q')) {
-            $lecturingScheduleQuery->where('lecturer', 'like', '%'.$request->get('q').'%');
+            $lecturingScheduleQuery->where('lecturer_name', 'like', '%'.$request->get('q').'%');
         }
         $lecturingScheduleQuery->where('date', 'like', $yearMonth.'%');
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
