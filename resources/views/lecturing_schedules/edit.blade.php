@@ -47,9 +47,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
-                            <div class="col-6">{!! FormField::text('end_time', ['label' => __('lecturing_schedule.end_time')]) !!}</div>
-                            <div class="col-12">{!! FormField::text('time_text', ['label' => __('lecturing_schedule.time_text')]) !!}</div>
+                            <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time'), 'placeholder' => '19:00']) !!}</div>
+                            <div class="col-6">{!! FormField::text('end_time', ['label' => __('lecturing_schedule.end_time'), 'placeholder' => '19:40']) !!}</div>
+                            <div class="col-12">{!! FormField::text('time_text', ['label' => __('lecturing_schedule.time_text'), 'placeholder' => __('lecturing_schedule.time_text_placeholder')]) !!}</div>
                         </div>
                     </div>
                 </div>

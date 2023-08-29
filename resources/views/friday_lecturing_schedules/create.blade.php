@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time')]) !!}</div>
+                            <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time'), 'placeholder' => '12:15']) !!}</div>
                         </div>
                     </div>
                 </div>
