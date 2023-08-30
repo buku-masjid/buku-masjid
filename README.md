@@ -59,6 +59,7 @@ Aplikasi ini dapat dipasang pada server lokal dan online dengan spesifikasi beri
     AUTH_DEFAULT_PASSWORD=password
     ```
 8. `$ php artisan migrate --seed`
+8. `$ php artisan passport:keys`
 8. `$ php artisan storage:link`
 9. `$ php artisan serve`
 10. Login dengan default user:
