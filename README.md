@@ -3,17 +3,19 @@
 Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berbasis web yang dibuat dengan framework Laravel.
 
 ## Tujuan
-  - Transparansi laporan keuangan masjid/mushalla.
-  - Laporan kas dapat diakses secara online melalui web oleh jamaah dan masyarakat umum.
-  - Mempermudah bendahara masjid/mushalla untuk input data transaksi keuangan.
-  - Laporan kas otomatis setiap input transaksi.
-  - Mempermudah pengurus masjid/mushalla untuk mengelola jadwal khatib dan pengajian
+
+- Transparansi laporan keuangan masjid/mushalla.
+- Laporan kas dapat diakses secara online melalui web oleh jamaah dan masyarakat umum.
+- Mempermudah bendahara masjid/mushalla untuk input data transaksi keuangan.
+- Laporan kas otomatis setiap input transaksi.
+- Mempermudah pengurus masjid/mushalla untuk mengelola jadwal khatib dan pengajian
 
 ## Manfaat
-  - Meningkatkan kepercayaan jamaah/masyarakat perihal pengelolaan dana infaq masjid/mushalla.
-  - Mempermudah masyarakat untuk memutuskan berinfaq ke masjid mana.
-  - Meringankan tugas bendahara dalam membuat laporan kas masjid/mushalla
-  - Masyarakat/jamaah dapat memantau jadwal pengajian di masjid tersebut secara online.
+
+- Meningkatkan kepercayaan jamaah/masyarakat perihal pengelolaan dana infaq masjid/mushalla.
+- Mempermudah masyarakat untuk memutuskan berinfaq ke masjid mana.
+- Meringankan tugas bendahara dalam membuat laporan kas masjid/mushalla
+- Masyarakat/jamaah dapat memantau jadwal pengajian di masjid tersebut secara online.
 
 ## Fitur
 
@@ -21,11 +23,11 @@ Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berba
 2. Pengelolaan kategori/kelompok pemasukan dan pengeluaran untuk setiap buku catatan.
 3. Input pemasukan dan pengeluaran.
 4. Laporan:
-    - Laporan kas Bulanan
-    - Laporan kas per Kategori
-    - Laporan kas Mingguan
+   - Laporan kas Bulanan
+   - Laporan kas per Kategori
+   - Laporan kas Mingguan
 5. Pengelolaan jadwal khatib jumat
-5. Pengelolaan jadwal pengajian rutin
+6. Pengelolaan jadwal pengajian rutin
 
 ## Cara Install
 
@@ -44,29 +46,67 @@ Aplikasi ini dapat dipasang pada server lokal dan online dengan spesifikasi beri
 3. `$ composer install`
 4. `$ cp .env.example .env`
 5. `$ php artisan key:generate`
-6. Buat **database pada mysql** untuk aplikasi ini  
+6. Buat **database pada mysql** untuk aplikasi ini
 7. **Setting database** dan config lainnya pada file `.env`
-    ```
-    APP_URL=http://localhost
-    APP_TIMEZONE="Asia/Makassar"
 
-    DB_DATABASE=homestead
-    DB_USERNAME=homestead
-    DB_PASSWORD=secret
+   ```
+   APP_URL=http://localhost
+   APP_TIMEZONE="Asia/Makassar"
 
-    MASJID_NAME="Masjid Ar-Rahman"
-    MASJID_DEFAULT_BOOK_ID=1
-    AUTH_DEFAULT_PASSWORD=password
-    ```
+   DB_DATABASE=homestead
+   DB_USERNAME=homestead
+   DB_PASSWORD=secret
+
+   MASJID_NAME="Masjid Ar-Rahman"
+   MASJID_DEFAULT_BOOK_ID=1
+   AUTH_DEFAULT_PASSWORD=password
+   ```
+
 8. `$ php artisan migrate --seed`
-8. `$ php artisan passport:keys`
-8. `$ php artisan storage:link`
-9. `$ php artisan serve`
-10. Login dengan default user:
+9. `$ php artisan passport:keys`
+10. `$ php artisan storage:link`
+11. `$ php artisan serve`
+12. Login dengan default user:
     ```
     email: admin@example.net
     password: password
     ```
+
+**Docker**
+
+Untuk menggunakan doker silahkan jalankan perintah ini di terminal:
+
+_Buat file .enn_
+
+```bash
+cp .env.example .env
+```
+
+Pastikan untuk mengubah env `DB_HOST`:
+
+```bash
+DB_HOST=mysql_host
+```
+
+_Build docker images dan jalankan containers_:
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+_Jalankan database migration_:
+
+```bash
+docker-compose exec server php artisan migrate --seed
+```
+
+_Masuk ke docker container shell_:
+
+```bash
+docker-compose exec server sh
+docker-compose exec mysql bash
+```
 
 ## Kontribusi
 
