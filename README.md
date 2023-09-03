@@ -66,47 +66,43 @@ Aplikasi ini dapat dipasang pada server lokal dan online dengan spesifikasi beri
 9. `$ php artisan passport:keys`
 10. `$ php artisan storage:link`
 11. `$ php artisan serve`
-12. Login dengan default user:
+12. Buka web browser dengan alamat web: http://localhost:8000, kemudian login dengan default user:
     ```
     email: admin@example.net
     password: password
     ```
 
-**Docker**
+### Langkah Install dengan Docker
 
-Untuk menggunakan doker silahkan jalankan perintah ini di terminal:
+Untuk menggunakan docker silahkan jalankan perintah ini di terminal:
 
-_Buat file .enn_
-
-```bash
-cp .env.example .env
-```
-
-Pastikan untuk mengubah env `DB_HOST`:
-
-```bash
-DB_HOST=mysql_host
-```
-
-_Build docker images dan jalankan containers_:
-
-```bash
-docker-compose build
-docker-compose up -d
-```
-
-_Jalankan database migration_:
-
-```bash
-docker-compose exec server php artisan migrate --seed
-```
-
-_Masuk ke docker container shell_:
-
-```bash
-docker-compose exec server sh
-docker-compose exec mysql bash
-```
+1. Buat file .env
+    ```bash
+    $ cp .env.example .env
+    ```
+2. Update untuk mengubah env `DB_HOST`:
+    ```bash
+    DB_HOST=mysql_host
+    ```
+3. Build docker images dan jalankan container:
+    ```bash
+    docker-compose build
+    docker-compose up -d
+    ```
+4. Jalankan database migration:
+    ```bash
+    docker-compose exec server php artisan migrate --seed
+    ```
+5. Buka web browser dengan alamat web: http://localhost:8000, kemudian login dengan default user:
+    ```
+    email: admin@example.net
+    password: password
+    ```
+6. Untuk masuk ke docker container shell:
+    ```bash
+    docker-compose exec server sh
+    docker-compose exec mysql bash
+    ```
 
 ## Kontribusi
 
