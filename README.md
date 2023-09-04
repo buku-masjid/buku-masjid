@@ -102,6 +102,24 @@ Untuk menggunakan docker silahkan jalankan perintah ini di terminal:
     docker-compose exec mysql bash
     ```
 
+## Screenshot
+
+#### Laporan Bulanan
+
+![Laporan Bulanan](public/screenshots/01-monthly-report-for-public.jpg)
+
+#### Laporan Per Kategori
+
+![Laporan Per](public/screenshots/02-categorized-report-for-public.jpg)
+
+#### Laporan Per Pekan
+
+![Laporan Per](public/screenshots/03-weekly-report-for-public.jpg)
+
+#### Jadwal Pengajian
+
+![Jadwal Pengajian](public/screenshots/04-lecturing-schedule-for-this-week.jpg)
+
 ## Kontribusi
 
 Jika Anda ingin berkontribusi pada proyek ini, kami sangat menghargainya. Berikut beberapa yang dapat Anda lakukan:
