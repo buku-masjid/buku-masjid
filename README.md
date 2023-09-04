@@ -48,28 +48,59 @@ Aplikasi ini dapat diinstal pada server lokal maupun online dengan spesifikasi b
 5. Generate kunci aplikasi: `$ php artisan key:generate`
 6. Buat database MySQL untuk aplikasi ini.
 7. Konfigurasi database dan pengaturan lainnya di berkas `.env`.
+    ```
+    APP_URL=http://localhost
+    APP_TIMEZONE="Asia/Makassar"
 
-```
-APP_URL=http://localhost
-APP_TIMEZONE="Asia/Makassar"
+    DB_DATABASE=homestead
+    DB_USERNAME=homestead
+    DB_PASSWORD=secret
 
-DB_DATABASE=homestead
-DB_USERNAME=homestead
-DB_PASSWORD=secret
-
-MASJID_NAME="Masjid Ar-Rahman"
-MASJID_DEFAULT_BOOK_ID=1
-AUTH_DEFAULT_PASSWORD=password
-```
+    MASJID_NAME="Masjid Ar-Rahman"
+    MASJID_DEFAULT_BOOK_ID=1
+    AUTH_DEFAULT_PASSWORD=password
+    ```
 8. Jalankan migrasi database: `$ php artisan migrate --seed`
 9. Buat kunci passport: `$ php artisan passport:keys`
 10. Buat tautan penyimpanan: `$ php artisan storage:link`
 11. Mulai server: `$ php artisan serve`
-12. Masuk dengan akun bawaan:
- ```
- email: admin@example.net
- password: password
- ```
+12. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
+    ```
+    email: admin@example.net
+    password: password
+    ```
+
+### Langkah Install dengan Docker
+
+Untuk menggunakan docker silahkan jalankan perintah ini di terminal:
+
+1. Buat file .env
+    ```bash
+    $ cp .env.example .env
+    ```
+2. Update untuk mengubah env `DB_HOST`:
+    ```bash
+    DB_HOST=mysql_host
+    ```
+3. Build docker images dan jalankan container:
+    ```bash
+    docker-compose build
+    docker-compose up -d
+    ```
+4. Jalankan database migration:
+    ```bash
+    docker-compose exec server php artisan migrate --seed
+    ```
+5. Buka web browser dengan alamat web: http://localhost:8000, kemudian login dengan default user:
+    ```
+    email: admin@example.net
+    password: password
+    ```
+6. Untuk masuk ke docker container shell:
+    ```bash
+    docker-compose exec server sh
+    docker-compose exec mysql bash
+    ```
 
 ## Kontribusi
 
