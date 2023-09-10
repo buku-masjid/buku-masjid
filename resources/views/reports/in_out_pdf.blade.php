@@ -5,8 +5,6 @@
 @section('content')
 {{-- ref: https://github.com/niklasravnsborg/laravel-pdf#headers-and-footers --}}
 <htmlpageheader name="wpHeader">
-    {{-- Need to upload manually to the storage/app/public, then php artisan storage:link --}}
-    <img src="{{ asset('storage/pdf_header.jpg') }}" style="width: 100%">
     <h2 class="text-center strong" style="margin: 1em 0">
         @if (isset(auth()->activeBook()->report_titles['in_out']))
             {{ auth()->activeBook()->report_titles['in_out'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
@@ -111,12 +109,12 @@
 <style>
     @page {
         size: auto;
-        margin-top: 160px;
+        margin-top: 100px;
         margin-bottom: 50px;
         margin-left: 50px;
         margin-right: 50px;
-        margin-header: 20px;
-        margin-footer: 20px;
+        margin-header: 40px;
+        margin-footer: 40px;
         header: html_wpHeader;
     }
 </style>
