@@ -22,12 +22,14 @@
                         <div class="row">
                             <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing_schedule.start_time'), 'placeholder' => '12:15']) !!}</div>
                         </div>
+                        {!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing_schedule.friday_lecturer_name')]) !!}
+                        {!! FormField::text('title', ['label' => __('lecturing_schedule.title')]) !!}
                     </div>
                 </div>
-                {!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing_schedule.friday_lecturer_name')]) !!}
-                {!! FormField::text('title', ['label' => __('lecturing_schedule.title')]) !!}
-                {!! FormField::text('video_link', ['label' => __('lecturing_schedule.video_link')]) !!}
-                {!! FormField::text('audio_link', ['label' => __('lecturing_schedule.audio_link')]) !!}
+                <div class="row">
+                    <div class="col-md-6">{!! FormField::text('video_link', ['label' => __('lecturing_schedule.video_link')]) !!}</div>
+                    <div class="col-md-6">{!! FormField::text('audio_link', ['label' => __('lecturing_schedule.audio_link')]) !!}</div>
+                </div>
                 {!! FormField::textarea('description', ['label' => __('lecturing_schedule.description')]) !!}
             </div>
             <div class="card-footer">
