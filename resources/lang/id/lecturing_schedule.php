@@ -3,6 +3,7 @@
 return [
     // Labels
     'lecturing_schedule' => 'Jadwal Pengajian',
+    'friday_lecturing_schedule' => 'Khatib Jumat',
     'lecturing' => 'Pengajian',
     'public_schedule' => 'Jadwal',
     'list' => 'Daftar Jadwal Pengajian',
@@ -18,6 +19,7 @@ return [
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',
     'muslimah_empty' => 'Belum ada Jadwal Pengajian Muslimah',
     'back_to_show' => 'Kembali ke detail Jadwal Pengajian',
+    'today_empty' => 'Belum ada Jadwal Pengajian Hari Ini',
     'back_to_index' => 'Kembali ke daftar Jadwal Pengajian',
 
     // Actions
