@@ -16,6 +16,7 @@ class TodayLecturerCard extends Component
     public $linkDetailSchedule;
     public $isFriday;
     public $audienceFriday;
+    public $lecturerName;
 
     public function getAudienceCodeList(): array
     {
@@ -35,6 +36,15 @@ class TodayLecturerCard extends Component
         ];
     }
 
+    public function getLecturerName(): array
+    {
+        return [
+            LecturingSchedule::AUDIENCE_FRIDAY => __('lecturing_schedule.friday_lecturer_name'),
+            LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.lecturer_name'),
+            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.lecturer_name')
+        ];
+    }
+
     public function today()
     {
         $lecturingScheduleQuery = LecturingSchedule::query();
@@ -51,13 +61,14 @@ class TodayLecturerCard extends Component
                 return true;
             });
         $this->audienceCodes = $this->getAudienceCodeList();
+        $this->lecturerName = $this->getLecturerName();
     }
 
     public function mount()
     {
         $this->header = $this->getHeader();
         $this->detailTextButton = __('app.show');
-        $this->intervalCarousel = "13000";
+        $this->intervalCarousel = "5000";
         $this->linkDetailSchedule = route('public_schedules.index');
         $this->isFriday = strtolower(Carbon::today()->format('l')) === LecturingSchedule::AUDIENCE_FRIDAY;
         $this->audienceFriday = LecturingSchedule::AUDIENCE_FRIDAY;
