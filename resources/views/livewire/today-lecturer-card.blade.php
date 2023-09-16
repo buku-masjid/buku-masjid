@@ -24,7 +24,7 @@
                     <tbody>
                         <tr>
                             <td class="col-4">{!! config('lecturing.emoji.lecturing') !!} {{ __('lecturing_schedule.lecturing') }}</td>
-                            <td><strong>Sabtu, Ba'da Ashar</strong></td>
+                            <td><strong>{{ $lecturingSchedule->day_name }}, {{ $lecturingSchedule->time_text }}</strong></td>
                         </tr>
                         <tr>
                             <td>{!! config('lecturing.emoji.date') !!} {{ __('time.date') }}</td>
