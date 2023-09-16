@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LecturingSchedule;
+namespace Tests\Feature\Liveware\PublicHome;
 
 use App\Http\Livewire\TodayLecturerCard;
 use App\Models\LecturingSchedule;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class TodayCardLecturingScheduleTest extends TestCase
+class TodayLecturingSchedulesTest extends TestCase
 {
     use RefreshDatabase;
 

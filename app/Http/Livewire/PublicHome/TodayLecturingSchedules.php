@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\PublicHome;
 
 use App\Models\LecturingSchedule;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class TodayLecturerCard extends Component
+class TodayLecturingSchedules extends Component
 {
     public $header;
     public $detailTextButton;
@@ -77,6 +77,6 @@ class TodayLecturerCard extends Component
 
     public function render()
     {
-        return view('livewire.today-lecturer-card');
+        return view('livewire.public_home.today_lecturing_schedules');
     }
 }

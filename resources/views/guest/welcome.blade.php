@@ -16,7 +16,7 @@
 </div>
 <div>
     <div class="col-lg-6 px-0">
-        @livewire('today-lecturer-card')
+        @livewire('public-home.today-lecturing-schedules')
     </div>
 </div>
 @endsection
