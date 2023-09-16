@@ -14,4 +14,9 @@
         </p>
     </div>
 </div>
+<div>
+    <div class="col-lg-6 px-0">
+        @livewire('today-lecturer-card')
+    </div>
+</div>
 @endsection
