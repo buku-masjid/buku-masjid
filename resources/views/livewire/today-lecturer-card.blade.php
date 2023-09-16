@@ -15,7 +15,7 @@
             </div>
             @else
             @foreach($lecturingSchedules as $index => $lecturingSchedule)
-            <div class="carousel-item {{ $isFriday && $lecturingSchedule->audience_code === LecturingSchedule::AUDIENCE_FRIDAY ? 'active' : ($index === 0 ? 'active' : '') }}" data-interval="{{ $intervalCarousel }}">
+            <div class="carousel-item {{ $isFriday && $lecturingSchedule->audience_code === $audienceFriday ? 'active' : ($index === 0 ? 'active' : '') }}" data-interval="{{ $intervalCarousel }}">
                 <div class="card-header">
                     <h3 class="card-title flex-grow-1">{{ $header[$lecturingSchedule->audience_code] }}</h3>
                     <a class="btn btn-sm btn-success" href="{{ $linkDetailSchedule }}" role="button">{{ $detailTextButton }}</a>

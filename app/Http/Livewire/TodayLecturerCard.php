@@ -15,7 +15,7 @@ class TodayLecturerCard extends Component
     public $audienceCodes = [];
     public $linkDetailSchedule;
     public $isFriday;
-    public $isAudienceFriday;
+    public $audienceFriday;
 
     public function getAudienceCodeList(): array
     {
@@ -60,6 +60,7 @@ class TodayLecturerCard extends Component
         $this->intervalCarousel = "13000";
         $this->linkDetailSchedule = route('public_schedules.index');
         $this->isFriday = strtolower(Carbon::today()->format('l')) === LecturingSchedule::AUDIENCE_FRIDAY;
+        $this->audienceFriday = LecturingSchedule::AUDIENCE_FRIDAY;
         $this->today();
     }
 
