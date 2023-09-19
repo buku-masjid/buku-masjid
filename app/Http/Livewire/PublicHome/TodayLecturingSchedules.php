@@ -17,7 +17,7 @@ class TodayLecturingSchedules extends Component
         return [
             LecturingSchedule::AUDIENCE_FRIDAY => __('lecturing_schedule.friday_lecturer_name'),
             LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.lecturer_name'),
-            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.lecturer_name')
+            LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.lecturer_name'),
         ];
     }
 

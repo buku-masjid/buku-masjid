@@ -3,7 +3,6 @@
 return [
     // Labels
     'lecturing_schedule' => 'Lecturing Schedule',
-    'friday_lecturing_schedule' => 'Friday Lecturing',
     'lecturing' => 'Lecturing',
     'public_schedule' => 'Schedule',
     'list' => 'Lecturing Schedules',

@@ -33,7 +33,7 @@ class TodayLecturingSchedulesTest extends TestCase
     }
 
     /** @test */
-    public function user_can_see_firday_lecturing_today_card()
+    public function user_can_see_friday_lecturing_today_card()
     {
         Carbon::setTestNow("16-09-2023");
         factory(User::class)->create(
