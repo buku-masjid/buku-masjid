@@ -12,7 +12,10 @@
                 <div class="modal-body">
                     {!! FormField::text('name', ['required' => true, 'label' => __('book.name')]) !!}
                     {!! FormField::textarea('description', ['label' => __('book.description')]) !!}
-                    {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('bank_account.bank_account')]) !!}
+                    {!! FormField::select('bank_account_id', $bankAccounts, [
+                        'label' => __('bank_account.bank_account'),
+                        'placeholder' => __('book.no_bank_account')
+                    ]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('book.create'), ['class' => 'btn btn-success']) !!}
