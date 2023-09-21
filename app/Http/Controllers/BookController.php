@@ -48,7 +48,7 @@ class BookController extends Controller
         $year = request('year', date('Y'));
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
 
-        $defaultStartDate = auth()->user()->account_start_date ?: date('Y-m').'-01';
+        $defaultStartDate = date('Y-m').'-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
 

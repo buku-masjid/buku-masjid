@@ -37,8 +37,6 @@ return [
     'phone' => 'Telp/Hp.',
     'is_active' => 'Status User',
     'registered_at' => 'Terdaftar sejak',
-    'account_start_date' => 'Akun Mulai Digunakan',
-    'currency_code' => 'Kode Mata Uang',
 
     // Relations
     'groups' => 'List Member',

@@ -16,8 +16,7 @@ class TransactionsController extends Controller
         $date = request('date');
         $year = request('year', date('Y'));
         $month = request('month', date('m'));
-        $defaultStartDate = auth()->user()->account_start_date;
-        $startDate = $defaultStartDate ?: $year.'-'.$month.'-01';
+        $startDate = $year.'-'.$month.'-01';
 
         $transactions = $this->getTansactions($yearMonth);
 

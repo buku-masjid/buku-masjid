@@ -21,8 +21,6 @@ return new class extends Migration
             $table->unsignedTinyInteger('role_id');
             $table->char('api_token', 24);
             $table->boolean('is_active')->default(1);
-            $table->date('account_start_date')->nullable();
-            $table->string('currency_code', 3)->default('IDR');
             $table->rememberToken();
             $table->timestamps();
         });

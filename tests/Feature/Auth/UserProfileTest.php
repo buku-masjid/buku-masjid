@@ -29,21 +29,16 @@ class UserProfileTest extends TestCase
         $this->submitForm(__('user.profile_update'), [
             'name' => 'User Baru',
             'email' => 'user3@mail.com',
-            'account_start_date' => '2016-06-01',
-            'currency_code' => 'USD',
         ]);
 
         $this->seeRouteIs('profile.show');
         $this->seeText(__('user.profile_updated'));
         $this->seeText('User Baru');
-        $this->seeText('USD');
 
         $this->seeInDatabase('users', [
             'id' => $user->id,
             'name' => 'User Baru',
             'email' => 'user3@mail.com',
-            'account_start_date' => '2016-06-01',
-            'currency_code' => 'USD',
         ]);
     }
 }

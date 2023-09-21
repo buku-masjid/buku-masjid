@@ -9,10 +9,8 @@
         <div class="card">
             {{ Form::model($user, ['route' => 'profile.update', 'method' => 'patch']) }}
                 <div class="card-body">
-                    {!! FormField::text('name', ['required' => true]) !!}
-                    {!! FormField::email('email', ['required' => true]) !!}
-                    {!! FormField::text('account_start_date', ['label' => __('user.account_start_date')]) !!}
-                    {!! FormField::text('currency_code', ['label' => __('user.currency_code')]) !!}
+                    {!! FormField::text('name', ['required' => true, 'label' => __('user.name')]) !!}
+                    {!! FormField::email('email', ['required' => true, 'label' => __('user.email')]) !!}
                 </div>
                 <div class="card-footer">
                     {{ Form::submit(__('user.profile_update'), ['class' => 'btn btn-success']) }}
@@ -23,22 +21,3 @@
     </div>
 </div>
 @endsection
-
-@section('styles')
-{{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
-
-@push('scripts')
-{{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
-<script>
-(function () {
-    $('#account_start_date').datetimepicker({
-        timepicker:false,
-        format:'Y-m-d',
-        closeOnDateSelect: true,
-        scrollInput: false,
-        dayOfWeekStart: 1
-    });
-})();
-</script>
-@endpush

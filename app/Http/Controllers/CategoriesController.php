@@ -55,7 +55,7 @@ class CategoriesController extends Controller
         $editableTransaction = null;
         $year = request('year', date('Y'));
 
-        $defaultStartDate = auth()->user()->account_start_date ?: date('Y-m').'-01';
+        $defaultStartDate = date('Y-m').'-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
 
