@@ -14,6 +14,7 @@ return [
     'next_month' => 'Next Month',
     'graph' => 'Summary Graph',
     'detail' => 'Report Detail',
+    'summary_weekly' => 'This Week Summary Report',
     'view_monthly' => 'Monthly Report',
     'monthly' => 'Report Month',
     'view_weekly' => 'Weekly Report',

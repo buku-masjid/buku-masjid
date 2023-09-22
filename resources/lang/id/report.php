@@ -14,6 +14,7 @@ return [
     'next_month' => 'Bulan Brkt',
     'graph' => 'Grafik Summary',
     'detail' => 'Detail Laporan',
+    'summary_weekly' => 'Laporan KAS pekan ini',
     'view_monthly' => 'Laporan KAS Bulanan',
     'monthly' => 'Laporan Bulan',
     'view_weekly' => 'Laporan KAS per Pekan',
