@@ -5,8 +5,8 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    {{ link_to_route('books.show', '&times;', [$book] + request(['start_date', 'end_date', 'query', 'category_id']), ['class' => 'close']) }}
                     <h5 class="modal-title">{{ __('transaction.edit') }}</h5>
+                    {{ link_to_route('books.show', '', [$book] + request(['start_date', 'end_date', 'query', 'category_id']), ['class' => 'close']) }}
                 </div>
                 {!! Form::model($editableTransaction, ['route' => ['transactions.update', $editableTransaction], 'method' => 'patch', 'autocomplete' => 'off']) !!}
                 <div class="modal-body">
@@ -16,9 +16,8 @@
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-4">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('masjid.currency_code')]) !!}</div>
-                        <div class="col-md-4">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction')]) !!}</div>
-                        <div class="col-md-4">{!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => __('book.empty')]) !!}</div>
+                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('masjid.currency_code')]) !!}</div>
+                        <div class="col-md-6">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction'), 'list_style' => 'unstyled']) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -48,7 +48,7 @@
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number']) !!}</div>
+                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('masjid.currency_code')]) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -81,8 +81,8 @@
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-4">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number']) !!}</div>
-                        <div class="col-md-4">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction')]) !!}</div>
+                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('masjid.currency_code')]) !!}</div>
+                        <div class="col-md-6">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction'), 'list_style' => 'unstyled']) !!}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
