@@ -23,7 +23,7 @@ return [
     'update' => 'Update Book',
     'updated' => 'Book data has been updated.',
     'delete' => 'Delete Book',
-    'delete_confirm' => 'Are you sure to delete this Book?',
+    'delete_confirm' => 'Deleting a book will also delete all transaction and category data in the book. This action cannot be undone.<br><br>Are you sure to delete this Book?',
     'deleted' => 'Book has been deleted.',
     'undeleted' => 'Book not deleted.',
     'undeleteable' => 'Book data cannot be deleted.',

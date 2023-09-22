@@ -100,7 +100,12 @@
                     {!! $errors->first('book_id', '<span class="form-error small">:message</span>') !!}
                 </div>
                 <hr style="margin:0">
-                <div class="modal-body">{{ __('app.delete_confirm') }}</div>
+                <div class="modal-body bg-warning">
+                    <div class="row">
+                        <div class="col-1"><i class="fe fe-alert-circle"></i></div>
+                        <div class="col-11">{!! __('book.delete_confirm') !!}</div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     {!! FormField::delete(
                         ['route' => ['books.destroy', $editableBook], 'class' => ''],

@@ -6,6 +6,7 @@ use App\Models\BankAccount;
 use App\Models\Book;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class BookController extends Controller
@@ -95,7 +96,13 @@ class BookController extends Controller
             'book_id' => 'required',
         ]);
 
-        if (request('book_id') == $book->id && $book->delete()) {
+        DB::beginTransaction();
+        $book->categories()->delete();
+        $book->transactions()->delete();
+        $isBookDeleted = $book->delete();
+        DB::commit();
+
+        if (request('book_id') == $book->id && $isBookDeleted) {
             return redirect()->route('books.index');
         }
 

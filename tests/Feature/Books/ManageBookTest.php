@@ -4,6 +4,8 @@ namespace Tests\Feature\Books;
 
 use App\Models\BankAccount;
 use App\Models\Book;
+use App\Models\Category;
+use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -126,5 +128,28 @@ class ManageBookTest extends TestCase
         $this->dontSeeInDatabase('books', [
             'id' => $book->id,
         ]);
+    }
+
+    /** @test */
+    public function book_deletion_will_also_deletes_its_transactions_and_categories()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        factory(Transaction::class)->create(['book_id' => $book->id]);
+        factory(Category::class)->create(['book_id' => $book->id]);
+
+        $this->visitRoute('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->click('del-book-'.$book->id);
+        $this->seeRouteIs('books.index', ['action' => 'delete', 'id' => $book->id]);
+
+        $this->seeInDatabase('books', ['id' => $book->id]);
+        $this->seeInDatabase('categories', ['book_id' => $book->id]);
+        $this->seeInDatabase('transactions', ['book_id' => $book->id]);
+
+        $this->press(__('app.delete_confirm_button'));
+
+        $this->dontSeeInDatabase('books', ['id' => $book->id]);
+        $this->dontSeeInDatabase('categories', ['book_id' => $book->id]);
+        $this->dontSeeInDatabase('transactions', ['book_id' => $book->id]);
     }
 }

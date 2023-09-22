@@ -23,7 +23,7 @@ return [
     'update' => 'Update Buku',
     'updated' => 'Update data Buku telah berhasil.',
     'delete' => 'Hapus Buku',
-    'delete_confirm' => 'Anda yakin akan menghapus Buku ini?',
+    'delete_confirm' => 'Menghapus buku juga akan turut menghapus semua data transaksi dan kategori di dalam buku. Tindakan ini tidak bisa dibatalkan.<br><br>Anda yakin akan menghapus Buku ini?',
     'deleted' => 'Hapus data Buku telah berhasil.',
     'undeleted' => 'Data Buku gagal dihapus.',
     'undeleteable' => 'Data Buku tidak dapat dihapus.',
