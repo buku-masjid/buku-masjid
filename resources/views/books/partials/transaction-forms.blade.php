@@ -16,15 +16,7 @@
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group required {{ $errors->has('amount') ? 'has-error' : '' }}">
-                                <label for="amount" class="control-label">{{ __('transaction.amount') }}</label>
-                                <div class="input-group"><span class="input-group-addon">{{ auth()->user()->currency_code }}</span>
-                                    <input class="form-control text-right" name="amount" type="number" id="amount" min="0" value="{{ isset($editableTransaction) ? round($editableTransaction->amount, 0) : old('amount') }}" required>
-                                </div>
-                                {!! $errors->first('amount', '<span class="help-block small">:message</span>') !!}
-                            </div>
-                        </div>
+                        <div class="col-md-4">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('masjid.currency_code')]) !!}</div>
                         <div class="col-md-4">{!! FormField::radios('in_out', [__('transaction.spending'), __('transaction.income')], ['required' => true, 'label' => __('transaction.transaction')]) !!}</div>
                         <div class="col-md-4">{!! FormField::select('book_id', $books, ['label' => __('book.book'), 'placeholder' => __('book.empty')]) !!}</div>
                     </div>
