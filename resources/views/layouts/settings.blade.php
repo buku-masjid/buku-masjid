@@ -7,6 +7,9 @@
         {!! link_to_route('profile.show', __('user.profile'), [], ['class' => 'nav-link'.(Request::segment(1) == 'profile' ? ' active' : '')]) !!}
     </li>
     <li class="nav-item">
+        {!! link_to_route('masjid_profile.show', __('masjid_profile.masjid_profile'), [], ['class' => 'nav-link'.(Request::segment(1) == 'masjid_profile' ? ' active' : '')]) !!}
+    </li>
+    <li class="nav-item">
         {!! link_to_route('password.change', __('auth.change_password'), [], ['class' => 'nav-link'.(Request::segment(1) == 'change-password' ? ' active' : '')]) !!}
     </li>
     <li class="nav-item">
