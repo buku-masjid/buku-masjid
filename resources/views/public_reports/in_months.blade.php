@@ -14,7 +14,7 @@
             {{ Form::hidden('active_book_id', request('active_book_id')) }}
             {{ Form::hidden('nonce', request('nonce')) }}
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('public_reports.in_months', __('report.this_month'), Request::all(), ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('public_reports.in_months', __('report.this_month'), Request::except(['year', 'month']), ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group mb-0">
             @livewire('prev-month-button', ['routeName' => 'public_reports.in_months', 'buttonClass' => 'btn btn-secondary mr-1'])
