@@ -15,7 +15,7 @@ class Setting
         $this->settings = SettingModel::all();
     }
 
-    public function get($key, $default = '')
+    public function get(string $key, $default = ''): string
     {
         $setting = $this->settings->filter(function ($item) use ($key) {
             if ($this->userId) {
@@ -32,7 +32,7 @@ class Setting
         return $default;
     }
 
-    public function set($key, string $value)
+    public function set(string $key, string $value): string
     {
         $setting = $this->settings->filter(function ($item) use ($key) {
             if ($this->userId) {
@@ -56,7 +56,7 @@ class Setting
         return $value;
     }
 
-    public function forUser($user)
+    public function forUser($user): self
     {
         $userModel = config('auth.providers.users.model');
         if ($user instanceof $userModel) {
