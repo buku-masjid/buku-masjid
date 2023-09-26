@@ -22,7 +22,7 @@
         </div>
         <div class="px-2"></div>
         <div class="col-lg-6 px-0">
-            @livewire('public-home.today-financial-reports')
+            @livewire('public-home.weekly-financial-summary')
         </div>
     </div>
 @endsection
