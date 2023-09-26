@@ -1,7 +1,7 @@
 <div class="page-header">
     <h3 class="page-title">{{ __('report.summary_weekly') }}</h3>
     <div class="page-options d-flex">
-        <a class="btn btn-sm btn-success" href="{{ route('public_reports.index') }}"
+        <a class="btn btn-sm btn-success" href="{{ route('public_reports.in_weeks') }}"
             role="button">{{ __('app.show') }}</a>
     </div>
 </div>
