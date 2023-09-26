@@ -14,7 +14,7 @@ class WeeklyFinancialSummaryTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function user_can_see_empty_today_financial_report_card()
+    public function user_can_see_empty_weekly_financial_report_card()
     {
         factory(Book::class)->create();
         $this->visit('/');
@@ -29,7 +29,7 @@ class WeeklyFinancialSummaryTest extends TestCase
     }
 
     /** @test */
-    public function user_can_see_today_financial_report_card()
+    public function user_can_see_weekly_financial_report_card()
     {
         factory(Book::class)->create();
 

@@ -13,7 +13,7 @@
                     <span id="start_week_label">{{ 'Saldo per ' .now()->startOfWeek()->isoFormat('dddd, D MMMM Y') }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="start_week_balance">{{ number_format($thisWeekBalance) }}</span>
+                    <span id="start_week_balance">{{ number_format($currentWeekBalance) }}</span>
                 </td>
             </tr>
             <tr>
@@ -21,7 +21,7 @@
                     <span>Pemasukan hingga hari ini</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_week_income_total">{{ number_format($thisWeekIncome) }}</span>
+                    <span id="current_week_income_total">{{ number_format($currentWeekIncome) }}</span>
                 </td>
             </tr>
             <tr>
@@ -29,7 +29,7 @@
                     <span>Pengeluaran hingga hari ini</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_week_spending_total">{{ $thisWeekSpending ? '-'.number_format($thisWeekSpending) : 0 }}</span>
+                    <span id="current_week_spending_total">{{ $currentWeekSpending ? '-'.number_format($currentWeekSpending) : 0 }}</span>
                 </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                     <span id="current_balance_label">Saldo per hari ini ({{ now()->isoFormat('dddd, D MMMM Y') }})</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_balance">{{ number_format($allBalance) }}</span>
+                    <span id="current_balance">{{ number_format($currentBalance) }}</span>
                 </td>
             </tr>
         </tbody>

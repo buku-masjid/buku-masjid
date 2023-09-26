@@ -7,12 +7,12 @@ use Livewire\Component;
 
 class WeeklyFinancialSummary extends Component
 {
-    public $allBalance;
-    public $thisWeekBalance;
-    public $thisWeekIncome;
-    public $thisWeekSpending;
+    public $currentBalance;
+    public $currentWeekBalance;
+    public $currentWeekIncome;
+    public $currentWeekSpending;
 
-    protected function getThisWeekTansactions()
+    protected function getCurrentWeekTansactions()
     {
         $firstDayInWeek = now()->startOfWeek()->format('Y-m-d');
         $lastDayInWeek = now()->endOfWeek()->format('Y-m-d');
@@ -31,17 +31,16 @@ class WeeklyFinancialSummary extends Component
 
     public function mount()
     {
-        $lastWeekTransaction = auth()->activeBook()
-            ->getBalance(now()->startOfWeek()->subDay()->format('Y-m-d'));;
-        $transaction = $this->getThisWeekTansactions();
-        $transaction->each(function ($transaction) {
+        $endOfLastWeek = now()->startOfWeek()->subDay()->format('Y-m-d');
+        $lastWeekBalance = auth()->activeBook()->getBalance($endOfLastWeek);
+        $this->getCurrentWeekTansactions()->each(function ($transaction) {
             if ($transaction->in_out) {
-                $this->thisWeekIncome = $this->thisWeekIncome + $transaction->amount;
+                $this->currentWeekIncome = $this->currentWeekIncome + $transaction->amount;
             } else {
-                $this->thisWeekSpending = $this->thisWeekSpending + $transaction->amount;
+                $this->currentWeekSpending = $this->currentWeekSpending + $transaction->amount;
             }
         });
-        $this->thisWeekBalance = $lastWeekTransaction;
-        $this->allBalance = $lastWeekTransaction + $this->thisWeekIncome - $this->thisWeekSpending;
+        $this->currentWeekBalance = $lastWeekBalance;
+        $this->currentBalance = $lastWeekBalance + $this->currentWeekIncome - $this->currentWeekSpending;
     }
 }
