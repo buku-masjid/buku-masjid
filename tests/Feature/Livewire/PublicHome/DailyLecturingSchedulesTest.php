@@ -18,7 +18,7 @@ class DailyLecturingSchedulesTest extends TestCase
     {
         Livewire::test(DailyLecturingSchedules::class, ['date' => today(), 'dayTitle' => 'today'])
             ->assertCount('lecturingSchedules', 0)
-            ->assertSee(__('lecturing_schedule.today_empty'));
+            ->assertSee(__('lecturing_schedule.empty'));
     }
 
     /** @test */
