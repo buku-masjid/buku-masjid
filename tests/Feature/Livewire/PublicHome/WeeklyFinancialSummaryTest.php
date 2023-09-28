@@ -21,10 +21,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMMM Y');
         $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_label">Saldo per ' . $startOfWeekDayDate . '</span>')
+            ->assertSeeHtml('<span id="start_week_label">'.__('report.balance_per_date', ['date' => $startOfWeekDayDate]).'</span>')
             ->assertSeeHtml('<span id="start_week_balance">0</span>')
             ->assertSeeHtml('<span id="current_week_spending_total">0</span>')
-            ->assertSeeHtml('<span id="current_balance_label">Saldo per hari ini (' . $todayDayDate . ')</span>')
+            ->assertSeeHtml('<span id="current_balance_label">'.__('report.today_balance', ['date' => $todayDayDate]).'</span>')
             ->assertSeeHtml('<span id="current_balance">0</span>');
     }
 
