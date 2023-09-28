@@ -32,15 +32,16 @@ class WeeklyFinancialSummaryTest extends TestCase
     public function user_can_see_weekly_financial_report_card()
     {
         factory(Book::class)->create();
+        $today = today()->format('Y-m-d');
 
         factory(Transaction::class)->create([
             'amount' => 100000,
-            'date' => date('Y-m-d'),
+            'date' => $today,
             'in_out' => 1
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
-            'date' => date('Y-m-d'),
+            'date' => $today,
             'in_out' => 0
         ]);
 
@@ -56,24 +57,26 @@ class WeeklyFinancialSummaryTest extends TestCase
     /** @test */
     public function make_sure_other_books_transactions_are_not_calculated()
     {
-        $bookDefault = factory(Book::class)->create();
+        $defaultBook = factory(Book::class)->create();
+        $today = today()->format('Y-m-d');
+
         factory(Transaction::class)->create([
             'amount' => 100000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookDefault->id,
+            'date' => $today,
+            'book_id' => $defaultBook->id,
             'in_out' => 1
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookDefault->id,
+            'date' => $today,
+            'book_id' => $defaultBook->id,
             'in_out' => 0
         ]);
-        $bookSecondary = factory(Book::class)->create();
+        $anotherBook = factory(Book::class)->create();
         factory(Transaction::class)->create([
             'amount' => 35000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookSecondary->id,
+            'date' => $today,
+            'book_id' => $anotherBook->id,
             'in_out' => 1
         ]);
 
@@ -89,30 +92,32 @@ class WeeklyFinancialSummaryTest extends TestCase
     /** @test */
     public function make_sure_start_week_balance_is_calculated_from_the_previous_week_ending_balance()
     {
-        $bookDefault = factory(Book::class)->create();
+        $defaultBook = factory(Book::class)->create();
         $lastWeekDate = now()->subWeek()->format('Y-m-d');
+        $today = today()->format('Y-m-d');
+
         factory(Transaction::class)->create([
             'amount' => 100000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookDefault->id,
+            'date' => $today,
+            'book_id' => $defaultBook->id,
             'in_out' => 1
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookDefault->id,
+            'date' => $today,
+            'book_id' => $defaultBook->id,
             'in_out' => 0
         ]);
         factory(Transaction::class)->create([
             'amount' => 99000,
             'date' => $lastWeekDate,
-            'book_id' => $bookDefault->id,
+            'book_id' => $defaultBook->id,
             'in_out' => 1
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
             'date' => $lastWeekDate,
-            'book_id' => $bookDefault->id,
+            'book_id' => $defaultBook->id,
             'in_out' => 0
         ]);
 
@@ -128,24 +133,26 @@ class WeeklyFinancialSummaryTest extends TestCase
     /** @test */
     public function make_sure_transactions_from_next_week_are_not_calculated()
     {
-        $bookDefault = factory(Book::class)->create();
+        $defaultBook = factory(Book::class)->create();
         $nextWeekDate = now()->addWeek()->format('Y-m-d');
+        $today = today()->format('Y-m-d');
+
         factory(Transaction::class)->create([
             'amount' => 100000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookDefault->id,
+            'date' => $today,
+            'book_id' => $defaultBook->id,
             'in_out' => 1
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
-            'date' => date('Y-m-d'),
-            'book_id' => $bookDefault->id,
+            'date' => $today,
+            'book_id' => $defaultBook->id,
             'in_out' => 0
         ]);
         factory(Transaction::class)->create([
             'amount' => 99000,
             'date' => $nextWeekDate,
-            'book_id' => $bookDefault->id,
+            'book_id' => $defaultBook->id,
             'in_out' => 0
         ]);
 
