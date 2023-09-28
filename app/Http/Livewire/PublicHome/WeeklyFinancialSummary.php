@@ -2,27 +2,16 @@
 
 namespace App\Http\Livewire\PublicHome;
 
+use App\Models\Book;
 use App\Transaction;
 use Livewire\Component;
 
 class WeeklyFinancialSummary extends Component
 {
-    public $currentBalance;
-    public $currentWeekBalance;
-    public $currentWeekIncome;
-    public $currentWeekSpending;
-
-    protected function getCurrentWeekTansactions()
-    {
-        $firstDayInWeek = now()->startOfWeek()->format('Y-m-d');
-        $lastDayInWeek = now()->endOfWeek()->format('Y-m-d');
-        $bookId = config('masjid.default_book_id');
-        $transactionQuery = Transaction::query();
-        $transactionQuery->where('date', '>=', $firstDayInWeek);
-        $transactionQuery->where('date', '<=', $lastDayInWeek);
-        $transactionQuery->where('book_id', $bookId);
-        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
-    }
+    public $currentBalance = 0;
+    public $startWeekBalance = 0;
+    public $currentWeekIncomeTotal = 0;
+    public $currentWeekSpendingTotal = 0;
 
     public function render()
     {
@@ -31,16 +20,17 @@ class WeeklyFinancialSummary extends Component
 
     public function mount()
     {
-        $endOfLastWeek = now()->startOfWeek()->subDay()->format('Y-m-d');
-        $lastWeekBalance = auth()->activeBook()->getBalance($endOfLastWeek);
-        $this->getCurrentWeekTansactions()->each(function ($transaction) {
-            if ($transaction->in_out) {
-                $this->currentWeekIncome = $this->currentWeekIncome + $transaction->amount;
-            } else {
-                $this->currentWeekSpending = $this->currentWeekSpending + $transaction->amount;
-            }
-        });
-        $this->currentWeekBalance = $lastWeekBalance;
-        $this->currentBalance = $lastWeekBalance + $this->currentWeekIncome - $this->currentWeekSpending;
+        $defaultBook = Book::find(config('masjid.default_book_id'));
+        if (is_null($defaultBook)) {
+            return;
+        }
+        $startDate = now()->startOfWeek()->format('Y-m-d');
+        $endDate = now()->endOfWeek()->format('Y-m-d');
+        $currentWeekTransactions = $defaultBook->transactions()->whereBetween('date', [$startDate, $endDate])->get();
+        $this->currentWeekIncomeTotal = $currentWeekTransactions->where('in_out', 1)->sum('amount');
+        $this->currentWeekSpendingTotal = $currentWeekTransactions->where('in_out', 0)->sum('amount');
+        $endOfLastWeekDate = now()->startOfWeek()->subDay()->format('Y-m-d');
+        $this->startWeekBalance = $defaultBook->getBalance($endOfLastWeekDate);
+        $this->currentBalance = $this->startWeekBalance + $this->currentWeekIncomeTotal - $this->currentWeekSpendingTotal;
     }
 }

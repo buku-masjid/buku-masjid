@@ -16,13 +16,12 @@
             </p>
         </div>
     </div>
-    <div class="d-flex">
-        <div class="col-lg-6 px-0">
-            @livewire('public-home.today-lecturing-schedules')
-        </div>
-        <div class="px-2"></div>
-        <div class="col-lg-6 px-0">
+    <div class="row">
+        <div class="col-lg-6">
             @livewire('public-home.weekly-financial-summary')
+        </div>
+        <div class="col-lg-6">
+            @livewire('public-home.today-lecturing-schedules')
         </div>
     </div>
 @endsection
