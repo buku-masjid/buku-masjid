@@ -3,11 +3,12 @@
 namespace App\Http\Livewire\PublicHome;
 
 use App\Models\LecturingSchedule;
-use Carbon\Carbon;
 use Livewire\Component;
 
-class TodayLecturingSchedules extends Component
+class DailyLecturingSchedules extends Component
 {
+    public $date;
+    public $dayTitle;
     public $audienceFriday;
     public $lecturerName;
     public $lecturingSchedules = [];
@@ -24,7 +25,7 @@ class TodayLecturingSchedules extends Component
     public function mount()
     {
         $lecturingScheduleQuery = LecturingSchedule::query();
-        $lecturingScheduleQuery->where('date', Carbon::today()->format('Y-m-d'));
+        $lecturingScheduleQuery->where('date', $this->date->format('Y-m-d'));
         $lecturingScheduleQuery->orderBy('date')->orderBy('start_time');
         $this->lecturingSchedules = $lecturingScheduleQuery->get();
         $this->lecturerName = $this->getLecturerName();
@@ -33,6 +34,6 @@ class TodayLecturingSchedules extends Component
 
     public function render()
     {
-        return view('livewire.public_home.today_lecturing_schedules');
+        return view('livewire.public_home.daily_lecturing_schedules');
     }
 }

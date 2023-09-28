@@ -1,9 +1,8 @@
 <div class="page-header">
-    <h3 class="page-title">{{ __('lecturing_schedule.public_schedule') }} {{ __('time.today') }}</h3>
+    <h3 class="page-title">{{ __('lecturing_schedule.public_schedule') }} {{ __('time.'.$this->dayTitle) }}</h3>
     <div class="page-options d-flex">
         @if (!$lecturingSchedules->isEmpty())
-            <a class="btn btn-sm btn-success" href="{{ route('public_schedules.index') }}"
-                role="button">{{ __('app.show') }}</a>
+            <a class="btn btn-sm btn-success" href="{{ route('public_schedules.'.$this->dayTitle) }} "role="button">{{ __('app.show') }}</a>
         @endif
     </div>
 </div>
@@ -36,5 +35,5 @@
         </table>
     </div>
 @empty
-    {{ __('lecturing_schedule.today_empty') }}.
+    {{ __('lecturing_schedule.empty') }} {{ __('time.'.$this->dayTitle) }}.
 @endforelse
