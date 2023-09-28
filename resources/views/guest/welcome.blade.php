@@ -16,8 +16,11 @@
             </p>
         </div>
     </div>
-    <div>
-        <div class="col-lg-6 px-0">
+    <div class="row">
+        <div class="col-lg-6">
+            @livewire('public-home.weekly-financial-summary')
+        </div>
+        <div class="col-lg-6">
             @livewire('public-home.today-lecturing-schedules')
         </div>
     </div>
