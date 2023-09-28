@@ -37,21 +37,21 @@ class WeeklyFinancialSummaryTest extends TestCase
         factory(Transaction::class)->create([
             'amount' => 100000,
             'date' => $today,
-            'in_out' => 1
+            'in_out' => 1,
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
             'date' => $today,
-            'in_out' => 0
+            'in_out' => 0,
         ]);
 
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
             ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">' . number_format(100000) . '</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-' . number_format(10000) . '</span>')
-            ->assertSeeHtml('<span id="current_balance">' . number_format(90000) . '</span>');
+            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.number_format(90000).'</span>');
     }
 
     /** @test */
@@ -64,29 +64,29 @@ class WeeklyFinancialSummaryTest extends TestCase
             'amount' => 100000,
             'date' => $today,
             'book_id' => $defaultBook->id,
-            'in_out' => 1
+            'in_out' => 1,
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
             'date' => $today,
             'book_id' => $defaultBook->id,
-            'in_out' => 0
+            'in_out' => 0,
         ]);
         $anotherBook = factory(Book::class)->create();
         factory(Transaction::class)->create([
             'amount' => 35000,
             'date' => $today,
             'book_id' => $anotherBook->id,
-            'in_out' => 1
+            'in_out' => 1,
         ]);
 
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
             ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">' . number_format(100000) . '</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-' . number_format(10000) . '</span>')
-            ->assertSeeHtml('<span id="current_balance">' . number_format(90000) . '</span>');
+            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.number_format(90000).'</span>');
     }
 
     /** @test */
@@ -100,34 +100,34 @@ class WeeklyFinancialSummaryTest extends TestCase
             'amount' => 100000,
             'date' => $today,
             'book_id' => $defaultBook->id,
-            'in_out' => 1
+            'in_out' => 1,
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
             'date' => $today,
             'book_id' => $defaultBook->id,
-            'in_out' => 0
+            'in_out' => 0,
         ]);
         factory(Transaction::class)->create([
             'amount' => 99000,
             'date' => $lastWeekDate,
             'book_id' => $defaultBook->id,
-            'in_out' => 1
+            'in_out' => 1,
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
             'date' => $lastWeekDate,
             'book_id' => $defaultBook->id,
-            'in_out' => 0
+            'in_out' => 0,
         ]);
 
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">' . number_format(89000) . '</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">' . number_format(100000) . '</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-' . number_format(10000) . '</span>')
-            ->assertSeeHtml('<span id="current_balance">' . number_format(179000) . '</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.number_format(89000).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.number_format(179000).'</span>');
     }
 
     /** @test */
@@ -141,27 +141,27 @@ class WeeklyFinancialSummaryTest extends TestCase
             'amount' => 100000,
             'date' => $today,
             'book_id' => $defaultBook->id,
-            'in_out' => 1
+            'in_out' => 1,
         ]);
         factory(Transaction::class)->create([
             'amount' => 10000,
             'date' => $today,
             'book_id' => $defaultBook->id,
-            'in_out' => 0
+            'in_out' => 0,
         ]);
         factory(Transaction::class)->create([
             'amount' => 99000,
             'date' => $nextWeekDate,
             'book_id' => $defaultBook->id,
-            'in_out' => 0
+            'in_out' => 0,
         ]);
 
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
             ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">' . number_format(100000) . '</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-' . number_format(10000) . '</span>')
-            ->assertSeeHtml('<span id="current_balance">' . number_format(90000) . '</span>');
+            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.number_format(90000).'</span>');
     }
 }

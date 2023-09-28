@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\PublicHome;
 
 use App\Models\Book;
-use App\Transaction;
 use Livewire\Component;
 
 class WeeklyFinancialSummary extends Component
