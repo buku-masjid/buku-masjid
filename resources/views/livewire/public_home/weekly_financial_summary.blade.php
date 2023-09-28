@@ -10,31 +10,31 @@
         <tbody>
             <tr>
                 <td class="col-4">
-                    <span id="start_week_label">{{ 'Saldo per ' .now()->startOfWeek()->isoFormat('dddd, D MMMM Y') }}</span>
+                    <span id="start_week_label">{{ __('report.balance_per_date', ['date' => now()->startOfWeek()->isoFormat('dddd, D MMMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="start_week_balance">{{ number_format($currentWeekBalance) }}</span>
+                    <span id="start_week_balance">{{ number_format($startWeekBalance) }}</span>
                 </td>
             </tr>
             <tr>
                 <td class="col-4">
-                    <span>Pemasukan hingga hari ini</span>
+                    <span>{{ __('report.current_week_income_total') }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_week_income_total">{{ number_format($currentWeekIncome) }}</span>
+                    <span id="current_week_income_total">{{ number_format($currentWeekIncomeTotal) }}</span>
                 </td>
             </tr>
             <tr>
                 <td class="col-4">
-                    <span>Pengeluaran hingga hari ini</span>
+                    <span>{{ __('report.current_week_spending_total') }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_week_spending_total">{{ $currentWeekSpending ? '-'.number_format($currentWeekSpending) : 0 }}</span>
+                    <span id="current_week_spending_total">{{ $currentWeekSpendingTotal ? '-'.number_format($currentWeekSpendingTotal) : 0 }}</span>
                 </td>
             </tr>
             <tr>
                 <td class="col-4">
-                    <span id="current_balance_label">Saldo per hari ini ({{ now()->isoFormat('dddd, D MMMM Y') }})</span>
+                    <span id="current_balance_label">{{ __('report.today_balance', ['date' => now()->isoFormat('dddd, D MMMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
                     <span id="current_balance">{{ number_format($currentBalance) }}</span>
