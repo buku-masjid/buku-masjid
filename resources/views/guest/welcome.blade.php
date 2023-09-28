@@ -22,6 +22,7 @@
         </div>
         <div class="col-lg-6">
             @livewire('public-home.daily-lecturing-schedules', ['date' => today(), 'dayTitle' => 'today'])
+            @livewire('public-home.daily-lecturing-schedules', ['date' => today()->addDay(), 'dayTitle' => 'tomorrow'])
         </div>
     </div>
 @endsection
