@@ -35,5 +35,5 @@
         </table>
     </div>
 @empty
-    {{ __('lecturing_schedule.empty') }} {{ __('time.'.$this->dayTitle) }}.
+    <p>{{ __('lecturing_schedule.empty') }} {{ __('time.'.$this->dayTitle) }}.</p>
 @endforelse

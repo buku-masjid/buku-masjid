@@ -5,7 +5,7 @@
             role="button">{{ __('app.show') }}</a>
     </div>
 </div>
-<div class="card">
+<div class="card mb-0">
     <table class="table table-sm mb-0">
         <tbody>
             <tr>

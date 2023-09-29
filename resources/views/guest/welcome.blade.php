@@ -3,7 +3,7 @@
 @section('title', __('app.welcome'))
 
 @section('content')
-    <div class="jumbotron p-4 p-md-5 text-dark rounded bg-lightgray">
+    <div class="jumbotron p-4 mb-0 p-md-5 text-dark rounded bg-lightgray">
         <div class="col-md-6 px-0">
             <h2 class="font-italic">
                 @yield('title'),<br> {{ config('masjid.name') }}
