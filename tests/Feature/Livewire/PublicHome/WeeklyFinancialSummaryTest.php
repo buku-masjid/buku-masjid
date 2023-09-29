@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Liveware\PublicHome;
+namespace Tests\Feature\Livewire\PublicHome;
 
 use App\Http\Livewire\PublicHome\WeeklyFinancialSummary;
 use App\Models\Book;
