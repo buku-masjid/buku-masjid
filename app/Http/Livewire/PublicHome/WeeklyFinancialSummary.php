@@ -21,12 +21,12 @@ class WeeklyFinancialSummary extends Component
 
     public function mount()
     {
+        $this->startWeek = today()->startOfWeek();
+        $this->today = today();
         $defaultBook = Book::find(config('masjid.default_book_id'));
         if (is_null($defaultBook)) {
             return;
         }
-        $this->startWeek = today()->startOfWeek();
-        $this->today = today();
         $currentWeekTransactions = $defaultBook->transactions()
             ->whereBetween('date', [$this->startWeek->format('Y-m-d'), $this->today->format('Y-m-d')])->get();
         $this->currentWeekIncomeTotal = $currentWeekTransactions->where('in_out', 1)->sum('amount');
