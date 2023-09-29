@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class WeeklyFinancialSummary extends Component
 {
+    public $startWeek;
+    public $todayDayDate;
     public $currentBalance = 0;
     public $startWeekBalance = 0;
     public $currentWeekIncomeTotal = 0;
@@ -23,12 +25,13 @@ class WeeklyFinancialSummary extends Component
         if (is_null($defaultBook)) {
             return;
         }
-        $startDate = now()->startOfWeek()->format('Y-m-d');
-        $endDate = now()->endOfWeek()->format('Y-m-d');
-        $currentWeekTransactions = $defaultBook->transactions()->whereBetween('date', [$startDate, $endDate])->get();
+        $this->startWeek = today()->startOfWeek();
+        $this->today = today();
+        $currentWeekTransactions = $defaultBook->transactions()
+            ->whereBetween('date', [$this->startWeek->format('Y-m-d'), $this->today->format('Y-m-d')])->get();
         $this->currentWeekIncomeTotal = $currentWeekTransactions->where('in_out', 1)->sum('amount');
         $this->currentWeekSpendingTotal = $currentWeekTransactions->where('in_out', 0)->sum('amount');
-        $endOfLastWeekDate = now()->startOfWeek()->subDay()->format('Y-m-d');
+        $endOfLastWeekDate = today()->startOfWeek()->subDay()->format('Y-m-d');
         $this->startWeekBalance = $defaultBook->getBalance($endOfLastWeekDate);
         $this->currentBalance = $this->startWeekBalance + $this->currentWeekIncomeTotal - $this->currentWeekSpendingTotal;
     }

@@ -10,7 +10,7 @@
         <tbody>
             <tr>
                 <td class="col-4">
-                    <span id="start_week_label">{{ __('report.balance_per_date', ['date' => now()->startOfWeek()->isoFormat('dddd, D MMMM Y')]) }}</span>
+                    <span id="start_week_label">{{ __('report.balance_per_date', ['date' => $startWeek->isoFormat('dddd, D MMMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
                     <span id="start_week_balance">{{ number_format($startWeekBalance) }}</span>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td class="col-4">
-                    <span id="current_balance_label">{{ __('report.today_balance', ['date' => now()->isoFormat('dddd, D MMMM Y')]) }}</span>
+                    <span id="current_balance_label">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
                     <span id="current_balance">{{ number_format($currentBalance) }}</span>
