@@ -12,6 +12,11 @@
         {
             "type": "vcs",
             "url":  "https://github.com/xKZL/backup-manager"
+        },
+        {
+            "type": "path",
+            "url": "/home/nafies/www/composer-packages/bukumasjid_demo",
+            "options": { "symlink": true }
         }
     ],
     "require": {
@@ -28,6 +33,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
+        "buku-masjid/demo-data": "dev-master",
         "fakerphp/faker": "^1.14",
         "filp/whoops": "^2.0",
         "laravel/legacy-factories": "^1.1",

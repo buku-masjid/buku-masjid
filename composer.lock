@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b3cc834e970af2bb25c84e988a0c5a3",
+    "content-hash": "b0df9347d217cd9aa7655f7f8e3aa8a1",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -7024,6 +7024,54 @@
             "time": "2023-02-21T14:21:02+00:00"
         },
         {
+            "name": "buku-masjid/demo-data",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/nafies/www/composer-packages/bukumasjid_demo",
+                "reference": "eca452e9af60824aa1ea046e175c7fcec4ddda83"
+            },
+            "require": {
+                "laravel/framework": "^10.0",
+                "php": ">= 8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BukuMasjid\\DemoData\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BukuMasjid\\DemoData\\": "src/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nafies Luthfi",
+                    "email": "nafiesl@gmail.com"
+                }
+            ],
+            "description": "Generate data demo untuk simulasi.",
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.22.0",
             "source": {
@@ -9182,7 +9230,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "backup-manager/laravel": 20
+        "backup-manager/laravel": 20,
+        "buku-masjid/demo-data": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
