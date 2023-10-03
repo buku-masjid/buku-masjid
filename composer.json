@@ -12,11 +12,6 @@
         {
             "type": "vcs",
             "url":  "https://github.com/xKZL/backup-manager"
-        },
-        {
-            "type": "path",
-            "url": "/home/nafies/www/composer-packages/bukumasjid_demo",
-            "options": { "symlink": true }
         }
     ],
     "require": {

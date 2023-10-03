@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0df9347d217cd9aa7655f7f8e3aa8a1",
+    "content-hash": "5878206a9042a260c25d1782e41cb688",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -7026,10 +7026,16 @@
         {
             "name": "buku-masjid/demo-data",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buku-masjid/demo-data.git",
+                "reference": "cc2ce6494e0bd344b9f6aecba9b3fcaf31222189"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/nafies/www/composer-packages/bukumasjid_demo",
-                "reference": "eca452e9af60824aa1ea046e175c7fcec4ddda83"
+                "type": "zip",
+                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/cc2ce6494e0bd344b9f6aecba9b3fcaf31222189",
+                "reference": "cc2ce6494e0bd344b9f6aecba9b3fcaf31222189",
+                "shasum": ""
             },
             "require": {
                 "laravel/framework": "^10.0",
@@ -7038,6 +7044,7 @@
             "require-dev": {
                 "orchestra/testbench": "^8.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -7051,11 +7058,7 @@
                     "BukuMasjid\\DemoData\\": "src/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -7065,11 +7068,12 @@
                     "email": "nafiesl@gmail.com"
                 }
             ],
-            "description": "Generate data demo untuk simulasi.",
-            "transport-options": {
-                "symlink": true,
-                "relative": false
-            }
+            "description": "Generate demo data for simulation.",
+            "support": {
+                "issues": "https://github.com/buku-masjid/demo-data/issues",
+                "source": "https://github.com/buku-masjid/demo-data/tree/master"
+            },
+            "time": "2023-10-03T16:01:14+00:00"
         },
         {
             "name": "fakerphp/faker",
