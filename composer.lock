@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5878206a9042a260c25d1782e41cb688",
+    "content-hash": "68f15b31b0aba595bdc0a3ff64c8879c",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -7025,7 +7025,7 @@
         },
         {
             "name": "buku-masjid/demo-data",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buku-masjid/demo-data.git",
@@ -7041,7 +7041,6 @@
                 "laravel/framework": "^10.0",
                 "php": ">= 8.1"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -7068,7 +7067,7 @@
             "description": "Generate demo data for buku masjid simulation.",
             "support": {
                 "issues": "https://github.com/buku-masjid/demo-data/issues",
-                "source": "https://github.com/buku-masjid/demo-data/tree/master"
+                "source": "https://github.com/buku-masjid/demo-data/tree/1.0.0"
             },
             "time": "2023-10-04T15:55:51+00:00"
         },
@@ -9231,8 +9230,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "backup-manager/laravel": 20,
-        "buku-masjid/demo-data": 20
+        "backup-manager/laravel": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

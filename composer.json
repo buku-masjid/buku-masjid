@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
-        "buku-masjid/demo-data": "dev-master",
+        "buku-masjid/demo-data": "^1.0",
         "fakerphp/faker": "^1.14",
         "filp/whoops": "^2.0",
         "laravel/legacy-factories": "^1.1",
