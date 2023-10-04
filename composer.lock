@@ -7029,12 +7029,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buku-masjid/demo-data.git",
-                "reference": "9cf3f3fa27d14100b93a852245c41f88985690f7"
+                "reference": "aa90c4182355de4b4d8e21137cd3938f4705ee94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/9cf3f3fa27d14100b93a852245c41f88985690f7",
-                "reference": "9cf3f3fa27d14100b93a852245c41f88985690f7",
+                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/aa90c4182355de4b4d8e21137cd3938f4705ee94",
+                "reference": "aa90c4182355de4b4d8e21137cd3938f4705ee94",
                 "shasum": ""
             },
             "require": {
@@ -7070,7 +7070,7 @@
                 "issues": "https://github.com/buku-masjid/demo-data/issues",
                 "source": "https://github.com/buku-masjid/demo-data/tree/master"
             },
-            "time": "2023-10-04T15:38:50+00:00"
+            "time": "2023-10-04T15:55:51+00:00"
         },
         {
             "name": "fakerphp/faker",
