@@ -102,6 +102,24 @@ Untuk menggunakan docker silahkan jalankan perintah ini di terminal:
     docker-compose exec mysql bash
     ```
 
+### Data Demo
+
+Ketika sudah ter-install di localhost, kita bisa generate data dummy untuk simulasi sistem buku masjid. Datad demo dapat di-generate dengan perintah berikut:
+
+Generate demo data (3 bulan terakhir):
+
+```bash
+$ php artisan buku-masjid:demo-data
+```
+
+Hapus semua demo data (yang `created_at` nya `NULL`)
+
+```bash
+$ php artisan buku-masjid:remove-demo-data
+```
+
+Lengkapnya dapat dilihat pada: [Dokumentasi buku-masjid/demo-data](https://github.com/buku-masjid/demo-data#cara-pakai).
+
 ## Screenshot
 
 #### Laporan Bulanan

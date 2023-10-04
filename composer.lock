@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b3cc834e970af2bb25c84e988a0c5a3",
+    "content-hash": "68f15b31b0aba595bdc0a3ff64c8879c",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -7022,6 +7022,54 @@
                 }
             ],
             "time": "2023-02-21T14:21:02+00:00"
+        },
+        {
+            "name": "buku-masjid/demo-data",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buku-masjid/demo-data.git",
+                "reference": "aa90c4182355de4b4d8e21137cd3938f4705ee94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/aa90c4182355de4b4d8e21137cd3938f4705ee94",
+                "reference": "aa90c4182355de4b4d8e21137cd3938f4705ee94",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.0",
+                "php": ">= 8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BukuMasjid\\DemoData\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BukuMasjid\\DemoData\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nafies Luthfi",
+                    "email": "nafiesl@gmail.com"
+                }
+            ],
+            "description": "Generate demo data for buku masjid simulation.",
+            "support": {
+                "issues": "https://github.com/buku-masjid/demo-data/issues",
+                "source": "https://github.com/buku-masjid/demo-data/tree/1.0.0"
+            },
+            "time": "2023-10-04T15:55:51+00:00"
         },
         {
             "name": "fakerphp/faker",
