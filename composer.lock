@@ -7029,20 +7029,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/buku-masjid/demo-data.git",
-                "reference": "cc2ce6494e0bd344b9f6aecba9b3fcaf31222189"
+                "reference": "9cf3f3fa27d14100b93a852245c41f88985690f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/cc2ce6494e0bd344b9f6aecba9b3fcaf31222189",
-                "reference": "cc2ce6494e0bd344b9f6aecba9b3fcaf31222189",
+                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/9cf3f3fa27d14100b93a852245c41f88985690f7",
+                "reference": "9cf3f3fa27d14100b93a852245c41f88985690f7",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^10.0",
                 "php": ">= 8.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^8.0"
             },
             "default-branch": true,
             "type": "library",
@@ -7068,12 +7065,12 @@
                     "email": "nafiesl@gmail.com"
                 }
             ],
-            "description": "Generate demo data for simulation.",
+            "description": "Generate demo data for buku masjid simulation.",
             "support": {
                 "issues": "https://github.com/buku-masjid/demo-data/issues",
                 "source": "https://github.com/buku-masjid/demo-data/tree/master"
             },
-            "time": "2023-10-03T16:01:14+00:00"
+            "time": "2023-10-04T15:38:50+00:00"
         },
         {
             "name": "fakerphp/faker",
