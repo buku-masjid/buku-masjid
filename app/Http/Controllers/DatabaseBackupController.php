@@ -74,8 +74,6 @@ class DatabaseBackupController extends Controller
     {
         $validatedPayload = $request->validate([
             'backup_file' => 'required|file|mimes:gz',
-        ], [
-            'backup_file.mimetypes' => 'Invalid file type, must be <strong>.gz</strong> file',
         ]);
 
         $file = $validatedPayload['backup_file'];
