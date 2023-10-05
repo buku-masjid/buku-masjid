@@ -18,6 +18,9 @@
     <li class="nav-item">
         {!! link_to_route('books.index', __('book.book'), [], ['class' => 'nav-link'.(Request::segment(1) == 'books' ? ' active' : '')]) !!}
     </li>
+    <li class="nav-item">
+        {!! link_to_route('database_backups.index', __('database_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'database_backups' ? ' active' : '')]) !!}
+    </li>
 </ul>
 
 @yield('content_settings')
