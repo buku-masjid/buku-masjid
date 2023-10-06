@@ -100,4 +100,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'show'])->name('masjid_profile.show');
     Route::get('masjid_profile/edit', [App\Http\Controllers\MasjidProfileController::class, 'edit'])->name('masjid_profile.edit');
     Route::patch('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'update'])->name('masjid_profile.update');
+
+    /*
+     * Backup Restore Database Routes
+     */
+    Route::post('database_backups/upload', ['as' => 'database_backups.upload', 'uses' => 'DatabaseBackupController@upload']);
+    Route::post('database_backups/{fileName}/restore', ['as' => 'database_backups.restore', 'uses' => 'DatabaseBackupController@restore']);
+    Route::get('database_backups/{fileName}/dl', ['as' => 'database_backups.download', 'uses' => 'DatabaseBackupController@download']);
+    Route::resource('database_backups', 'DatabaseBackupController', ['except' => ['create', 'show', 'edit']]);
+
 });

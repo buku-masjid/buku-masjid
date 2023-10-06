@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,8 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        //
+        Gate::define('manage_database_backup', function (User $user) {
+            return in_array($user->role_id, [User::ROLE_ADMIN]);
+        });
     }
 }

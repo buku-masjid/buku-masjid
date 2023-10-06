@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         $backupCommand = 'db:backup --database=mysql';
         $backupCommand .= ' --destination=local --compression=gzip';
         $backupCommand .= ' --destinationPath=backup/auto.'.date('Y-m-d_Hi');
-        $schedule->command($backupCommand)->dailyAt('07:00');
+        $schedule->command($backupCommand)->dailyAt('03:00');
     }
 
     /**
