@@ -12,6 +12,8 @@ class DatabaseBackupController extends Controller
 {
     public function index()
     {
+        $this->authorize('manage_database_backup');
+
         if (Storage::missing('backup/db')) {
             $backups = [];
         } else {
@@ -28,6 +30,8 @@ class DatabaseBackupController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('manage_database_backup');
+
         $validatedPayload = $request->validate([
             'file_name' => 'nullable|max:30|regex:/^[\w._-]+$/',
         ]);
@@ -46,6 +50,8 @@ class DatabaseBackupController extends Controller
 
     public function destroy($fileName)
     {
+        $this->authorize('manage_database_backup');
+
         if (Storage::exists('backup/db/'.$fileName)) {
             Storage::delete('backup/db/'.$fileName);
         }
@@ -57,11 +63,15 @@ class DatabaseBackupController extends Controller
 
     public function download($fileName)
     {
+        $this->authorize('manage_database_backup');
+
         return response()->download(Storage::path('backup/db/'.$fileName));
     }
 
     public function restore($fileName)
     {
+        $this->authorize('manage_database_backup');
+
         $manager = app()->make(Manager::class);
         $manager->makeRestore()->run('local', 'backup/db/'.$fileName, 'mysql', 'gzip');
 
@@ -72,6 +82,8 @@ class DatabaseBackupController extends Controller
 
     public function upload(Request $request)
     {
+        $this->authorize('manage_database_backup');
+
         $validatedPayload = $request->validate([
             'backup_file' => 'required|file|mimes:gz',
         ]);
