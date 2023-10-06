@@ -31,6 +31,9 @@ class PublicReportController extends Controller
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
         $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+        if ($yearMonth == date('Y-m')) {
+            $currentMonthEndDate = Carbon::now();
+        }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
 
