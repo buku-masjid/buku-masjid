@@ -19,13 +19,17 @@ class DatabaseBackupController extends Controller
         } else {
             $backups = File::allFiles(Storage::path('backup/db'));
 
-            // Sort files by modified time DESC
-            usort($backups, function ($a, $b) {
-                return -1 * strcmp($a->getMTime(), $b->getMTime());
-            });
+            $this->sortFilesByModifiedTimeDesc($backups);
         }
 
         return view('database_backups.index', compact('backups'));
+    }
+
+    private function sortFilesByModifiedTimeDesc(array &$backups): void
+    {
+        usort($backups, function ($a, $b) {
+            return -1 * strcmp($a->getMTime(), $b->getMTime());
+        });
     }
 
     public function store(Request $request)
