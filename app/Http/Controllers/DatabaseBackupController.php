@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use BackupManager\Filesystems\Destination;
 use BackupManager\Manager;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DatabaseBackupController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $this->authorize('manage_database_backup');
 
@@ -32,7 +35,7 @@ class DatabaseBackupController extends Controller
         });
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->authorize('manage_database_backup');
 
@@ -52,7 +55,7 @@ class DatabaseBackupController extends Controller
         return redirect()->route('database_backups.index');
     }
 
-    public function destroy($fileName)
+    public function destroy(string $fileName): RedirectResponse
     {
         $this->authorize('manage_database_backup');
 
@@ -65,14 +68,14 @@ class DatabaseBackupController extends Controller
         return redirect()->route('database_backups.index');
     }
 
-    public function download($fileName)
+    public function download(string $fileName): StreamedResponse
     {
         $this->authorize('manage_database_backup');
 
-        return response()->download(Storage::path('backup/db/'.$fileName));
+        return Storage::download('backup/db/'.$fileName);
     }
 
-    public function restore($fileName)
+    public function restore(string $fileName): RedirectResponse
     {
         $this->authorize('manage_database_backup');
 
@@ -84,7 +87,7 @@ class DatabaseBackupController extends Controller
         return redirect()->route('database_backups.index');
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request): RedirectResponse
     {
         $this->authorize('manage_database_backup');
 
