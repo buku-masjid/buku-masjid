@@ -72,6 +72,43 @@
         </div>
         @endforeach
 
+        @if ($groupedTransactions->has(1) && !$groupedTransactions[1]->where('category_id', null)->isEmpty())
+            <h4 class="mt-0">{{ __('transaction.no_category') }}</h4>
+            <div class="card table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr >
+                            <th class="text-center col-1">{{ __('app.table_no') }}</th>
+                            <th class="text-center col-2">{{ __('time.date') }}</th>
+                            <th class=" col-4">{{ __('app.description') }}</th>
+                            <th class="text-nowrap text-right col-3">{{ __('transaction.amount') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $key = 0;
+                        @endphp
+                        @foreach ($groupedTransactions[1]->where('category_id', null) as $transaction)
+                        <tr>
+                            <td class="text-center col-1">{{ ++$key }}</td>
+                            <td class="text-center col-2">{{ $transaction->date }}</td>
+                            <td class="col-4">{{ $transaction->description }}</td>
+                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr class="strong">
+                            <td colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</td>
+                            <td class="text-right">
+                                {{ number_format($groupedTransactions[1]->where('category_id', null)->sum('amount')) }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        @endif
+
         <div class="page-header mt-0 mb-2">
             <h2 class="page-title">{{ __('transaction.spending') }}</h2>
         </div>
@@ -127,6 +164,43 @@
             </table>
         </div>
         @endforeach
+
+        @if ($groupedTransactions->has(0) && !$groupedTransactions[0]->where('category_id', null)->isEmpty())
+            <h4 class="mt-0">{{ __('transaction.no_category') }}</h4>
+            <div class="card table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr >
+                            <th class="text-center col-1">{{ __('app.table_no') }}</th>
+                            <th class="text-center col-2">{{ __('time.date') }}</th>
+                            <th class=" col-4">{{ __('app.description') }}</th>
+                            <th class="text-nowrap text-right col-3">{{ __('transaction.amount') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $key = 0;
+                        @endphp
+                        @foreach ($groupedTransactions[0]->where('category_id', null) as $transaction)
+                        <tr>
+                            <td class="text-center col-1">{{ ++$key }}</td>
+                            <td class="text-center col-2">{{ $transaction->date }}</td>
+                            <td class="col-4">{{ $transaction->description }}</td>
+                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr class="strong">
+                            <td colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</td>
+                            <td class="text-right">
+                                {{ number_format($groupedTransactions[0]->where('category_id', null)->sum('amount')) }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        @endif
     </div>
 </div>
 

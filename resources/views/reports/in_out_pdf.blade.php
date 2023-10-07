@@ -58,6 +58,47 @@
 </div>
 @endforeach
 
+@if ($groupedTransactions->has(1) && !$groupedTransactions[1]->where('category_id', null)->isEmpty())
+    <div style="page-break-inside: avoid">
+        <h4>{{ __('transaction.no_category') }}</h4>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr >
+                        <th style="width: 5%" class="text-center">{{ __('app.table_no') }}</th>
+                        <th style="width: 15%" class="text-center">{{ __('time.date') }}</th>
+                        <th style="width: 60%">{{ __('app.description') }}</th>
+                        <th style="width: 20%" class="text-nowrap text-right">{{ __('transaction.amount') }}</th>
+                    </tr>
+                </thead>
+                @if ($groupedTransactions->has(1))
+                <tbody>
+                    @php
+                        $key = 0;
+                    @endphp
+                    @foreach ($groupedTransactions[1]->where('category_id', null) as $transaction)
+                    <tr>
+                        <td class="text-center ">{{ ++$key }}</td>
+                        <td class="text-center ">{{ $transaction->date }}</td>
+                        <td>{{ $transaction->description }}</td>
+                        <td class="text-right ">{{ number_format($transaction->amount, 0, ',', '.') }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</th>
+                        <th class="text-right">
+                            {{ number_format($groupedTransactions[1]->where('category_id', null)->sum('amount'), 0, ',', '.') }}
+                        </th>
+                    </tr>
+                </tfoot>
+                @endif
+            </table>
+        </div>
+    </div>
+@endif
+
 <pagebreak />
 
 <h2>{{ __('transaction.spending') }}</h2>
@@ -103,6 +144,46 @@
 </div>
 @endforeach
 
+@if ($groupedTransactions->has(0) && !$groupedTransactions[0]->where('category_id', null)->isEmpty())
+    <div style="page-break-inside: avoid">
+        <h4>{{ __('transaction.no_category') }}</h4>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr >
+                        <th style="width: 5%" class="text-center">{{ __('app.table_no') }}</th>
+                        <th style="width: 15%" class="text-center">{{ __('time.date') }}</th>
+                        <th style="width: 60%">{{ __('app.description') }}</th>
+                        <th style="width: 20%" class="text-nowrap text-right">{{ __('transaction.amount') }}</th>
+                    </tr>
+                </thead>
+                @if ($groupedTransactions->has(0))
+                <tbody>
+                    @php
+                        $key = 0;
+                    @endphp
+                    @foreach ($groupedTransactions[0]->where('category_id', null) as $transaction)
+                    <tr>
+                        <td class="text-center ">{{ ++$key }}</td>
+                        <td class="text-center ">{{ $transaction->date }}</td>
+                        <td>{{ $transaction->description }}</td>
+                        <td class="text-right ">{{ number_format($transaction->amount, 0, ',', '.') }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</th>
+                        <th class="text-right">
+                            {{ number_format($groupedTransactions[0]->where('category_id', null)->sum('amount'), 0, ',', '.') }}
+                        </th>
+                    </tr>
+                </tfoot>
+                @endif
+            </table>
+        </div>
+    </div>
+@endif
 @endsection
 
 @section('style')
