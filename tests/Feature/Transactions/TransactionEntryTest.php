@@ -118,4 +118,23 @@ class TransactionEntryTest extends TestCase
             'book_id' => $activeBook->id,
         ]);
     }
+
+    /** @test */
+    public function cannot_add_transactions_into_an_in_active_book()
+    {
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+        session()->put('active_book_id', $inActiveBook->id);
+
+        $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
+
+        $this->dontSeeElement('a', ['href' => route('transactions.index', ['action' => 'add-income', 'month' => $month, 'year' => $year])]);
+        $this->dontSeeElement('a', ['href' => route('transactions.index', ['action' => 'add-spending', 'month' => $month, 'year' => $year])]);
+
+        $this->visitRoute('transactions.index', ['action' => 'add-spending', 'month' => $month, 'year' => $year]);
+        $this->dontSeeElement('button', ['value' => __('transaction.create')]);
+    }
 }

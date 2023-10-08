@@ -39,4 +39,9 @@ class BookPolicy
 
         return true;
     }
+
+    public function manageTransactions(User $user, Book $book)
+    {
+        return $book->status_id == Book::STATUS_ACTIVE;
+    }
 }

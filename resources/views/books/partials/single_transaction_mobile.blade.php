@@ -3,12 +3,14 @@
 <div>
     {{ $transaction->description }}
     @can('update', $transaction)
-        {!! link_to_route(
-            'books.show',
-            __('app.edit'),
-            [$book->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
-            ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
-        ) !!}
+        @can('manage-transactions', auth()->activeBook())
+            {!! link_to_route(
+                'books.show',
+                __('app.edit'),
+                [$book->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
+                ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
+            ) !!}
+        @endcan
     @endcan
 </div>
 <div>{!! optional($transaction->category)->name_label !!}</div>

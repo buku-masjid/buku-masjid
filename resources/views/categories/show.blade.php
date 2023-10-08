@@ -44,12 +44,14 @@
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td class="text-center">
                             @can('update', $transaction)
-                                {!! link_to_route(
-                                    'categories.show',
-                                    __('app.edit'),
-                                    [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
-                                    ['id' => 'edit-transaction-'.$transaction->id]
-                                ) !!}
+                                @can('manage-transactions', auth()->activeBook())
+                                    {!! link_to_route(
+                                        'categories.show',
+                                        __('app.edit'),
+                                        [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
+                                        ['id' => 'edit-transaction-'.$transaction->id]
+                                    ) !!}
+                                @endcan
                             @endcan
                         </td>
                     </tr>

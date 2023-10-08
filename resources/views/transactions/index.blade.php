@@ -9,8 +9,10 @@
     <div class="page-options d-flex">
         {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary mr-2']) }}
         @can('create', new App\Transaction)
-            {{ link_to_route('transactions.index', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success mr-2']) }}
-            {{ link_to_route('transactions.index', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
+            @can('manage-transactions', auth()->activeBook())
+                {{ link_to_route('transactions.index', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success mr-2']) }}
+                {{ link_to_route('transactions.index', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
+            @endcan
         @endcan
     </div>
 </div>
@@ -71,12 +73,14 @@
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td class="text-center">
                             @can('update', $transaction)
-                                {!! link_to_route(
-                                    'transactions.index',
-                                    __('app.edit'),
-                                    ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
-                                    ['id' => 'edit-transaction-'.$transaction->id]
-                                ) !!}
+                                @can('manage-transactions', auth()->activeBook())
+                                    {!! link_to_route(
+                                        'transactions.index',
+                                        __('app.edit'),
+                                        ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
+                                        ['id' => 'edit-transaction-'.$transaction->id]
+                                    ) !!}
+                                @endcan
                             @endcan
                         </td>
                     </tr>

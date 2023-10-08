@@ -56,6 +56,29 @@ class TransactionEditTest extends TestCase
     }
 
     /** @test */
+    public function user_cannot_edit_a_transaction_from_an_in_active_book()
+    {
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => 0,
+            'amount' => 99.99,
+            'date' => $date,
+            'creator_id' => $user->id,
+            'book_id' => $inActiveBook->id,
+        ]);
+        $category = factory(Category::class)->create(['book_id' => $inActiveBook->id, 'creator_id' => $user->id]);
+
+        $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
+        $this->dontSeeElement('a', ['id' => 'edit-transaction-'.$transaction->id]);
+        $this->visitRoute('transactions.index', ['action' => 'edit', 'id' => $transaction->id, 'month' => $month, 'year' => $year]);
+        $this->dontSeeElement('button', ['value' => __('transaction.update')]);
+    }
+
+    /** @test */
     public function user_can_edit_a_transaction_within_search_and_category_query()
     {
         $month = '01';
