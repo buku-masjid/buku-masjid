@@ -8,7 +8,9 @@
     <div class="page-subtitle">{{ __('app.total') }} : {{ $categories->count() }} {{ __('category.category') }}</div>
     <div class="page-options d-flex">
         @can('create', new App\Models\Category)
-            {{ link_to_route('categories.index', __('category.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            @can('manage-categories', auth()->activeBook())
+                {{ link_to_route('categories.index', __('category.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            @endcan
         @endcan
     </div>
 </div>
@@ -45,15 +47,17 @@
                                 ) }}
                             @endcan
                             @can('update', $category)
-                                {{ link_to_route(
-                                    'categories.index',
-                                    __('app.edit'),
-                                    ['action' => 'edit', 'id' => $category->id],
-                                    [
-                                        'id' => 'edit-category-'.$category->id,
-                                        'class' => 'btn btn-sm btn-warning',
-                                    ]
-                                ) }}
+                                @can('manage-categories', auth()->activeBook())
+                                    {{ link_to_route(
+                                        'categories.index',
+                                        __('app.edit'),
+                                        ['action' => 'edit', 'id' => $category->id],
+                                        [
+                                            'id' => 'edit-category-'.$category->id,
+                                            'class' => 'btn btn-sm btn-warning',
+                                        ]
+                                    ) }}
+                                @endcan
                             @endcan
                         </td>
                     </tr>
@@ -66,7 +70,9 @@
     </div>
     <div class="col-md-4">
         @if(Request::has('action'))
-        @include('categories.forms')
+            @can('manage-categories', auth()->activeBook())
+                @include('categories.forms')
+            @endcan
         @endif
     </div>
 </div>

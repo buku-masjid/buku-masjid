@@ -42,8 +42,8 @@ class ManageCategoriesTest extends TestCase
     public function user_can_create_a_category()
     {
         $this->loginAsUser();
-        $this->visit(route('categories.index'));
         $book = factory(Book::class)->create();
+        $this->visit(route('categories.index'));
 
         $this->click(__('category.create'));
         $this->seePageIs(route('categories.index', ['action' => 'create']));
@@ -67,13 +67,29 @@ class ManageCategoriesTest extends TestCase
     }
 
     /** @test */
+    public function user_cannot_create_a_category_on_an_inactive_book()
+    {
+        $book = factory(Book::class)->create();
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+
+        $this->loginAsUser();
+        session()->put('active_book_id', $inActiveBook->id);
+
+        $this->visitRoute('categories.index');
+        $this->dontSeeElement('a', ['href' => route('categories.index', ['action' => 'create'])]);
+
+        $this->visitRoute('categories.index', ['action' => 'create']);
+        $this->dontSeeElement('input', ['value' => __('category.create')]);
+    }
+
+    /** @test */
     public function user_can_create_a_category_for_active_book()
     {
         $this->loginAsUser();
-        $this->visit(route('categories.index'));
         $inActiveBook = factory(Book::class)->create();
         $activeBook = factory(Book::class)->create();
         session()->put('active_book_id', $activeBook->id);
+        $this->visit(route('categories.index'));
 
         $this->click(__('category.create'));
         $this->seePageIs(route('categories.index', ['action' => 'create']));
@@ -156,6 +172,23 @@ class ManageCategoriesTest extends TestCase
             'status_id' => Category::STATUS_INACTIVE,
             'book_id' => $book->id,
         ]);
+    }
+
+    /** @test */
+    public function user_cannot_edit_a_category_on_an_inactive_book()
+    {
+        $user = $this->loginAsUser();
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+        $category = factory(Category::class)->create(['creator_id' => $user->id, 'book_id' => $inActiveBook]);
+
+        $this->loginAsUser();
+        session()->put('active_book_id', $inActiveBook->id);
+
+        $this->visitRoute('categories.index');
+        $this->dontSeeElement('a', ['id' => 'edit-category-'.$category->id]);
+
+        $this->visitRoute('categories.index', ['action' => 'edit', 'id' => $category->id]);
+        $this->dontSeeElement('input', ['value' => __('category.update')]);
     }
 
     /** @test */

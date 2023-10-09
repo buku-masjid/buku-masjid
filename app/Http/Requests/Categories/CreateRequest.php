@@ -14,7 +14,8 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('create', new Category);
+        return $this->user()->can('create', new Category)
+        && $this->user()->can('manage-categories', auth()->activeBook());
     }
 
     /**

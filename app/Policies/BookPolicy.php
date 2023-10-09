@@ -44,4 +44,9 @@ class BookPolicy
     {
         return $book->status_id == Book::STATUS_ACTIVE;
     }
+
+    public function manageCategories(User $user, Book $book)
+    {
+        return $book->status_id == Book::STATUS_ACTIVE;
+    }
 }
