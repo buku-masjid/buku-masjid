@@ -1,4 +1,3 @@
-@can('manage-transactions', auth()->activeBook())
 @if (request('action') == 'edit' && $editableTransaction)
 @can('update', $editableTransaction)
     <div id="transactionModal" class="modal" role="dialog">
@@ -95,4 +94,3 @@
     </div>
 @endcan
 @endif
-@endcan

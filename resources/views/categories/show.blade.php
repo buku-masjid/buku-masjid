@@ -82,8 +82,11 @@
     </div>
 </div>
 @if(Request::has('action'))
-@include('categories.partials.transaction-forms')
+    @can('manage-transactions', auth()->activeBook())
+        @include('categories.partials.transaction-forms')
+    @endcan
 @endif
+
 @endsection
 
 @section('styles')
