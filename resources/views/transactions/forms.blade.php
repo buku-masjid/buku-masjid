@@ -1,4 +1,3 @@
-@can('manage-transactions', auth()->activeBook())
 @can('create', new App\Transaction)
 @if (request('action') == 'add-income')
     <div id="transactionModal" class="modal" role="dialog">
@@ -153,4 +152,3 @@
     </div>
 @endcan
 @endif
-@endcan

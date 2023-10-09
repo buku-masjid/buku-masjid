@@ -163,7 +163,9 @@
     </div>
     <div class="col-md-4">
         @if(Request::has('action'))
-        @include('transactions.forms')
+            @can('manage-transactions', auth()->activeBook())
+                @include('transactions.forms')
+            @endcan
         @endif
     </div>
 </div>
