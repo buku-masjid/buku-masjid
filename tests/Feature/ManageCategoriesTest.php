@@ -242,4 +242,18 @@ class ManageCategoriesTest extends TestCase
             'category_id' => null,
         ]);
     }
+
+    /** @test */
+    public function user_cannot_delete_a_category_on_an_inactive_book()
+    {
+        $user = $this->loginAsUser();
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+        $category = factory(Category::class)->create(['creator_id' => $user->id, 'book_id' => $inActiveBook]);
+
+        $this->loginAsUser();
+        session()->put('active_book_id', $inActiveBook->id);
+
+        $this->visitRoute('categories.index', ['action' => 'delete', 'id' => $category->id]);
+        $this->dontSeeElement('input', ['value' => __('app.delete_confirm_button')]);
+    }
 }
