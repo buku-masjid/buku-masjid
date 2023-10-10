@@ -8,12 +8,14 @@
 <div>
     {{ $transaction->description }}
     @can('update', $transaction)
-        {!! link_to_route(
-            'transactions.index',
-            __('app.edit'),
-            ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
-            ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
-        ) !!}
+        @can('manage-transactions', auth()->activeBook())
+            {!! link_to_route(
+                'transactions.index',
+                __('app.edit'),
+                ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
+                ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
+            ) !!}
+        @endcan
     @endcan
 </div>
 <div style="margin-bottom: 6px;">

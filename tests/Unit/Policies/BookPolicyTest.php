@@ -84,4 +84,38 @@ class BookPolicyTest extends TestCase
         $this->assertTrue($finance->can('delete', $financeBook));
         $this->assertFalse($finance->can('delete', $systemBook));
     }
+
+    /** @test */
+    public function user_can_manage_transactions_on_active_book()
+    {
+        $admin = $this->createUser('admin');
+        $finance = $this->createUser('finance');
+
+        $book = factory(Book::class)->create(['creator_id' => $admin->id]);
+
+        $this->assertTrue($admin->can('manage-transactions', $book));
+        $this->assertTrue($finance->can('manage-transactions', $book));
+
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+
+        $this->assertFalse($admin->can('manage-transactions', $inActiveBook));
+        $this->assertFalse($finance->can('manage-transactions', $inActiveBook));
+    }
+
+    /** @test */
+    public function user_can_manage_categories_on_active_book()
+    {
+        $admin = $this->createUser('admin');
+        $finance = $this->createUser('finance');
+
+        $book = factory(Book::class)->create(['creator_id' => $admin->id]);
+
+        $this->assertTrue($admin->can('manage-categories', $book));
+        $this->assertTrue($finance->can('manage-categories', $book));
+
+        $inActiveBook = factory(Book::class)->create(['status_id' => Book::STATUS_INACTIVE]);
+
+        $this->assertFalse($admin->can('manage-categories', $inActiveBook));
+        $this->assertFalse($finance->can('manage-categories', $inActiveBook));
+    }
 }

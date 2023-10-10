@@ -13,7 +13,8 @@ class DeleteRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete', $this->route('category'));
+        return $this->user()->can('delete', $this->route('category'))
+        && $this->user()->can('manage-categories', auth()->activeBook());
     }
 
     /**

@@ -13,7 +13,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('transaction'));
+        return $this->user()->can('update', $this->route('transaction'))
+        && $this->user()->can('manage-transactions', auth()->activeBook());
     }
 
     /**

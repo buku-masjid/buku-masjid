@@ -15,7 +15,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('category'));
+        return $this->user()->can('update', $this->route('category'))
+        && $this->user()->can('manage-categories', auth()->activeBook());
     }
 
     /**

@@ -14,7 +14,8 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('create', new Transaction);
+        return $this->user()->can('create', new Transaction)
+        && $this->user()->can('manage-transactions', auth()->activeBook());
     }
 
     /**
