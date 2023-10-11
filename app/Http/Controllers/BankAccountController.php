@@ -10,6 +10,8 @@ class BankAccountController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-any', new BankAccount);
+
         $editableBankAccount = null;
         $bankAccounts = BankAccount::paginate();
 
@@ -22,6 +24,8 @@ class BankAccountController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', new BankAccount);
+
         $newBankAccount = $request->validate([
             'name' => 'required|max:60',
             'number' => 'required|max:60',
@@ -39,6 +43,8 @@ class BankAccountController extends Controller
 
     public function show(BankAccount $bankAccount)
     {
+        $this->authorize('view', $bankAccount);
+
         $editableBankAccountBalance = null;
         if (in_array(request('action'), ['edit_bank_account_balance', 'delete_bank_account_balance']) && request('bank_account_balance_id')) {
             $editableBankAccountBalance = $bankAccount->balances()->where('id', request('bank_account_balance_id'))->first();
@@ -50,6 +56,8 @@ class BankAccountController extends Controller
 
     public function update(Request $request, BankAccount $bankAccount)
     {
+        $this->authorize('update', $bankAccount);
+
         $bankAccountData = $request->validate([
             'name' => 'required|max:60',
             'number' => 'required|max:60',
@@ -67,6 +75,8 @@ class BankAccountController extends Controller
 
     public function destroy(BankAccount $bankAccount)
     {
+        $this->authorize('delete', $bankAccount);
+
         request()->validate([
             'bank_account_id' => 'required',
         ]);

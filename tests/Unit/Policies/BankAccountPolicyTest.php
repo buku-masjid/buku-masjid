@@ -11,6 +11,20 @@ class BankAccountPolicyTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function user_can_see_bank_account_list()
+    {
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $this->assertTrue($admin->can('view-any', new BankAccount));
+        $this->assertTrue($chairman->can('view-any', new BankAccount));
+        $this->assertTrue($secretary->can('view-any', new BankAccount));
+        $this->assertTrue($finance->can('view-any', new BankAccount));
+    }
+
+    /** @test */
     public function user_can_create_bank_account()
     {
         $admin = $this->createUser('admin');
