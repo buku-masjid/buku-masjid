@@ -36,10 +36,12 @@
                     <span class="d-none d-lg-inline"><i class="fe fe-book"></i> {{ __('bank_account.bank_account') }}</span>
                 </a>
             @endcan
-            <a class="xs-navbar mr-4" href="{{ route('lecturing_schedules.index') }}" title="{{ __('lecturing_schedule.lecturing') }}">
-                <i class="fe fe-book-open h3 d-inline d-lg-none"></i>
-                <span class="d-none d-lg-inline"><i class="fe fe-book-open"></i> {{ __('lecturing_schedule.lecturing') }}</span>
-            </a>
+            @can('view-any', new App\Models\LecturingSchedule)
+                <a class="xs-navbar mr-4" href="{{ route('lecturing_schedules.index') }}" title="{{ __('lecturing_schedule.lecturing') }}">
+                    <i class="fe fe-book-open h3 d-inline d-lg-none"></i>
+                    <span class="d-none d-lg-inline"><i class="fe fe-book-open"></i> {{ __('lecturing_schedule.lecturing') }}</span>
+                </a>
+            @endcan
             <a class="xs-navbar mr-4" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
                 <i class="fe fe-bar-chart-2 h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-bar-chart-2"></i> {{ __('report.report') }}</span>
@@ -76,10 +78,12 @@
                 {{ __('bank_account.bank') }}
             </a>
         @endcan
-        <a class="col border-right border-primary" href="{{ route('lecturing_schedules.index') }}" title="{{ __('lecturing_schedule.lecturing') }}">
-            <div><i class="fe fe-book-open h3"></i></div>
-            {{ __('lecturing_schedule.lecturing') }}
-        </a>
+        @can('view-any', new App\Models\LecturingSchedule)
+            <a class="col border-right border-primary" href="{{ route('lecturing_schedules.index') }}" title="{{ __('lecturing_schedule.lecturing') }}">
+                <div><i class="fe fe-book-open h3"></i></div>
+                {{ __('lecturing_schedule.lecturing') }}
+            </a>
+        @endcan
         <a class="col border-right border-primary" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
             <div><i class="fe fe-bar-chart-2 h3"></i></div>
             {{ __('report.report') }}

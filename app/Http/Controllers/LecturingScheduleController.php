@@ -11,6 +11,8 @@ class LecturingScheduleController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('view-any', new LecturingSchedule);
+
         $lecturingScheduleQuery = LecturingSchedule::query();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
@@ -29,6 +31,7 @@ class LecturingScheduleController extends Controller
     public function create()
     {
         $this->authorize('create', new LecturingSchedule);
+
         $audienceCodes = [
             LecturingSchedule::AUDIENCE_PUBLIC => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_PUBLIC),
             LecturingSchedule::AUDIENCE_MUSLIMAH => __('lecturing_schedule.audience_'.LecturingSchedule::AUDIENCE_MUSLIMAH),
@@ -47,6 +50,8 @@ class LecturingScheduleController extends Controller
 
     public function show(LecturingSchedule $lecturingSchedule)
     {
+        $this->authorize('view', $lecturingSchedule);
+
         if (in_array($lecturingSchedule->audience_code, [LecturingSchedule::AUDIENCE_FRIDAY])) {
             return redirect()->route('friday_lecturing_schedules.show', $lecturingSchedule);
         }

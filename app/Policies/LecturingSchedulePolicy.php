@@ -2,35 +2,33 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Models\LecturingSchedule;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\User;
 
 class LecturingSchedulePolicy
 {
-    use HandlesAuthorization;
+    public function viewAny(User $user)
+    {
+        return true;
+    }
 
     public function view(User $user, LecturingSchedule $lecturingSchedule)
     {
-        // Update $user authorization to view $lecturingSchedule here.
         return true;
     }
 
     public function create(User $user, LecturingSchedule $lecturingSchedule)
     {
-        // Update $user authorization to create $lecturingSchedule here.
-        return true;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_CHAIRMAN, User::ROLE_SECRETARY]);
     }
 
     public function update(User $user, LecturingSchedule $lecturingSchedule)
     {
-        // Update $user authorization to update $lecturingSchedule here.
-        return true;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_CHAIRMAN, User::ROLE_SECRETARY]);
     }
 
     public function delete(User $user, LecturingSchedule $lecturingSchedule)
     {
-        // Update $user authorization to delete $lecturingSchedule here.
-        return true;
+        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_CHAIRMAN, User::ROLE_SECRETARY]);
     }
 }

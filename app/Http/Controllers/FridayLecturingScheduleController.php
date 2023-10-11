@@ -16,6 +16,8 @@ class FridayLecturingScheduleController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', new LecturingSchedule);
+
         $newLecturingSchedule = $request->validate([
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
@@ -36,6 +38,8 @@ class FridayLecturingScheduleController extends Controller
 
     public function show(LecturingSchedule $lecturingSchedule)
     {
+        $this->authorize('view', $lecturingSchedule);
+
         if (!in_array($lecturingSchedule->audience_code, [LecturingSchedule::AUDIENCE_FRIDAY])) {
             return redirect()->route('lecturing_schedules.show', $lecturingSchedule);
         }
@@ -52,6 +56,8 @@ class FridayLecturingScheduleController extends Controller
 
     public function update(Request $request, LecturingSchedule $lecturingSchedule)
     {
+        $this->authorize('update', $lecturingSchedule);
+
         $lecturingScheduleData = $request->validate([
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
