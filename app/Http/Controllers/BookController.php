@@ -13,6 +13,8 @@ class BookController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-any', new Book);
+
         $editableBook = null;
         $bookQuery = Book::orderBy('name');
         $books = $bookQuery->with('creator', 'bankAccount')->paginate(25);
@@ -43,6 +45,8 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
+        $this->authorize('view', $book);
+
         $books = [];
         $editableTransaction = null;
         $year = request('year', date('Y'));

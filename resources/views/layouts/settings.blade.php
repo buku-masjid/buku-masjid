@@ -17,9 +17,11 @@
             {!! link_to_route('categories.index', __('category.category'), [], ['class' => 'nav-link'.(Request::segment(1) == 'categories' ? ' active' : '')]) !!}
         </li>
     @endcan
-    <li class="nav-item">
-        {!! link_to_route('books.index', __('book.book'), [], ['class' => 'nav-link'.(Request::segment(1) == 'books' ? ' active' : '')]) !!}
-    </li>
+    @can('view-any', new App\Models\Book)
+        <li class="nav-item">
+            {!! link_to_route('books.index', __('book.book'), [], ['class' => 'nav-link'.(Request::segment(1) == 'books' ? ' active' : '')]) !!}
+        </li>
+    @endcan
     @can('manage_database_backup')
         <li class="nav-item">
             {!! link_to_route('database_backups.index', __('database_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'database_backups' ? ' active' : '')]) !!}

@@ -22,10 +22,12 @@
             @endforeach
             {{ Form::close() }}
 
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('books.index') }}">
-                <i class="dropdown-icon fe fe-book"></i> {{ __('book.all') }}
-            </a>
+            @can('view-any', new App\Models\Book)
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ route('books.index') }}">
+                    <i class="dropdown-icon fe fe-book"></i> {{ __('book.all') }}
+                </a>
+            @endcan
         </div>
     </div>
 </div>
