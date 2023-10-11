@@ -12,9 +12,11 @@
     <li class="nav-item">
         {!! link_to_route('password.change', __('auth.change_password'), [], ['class' => 'nav-link'.(Request::segment(1) == 'change-password' ? ' active' : '')]) !!}
     </li>
-    <li class="nav-item">
-        {!! link_to_route('categories.index', __('category.category'), [], ['class' => 'nav-link'.(Request::segment(1) == 'categories' ? ' active' : '')]) !!}
-    </li>
+    @can('view-any', new App\Models\Category)
+        <li class="nav-item">
+            {!! link_to_route('categories.index', __('category.category'), [], ['class' => 'nav-link'.(Request::segment(1) == 'categories' ? ' active' : '')]) !!}
+        </li>
+    @endcan
     <li class="nav-item">
         {!! link_to_route('books.index', __('book.book'), [], ['class' => 'nav-link'.(Request::segment(1) == 'books' ? ' active' : '')]) !!}
     </li>

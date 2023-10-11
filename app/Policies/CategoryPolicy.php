@@ -4,11 +4,13 @@ namespace App\Policies;
 
 use App\Models\Category;
 use App\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CategoryPolicy
 {
-    use HandlesAuthorization;
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
 
     public function create(User $user, Category $category)
     {

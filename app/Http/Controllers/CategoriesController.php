@@ -12,6 +12,8 @@ class CategoriesController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-any', new Category);
+
         $editableCategory = null;
         $categories = Category::orderBy('name')->with('book')->get();
         $books = $this->getBookList();
@@ -34,6 +36,8 @@ class CategoriesController extends Controller
 
     public function show(Category $category)
     {
+        $this->authorize('view', $category);
+
         $categories = [];
         $editableTransaction = null;
         $year = request('year', date('Y'));

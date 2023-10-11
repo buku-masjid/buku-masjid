@@ -11,6 +11,20 @@ class CategoryPolicyTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function user_can_see_category_list()
+    {
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $this->assertTrue($admin->can('view-any', new Category));
+        $this->assertTrue($chairman->can('view-any', new Category));
+        $this->assertTrue($secretary->can('view-any', new Category));
+        $this->assertTrue($finance->can('view-any', new Category));
+    }
+
+    /** @test */
     public function user_can_create_category()
     {
         $admin = $this->createUser('admin');
