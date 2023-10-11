@@ -17,7 +17,9 @@
                 </tbody>
             </table>
             <div class="card-footer">
-                {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-success']) }}
+                @can('edit_masjid_profile')
+                    {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-success']) }}
+                @endcan
             </div>
         </div>
     </div>
