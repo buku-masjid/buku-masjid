@@ -16,11 +16,15 @@ class MasjidProfileController extends Controller
 
     public function edit(): View
     {
+        $this->authorize('edit_masjid_profile');
+
         return view('masjid_profile.edit');
     }
 
     public function update(Request $request): RedirectResponse
     {
+        $this->authorize('edit_masjid_profile');
+
         $validatedPayload = $request->validate([
             'masjid_name' => 'required|string|max:255',
             'masjid_address' => 'required|string|max:255',

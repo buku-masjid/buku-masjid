@@ -11,6 +11,20 @@ class BookPolicyTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function user_can_see_book_list()
+    {
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $this->assertTrue($admin->can('view-any', new Book));
+        $this->assertTrue($chairman->can('view-any', new Book));
+        $this->assertTrue($secretary->can('view-any', new Book));
+        $this->assertTrue($finance->can('view-any', new Book));
+    }
+
+    /** @test */
     public function user_can_create_book()
     {
         $admin = $this->createUser('admin');

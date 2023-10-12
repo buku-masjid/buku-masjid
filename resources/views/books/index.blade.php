@@ -38,17 +38,17 @@
                         <td>{{ $book->bankAccount->name }}</td>
                         <td>{{ $book->description }}</td>
                         <td class="text-center text-nowrap">
+                            @if ($book->id != auth()->activeBookId())
+                                {!! FormField::formButton(
+                                    ['route' => 'book_switcher.store'],
+                                    __('book.switch'),
+                                    ['id' => 'activate_book_'.$book->id, 'class' => 'btn btn-success btn-sm'],
+                                    ['switch_book' => $book->id]
+                                ) !!}
+                            @else
+                                <span class="btn btn-secondary btn-sm disabled">{{ __('app.active') }}</span>
+                            @endif
                             @can('update', $book)
-                                @if ($book->id != auth()->activeBookId())
-                                    {!! FormField::formButton(
-                                        ['route' => 'book_switcher.store'],
-                                        __('book.switch'),
-                                        ['id' => 'activate_book_'.$book->id, 'class' => 'btn btn-success btn-sm'],
-                                        ['switch_book' => $book->id]
-                                    ) !!}
-                                @else
-                                    <span class="btn btn-secondary btn-sm disabled">{{ __('app.active') }}</span>
-                                @endif
                                 {{ link_to_route(
                                     'books.index',
                                     __('app.edit'),

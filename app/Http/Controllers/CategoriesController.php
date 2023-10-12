@@ -10,13 +10,10 @@ use App\Transaction;
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the category.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
     public function index()
     {
+        $this->authorize('view-any', new Category);
+
         $editableCategory = null;
         $categories = Category::orderBy('name')->with('book')->get();
         $books = $this->getBookList();
@@ -28,12 +25,6 @@ class CategoriesController extends Controller
         return view('categories.index', compact('categories', 'editableCategory', 'books'));
     }
 
-    /**
-     * Store a newly created category in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CreateRequest $categoryCreateForm)
     {
         $category = $categoryCreateForm->save();
@@ -43,14 +34,10 @@ class CategoriesController extends Controller
         return redirect()->route('categories.index');
     }
 
-    /**
-     * Show transaction listing of a category.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\View\View
-     */
     public function show(Category $category)
     {
+        $this->authorize('view', $category);
+
         $categories = [];
         $editableTransaction = null;
         $year = request('year', date('Y'));
@@ -78,13 +65,6 @@ class CategoriesController extends Controller
         ));
     }
 
-    /**
-     * Update the specified category in storage.
-     *
-     * @param  \App\Http\Requests\Categories\UpdateRequest  $categoryUpdateForm
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Routing\Redirector
-     */
     public function update(UpdateRequest $categoryUpdateForm, Category $category)
     {
         $category = $categoryUpdateForm->save();
@@ -94,13 +74,6 @@ class CategoriesController extends Controller
         return redirect()->route('categories.index');
     }
 
-    /**
-     * Remove the specified category from storage.
-     *
-     * @param  \App\Http\Requests\Categories\DeleteRequest  $categoryDeleteForm
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Routing\Redirector
-     */
     public function destroy(DeleteRequest $categoryDeleteForm, Category $category)
     {
         if ($categoryDeleteForm->delete()) {

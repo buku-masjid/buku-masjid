@@ -21,5 +21,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage_database_backup', function (User $user) {
             return in_array($user->role_id, [User::ROLE_ADMIN]);
         });
+        Gate::define('edit_masjid_profile', function (User $user) {
+            return in_array($user->role_id, [User::ROLE_ADMIN]);
+        });
     }
 }
