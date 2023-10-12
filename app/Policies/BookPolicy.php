@@ -12,22 +12,22 @@ class BookPolicy
         return true;
     }
 
-    public function create(User $user, Book $book)
+    public function create(User $user, Book $book): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    public function view(User $user, Book $book)
+    public function view(User $user, Book $book): bool
     {
         return true;
     }
 
-    public function update(User $user, Book $book)
+    public function update(User $user, Book $book): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    public function delete(User $user, Book $book)
+    public function delete(User $user, Book $book): bool
     {
         if ($book->creator_id == null) {
             return false;
@@ -42,12 +42,12 @@ class BookPolicy
         return true;
     }
 
-    public function manageTransactions(User $user, Book $book)
+    public function manageTransactions(User $user, Book $book): bool
     {
         return $book->status_id == Book::STATUS_ACTIVE;
     }
 
-    public function manageCategories(User $user, Book $book)
+    public function manageCategories(User $user, Book $book): bool
     {
         return $book->status_id == Book::STATUS_ACTIVE;
     }

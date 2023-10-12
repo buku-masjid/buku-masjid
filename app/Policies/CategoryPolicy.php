@@ -12,22 +12,22 @@ class CategoryPolicy
         return true;
     }
 
-    public function create(User $user, Category $category)
+    public function create(User $user, Category $category): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    public function view(User $user, Category $category)
+    public function view(User $user, Category $category): bool
     {
         return true;
     }
 
-    public function update(User $user, Category $category)
+    public function update(User $user, Category $category): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    public function delete(User $user, Category $category)
+    public function delete(User $user, Category $category): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }

@@ -4,28 +4,25 @@ namespace App\Policies;
 
 use App\Transaction;
 use App\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TransactionPolicy
 {
-    use HandlesAuthorization;
-
-    public function create(User $user, Transaction $transaction)
+    public function create(User $user, Transaction $transaction): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    public function view(User $user, Transaction $transaction)
+    public function view(User $user, Transaction $transaction): bool
     {
         return true;
     }
 
-    public function update(User $user, Transaction $transaction)
+    public function update(User $user, Transaction $transaction): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
 
-    public function delete(User $user, Transaction $transaction)
+    public function delete(User $user, Transaction $transaction): bool
     {
         return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE]);
     }
