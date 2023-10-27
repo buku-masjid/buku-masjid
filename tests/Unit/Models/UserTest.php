@@ -25,4 +25,14 @@ class UserTest extends TestCase
         $user->role_id = User::ROLE_FINANCE;
         $this->assertEquals(__('user.role_finance'), $user->role);
     }
+
+    /** @test */
+    public function user_model_has_status_attribute()
+    {
+        $user = factory(User::class)->make(['is_active' => 1]);
+        $this->assertEquals(__('app.active'), $user->status);
+
+        $user = factory(User::class)->make(['is_active' => 0]);
+        $this->assertEquals(__('app.in_active'), $user->status);
+    }
 }

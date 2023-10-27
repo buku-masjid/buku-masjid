@@ -12,6 +12,7 @@ return [
     'empty' => 'Belum ada User',
     'back_to_index' => 'Kembali ke Daftar User',
     'search' => 'Cari User',
+    'search_text' => 'Nama / email ...',
     'not_found' => 'User tidak ditemukan.',
 
     // Actions
@@ -22,6 +23,7 @@ return [
     'update' => 'Update Data User',
     'updated' => 'Update data User telah berhasil.',
     'delete' => 'Hapus User',
+    'delete_confirm' => 'Anda yakin akan menghapus user ini?',
     'deleted' => 'Hapus data User telah berhasil.',
     'undeleted' => 'Data User gagal dihapus.',
 
