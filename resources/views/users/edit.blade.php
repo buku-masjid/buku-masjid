@@ -11,7 +11,6 @@
                 <h1 class="page-title">{{ __('user.delete') }}</h1>
             </div>
             <div class="card">
-                <div class="card-header">{{ __('user.delete') }}</div>
                 <div class="card-body">
                     <label class="control-label text-primary">{{ __('user.name') }}</label>
                     <p>{{ $user->name }}</p>
