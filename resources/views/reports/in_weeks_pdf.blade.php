@@ -4,7 +4,9 @@
 
 @section('content')
 <htmlpageheader name="wpHeader">
-    <h2 class="text-center strong" style="margin: 1em 0">
+    @include('reports.partials.letterhead')
+
+    <h2 class="text-center strong">
         @if (isset(auth()->activeBook()->report_titles['in_weeks']))
             {{ auth()->activeBook()->report_titles['in_weeks'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
         @else
@@ -75,7 +77,7 @@
 <style>
     @page {
         size: auto;
-        margin-top: 100px;
+        margin-top: 170px;
         margin-bottom: 50px;
         margin-left: 50px;
         margin-right: 50px;
