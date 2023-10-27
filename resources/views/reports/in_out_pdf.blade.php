@@ -192,7 +192,7 @@
 <style>
     @page {
         size: auto;
-        margin-top: 170px;
+        margin-top: @if($showLetterhead) 170px; @else 100px; @endif
         margin-bottom: 50px;
         margin-left: 50px;
         margin-right: 50px;
