@@ -77,7 +77,7 @@
 
 @foreach($groupedTransactions as $weekNumber => $weekTransactions)
 <div class="card table-responsive">
-    <table class="table table-sm card-table table-hover table-bordered">
+    <table class="table table-sm mb-0 table-hover table-bordered">
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.date') }}</th>
@@ -98,8 +98,8 @@
                     <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
                         {{ $transaction->description }}
                     </td>
-                    <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount) : '' }}</td>
-                    <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount) : '' }}</td>
+                    <td class="text-right text-nowrap">{{ $transaction->in_out ? number_format($transaction->amount, 2) : '' }}</td>
+                    <td class="text-right text-nowrap">{{ !$transaction->in_out ? number_format($transaction->amount, 2) : '' }}</td>
                     <td class="text-center text-nowrap">&nbsp;</td>
                 </tr>
                 @endforeach
@@ -114,7 +114,7 @@
                             return $transaction->in_out ? $transaction->amount : 0;
                         });
                     @endphp
-                    {{ number_format($incomeAmount, 0) }}
+                    {{ number_format($incomeAmount, 2) }}
                 </td>
                 <td class="text-right">
                     @php
@@ -122,9 +122,9 @@
                             return $transaction->in_out ? 0 : $transaction->amount;
                         });
                     @endphp
-                    {{ number_format($spendingAmount, 0) }}
+                    {{ number_format($spendingAmount, 2) }}
                 </td>
-                <td class="text-right">{{ number_format($incomeAmount - $spendingAmount, 0) }}</td>
+                <td class="text-right">{{ number_format($incomeAmount - $spendingAmount, 2) }}</td>
             </tr>
         </tfoot>
     </table>
