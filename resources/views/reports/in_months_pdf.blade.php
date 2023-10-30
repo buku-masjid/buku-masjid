@@ -28,6 +28,7 @@
         </thead>
         <tbody>
             <tr><td colspan="5">{{ __('transaction.balance') }}</td></tr>
+            @if (auth()->activeBook()->bank_account_id)
             <tr>
                 <td class="text-center">1</td>
                 <td>Saldo per {{ Carbon\Carbon::parse($lastBankAccountBalanceOfTheMonth->date)->isoFormat('D MMMM Y') }} di BANK</td>
@@ -35,8 +36,11 @@
                 <td class="text-right">-</td>
                 <td class="text-right text-nowrap">{{ number_format($lastBankAccountBalanceOfTheMonth->amount, 2) }}</td>
             </tr>
+            @endif
             <tr>
-                <td class="text-center">2</td>
+                <td class="text-center">
+                    {{ auth()->activeBook()->bank_account_id ? '2' : '1' }}
+                </td>
                 <td>Sisa saldo per {{ $lastMonthDate->isoFormat('D MMMM Y') }}</td>
                 <td class="text-right text-nowrap">{{ number_format($lastMonthBalance) }}</td>
                 <td class="text-right text-nowrap">-</td>
@@ -106,7 +110,9 @@
         <tfoot>
             <tr>
                 <td>&nbsp;</td>
-                <th class="text-center">Selisih saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
+                <th class="text-center">
+                    {{ auth()->activeBook()->bank_account_id ? 'Selisih' : '' }} Saldo {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}
+                </th>
                 <th class="text-right">
                     @php
                         $currentMonthIncome = $groupedTransactions->has(1) ? $groupedTransactions[1]->sum('amount') : 0;
@@ -126,6 +132,7 @@
                     {{ number_format($currentMonthBalance, 2) }}
                 </th>
             </tr>
+            @if (auth()->activeBook()->bank_account_id)
             <tr>
                 <td>&nbsp;</td>
                 <th class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</th>
@@ -135,6 +142,7 @@
                     {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 2) }}
                 </th>
             </tr>
+            @endif
         </tfoot>
         @endif
     </table>
