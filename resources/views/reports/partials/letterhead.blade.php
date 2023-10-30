@@ -5,7 +5,7 @@
             <br/>
             {{ Setting::get('masjid_name', config('masjid.name')) }}
         </h3>
-        <div>{{ Setting::get('masjid_address') }}</div>
+        <div>{!! nl2br(htmlentities(Setting::get('masjid_address'))) !!}</div>
         <hr style="margin-top: 0.5em"/>
     </div>
 @endif
