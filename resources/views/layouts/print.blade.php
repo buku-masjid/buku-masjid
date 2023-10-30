@@ -18,6 +18,7 @@
         .strong { font-weight: bold; }
         .page-break { page-break-after: always; }
         .hidden-print { display: none; }
+        .uppercase { text-transform: uppercase }
 
         .header, .footer { font-size: 60%; width: 100%; position: relative; /*border: 1px dotted red;*/ }
         .header { top: 0px; }

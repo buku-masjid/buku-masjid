@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BankAccountBalance;
 use App\Transaction;
 use Carbon\Carbon;
+use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -48,11 +49,12 @@ class ReportsController extends Controller
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
+        $showLetterhead = $this->showLetterhead();
 
         $passedVariables = compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance', 'currentMonthEndDate'
+            'lastMonthBalance', 'currentMonthEndDate', 'showLetterhead'
         );
 
         // return view('reports.in_months_pdf', $passedVariables);
@@ -90,9 +92,12 @@ class ReportsController extends Controller
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
 
+        $showLetterhead = $this->showLetterhead();
+
         $passedVariables = compact(
             'year', 'month', 'yearMonth', 'currentMonthEndDate',
-            'groupedTransactions', 'incomeCategories', 'spendingCategories'
+            'groupedTransactions', 'incomeCategories', 'spendingCategories',
+            'showLetterhead'
         );
 
         // return view('reports.in_out_pdf', $passedVariables);
@@ -122,7 +127,8 @@ class ReportsController extends Controller
         $yearMonth = $this->getYearMonth();
         $groupedTransactions = $this->getWeeklyGroupedTransactions($yearMonth);
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
-        $passedVariables = compact('year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate');
+        $showLetterhead = $this->showLetterhead();
+        $passedVariables = compact('year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate', 'showLetterhead');
 
         // return view('reports.in_weeks_pdf', $passedVariables);
 
@@ -183,5 +189,11 @@ class ReportsController extends Controller
         }
 
         return $currentMonthBalance;
+    }
+
+    // to inform the views (including css style) to show the letterhead only if masjid name and address not empty
+    private function showLetterhead(): bool
+    {
+        return Setting::get('masjid_name', config('masjid.name')) && Setting::get('masjid_address');
     }
 }
