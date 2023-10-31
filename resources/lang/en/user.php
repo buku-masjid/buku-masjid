@@ -55,6 +55,6 @@ return [
     'activated' => 'User has been activated.',
 
     // Form Texts
-    'password_form_note' => 'Fil the password <strong>only</strong> to change current user password.',
+    'password_form_note' => 'Fill <strong>only</strong> to change current user password',
     'default_password_note' => 'Default Password: <code>:password</code>',
 ];

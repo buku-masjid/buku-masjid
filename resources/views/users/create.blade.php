@@ -15,15 +15,16 @@
                     <div class="col-md-12">{!! FormField::text('name', ['required' => true, 'label' => __('user.name')]) !!}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">{!! FormField::email('email', ['required' => true, 'label' => __('user.email')]) !!}</div>
+                    <div class="col-md-6">{!! FormField::email('email', ['required' => true, 'label' => __('user.email')]) !!}</div>
+                    <div class="col-md-6">
+                        {!! FormField::password('password', [
+                            'info' => [
+                                'text' => __('user.default_password_note', ['password' => config('auth.passwords.default')])
+                            ]
+                        ]) !!}
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">{!! FormField::radios('role_id', $roles, ['value' => App\User::ROLE_ADMIN, 'required' => true, 'label' => __('user.role'), 'list_style' => 'unstyled']) !!}</div>
-                    <div class="col-md-6">{!! FormField::radios('is_active', $statuses, ['value' => 1, 'required' => true, 'label' => __('user.status')]) !!}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">{!! FormField::password('password') !!}</div>
-                </div>
+                {!! FormField::radios('role_id', $roles, ['value' => App\User::ROLE_ADMIN, 'required' => true, 'label' => __('user.role')]) !!}
             </div>
             <div class="card-footer">
                 {{ Form::submit(__('user.create'), ['class' => 'btn btn-success']) }}

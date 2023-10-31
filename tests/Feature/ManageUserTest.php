@@ -30,7 +30,6 @@ class ManageUserTest extends TestCase
             'name' => 'Username',
             'email' => 'user@email.com',
             'role_id' => User::ROLE_ADMIN,
-            'is_active' => 1,
         ], $overrides);
     }
 
@@ -45,7 +44,9 @@ class ManageUserTest extends TestCase
 
         $this->submitForm(__('user.create'), $this->getCreateFields());
 
-        $this->seeInDatabase('users', $this->getCreateFields());
+        $this->seeInDatabase('users', $this->getCreateFields([
+            // 'is_active' => 1,
+        ]));
     }
 
     /** @test */

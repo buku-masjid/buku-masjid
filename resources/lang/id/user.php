@@ -54,6 +54,6 @@ return [
     'activated' => 'User telah aktif kembali.',
 
     // Form Texts
-    'password_form_note' => 'Isi password <strong>hanya</strong> untuk mengganti password',
+    'password_form_note' => 'Isi <strong>hanya</strong> untuk mengganti password',
     'default_password_note' => 'Password Default: <code>:password</code>',
 ];

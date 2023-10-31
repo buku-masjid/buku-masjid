@@ -43,7 +43,6 @@ class UserController extends Controller
             'email' => ['required', 'max:255', 'unique:users,email'],
             'password' => ['nullable', 'between:5,15', 'max:255'],
             'role_id' => ['required', Rule::in(User::getConstants('ROLE'))],
-            'is_active' => ['required', 'bool'],
         ]);
         $password = $newUser['password'] ?: config('auth.passwords.default');
         $newUser['password'] = bcrypt($password);
