@@ -27,4 +27,5 @@ return [
     'categorized_transactions' => 'Categorized Transactions Report',
     'export_pdf' => 'Export PDF',
     'title_updated' => 'Report title updated.',
+    'management' => 'Management',
 ];

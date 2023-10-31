@@ -27,4 +27,5 @@ return [
     'categorized_transactions' => 'Laporan Pemasukan dan Pengeluaran KAS',
     'export_pdf' => 'Export PDF',
     'title_updated' => 'Judul laporan telah diupdate.',
+    'management' => 'Pengurus',
 ];
