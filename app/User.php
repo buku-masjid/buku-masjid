@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Traits\Models\ConstantsGetter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens, ConstantsGetter;
 
     const ROLE_ADMIN = 1;
     const ROLE_CHAIRMAN = 2;
@@ -46,5 +47,10 @@ class User extends Authenticatable
         }
 
         return __('user.role_admin');
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->is_active ? __('app.active') : __('app.in_active');
     }
 }

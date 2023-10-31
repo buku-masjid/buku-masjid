@@ -12,6 +12,7 @@ return [
     'empty' => 'Belum ada User',
     'back_to_index' => 'Kembali ke Daftar User',
     'search' => 'Cari User',
+    'search_text' => 'Nama / email ...',
     'not_found' => 'User tidak ditemukan.',
 
     // Actions
@@ -22,6 +23,8 @@ return [
     'update' => 'Update Data User',
     'updated' => 'Update data User telah berhasil.',
     'delete' => 'Hapus User',
+    'delete_confirm' => 'Anda yakin akan menghapus user ini?',
+    'undeleteable' => 'Data User ini tidak dapat dihapus, silakan di nonaktifkan saja.',
     'deleted' => 'Hapus data User telah berhasil.',
     'undeleted' => 'Data User gagal dihapus.',
 
@@ -51,6 +54,6 @@ return [
     'activated' => 'User telah aktif kembali.',
 
     // Form Texts
-    'password_form_note' => 'Isi password <strong>hanya</strong> untuk mengganti password',
+    'password_form_note' => 'Isi <strong>hanya</strong> untuk mengganti password',
     'default_password_note' => 'Password Default: <code>:password</code>',
 ];

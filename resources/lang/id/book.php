@@ -11,6 +11,7 @@ return [
     'detail' => 'Detail Buku',
     'not_found' => 'Buku tidak ditemukan',
     'empty' => 'Belum ada Buku',
+    'count' => 'Input Buku',
     'no_book' => 'Tanpa Buku',
     'back_to_show' => 'Kembali ke detail Buku',
     'back_to_index' => 'Kembali ke daftar Buku',

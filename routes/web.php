@@ -109,4 +109,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('database_backups/{fileName}/dl', ['as' => 'database_backups.download', 'uses' => 'DatabaseBackupController@download']);
     Route::resource('database_backups', 'DatabaseBackupController', ['except' => ['create', 'show', 'edit']]);
 
+    /*
+     * Users Routes
+     */
+    Route::resource('users', App\Http\Controllers\UserController::class);
 });

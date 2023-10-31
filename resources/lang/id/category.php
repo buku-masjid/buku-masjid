@@ -11,6 +11,7 @@ return [
     'uncategorized' => 'Tanpa Kategori',
     'not_found' => 'Belum ada Kategori.',
     'empty' => 'Belum ada Kategori',
+    'count' => 'Input Kategori',
     'back_to_show' => 'Kembali ke detail Kategori',
     'back_to_index' => 'Kembali ke daftar Kategori',
 

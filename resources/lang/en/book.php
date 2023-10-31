@@ -11,6 +11,7 @@ return [
     'detail' => 'Book Detail',
     'not_found' => 'Book not found.',
     'empty' => 'Book is empty.',
+    'count' => 'Book entries',
     'no_book' => 'No Book',
     'back_to_show' => 'Back to Book Detail',
     'back_to_index' => 'Back to Book List',

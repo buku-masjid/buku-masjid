@@ -12,6 +12,7 @@ return [
     'empty' => 'User is empty.',
     'back_to_index' => 'Back to User list',
     'search' => 'Search User',
+    'search_text' => 'Name / email ...',
     'not_found' => 'User not found.',
 
     // Actions
@@ -22,6 +23,8 @@ return [
     'update' => 'Update User Data',
     'updated' => 'User data has been updated.',
     'delete' => 'Delete User',
+    'delete_confirm' => 'Are you sure to delete this user?',
+    'undeleteable' => 'User data cannot be deleted. You may suspend the user instead.',
     'deleted' => 'User has been deleted.',
     'undeleted' => 'User not deleted.',
 
@@ -52,6 +55,6 @@ return [
     'activated' => 'User has been activated.',
 
     // Form Texts
-    'password_form_note' => 'Fil the password <strong>only</strong> to change current user password.',
+    'password_form_note' => 'Fill <strong>only</strong> to change current user password',
     'default_password_note' => 'Default Password: <code>:password</code>',
 ];

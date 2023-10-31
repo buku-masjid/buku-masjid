@@ -22,6 +22,11 @@
             {!! link_to_route('books.index', __('book.book'), [], ['class' => 'nav-link'.(Request::segment(1) == 'books' ? ' active' : '')]) !!}
         </li>
     @endcan
+    @can('view-any', new App\User)
+        <li class="nav-item">
+            {!! link_to_route('users.index', __('user.user'), [], ['class' => 'nav-link'.(Request::segment(1) == 'users' ? ' active' : '')]) !!}
+        </li>
+    @endcan
     @can('manage_database_backup')
         <li class="nav-item">
             {!! link_to_route('database_backups.index', __('database_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'database_backups' ? ' active' : '')]) !!}

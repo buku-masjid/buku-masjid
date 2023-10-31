@@ -11,6 +11,7 @@ return [
     'detail' => 'Detail Transaksi',
     'not_found' => 'Transaksi tidak ditemukan.',
     'empty' => 'Belum ada Transaksi',
+    'count' => 'Input Transaksi',
     'back_to_show' => 'Kembali ke detail Transaksi',
     'back_to_index' => 'Kembali ke daftar Transaksi',
 

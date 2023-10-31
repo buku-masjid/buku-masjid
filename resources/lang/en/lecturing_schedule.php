@@ -17,6 +17,7 @@ return [
     'friday_empty' => 'Khatib Schedule is empty',
     'public_empty' => 'Public Lecturing Schedule is empty',
     'muslimah_empty' => 'Muslimah Lecturing Schedule is empty',
+    'count' => 'Lecturing Schedule entries',
     'back_to_show' => 'Back to Lecturing Schedule Detail',
     'back_to_index' => 'Back to Lecturing Schedule List',
 
