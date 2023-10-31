@@ -11,6 +11,7 @@ return [
     'detail' => 'Transaction Detail',
     'not_found' => 'Transaction not found.',
     'empty' => 'Transaction list is empty',
+    'count' => 'Transaction entries',
     'back_to_show' => 'Back to Transaction detail',
     'back_to_index' => 'Back to Transaction list',
 

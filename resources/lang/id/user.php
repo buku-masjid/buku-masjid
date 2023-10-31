@@ -24,6 +24,7 @@ return [
     'updated' => 'Update data User telah berhasil.',
     'delete' => 'Hapus User',
     'delete_confirm' => 'Anda yakin akan menghapus user ini?',
+    'undeleteable' => 'Data User ini tidak dapat dihapus, silakan di nonaktifkan saja.',
     'deleted' => 'Hapus data User telah berhasil.',
     'undeleted' => 'Data User gagal dihapus.',
 

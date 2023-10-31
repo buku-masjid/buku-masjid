@@ -17,6 +17,7 @@ return [
     'friday_empty' => 'Belum ada Jadwal Khatib',
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',
     'muslimah_empty' => 'Belum ada Jadwal Pengajian Muslimah',
+    'count' => 'Input Jadwal Pengajian',
     'back_to_show' => 'Kembali ke detail Jadwal Pengajian',
     'back_to_index' => 'Kembali ke daftar Jadwal Pengajian',
 

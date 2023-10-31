@@ -12,23 +12,55 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <label class="control-label text-primary">{{ __('user.name') }}</label>
-                    <p>{{ $user->name }}</p>
-                    <label class="control-label text-primary">{{ __('user.email') }}</label>
-                    <p>{{ $user->email }}</p>
-                    <label class="control-label text-primary">{{ __('user.role') }}</label>
-                    <p>{{ $user->role }}</p>
-                    {!! $errors->first('user_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label text-primary">{{ __('user.name') }}</label>
+                            <p>{{ $user->name }}</p>
+                            <label class="control-label text-primary">{{ __('user.email') }}</label>
+                            <p>{{ $user->email }}</p>
+                            <label class="control-label text-primary">{{ __('user.role') }}</label>
+                            <p>{{ $user->role }}</p>
+                            {!! $errors->first('user_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <label class="control-label text-primary">{{ __('transaction.count') }}</label>:
+                                <span>{{ $transactionsCount }}</span>
+                            </p>
+                            <p>
+                                <label class="control-label text-primary">{{ __('category.count') }}</label>:
+                                <span>{{ $categoriesCount }}</span>
+                            </p>
+                            <p>
+                                <label class="control-label text-primary">{{ __('book.count') }}</label>:
+                                <span>{{ $booksCount }}</span>
+                            </p>
+                            <p>
+                                <label class="control-label text-primary">{{ __('lecturing_schedule.count') }}</label>:
+                                <span>{{ $lecturingSchedulesCount }}</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <hr style="margin:0">
-                <div class="card-body text-danger">{{ __('user.delete_confirm') }}</div>
+                <div class="card-body text-danger">
+                    @if ($isDeleteable)
+                        {{ __('user.delete_confirm') }}
+                    @else
+                        {{ __('user.undeleteable') }}
+                    @endif
+                </div>
                 <div class="card-footer">
-                    <form method="POST" action="{{ route('users.destroy', $user) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
-                        {{ csrf_field() }} {{ method_field('delete') }}
-                        <input name="user_id" type="hidden" value="{{ $user->id }}">
-                        <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
-                    </form>
-                    <a href="{{ route('users.edit', $user) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+                    @if ($isDeleteable)
+                        <form method="POST" action="{{ route('users.destroy', $user) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                            {{ csrf_field() }} {{ method_field('delete') }}
+                            <input name="user_id" type="hidden" value="{{ $user->id }}">
+                            <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
+                        </form>
+                        <a href="{{ route('users.edit', $user) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+                    @else
+                        <a href="{{ route('users.edit', $user) }}" class="btn btn-link">{{ __('app.back') }}</a>
+                    @endif
                 </div>
             </div>
         @endcan

@@ -24,6 +24,7 @@ return [
     'updated' => 'User data has been updated.',
     'delete' => 'Delete User',
     'delete_confirm' => 'Are you sure to delete this user?',
+    'undeleteable' => 'User data cannot be deleted. You may suspend the user instead.',
     'deleted' => 'User has been deleted.',
     'undeleted' => 'User not deleted.',
 

@@ -2,6 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\LecturingSchedule;
+use App\Transaction;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -117,8 +121,9 @@ class ManageUserTest extends TestCase
         ]));
         $this->assertSessionHasErrors('name');
     }
+
     /** @test */
-    public function user_can_delete_a_user()
+    public function user_can_delete_a_user_who_has_no_data_entries()
     {
         $this->loginAsUser();
         $user = $this->createUser();
@@ -133,5 +138,22 @@ class ManageUserTest extends TestCase
         $this->dontSeeInDatabase('users', [
             'id' => $user->id,
         ]);
+    }
+    /** @test */
+    public function user_cannot_delete_a_user_who_has_data_entries()
+    {
+        $this->loginAsUser();
+        $user = $this->createUser();
+        factory(Transaction::class)->create(['creator_id' => $user->id]);
+        factory(Category::class)->create(['creator_id' => $user->id]);
+        factory(Book::class)->create(['creator_id' => $user->id]);
+        factory(LecturingSchedule::class)->create(['creator_id' => $user->id]);
+
+        $this->visitRoute('users.edit', $user);
+        $this->click('del-user-'.$user->id);
+        $this->seeRouteIs('users.edit', [$user, 'action' => 'delete']);
+
+        $this->dontSeeText(__('app.delete_confirm_button'));
+        $this->seeInElement('div.card-body.text-danger', __('user.undeleteable'));
     }
 }

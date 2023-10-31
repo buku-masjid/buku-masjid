@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\LecturingSchedule;
+use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -63,8 +67,23 @@ class UserController extends Controller
 
         $roles = $this->getRoles();
         $statuses = $this->getStatuses();
+        $transactionsCount = 0;
+        $categoriesCount = 0;
+        $booksCount = 0;
+        $lecturingSchedulesCount = 0;
+        $isDeleteable = false;
+        if (request('action') == 'delete') {
+            $transactionsCount = Transaction::where('creator_id', $user->id)->count();
+            $categoriesCount = Category::where('creator_id', $user->id)->count();
+            $booksCount = Book::where('creator_id', $user->id)->count();
+            $lecturingSchedulesCount = LecturingSchedule::where('creator_id', $user->id)->count();
+            $isDeleteable = !$transactionsCount && !$categoriesCount && !$booksCount && !$lecturingSchedulesCount;
+        }
 
-        return view('users.edit', compact('user', 'roles', 'statuses'));
+        return view('users.edit', compact(
+            'user', 'roles', 'statuses', 'transactionsCount', 'categoriesCount',
+            'booksCount', 'lecturingSchedulesCount', 'isDeleteable'
+        ));
     }
 
     public function update(Request $request, User $user)

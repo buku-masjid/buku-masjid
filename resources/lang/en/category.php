@@ -11,6 +11,7 @@ return [
     'uncategorized' => 'Uncategorized',
     'not_found' => 'Category not found.',
     'empty' => 'Category is empty.',
+    'count' => 'Category entries',
     'back_to_show' => 'Back to Category Detail',
     'back_to_index' => 'Back to Category List',
 
