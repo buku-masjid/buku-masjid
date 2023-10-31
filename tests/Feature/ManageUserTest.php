@@ -45,7 +45,7 @@ class ManageUserTest extends TestCase
         $this->submitForm(__('user.create'), $this->getCreateFields());
 
         $this->seeInDatabase('users', $this->getCreateFields([
-            // 'is_active' => 1,
+            'is_active' => 1,
         ]));
     }
 
