@@ -4,7 +4,7 @@
             <span class="ml-2 d-lg-block">
                 <span class="text-default">{{ auth()->activeBook()->name }}</span>
                 <small class="text-muted d-block mt-1">
-                    {{ config('masjid.currency_code') }} {{ format_number(auth()->activeBook()->getBalance(date('Y-m-d'))) }}
+                    {{ config('money.currency_code') }} {{ format_number(auth()->activeBook()->getBalance(date('Y-m-d'))) }}
                 </small>
             </span>
         </a>
