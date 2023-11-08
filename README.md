@@ -59,6 +59,11 @@ Aplikasi ini dapat diinstal pada server lokal maupun online dengan spesifikasi b
     MASJID_NAME="Masjid Ar-Rahman"
     MASJID_DEFAULT_BOOK_ID=1
     AUTH_DEFAULT_PASSWORD=password
+
+    MONEY_CURRENCY_CODE="Rp"
+    MONEY_PRECISION=2
+    MONEY_DECIMAL_SEPARATOR=","
+    MONEY_THOUSANDS_SEPARATOR="."
     ```
 8. Jalankan migrasi database: `$ php artisan migrate --seed`
 9. Buat kunci passport: `$ php artisan passport:keys`
