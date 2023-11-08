@@ -7025,16 +7025,16 @@
         },
         {
             "name": "buku-masjid/demo-data",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buku-masjid/demo-data.git",
-                "reference": "aa90c4182355de4b4d8e21137cd3938f4705ee94"
+                "reference": "daa43fccba2d92739948dcbe420efb06c111cbcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/aa90c4182355de4b4d8e21137cd3938f4705ee94",
-                "reference": "aa90c4182355de4b4d8e21137cd3938f4705ee94",
+                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/daa43fccba2d92739948dcbe420efb06c111cbcb",
+                "reference": "daa43fccba2d92739948dcbe420efb06c111cbcb",
                 "shasum": ""
             },
             "require": {
@@ -7067,9 +7067,9 @@
             "description": "Generate demo data for buku masjid simulation.",
             "support": {
                 "issues": "https://github.com/buku-masjid/demo-data/issues",
-                "source": "https://github.com/buku-masjid/demo-data/tree/1.0.0"
+                "source": "https://github.com/buku-masjid/demo-data/tree/1.0.1"
             },
-            "time": "2023-10-04T15:55:51+00:00"
+            "time": "2023-10-29T13:56:49+00:00"
         },
         {
             "name": "fakerphp/faker",
