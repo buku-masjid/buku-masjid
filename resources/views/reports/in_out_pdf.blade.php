@@ -42,7 +42,7 @@
                     <td class="text-center ">{{ ++$key }}</td>
                     <td class="text-center ">{{ $transaction->date }}</td>
                     <td>{{ $transaction->description }}</td>
-                    <td class="text-right ">{{ number_format($transaction->amount, 2) }}</td>
+                    <td class="text-right ">{{ format_number($transaction->amount) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -50,7 +50,7 @@
                 <tr>
                     <th colspan="3" class="text-right">{{ __('app.total') }} {{ $incomeCategory->name }}</th>
                     <th class="text-right">
-                        {{ number_format($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount'), 2) }}
+                        {{ format_number($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount')) }}
                     </th>
                 </tr>
             </tfoot>
@@ -83,7 +83,7 @@
                         <td class="text-center ">{{ ++$key }}</td>
                         <td class="text-center ">{{ $transaction->date }}</td>
                         <td>{{ $transaction->description }}</td>
-                        <td class="text-right ">{{ number_format($transaction->amount, 2) }}</td>
+                        <td class="text-right ">{{ format_number($transaction->amount) }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -91,7 +91,7 @@
                     <tr>
                         <th colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</th>
                         <th class="text-right">
-                            {{ number_format($groupedTransactions[1]->where('category_id', null)->sum('amount'), 2) }}
+                            {{ format_number($groupedTransactions[1]->where('category_id', null)->sum('amount')) }}
                         </th>
                     </tr>
                 </tfoot>
@@ -128,7 +128,7 @@
                     <td class="text-center ">{{ ++$key }}</td>
                     <td class="text-center ">{{ $transaction->date }}</td>
                     <td>{{ $transaction->description }}</td>
-                    <td class="text-right ">{{ number_format($transaction->amount, 2) }}</td>
+                    <td class="text-right ">{{ format_number($transaction->amount) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -136,7 +136,7 @@
                 <tr>
                     <th colspan="3" class="text-right">{{ __('app.total') }} {{ $spendingCategory->name }}</th>
                     <th class="text-right">
-                        {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount'), 2) }}
+                        {{ format_number($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
                     </th>
                 </tr>
             </tfoot>
@@ -169,7 +169,7 @@
                         <td class="text-center ">{{ ++$key }}</td>
                         <td class="text-center ">{{ $transaction->date }}</td>
                         <td>{{ $transaction->description }}</td>
-                        <td class="text-right ">{{ number_format($transaction->amount, 2) }}</td>
+                        <td class="text-right ">{{ format_number($transaction->amount) }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -177,7 +177,7 @@
                     <tr>
                         <th colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</th>
                         <th class="text-right">
-                            {{ number_format($groupedTransactions[0]->where('category_id', null)->sum('amount'), 2) }}
+                            {{ format_number($groupedTransactions[0]->where('category_id', null)->sum('amount')) }}
                         </th>
                     </tr>
                 </tfoot>

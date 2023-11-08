@@ -26,7 +26,11 @@ function flash($message = null, $level = 'info')
  */
 function format_number(float $number)
 {
-    $number = number_format($number, 2);
+    $precision = config('money.precision');
+    $decimalSeparator = config('money.decimal_separator');
+    $thousandsSeparator = config('money.thousands_separator');
+
+    $number = number_format($number, $precision, $decimalSeparator, $thousandsSeparator);
 
     return str_replace('-', '- ', $number);
 }

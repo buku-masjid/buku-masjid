@@ -37,8 +37,8 @@
                 <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }} class="{{ $transaction->is_strong ? 'strong' : '' }}">
                     {{ $transaction->description }}
                 </td>
-                <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ $transaction->in_out ? number_format($transaction->amount, 2) : '' }}</td>
-                <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ !$transaction->in_out ? number_format($transaction->amount, 2) : '' }}</td>
+                <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
+                <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ !$transaction->in_out ? format_number($transaction->amount) : '' }}</td>
                 <td class="text-center {{ $transaction->is_strong ? 'strong' : '' }}">&nbsp;</td>
             </tr>
             @endforeach
@@ -53,7 +53,7 @@
                         return $transaction->in_out ? $transaction->amount : 0;
                     });
                 @endphp
-                {{ number_format($incomeAmount, 2) }}
+                {{ format_number($incomeAmount) }}
             </th>
             <th class="text-right">
                 @php
@@ -61,9 +61,9 @@
                         return $transaction->in_out ? 0 : $transaction->amount;
                     });
                 @endphp
-                {{ number_format($spendingAmount, 2) }}
+                {{ format_number($spendingAmount) }}
             </th>
-            <th class="text-right">{{ number_format($incomeAmount - $spendingAmount, 2) }}</th>
+            <th class="text-right">{{ format_number($incomeAmount - $spendingAmount) }}</th>
         </tr>
     </tfoot>
 </table>

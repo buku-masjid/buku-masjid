@@ -20,7 +20,7 @@ class TransactionListingTest extends TestCase
         $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
         $this->visitRoute('transactions.index');
-        $this->see($transaction->amount);
+        $this->see($transaction->amount_string);
     }
 
     /** @test */
