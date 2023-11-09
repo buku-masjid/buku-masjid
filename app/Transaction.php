@@ -73,7 +73,7 @@ class Transaction extends Model
 
     public function getAmountStringAttribute()
     {
-        $amountString = number_format($this->amount, 2);
+        $amountString = format_number($this->amount);
 
         if ($this->in_out == 0) {
             $amountString = '- '.$amountString;

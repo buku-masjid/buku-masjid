@@ -13,7 +13,7 @@
                     <span id="start_week_label">{{ __('report.balance_per_date', ['date' => $startWeek->isoFormat('dddd, D MMMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="start_week_balance">{{ number_format($startWeekBalance) }}</span>
+                    <span id="start_week_balance">{{ format_number($startWeekBalance) }}</span>
                 </td>
             </tr>
             <tr>
@@ -21,7 +21,7 @@
                     <span>{{ __('report.current_week_income_total') }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_week_income_total">{{ number_format($currentWeekIncomeTotal) }}</span>
+                    <span id="current_week_income_total">{{ format_number($currentWeekIncomeTotal) }}</span>
                 </td>
             </tr>
             <tr>
@@ -29,7 +29,7 @@
                     <span>{{ __('report.current_week_spending_total') }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_week_spending_total">{{ $currentWeekSpendingTotal ? '-'.number_format($currentWeekSpendingTotal) : 0 }}</span>
+                    <span id="current_week_spending_total">{{ format_number($currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0) }}</span>
                 </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                     <span id="current_balance_label">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
-                    <span id="current_balance">{{ number_format($currentBalance) }}</span>
+                    <span id="current_balance">{{ format_number($currentBalance) }}</span>
                 </td>
             </tr>
         </tbody>

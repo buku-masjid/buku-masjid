@@ -8,6 +8,4 @@ return [
     'income_color' => env('MASJID_INCOME_COLOR', '#00AABB'),
 
     'spending_color' => env('MASJID_SPENDING_COLOR', '#F16867'),
-
-    'currency_code' => env('MASJID_CURRENCY_CODE', 'Rp'),
 ];

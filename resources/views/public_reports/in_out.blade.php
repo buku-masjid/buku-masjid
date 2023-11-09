@@ -54,7 +54,7 @@
                             <td class="text-center col-1">{{ ++$key }}</td>
                             <td class="text-center col-2">{{ $transaction->date }}</td>
                             <td class="col-4">{{ $transaction->description }}</td>
-                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                            <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -63,7 +63,7 @@
                     <tr class="strong">
                         <td colspan="3" class="text-right">{{ __('app.total') }} {{ $incomeCategory->name }}</td>
                         <td class="text-right">
-                            {{ number_format($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount')) }}
+                            {{ format_number($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount')) }}
                         </td>
                     </tr>
                 </tfoot>
@@ -93,7 +93,7 @@
                             <td class="text-center col-1">{{ ++$key }}</td>
                             <td class="text-center col-2">{{ $transaction->date }}</td>
                             <td class="col-4">{{ $transaction->description }}</td>
-                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                            <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -101,7 +101,7 @@
                         <tr class="strong">
                             <td colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</td>
                             <td class="text-right">
-                                {{ number_format($groupedTransactions[1]->where('category_id', null)->sum('amount')) }}
+                                {{ format_number($groupedTransactions[1]->where('category_id', null)->sum('amount')) }}
                             </td>
                         </tr>
                     </tfoot>
@@ -133,7 +133,7 @@
                             <td class="text-center col-2">&nbsp;</td>
                             <td class="col-4">{{ $spendingCategory->name }}</td>
                             <td class="text-right col-3">
-                                {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
+                                {{ format_number($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
                             </td>
                         </tr>
                     </tbody>
@@ -147,7 +147,7 @@
                             <td class="text-center col-1">{{ ++$key }}</td>
                             <td class="text-center col-2">{{ $transaction->date }}</td>
                             <td class="col-4">{{ $transaction->description }}</td>
-                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                            <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -156,7 +156,7 @@
                     <tr class="strong">
                         <td colspan="3" class="text-right">{{ __('app.total') }} {{ $spendingCategory->name }}</td>
                         <td class="text-right">
-                            {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
+                            {{ format_number($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
                         </td>
                     </tr>
                 </tfoot>
@@ -186,7 +186,7 @@
                             <td class="text-center col-1">{{ ++$key }}</td>
                             <td class="text-center col-2">{{ $transaction->date }}</td>
                             <td class="col-4">{{ $transaction->description }}</td>
-                            <td class="text-right col-3">{{ number_format($transaction->amount) }}</td>
+                            <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -194,7 +194,7 @@
                         <tr class="strong">
                             <td colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</td>
                             <td class="text-right">
-                                {{ number_format($groupedTransactions[0]->where('category_id', null)->sum('amount')) }}
+                                {{ format_number($groupedTransactions[0]->where('category_id', null)->sum('amount')) }}
                             </td>
                         </tr>
                     </tfoot>

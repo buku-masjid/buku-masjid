@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col-6 text-right strong">{{ __('transaction.end_balance') }}</div>
-        <div class="col-6 text-right strong">{{ number_format($incomeTotal - $spendingTotal, 2) }}</div>
+        <div class="col-6 text-right strong">{{ format_number($incomeTotal - $spendingTotal) }}</div>
     </div>
 @else
     <div class="row">

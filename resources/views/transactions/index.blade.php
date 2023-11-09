@@ -103,7 +103,7 @@
                     </tr>
                     <tr class="strong">
                         <td colspan="3" class="text-right">{{ __('transaction.difference') }}</td>
-                        <td class="text-right">{{ number_format($incomeTotal - $spendingTotal, 2) }}</td>
+                        <td class="text-right">{{ format_number($incomeTotal - $spendingTotal) }}</td>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>

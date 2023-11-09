@@ -6,9 +6,9 @@
             <td class="col-xs-2 text-center">{{ __('transaction.difference') }}</td>
         </tr>
         <tr>
-            <td class="text-center lead" style="border-top: none;">{{ number_format($incomeTotal, 2) }}</td>
-            <td class="text-center lead" style="border-top: none;">{{ number_format($spendingTotal, 2) }}</td>
-            <td class="text-center lead" style="border-top: none;">{{ number_format($incomeTotal - $spendingTotal, 2) }}</td>
+            <td class="text-center lead" style="border-top: none;">{{ format_number($incomeTotal) }}</td>
+            <td class="text-center lead" style="border-top: none;">{{ format_number($spendingTotal) }}</td>
+            <td class="text-center lead" style="border-top: none;">{{ format_number($incomeTotal - $spendingTotal) }}</td>
         </tr>
     </table>
 </div>

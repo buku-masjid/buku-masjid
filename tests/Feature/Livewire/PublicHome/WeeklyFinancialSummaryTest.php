@@ -22,10 +22,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
         Livewire::test(WeeklyFinancialSummary::class)
             ->assertSeeHtml('<span id="start_week_label">'.__('report.balance_per_date', ['date' => $startOfWeekDayDate]).'</span>')
-            ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">0</span>')
+            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(0).'</span>')
             ->assertSeeHtml('<span id="current_balance_label">'.__('report.today_balance', ['date' => $todayDayDate]).'</span>')
-            ->assertSeeHtml('<span id="current_balance">0</span>');
+            ->assertSeeHtml('<span id="current_balance">'.format_number(0).'</span>');
     }
 
     /** @test */
@@ -48,10 +48,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.number_format(90000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>');
     }
 
     /** @test */
@@ -83,10 +83,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.number_format(90000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>');
     }
 
     /** @test */
@@ -124,10 +124,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">'.number_format(89000).'</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.number_format(179000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.format_number(89000).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.format_number(179000).'</span>');
     }
 
     /** @test */
@@ -159,9 +159,9 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">0</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.number_format(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">-'.number_format(10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.number_format(90000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>');
     }
 }

@@ -26,9 +26,24 @@ function flash($message = null, $level = 'info')
  */
 function format_number(float $number)
 {
-    $number = number_format($number, 2);
+    $precision = config('money.precision');
+    $decimalSeparator = config('money.decimal_separator');
+    $thousandsSeparator = config('money.thousands_separator');
+
+    $number = number_format($number, $precision, $decimalSeparator, $thousandsSeparator);
 
     return str_replace('-', '- ', $number);
+}
+
+function number_step()
+{
+    $precision = config('money.precision');
+    if ($precision == 0) {
+        return '1';
+    }
+    $decimalZero = str_pad('0.', $precision + 1, '0', STR_PAD_RIGHT);
+
+    return $decimalZero.'1';
 }
 
 /**

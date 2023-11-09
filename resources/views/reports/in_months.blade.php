@@ -93,7 +93,7 @@
                 <td>Saldo per {{ Carbon\Carbon::parse($lastBankAccountBalanceOfTheMonth->date)->isoFormat('D MMMM Y') }} di BANK</td>
                 <td class="text-right">-</td>
                 <td class="text-right">-</td>
-                <td class="text-right text-nowrap">{{ number_format($lastBankAccountBalanceOfTheMonth->amount, 2) }}</td>
+                <td class="text-right text-nowrap">{{ format_number($lastBankAccountBalanceOfTheMonth->amount) }}</td>
             </tr>
             @endif
             <tr>
@@ -101,7 +101,7 @@
                     {{ auth()->activeBook()->bank_account_id ? '2' : '1' }}
                 </td>
                 <td>Sisa saldo per {{ $lastMonthDate->isoFormat('D MMMM Y') }}</td>
-                <td class="text-right text-nowrap">{{ number_format($lastMonthBalance) }}</td>
+                <td class="text-right text-nowrap">{{ format_number($lastMonthBalance) }}</td>
                 <td class="text-right text-nowrap">-</td>
                 <td class="text-center text-nowrap">&nbsp;</td>
             </tr>
@@ -115,7 +115,7 @@
                 <td>{{ $incomeCategory->name }}</td>
                 <td class="text-right text-nowrap">
                     @if ($groupedTransactions->has(1))
-                        {{ number_format($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount'), 0) }}
+                        {{ format_number($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount')) }}
                     @else
                         0
                     @endif
@@ -129,7 +129,7 @@
                 <tr>
                     <td class="text-center">{{ ++$key }}</td>
                     <td>{{ $transaction->description }}</td>
-                    <td class="text-right text-nowrap">{{ number_format($transaction->amount, 0) }}</td>
+                    <td class="text-right text-nowrap">{{ format_number($transaction->amount) }}</td>
                     <td class="text-right text-nowrap">-</td>
                     <td class="text-center text-nowrap">&nbsp;</td>
                 </tr>
@@ -144,7 +144,7 @@
                 <td class="text-right text-nowrap">-</td>
                 <td class="text-right text-nowrap">
                     @if ($groupedTransactions->has(0))
-                        {{ number_format($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount'), 0) }}
+                        {{ format_number($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
                     @else
                         0
                     @endif
@@ -157,7 +157,7 @@
                 <tr>
                     <td class="text-center">{{ ++$key }}</td>
                     <td>{{ $transaction->description }}</td>
-                    <td class="text-right text-nowrap">{{ number_format($transaction->amount, 0) }}</td>
+                    <td class="text-right text-nowrap">{{ format_number($transaction->amount) }}</td>
                     <td class="text-right text-nowrap">-</td>
                     <td class="text-center text-nowrap">&nbsp;</td>
                 </tr>
@@ -176,19 +176,19 @@
                     @php
                         $currentMonthIncome = $groupedTransactions->has(1) ? $groupedTransactions[1]->sum('amount') : 0;
                     @endphp
-                    {{ number_format($lastMonthBalance + $currentMonthIncome, 0) }}
+                    {{ format_number($lastMonthBalance + $currentMonthIncome) }}
                 </td>
                 <td class="text-right">
                     @php
                         $currentMonthSpending = $groupedTransactions->has(0) ? $groupedTransactions[0]->sum('amount') : 0;
                     @endphp
-                    {{ number_format($currentMonthSpending, 0) }}
+                    {{ format_number($currentMonthSpending) }}
                 </td>
                 <td class="text-right">
                     @php
                         $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
                     @endphp
-                    {{ number_format($currentMonthBalance, 0) }}
+                    {{ format_number($currentMonthBalance) }}
                 </td>
             </tr>
             @if (auth()->activeBook()->bank_account_id)
@@ -198,7 +198,7 @@
                 <td class="text-right">-</td>
                 <td class="text-right">-</td>
                 <td class="text-right">
-                    {{ number_format($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount, 0) }}
+                    {{ format_number($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount) }}
                 </td>
             </tr>
             @endif

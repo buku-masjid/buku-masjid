@@ -64,10 +64,10 @@ class TransactionTest extends TestCase
             'in_out' => 1,
             'amount' => $amount,
         ]);
-        $this->assertEquals(number_format($amount, 2), $transaction->amount_string);
+        $this->assertEquals(format_number($amount), $transaction->amount_string);
 
         $transaction->in_out = 0;
-        $this->assertEquals('- '.number_format($amount, 2), $transaction->amount_string);
+        $this->assertEquals(format_number(-$amount), $transaction->amount_string);
     }
 
     /** @test */
