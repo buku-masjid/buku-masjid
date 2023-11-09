@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('bank_account_balance.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
-                        <div class="col-md-8">{!! FormField::price('amount', ['required' => true, 'label' => __('bank_account_balance.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => '0.01']) !!}</div>
+                        <div class="col-md-8">{!! FormField::price('amount', ['required' => true, 'label' => __('bank_account_balance.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('app.description')]) !!}
                 </div>
@@ -41,7 +41,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('bank_account_balance.date'), 'class' => 'date-select']) !!}</div>
-                        <div class="col-md-8">{!! FormField::price('amount', ['required' => true, 'label' => __('bank_account_balance.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => '0.01']) !!}</div>
+                        <div class="col-md-8">{!! FormField::price('amount', ['required' => true, 'label' => __('bank_account_balance.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
                     </div>
                     {!! FormField::textarea('description', ['label' => __('app.description')]) !!}
                 </div>

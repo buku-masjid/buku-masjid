@@ -35,6 +35,17 @@ function format_number(float $number)
     return str_replace('-', '- ', $number);
 }
 
+function number_step()
+{
+    $precision = config('money.precision');
+    if ($precision == 0) {
+        return '1';
+    }
+    $decimalZero = str_pad('0.', $precision + 1, '0', STR_PAD_RIGHT);
+
+    return $decimalZero.'1';
+}
+
 /**
  * Get balance amount based on transactions.
  *
