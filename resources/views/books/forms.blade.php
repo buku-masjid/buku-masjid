@@ -60,6 +60,26 @@
                             ], ['label' => __('category.report_visibility')]) !!}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! FormField::select('report_periode_code', [
+                                App\Models\Book::REPORT_PERIODE_IN_MONTHS => __('report.in_months'),
+                                App\Models\Book::REPORT_PERIODE_IN_WEEKS => __('report.in_weeks'),
+                                App\Models\Book::REPORT_PERIODE_ALL_TIME => __('report.all_time'),
+                            ], ['label' => __('report.periode'), 'placeholder' => false]) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! FormField::select('start_week_day_code', [
+                                'monday' => __('time.days.monday'),
+                                'tuesday' => __('time.days.tuesday'),
+                                'wednesday' => __('time.days.wednesday'),
+                                'thursday' => __('time.days.thursday'),
+                                'friday' => __('time.days.friday'),
+                                'saturday' => __('time.days.saturday'),
+                                'sunday' => __('time.days.sunday'),
+                            ], ['label' => __('report.start_week_day'), 'placeholder' => false]) !!}
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('book.update'), ['class' => 'btn btn-success']) !!}

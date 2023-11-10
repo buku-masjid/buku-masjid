@@ -2,8 +2,11 @@
 
 return [
     'report' => 'Laporan',
-    'in_months' => 'Bulanan',
-    'in_weeks' => 'Mingguan',
+    'periode' => 'Periode Laporan',
+    'start_week_day' => 'Hari Awal Pekan',
+    'in_months' => 'Per Bulan',
+    'in_weeks' => 'Per Pekan',
+    'all_time' => 'Keseluruhan',
     'view_yearly_label' => 'Lihat Tahun',
     'view_monthly_label' => 'Lihat Bulan',
     'view_report' => 'Lihat Laporan',

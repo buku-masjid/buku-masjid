@@ -2,8 +2,11 @@
 
 return [
     'report' => 'Report',
+    'periode' => 'Report Periode',
+    'start_week_day' => 'Start Week Day',
     'in_months' => 'In Months',
     'in_weeks' => 'In Weeks',
+    'all_time' => 'All Time',
     'view_yearly_label' => 'View Yearly',
     'view_monthly_label' => 'View Monthly',
     'view_report' => 'View Report',

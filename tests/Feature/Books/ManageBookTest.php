@@ -95,6 +95,8 @@ class ManageBookTest extends TestCase
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'start_week_day_code' => 'friday',
         ]);
 
         $this->seeRouteIs('books.index');
@@ -105,6 +107,8 @@ class ManageBookTest extends TestCase
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'start_week_day_code' => 'friday',
         ]);
     }
 
