@@ -36,6 +36,7 @@ return [
     // Attributes
     'name' => 'Cash Book Name',
     'description' => 'Cash Book Description',
+    'status_inactive' => 'Closed',
     'visibility' => 'Visibility',
     'report_visibility' => 'Report Visibility',
     'report_visibility_public' => 'Public',

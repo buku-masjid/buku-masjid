@@ -1,7 +1,7 @@
 @if (request('action') == 'create')
 @can('create', new App\Models\Book)
     <div id="bookModal" class="modal" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,7 +31,7 @@
 @if (request('action') == 'edit' && $editableBook)
 @can('update', $editableBook)
     <div id="bookModal" class="modal" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             {!! FormField::radios('status_id', [
-                                App\Models\Book::STATUS_INACTIVE => __('app.inactive'),
+                                App\Models\Book::STATUS_INACTIVE => __('book.status_inactive'),
                                 App\Models\Book::STATUS_ACTIVE => __('app.active')
                             ], ['label' => __('app.status')]) !!}
                         </div>
@@ -83,7 +83,7 @@
 @if (request('action') == 'delete' && $editableBook)
 @can('delete', $editableBook)
     <div id="bookModal" class="modal" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
