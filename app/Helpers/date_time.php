@@ -85,9 +85,8 @@ function month_id($monthNumber)
     return $months[$monthNumber];
 }
 
-function get_date_range_per_week(string $yearMonth): array
+function get_date_range_per_week(string $yearMonth, string $startDay = 'monday'): array
 {
-
     $periode = new \DatePeriod(
         $startDate = Carbon::parse($yearMonth.'-01'),
         new \DateInterval('P1D'),
@@ -95,9 +94,14 @@ function get_date_range_per_week(string $yearMonth): array
     );
 
     $dateRanges = [];
+    $dateKey = 1;
+    $dateRanges[$dateKey] = [];
     foreach ($periode as $date) {
-        $dateRanges[$date->format('W')][] = $date->format('Y-m-d');
+        if (strtolower($date->format('l')) == $startDay) {
+            $dateKey = $date->format('j');
+        }
+        $dateRanges[$dateKey][] = $date->format('Y-m-d');
     }
 
-    return array_values($dateRanges);
+    return array_values(array_filter($dateRanges));
 }
