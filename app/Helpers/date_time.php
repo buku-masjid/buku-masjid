@@ -99,5 +99,5 @@ function get_date_range_per_week(string $yearMonth): array
         $dateRanges[$date->format('W')][] = $date->format('Y-m-d');
     }
 
-    return $dateRanges;
+    return array_values($dateRanges);
 }
