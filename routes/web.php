@@ -68,6 +68,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/in_out_pdf', 'ReportsController@inOutPdf')->name('reports.in_out_pdf');
         Route::get('/in_weeks', 'ReportsController@inWeeks')->name('reports.in_weeks');
         Route::get('/in_weeks_pdf', 'ReportsController@inWeeksPdf')->name('reports.in_weeks_pdf');
+
+        Route::get('/finance/summary', 'Reports\FinanceController@summary')->name('reports.finance.summary');
+        Route::get('/finance/summary_pdf', 'Reports\FinanceController@summaryPdf')->name('reports.finance.summary_pdf');
+
+        Route::get('/finance/categorized', 'Reports\FinanceController@categorized')->name('reports.finance.categorized');
+        Route::get('/finance/categorized_pdf', 'Reports\FinanceController@categorizedPdf')->name('reports.finance.categorized_pdf');
+
+        Route::get('/finance/detailed', 'Reports\FinanceController@detailed')->name('reports.finance.detailed');
+        Route::get('/finance/detailed_pdf', 'Reports\FinanceController@detailedPdf')->name('reports.finance.detailed_pdf');
     });
 
     /*
