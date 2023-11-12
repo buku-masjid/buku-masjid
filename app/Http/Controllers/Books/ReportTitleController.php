@@ -18,30 +18,12 @@ class ReportTitleController extends Controller
             'book_id' => ['required', 'in:'.$book->id],
             'nonce' => ['required', 'in:'.$book->nonce],
         ]);
-        $redirectRoute = 'reports.in_months';
-        if ($request->has('report_titles.in_out')) {
-            $redirectRoute = 'reports.in_out';
-        }
-        if ($request->has('report_titles.in_weeks')) {
-            $redirectRoute = 'reports.in_weeks';
-        }
-        if ($request->has('report_titles.finance_summary')) {
-            $redirectRoute = 'reports.finance.summary';
-        }
+        $redirectRoute = 'reports.finance.summary';
         if ($request->has('report_titles.finance_categorized')) {
             $redirectRoute = 'reports.finance.categorized';
         }
         if ($request->has('report_titles.finance_detailed')) {
             $redirectRoute = 'reports.finance.detailed';
-        }
-        if ($request->has('reset_report_title.in_out')) {
-            $bookData['report_titles']['in_out'] = null;
-        }
-        if ($request->has('reset_report_title.in_weeks')) {
-            $bookData['report_titles']['in_weeks'] = null;
-        }
-        if ($request->has('reset_report_title.in_months')) {
-            $bookData['report_titles']['in_months'] = null;
         }
         if ($request->has('reset_report_title.finance_summary')) {
             $bookData['report_titles']['finance_summary'] = null;

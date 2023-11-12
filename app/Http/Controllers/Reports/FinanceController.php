@@ -38,7 +38,7 @@ class FinanceController extends Controller
         return view('reports.finance.'.$reportPeriode.'.summary', compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance', 'currentMonthEndDate'
+            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode'
         ));
     }
 
@@ -67,7 +67,7 @@ class FinanceController extends Controller
         $passedVariables = compact(
             'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance', 'currentMonthEndDate', 'showLetterhead'
+            'lastMonthBalance', 'currentMonthEndDate', 'showLetterhead', 'reportPeriode'
         );
 
         $reportPeriode = $book->report_periode_code;
@@ -95,7 +95,7 @@ class FinanceController extends Controller
         $reportPeriode = $book->report_periode_code;
 
         return view('reports.finance.'.$reportPeriode.'.categorized', compact(
-            'year', 'month', 'yearMonth', 'currentMonthEndDate',
+            'year', 'month', 'yearMonth', 'currentMonthEndDate', 'reportPeriode',
             'groupedTransactions', 'incomeCategories', 'spendingCategories'
         ));
     }
@@ -120,7 +120,7 @@ class FinanceController extends Controller
         $passedVariables = compact(
             'year', 'month', 'yearMonth', 'currentMonthEndDate',
             'groupedTransactions', 'incomeCategories', 'spendingCategories',
-            'showLetterhead'
+            'showLetterhead', 'reportPeriode'
         );
 
         $reportPeriode = $book->report_periode_code;
@@ -146,7 +146,7 @@ class FinanceController extends Controller
         $reportPeriode = $book->report_periode_code;
 
         return view('reports.finance.'.$reportPeriode.'.detailed', compact(
-            'year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate'
+            'year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode'
         ));
     }
 
@@ -163,7 +163,10 @@ class FinanceController extends Controller
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
         $currentMonthEndDate = $endDate;
         $showLetterhead = $this->showLetterhead();
-        $passedVariables = compact('year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate', 'showLetterhead');
+        $passedVariables = compact(
+            'year', 'month', 'yearMonth', 'groupedTransactions',
+            'currentMonthEndDate', 'showLetterhead', 'reportPeriode'
+        );
 
         $reportPeriode = $book->report_periode_code;
         // return view('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables);
