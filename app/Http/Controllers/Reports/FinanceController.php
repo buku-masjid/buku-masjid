@@ -14,16 +14,20 @@ class FinanceController extends Controller
 {
     public function summary(Request $request)
     {
-        $book = auth()->activeBook();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
-        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+
+        $startDate = Carbon::parse($yearMonth.'-01');
+        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $book = auth()->activeBook();
+
+        $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
-        $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
-        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
-        if ($yearMonth == date('Y-m')) {
+        $lastMonthDate = $startDate->subDay();
+        $currentMonthEndDate = $endDate;
+        if ($yearMonth == Carbon::now()->format('Y-m')) {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
@@ -40,16 +44,20 @@ class FinanceController extends Controller
 
     public function summaryPdf(Request $request)
     {
-        $book = auth()->activeBook();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
-        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+
+        $startDate = Carbon::parse($yearMonth.'-01');
+        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $book = auth()->activeBook();
+
+        $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
-        $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
-        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
-        if ($yearMonth == date('Y-m')) {
+        $lastMonthDate = $startDate->subDay();
+        $currentMonthEndDate = $endDate;
+        if ($yearMonth == Carbon::now()->format('Y-m')) {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
@@ -71,13 +79,16 @@ class FinanceController extends Controller
 
     public function categorized(Request $request)
     {
-        $book = auth()->activeBook();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
 
-        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $startDate = Carbon::parse($yearMonth.'-01');
+        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $book = auth()->activeBook();
+
+        $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
 
@@ -91,13 +102,16 @@ class FinanceController extends Controller
 
     public function categorizedPdf(Request $request)
     {
-        $book = auth()->activeBook();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
         $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
 
-        $groupedTransactions = $this->getTansactions($yearMonth)->groupBy('in_out');
+        $startDate = Carbon::parse($yearMonth.'-01');
+        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $book = auth()->activeBook();
+
+        $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
 
@@ -118,12 +132,16 @@ class FinanceController extends Controller
 
     public function detailed(Request $request)
     {
-        $book = auth()->activeBook();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
-        $groupedTransactions = $this->getWeeklyGroupedTransactions($yearMonth);
-        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+
+        $startDate = Carbon::parse($yearMonth.'-01');
+        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $book = auth()->activeBook();
+
+        $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+        $currentMonthEndDate = $endDate;
 
         $reportPeriode = $book->report_periode_code;
 
@@ -134,12 +152,16 @@ class FinanceController extends Controller
 
     public function detailedPdf(Request $request)
     {
-        $book = auth()->activeBook();
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
-        $groupedTransactions = $this->getWeeklyGroupedTransactions($yearMonth);
-        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
+
+        $startDate = Carbon::parse($yearMonth.'-01');
+        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $book = auth()->activeBook();
+
+        $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+        $currentMonthEndDate = $endDate;
         $showLetterhead = $this->showLetterhead();
         $passedVariables = compact('year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate', 'showLetterhead');
 
@@ -150,16 +172,13 @@ class FinanceController extends Controller
         return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
 
-    private function getWeeklyGroupedTransactions(string $yearMonth): Collection
+    private function getWeeklyGroupedTransactions(string $startDate, string $endDate): Collection
     {
-        $lastMonthDate = Carbon::parse($yearMonth.'-01')->subDay();
+        $lastMonthDate = Carbon::parse($startDate)->subDay();
 
-        $transactions = $this->getTansactions($yearMonth);
+        $transactions = $this->getTansactionsByDateRange($startDate, $endDate);
         $groupedTransactions = collect([]);
         $lastWeekDate = null;
-
-        $startDate = $yearMonth.'-01';
-        $endDate = Carbon::parse($yearMonth.'-01')->format('Y-m-t');
 
         $dateRangePerWeek = get_date_range_per_week($startDate, $endDate, auth()->activeBook()->start_week_day_code);
         foreach ($dateRangePerWeek as $weekNumber => $weekDates) {

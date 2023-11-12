@@ -63,6 +63,34 @@ class Controller extends BaseController
         return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
     }
 
+    protected function getTansactionsByDateRange(string $startDate, string $endDate)
+    {
+        $categoryId = request('category_id');
+        $bookId = request('book_id');
+
+        $transactionQuery = Transaction::query();
+        $transactionQuery->whereBetween('date', [$startDate, $endDate]);
+        $transactionQuery->where('description', 'like', '%'.request('query').'%');
+
+        $transactionQuery->when($categoryId, function ($queryBuilder, $categoryId) {
+            if ($categoryId == 'null') {
+                $queryBuilder->whereNull('category_id');
+            } else {
+                $queryBuilder->where('category_id', $categoryId);
+            }
+        });
+
+        $transactionQuery->when($bookId, function ($queryBuilder, $bookId) {
+            if ($bookId == 'null') {
+                $queryBuilder->whereNull('book_id');
+            } else {
+                $queryBuilder->where('book_id', $bookId);
+            }
+        });
+
+        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
+    }
+
     protected function getIncomeTotal($transactions)
     {
         return $transactions->sum(function ($transaction) {
