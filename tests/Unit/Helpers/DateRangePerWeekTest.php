@@ -7,7 +7,7 @@ use Tests\TestCase;
 class DateRangePerWeekTest extends TestCase
 {
     /** @test */
-    public function it_return_correct_date_range_per_week_for_the_given_month()
+    public function it_return_correct_date_range_per_week_for_the_given_start_and_end_date()
     {
         $this->assertEquals([
             ['2023-04-01', '2023-04-02'],
@@ -15,7 +15,7 @@ class DateRangePerWeekTest extends TestCase
             ['2023-04-10', '2023-04-11', '2023-04-12', '2023-04-13', '2023-04-14', '2023-04-15', '2023-04-16'],
             ['2023-04-17', '2023-04-18', '2023-04-19', '2023-04-20', '2023-04-21', '2023-04-22', '2023-04-23'],
             ['2023-04-24', '2023-04-25', '2023-04-26', '2023-04-27', '2023-04-28', '2023-04-29', '2023-04-30'],
-        ], get_date_range_per_week('2023-04'));
+        ], get_date_range_per_week('2023-04-01', '2023-04-30'));
 
         $this->assertEquals([
             ['2023-06-01', '2023-06-02', '2023-06-03', '2023-06-04'],
@@ -23,7 +23,7 @@ class DateRangePerWeekTest extends TestCase
             ['2023-06-12', '2023-06-13', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', '2023-06-18'],
             ['2023-06-19', '2023-06-20', '2023-06-21', '2023-06-22', '2023-06-23', '2023-06-24', '2023-06-25'],
             ['2023-06-26', '2023-06-27', '2023-06-28', '2023-06-29', '2023-06-30'],
-        ], get_date_range_per_week('2023-06'));
+        ], get_date_range_per_week('2023-06-01', '2023-06-30'));
 
         $this->assertEquals([
             ['2023-10-01'],
@@ -32,11 +32,11 @@ class DateRangePerWeekTest extends TestCase
             ['2023-10-16', '2023-10-17', '2023-10-18', '2023-10-19', '2023-10-20', '2023-10-21', '2023-10-22'],
             ['2023-10-23', '2023-10-24', '2023-10-25', '2023-10-26', '2023-10-27', '2023-10-28', '2023-10-29'],
             ['2023-10-30', '2023-10-31'],
-        ], get_date_range_per_week('2023-10', 'monday'));
+        ], get_date_range_per_week('2023-10-01', '2023-10-31', 'monday'));
     }
 
     /** @test */
-    public function it_return_correct_date_range_per_week_for_the_given_month_with_start_week_day()
+    public function it_return_correct_date_range_per_week_for_the_given_start_and_end_date_with_start_week_day()
     {
         $this->assertEquals([
             ['2023-04-01', '2023-04-02', '2023-04-03', '2023-04-04', '2023-04-05', '2023-04-06'],
@@ -44,7 +44,7 @@ class DateRangePerWeekTest extends TestCase
             ['2023-04-14', '2023-04-15', '2023-04-16', '2023-04-17', '2023-04-18', '2023-04-19', '2023-04-20'],
             ['2023-04-21', '2023-04-22', '2023-04-23', '2023-04-24', '2023-04-25', '2023-04-26', '2023-04-27'],
             ['2023-04-28', '2023-04-29', '2023-04-30'],
-        ], get_date_range_per_week('2023-04', 'friday'));
+        ], get_date_range_per_week('2023-04-01', '2023-04-30', 'friday'));
 
         $this->assertEquals([
             ['2023-06-01'],
@@ -53,7 +53,7 @@ class DateRangePerWeekTest extends TestCase
             ['2023-06-16', '2023-06-17', '2023-06-18', '2023-06-19', '2023-06-20', '2023-06-21', '2023-06-22'],
             ['2023-06-23', '2023-06-24', '2023-06-25', '2023-06-26', '2023-06-27', '2023-06-28', '2023-06-29'],
             ['2023-06-30'],
-        ], get_date_range_per_week('2023-06', 'friday'));
+        ], get_date_range_per_week('2023-06-01', '2023-06-30', 'friday'));
 
         $this->assertEquals([
             ['2023-10-01', '2023-10-02', '2023-10-03', '2023-10-04', '2023-10-05'],
@@ -61,6 +61,6 @@ class DateRangePerWeekTest extends TestCase
             ['2023-10-13', '2023-10-14', '2023-10-15', '2023-10-16', '2023-10-17', '2023-10-18', '2023-10-19'],
             ['2023-10-20', '2023-10-21', '2023-10-22', '2023-10-23', '2023-10-24', '2023-10-25', '2023-10-26'],
             ['2023-10-27', '2023-10-28', '2023-10-29', '2023-10-30', '2023-10-31'],
-        ], get_date_range_per_week('2023-10', 'friday'));
+        ], get_date_range_per_week('2023-10-01', '2023-10-31', 'friday'));
     }
 }

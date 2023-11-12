@@ -157,7 +157,11 @@ class FinanceController extends Controller
         $transactions = $this->getTansactions($yearMonth);
         $groupedTransactions = collect([]);
         $lastWeekDate = null;
-        $dateRangePerWeek = get_date_range_per_week($yearMonth, auth()->activeBook()->start_week_day_code);
+
+        $startDate = $yearMonth.'-01';
+        $endDate = Carbon::parse($yearMonth.'-01')->format('Y-m-t');
+
+        $dateRangePerWeek = get_date_range_per_week($startDate, $endDate, auth()->activeBook()->start_week_day_code);
         foreach ($dateRangePerWeek as $weekNumber => $weekDates) {
             $weekTransactions = $transactions->filter(function ($transaction) use ($weekDates) {
                 return in_array($transaction->date, $weekDates);

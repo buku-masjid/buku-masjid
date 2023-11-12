@@ -85,12 +85,12 @@ function month_id($monthNumber)
     return $months[$monthNumber];
 }
 
-function get_date_range_per_week(string $yearMonth, string $startDay = 'monday'): array
+function get_date_range_per_week(string $startDate, string $endDate, string $startDay = 'monday'): array
 {
     $periode = new \DatePeriod(
-        $startDate = Carbon::parse($yearMonth.'-01'),
+        $startDate = Carbon::parse($startDate),
         new \DateInterval('P1D'),
-        Carbon::parse($yearMonth.'-01')->endOfMonth()
+        Carbon::parse($endDate)->endOfMonth()
     );
 
     $dateRanges = [];
