@@ -14,20 +14,16 @@ class FinanceController extends Controller
 {
     public function summary(Request $request)
     {
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
-        $yearMonth = $this->getYearMonth();
-
-        $startDate = Carbon::parse($yearMonth.'-01');
-        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
-        $lastMonthDate = $startDate->subDay();
-        $currentMonthEndDate = $endDate;
-        if ($yearMonth == Carbon::now()->format('Y-m')) {
+        $lastMonthDate = $startDate->clone()->subDay();
+        $currentMonthEndDate = $endDate->clone();
+        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
@@ -36,41 +32,55 @@ class FinanceController extends Controller
         $reportPeriode = $book->report_periode_code;
 
         return view('reports.finance.'.$reportPeriode.'.summary', compact(
-            'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
+            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode'
         ));
     }
 
-    public function summaryPdf(Request $request)
+    private function getStartDate(Request $request): Carbon
     {
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
 
-        $startDate = Carbon::parse($yearMonth.'-01');
-        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        return Carbon::parse($yearMonth.'-01');
+    }
+
+    private function getEndDate(Request $request): Carbon
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+        $yearMonth = $this->getYearMonth();
+
+        return Carbon::parse($yearMonth.'-01')->endOfMonth();
+    }
+
+    public function summaryPdf(Request $request)
+    {
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
-        $lastMonthDate = $startDate->subDay();
-        $currentMonthEndDate = $endDate;
-        if ($yearMonth == Carbon::now()->format('Y-m')) {
+        $lastMonthDate = $startDate->clone()->subDay();
+        $currentMonthEndDate = $endDate->clone();
+        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
         $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
         $showLetterhead = $this->showLetterhead();
 
+        $reportPeriode = $book->report_periode_code;
         $passedVariables = compact(
-            'year', 'month', 'yearMonth', 'groupedTransactions', 'incomeCategories',
+            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate', 'showLetterhead', 'reportPeriode'
         );
 
-        $reportPeriode = $book->report_periode_code;
         // return view('reports.finance.'.$reportPeriode.'.summary_pdf', $passedVariables);
         $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.summary_pdf', $passedVariables);
 
@@ -79,51 +89,43 @@ class FinanceController extends Controller
 
     public function categorized(Request $request)
     {
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
-        $yearMonth = $this->getYearMonth();
-        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
-
-        $startDate = Carbon::parse($yearMonth.'-01');
-        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
 
         return view('reports.finance.'.$reportPeriode.'.categorized', compact(
-            'year', 'month', 'yearMonth', 'currentMonthEndDate', 'reportPeriode',
+            'startDate', 'endDate', 'currentMonthEndDate', 'reportPeriode',
             'groupedTransactions', 'incomeCategories', 'spendingCategories'
         ));
     }
 
     public function categorizedPdf(Request $request)
     {
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
-        $yearMonth = $this->getYearMonth();
-        $currentMonthEndDate = Carbon::parse(Carbon::parse($yearMonth.'-01')->format('Y-m-t'));
-
-        $startDate = Carbon::parse($yearMonth.'-01');
-        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $currentMonthEndDate = $endDate->clone();
 
         $showLetterhead = $this->showLetterhead();
 
+        $reportPeriode = $book->report_periode_code;
         $passedVariables = compact(
-            'year', 'month', 'yearMonth', 'currentMonthEndDate',
+            'startDate', 'endDate', 'currentMonthEndDate',
             'groupedTransactions', 'incomeCategories', 'spendingCategories',
             'showLetterhead', 'reportPeriode'
         );
 
-        $reportPeriode = $book->report_periode_code;
         // return view('reports.finance.'.$reportPeriode.'.categorized_pdf', $passedVariables);
         $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.categorized_pdf', $passedVariables);
 
@@ -132,43 +134,35 @@ class FinanceController extends Controller
 
     public function detailed(Request $request)
     {
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
-        $yearMonth = $this->getYearMonth();
-
-        $startDate = Carbon::parse($yearMonth.'-01');
-        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
-        $currentMonthEndDate = $endDate;
+        $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
 
         return view('reports.finance.'.$reportPeriode.'.detailed', compact(
-            'year', 'month', 'yearMonth', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode'
+            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode'
         ));
     }
 
     public function detailedPdf(Request $request)
     {
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
-        $yearMonth = $this->getYearMonth();
-
-        $startDate = Carbon::parse($yearMonth.'-01');
-        $endDate = Carbon::parse($yearMonth.'-01')->endOfMonth();
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
-        $currentMonthEndDate = $endDate;
+        $currentMonthEndDate = $endDate->clone();
         $showLetterhead = $this->showLetterhead();
+        $reportPeriode = $book->report_periode_code;
         $passedVariables = compact(
-            'year', 'month', 'yearMonth', 'groupedTransactions',
+            'startDate', 'endDate', 'groupedTransactions',
             'currentMonthEndDate', 'showLetterhead', 'reportPeriode'
         );
 
-        $reportPeriode = $book->report_periode_code;
         // return view('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables);
         $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables);
 
