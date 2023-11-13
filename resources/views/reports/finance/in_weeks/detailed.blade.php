@@ -67,6 +67,10 @@
             {{ link_to_route('reports.finance.detailed', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('reports.finance.detailed_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
+        <div class="form-group">
+            @livewire('prev-week-button', ['routeName' => 'reports.finance.detailed', 'buttonClass' => 'btn btn-secondary mr-1'])
+            @livewire('next-week-button', ['routeName' => 'reports.finance.detailed', 'buttonClass' => 'btn btn-secondary'])
+        </div>
         {{ Form::close() }}
     </div>
 </div>
