@@ -40,6 +40,20 @@ class FinanceController extends Controller
 
     private function getStartDate(Request $request): Carbon
     {
+        $book = auth()->activeBook();
+        if (in_array($book->report_periode_code, ['all_time'])) {
+            if ($request->has('start_date')) {
+                return Carbon::parse($request->get('start_date'));
+            } else {
+                $firstTransaction = $book->transactions()->first();
+                if (is_null($firstTransaction)) {
+                    return Carbon::now()->subDays(30);
+                }
+
+                return Carbon::parse($firstTransaction->date);
+            }
+        }
+
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
@@ -49,6 +63,10 @@ class FinanceController extends Controller
 
     private function getEndDate(Request $request): Carbon
     {
+        if ($request->has('end_date')) {
+            return Carbon::parse($request->get('end_date'));
+        }
+
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
         $yearMonth = $this->getYearMonth();
