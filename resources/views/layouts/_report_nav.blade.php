@@ -11,3 +11,16 @@
         <span class="icon mr-2"><i class="fe fe-alert-circle"></i></span>{{ __('report.finance_detailed') }}
     </a>
 </div>
+
+<hr class="my-1">
+
+<div class="list-group list-group-transparent mb-0 text-uppercase">
+    <div class="list-group-item d-flex align-items-center">
+        <span class="icon mr-2"><i class="fe fe-settings"></i></span>{{ __('report.periode') }}
+        <span class="ml-auto badge badge-primary">{{ __('report.'.auth()->activeBook()->report_periode_code) }}</span>
+    </div>
+    <div class="list-group-item d-flex align-items-center">
+        <span class="icon mr-2"><i class="fe fe-settings"></i></span>{{ __('report.start_week_day') }}
+        <span class="ml-auto badge badge-warning text-dark">{{ __('time.days.'.auth()->activeBook()->start_week_day_code) }}</span>
+    </div>
+</div>
