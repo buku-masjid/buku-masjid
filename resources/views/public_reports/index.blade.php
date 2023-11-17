@@ -18,7 +18,7 @@
                 <div class="card-body">{{ $book->description }}</div>
                 <div class="card-footer">
                     {{ link_to_route(
-                        'public_reports.in_months',
+                        'public_reports.finance.summary',
                         __('report.view_report'),
                         ['active_book_id' => $book->id, 'nonce' => $book->nonce],
                         [

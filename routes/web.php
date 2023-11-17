@@ -16,11 +16,7 @@ Route::view('/', 'guest.welcome');
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function () {
-    Route::get('/', 'PublicReportController@index')->name('index');
-    Route::get('/bulanan', 'PublicReportController@inMonths')->name('in_months');
-    Route::get('/mingguan', 'PublicReportController@inWeeks')->name('in_weeks');
-    Route::get('/per_kategorii', 'PublicReportController@inOut')->name('in_out');
-
+    Route::get('/', 'Reports\PublicFinanceController@index')->name('index');
     Route::get('/ringkasan', 'Reports\PublicFinanceController@summary')->name('finance.summary');
     Route::get('/per_kategori', 'Reports\PublicFinanceController@categorized')->name('finance.categorized');
     Route::get('/rincian', 'Reports\PublicFinanceController@detailed')->name('finance.detailed');
