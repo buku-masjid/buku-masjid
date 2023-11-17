@@ -1,4 +1,4 @@
-@extends('layouts.reports')
+@extends('layouts.public_reports')
 
 @section('subtitle', __('report.finance_categorized'))
 
