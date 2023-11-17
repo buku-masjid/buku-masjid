@@ -13,5 +13,6 @@ return [
         'audio_link' => '&#128266;',
         'title' => '&#128172;',
         'description' => '&#128466;&#65039;',
+        'check_green' => '&#9989;',
     ],
 ];

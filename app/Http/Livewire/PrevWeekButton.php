@@ -25,7 +25,11 @@ class PrevWeekButton extends Component
         }
 
         $endDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
-        $endDate = Carbon::now()->endOfWeek($endDayInteger)->subDay()->subWeek()->format('Y-m-d');
+        if (strtolower(Carbon::now()->format('l')) == $book->start_week_day_code) {
+            $endDate = Carbon::now()->addDay()->endOfWeek($endDayInteger)->subDay()->subWeek()->format('Y-m-d');
+        } else {
+            $endDate = Carbon::now()->endOfWeek($endDayInteger)->subDay()->subWeek()->format('Y-m-d');
+        }
 
         if (request('end_date')) {
             $endDate = Carbon::parse(request('end_date'))->subWeek()->format('Y-m-d');
