@@ -14,7 +14,7 @@
             {{ Form::hidden('active_book_id', request('active_book_id')) }}
             {{ Form::hidden('nonce', request('nonce')) }}
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('public_reports.finance.detailed', __('app.reset'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('public_reports.finance.detailed', __('report.this_week'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group">
             @livewire('prev-week-button', ['routeName' => 'public_reports.finance.detailed', 'buttonClass' => 'btn btn-secondary mr-1'])
