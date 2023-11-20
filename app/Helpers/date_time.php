@@ -94,11 +94,11 @@ function get_date_range_per_week(string $startDate, string $endDate, string $sta
     );
 
     $dateRanges = [];
-    $dateKey = 1;
+    $dateKey = $startDate->format('Ymd');
     $dateRanges[$dateKey] = [];
     foreach ($periode as $date) {
         if (strtolower($date->format('l')) == $startDay) {
-            $dateKey = $date->format('j');
+            $dateKey = $date->format('Ymd');
         }
         $dateRanges[$dateKey][] = $date->format('Y-m-d');
     }
