@@ -77,169 +77,57 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="page-header mt-0 mb-2">
-            <h2 class="page-title">{{ __('transaction.income') }}</h2>
-        </div>
-
-        @if ($groupedTransactions->has(1) && !$groupedTransactions[1]->where('category_id', null)->isEmpty())
-            <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
-            <div class="card table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                    <thead>
-                        <tr >
-                            <th class="text-center col-1">{{ __('app.table_no') }}</th>
-                            <th class="text-center col-2">{{ __('time.date') }}</th>
-                            <th class=" col-4">{{ __('app.description') }}</th>
-                            <th class="text-nowrap text-right col-3">{{ __('transaction.amount') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $key = 0;
-                        @endphp
-                        @foreach ($groupedTransactions[1]->where('category_id', null) as $transaction)
-                        <tr>
-                            <td class="text-center col-1">{{ ++$key }}</td>
-                            <td class="text-center col-2">{{ $transaction->date }}</td>
-                            <td class="col-4">{{ $transaction->description }}</td>
-                            <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</td>
-                            <td class="text-right">
-                                {{ format_number($groupedTransactions[1]->where('category_id', null)->sum('amount')) }}
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        @endif
-
-        @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
-        <h4 class="mt-0">{{ $incomeCategory->name }}</h4>
-        <div class="card table-responsive">
-            <table class="table table-sm table-hover mb-0">
-                <thead>
-                    <tr >
-                        <th class="text-center col-1">{{ __('app.table_no') }}</th>
-                        <th class="text-center col-2">{{ __('time.date') }}</th>
-                        <th class=" col-4">{{ __('app.description') }}</th>
-                        <th class="text-nowrap text-right col-3">{{ __('transaction.amount') }}</th>
-                    </tr>
-                </thead>
-                @if ($groupedTransactions->has(1))
-                <tbody>
-                    @php
-                        $key = 0;
-                    @endphp
-                    @foreach ($groupedTransactions[1]->where('category_id', $incomeCategory->id) as $transaction)
-                    <tr>
-                        <td class="text-center col-1">{{ ++$key }}</td>
-                        <td class="text-center col-2">{{ $transaction->date }}</td>
-                        <td class="col-4">{{ $transaction->description }}</td>
-                        <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }} {{ $incomeCategory->name }}</td>
-                        <td class="text-right">
-                            {{ format_number($groupedTransactions[1]->where('category_id', $incomeCategory->id)->sum('amount')) }}
-                        </td>
-                    </tr>
-                </tfoot>
-                @endif
-            </table>
-        </div>
-        @endforeach
-
-        <div class="page-header mt-0 mb-2">
-            <h2 class="page-title">{{ __('transaction.spending') }}</h2>
-        </div>
-
-        @if ($groupedTransactions->has(0) && !$groupedTransactions[0]->where('category_id', null)->isEmpty())
-            <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
-            <div class="card table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                    <thead>
-                        <tr >
-                            <th class="text-center col-1">{{ __('app.table_no') }}</th>
-                            <th class="text-center col-2">{{ __('time.date') }}</th>
-                            <th class=" col-4">{{ __('app.description') }}</th>
-                            <th class="text-nowrap text-right col-3">{{ __('transaction.amount') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $key = 0;
-                        @endphp
-                        @foreach ($groupedTransactions[0]->where('category_id', null) as $transaction)
-                        <tr>
-                            <td class="text-center col-1">{{ ++$key }}</td>
-                            <td class="text-center col-2">{{ $transaction->date }}</td>
-                            <td class="col-4">{{ $transaction->description }}</td>
-                            <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('app.total') }} {{ __('transaction.no_category') }}</td>
-                            <td class="text-right">
-                                {{ format_number($groupedTransactions[0]->where('category_id', null)->sum('amount')) }}
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        @endif
-
-        @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
-        <h4 class="mt-0">{{ $spendingCategory->name }}</h4>
-        <div class="card table-responsive">
-            <table class="table table-sm table-hover mb-0">
-                <thead>
-                    <tr >
-                        <th class="text-center col-1">{{ __('app.table_no') }}</th>
-                        <th class="text-center col-2">{{ __('time.date') }}</th>
-                        <th class=" col-4">{{ __('app.description') }}</th>
-                        <th class="text-nowrap text-right col-3">{{ __('transaction.amount') }}</th>
-                    </tr>
-                </thead>
-                @if ($groupedTransactions->has(0))
-                <tbody>
-                    @php
-                        $key = 0;
-                    @endphp
-                    @foreach ($groupedTransactions[0]->where('category_id', $spendingCategory->id) as $transaction)
-                    <tr>
-                        <td class="text-center col-1">{{ ++$key }}</td>
-                        <td class="text-center col-2">{{ $transaction->date }}</td>
-                        <td class="col-4">{{ $transaction->description }}</td>
-                        <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }} {{ $spendingCategory->name }}</td>
-                        <td class="text-right">
-                            {{ format_number($groupedTransactions[0]->where('category_id', $spendingCategory->id)->sum('amount')) }}
-                        </td>
-                    </tr>
-                </tfoot>
-                @endif
-            </table>
-        </div>
-        @endforeach
-    </div>
+<div class="page-header mt-0 mb-2">
+    <h2 class="page-title">{{ __('transaction.income') }}</h2>
 </div>
+
+@if ($groupedTransactions->has(1) && !$groupedTransactions[1]->where('category_id', null)->isEmpty())
+    <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
+    <div class="card table-responsive">
+        @include('reports.finance._internal_content_categorized', [
+            'hasGroupedTransactions' => $groupedTransactions->has(1),
+            'transactions' => $groupedTransactions[1]->where('category_id', null),
+            'categoryName' => __('transaction.no_category'),
+        ])
+    </div>
+@endif
+
+@foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
+<h4 class="mt-0">{{ $incomeCategory->name }}</h4>
+<div class="card table-responsive">
+    @include('reports.finance._internal_content_categorized', [
+        'hasGroupedTransactions' => $groupedTransactions->has(1),
+        'transactions' => $groupedTransactions[1]->where('category_id', $incomeCategory->id),
+        'categoryName' => $incomeCategory->name,
+    ])
+</div>
+@endforeach
+
+<div class="page-header mt-0 mb-2">
+    <h2 class="page-title">{{ __('transaction.spending') }}</h2>
+</div>
+
+@if ($groupedTransactions->has(0) && !$groupedTransactions[0]->where('category_id', null)->isEmpty())
+    <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
+    <div class="card table-responsive">
+        @include('reports.finance._internal_content_categorized', [
+            'hasGroupedTransactions' => $groupedTransactions->has(0),
+            'transactions' => $groupedTransactions[0]->where('category_id', null),
+            'categoryName' => __('transaction.no_category'),
+        ])
+    </div>
+@endif
+
+@foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
+<h4 class="mt-0">{{ $spendingCategory->name }}</h4>
+<div class="card table-responsive">
+    @include('reports.finance._internal_content_categorized', [
+        'hasGroupedTransactions' => $groupedTransactions->has(0),
+        'transactions' => $groupedTransactions[0]->where('category_id', $spendingCategory->id),
+        'categoryName' => $spendingCategory->name,
+    ])
+</div>
+@endforeach
 @endsection
 
 @section('styles')
