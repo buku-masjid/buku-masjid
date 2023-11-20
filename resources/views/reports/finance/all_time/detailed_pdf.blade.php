@@ -16,57 +16,7 @@
 </htmlpageheader>
 
 @foreach($groupedTransactions as $weekNumber => $weekTransactions)
-<table class="table">
-    <thead>
-        <tr>
-            <th class="text-center">{{ __('app.date') }}</th>
-            <th>{{ __('transaction.transaction') }}</th>
-            <th class="text-right">{{ __('transaction.income') }}</th>
-            <th class="text-right">{{ __('transaction.spending') }}</th>
-            <th class="text-right">{{ __('transaction.balance') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($weekTransactions as $dayName => $daysTransactions)
-            @if ($dayName)
-                <tr><td class="text-center strong">{{ strtoupper($dayName) }}</td><td colspan="4">&nbsp;</td></tr>
-            @endif
-            @foreach ($daysTransactions as $transaction)
-            <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
-                <td class="text-center">{{ $transaction->date }}</td>
-                <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }} class="{{ $transaction->is_strong ? 'strong' : '' }}">
-                    {{ $transaction->description }}
-                </td>
-                <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
-                <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ !$transaction->in_out ? format_number($transaction->amount) : '' }}</td>
-                <td class="text-center {{ $transaction->is_strong ? 'strong' : '' }}">&nbsp;</td>
-            </tr>
-            @endforeach
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="2" class="text-right">{{ __('app.total') }}</th>
-            <th class="text-right">
-                @php
-                    $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
-                        return $transaction->in_out ? $transaction->amount : 0;
-                    });
-                @endphp
-                {{ format_number($incomeAmount) }}
-            </th>
-            <th class="text-right">
-                @php
-                    $spendingAmount = $weekTransactions->flatten()->sum(function ($transaction) {
-                        return $transaction->in_out ? 0 : $transaction->amount;
-                    });
-                @endphp
-                {{ format_number($spendingAmount) }}
-            </th>
-            <th class="text-right">{{ format_number($incomeAmount - $spendingAmount) }}</th>
-        </tr>
-    </tfoot>
-</table>
+@include('reports.finance._internal_content_detailed')
 @if ($weekNumber != $groupedTransactions->keys()->last())
     <pagebreak />
 @endif
