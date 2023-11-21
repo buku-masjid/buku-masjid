@@ -37,6 +37,7 @@ return [
     'name' => 'Cash Book Name',
     'description' => 'Cash Book Description',
     'status_inactive' => 'Closed',
+    'budget' => 'Budget',
     'visibility' => 'Visibility',
     'report_visibility' => 'Report Visibility',
     'report_visibility_public' => 'Public',

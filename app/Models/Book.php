@@ -23,7 +23,7 @@ class Book extends Model
 
     protected $fillable = [
         'name', 'description', 'status_id', 'creator_id', 'bank_account_id', 'report_visibility_code', 'report_titles',
-        'report_periode_code', 'start_week_day_code',
+        'budget', 'report_periode_code', 'start_week_day_code',
     ];
     protected $casts = [
         'report_titles' => 'array',

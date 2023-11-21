@@ -37,6 +37,7 @@ return [
     'name' => 'Nama Buku Kas',
     'description' => 'Deskripsi Buku Kas',
     'status_inactive' => 'Tutup Buku',
+    'budget' => 'Anggaran',
     'visibility' => 'Visibilitas',
     'report_visibility' => 'Visibilitas Laporan',
     'report_visibility_public' => 'Publik',
