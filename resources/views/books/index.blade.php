@@ -24,7 +24,6 @@
                         <th class="text-center">{{ __('app.status') }}</th>
                         <th class="text-center">{{ __('book.visibility') }}</th>
                         <th>{{ __('bank_account.bank_account') }}</th>
-                        <th>{{ __('book.description') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -32,11 +31,19 @@
                     @forelse($books as $key => $book)
                     <tr>
                         <td class="text-center">{{ $key + $books->firstItem() }}</td>
-                        <td class="text-nowrap">{{ $book->name }}</td>
+                        <td class="text-nowrap">
+                            @can('view', $book)
+                                {{ link_to_route('books.show', $book->name, $book, [
+                                    'id' => 'show-book-'.$book->id,
+                                    'title' => __('book.show'),
+                                ]) }}
+                            @else
+                                {{ $book->name }}
+                            @endcan
+                        </td>
                         <td class="text-nowrap text-center">{{ $book->status }}</td>
                         <td class="text-center">{{ __('book.report_visibility_'.$book->report_visibility_code) }}</td>
                         <td>{{ $book->bankAccount->name }}</td>
-                        <td>{{ $book->description }}</td>
                         <td class="text-center text-nowrap">
                             @if ($book->id != auth()->activeBookId())
                                 {!! FormField::formButton(

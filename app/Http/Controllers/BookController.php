@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\BankAccount;
 use App\Models\Book;
-use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -47,33 +46,7 @@ class BookController extends Controller
     {
         $this->authorize('view', $book);
 
-        $books = [];
-        $editableTransaction = null;
-        $year = request('year', date('Y'));
-        $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
-
-        $defaultStartDate = date('Y-m').'-01';
-        $startDate = request('start_date', $defaultStartDate);
-        $endDate = request('end_date', date('Y-m-d'));
-
-        $transactions = $this->getBookTransactions($book, [
-            'category_id' => request('category_id'),
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-            'query' => request('query'),
-        ]);
-        $incomeTotal = $this->getIncomeTotal($transactions);
-        $spendingTotal = $this->getSpendingTotal($transactions);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $books = $this->getBookList();
-            $editableTransaction = Transaction::find(request('id'));
-        }
-
-        return view('books.show', compact(
-            'book', 'transactions', 'year', 'incomeTotal', 'spendingTotal',
-            'startDate', 'endDate', 'categories', 'editableTransaction', 'books'
-        ));
+        return view('books.show', compact('book'));
     }
 
     public function update(Request $request, Book $book)
