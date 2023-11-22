@@ -38,6 +38,7 @@ return [
     'description' => 'Deskripsi Buku Kas',
     'status_inactive' => 'Tutup Buku',
     'budget' => 'Anggaran',
+    'budget_difference' => 'Kekurangan/Kelebihan',
     'visibility' => 'Visibilitas',
     'report_visibility' => 'Visibilitas Laporan',
     'report_visibility_public' => 'Publik',

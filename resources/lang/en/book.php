@@ -38,6 +38,7 @@ return [
     'description' => 'Cash Book Description',
     'status_inactive' => 'Closed',
     'budget' => 'Budget',
+    'budget_difference' => 'Plus/Minus',
     'visibility' => 'Visibility',
     'report_visibility' => 'Report Visibility',
     'report_visibility_public' => 'Public',

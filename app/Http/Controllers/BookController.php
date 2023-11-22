@@ -46,8 +46,23 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $this->authorize('view', $book);
+        $currentBalance = 0;
+        $startBalance = 0;
+        $currentIncomeTotal = 0;
+        $currentSpendingTotal = 0;
 
-        return view('books.show', compact('book'));
+        $currentTransactions = $book->transactions()
+            ->withoutGlobalScope('forActiveBook')
+            ->get();
+        $currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount');
+        $currentSpendingTotal = $currentTransactions->where('in_out', 0)->sum('amount');
+        $endOfLastDate = today()->startOfWeek()->subDay()->format('Y-m-d');
+        $startBalance = $book->getBalance($endOfLastDate);
+        $currentBalance = $startBalance + $currentIncomeTotal - $currentSpendingTotal;
+
+        return view('books.show', compact(
+            'book', 'startBalance', 'currentBalance', 'currentIncomeTotal', 'currentSpendingTotal'
+        ));
     }
 
     public function edit(Book $book)
