@@ -84,8 +84,8 @@
             <tr>
                 <td class="text-center">{{ ++$key }}</td>
                 <td>{{ $transaction->description }}</td>
-                <td class="text-right text-nowrap">{{ format_number($transaction->amount) }}</td>
                 <td class="text-right text-nowrap">-</td>
+                <td class="text-right text-nowrap">{{ format_number($transaction->amount) }}</td>
                 <td class="text-center text-nowrap">&nbsp;</td>
             </tr>
             @endforeach
