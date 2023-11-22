@@ -33,6 +33,7 @@ class BookController extends Controller
         $newBook = $request->validate([
             'name' => 'required|max:60',
             'description' => 'nullable|max:255',
+            'budget' => ['nullable', 'numeric'],
             'bank_account_id' => 'nullable|exists:bank_accounts,id',
         ]);
         $newBook['creator_id'] = auth()->id();

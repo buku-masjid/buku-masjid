@@ -35,6 +35,7 @@ class ManageBookTest extends TestCase
         $this->submitForm(__('book.create'), [
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
+            'budget' => 1000000,
         ]);
 
         $this->seeRouteIs('books.index');
@@ -42,6 +43,7 @@ class ManageBookTest extends TestCase
         $this->seeInDatabase('books', [
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
+            'budget' => 1000000,
             'status_id' => Book::STATUS_ACTIVE,
             'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
@@ -60,6 +62,7 @@ class ManageBookTest extends TestCase
         $this->submitForm(__('book.create'), [
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
+            'budget' => 1000000,
             'bank_account_id' => $bankAccount->id,
         ]);
 
@@ -69,6 +72,7 @@ class ManageBookTest extends TestCase
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
+            'budget' => 1000000,
             'bank_account_id' => $bankAccount->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
