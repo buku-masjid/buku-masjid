@@ -55,14 +55,14 @@
                             @else
                                 <span class="btn btn-secondary btn-sm disabled">{{ __('app.active') }}</span>
                             @endif
-                            @can('update', $book)
+                            @can('view', $book)
                                 {{ link_to_route(
-                                    'books.index',
-                                    __('app.edit'),
-                                    ['action' => 'edit', 'id' => $book->id],
+                                    'books.show',
+                                    __('app.show'),
+                                    [$book],
                                     [
-                                        'id' => 'edit-book-'.$book->id,
-                                        'class' => 'btn btn-sm btn-warning',
+                                        'id' => 'show-book-'.$book->id,
+                                        'class' => 'btn btn-sm btn-secondary',
                                     ]
                                 ) }}
                             @endcan

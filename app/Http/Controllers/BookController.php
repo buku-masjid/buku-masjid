@@ -50,6 +50,14 @@ class BookController extends Controller
         return view('books.show', compact('book'));
     }
 
+    public function edit(Book $book)
+    {
+        $this->authorize('update', $book);
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+
+        return view('books.edit', compact('book', 'bankAccounts'));
+    }
+
     public function update(Request $request, Book $book)
     {
         $this->authorize('update', $book);
@@ -66,7 +74,7 @@ class BookController extends Controller
         ]);
         $book->update($bookData);
 
-        return redirect()->route('books.index');
+        return redirect()->route('books.show', $book);
     }
 
     public function destroy(Book $book)

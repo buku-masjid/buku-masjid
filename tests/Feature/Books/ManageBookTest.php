@@ -89,9 +89,9 @@ class ManageBookTest extends TestCase
         ]);
         $bankAccount = factory(BankAccount::class)->create();
 
-        $this->visitRoute('books.index');
+        $this->visitRoute('books.show', $book);
         $this->click('edit-book-'.$book->id);
-        $this->seeRouteIs('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->seeRouteIs('books.edit', [$book]);
 
         $this->submitForm(__('book.update'), [
             'name' => 'Book 1 name',
@@ -104,7 +104,7 @@ class ManageBookTest extends TestCase
             'start_week_day_code' => 'friday',
         ]);
 
-        $this->seeRouteIs('books.index');
+        $this->seeRouteIs('books.show', [$book]);
 
         $this->seeInDatabase('books', [
             'name' => 'Book 1 name',
@@ -125,9 +125,9 @@ class ManageBookTest extends TestCase
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
         factory(Book::class)->create(['creator_id' => $user->id]);
 
-        $this->visitRoute('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->visitRoute('books.edit', [$book]);
         $this->click('del-book-'.$book->id);
-        $this->seeRouteIs('books.index', ['action' => 'delete', 'id' => $book->id]);
+        $this->seeRouteIs('books.edit', [$book, 'action' => 'delete']);
 
         $this->seeInDatabase('books', [
             'id' => $book->id,
@@ -148,9 +148,9 @@ class ManageBookTest extends TestCase
         factory(Transaction::class)->create(['book_id' => $book->id]);
         factory(Category::class)->create(['book_id' => $book->id]);
 
-        $this->visitRoute('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->visitRoute('books.edit', [$book]);
         $this->click('del-book-'.$book->id);
-        $this->seeRouteIs('books.index', ['action' => 'delete', 'id' => $book->id]);
+        $this->seeRouteIs('books.edit', [$book, 'action' => 'delete']);
 
         $this->seeInDatabase('books', ['id' => $book->id]);
         $this->seeInDatabase('categories', ['book_id' => $book->id]);
