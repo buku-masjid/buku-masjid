@@ -40,24 +40,12 @@
         </div>
     </div>
     <div class="col-md-5">
+        <div class="page-header">
+            <h3 class="page-title">{{ __('report.finance_summary') }}</h3>
+            <div class="page-options d-flex"></div>
+        </div>
         <div class="card">
-            <div class="card-header">{{ __('report.finance_summary') }}</div>
-            <table class="table table-sm card-table">
-                <tbody>
-                    @if ($book->budget)
-                        <tr><td>{{ __('book.budget') }}</td><td class="text-right">{{ format_number($book->budget) }}</td></tr>
-                        <tr><td>{{ __('transaction.income') }}</td><td class="text-right">{{ format_number($currentIncomeTotal) }}</td></tr>
-                        <tr><td>{{ __('transaction.spending') }}</td><td class="text-right">{{ format_number($currentSpendingTotal ? -$currentSpendingTotal : 0) }}</td></tr>
-                        <tr><td>{{ __('transaction.balance') }}</td><td class="text-right">{{ format_number($currentBalance) }}</td></tr>
-                        <tr><td>{{ __('book.budget_difference') }}</td><td class="text-right">{{ format_number($currentBalance - $book->budget) }}</td></tr>
-                    @else
-                        <tr><td>{{ __('transaction.start_balance') }}</td><td class="text-right">{{ format_number($startBalance) }}</td></tr>
-                        <tr><td>{{ __('transaction.income') }}</td><td class="text-right">{{ format_number($currentIncomeTotal) }}</td></tr>
-                        <tr><td>{{ __('transaction.spending') }}</td><td class="text-right">{{ format_number($currentSpendingTotal ? -$currentSpendingTotal : 0) }}</td></tr>
-                        <tr><td>{{ __('transaction.balance') }}</td><td class="text-right">{{ format_number($currentBalance) }}</td></tr>
-                    @endif
-                </tbody>
-            </table>
+            @livewire('books.financial-summary', ['bookId' => $book->id])
         </div>
     </div>
 </div>
