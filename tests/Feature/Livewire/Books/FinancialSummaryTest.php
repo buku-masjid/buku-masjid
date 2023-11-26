@@ -14,7 +14,7 @@ class FinancialSummaryTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function user_can_see_empty_financial_summary_card()
+    public function user_can_see_empty_book_financial_summary_card_without_budget()
     {
         $book = factory(Book::class)->create();
         $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMM Y');
@@ -29,7 +29,20 @@ class FinancialSummaryTest extends TestCase
     }
 
     /** @test */
-    public function user_can_see_financial_summary_card_without_book_budget()
+    public function user_can_see_empty_book_financial_summary_card_with_budget()
+    {
+        $book = factory(Book::class)->create(['budget' => 1000000]);
+
+        Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
+            ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
+            ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(1000000).'</span>');
+    }
+
+    /** @test */
+    public function user_can_see_book_financial_summary_card_without_budget()
     {
         $book = factory(Book::class)->create();
         $today = today()->format('Y-m-d');
@@ -53,7 +66,7 @@ class FinancialSummaryTest extends TestCase
     }
 
     /** @test */
-    public function user_can_see_financial_summary_card_with_book_budget()
+    public function user_can_see_book_financial_summary_card_with_budget()
     {
         $book = factory(Book::class)->create(['budget' => 1000000]);
         $today = today()->format('Y-m-d');
