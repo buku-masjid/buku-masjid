@@ -12,7 +12,7 @@
         @else
             <tr>
                 <td class="col-4">
-                    <span id="start_periode_label">{{ __('report.balance_per_date', ['date' => $start->isoFormat('dddd, D MMM Y')]) }}</span>
+                    <span id="start_periode_label">{{ __('report.balance_per_date', ['date' => $start->subDay()->isoFormat('dddd, D MMM Y')]) }}</span>
                 </td>
                 <td class="col-1 text-right">
                     <span id="start_periode_balance">{{ format_number($startBalance) }}</span>

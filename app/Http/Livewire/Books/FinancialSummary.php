@@ -44,9 +44,14 @@ class FinancialSummary extends Component
             $endOfLastDate = today()->startOfMonth()->subDay()->format('Y-m-d');
         }
         $this->startBalance = ($book->report_periode_code == Book::REPORT_PERIODE_ALL_TIME) ? 0 : $book->getBalance($endOfLastDate);
-        $this->currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount') + $this->startBalance;
         $this->currentSpendingTotal = $currentTransactions->where('in_out', 0)->sum('amount');
-        $this->currentBalance = $this->currentIncomeTotal - $this->currentSpendingTotal;
+        if ($book->budget) {
+            $this->currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount') + $this->startBalance;
+            $this->currentBalance = $this->currentIncomeTotal - $this->currentSpendingTotal;
+        } else {
+            $this->currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount');
+            $this->currentBalance = $this->startBalance + $this->currentIncomeTotal - $this->currentSpendingTotal;
+        }
         $this->budgetDifference = $this->currentBudget - $this->currentIncomeTotal;
     }
 }
