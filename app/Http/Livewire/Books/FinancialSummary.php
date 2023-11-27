@@ -53,5 +53,9 @@ class FinancialSummary extends Component
             $this->currentBalance = $this->startBalance + $this->currentIncomeTotal - $this->currentSpendingTotal;
         }
         $this->budgetDifference = $this->currentBudget - $this->currentIncomeTotal;
+        $this->currentPeriodeBudgetLabel = __('report.current_periode_budget');
+        if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
+            $this->currentPeriodeBudgetLabel = __('report.current_month_budget');
+        }
     }
 }
