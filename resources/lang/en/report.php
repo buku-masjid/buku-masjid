@@ -33,6 +33,8 @@ return [
     'today_balance' => 'Today balance (:date)',
     'current_week_income_total' => 'Current week income',
     'current_week_spending_total' => 'Current week spending',
+    'current_month_budget' => 'Current Month Budget',
+    'current_week_budget' => 'Current Week Budget',
     'current_periode_budget' => 'Current Periode Budget',
     'current_periode_income_total' => 'Total Income',
     'current_periode_spending_total' => 'Total Spending',

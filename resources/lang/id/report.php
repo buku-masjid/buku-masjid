@@ -34,6 +34,7 @@ return [
     'current_week_income_total' => 'Pemasukan hingga hari ini',
     'current_week_spending_total' => 'Pengeluaran hingga hari ini',
     'current_month_budget' => 'Anggaran bulan ini',
+    'current_week_budget' => 'Anggaran pekan ini',
     'current_periode_budget' => 'Anggaran yang dibutuhkan',
     'current_periode_income_total' => 'Pemasukan hingga hari ini',
     'current_periode_spending_total' => 'Pengeluaran hingga hari ini',

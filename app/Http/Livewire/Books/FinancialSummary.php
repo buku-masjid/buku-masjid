@@ -58,6 +58,9 @@ class FinancialSummary extends Component
         if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
             $this->currentPeriodeBudgetLabel = __('report.current_month_budget');
         }
+        if ($book->report_periode_code == Book::REPORT_PERIODE_IN_WEEKS) {
+            $this->currentPeriodeBudgetLabel = __('report.current_week_budget');
+        }
         $this->reportPeriodeCode = $book->report_periode_code;
     }
 }
