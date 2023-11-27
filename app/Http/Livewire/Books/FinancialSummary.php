@@ -15,6 +15,7 @@ class FinancialSummary extends Component
     public $startBalance = 0;
     public $currentIncomeTotal = 0;
     public $currentSpendingTotal = 0;
+    public $reportPeriodeCode = Book::REPORT_PERIODE_IN_MONTHS;
 
     public function render()
     {
@@ -57,5 +58,6 @@ class FinancialSummary extends Component
         if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
             $this->currentPeriodeBudgetLabel = __('report.current_month_budget');
         }
+        $this->reportPeriodeCode = $book->report_periode_code;
     }
 }

@@ -10,14 +10,16 @@
                 </td>
             </tr>
         @else
-            <tr>
-                <td class="col-4">
-                    <span id="start_periode_label">{{ __('report.balance_per_date', ['date' => $start->subDay()->isoFormat('dddd, D MMM Y')]) }}</span>
-                </td>
-                <td class="col-1 text-right">
-                    <span id="start_periode_balance">{{ format_number($startBalance) }}</span>
-                </td>
-            </tr>
+            @if ($reportPeriodeCode != App\Models\Book::REPORT_PERIODE_ALL_TIME)
+                <tr>
+                    <td class="col-4">
+                        <span id="start_periode_label">{{ __('report.balance_per_date', ['date' => $start->subDay()->isoFormat('dddd, D MMM Y')]) }}</span>
+                    </td>
+                    <td class="col-1 text-right">
+                        <span id="start_periode_balance">{{ format_number($startBalance) }}</span>
+                    </td>
+                </tr>
+            @endif
         @endif
         <tr>
             <td class="col-4">
