@@ -3,7 +3,7 @@
         @if ($currentBudget)
             <tr>
                 <td class="col-4">
-                    <span id="current_periode_budget_label">{{ __('report.current_periode_budget') }}</span>
+                    <span id="current_periode_budget_label">{{ __('report.current_month_budget') }}</span>
                 </td>
                 <td class="col-1 text-right">
                     <span id="current_periode_budget">{{ format_number($currentBudget) }}</span>

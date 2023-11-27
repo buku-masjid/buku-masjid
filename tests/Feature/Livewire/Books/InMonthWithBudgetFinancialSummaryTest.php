@@ -19,6 +19,7 @@ class InMonthWithBudgetFinancialSummaryTest extends TestCase
         $book = factory(Book::class)->create(['report_periode_code' => Book::REPORT_PERIODE_IN_MONTHS, 'budget' => 1000000]);
 
         Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
+            ->assertSeeHtml('<span id="current_periode_budget_label">'.__('report.current_month_budget').'</span>')
             ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
             ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(0).'</span>')
             ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(0).'</span>')
