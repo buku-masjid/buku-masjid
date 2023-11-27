@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class InMonthWithoutBudgetFinancialSummaryTest extends TestCase
+class InMonthsWithoutBudgetFinancialSummaryTest extends TestCase
 {
     use RefreshDatabase;
 
