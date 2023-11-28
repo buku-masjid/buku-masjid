@@ -62,6 +62,7 @@ class Book extends Model
     public function getBalance($perDate = null, $startDate = null, $categoryId = null): float
     {
         $transactionQuery = $this->transactions();
+        $transactionQuery->withoutGlobalScope('forActiveBook');
         if ($perDate) {
             $transactionQuery->where('date', '<=', $perDate);
         }
