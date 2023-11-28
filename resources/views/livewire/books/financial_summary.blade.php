@@ -47,10 +47,10 @@
         </tr>
         @if ($currentBudget)
             <tr>
-                <td class="col-4">
+                <td class="col-4 strong">
                     <span id="current_periode_budget_remaining_label">{{ __('report.current_periode_budget_remaining') }}</span>
                 </td>
-                <td class="col-1 text-right">
+                <td class="col-1 text-right strong">
                     <span id="current_periode_budget_remaining">{{ format_number($budgetDifference) }}</span>
                 </td>
             </tr>
