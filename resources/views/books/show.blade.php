@@ -1,12 +1,12 @@
 @extends('layouts.settings')
 
-@section('title', __('book.transactions'))
+@section('title', __('book.detail').' - '.$book->name)
 
 @section('content_settings')
 
 <div class="page-header">
     <h1 class="page-title">{{ $book->name }}</h1>
-    <div class="page-subtitle">{{ __('book.transactions') }}</div>
+    <div class="page-subtitle">{{ __('book.detail') }}</div>
     <div class="page-options d-flex">
         {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
     </div>
