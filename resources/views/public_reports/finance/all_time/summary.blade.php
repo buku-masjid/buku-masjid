@@ -32,10 +32,6 @@
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {
-    $('#reportModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
     $('.date-select').datetimepicker({
         timepicker: false,
         format: 'Y-m-d',

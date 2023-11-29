@@ -27,14 +27,3 @@
     @include('public_reports.finance._public_content_summary')
 </div>
 @endsection
-
-@push('scripts')
-<script>
-(function () {
-    $('#reportModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush
