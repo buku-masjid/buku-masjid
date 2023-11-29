@@ -1,6 +1,6 @@
 @extends('layouts.print')
 
-@section('title', __('report.all_time']))
+@section('title', __('report.all_time'))
 
 @section('content')
 <htmlpageheader name="wpHeader">
@@ -14,6 +14,12 @@
         @endif
     </h2>
 </htmlpageheader>
+
+@if ($showBudgetSummary)
+    <br>
+    @include('reports.finance._internal_periode_summary')
+    <br>
+@endif
 
 <div class="">
     @include('reports.finance._internal_content_summary')

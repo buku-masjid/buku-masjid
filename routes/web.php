@@ -61,16 +61,16 @@ Route::group(['middleware' => 'auth'], function () {
      * Report Routes
      */
     Route::group(['prefix' => 'report'], function () {
-        Route::get('/', 'Reports\FinanceController@summary')->name('reports.index');
+        Route::get('/', 'Reports\InternalFinanceController@summary')->name('reports.index');
 
-        Route::get('/finance/summary', 'Reports\FinanceController@summary')->name('reports.finance.summary');
-        Route::get('/finance/summary_pdf', 'Reports\FinanceController@summaryPdf')->name('reports.finance.summary_pdf');
+        Route::get('/finance/summary', 'Reports\InternalFinanceController@summary')->name('reports.finance.summary');
+        Route::get('/finance/summary_pdf', 'Reports\InternalFinanceController@summaryPdf')->name('reports.finance.summary_pdf');
 
-        Route::get('/finance/categorized', 'Reports\FinanceController@categorized')->name('reports.finance.categorized');
-        Route::get('/finance/categorized_pdf', 'Reports\FinanceController@categorizedPdf')->name('reports.finance.categorized_pdf');
+        Route::get('/finance/categorized', 'Reports\InternalFinanceController@categorized')->name('reports.finance.categorized');
+        Route::get('/finance/categorized_pdf', 'Reports\InternalFinanceController@categorizedPdf')->name('reports.finance.categorized_pdf');
 
-        Route::get('/finance/detailed', 'Reports\FinanceController@detailed')->name('reports.finance.detailed');
-        Route::get('/finance/detailed_pdf', 'Reports\FinanceController@detailedPdf')->name('reports.finance.detailed_pdf');
+        Route::get('/finance/detailed', 'Reports\InternalFinanceController@detailed')->name('reports.finance.detailed');
+        Route::get('/finance/detailed_pdf', 'Reports\InternalFinanceController@detailedPdf')->name('reports.finance.detailed_pdf');
     });
 
     /*

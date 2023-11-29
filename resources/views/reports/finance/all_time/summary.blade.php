@@ -70,6 +70,11 @@
         {{ Form::close() }}
     </div>
 </div>
+
+@if ($showBudgetSummary)
+    @include('reports.finance._internal_periode_summary')
+@endif
+
 <div class="card table-responsive">
     @include('reports.finance._internal_content_summary')
 </div>

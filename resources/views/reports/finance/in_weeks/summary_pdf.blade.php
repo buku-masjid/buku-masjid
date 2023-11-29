@@ -15,6 +15,12 @@
     </h2>
 </htmlpageheader>
 
+@if ($showBudgetSummary)
+    <br>
+    @include('reports.finance._internal_periode_summary')
+    <br>
+@endif
+
 <div class="">
     @include('reports.finance._internal_content_summary')
 </div>
