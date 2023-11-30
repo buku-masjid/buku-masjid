@@ -48,7 +48,7 @@
         </tr>
         @endif
         @if ($currentBudget)
-            <tr>
+            <tr class="{{ $budgetDifferenceColorClass }}">
                 <td class="col-4 strong">
                     <span id="current_periode_budget_remaining_label">{{ $currentBudgetRemainingLabel }}</span>
                 </td>
