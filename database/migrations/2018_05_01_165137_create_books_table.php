@@ -17,6 +17,10 @@ return new class extends Migration
             $table->unsignedInteger('creator_id')->nullable();
             $table->string('report_visibility_code', 10)->default(Book::REPORT_VISIBILITY_INTERNAL);
             $table->unsignedTinyInteger('status_id')->default(Book::STATUS_ACTIVE);
+            $table->unsignedInteger('bank_account_id')->nullable();
+            $table->unsignedDecimal('budget', 12)->nullable();
+            $table->string('report_periode_code', 20)->default(Book::REPORT_PERIODE_IN_MONTHS);
+            $table->string('start_week_day_code', 10)->default('monday');
             $table->timestamps();
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');

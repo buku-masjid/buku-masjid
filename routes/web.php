@@ -16,10 +16,10 @@ Route::view('/', 'guest.welcome');
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function () {
-    Route::get('/', 'PublicReportController@index')->name('index');
-    Route::get('/bulanan', 'PublicReportController@inMonths')->name('in_months');
-    Route::get('/mingguan', 'PublicReportController@inWeeks')->name('in_weeks');
-    Route::get('/per_kategori', 'PublicReportController@inOut')->name('in_out');
+    Route::get('/', 'Reports\PublicFinanceController@index')->name('index');
+    Route::get('/ringkasan', 'Reports\PublicFinanceController@summary')->name('finance.summary');
+    Route::get('/per_kategori', 'Reports\PublicFinanceController@categorized')->name('finance.categorized');
+    Route::get('/rincian', 'Reports\PublicFinanceController@detailed')->name('finance.detailed');
 });
 
 Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
@@ -61,13 +61,16 @@ Route::group(['middleware' => 'auth'], function () {
      * Report Routes
      */
     Route::group(['prefix' => 'report'], function () {
-        Route::get('/', 'ReportsController@inMonths')->name('reports.index');
-        Route::get('/in_months', 'ReportsController@inMonths')->name('reports.in_months');
-        Route::get('/in_months_pdf', 'ReportsController@inMonthsPdf')->name('reports.in_months_pdf');
-        Route::get('/in_out', 'ReportsController@inOut')->name('reports.in_out');
-        Route::get('/in_out_pdf', 'ReportsController@inOutPdf')->name('reports.in_out_pdf');
-        Route::get('/in_weeks', 'ReportsController@inWeeks')->name('reports.in_weeks');
-        Route::get('/in_weeks_pdf', 'ReportsController@inWeeksPdf')->name('reports.in_weeks_pdf');
+        Route::get('/', 'Reports\InternalFinanceController@summary')->name('reports.index');
+
+        Route::get('/finance/summary', 'Reports\InternalFinanceController@summary')->name('reports.finance.summary');
+        Route::get('/finance/summary_pdf', 'Reports\InternalFinanceController@summaryPdf')->name('reports.finance.summary_pdf');
+
+        Route::get('/finance/categorized', 'Reports\InternalFinanceController@categorized')->name('reports.finance.categorized');
+        Route::get('/finance/categorized_pdf', 'Reports\InternalFinanceController@categorizedPdf')->name('reports.finance.categorized_pdf');
+
+        Route::get('/finance/detailed', 'Reports\InternalFinanceController@detailed')->name('reports.finance.detailed');
+        Route::get('/finance/detailed_pdf', 'Reports\InternalFinanceController@detailedPdf')->name('reports.finance.detailed_pdf');
     });
 
     /*

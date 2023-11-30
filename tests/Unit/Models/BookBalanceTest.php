@@ -22,6 +22,7 @@ class BookBalanceTest extends TestCase
     /** @test */
     public function balance_can_returns_current_balance_of_alltime_transactions()
     {
+        factory(Book::class)->create();
         $book = factory(Book::class)->create();
 
         // Income transaction
@@ -36,6 +37,7 @@ class BookBalanceTest extends TestCase
     /** @test */
     public function balance_can_returns_balance_until_specified_date()
     {
+        factory(Book::class)->create();
         $book = factory(Book::class)->create();
 
         // Income transaction

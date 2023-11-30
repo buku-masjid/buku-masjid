@@ -17,9 +17,13 @@ class Book extends Model
     const STATUS_ACTIVE = 1;
     const REPORT_VISIBILITY_PUBLIC = 'public';
     const REPORT_VISIBILITY_INTERNAL = 'internal';
+    const REPORT_PERIODE_IN_MONTHS = 'in_months';
+    const REPORT_PERIODE_IN_WEEKS = 'in_weeks';
+    const REPORT_PERIODE_ALL_TIME = 'all_time';
 
     protected $fillable = [
         'name', 'description', 'status_id', 'creator_id', 'bank_account_id', 'report_visibility_code', 'report_titles',
+        'budget', 'report_periode_code', 'start_week_day_code',
     ];
     protected $casts = [
         'report_titles' => 'array',
@@ -58,6 +62,7 @@ class Book extends Model
     public function getBalance($perDate = null, $startDate = null, $categoryId = null): float
     {
         $transactionQuery = $this->transactions();
+        $transactionQuery->withoutGlobalScope('forActiveBook');
         if ($perDate) {
             $transactionQuery->where('date', '<=', $perDate);
         }

@@ -1,115 +1,53 @@
 @extends('layouts.settings')
 
-@section('title', __('book.transactions'))
+@section('title', __('book.detail').' - '.$book->name)
 
 @section('content_settings')
 
 <div class="page-header">
     <h1 class="page-title">{{ $book->name }}</h1>
-    <div class="page-subtitle">{{ __('book.transactions') }}</div>
+    <div class="page-subtitle">{{ __('book.detail') }}</div>
     <div class="page-options d-flex">
         {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
     </div>
 </div>
 
-@include('transactions.partials.stats')
-
-@if ($book->description)
-    <div class="alert alert-info"><strong>{{ __('app.description') }}:</strong><br>{{ $book->description }}</div>
-@endif
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card table-responsive">
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card">
             <div class="card-header">
-                @include('books.partials.show_filter')
+                <span class="card-options">{{ $book->audience }}</span>
+                {{ __('book.detail') }}
             </div>
-            @desktop
-            <table class="table table-sm table-responsive-sm table-hover table-bordered mb-0">
-                <thead>
-                    <tr>
-                        <th class="text-center col-md-1">{{ __('app.table_no') }}</th>
-                        <th class="text-center col-md-2">{{ __('app.date') }}</th>
-                        <th class="col-md-7">{{ __('transaction.description') }}</th>
-                        <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
-                        <th class="text-center">{{ __('app.action') }}</th>
-                    </tr>
-                </thead>
+            <table class="table table-sm card-table">
                 <tbody>
-                    @forelse ($transactions as $key => $transaction)
-                    <tr>
-                        <td class="text-center">{{ 1 + $key }}</td>
-                        <td class="text-center">{{ $transaction->date }}</td>
-                        <td>
-                            {{ $transaction->description }}
-                            <div class="float-right">
-                                {!! optional($transaction->category)->name_label !!}
-                            </div>
-                        </td>
-                        <td class="text-right">{{ $transaction->amount_string }}</td>
-                        <td class="text-center">
-                            @can('update', $transaction)
-                                @can('manage-transactions', auth()->activeBook())
-                                    {!! link_to_route(
-                                        'books.show',
-                                        __('app.edit'),
-                                        [$book->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'category_id']),
-                                        ['id' => 'edit-transaction-'.$transaction->id]
-                                    ) !!}
-                                @endcan
-                            @endcan
-                        </td>
-                    </tr>
-                    @empty
-                    <tr><td colspan="5">{{ __('transaction.not_found') }}</td></tr>
-                    @endforelse
+                    <tr><td class="col-4">{{ __('book.name') }}</td><td>{{ $book->name }}</td></tr>
+                    <tr><td>{{ __('book.description') }}</td><td>{{ $book->description }}</td></tr>
+                    <tr><td>{{ __('bank_account.bank_account') }}</td><td>{{ $book->bankAccount->name }}</td></tr>
+                    <tr><td>{{ __('book.budget') }}</td><td>{{ format_number($book->budget ?: 0) }}</td></tr>
+                    <tr><td>{{ __('app.status') }}</td><td>{{ $book->status }}</td></tr>
+                    <tr><td>{{ __('book.report_visibility') }}</td><td>{{ __('book.report_visibility_'.$book->report_visibility_code) }}</td></tr>
+                    <tr><td>{{ __('report.periode') }}</td><td>{{ __('report.'.$book->report_periode_code) }}</td></tr>
+                    <tr><td>{{ __('report.start_week_day') }}</td><td>{{ __('time.days.'.$book->start_week_day_code) }}</td></tr>
                 </tbody>
-                <tfoot>
-                    <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }}</td>
-                        <td class="text-right">
-                            {{ format_number($transactions->sum(function ($transaction) {
-                                return $transaction->in_out ? $transaction->amount : -$transaction->amount;
-                            })) }}
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tfoot>
             </table>
-            @elsedesktop
-            <div class="card-body">
-                @foreach ($transactions as $transaction)
-                    @include('books.partials.single_transaction_mobile', ['transaction' => $transaction])
-                @endforeach
+            <div class="card-footer">
+                @can('update', $book)
+                    {{ link_to_route('books.edit', __('book.edit'), [$book], ['class' => 'btn btn-warning', 'id' => 'edit-book-'.$book->id]) }}
+                @endcan
+                {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-link']) }}
             </div>
-            @enddesktop
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="page-header">
+            <h3 class="page-title">{{ __('report.finance_summary') }}</h3>
+            <div class="page-options d-flex"></div>
+        </div>
+        <div class="card">
+            @livewire('books.financial-summary', ['bookId' => $book->id])
         </div>
     </div>
 </div>
-@if(Request::has('action'))
-@include('books.partials.transaction-forms')
-@endif
-@endsection
 
-@section('styles')
-    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
 @endsection
-
-@push('scripts')
-    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
-<script>
-(function () {
-    $('#transactionModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-    $('.date-select').datetimepicker({
-        timepicker:false,
-        format:'Y-m-d',
-        closeOnDateSelect: true,
-        scrollInput: false,
-        dayOfWeekStart: 1
-    });
-})();
-</script>
-@endpush

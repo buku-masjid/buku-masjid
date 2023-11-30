@@ -35,6 +35,7 @@ class ManageBookTest extends TestCase
         $this->submitForm(__('book.create'), [
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
+            'budget' => 1000000,
         ]);
 
         $this->seeRouteIs('books.index');
@@ -42,6 +43,7 @@ class ManageBookTest extends TestCase
         $this->seeInDatabase('books', [
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
+            'budget' => 1000000,
             'status_id' => Book::STATUS_ACTIVE,
             'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
@@ -60,6 +62,7 @@ class ManageBookTest extends TestCase
         $this->submitForm(__('book.create'), [
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
+            'budget' => 1000000,
             'bank_account_id' => $bankAccount->id,
         ]);
 
@@ -69,6 +72,7 @@ class ManageBookTest extends TestCase
             'name' => 'Book 1 name',
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
+            'budget' => 1000000,
             'bank_account_id' => $bankAccount->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
@@ -85,9 +89,9 @@ class ManageBookTest extends TestCase
         ]);
         $bankAccount = factory(BankAccount::class)->create();
 
-        $this->visitRoute('books.index');
+        $this->visitRoute('books.show', $book);
         $this->click('edit-book-'.$book->id);
-        $this->seeRouteIs('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->seeRouteIs('books.edit', [$book]);
 
         $this->submitForm(__('book.update'), [
             'name' => 'Book 1 name',
@@ -95,9 +99,12 @@ class ManageBookTest extends TestCase
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'budget' => 1000000,
+            'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'start_week_day_code' => 'friday',
         ]);
 
-        $this->seeRouteIs('books.index');
+        $this->seeRouteIs('books.show', [$book]);
 
         $this->seeInDatabase('books', [
             'name' => 'Book 1 name',
@@ -105,6 +112,9 @@ class ManageBookTest extends TestCase
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'budget' => 1000000,
+            'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'start_week_day_code' => 'friday',
         ]);
     }
 
@@ -115,9 +125,9 @@ class ManageBookTest extends TestCase
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
         factory(Book::class)->create(['creator_id' => $user->id]);
 
-        $this->visitRoute('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->visitRoute('books.edit', [$book]);
         $this->click('del-book-'.$book->id);
-        $this->seeRouteIs('books.index', ['action' => 'delete', 'id' => $book->id]);
+        $this->seeRouteIs('books.edit', [$book, 'action' => 'delete']);
 
         $this->seeInDatabase('books', [
             'id' => $book->id,
@@ -138,9 +148,9 @@ class ManageBookTest extends TestCase
         factory(Transaction::class)->create(['book_id' => $book->id]);
         factory(Category::class)->create(['book_id' => $book->id]);
 
-        $this->visitRoute('books.index', ['action' => 'edit', 'id' => $book->id]);
+        $this->visitRoute('books.edit', [$book]);
         $this->click('del-book-'.$book->id);
-        $this->seeRouteIs('books.index', ['action' => 'delete', 'id' => $book->id]);
+        $this->seeRouteIs('books.edit', [$book, 'action' => 'delete']);
 
         $this->seeInDatabase('books', ['id' => $book->id]);
         $this->seeInDatabase('categories', ['book_id' => $book->id]);

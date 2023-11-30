@@ -28,4 +28,14 @@ return [
 
     'start_date' => 'Start Date',
     'end_date' => 'End Date',
+
+    'days' => [
+        'monday' => 'Monday',
+        'tuesday' => 'Tuesday',
+        'wednesday' => 'Wednesday',
+        'thursday' => 'Thursday',
+        'friday' => 'Friday',
+        'saturday' => 'Saturday',
+        'sunday' => 'Sunday',
+    ],
 ];

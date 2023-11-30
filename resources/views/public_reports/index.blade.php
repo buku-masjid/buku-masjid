@@ -13,12 +13,15 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ __('book.book') }}: {{ $book->name }}</h3>
+                    <h3 class="card-title">{{ $book->name }}</h3>
                 </div>
-                <div class="card-body">{{ $book->description }}</div>
+                @livewire('books.financial-summary', ['bookId' => $book->id])
+                @if ($book->description)
+                    <div class="card-body bg-green-lightest">{{ $book->description }}</div>
+                @endif
                 <div class="card-footer">
                     {{ link_to_route(
-                        'public_reports.in_months',
+                        'public_reports.finance.summary',
                         __('report.view_report'),
                         ['active_book_id' => $book->id, 'nonce' => $book->nonce],
                         [

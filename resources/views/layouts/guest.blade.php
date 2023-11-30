@@ -21,6 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    @yield('styles')
 </head>
 <body>
     <div class="container-fluid">
@@ -63,5 +64,6 @@
     </main>
     <script src="{{ asset('js/app.js') }}" ></script>
     @include('layouts.partials.noty')
+    @stack('scripts')
 </body>
 </html>

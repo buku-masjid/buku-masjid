@@ -6,7 +6,7 @@ use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ChangeInWeeksReportTitleTest extends TestCase
+class ChangeDetailedReportTitleTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -16,30 +16,30 @@ class ChangeInWeeksReportTitleTest extends TestCase
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['name' => 'Ramadhan 2023']);
 
-        $this->visitRoute('reports.in_weeks');
+        $this->visitRoute('reports.finance.detailed');
         $this->seeElement('a', ['id' => 'change_report_title']);
 
         $this->click('change_report_title');
 
-        $this->seeRouteIs('reports.in_weeks', [
+        $this->seeRouteIs('reports.finance.detailed', [
             'action' => 'change_report_title',
             'book_id' => $book->id,
             'nonce' => $book->nonce,
         ]);
 
         $this->submitForm(__('book.change_report_title'), [
-            'report_titles' => ['in_weeks' => 'Judul Laporan'],
+            'report_titles' => ['finance_detailed' => 'Judul Laporan'],
             'book_id' => $book->id,
             'nonce' => $book->nonce,
         ]);
 
-        $this->seeRouteIs('reports.in_weeks');
+        $this->seeRouteIs('reports.finance.detailed');
 
         $this->seeText(__('report.title_updated'));
         $this->seeText('Judul Laporan');
         $this->seeInDatabase('books', [
             'id' => $book->id,
-            'report_titles' => json_encode(['in_weeks' => 'Judul Laporan']),
+            'report_titles' => json_encode(['finance_detailed' => 'Judul Laporan']),
         ]);
     }
 
@@ -49,19 +49,19 @@ class ChangeInWeeksReportTitleTest extends TestCase
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['name' => 'Ramadhan 2023']);
 
-        $this->visitRoute('reports.in_weeks');
+        $this->visitRoute('reports.finance.detailed');
         $this->seeElement('a', ['id' => 'change_report_title']);
 
         $this->click('change_report_title');
 
-        $this->seeRouteIs('reports.in_weeks', [
+        $this->seeRouteIs('reports.finance.detailed', [
             'action' => 'change_report_title',
             'book_id' => $book->id,
             'nonce' => $book->nonce,
         ]);
         $this->seeElement('input', [
             'type' => 'text',
-            'name' => 'report_titles[in_weeks]',
+            'name' => 'report_titles[finance_detailed]',
             'value' => __('report.weekly'),
         ]);
     }
@@ -72,30 +72,30 @@ class ChangeInWeeksReportTitleTest extends TestCase
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['name' => 'Ramadhan 2023']);
 
-        $this->visitRoute('reports.in_weeks');
+        $this->visitRoute('reports.finance.detailed');
         $this->seeElement('a', ['id' => 'change_report_title']);
 
         $this->click('change_report_title');
 
-        $this->seeRouteIs('reports.in_weeks', [
+        $this->seeRouteIs('reports.finance.detailed', [
             'action' => 'change_report_title',
             'book_id' => $book->id,
             'nonce' => $book->nonce,
         ]);
 
         $this->submitForm(__('book.reset_report_title'), [
-            'report_titles' => ['in_weeks' => 'Judul Laporan'],
+            'report_titles' => ['finance_detailed' => 'Judul Laporan'],
             'book_id' => $book->id,
             'nonce' => $book->nonce,
         ]);
 
-        $this->seeRouteIs('reports.in_weeks');
+        $this->seeRouteIs('reports.finance.detailed');
 
         $this->seeText(__('report.title_updated'));
         $this->seeText(__('report.weekly'));
         $this->seeInDatabase('books', [
             'id' => $book->id,
-            'report_titles' => json_encode(['in_weeks' => null]),
+            'report_titles' => json_encode(['finance_detailed' => null]),
         ]);
     }
 }

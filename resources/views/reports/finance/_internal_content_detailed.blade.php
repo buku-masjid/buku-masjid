@@ -1,22 +1,4 @@
-@extends('layouts.print')
-
-@section('title', __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
-
-@section('content')
-<htmlpageheader name="wpHeader">
-    @include('reports.partials.letterhead')
-
-    <h2 class="text-center strong">
-        @if (isset(auth()->activeBook()->report_titles['in_weeks']))
-            {{ auth()->activeBook()->report_titles['in_weeks'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
-        @else
-            {{ __('report.weekly') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
-        @endif
-    </h2>
-</htmlpageheader>
-
-@foreach($groupedTransactions as $weekNumber => $weekTransactions)
-<table class="table">
+<table class="table table-sm mb-0 table-hover table-bordered">
     <thead>
         <tr>
             <th class="text-center">{{ __('app.date') }}</th>
@@ -46,44 +28,24 @@
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="2" class="text-right">{{ __('app.total') }}</th>
-            <th class="text-right">
+            <td colspan="2" class="text-right strong">{{ __('app.total') }}</td>
+            <td class="text-right strong">
                 @php
                     $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
                         return $transaction->in_out ? $transaction->amount : 0;
                     });
                 @endphp
                 {{ format_number($incomeAmount) }}
-            </th>
-            <th class="text-right">
+            </td>
+            <td class="text-right strong">
                 @php
                     $spendingAmount = $weekTransactions->flatten()->sum(function ($transaction) {
                         return $transaction->in_out ? 0 : $transaction->amount;
                     });
                 @endphp
                 {{ format_number($spendingAmount) }}
-            </th>
-            <th class="text-right">{{ format_number($incomeAmount - $spendingAmount) }}</th>
+            </td>
+            <td class="text-right strong">{{ format_number($incomeAmount - $spendingAmount) }}</td>
         </tr>
     </tfoot>
 </table>
-@if ($weekNumber != $groupedTransactions->keys()->last())
-    <pagebreak />
-@endif
-@endforeach
-@endsection
-
-@section('style')
-<style>
-    @page {
-        size: auto;
-        margin-top: @if($showLetterhead) 170px; @else 100px; @endif
-        margin-bottom: 50px;
-        margin-left: 50px;
-        margin-right: 50px;
-        margin-header: 40px;
-        margin-footer: 40px;
-        header: html_wpHeader;
-    }
-</style>
-@endsection

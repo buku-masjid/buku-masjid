@@ -14,6 +14,7 @@
         .text-left { text-align: left; }
         .text-center { text-align: center; }
         .text-right { text-align: right; }
+        .text-danger { color: red; }
         .pull-right { float: right; }
         .strong { font-weight: bold; }
         .page-break { page-break-after: always; }

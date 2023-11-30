@@ -18,26 +18,44 @@ class ReportTitleController extends Controller
             'book_id' => ['required', 'in:'.$book->id],
             'nonce' => ['required', 'in:'.$book->nonce],
         ]);
-        $redirectRoute = 'reports.in_months';
-        if ($request->has('report_titles.in_out')) {
-            $redirectRoute = 'reports.in_out';
-        }
-        if ($request->has('report_titles.in_weeks')) {
-            $redirectRoute = 'reports.in_weeks';
-        }
-        if ($request->has('reset_report_title.in_out')) {
-            $bookData['report_titles']['in_out'] = null;
-        }
-        if ($request->has('reset_report_title.in_weeks')) {
-            $bookData['report_titles']['in_weeks'] = null;
-        }
-        if ($request->has('reset_report_title.in_months')) {
-            $bookData['report_titles']['in_months'] = null;
-        }
-        $book->update(['report_titles' => $bookData['report_titles']]);
+        $redirectRoute = $this->getRedirectRouteFromRequest($request);
+        $reportTitles = $this->getReportTitlesFromRequest($request);
+        $currentBookReportTitles = $book->report_titles ?: [];
+        $reportTitles = array_merge($currentBookReportTitles, $reportTitles);
+        $book->update(['report_titles' => $reportTitles]);
 
         flash(__('report.title_updated'), 'success');
 
         return redirect()->route($redirectRoute);
+    }
+
+    private function getRedirectRouteFromRequest(Request $request)
+    {
+        $redirectRoute = 'reports.finance.summary';
+        if ($request->has('report_titles.finance_categorized')) {
+            $redirectRoute = 'reports.finance.categorized';
+        }
+        if ($request->has('report_titles.finance_detailed')) {
+            $redirectRoute = 'reports.finance.detailed';
+        };
+
+        return $redirectRoute;
+    }
+
+    private function getReportTitlesFromRequest(Request $request)
+    {
+        $reportTitles = $request->get('report_titles');
+
+        if ($request->has('reset_report_title.finance_summary')) {
+            $reportTitles['finance_summary'] = null;
+        }
+        if ($request->has('reset_report_title.finance_categorized')) {
+            $reportTitles['finance_categorized'] = null;
+        }
+        if ($request->has('reset_report_title.finance_detailed')) {
+            $reportTitles['finance_detailed'] = null;
+        }
+
+        return $reportTitles;
     }
 }
