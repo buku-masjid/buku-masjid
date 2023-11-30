@@ -16,6 +16,7 @@ class FinancialSummary extends Component
     public $currentIncomeTotal = 0;
     public $currentSpendingTotal = 0;
     public $reportPeriodeCode = Book::REPORT_PERIODE_IN_MONTHS;
+    public $currentPeriodeBudgetLabel;
 
     public function render()
     {
@@ -62,5 +63,12 @@ class FinancialSummary extends Component
             $this->currentPeriodeBudgetLabel = __('report.current_week_budget');
         }
         $this->reportPeriodeCode = $book->report_periode_code;
+        if ($this->currentBudget) {
+            if ($this->currentBudget > $this->currentIncomeTotal) {
+                $this->currentBudgetRemainingLabel = __('report.current_periode_budget_remaining');
+            } else {
+                $this->currentBudgetRemainingLabel = __('report.current_periode_budget_excess');
+            }
+        }
     }
 }

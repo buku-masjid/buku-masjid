@@ -29,6 +29,7 @@
                 <span id="current_periode_income_total">{{ format_number($currentIncomeTotal) }}</span>
             </td>
         </tr>
+        @if (!$currentBudget)
         <tr>
             <td class="col-4">
                 <span>{{ __('report.current_periode_spending_total') }}</span>
@@ -45,13 +46,14 @@
                 <span id="current_balance">{{ format_number($currentBalance) }}</span>
             </td>
         </tr>
+        @endif
         @if ($currentBudget)
             <tr>
                 <td class="col-4 strong">
-                    <span id="current_periode_budget_remaining_label">{{ __('report.current_periode_budget_remaining') }}</span>
+                    <span id="current_periode_budget_remaining_label">{{ $currentBudgetRemainingLabel }}</span>
                 </td>
                 <td class="col-1 text-right strong">
-                    <span id="current_periode_budget_remaining">{{ format_number($budgetDifference) }}</span>
+                    <span id="current_periode_budget_remaining">{{ format_number(abs($budgetDifference)) }}</span>
                 </td>
             </tr>
         @endif

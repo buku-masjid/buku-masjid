@@ -22,8 +22,8 @@ class AllTimeWithBudgetFinancialSummaryTest extends TestCase
             ->assertSeeHtml('<span id="current_periode_budget_label">'.__('report.current_periode_budget').'</span>')
             ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
             ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(0).'</span>')
+            ->assertDontSeeHtml('<span id="current_periode_spending_total">'.format_number(0).'</span>')
+            ->assertDontSeeHtml('<span id="current_balance">'.format_number(0).'</span>')
             ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(1000000).'</span>');
     }
 
@@ -47,8 +47,6 @@ class AllTimeWithBudgetFinancialSummaryTest extends TestCase
         Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
             ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
             ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>')
             ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(900000).'</span>');
     }
 
@@ -81,8 +79,6 @@ class AllTimeWithBudgetFinancialSummaryTest extends TestCase
         Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
             ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
             ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>')
             ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(900000).'</span>');
     }
 
@@ -121,8 +117,6 @@ class AllTimeWithBudgetFinancialSummaryTest extends TestCase
         Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
             ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
             ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(199000).'</span>')
-            ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(-20000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(179000).'</span>')
             ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(801000).'</span>');
     }
 
@@ -155,8 +149,27 @@ class AllTimeWithBudgetFinancialSummaryTest extends TestCase
         Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
             ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
             ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_periode_spending_total">'.format_number(-109000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(-9000).'</span>')
             ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(900000).'</span>');
+    }
+
+    /** @test */
+    public function show_budget_excess_when_income_total_is_larger_than_budget()
+    {
+        $book = factory(Book::class)->create(['report_periode_code' => Book::REPORT_PERIODE_ALL_TIME, 'budget' => 1000000]);
+        $nextPeriodeDate = now()->addMonth()->addDays(3)->format('Y-m-d');
+        $today = today()->format('Y-m-d');
+
+        factory(Transaction::class)->create([
+            'amount' => 1000100,
+            'date' => $today,
+            'book_id' => $book->id,
+            'in_out' => 1,
+        ]);
+
+        Livewire::test(FinancialSummary::class, ['bookId' => $book->id])
+            ->assertSeeHtml('<span id="current_periode_budget">'.format_number(1000000).'</span>')
+            ->assertSeeHtml('<span id="current_periode_income_total">'.format_number(1000100).'</span>')
+            ->assertSeeHtml('<span id="current_periode_budget_remaining_label">'.__('report.current_periode_budget_excess').'</span>')
+            ->assertSeeHtml('<span id="current_periode_budget_remaining">'.format_number(abs(100)).'</span>');
     }
 }
