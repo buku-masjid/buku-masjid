@@ -24,11 +24,13 @@ return new class extends Migration
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
 
-        Schema::table('books', function (Blueprint $table) {
-            $table->unsignedInteger('bank_account_id')->nullable()->after('status_id');
+        if (!Schema::hasColumn('books', 'bank_account_id')) {
+            Schema::table('books', function (Blueprint $table) {
+                $table->unsignedInteger('bank_account_id')->nullable()->after('status_id');
 
-            $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
-        });
+                $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
+            });
+        }
     }
 
     /**
@@ -37,9 +39,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('bank_accounts');
-
-        Schema::table('books', function (Blueprint $table) {
-            $table->dropColumn('bank_account_id');
-        });
+        if (Schema::hasColumn('books', 'bank_account_id')) {
+            Schema::table('books', function (Blueprint $table) {
+                $table->dropColumn('bank_account_id');
+            });
+        }
     }
 };
