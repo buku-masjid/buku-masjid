@@ -5,39 +5,10 @@
 @section('content-report')
 
 @if (request('action') && request('book_id') && request('nonce'))
-    <div id="reportModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{ __('book.change_report_title') }}</h5>
-                    {{ link_to_route('reports.finance.detailed', '', [], ['class' => 'close']) }}
-                </div>
-                {!! Form::open(['route' => ['books.report_titles.update', request('book_id')], 'method' => 'patch']) !!}
-                <div class="modal-body">
-                    @php
-                        $existingReportTitle = __('report.weekly');
-                        if (isset(auth()->activeBook()->report_titles['finance_detailed'])) {
-                            $existingReportTitle = auth()->activeBook()->report_titles['finance_detailed'];
-                        }
-                        $reportTitle = old('report_titles[finance_detailed]', $existingReportTitle);
-                    @endphp
-                    {{ Form::text('report_titles[finance_detailed]', $reportTitle, [
-                        'required' => true,
-                        'class' => 'form-control',
-                    ]) }}
-                    {{ Form::hidden('book_id', request('book_id')) }}
-                    {{ Form::hidden('nonce', request('nonce')) }}
-                </div>
-                <div class="modal-footer">
-                    {!! Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('reports.finance.detailed', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
-                    {!! Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-secondary', 'name' => 'reset_report_title[finance_detailed]']) !!}
-                </div>
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
+    @include('reports.finance._edit_report_title_form', [
+        'reportType' => 'detailed',
+        'existingReportTitle' => __('report.weekly'),
+    ])
 @endif
 
 <div class="page-header mt-0">

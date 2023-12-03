@@ -16,7 +16,7 @@ class ChangeCategorizedReportTitleTest extends TestCase
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['name' => 'Ramadhan 2023']);
 
-        $this->visitRoute('reports.finance.categorized');
+        $this->visitRoute('reports.finance.categorized', ['year' => 2023, 'month' => 12]);
         $this->seeElement('a', ['id' => 'change_report_title']);
 
         $this->click('change_report_title');
@@ -24,7 +24,9 @@ class ChangeCategorizedReportTitleTest extends TestCase
         $this->seeRouteIs('reports.finance.categorized', [
             'action' => 'change_report_title',
             'book_id' => $book->id,
+            'month' => 12,
             'nonce' => $book->nonce,
+            'year' => 2023,
         ]);
 
         $this->submitForm(__('book.change_report_title'), [
@@ -33,7 +35,10 @@ class ChangeCategorizedReportTitleTest extends TestCase
             'nonce' => $book->nonce,
         ]);
 
-        $this->seeRouteIs('reports.finance.categorized');
+        $this->seeRouteIs('reports.finance.categorized', [
+            'month' => 12,
+            'year' => 2023,
+        ]);
 
         $this->seeText(__('report.title_updated'));
         $this->seeText('Judul Laporan');
