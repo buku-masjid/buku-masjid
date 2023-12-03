@@ -26,7 +26,10 @@ class ReportTitleController extends Controller
 
         flash(__('report.title_updated'), 'success');
 
-        return redirect()->route($redirectRoute);
+        return redirect()->route($redirectRoute, $request->except([
+            'report_titles', 'action', '_method', '_token',
+            'book_id', 'nonce', 'reset_report_title',
+        ]));
     }
 
     private function getRedirectRouteFromRequest(Request $request)

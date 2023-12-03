@@ -6,7 +6,7 @@
                 <h5 class="modal-title">{{ __('book.change_report_title') }}</h5>
                 {{ link_to_route('reports.finance.'.$reportType, '', [], ['class' => 'close']) }}
             </div>
-            {!! Form::open(['route' => ['books.report_titles.update', request('book_id')], 'method' => 'patch']) !!}
+            {!! Form::open(['route' => ['books.report_titles.update', request('book_id')] + request()->except(['action']), 'method' => 'patch']) !!}
             <div class="modal-body">
                 @php
                     if (isset(auth()->activeBook()->report_titles['finance_'.$reportType])) {
