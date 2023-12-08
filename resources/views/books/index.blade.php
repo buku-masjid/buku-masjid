@@ -21,6 +21,8 @@
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('book.name') }}</th>
+                        <th class="text-right text-nowrap">{{ __('book.budget') }}</th>
+                        <th class="text-nowrap">{{ __('report.periode') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
                         <th class="text-center">{{ __('book.visibility') }}</th>
                         <th>{{ __('bank_account.bank_account') }}</th>
@@ -41,6 +43,8 @@
                                 {{ $book->name }}
                             @endcan
                         </td>
+                        <td class="text-nowrap text-right">{{ $book->budget ? format_number($book->budget) : '' }}</td>
+                        <td class="text-nowrap">{{ __('report.'.$book->report_periode_code) }}</td>
                         <td class="text-nowrap text-center">{{ $book->status }}</td>
                         <td class="text-center">{{ __('book.report_visibility_'.$book->report_visibility_code) }}</td>
                         <td>{{ $book->bankAccount->name }}</td>
