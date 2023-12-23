@@ -42,7 +42,7 @@
                                 <i class="fe fe-layout"></i> {{ __('report.report') }}
                             </a>
                             <a class="p-2 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
-                                <i class="fe fe-calendar"></i> {{ __('lecturing_schedule.public_schedule') }}
+                                <i class="fe fe-calendar"></i> {{ __('lecturing.public_schedule') }}
                             </a>
                             @auth
                             <a class="p-2 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>

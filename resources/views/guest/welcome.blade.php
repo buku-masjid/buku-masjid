@@ -12,7 +12,7 @@
                 <a class="btn btn-lg btn-success mr-2" href="{{ route('public_reports.index') }}"
                     role="button">{{ __('report.view_report') }}</a>
                 <a class="btn btn-lg btn-info" href="{{ route('public_schedules.index') }}"
-                    role="button">{{ __('lecturing_schedule.lecturing_schedule') }}</a>
+                    role="button">{{ __('lecturing.lecturing') }}</a>
             </p>
         </div>
     </div>

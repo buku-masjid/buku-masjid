@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Book;
 use App\Models\Category;
-use App\Models\LecturingSchedule;
+use App\Models\Lecturing;
 use App\Transaction;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -148,7 +148,7 @@ class ManageUserTest extends TestCase
         factory(Transaction::class)->create(['creator_id' => $user->id]);
         factory(Category::class)->create(['creator_id' => $user->id]);
         factory(Book::class)->create(['creator_id' => $user->id]);
-        factory(LecturingSchedule::class)->create(['creator_id' => $user->id]);
+        factory(Lecturing::class)->create(['creator_id' => $user->id]);
 
         $this->visitRoute('users.edit', $user);
         $this->click('del-user-'.$user->id);

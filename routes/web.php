@@ -93,12 +93,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('bank_accounts.balances', 'BankAccounts\BalanceController');
 
     /*
-     * LecturingSchedules Routes
+     * Lecturings Routes
      */
-    Route::resource('friday_lecturing_schedules', App\Http\Controllers\FridayLecturingScheduleController::class)
-        ->parameters(['friday_lecturing_schedules' => 'lecturing_schedule'])
+    Route::resource('friday_lecturings', App\Http\Controllers\FridayLecturingController::class)
+        ->parameters(['friday_lecturings' => 'lecturing'])
         ->only(['create', 'store', 'show', 'edit', 'update']);
-    Route::resource('lecturing_schedules', App\Http\Controllers\LecturingScheduleController::class);
+    Route::resource('lecturings', App\Http\Controllers\LecturingController::class);
 
     Route::get('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'show'])->name('masjid_profile.show');
     Route::get('masjid_profile/edit', [App\Http\Controllers\MasjidProfileController::class, 'edit'])->name('masjid_profile.edit');
