@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Gate;
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        'App\Models\LecturingSchedule' => 'App\Policies\LecturingSchedulePolicy',
+        'App\Models\Lecturing' => 'App\Policies\LecturingPolicy',
         'App\Models\Book' => 'App\Policies\BookPolicy',
         'App\Models\Category' => 'App\Policies\CategoryPolicy',
         'App\Transaction' => 'App\Policies\TransactionPolicy',

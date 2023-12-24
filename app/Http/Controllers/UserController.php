@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
-use App\Models\LecturingSchedule;
+use App\Models\Lecturing;
 use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
@@ -69,19 +69,19 @@ class UserController extends Controller
         $transactionsCount = 0;
         $categoriesCount = 0;
         $booksCount = 0;
-        $lecturingSchedulesCount = 0;
+        $lecturingsCount = 0;
         $isDeleteable = false;
         if (request('action') == 'delete') {
             $transactionsCount = Transaction::where('creator_id', $user->id)->count();
             $categoriesCount = Category::where('creator_id', $user->id)->count();
             $booksCount = Book::where('creator_id', $user->id)->count();
-            $lecturingSchedulesCount = LecturingSchedule::where('creator_id', $user->id)->count();
-            $isDeleteable = !$transactionsCount && !$categoriesCount && !$booksCount && !$lecturingSchedulesCount;
+            $lecturingsCount = Lecturing::where('creator_id', $user->id)->count();
+            $isDeleteable = !$transactionsCount && !$categoriesCount && !$booksCount && !$lecturingsCount;
         }
 
         return view('users.edit', compact(
             'user', 'roles', 'statuses', 'transactionsCount', 'categoriesCount',
-            'booksCount', 'lecturingSchedulesCount', 'isDeleteable'
+            'booksCount', 'lecturingsCount', 'isDeleteable'
         ));
     }
 

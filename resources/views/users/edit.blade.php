@@ -36,8 +36,8 @@
                                 <span>{{ $booksCount }}</span>
                             </p>
                             <p>
-                                <label class="control-label text-primary">{{ __('lecturing_schedule.count') }}</label>:
-                                <span>{{ $lecturingSchedulesCount }}</span>
+                                <label class="control-label text-primary">{{ __('lecturing.count') }}</label>:
+                                <span>{{ $lecturingsCount }}</span>
                             </p>
                         </div>
                     </div>
