@@ -3,20 +3,22 @@
 namespace App\Http\Livewire\Books;
 
 use App\Models\Book;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class FinancialSummary extends Component
 {
     public $bookId;
     public $start;
-    public $todayDayDate;
+    public $isAlltime = true;
     public $currentBudget = 0;
     public $currentBalance = 0;
     public $startBalance = 0;
     public $currentIncomeTotal = 0;
     public $currentSpendingTotal = 0;
-    public $reportPeriodeCode = Book::REPORT_PERIODE_IN_MONTHS;
     public $currentPeriodeBudgetLabel;
+    public $budgetDifference = 0;
     public $budgetDifferenceColorClass;
 
     public function render()
@@ -26,52 +28,76 @@ class FinancialSummary extends Component
 
     public function mount()
     {
-        $this->today = today();
         $book = Book::find($this->bookId);
         if (is_null($book)) {
             return;
         }
-        $this->start = today()->startOfWeek();
-        if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
-            $this->start = today()->startOfMonth();
-        }
-        $transactionQuery = $book->transactions()
-            ->withoutGlobalScope('forActiveBook');
+
         if ($book->report_periode_code != Book::REPORT_PERIODE_ALL_TIME) {
-            $transactionQuery->whereBetween('date', [$this->start->format('Y-m-d'), $this->today->format('Y-m-d')]);
+            $this->startBalance = $this->getStartBalance($book);
+            $this->start = $this->getStartDate($book);
+            $this->isAlltime = false;
         }
-        $currentTransactions = $transactionQuery->get();
+        $this->today = today();
+        $currentTransactions = $this->getBookCurrentTransactions($book, $this->start, $this->today);
+        $this->currentSpendingTotal = $currentTransactions->where('in_out', 0)->sum('amount');
+        $this->currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount');
+        $this->currentBalance = $this->startBalance + $this->currentIncomeTotal - $this->currentSpendingTotal;
+
+        if (!$book->budget) {
+            return;
+        }
+
         $this->currentBudget = $book->budget;
+        $this->currentIncomeTotal += $this->startBalance;
+        $this->currentBalance -= $this->startBalance;
+        $this->budgetDifference = $book->budget - $this->currentIncomeTotal;
+        $this->currentPeriodeBudgetLabel = $this->setCurrentPeriodeBudgetLabel($book);
+
+        $this->budgetDifferenceColorClass = 'text-red';
+        $this->currentBudgetRemainingLabel = __('report.current_periode_budget_remaining');
+
+        if ($this->budgetDifference < 0) {
+            $this->budgetDifferenceColorClass = 'text-success';
+            $this->currentBudgetRemainingLabel = __('report.current_periode_budget_excess');
+        }
+    }
+
+    private function getStartDate(Book $book): Carbon
+    {
+        return $book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS ? today()->startOfMonth() : today()->startOfWeek();
+    }
+
+    public function getStartBalance(Book $book): float
+    {
         $endOfLastDate = today()->startOfWeek()->subDay()->format('Y-m-d');
+
         if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
             $endOfLastDate = today()->startOfMonth()->subDay()->format('Y-m-d');
         }
-        $this->startBalance = ($book->report_periode_code == Book::REPORT_PERIODE_ALL_TIME) ? 0 : $book->getBalance($endOfLastDate);
-        $this->currentSpendingTotal = $currentTransactions->where('in_out', 0)->sum('amount');
-        if ($book->budget) {
-            $this->currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount') + $this->startBalance;
-            $this->currentBalance = $this->currentIncomeTotal - $this->currentSpendingTotal;
-        } else {
-            $this->currentIncomeTotal = $currentTransactions->where('in_out', 1)->sum('amount');
-            $this->currentBalance = $this->startBalance + $this->currentIncomeTotal - $this->currentSpendingTotal;
+
+        return $book->getBalance($endOfLastDate);
+    }
+
+    private function getBookCurrentTransactions(Book $book, ?Carbon $startDate, Carbon $endDate): Collection
+    {
+        $transactionQuery = $book->transactions()->withoutGlobalScope('forActiveBook');
+        if (!is_null($startDate)) {
+            $transactionQuery->whereBetween('date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')]);
         }
-        $this->budgetDifference = $this->currentBudget - $this->currentIncomeTotal;
-        $this->currentPeriodeBudgetLabel = __('report.current_periode_budget');
+
+        return $transactionQuery->get();
+    }
+
+    private function setCurrentPeriodeBudgetLabel(Book $book): string
+    {
         if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
-            $this->currentPeriodeBudgetLabel = __('report.current_month_budget');
+            return __('report.current_month_budget');
         }
         if ($book->report_periode_code == Book::REPORT_PERIODE_IN_WEEKS) {
-            $this->currentPeriodeBudgetLabel = __('report.current_week_budget');
+            return __('report.current_week_budget');
         }
-        $this->reportPeriodeCode = $book->report_periode_code;
-        if ($this->currentBudget) {
-            if ($this->currentBudget > $this->currentIncomeTotal) {
-                $this->budgetDifferenceColorClass = 'text-red';
-                $this->currentBudgetRemainingLabel = __('report.current_periode_budget_remaining');
-            } else {
-                $this->budgetDifferenceColorClass = 'text-success';
-                $this->currentBudgetRemainingLabel = __('report.current_periode_budget_excess');
-            }
-        }
+
+        return __('report.current_periode_budget');
     }
 }
