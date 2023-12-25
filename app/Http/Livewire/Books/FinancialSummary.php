@@ -52,7 +52,7 @@ class FinancialSummary extends Component
         $this->currentIncomeTotal += $this->startBalance;
         $this->currentBalance -= $this->startBalance;
         $this->budgetDifference = $book->budget - $this->currentIncomeTotal;
-        $this->currentPeriodeBudgetLabel = $this->setCurrentPeriodeBudgetLabel($book);
+        $this->currentPeriodeBudgetLabel = __('report.current_'.$book->report_periode_code.'_budget');
 
         $this->budgetDifferenceColorClass = 'text-red';
         $this->currentBudgetRemainingLabel = __('report.current_periode_budget_remaining');
@@ -87,17 +87,5 @@ class FinancialSummary extends Component
         }
 
         return $transactionQuery->get();
-    }
-
-    private function setCurrentPeriodeBudgetLabel(Book $book): string
-    {
-        if ($book->report_periode_code == Book::REPORT_PERIODE_IN_MONTHS) {
-            return __('report.current_month_budget');
-        }
-        if ($book->report_periode_code == Book::REPORT_PERIODE_IN_WEEKS) {
-            return __('report.current_week_budget');
-        }
-
-        return __('report.current_periode_budget');
     }
 }
