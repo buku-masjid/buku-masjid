@@ -2,6 +2,13 @@
     <tbody>
         @if ($currentBudget)
             <tr>
+                <td colspan="2">
+                    <div class="progress progress-sm" title="{{ __('report.current_periode_income_total') }}: {{ $progressPercent }}%">
+                        <div class="progress-bar bg-{{ $progressPercentColor }}" style="width: {{ $progressPercent }}%"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td class="col-4">
                     <span id="current_periode_budget_label">{{ $currentPeriodeBudgetLabel }}</span>
                 </td>

@@ -20,6 +20,8 @@ class FinancialSummary extends Component
     public $currentPeriodeBudgetLabel;
     public $budgetDifference = 0;
     public $budgetDifferenceColorClass;
+    public $progressPercent = 0;
+    public $progressPercentColor = 'danger';
 
     public function render()
     {
@@ -61,6 +63,9 @@ class FinancialSummary extends Component
             $this->budgetDifferenceColorClass = 'text-success';
             $this->currentBudgetRemainingLabel = __('report.current_periode_budget_excess');
         }
+
+        $this->progressPercent = get_percent($this->currentIncomeTotal, $book->budget);
+        $this->progressPercentColor = $this->getProgressPercentColor($this->progressPercent);
     }
 
     private function getStartDate(Book $book): Carbon
@@ -87,5 +92,20 @@ class FinancialSummary extends Component
         }
 
         return $transactionQuery->get();
+    }
+
+    private function getProgressPercentColor(float $progressPercent): string
+    {
+        if ($progressPercent > 75) {
+            return 'success';
+        }
+        if ($progressPercent > 50) {
+            return 'info';
+        }
+        if ($progressPercent > 25) {
+            return 'warning';
+        }
+
+        return 'danger';
     }
 }

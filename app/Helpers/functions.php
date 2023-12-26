@@ -100,3 +100,14 @@ function format_size_units($bytes)
 
     return $bytes;
 }
+
+function get_percent($numerator, $denominator)
+{
+    $formatedString = 0;
+
+    if ($denominator) {
+        $formatedString = number_format(($numerator / $denominator * 100), 2);
+    }
+
+    return $formatedString;
+}
