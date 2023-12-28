@@ -107,10 +107,19 @@ class LecturingEntryTest extends TestCase
         $this->assertSessionHasErrors('date');
     }
 
+    /** @test */
+    public function prevent_selecting_other_day_for_friday_lecturing_entry()
+    {
+        $this->loginAsUser();
+
+        $this->post(route('friday_lecturings.store'), $this->getCreateForFridayFields(['date' => '2023-01-05']));
+        $this->assertSessionHasErrors('date');
+    }
+
     private function getCreateForFridayFields(array $overrides = []): array
     {
         return array_merge([
-            'date' => '2023-01-03',
+            'date' => '2023-01-06',
             'start_time' => '06:00',
             'lecturer_name' => 'Ustadz Haikal',
             'title' => 'Lecturing title',

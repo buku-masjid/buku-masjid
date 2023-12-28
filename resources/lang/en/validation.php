@@ -102,6 +102,7 @@ return [
     'friday_lecturing' => [
         'date' => [
             'unique' => 'Friday lecturing exists on the selected date.',
+            'friday_only' => 'Must be Friday.',
         ],
     ],
 

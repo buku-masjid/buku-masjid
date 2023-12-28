@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Lecturings;
 
+use App\Rules\Lecturings\FridayDate;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -21,6 +22,7 @@ class FridayUpdateRequest extends FormRequest
             'date' => [
                 'required',
                 'date_format:Y-m-d',
+                new FridayDate(),
                 Rule::unique('lecturings', 'date')->ignore($lecturing->id)->where(function (Builder $query) {
                     $query->where('audience_code', 'friday');
                 }),

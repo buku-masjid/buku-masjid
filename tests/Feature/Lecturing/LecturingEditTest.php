@@ -138,10 +138,20 @@ class LecturingEditTest extends TestCase
         $this->assertSessionHasErrors('date');
     }
 
+    /** @test */
+    public function prevent_selecting_other_day_for_friday_lecturing_update()
+    {
+        $this->loginAsUser();
+        $lecturing = factory(Lecturing::class)->create(['date' => '2023-01-13', 'audience_code' => 'friday']);
+
+        $this->patch(route('friday_lecturings.update', $lecturing), $this->getEditForFridayFields(['date' => '2023-01-12']));
+        $this->assertSessionHasErrors('date');
+    }
+
     private function getEditForFridayFields(array $overrides = []): array
     {
         return array_merge([
-            'date' => '2023-01-03',
+            'date' => '2023-01-06',
             'start_time' => '06:00',
             'lecturer_name' => 'Ustadz Haikal',
             'title' => 'Lecturing title',
