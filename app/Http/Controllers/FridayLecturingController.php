@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Lecturings\CreateFridayRequest;
+use App\Http\Requests\Lecturings\FridayUpdateRequest;
 use App\Models\Lecturing;
-use Illuminate\Http\Request;
 
 class FridayLecturingController extends Controller
 {
@@ -14,23 +15,9 @@ class FridayLecturingController extends Controller
         return view('friday_lecturings.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateFridayRequest $lecturingCreateForm)
     {
-        $this->authorize('create', new Lecturing);
-
-        $newLecturing = $request->validate([
-            'date' => ['required', 'date_format:Y-m-d'],
-            'start_time' => ['required', 'date_format:H:i'],
-            'lecturer_name' => ['required', 'max:60'],
-            'title' => ['nullable', 'max:60'],
-            'video_link' => ['nullable', 'max:255'],
-            'audio_link' => ['nullable', 'max:255'],
-            'description' => ['nullable', 'max:255'],
-        ]);
-        $newLecturing['creator_id'] = auth()->id();
-        $newLecturing['audience_code'] = 'friday';
-
-        $lecturing = Lecturing::create($newLecturing);
+        $lecturing = $lecturingCreateForm->save();
         flash(__('lecturing.created'), 'success');
 
         return redirect()->route('friday_lecturings.show', $lecturing);
@@ -54,19 +41,9 @@ class FridayLecturingController extends Controller
         return view('friday_lecturings.edit', compact('lecturing'));
     }
 
-    public function update(Request $request, Lecturing $lecturing)
+    public function update(FridayUpdateRequest $request, Lecturing $lecturing)
     {
-        $this->authorize('update', $lecturing);
-
-        $lecturingData = $request->validate([
-            'date' => ['required', 'date_format:Y-m-d'],
-            'start_time' => ['required', 'date_format:H:i'],
-            'lecturer_name' => ['required', 'max:60'],
-            'title' => ['nullable', 'max:60'],
-            'video_link' => ['nullable', 'max:255'],
-            'audio_link' => ['nullable', 'max:255'],
-            'description' => ['nullable', 'max:255'],
-        ]);
+        $lecturingData = $request->validated();
         $lecturing->update($lecturingData);
         flash(__('lecturing.updated'), 'success');
 

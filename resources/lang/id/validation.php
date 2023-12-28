@@ -88,9 +88,10 @@ return [
     |
     */
 
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+    'friday_lecturing' => [
+        'date' => [
+            'unique' => 'Sudah ada jadwal khatib pada tanggal yang dipilih.',
+            'friday_only' => 'Harus hari Jum\'at.',
         ],
     ],
 
