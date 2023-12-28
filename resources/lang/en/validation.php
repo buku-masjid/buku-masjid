@@ -99,9 +99,9 @@ return [
     |
     */
 
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+    'friday_lecturing' => [
+        'date' => [
+            'unique' => 'Friday lecturing exists on the selected date.',
         ],
     ],
 

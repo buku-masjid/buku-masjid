@@ -97,9 +97,19 @@ class LecturingEntryTest extends TestCase
         $this->seeInDatabase('lecturings', $this->getCreateForFridayFields());
     }
 
-    private function getCreateForFridayFields(): array
+    /** @test */
+    public function bugfix_prevent_double_friday_lecturing_entries_on_the_same_date()
     {
-        return [
+        $this->loginAsUser();
+        $lecturing = factory(Lecturing::class)->create(['date' => '2023-01-06', 'audience_code' => 'friday']);
+
+        $this->post(route('friday_lecturings.store'), $this->getCreateForFridayFields(['date' => '2023-01-06']));
+        $this->assertSessionHasErrors('date');
+    }
+
+    private function getCreateForFridayFields(array $overrides = []): array
+    {
+        return array_merge([
             'date' => '2023-01-03',
             'start_time' => '06:00',
             'lecturer_name' => 'Ustadz Haikal',
@@ -107,6 +117,6 @@ class LecturingEntryTest extends TestCase
             'video_link' => 'https://youtube.com',
             'audio_link' => 'https://audio.com',
             'description' => 'Test description',
-        ];
+        ], $overrides);
     }
 }

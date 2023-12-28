@@ -127,9 +127,20 @@ class LecturingEditTest extends TestCase
         ]));
     }
 
-    private function getEditForFridayFields(): array
+    /** @test */
+    public function bugfix_prevent_double_friday_lecturing_update_on_the_same_date()
     {
-        return [
+        $this->loginAsUser();
+        factory(Lecturing::class)->create(['date' => '2023-01-06', 'audience_code' => 'friday']);
+        $lecturing = factory(Lecturing::class)->create(['date' => '2023-01-13', 'audience_code' => 'friday']);
+
+        $this->patch(route('friday_lecturings.update', $lecturing), $this->getEditForFridayFields(['date' => '2023-01-06']));
+        $this->assertSessionHasErrors('date');
+    }
+
+    private function getEditForFridayFields(array $overrides = []): array
+    {
+        return array_merge([
             'date' => '2023-01-03',
             'start_time' => '06:00',
             'lecturer_name' => 'Ustadz Haikal',
@@ -137,6 +148,6 @@ class LecturingEditTest extends TestCase
             'video_link' => 'https://youtube.com',
             'audio_link' => 'https://audio.com',
             'description' => 'Test description',
-        ];
+        ], $overrides);
     }
 }
