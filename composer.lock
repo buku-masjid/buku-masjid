@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68f15b31b0aba595bdc0a3ff64c8879c",
+    "content-hash": "355f78b6a8356a00a09f5be30b902d36",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -7025,16 +7025,16 @@
         },
         {
             "name": "buku-masjid/demo-data",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buku-masjid/demo-data.git",
-                "reference": "daa43fccba2d92739948dcbe420efb06c111cbcb"
+                "reference": "3de4e0426fc3dbb342d57bf1249f63281400169a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/daa43fccba2d92739948dcbe420efb06c111cbcb",
-                "reference": "daa43fccba2d92739948dcbe420efb06c111cbcb",
+                "url": "https://api.github.com/repos/buku-masjid/demo-data/zipball/3de4e0426fc3dbb342d57bf1249f63281400169a",
+                "reference": "3de4e0426fc3dbb342d57bf1249f63281400169a",
                 "shasum": ""
             },
             "require": {
@@ -7067,9 +7067,9 @@
             "description": "Generate demo data for buku masjid simulation.",
             "support": {
                 "issues": "https://github.com/buku-masjid/demo-data/issues",
-                "source": "https://github.com/buku-masjid/demo-data/tree/1.0.1"
+                "source": "https://github.com/buku-masjid/demo-data/tree/1.1.0"
             },
-            "time": "2023-10-29T13:56:49+00:00"
+            "time": "2024-01-09T14:45:47+00:00"
         },
         {
             "name": "fakerphp/faker",
