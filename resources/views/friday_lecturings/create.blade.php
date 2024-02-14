@@ -27,6 +27,8 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-6">{!! FormField::text('imam_name', ['required' => true, 'label' => __('lecturing.imam_name')]) !!}</div>
+                    <div class="col-md-6">{!! FormField::text('muadzin_name', ['required' => true, 'label' => __('lecturing.muadzin_name')]) !!}</div>
                     <div class="col-md-6">{!! FormField::text('video_link', ['label' => __('lecturing.video_link')]) !!}</div>
                     <div class="col-md-6">{!! FormField::text('audio_link', ['label' => __('lecturing.audio_link')]) !!}</div>
                 </div>

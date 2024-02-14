@@ -153,11 +153,13 @@ class LecturingEditTest extends TestCase
         return array_merge([
             'date' => '2023-01-06',
             'start_time' => '06:00',
-            'lecturer_name' => 'Ustadz Haikal',
-            'title' => 'Lecturing title',
-            'video_link' => 'https://youtube.com',
-            'audio_link' => 'https://audio.com',
-            'description' => 'Test description',
+            'lecturer_name' => 'Ustadz Abdul',
+            'title' => 'Lecturing Title 2',
+            'imam_name' => 'Ustadz Khalid',
+            'muadzin_name' => 'Nanang',
+            'video_link' => 'https://youtube.com/ceramah',
+            'audio_link' => 'https://audio.com/ceramah',
+            'description' => 'Test description 123',
         ], $overrides);
     }
 }
