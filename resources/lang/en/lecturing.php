@@ -60,6 +60,6 @@ return [
     'audio_link' => 'Audio Link',
     'title' => 'Title/Topic',
     'description' => 'Description',
-    'imam_name' => 'Imam Name',
-    'muadzin_name' => 'Muadzin Name'
+    'imam_name' => 'Imam',
+    'muadzin_name' => 'Muadzin'
 ];

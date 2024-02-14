@@ -60,6 +60,6 @@ return [
     'audio_link' => 'Link Audio',
     'title' => 'Pembahasan',
     'description' => 'Keterangan',
-    'imam_name' => 'Nama Imam',
-    'muadzin_name' => 'Nama Muadzin'
+    'imam_name' => 'Imam',
+    'muadzin_name' => 'Muadzin'
 ];
