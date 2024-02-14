@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('lecturings', function (Blueprint $table) {
-            $table->string('imam_name', 60)->nullable()->comment('filled if friday lecturings');
-            $table->string('muadzin_name', 60)->nullable()->comment('filled if friday lecturings');
+            $table->string('imam_name', 60)->nullable()->after('lecturer_name')->comment('filled if friday lecturings');
+            $table->string('muadzin_name', 60)->nullable()->after('lecturer_name')->comment('filled if friday lecturings');
         });
     }
 
