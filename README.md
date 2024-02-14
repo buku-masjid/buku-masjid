@@ -114,7 +114,7 @@ Ketika sudah ter-install di localhost, kita bisa generate data dummy untuk simul
 Generate demo data (3 bulan terakhir):
 
 ```bash
-$ php artisan buku-masjid:demo-data
+$ php artisan buku-masjid:generate-demo-data
 ```
 
 Hapus semua demo data (yang `created_at` nya `NULL`)
