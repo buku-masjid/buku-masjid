@@ -123,6 +123,8 @@ class LecturingEntryTest extends TestCase
             'start_time' => '06:00',
             'lecturer_name' => 'Ustadz Haikal',
             'title' => 'Lecturing title',
+            'imam_name' => 'Ustadz Hamzah',
+            'muadzin_name' => 'Ustadz Bilal',
             'video_link' => 'https://youtube.com',
             'audio_link' => 'https://audio.com',
             'description' => 'Test description',
