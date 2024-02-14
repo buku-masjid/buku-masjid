@@ -37,10 +37,15 @@ class DailyLecturingsTest extends TestCase
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
         ]);
         factory(Lecturing::class)->create();
+        $lecturing = Lecturing::first();
         Livewire::test(DailyLecturings::class, ['date' => today(), 'dayTitle' => 'today'])
             ->assertCount('lecturings', 2)
             ->assertSee(__('lecturing.friday_lecturer_name'))
+            ->assertSee(__('lecturing.imam_name'))
+            ->assertSee(__('lecturing.muadzin_name'))
+            ->assertSee($lecturing->lecturer_name)
+            ->assertSee($lecturing->imam_name)
+            ->assertSee($lecturing->muadzin_name)
             ->assertSee(__('lecturing.audience_'.Lecturing::AUDIENCE_FRIDAY));
-        Carbon::setTestNow();
     }
 }

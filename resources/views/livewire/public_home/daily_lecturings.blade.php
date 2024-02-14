@@ -31,6 +31,16 @@
                     <td>{!! config('lecturing.emoji.lecturer') !!} {{ $lecturerName[$lecturing->audience_code] }}</td>
                     <td>{{ $lecturing->lecturer_name }}</td>
                 </tr>
+                @if ($lecturing->audience_code == $audienceFriday)
+                <tr>
+                    <td>{!! config('lecturing.emoji.imam') !!} {{ __('lecturing.imam_name') }}</td>
+                    <td>{{ $lecturing->imam_name }} </td>
+                </tr>
+                <tr>
+                    <td>{!! config('lecturing.emoji.muadzin') !!} {{ __('lecturing.muadzin_name') }}</td>
+                    <td>{{ $lecturing->muadzin_name }} </td>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>
