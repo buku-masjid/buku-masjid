@@ -14,7 +14,7 @@ class Lecturing extends Model
 
     protected $fillable = [
         'audience_code', 'date', 'start_time', 'end_time', 'time_text', 'lecturer_name', 'title', 'book_title',
-        'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id',
+        'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id', 'imam_name', 'muadzin_name'
     ];
 
     public function getTimeAttribute()

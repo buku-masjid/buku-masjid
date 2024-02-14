@@ -28,6 +28,8 @@ class CreateFridayRequest extends FormRequest
             ],
             'start_time' => ['required', 'date_format:H:i'],
             'lecturer_name' => ['required', 'max:60'],
+            'imam_name' => ['required', 'max:60'],
+            'muadzin_name' => ['required', 'max:60'],
             'title' => ['nullable', 'max:60'],
             'video_link' => ['nullable', 'max:255'],
             'audio_link' => ['nullable', 'max:255'],
