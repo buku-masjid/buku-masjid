@@ -13,8 +13,8 @@
                 <tbody>
                     <tr>
                         <td colspan="2" class="text-center">
-                        @if (Setting::get('masjid_image'))
-                            <img class="img-fluid my-4" src="{{ asset(Setting::get('masjid_image'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
+                        @if (Setting::get('masjid_logo_path'))
+                            <img class="img-fluid my-4" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
                         @endif
                         </td>
                     </tr>

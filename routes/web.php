@@ -103,7 +103,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'show'])->name('masjid_profile.show');
     Route::get('masjid_profile/edit', [App\Http\Controllers\MasjidProfileController::class, 'edit'])->name('masjid_profile.edit');
     Route::patch('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'update'])->name('masjid_profile.update');
-    Route::post('masjid_profile/image', [App\Http\Controllers\MasjidProfileController::class, 'image'])->name('masjid_profile.image');
 
     /*
      * Backup Restore Database Routes

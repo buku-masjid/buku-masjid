@@ -36,6 +36,7 @@ return [
     'filter' => 'Filter',
     'pick' => 'Pick',
     'close' => 'Close',
+    'crop' => 'Crop',
     'delete_confirm_button' => 'Yes, delete it!',
     'delete_confirm' => 'Are you sure to delete?',
     'done' => 'Done',
