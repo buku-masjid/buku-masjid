@@ -24,10 +24,12 @@
         "livewire/livewire": "^2.12",
         "luthfi/formfield": "^2.2",
         "niklasravnsborg/laravel-pdf": "^4.1",
+        "nunomaduro/collision": "^7.7",
         "riverskies/laravel-mobile-detect": "^1.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
+        "brianium/paratest": "^7.1",
         "buku-masjid/demo-data": "^1.1",
         "fakerphp/faker": "^1.14",
         "filp/whoops": "^2.0",
