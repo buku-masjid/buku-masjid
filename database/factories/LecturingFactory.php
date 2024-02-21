@@ -11,6 +11,8 @@ $factory->define(Lecturing::class, function (Faker $faker) {
         'start_time' => '06:00',
         'end_time' => null,
         'time_text' => 'Ba\'da Subuh',
+        'imam_name' => 'Ustadz Hamzah',
+        'muadzin_name' => 'Bilal',
         'lecturer_name' => 'Ustadz Haikal',
         'title' => $this->faker->words(3, true),
         'book_title' => 'Some Book Title',

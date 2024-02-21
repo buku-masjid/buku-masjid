@@ -38,6 +38,8 @@ class FridayUpdateRequest extends FormRequest
             'video_link' => ['nullable', 'max:255'],
             'audio_link' => ['nullable', 'max:255'],
             'description' => ['nullable', 'max:255'],
+            'imam_name' => ['required', 'max:60'],
+            'muadzin_name' => ['required', 'max:60'],
         ];
     }
 

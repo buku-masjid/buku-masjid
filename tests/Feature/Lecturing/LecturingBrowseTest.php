@@ -62,5 +62,9 @@ class LecturingBrowseTest extends TestCase
         $this->visitRoute('friday_lecturings.show', $lecturing);
         $this->seeText(__('lecturing.friday_lecturer_name'));
         $this->seeText($lecturing->lecturer_name);
+        $this->seeText(__('lecturing.imam_name'));
+        $this->seeText($lecturing->imam_name);
+        $this->seeText(__('lecturing.muadzin_name'));
+        $this->seeText($lecturing->muadzin_name);
     }
 }
