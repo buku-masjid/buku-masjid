@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lecturings', function (Blueprint $table) {
-            $table->string('imam_name', 60)->nullable()->after('lecturer_name')->comment('filled if friday lecturings');
-            $table->string('muadzin_name', 60)->nullable()->after('lecturer_name')->comment('filled if friday lecturings');
-        });
+        if (!Schema::hasColumn('lecturings', 'imam_name')) {
+            Schema::table('lecturings', function (Blueprint $table) {
+                $table->string('imam_name', 60)->nullable()->after('lecturer_name')->comment('filled if friday lecturings');
+            });
+        }
+        if (!Schema::hasColumn('lecturings', 'muadzin_name')) {
+            Schema::table('lecturings', function (Blueprint $table) {
+                $table->string('muadzin_name', 60)->nullable()->after('lecturer_name')->comment('filled if friday lecturings');
+            });
+        }
     }
 
     /**
@@ -22,9 +28,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('lecturings', function (Blueprint $table) {
-            $table->dropColumn('imam_name');
-            $table->dropColumn('muadzin_name');
-        });
+        if (Schema::hasColumn('lecturings', 'imam_name')) {
+            Schema::table('lecturings', function (Blueprint $table) {
+                $table->dropColumn('imam_name');
+            });
+        }
+        if (Schema::hasColumn('lecturings', 'muadzin_name')) {
+            Schema::table('lecturings', function (Blueprint $table) {
+                $table->dropColumn('muadzin_name');
+            });
+        }
     }
 };
