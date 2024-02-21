@@ -29,6 +29,7 @@ class PublicScheduleTest extends TestCase
         $this->seeText($lecturing->imam_name);
         $this->seeText(__('lecturing.muadzin_name'));
         $this->seeText($lecturing->muadzin_name);
+        Carbon::setTestNow();
     }
 
     /** @test */
@@ -48,6 +49,7 @@ class PublicScheduleTest extends TestCase
         $this->seeText($lecturing->imam_name);
         $this->seeText(__('lecturing.muadzin_name'));
         $this->seeText($lecturing->muadzin_name);
+        Carbon::setTestNow();
     }
 
     /** @test */
@@ -67,6 +69,7 @@ class PublicScheduleTest extends TestCase
         $this->seeText($lecturing->imam_name);
         $this->seeText(__('lecturing.muadzin_name'));
         $this->seeText($lecturing->muadzin_name);
+        Carbon::setTestNow();
     }
 
     /** @test */
@@ -86,5 +89,6 @@ class PublicScheduleTest extends TestCase
         $this->seeText($lecturing->imam_name);
         $this->seeText(__('lecturing.muadzin_name'));
         $this->seeText($lecturing->muadzin_name);
+        Carbon::setTestNow();
     }
 }
