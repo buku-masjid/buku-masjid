@@ -33,11 +33,10 @@ class DailyLecturingsTest extends TestCase
     public function user_can_see_friday_lecturing_daily_card()
     {
         Carbon::setTestNow('2023-09-16');
-        factory(Lecturing::class)->create([
+        $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
         ]);
         factory(Lecturing::class)->create();
-        $lecturing = Lecturing::first();
         Livewire::test(DailyLecturings::class, ['date' => today(), 'dayTitle' => 'today'])
             ->assertCount('lecturings', 2)
             ->assertSee(__('lecturing.friday_lecturer_name'))
@@ -47,5 +46,6 @@ class DailyLecturingsTest extends TestCase
             ->assertSee($lecturing->imam_name)
             ->assertSee($lecturing->muadzin_name)
             ->assertSee(__('lecturing.audience_'.Lecturing::AUDIENCE_FRIDAY));
+            Carbon::setTestNow();
     }
 }
