@@ -19,8 +19,8 @@ return new class extends Migration
                 $table->char('end_time', 5)->nullable();
                 $table->string('time_text', 20)->nullable();
                 $table->string('lecturer_name', 60);
-                $table->string('imam_name', 60)->nullable()->comment('filled if friday lecturings');
-                $table->string('muadzin_name', 60)->nullable()->comment('filled if friday lecturings');
+                $table->string('imam_name', 60)->nullable();
+                $table->string('muadzin_name', 60)->nullable();
                 $table->string('title', 60)->nullable();
                 $table->string('book_title', 60)->nullable();
                 $table->string('book_writer', 60)->nullable();
