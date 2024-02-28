@@ -11,6 +11,8 @@ class MasjidProfileController extends Controller
 {
     public function updateLogo(Request $request)
     {
+        $this->authorize('edit_masjid_profile');
+
         $validatedPayload = $request->validate([
             'image' => 'required',
         ]);
