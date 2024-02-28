@@ -11,6 +11,15 @@
         <div class="card">
             <table class="table table-sm card-table">
                 <tbody>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            @if (Setting::get('masjid_logo_path'))
+                                <img class="img-fluid my-4" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
+                            @else
+                                <div class="p-4">{{ __('masjid_profile.masjid_logo') }}</div>
+                            @endif
+                        </td>
+                    </tr>
                     <tr><td class="col-4">{{ __('masjid_profile.name') }}</td><td>{{ Setting::get('masjid_name', config('masjid.name')) }}</td></tr>
                     <tr><td>{{ __('masjid_profile.address') }}</td><td>{{ Setting::get('masjid_address') }}</td></tr>
                     <tr><td>{{ __('masjid_profile.google_maps_link') }}</td><td>{{ Setting::get('masjid_google_maps_link') }}</td></tr>
