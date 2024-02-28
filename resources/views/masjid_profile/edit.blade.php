@@ -62,11 +62,11 @@
 @endsection
 
 @section('styles')
-    {{ Html::style(url('css/plugins/cropper.css')) }}
+    {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
 @endsection
 
 @push('scripts')
-    {{ Html::script(url('js/plugins/cropper.js')) }}
+    {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}
     {{ Html::script(url('js/plugins/noty.js')) }}
     <script>
         var $modal = $('#modal-masjid');
