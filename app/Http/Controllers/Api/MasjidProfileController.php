@@ -34,7 +34,7 @@ class MasjidProfileController extends Controller
 
         return response()->json([
             'message' => __('masjid_profile.logo_uploaded'),
-            'image' => asset($imageName),
+            'image' => Storage::url($imageName),
         ]);
     }
 }
