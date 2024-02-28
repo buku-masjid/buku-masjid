@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Facades\App\Helpers\Setting;
 
 class MasjidProfileController extends Controller
 {
     public function updateLogo(Request $request)
     {
         $validatedPayload = $request->validate([
-            'image' => 'required'
+            'image' => 'required',
         ]);
 
         if (!base64_decode($validatedPayload['image'])) {
@@ -27,14 +27,14 @@ class MasjidProfileController extends Controller
 
         $imageParts = explode(';base64,', $validatedPayload['image']);
         $imageBase64 = base64_decode($imageParts[1]);
-        $imageName = uniqid() . '.webp';
+        $imageName = uniqid().'.webp';
 
         Storage::put($imageName, $imageBase64);
         Setting::set('masjid_logo_path', $imageName);
 
         return response()->json([
             'message' => __('masjid_profile.logo_uploaded'),
-            'image' => asset($imageName)
+            'image' => asset($imageName),
         ]);
     }
 }

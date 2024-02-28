@@ -113,7 +113,7 @@
             canvas.toBlob(function(blob) {
                 url = URL.createObjectURL(blob);
                 var reader = new FileReader();
-                reader.readAsDataURL(blob); 
+                reader.readAsDataURL(blob);
                 reader.onloadend = function() {
                     var base64data = reader.result;
                     $.ajax({
@@ -124,7 +124,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         data: {
-                            '_token': $('meta[name="_token"]').attr('content'), 
+                            '_token': $('meta[name="_token"]').attr('content'),
                             'image': base64data
                         },
                         success: function(data){
