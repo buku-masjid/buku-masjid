@@ -10,7 +10,9 @@ return [
     'update' => 'Update Masjid Profile',
     'updated' => 'Masjid profile updated successfully.',
     'logo_uploaded' => 'Masjid logo updated successfully.',
-    'choose_file' => 'Choose file',
+    'upload_logo' => 'Upload Logo',
+    'change_logo' => 'Change Logo',
+    'logo_rule' => 'Image size 200x200px',
     'image_not_found' => 'Image not found',
 
     // Attributes

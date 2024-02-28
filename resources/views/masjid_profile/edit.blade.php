@@ -4,30 +4,49 @@
 
 @section('content_settings')
 <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-10 offset-md-1">
         <div class="page-header"><h1 class="page-title">@yield('title')</h1></div>
-        <div class="card">
-            {{ Form::open(['route' => 'masjid_profile.update', 'method' => 'patch']) }}
-                <div class="card-body">
-                    {!! FormField::text('masjid_name', ['required' => true, 'value' => old('masjid_name', Setting::get('masjid_name')), 'label' => __('masjid_profile.name')]) !!}
-                    {!! FormField::textarea('masjid_address', ['required' => true, 'value' => old('masjid_address', Setting::get('masjid_address')), 'label' => __('masjid_profile.address')]) !!}
-                    {!! FormField::text('masjid_google_maps_link', ['value' => old('masjid_google_maps_link', Setting::get('masjid_google_maps_link')), 'label' => __('masjid_profile.google_maps_link')]) !!}
-                    <div class="form-group" id="masjid-logo">
-                        <label class="form-label" for="masjid_logo_image">{{__('masjid_profile.masjid_logo')}}</label>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input image" id="masjid_logo_image" name="masjid_logo_image">
-                          <label class="custom-file-label" for="masjid_logo_image">{{__('masjid_profile.choose_file')}}</label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    {{ Form::open(['route' => 'masjid_profile.update', 'method' => 'patch']) }}
+                        <div class="card-body">
+                            {!! FormField::text('masjid_name', ['required' => true, 'value' => old('masjid_name', Setting::get('masjid_name')), 'label' => __('masjid_profile.name')]) !!}
+                            {!! FormField::textarea('masjid_address', ['required' => true, 'value' => old('masjid_address', Setting::get('masjid_address')), 'label' => __('masjid_profile.address')]) !!}
+                            {!! FormField::text('masjid_google_maps_link', ['value' => old('masjid_google_maps_link', Setting::get('masjid_google_maps_link')), 'label' => __('masjid_profile.google_maps_link')]) !!}
                         </div>
-                        @if (Setting::get('masjid_logo_path'))
-                            <img id="masjid_logo_image_show" class="img-fluid mt-2" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
-                        @endif
+                        <div class="card-footer">
+                            {{ Form::submit(__('masjid_profile.update'), ['class' => 'btn btn-success']) }}
+                            {{ link_to_route('masjid_profile.show', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
+                        </div>
+                    {{ Form::close() }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <label>{{ __('masjid_profile.masjid_logo') }}</label>
+                        <div class="form-group" id="masjid-logo">
+                            @if (Setting::get('masjid_logo_path'))
+                                <img id="masjid_logo_image_show" class="img-fluid" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
+                            @endif
+                        </div>
+                        @php
+                            $labelText = __('masjid_profile.upload_logo');
+                            if (Setting::get('masjid_logo_path')) {
+                                $labelText = __('masjid_profile.change_logo');
+                            }
+                        @endphp
+                        <label for="masjid_logo_image" class="btn btn-secondary">{{ $labelText }}</label>
+                        {!! FormField::file('masjid_logo_image', [
+                            'label' => false,
+                            'id' => 'masjid_logo_image',
+                            'class' => 'd-none',
+                            'info' => ['text' => __('masjid_profile.logo_rule')]
+                        ]) !!}
                     </div>
                 </div>
-                <div class="card-footer">
-                    {{ Form::submit(__('masjid_profile.update'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('masjid_profile.show', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
-                </div>
-            {{ Form::close() }}
+            </div>
         </div>
     </div>
 </div>
@@ -53,8 +72,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
-          <button type="button" class="btn btn-primary" id="crop">{{__('app.crop')}}</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn btn-primary" id="crop">{{__('app.crop')}}</button>
         </div>
       </div>
     </div>
