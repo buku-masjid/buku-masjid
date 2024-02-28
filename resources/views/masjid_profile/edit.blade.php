@@ -44,7 +44,7 @@
           <div class="img-container">
               <div class="row justify-content-center text-center">
                   <div class="col-md-8 justify-content-center text-center">
-                      <img id="image" src="" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
+                      <img id="image" src="" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
                   </div>
                   <div class="col-md-4 justify-content-center text-center">
                       <div class="preview"></div>
