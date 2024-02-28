@@ -119,7 +119,7 @@
                     $.ajax({
                         type: "POST",
                         dataType: "json",
-                        url: "{{ route('ajax.masjid_profile.image')}}",
+                        url: "{{ route('api.masjid_profile.image')}}",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },

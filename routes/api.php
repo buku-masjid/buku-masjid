@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth:api', 'as' => 'api.', 'namespace' => 'Api'],
 });
 
 // Authentication with sessions, specifically for AJAX from Blade.
-Route::group(['middleware' => ['auth', 'web'], 'as' => 'ajax.', 'namespace' => 'Ajax'], function () {
+Route::group(['middleware' => ['auth', 'web'], 'as' => 'api.'], function () {
     /*
      * Masjid Profile Endpoints
      */
