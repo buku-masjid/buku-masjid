@@ -37,7 +37,7 @@ return [
     'filter' => 'Filter',
     'pick' => 'Pilih',
     'close' => 'Tutup',
-    'crop' => 'Pangkas',
+    'crop_and_save' => 'Potong dan Simpan',
     'delete_confirm_button' => 'Ya, silakan hapus!',
     'delete_confirm' => 'Anda yakin ingin menghapus?',
     'done' => 'Selesai',

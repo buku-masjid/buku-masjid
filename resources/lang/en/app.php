@@ -36,7 +36,7 @@ return [
     'filter' => 'Filter',
     'pick' => 'Pick',
     'close' => 'Close',
-    'crop' => 'Crop',
+    'crop_and_save' => 'Crop and Save',
     'delete_confirm_button' => 'Yes, delete it!',
     'delete_confirm' => 'Are you sure to delete?',
     'done' => 'Done',
