@@ -13,9 +13,11 @@
                 <tbody>
                     <tr>
                         <td colspan="2" class="text-center">
-                        @if (Setting::get('masjid_logo_path'))
-                            <img class="img-fluid my-4" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
-                        @endif
+                            @if (Setting::get('masjid_logo_path'))
+                                <img class="img-fluid my-4" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
+                            @else
+                                <div class="p-4">{{ __('masjid_profile.masjid_logo') }}</div>
+                            @endif
                         </td>
                     </tr>
                     <tr><td class="col-4">{{ __('masjid_profile.name') }}</td><td>{{ Setting::get('masjid_name', config('masjid.name')) }}</td></tr>
