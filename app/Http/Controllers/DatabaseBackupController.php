@@ -17,10 +17,10 @@ class DatabaseBackupController extends Controller
     {
         $this->authorize('manage_database_backup');
 
-        if (Storage::missing('backup/db')) {
+        if (Storage::disk('local')->missing('backup/db')) {
             $backups = [];
         } else {
-            $backups = File::allFiles(Storage::path('backup/db'));
+            $backups = File::allFiles(Storage::disk('local')->path('backup/db'));
 
             $this->sortFilesByModifiedTimeDesc($backups);
         }
