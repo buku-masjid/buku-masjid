@@ -11,10 +11,11 @@ class Lecturing extends Model
     const AUDIENCE_FRIDAY = 'friday';
     const AUDIENCE_PUBLIC = 'public';
     const AUDIENCE_MUSLIMAH = 'muslimah';
+    const AUDIENCE_TARAWIH = 'tarawih';
 
     protected $fillable = [
         'audience_code', 'date', 'start_time', 'end_time', 'time_text', 'lecturer_name', 'title', 'book_title',
-        'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id', 'imam_name', 'muadzin_name'
+        'book_writer', 'book_link', 'video_link', 'audio_link', 'description', 'creator_id', 'imam_name', 'muadzin_name',
     ];
 
     public function getTimeAttribute()

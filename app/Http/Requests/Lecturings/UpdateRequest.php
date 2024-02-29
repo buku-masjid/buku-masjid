@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Lecturings;
 
+use App\Models\Lecturing;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -13,12 +14,16 @@ class UpdateRequest extends FormRequest
 
     public function rules()
     {
+        $lecturing = $this->route('lecturing');
+        $isImamRequired = in_array($lecturing->audience_code, [Lecturing::AUDIENCE_TARAWIH]);
+
         return [
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
             'end_time' => ['nullable', 'date_format:H:i'],
             'time_text' => ['nullable', 'max:20'],
             'lecturer_name' => ['required', 'max:60'],
+            'imam_name' => [$isImamRequired ? 'required' : 'nullable', 'max:60'],
             'title' => ['nullable', 'max:60'],
             'book_title' => ['nullable', 'max:60'],
             'book_writer' => ['nullable', 'max:60'],

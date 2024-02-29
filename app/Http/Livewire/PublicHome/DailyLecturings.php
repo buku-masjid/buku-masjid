@@ -19,6 +19,7 @@ class DailyLecturings extends Component
             Lecturing::AUDIENCE_FRIDAY => __('lecturing.friday_lecturer_name'),
             Lecturing::AUDIENCE_PUBLIC => __('lecturing.lecturer_name'),
             Lecturing::AUDIENCE_MUSLIMAH => __('lecturing.lecturer_name'),
+            Lecturing::AUDIENCE_TARAWIH => __('lecturing.lecturer_name'),
         ];
     }
 
@@ -30,6 +31,7 @@ class DailyLecturings extends Component
         $this->lecturings = $lecturingQuery->get();
         $this->lecturerName = $this->getLecturerName();
         $this->audienceFriday = Lecturing::AUDIENCE_FRIDAY;
+        $this->audienceTarawih = Lecturing::AUDIENCE_TARAWIH;
     }
 
     public function render()

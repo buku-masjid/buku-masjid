@@ -19,7 +19,12 @@
                     <tr><td>{!! config('lecturing.emoji.date') !!} {{ __('time.date') }}</td><td>{{ $lecturing->full_date }}</td></tr>
                     <tr><td>{!! config('lecturing.emoji.time') !!} {{ __('lecturing.time') }}</td><td>{{ $lecturing->time }}</td></tr>
                     <tr><td>{!! config('lecturing.emoji.lecturer') !!} {{ __('lecturing.lecturer_name') }}</td><td>{{ $lecturing->lecturer_name }}</td></tr>
-                    <tr><td>{!! config('lecturing.emoji.book') !!} {{ __('lecturing.book') }}</td><td>{{ $lecturing->book_title }}</td></tr>
+                    @if ($lecturing->imam_name)
+                        <tr><td>{!! config('lecturing.emoji.imam') !!} {{ __('lecturing.imam_name') }}</td><td>{{ $lecturing->imam_name }}</td></tr>
+                    @endif
+                    @if ($lecturing->book_title)
+                        <tr><td>{!! config('lecturing.emoji.book') !!} {{ __('lecturing.book') }}</td><td>{{ $lecturing->book_title }}</td></tr>
+                    @endif
                     <tr><td>{!! config('lecturing.emoji.written_by') !!} {{ __('lecturing.written_by') }}</td><td>{{ $lecturing->book_writer }}</td></tr>
                     <tr><td>{!! config('lecturing.emoji.book_link') !!} {{ __('lecturing.book_link') }}</td><td>{{ $lecturing->book_link }}</td></tr>
                     <tr><td>{!! config('lecturing.emoji.video_link') !!} {{ __('lecturing.video_link') }}</td><td>{{ $lecturing->video_link }}</td></tr>

@@ -31,7 +31,10 @@
                         </div>
                     </div>
                 </div>
-                {!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing.lecturer_name')]) !!}
+                <div class="row">
+                    <div class="col-md-6">{!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing.lecturer_name')]) !!}</div>
+                    <div class="col-md-6">{!! FormField::text('imam_name', ['label' => __('lecturing.imam_name')]) !!}</div>
+                </div>
                 {!! FormField::text('book_title', ['label' => __('lecturing.book_title')]) !!}
                 {!! FormField::text('book_writer', ['label' => __('lecturing.book_writer')]) !!}
                 {!! FormField::text('book_link', ['label' => __('lecturing.book_link')]) !!}

@@ -17,6 +17,7 @@ return [
     'friday_empty' => 'Belum ada Jadwal Khatib',
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',
     'muslimah_empty' => 'Belum ada Jadwal Pengajian Muslimah',
+    'tarawih_empty' => 'Belum ada Jadwal Tarawih',
     'count' => 'Input Jadwal Pengajian',
     'back_to_show' => 'Kembali ke detail Jadwal Pengajian',
     'back_to_index' => 'Kembali ke daftar Jadwal Pengajian',
@@ -43,6 +44,7 @@ return [
     'audience_friday' => 'Jumat',
     'audience_public' => 'Umum (Muslim dan Muslimah)',
     'audience_muslimah' => 'Khusus Muslimah',
+    'audience_tarawih' => 'Shalat Isya dan Tarawih',
     'date' => 'Tanggal',
     'time' => 'Jam',
     'start_time' => 'Jam Mulai',
@@ -61,5 +63,5 @@ return [
     'title' => 'Pembahasan',
     'description' => 'Keterangan',
     'imam_name' => 'Imam',
-    'muadzin_name' => 'Muadzin'
+    'muadzin_name' => 'Muadzin',
 ];

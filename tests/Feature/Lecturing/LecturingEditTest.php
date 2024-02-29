@@ -18,6 +18,7 @@ class LecturingEditTest extends TestCase
             'end_time' => '06:45',
             'time_text' => 'Ba\'da Subuh',
             'lecturer_name' => 'Ustadz Haikal',
+            'imam_name' => 'Ustadz Hafidz',
             'title' => 'Lecturing title',
             'book_title' => 'Book title',
             'book_writer' => 'Book writer',

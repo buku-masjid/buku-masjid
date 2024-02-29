@@ -17,6 +17,7 @@ return [
     'friday_empty' => 'Khatib Schedule is empty',
     'public_empty' => 'Public Lecturing Schedule is empty',
     'muslimah_empty' => 'Muslimah Lecturing Schedule is empty',
+    'tarawih_empty' => 'Tarawih Schedule is empty',
     'count' => 'Lecturing Schedule entries',
     'back_to_show' => 'Back to Lecturing Schedule Detail',
     'back_to_index' => 'Back to Lecturing Schedule List',
@@ -43,6 +44,7 @@ return [
     'audience_friday' => 'Friday',
     'audience_public' => 'Public (Muslim and Muslimah)',
     'audience_muslimah' => 'Muslimah Only',
+    'audience_tarawih' => 'Shalat Tarawih',
     'date' => 'Date',
     'time' => 'Time',
     'start_time' => 'Start Time',
@@ -61,5 +63,5 @@ return [
     'title' => 'Title/Topic',
     'description' => 'Description',
     'imam_name' => 'Imam',
-    'muadzin_name' => 'Muadzin'
+    'muadzin_name' => 'Muadzin',
 ];

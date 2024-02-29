@@ -14,6 +14,8 @@ class CreateRequest extends FormRequest
 
     public function rules()
     {
+        $isImamRequired = in_array($this->get('audience_code'), [Lecturing::AUDIENCE_TARAWIH]);
+
         return [
             'audience_code' => ['required', 'max:15'],
             'date' => ['required', 'date_format:Y-m-d'],
@@ -21,6 +23,7 @@ class CreateRequest extends FormRequest
             'end_time' => ['nullable', 'date_format:H:i'],
             'time_text' => ['nullable', 'max:20'],
             'lecturer_name' => ['required', 'max:60'],
+            'imam_name' => [$isImamRequired ? 'required' : 'nullable', 'max:60'],
             'title' => ['nullable', 'max:60'],
             'book_title' => ['nullable', 'max:60'],
             'book_writer' => ['nullable', 'max:60'],
