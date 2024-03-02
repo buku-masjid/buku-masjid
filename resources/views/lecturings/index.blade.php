@@ -25,22 +25,23 @@
     </div>
 </div>
 
-@foreach ($audienceCodes as $audienceCode => $audience)
-    <div class="page-header mb-4">
-        <h2 class="page-title">{{ __('lecturing.audience_'.$audienceCode) }}</h2>
-    </div>
-
-    @desktop
-        @include('lecturings._'.$audienceCode)
-    @elsedesktop
+@if ($lecturings->isEmpty())
+    <p>{{ __('lecturing.empty') }}</p>
+@else
+    @foreach ($audienceCodes as $audienceCode => $audience)
         @if (isset($lecturings[$audienceCode]))
-            @foreach($lecturings[$audienceCode] as $lecturing)
-                @include('lecturings._single_'.$audienceCode)
-            @endforeach
-        @else
-            <p>{{ __('lecturing.'.$audienceCode.'_empty') }}</p>
+            <div class="page-header mb-4">
+                <h2 class="page-title">{{ __('lecturing.audience_'.$audienceCode) }}</h2>
+            </div>
+            @desktop
+                @include('lecturings._'.$audienceCode)
+            @elsedesktop
+                @foreach($lecturings[$audienceCode] as $lecturing)
+                    @include('lecturings._single_'.$audienceCode)
+                @endforeach
+            @enddesktop
         @endif
-    @enddesktop
-@endforeach
+    @endforeach
+@endif
 
 @endsection
