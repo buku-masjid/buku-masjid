@@ -21,8 +21,8 @@
             @livewire('public-home.weekly-financial-summary')
         </div>
         <div class="col-lg-6">
-            @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
-            @livewire('public-home.daily-lecturings', ['date' => today()->addDay(), 'dayTitle' => 'tomorrow'])
+            @livewire('public-home.daily-lecturings', ['date' => today()->addWeek(), 'dayTitle' => 'today'])
+            @livewire('public-home.daily-lecturings', ['date' => today()->addWeek()->addDay(), 'dayTitle' => 'tomorrow'])
         </div>
     </div>
 @endsection
