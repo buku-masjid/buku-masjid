@@ -23,9 +23,18 @@ class LecturingController extends Controller
         $lecturingQuery->where('date', 'like', $yearMonth.'%');
         $lecturingQuery->orderBy('date')->orderBy('start_time');
         $lecturings = $lecturingQuery->get()->groupBy('audience_code');
-        $audienceCodes = $this->getAudienceCodeList();
+        $regularScheduleAudiences = [
+            Lecturing::AUDIENCE_FRIDAY => __('lecturing.audience_'.Lecturing::AUDIENCE_FRIDAY),
+            Lecturing::AUDIENCE_PUBLIC => __('lecturing.audience_'.Lecturing::AUDIENCE_PUBLIC),
+            Lecturing::AUDIENCE_MUSLIMAH => __('lecturing.audience_'.Lecturing::AUDIENCE_MUSLIMAH),
+        ];
+        $occasionalScheduleAudiences = [
+            Lecturing::AUDIENCE_TARAWIH => __('lecturing.audience_'.Lecturing::AUDIENCE_TARAWIH),
+        ];
 
-        return view('lecturings.index', compact('lecturings', 'year', 'month', 'audienceCodes'));
+        return view('lecturings.index', compact(
+            'lecturings', 'year', 'month', 'regularScheduleAudiences', 'occasionalScheduleAudiences'
+        ));
     }
 
     public function create()
