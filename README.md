@@ -151,6 +151,19 @@ Jika Anda ingin berkontribusi pada proyek ini, kami sangat menghargainya. Beriku
 2. Sampaikan [diskusi](https://github.com/buku-masjid/buku-masjid/discussions) jika Anda ingin mengusulkan fitur baru atau perubahan pada fitur yang sudah ada.
 3. Ajukan [pull request](https://github.com/buku-masjid/buku-masjid/pulls) untuk perbaikan bug, penambahan fitur baru, atau perbaikan label.
 
+## Kontak
+
+Untuk Diskusi:
+
+* [Grup Chat Telegram](https://t.me/bukumasjid_id)
+* [Usulan Fitur Baru](https://github.com/buku-masjid/buku-masjid/discussions)
+
+Untuk pengumuman dan update:
+
+* [Follow Twitter](https://twitter.com/bukumasjid)
+* [Like Facebook Page](https://facebook.com/bukumasjid)
+* [Telegram Channel](https://t.me/bukumasjid)
+
 ## Lisensi
 
 Proyek Buku Masjid merupakan perangkat lunak open-source yang dilisensikan di bawah [Lisensi MIT](LICENSE).
