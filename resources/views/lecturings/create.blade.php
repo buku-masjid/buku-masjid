@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="card">
             <div class="card-header">{{ __('lecturing.create') }}</div>
             {{ Form::open(['route' => 'lecturings.store']) }}
