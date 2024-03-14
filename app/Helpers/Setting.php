@@ -26,13 +26,13 @@ class Setting
         })->first();
 
         if ($setting) {
-            return $setting->value;
+            return $setting->value ?? $default;
         }
 
         return $default;
     }
 
-    public function set(string $key, string $value): string
+    public function set(string $key, ?string $value): string | null
     {
         $setting = $this->settings->filter(function ($item) use ($key) {
             if ($this->userId) {
