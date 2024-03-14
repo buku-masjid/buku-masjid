@@ -39,4 +39,21 @@ class MasjidProfileController extends Controller
             'image' => Storage::url($imageName),
         ]);
     }
+
+    public function show()
+    {
+        $masjidName = Setting::get('masjid_name', config('masjid.name'));
+        $masjidAddress = Setting::get('masjid_address');
+        $masjidGoogleMapsLink = Setting::get('masjid_google_maps_link');
+        $logoImageUrl = Setting::get('masjid_logo_path');
+
+        $response = [
+            'masjid_name' => $masjidName,
+            'masjid_address' => $masjidAddress,
+            'google_maps_link' => $masjidGoogleMapsLink,
+            'logo_image_url' => Storage::url($logoImageUrl,)
+        ];
+    
+        return response()->json($response);
+    }
 }
