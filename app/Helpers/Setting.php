@@ -26,7 +26,7 @@ class Setting
         })->first();
 
         if ($setting) {
-            return $setting->value;
+            return $setting->value ?? $default;
         }
 
         return $default;
