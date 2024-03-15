@@ -11,6 +11,9 @@
 |
 */
 
+// Public Routes
+Route::get('schedules', 'Api\PublicScheduleController@index')->name('api.schedules.index');
+
 // Authentication Routes...
 Route::post('login', 'Api\Auth\LoginController@login')->name('api.login');
 
