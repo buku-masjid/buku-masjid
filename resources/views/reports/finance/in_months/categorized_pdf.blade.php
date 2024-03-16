@@ -1,6 +1,6 @@
 @extends('layouts.print')
 
-@section('title', __('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('title', __('report.categorized_transactions'))
 
 @section('content')
 {{-- ref: https://github.com/niklasravnsborg/laravel-pdf#headers-and-footers --}}
@@ -9,9 +9,14 @@
 
     <h2 class="text-center strong">
         @if (isset(auth()->activeBook()->report_titles['finance_categorized']))
-            {{ auth()->activeBook()->report_titles['finance_categorized'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ auth()->activeBook()->report_titles['finance_categorized'] }}
         @else
-            {{ __('report.categorized_transactions') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ __('report.categorized_transactions') }}
+        @endif
+        @if (request('month') != '00')
+            - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+        @else
+            - {{ $currentMonthEndDate->isoFormat('Y') }}
         @endif
     </h2>
 </htmlpageheader>

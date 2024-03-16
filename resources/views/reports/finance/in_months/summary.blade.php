@@ -1,6 +1,6 @@
 @extends('layouts.reports')
 
-@section('subtitle', __('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('subtitle', __('report.monthly'))
 
 @section('content-report')
 
@@ -14,9 +14,14 @@
 <div class="page-header mt-0">
     <h1 class="page-title mb-4">
         @if (isset(auth()->activeBook()->report_titles['finance_summary']))
-            {{ auth()->activeBook()->report_titles['finance_summary'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ auth()->activeBook()->report_titles['finance_summary'] }}
         @else
-            {{ __('report.monthly') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ __('report.monthly') }}
+        @endif
+        @if (request('month') != '00')
+            - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+        @else
+            - {{ $currentMonthEndDate->isoFormat('Y') }}
         @endif
 
         @can('update', auth()->activeBook())
@@ -36,7 +41,7 @@
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.summary', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => $startDate->format('m')], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m'))], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         @if (request('month') != '00')
             <div class="form-group">
