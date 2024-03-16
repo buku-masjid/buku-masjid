@@ -67,8 +67,16 @@ class FinanceController extends Controller
             }
         }
 
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
+        if ($request->has('year') && $request->has('month')) {
+            $year = $request->get('year');
+            $month = $request->get('month');
+            if ($month == '00') {
+                return Carbon::parse($year.'-01-01');
+            }
+
+            return Carbon::parse($year.'-'.$month.'-01');
+        }
+
         $yearMonth = $this->getYearMonth();
 
         return Carbon::parse($yearMonth.'-01');
@@ -90,8 +98,19 @@ class FinanceController extends Controller
             return Carbon::parse($request->get('end_date'));
         }
 
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
+        if ($request->has('year') && $request->has('month')) {
+            $year = $request->get('year');
+            $month = $request->get('month');
+            if ($month == '00') {
+                if ($year == Carbon::now()->format('Y')) {
+                    return Carbon::now();
+                }
+                return Carbon::parse($year.'-12-31');
+            }
+
+            return Carbon::parse(Carbon::parse($year.'-'.$month.'-10')->format('Y-m-t'));
+        }
+
         $yearMonth = $this->getYearMonth();
 
         return Carbon::parse($yearMonth.'-01')->endOfMonth();

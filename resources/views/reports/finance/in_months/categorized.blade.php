@@ -33,17 +33,19 @@
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
         {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('month', get_months(), $startDate->format('m'), ['class' => 'form-control mr-1']) }}
+        {{ Form::select('month', ['00' => '-- All --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.categorized', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => $startDate->format('m')], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
-        <div class="form-group">
-            @livewire('prev-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary mr-1'])
-            @livewire('next-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary'])
-        </div>
+        @if (request('month') != '00')
+            <div class="form-group">
+                @livewire('prev-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary mr-1'])
+                @livewire('next-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary'])
+            </div>
+        @endif
         {{ Form::close() }}
     </div>
 </div>
