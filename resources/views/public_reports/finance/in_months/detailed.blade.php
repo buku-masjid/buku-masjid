@@ -8,7 +8,7 @@
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
         {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('month', ['00' => '-- All --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
+        {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::hidden('active_book_id', request('active_book_id')) }}

@@ -15,6 +15,7 @@ return [
     'type' => 'Jenis',
     'total' => 'Total',
     'count' => 'Jumlah',
+    'all' => 'Semua',
     'remark' => 'Keterangan',
     'level' => 'Level',
     'not_available' => 'Tidak Tersedia',
