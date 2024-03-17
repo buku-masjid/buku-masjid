@@ -51,7 +51,7 @@ class MasjidProfileController extends Controller
             'masjid_name' => $masjidName,
             'masjid_address' => $masjidAddress,
             'google_maps_link' => $masjidGoogleMapsLink,
-            'logo_image_url' => Storage::url($logoImageUrl,)
+            'logo_image_url' => Storage::url($logoImageUrl),
         ];
     
         return response()->json($response);
