@@ -12,8 +12,8 @@ class PublicScheduleController extends Controller
     public function index(Request $request)
     {
         $lecturingQuery = Lecturing::query();
-        $startDate = $request->startDate ? $request->startDate : Carbon::now()->startOfMonth();
-        $endDate = $request->endDate ? $request->endDate : Carbon::now()->endOfMonth();
+        $startDate = $request->get('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $endDate = $request->get('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
         $lecturingQuery->whereBetween('date', [$startDate, $endDate]);
         $lecturingQuery->orderBy('date')->orderBy('start_time');
         $lecturings = $lecturingQuery->get()->groupBy('audience_code');
