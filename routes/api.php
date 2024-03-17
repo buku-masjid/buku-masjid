@@ -13,6 +13,7 @@
 
 // Public Routes
 Route::get('schedules', 'Api\PublicScheduleController@index')->name('api.schedules.index');
+Route::get('masjid_profile', [App\Http\Controllers\Api\MasjidProfileController::class, 'show'])->name('api.masjid_profile.show');
 
 // Authentication Routes...
 Route::post('login', 'Api\Auth\LoginController@login')->name('api.login');

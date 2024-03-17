@@ -20,6 +20,7 @@ class LecturingEntryTest extends TestCase
             'time_text' => 'Ba\'da Subuh',
             'lecturer_name' => 'Ustadz Haikal',
             'imam_name' => 'Ustadz Hafidz',
+            'muadzin_name' => 'Ahmad',
             'title' => 'Lecturing title',
             'book_title' => 'Book title',
             'book_writer' => 'Book writer',

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-7">
         @if (request('action') == 'delete' && $lecturing)
         @can('delete', $lecturing)
             <div class="card">
@@ -50,12 +50,13 @@
                             <div class="col-6">{!! FormField::text('start_time', ['required' => true, 'label' => __('lecturing.start_time'), 'placeholder' => '19:00']) !!}</div>
                             <div class="col-6">{!! FormField::text('end_time', ['label' => __('lecturing.end_time'), 'placeholder' => '19:40']) !!}</div>
                             <div class="col-12">{!! FormField::text('time_text', ['label' => __('lecturing.time_text'), 'placeholder' => __('lecturing.time_text_placeholder')]) !!}</div>
+                            <div class="col-12">{!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing.lecturer_name')]) !!}</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">{!! FormField::text('lecturer_name', ['required' => true, 'label' => __('lecturing.lecturer_name')]) !!}</div>
                     <div class="col-md-6">{!! FormField::text('imam_name', ['label' => __('lecturing.imam_name')]) !!}</div>
+                    <div class="col-md-6">{!! FormField::text('muadzin_name', ['label' => __('lecturing.muadzin_name')]) !!}</div>
                 </div>
                 {!! FormField::text('book_title', ['label' => __('lecturing.book_title')]) !!}
                 {!! FormField::text('book_writer', ['label' => __('lecturing.book_writer')]) !!}

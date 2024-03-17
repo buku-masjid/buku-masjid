@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-7">
         @if (request('action') == 'delete' && $lecturing)
         @can('delete', $lecturing)
             <div class="card">

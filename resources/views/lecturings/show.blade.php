@@ -22,6 +22,9 @@
                     @if ($lecturing->imam_name)
                         <tr><td>{!! config('lecturing.emoji.imam') !!} {{ __('lecturing.imam_name') }}</td><td>{{ $lecturing->imam_name }}</td></tr>
                     @endif
+                    @if ($lecturing->muadzin_name)
+                        <tr><td>{!! config('lecturing.emoji.imam') !!} {{ __('lecturing.muadzin_name') }}</td><td>{{ $lecturing->muadzin_name }}</td></tr>
+                    @endif
                     @if ($lecturing->book_title)
                         <tr><td>{!! config('lecturing.emoji.book') !!} {{ __('lecturing.book') }}</td><td>{{ $lecturing->book_title }}</td></tr>
                     @endif
