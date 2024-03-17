@@ -17,19 +17,25 @@ class PublicScheduleTest extends TestCase
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
             'date' => Carbon::tomorrow()->format('Y-m-d'),
+            'lecturer_name' => 'Ustadz Haikal',
+            'imam_name' => 'Ustadz Febri',
+            'muadzin_name' => 'Ahmad',
         ]);
 
         $unlistedLecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_PUBLIC,
             'date' => Carbon::yesterday()->format('Y-m-d'),
+            'lecturer_name' => 'Ustadz Fauzan',
+            'imam_name' => 'Abdussamad',
+            'muadzin_name' => 'Tono',
         ]);
 
         $startDate = Carbon::now()->format('Y-m-d');
         $endDate = Carbon::now()->addDays(7)->format('Y-m-d');
 
         $this->getJson(route('api.schedules.index', [
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
         ]));
 
         $this->seeJson([
