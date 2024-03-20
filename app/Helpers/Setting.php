@@ -15,7 +15,7 @@ class Setting
         $this->settings = SettingModel::all();
     }
 
-    public function get(string $key, $default = ''): string
+    public function get(string $key, $default = ''): string | null
     {
         $setting = $this->settings->filter(function ($item) use ($key) {
             if ($this->userId) {
@@ -32,7 +32,7 @@ class Setting
         return $default;
     }
 
-    public function set(string $key, string $value): string
+    public function set(string $key, ?string $value): string | null
     {
         $setting = $this->settings->filter(function ($item) use ($key) {
             if ($this->userId) {

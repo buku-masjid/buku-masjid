@@ -130,4 +130,28 @@ class SettingTest extends TestCase
 
         $this->assertEquals('testing_value_1', Setting::forUser($user->id)->get('testing_key'));
     }
+
+    /** @test */
+    public function setting_can_be_set_with_a_null_value()
+    {
+        Setting::set('testing_key', null);
+
+        $this->seeInDatabase('settings', [
+            'user_id' => null,
+            'key' => 'testing_key',
+            'value' => null,
+        ]);
+    }
+
+    /** @test */
+    public function setting_can_get_a_null_value()
+    {
+        DB::table('settings')->insert([
+            'user_id' => null,
+            'key' => 'testing_key',
+            'value' => null,
+        ]);
+
+        $this->assertEquals(null, Setting::get('testing_key'));
+    }
 }
