@@ -16,7 +16,7 @@ trait ValidateFormRequest
         return $validator;
     }
 
-    protected function assertValidationFails(FormRequest $formRequest, array $attributes, Closure $callback = null)
+    protected function assertValidationFails(FormRequest $formRequest, array $attributes, ?Closure $callback = null)
     {
         $validator = $this->getValidator($formRequest, $attributes);
         $this->assertTrue($validator->fails(), 'Validation should be fails, but it passed.');

@@ -97,6 +97,7 @@ class LecturingController extends Controller
 
         if ($request->get('lecturing_id') == $lecturing->id && $lecturing->delete()) {
             flash(__('lecturing.deleted'), 'success');
+
             return redirect()->route('lecturings.index');
         }
 

@@ -20,7 +20,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
             $output = (new CsvTransformer($transactions))->toString();
 
             return Response::make(rtrim($output, "\n"), 200, [
-                'Content-type'        => 'text/csv',
+                'Content-type' => 'text/csv',
                 'Content-Disposition' => 'attachment; filename=transactions_'.date('YmdHis').'.csv',
             ]);
         });

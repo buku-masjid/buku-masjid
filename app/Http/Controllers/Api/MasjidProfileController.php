@@ -53,7 +53,7 @@ class MasjidProfileController extends Controller
             'google_maps_link' => $masjidGoogleMapsLink,
             'logo_image_url' => Storage::url($logoImageUrl),
         ];
-    
+
         return response()->json($response);
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class BookSwitcherController extends Controller
 {
-
     public function store(Request $request)
     {
         $validatedPayload = $request->validate([

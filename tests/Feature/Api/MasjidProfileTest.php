@@ -10,7 +10,7 @@ use Tests\TestCase;
 class MasjidProfileTest extends TestCase
 {
     use RefreshDatabase;
-   
+
     /** @test */
     public function can_get_masjid_details()
     {

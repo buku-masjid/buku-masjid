@@ -12,7 +12,7 @@ class PublicScheduleTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_get_schedules_within_specified_date_range() 
+    public function can_get_schedules_within_specified_date_range()
     {
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
@@ -52,7 +52,7 @@ class PublicScheduleTest extends TestCase
     }
 
     /** @test */
-    public function can_get_schedules_without_specified_date_range() 
+    public function can_get_schedules_without_specified_date_range()
     {
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,

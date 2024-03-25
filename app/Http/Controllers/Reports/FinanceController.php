@@ -62,6 +62,7 @@ class FinanceController extends Controller
                 return Carbon::parse($request->get('start_date'));
             } else {
                 $startDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
+
                 return Carbon::now()->startOfWeek($startDayInteger);
             }
         }
@@ -81,6 +82,7 @@ class FinanceController extends Controller
                 return Carbon::parse($request->get('end_date'));
             } else {
                 $endDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
+
                 return Carbon::now()->endOfWeek($endDayInteger)->subDay();
             }
         }

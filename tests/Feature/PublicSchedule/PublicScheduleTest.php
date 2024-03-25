@@ -5,7 +5,6 @@ namespace Tests\Feature\PublicSchedule;
 use App\Models\Lecturing;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PublicScheduleTest extends TestCase
@@ -18,7 +17,7 @@ class PublicScheduleTest extends TestCase
         Carbon::setTestNow('2023-09-16');
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
-            'date' => '2023-09-16'
+            'date' => '2023-09-16',
         ]);
 
         $this->visitRoute('public_schedules.today');
@@ -38,7 +37,7 @@ class PublicScheduleTest extends TestCase
         Carbon::setTestNow('2023-09-15');
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
-            'date' => '2023-09-16'
+            'date' => '2023-09-16',
         ]);
 
         $this->visitRoute('public_schedules.tomorrow');
@@ -58,7 +57,7 @@ class PublicScheduleTest extends TestCase
         Carbon::setTestNow('2023-09-15');
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
-            'date' => '2023-09-16'
+            'date' => '2023-09-16',
         ]);
 
         $this->visitRoute('public_schedules.this_week');
@@ -78,7 +77,7 @@ class PublicScheduleTest extends TestCase
         Carbon::setTestNow('2023-09-08');
         $lecturing = factory(Lecturing::class)->create([
             'audience_code' => Lecturing::AUDIENCE_FRIDAY,
-            'date' => '2023-09-16'
+            'date' => '2023-09-16',
         ]);
 
         $this->visitRoute('public_schedules.next_week');

@@ -28,7 +28,6 @@ class TransactionsController extends Controller
     /**
      * Store a newly created transaction in storage.
      *
-     * @param  \App\Http\Requests\Transactions\CreateRequest  $transactionCreateForm
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateRequest $transactionCreateForm)
@@ -52,7 +51,6 @@ class TransactionsController extends Controller
     /**
      * Show the specified transaction data.
      *
-     * @param  \App\Transaction  $transaction
      * @return \App\Http\Controllers\Api\TransactionResource
      */
     public function show(Transaction $transaction)
@@ -63,8 +61,6 @@ class TransactionsController extends Controller
     /**
      * Update the specified transaction in storage.
      *
-     * @param  \App\Http\Requests\Transactions\UpdateRequest  $transactionUpdateForm
-     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateRequest $transactionUpdateForm, Transaction $transaction)
@@ -80,7 +76,6 @@ class TransactionsController extends Controller
     /**
      * Remove the specified transaction from storage.
      *
-     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Transaction $transaction)

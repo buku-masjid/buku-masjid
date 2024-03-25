@@ -21,7 +21,6 @@ function flash($message = null, $level = 'info')
 /**
  * Format number to string.
  *
- * @param  float  $number
  * @return string
  */
 function format_number(float $number)
