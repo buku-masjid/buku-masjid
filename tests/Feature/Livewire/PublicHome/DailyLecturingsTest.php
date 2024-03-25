@@ -46,6 +46,6 @@ class DailyLecturingsTest extends TestCase
             ->assertSee($lecturing->imam_name)
             ->assertSee($lecturing->muadzin_name)
             ->assertSee(__('lecturing.audience_'.Lecturing::AUDIENCE_FRIDAY));
-            Carbon::setTestNow();
+        Carbon::setTestNow();
     }
 }

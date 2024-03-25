@@ -25,8 +25,8 @@ class ChangePasswordController extends Controller
     protected function update(Request $request)
     {
         $input = $request->validate([
-            'old_password'          => 'required',
-            'password'              => 'required|between:6,15|confirmed',
+            'old_password' => 'required',
+            'password' => 'required|between:6,15|confirmed',
             'password_confirmation' => 'required',
         ]);
 

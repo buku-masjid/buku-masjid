@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\BankAccount;
-use App\Models\Category;
 use App\Traits\Models\ConstantsGetter;
 use App\Transaction;
 use App\User;
