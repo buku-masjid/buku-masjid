@@ -22,7 +22,7 @@ jobs:
         uses: tj-actions/changed-files@v39
 
       - name: Run Laravel Pint
-        uses: sergotail/laravel-pint-action@v2
+        uses: aglipanci/laravel-pint-action@v2
         with:
           onlyFiles: ${{ steps.changed-files.outputs.all_changed_files }}
           testMode: true
@@ -32,5 +32,4 @@ jobs:
           onlyDirty: false
           annotate: true
           pintVersion: 1.8.0
-          annotateVersion: 1.8.5
           useComposer: true
