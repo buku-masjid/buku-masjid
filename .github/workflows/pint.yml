@@ -23,7 +23,5 @@ jobs:
           testMode: true
           verboseMode: true
           configPath: ./pint.json
-          preset: laravel
-          onlyDirty: false
           pintVersion: 1.8.0
           useComposer: true
