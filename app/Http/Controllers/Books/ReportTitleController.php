@@ -40,7 +40,7 @@ class ReportTitleController extends Controller
         }
         if ($request->has('report_titles.finance_detailed')) {
             $redirectRoute = 'reports.finance.detailed';
-        };
+        }
 
         return $redirectRoute;
     }

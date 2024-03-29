@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Book;
 use App\Traits\Models\ConstantsGetter;
 use App\Traits\Models\ForActiveBook;
 use App\Transaction;

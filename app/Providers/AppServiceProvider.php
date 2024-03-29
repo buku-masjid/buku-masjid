@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
             if (is_null($activeBook)) {
                 $activeBook = Book::find(config('masjid.default_book_id'));
             }
+
             return $activeBook;
         });
         SessionGuard::macro('activeBookId', function () {
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             if (is_null($activeBook)) {
                 $activeBook = Book::find(config('masjid.default_book_id'));
             }
+
             return $activeBook;
         });
         TokenGuard::macro('activeBookId', function () {
@@ -56,6 +58,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['layouts._top_nav_active_book'], function ($view) {
             $activeBooks = Book::where('status_id', Book::STATUS_ACTIVE)->pluck('name', 'id');
+
             return $view->with('activeBooks', $activeBooks);
         });
     }

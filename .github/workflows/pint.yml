@@ -1,0 +1,27 @@
+name: PHP Lint
+# Ref: https://github.com/marketplace/actions/laravel-pint-action
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches-ignore:
+      - 'dependabot/npm_and_yarn/*'
+      - 'dependabot/composer/*'
+
+jobs:
+  phplint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Laravel Pint
+        uses: aglipanci/laravel-pint-action@v2
+        with:
+          testMode: true
+          verboseMode: true
+          configPath: ./pint.json
+          pintVersion: 1.8.0
+          useComposer: true
