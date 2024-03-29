@@ -17,19 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v39
-
       - name: Run Laravel Pint
         uses: aglipanci/laravel-pint-action@v2
         with:
-          onlyFiles: ${{ steps.changed-files.outputs.all_changed_files }}
           testMode: true
           verboseMode: true
           configPath: ./pint.json
           preset: laravel
           onlyDirty: false
-          annotate: true
           pintVersion: 1.8.0
           useComposer: true
