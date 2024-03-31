@@ -105,6 +105,7 @@ class FinanceController extends Controller
                 if ($year == Carbon::now()->format('Y')) {
                     return Carbon::now();
                 }
+
                 return Carbon::parse($year.'-12-31');
             }
 
