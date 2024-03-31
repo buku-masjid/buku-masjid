@@ -1,6 +1,6 @@
 @extends('layouts.print')
 
-@section('title', __('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('title', __('report.weekly'))
 
 @section('content')
 <htmlpageheader name="wpHeader">
@@ -8,9 +8,14 @@
 
     <h2 class="text-center strong">
         @if (isset(auth()->activeBook()->report_titles['finance_detailed']))
-            {{ auth()->activeBook()->report_titles['finance_detailed'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ auth()->activeBook()->report_titles['finance_detailed'] }}
         @else
-            {{ __('report.weekly') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ __('report.weekly') }}
+        @endif
+        @if (request('month') != '00')
+            - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+        @else
+            - {{ $currentMonthEndDate->isoFormat('Y') }}
         @endif
     </h2>
 </htmlpageheader>

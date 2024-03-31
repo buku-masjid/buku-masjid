@@ -15,6 +15,7 @@ return [
     'type' => 'Type',
     'total' => 'Total',
     'count' => 'Count',
+    'all' => 'All',
     'remark' => 'Remark',
     'level' => 'Level',
     'not_available' => 'Not Available',

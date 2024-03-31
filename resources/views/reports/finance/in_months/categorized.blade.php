@@ -1,6 +1,6 @@
 @extends('layouts.reports')
 
-@section('subtitle', __('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]))
+@section('subtitle', __('report.categorized_transactions'))
 
 @section('content-report')
 
@@ -14,9 +14,14 @@
 <div class="page-header mt-0">
     <h1 class="page-title mb-4">
         @if (isset(auth()->activeBook()->report_titles['finance_categorized']))
-            {{ auth()->activeBook()->report_titles['finance_categorized'] }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ auth()->activeBook()->report_titles['finance_categorized'] }}
         @else
-            {{ __('report.categorized_transactions') }} - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+            {{ __('report.categorized_transactions') }}
+        @endif
+        @if (request('month') != '00')
+            - {{ $currentMonthEndDate->isoFormat('MMMM Y') }}
+        @else
+            - {{ $currentMonthEndDate->isoFormat('Y') }}
         @endif
 
         @if (!request('action'))
@@ -33,17 +38,19 @@
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
         {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('month', get_months(), $startDate->format('m'), ['class' => 'form-control mr-1']) }}
+        {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.categorized', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => $startDate->format('m')], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m'))], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
-        <div class="form-group">
-            @livewire('prev-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary mr-1'])
-            @livewire('next-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary'])
-        </div>
+        @if (request('month') != '00')
+            <div class="form-group">
+                @livewire('prev-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary mr-1'])
+                @livewire('next-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary'])
+            </div>
+        @endif
         {{ Form::close() }}
     </div>
 </div>
