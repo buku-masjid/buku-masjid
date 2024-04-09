@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Facades\App\Helpers\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -45,5 +46,14 @@ class MasjidProfileTest extends TestCase
             'key' => 'masjid_google_maps_link',
             'value' => 'https://maps.app.goo.gl/abcd',
         ]);
+    }
+
+    /** @test */
+    public function masjid_name_based_masjid_profile_data()
+    {        
+        $masjidName = Setting::get('masjid_name', config('masjid.name'));
+        
+        $this->visit('/');
+        $this->see($masjidName);
     }
 }
