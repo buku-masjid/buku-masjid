@@ -97,7 +97,7 @@ class DatabaseBackupController extends Controller
 
         $file = $validatedPayload['backup_file'];
         $fileName = $file->getClientOriginalName();
-        $file->storeAs('backup/db', $fileName);
+        $file->storeAs('backup/db', $fileName, 'local');
 
         flash(__('database_backup.uploaded', ['filename' => $fileName]), 'success');
 
