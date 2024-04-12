@@ -50,9 +50,9 @@ class MasjidProfileTest extends TestCase
 
     /** @test */
     public function masjid_name_based_masjid_profile_data()
-    {        
+    {
         $masjidName = Setting::get('masjid_name', config('masjid.name'));
-        
+
         $this->visit('/');
         $this->see($masjidName);
     }
