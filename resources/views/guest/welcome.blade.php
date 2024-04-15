@@ -6,7 +6,7 @@
     <div class="jumbotron p-4 mb-0 p-md-5 text-dark rounded bg-lightgray">
         <div class="col-md-6 px-0">
             <h2 class="font-italic">
-                @yield('title'),<br> {{ config('masjid.name') }}
+                @yield('title'),<br> {{ Setting::get('masjid_name', config('masjid.name')) }}
             </h2>
             <p class="lead mb-0">
                 <a class="btn btn-lg btn-success mr-2" href="{{ route('public_reports.index') }}"
