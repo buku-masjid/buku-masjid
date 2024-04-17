@@ -15,10 +15,7 @@
 <div class="row justify-content-center">
     <div class="col-md-7">
         <div class="card">
-            <div class="card-header">
-                <span class="card-options">{{ $book->audience }}</span>
-                {{ __('book.detail') }}
-            </div>
+            <div class="card-header">{{ __('book.detail') }}</div>
             <table class="table table-sm card-table">
                 <tbody>
                     <tr><td class="col-4">{{ __('book.name') }}</td><td>{{ $book->name }}</td></tr>
@@ -40,12 +37,41 @@
         </div>
     </div>
     <div class="col-md-5">
-        <div class="page-header">
-            <h3 class="page-title">{{ __('report.finance_summary') }}</h3>
+        <div class="card">
+            <div class="card-header">{{ __('report.finance_summary') }}</div>
             <div class="page-options d-flex"></div>
+            @livewire('books.financial-summary', ['bookId' => $book->id])
         </div>
         <div class="card">
-            @livewire('books.financial-summary', ['bookId' => $book->id])
+            <div class="card-header">{{ __('report.signatures') }}</div>
+            <table class="table table-sm card-table">
+                <tbody>
+                    <tr>
+                        <td>{{ __('report.sign_position_left') }}</td>
+                        <td>{{ Setting::for($book)->get('sign_position_left') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ __('report.sign_name_left') }}</td>
+                        <td>{{ Setting::for($book)->get('sign_name_left') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ __('report.sign_position_mid') }}</td>
+                        <td>{{ Setting::for($book)->get('sign_position_mid') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ __('report.sign_name_mid') }}</td>
+                        <td>{{ Setting::for($book)->get('sign_name_mid') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ __('report.sign_position_right') }}</td>
+                        <td>{{ Setting::for($book)->get('sign_position_right') }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ __('report.sign_name_right') }}</td>
+                        <td>{{ Setting::for($book)->get('sign_name_right') }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

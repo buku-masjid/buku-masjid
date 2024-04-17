@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="row justify-content-center">
+    @if (request('action') == 'delete' && $book)
     <div class="col-md-6">
-        @if (request('action') == 'delete' && $book)
         @can('delete', $book)
             <div class="card">
                 <div class="card-header">{{ __('book.delete') }}</div>
@@ -50,62 +50,93 @@
                 </div>
             </div>
         @endcan
-        @else
+    </div>
+    @else
+    <div class="col-md-10">
         <div class="card">
             <div class="card-header">{{ __('book.edit') }}</div>
             {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
             <div class="card-body">
-                    {!! FormField::text('name', ['required' => true, 'label' => __('book.name')]) !!}
-                    {!! FormField::textarea('description', ['label' => __('book.description')]) !!}
-                    <div class="row">
-                        <div class="col-md-6">
-                            {!! FormField::select('bank_account_id', $bankAccounts, [
-                                'label' => __('bank_account.bank_account'),
-                                'placeholder' => __('book.no_bank_account'),
-                            ]) !!}
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('name', ['required' => true, 'label' => __('book.name')]) !!}
+                        {!! FormField::textarea('description', ['label' => __('book.description')]) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! FormField::select('bank_account_id', $bankAccounts, [
+                                    'label' => __('bank_account.bank_account'),
+                                    'placeholder' => __('book.no_bank_account'),
+                                ]) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! FormField::price('budget', [
+                                    'label' => __('book.budget'),
+                                    'type' => 'number',
+                                    'currency' => config('money.currency_code'),
+                                    'step' => number_step()
+                                ]) !!}
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            {!! FormField::price('budget', [
-                                'label' => __('book.budget'),
-                                'type' => 'number',
-                                'currency' => config('money.currency_code'),
-                                'step' => number_step()
-                            ]) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! FormField::radios('status_id', [
+                                    App\Models\Book::STATUS_INACTIVE => __('book.status_inactive'),
+                                    App\Models\Book::STATUS_ACTIVE => __('app.active')
+                                ], ['label' => __('app.status')]) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! FormField::radios('report_visibility_code', [
+                                    App\Models\Book::REPORT_VISIBILITY_PUBLIC => __('category.report_visibility_public'),
+                                    App\Models\Book::REPORT_VISIBILITY_INTERNAL => __('category.report_visibility_internal')
+                                ], ['label' => __('category.report_visibility')]) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! FormField::select('report_periode_code', [
+                                    App\Models\Book::REPORT_PERIODE_IN_MONTHS => __('report.in_months'),
+                                    App\Models\Book::REPORT_PERIODE_IN_WEEKS => __('report.in_weeks'),
+                                    App\Models\Book::REPORT_PERIODE_ALL_TIME => __('report.all_time'),
+                                ], ['label' => __('report.periode'), 'placeholder' => false]) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! FormField::select('start_week_day_code', [
+                                    'monday' => __('time.days.monday'),
+                                    'tuesday' => __('time.days.tuesday'),
+                                    'wednesday' => __('time.days.wednesday'),
+                                    'thursday' => __('time.days.thursday'),
+                                    'friday' => __('time.days.friday'),
+                                    'saturday' => __('time.days.saturday'),
+                                    'sunday' => __('time.days.sunday'),
+                                ], ['label' => __('report.start_week_day'), 'placeholder' => false]) !!}
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            {!! FormField::radios('status_id', [
-                                App\Models\Book::STATUS_INACTIVE => __('book.status_inactive'),
-                                App\Models\Book::STATUS_ACTIVE => __('app.active')
-                            ], ['label' => __('app.status')]) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! FormField::radios('report_visibility_code', [
-                                App\Models\Book::REPORT_VISIBILITY_PUBLIC => __('category.report_visibility_public'),
-                                App\Models\Book::REPORT_VISIBILITY_INTERNAL => __('category.report_visibility_internal')
-                            ], ['label' => __('category.report_visibility')]) !!}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            {!! FormField::select('report_periode_code', [
-                                App\Models\Book::REPORT_PERIODE_IN_MONTHS => __('report.in_months'),
-                                App\Models\Book::REPORT_PERIODE_IN_WEEKS => __('report.in_weeks'),
-                                App\Models\Book::REPORT_PERIODE_ALL_TIME => __('report.all_time'),
-                            ], ['label' => __('report.periode'), 'placeholder' => false]) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! FormField::select('start_week_day_code', [
-                                'monday' => __('time.days.monday'),
-                                'tuesday' => __('time.days.tuesday'),
-                                'wednesday' => __('time.days.wednesday'),
-                                'thursday' => __('time.days.thursday'),
-                                'friday' => __('time.days.friday'),
-                                'saturday' => __('time.days.saturday'),
-                                'sunday' => __('time.days.sunday'),
-                            ], ['label' => __('report.start_week_day'), 'placeholder' => false]) !!}
-                        </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('sign_position_left', [
+                            'value' => Setting::for($book)->get('sign_position_left'),
+                            'label' => __('report.sign_position_left')
+                        ]) !!}
+                        {!! FormField::text('sign_name_left', [
+                            'value' => Setting::for($book)->get('sign_name_left'),
+                            'label' => __('report.sign_name_left')
+                        ]) !!}
+                        {!! FormField::text('sign_position_mid', [
+                            'value' => Setting::for($book)->get('sign_position_mid'),
+                            'label' => __('report.sign_position_mid')
+                        ]) !!}
+                        {!! FormField::text('sign_name_mid', [
+                            'value' => Setting::for($book)->get('sign_name_mid'),
+                            'label' => __('report.sign_name_mid')
+                        ]) !!}
+                        {!! FormField::text('sign_position_right', [
+                            'value' => Setting::for($book)->get('sign_position_right'),
+                            'label' => __('report.sign_position_right')
+                        ]) !!}
+                        {!! FormField::text('sign_name_right', [
+                            'value' => Setting::for($book)->get('sign_name_right'),
+                            'label' => __('report.sign_name_right')
+                        ]) !!}
                     </div>
                 </div>
             <div class="card-footer">
@@ -118,8 +149,8 @@
             {{ Form::close() }}
         </div>
     </div>
+    @endif
 </div>
-@endif
 @endsection
 
 @section('styles')

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-    protected $fillable = ['user_id', 'key', 'value'];
+    protected $fillable = ['model_id', 'model_type', 'key', 'value'];
 
     use HasFactory;
 }

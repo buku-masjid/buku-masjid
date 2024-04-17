@@ -49,4 +49,13 @@ return [
     'export_pdf' => 'Export PDF',
     'title_updated' => 'Report title updated.',
     'management' => 'Management',
+
+    // Signatures
+    'signatures' => 'Signatures',
+    'sign_position_left' => 'Sign Position Left',
+    'sign_name_left' => 'Sign Name Left',
+    'sign_position_mid' => 'Sign Position Mid',
+    'sign_name_mid' => 'Sign Name Mid',
+    'sign_position_right' => 'Sign Position Right',
+    'sign_name_right' => 'Sign Name Right',
 ];

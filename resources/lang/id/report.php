@@ -49,4 +49,13 @@ return [
     'export_pdf' => 'Export PDF',
     'title_updated' => 'Judul laporan telah diupdate.',
     'management' => 'Pengurus',
+
+    // Signatures
+    'signatures' => 'Tanda Tangan',
+    'sign_position_left' => 'Jabatan Bagian Kiri',
+    'sign_name_left' => 'Nama Bagian Kiri',
+    'sign_position_mid' => 'Jabatan Bagian Tengah',
+    'sign_name_mid' => 'Nama Bagian Tengah',
+    'sign_position_right' => 'Jabatan Bagian Kanan',
+    'sign_name_right' => 'Nama Bagian Kanan',
 ];

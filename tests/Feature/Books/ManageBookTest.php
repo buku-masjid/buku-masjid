@@ -102,6 +102,12 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
+            'sign_position_left' => 'Ketua Umum',
+            'sign_name_left' => 'H. Andi',
+            'sign_position_mid' => 'Bendahara',
+            'sign_name_mid' => 'H. Denny',
+            'sign_position_right' => 'Sekretariat',
+            'sign_name_right' => 'H. Dedy',
         ]);
 
         $this->seeRouteIs('books.show', [$book]);
@@ -115,6 +121,45 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_position_left',
+            'value' => 'Ketua Umum',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_left',
+            'value' => 'H. Andi',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_position_mid',
+            'value' => 'Bendahara',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_mid',
+            'value' => 'H. Denny',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_position_right',
+            'value' => 'Sekretariat',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_right',
+            'value' => 'H. Dedy',
         ]);
     }
 

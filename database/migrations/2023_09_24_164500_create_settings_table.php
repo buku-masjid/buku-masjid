@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('model_id')->nullable();
+            $table->string('model_type', 30)->nullable();
             $table->string('key', 60);
             $table->string('value')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->index(['key', 'user_id']);
             $table->index(['key']);
         });
     }
