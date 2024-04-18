@@ -16,3 +16,11 @@ h1.page-title > small {
 a:hover { text-decoration: none; }
 
 .form-group.required .form-label:after { content: "*"; color: red; font-size: 14px;margin-left: 4px; }
+
+.fixed-bottom .col {
+    padding-right: .6rem;
+    padding-left: .6rem;
+}
+.page-options .btn {
+    padding: .375rem .6rem;
+}
