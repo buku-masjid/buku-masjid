@@ -51,6 +51,7 @@ return [
     'management' => 'Management',
 
     // Signatures
+    'acknowledgement' => 'Acknowledgement',
     'signatures' => 'Signatures',
     'sign_position_left' => 'Sign Position Left',
     'sign_name_left' => 'Sign Name Left',

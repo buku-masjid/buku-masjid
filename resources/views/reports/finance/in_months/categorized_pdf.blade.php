@@ -79,6 +79,8 @@
     </div>
 </div>
 @endforeach
+
+@include('reports.finance._signature_content')
 @endsection
 
 @section('style')

@@ -51,6 +51,7 @@ return [
     'management' => 'Pengurus',
 
     // Signatures
+    'acknowledgement' => 'Mengetahui',
     'signatures' => 'Tanda Tangan',
     'sign_position_left' => 'Jabatan Bagian Kiri',
     'sign_name_left' => 'Nama Bagian Kiri',
