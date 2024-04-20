@@ -87,7 +87,7 @@ Untuk menggunakan docker silahkan jalankan perintah ini di terminal:
     ```bash
     DB_HOST=mysql_host
     ```
-    Or you can automate this process using this command.
+    Atau Anda dapat mengotomatiskan proses ini menggunakan perintah ini.
     ```bash
     COPY .env.example .env.tmp
     sed 's/DB_HOST=127.0.0.1/DB_HOST=mysql_host/' .env.tmp > .env && rm .env.tmp
