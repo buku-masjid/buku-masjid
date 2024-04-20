@@ -28,6 +28,7 @@ USER $PUID:$PGID
 COPY --chown=$PUID:$PGID . .
 
 RUN composer install --optimize-autoloader --no-dev --no-interaction --no-progress --ansi
+RUN copy .env.example .env
 
 # artisan commands
 RUN php ./artisan key:generate && \
