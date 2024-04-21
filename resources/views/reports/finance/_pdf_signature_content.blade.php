@@ -1,14 +1,14 @@
 <table {{-- border="1" --}} class="text-center" style="border-collapse: collapse; width: 100%;">
     <tbody>
         <tr>
-            <td style="width:33%">&nbsp;</td>
+            <td style="width:33%;height: 40px">&nbsp;</td>
             <td style="width:33%">&nbsp;</td>
             <td style="width:33%">{{ Setting::get('masjid_city_name') }}, {{ now()->isoFormat('D MMMM Y') }}</td>
         </tr>
         <tr>
-            <td style="height: 40px">&nbsp;</td>
-            <td>{{ __('report.acknowledgment') }},</td>
-            <td>&nbsp;</td>
+            <td>{{ Setting::for(auth()->activeBook())->get('acknowledgment_text_left') }}</td>
+            <td>{{ Setting::for(auth()->activeBook())->get('acknowledgment_text_mid') }}</td>
+            <td>{{ Setting::for(auth()->activeBook())->get('acknowledgment_text_right') }}</td>
         </tr>
         <tr>
             <td>{{ Setting::for(auth()->activeBook())->get('sign_position_left') }}</td>

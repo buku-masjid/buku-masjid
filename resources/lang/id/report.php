@@ -53,6 +53,9 @@ return [
     // Signatures
     'acknowledgment' => 'Mengetahui',
     'signatures' => 'Tanda Tangan',
+    'acknowledgment_text' => 'Tanggung Jawab',
+    'sign_position' => 'Jabatan',
+    'sign_name' => 'Nama',
     'acknowledgment_text_left' => 'Tanggung Jawab Text Kiri',
     'sign_position_left' => 'Jabatan Bagian Kiri',
     'sign_name_left' => 'Nama Bagian Kiri',
