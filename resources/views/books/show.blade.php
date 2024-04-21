@@ -19,6 +19,10 @@
             <table class="table table-sm card-table">
                 <tbody>
                     <tr><td class="col-4">{{ __('book.name') }}</td><td>{{ $book->name }}</td></tr>
+                    <tr>
+                        <td>{{ __('book.management_title') }}</td>
+                        <td>{{ Setting::for($book)->get('management_title', __('report.management')) }}</td>
+                    </tr>
                     <tr><td>{{ __('book.description') }}</td><td>{{ $book->description }}</td></tr>
                     <tr><td>{{ __('bank_account.bank_account') }}</td><td>{{ $book->bankAccount->name }}</td></tr>
                     <tr><td>{{ __('book.budget') }}</td><td>{{ format_number($book->budget ?: 0) }}</td></tr>
@@ -72,7 +76,7 @@
                         <td>{{ __('report.sign_name') }}</td>
                         <td>{{ Setting::for($book)->get('sign_name_mid') }}</td>
                     </tr>
-                    <tr><td colspan="3">{{ __('app.right_part') }}</td></tr>
+                    <tr><th colspan="3">{{ __('app.right_part') }}</th></tr>
                     <tr>
                         <td>{{ __('report.acknowledgment_text') }}</td>
                         <td>{{ Setting::for($book)->get('acknowledgment_text_right') }}</td>

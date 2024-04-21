@@ -87,6 +87,7 @@ class BookController extends Controller
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
             'start_week_day_code' => ['required', 'string'],
+            'management_title' => ['nullable', 'string', 'max:20'],
             'acknowledgment_text_left' => ['nullable', 'string', 'max:20'],
             'sign_position_left' => ['nullable', 'string', 'max:20'],
             'sign_name_left' => ['nullable', 'string', 'max:30'],
@@ -105,6 +106,7 @@ class BookController extends Controller
 
     private function updateBookSettings(Book $book, array $bookData): void
     {
+        $bookData['management_title'] ? Setting::for($book)->set('management_title', $bookData['management_title']) : null;
         $bookData['acknowledgment_text_left'] ? Setting::for($book)->set('acknowledgment_text_left', $bookData['acknowledgment_text_left']) : null;
         $bookData['sign_position_left'] ? Setting::for($book)->set('sign_position_left', $bookData['sign_position_left']) : null;
         $bookData['sign_name_left'] ? Setting::for($book)->set('sign_name_left', $bookData['sign_name_left']) : null;

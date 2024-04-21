@@ -55,7 +55,7 @@ return [
     'signatures' => 'Tanda Tangan',
     'acknowledgment_text' => 'Tanggung Jawab',
     'sign_position' => 'Jabatan',
-    'sign_name' => 'Nama',
+    'sign_name' => 'Nama Tanda Tangan',
     'acknowledgment_text_left' => 'Tanggung Jawab Text Kiri',
     'sign_position_left' => 'Jabatan Bagian Kiri',
     'sign_name_left' => 'Nama Bagian Kiri',

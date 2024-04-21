@@ -102,6 +102,7 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
+            'management_title' => 'Panitia Ramadhan',
             'acknowledgment_text_left' => 'Mengetahui',
             'sign_position_left' => 'Ketua Umum',
             'sign_name_left' => 'H. Andi',
@@ -126,6 +127,12 @@ class ManageBookTest extends TestCase
             'start_week_day_code' => 'friday',
         ]);
 
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'management_title',
+            'value' => 'Panitia Ramadhan',
+        ]);
         $this->seeInDatabase('settings', [
             'model_type' => 'books',
             'model_id' => $book->id,

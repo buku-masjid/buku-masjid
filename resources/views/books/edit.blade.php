@@ -115,6 +115,12 @@
                                 ], ['label' => __('report.start_week_day'), 'placeholder' => false]) !!}
                             </div>
                         </div>
+                        {!! FormField::text('management_title', [
+                            'value' => Setting::for($book)->get('management_title'),
+                            'label' => __('book.management_title'),
+                            'placeholder' => __('report.management'),
+                            'info' => ['text' => __('book.management_title_info_text')],
+                        ]) !!}
                     </div>
                 </div>
                 <legend>{{ __('report.signatures') }}</legend>
@@ -123,45 +129,45 @@
                         <h4 class="text-primary">{{ __('app.left_part') }}</h4>
                         {!! FormField::text('acknowledgment_text_left', [
                             'value' => Setting::for($book)->get('acknowledgment_text_left'),
-                            'label' => __('report.acknowledgment_text')
+                            'label' => __('report.acknowledgment_text'),
                         ]) !!}
                         {!! FormField::text('sign_position_left', [
                             'value' => Setting::for($book)->get('sign_position_left'),
-                            'label' => __('report.sign_position')
+                            'label' => __('report.sign_position'),
                         ]) !!}
                         {!! FormField::text('sign_name_left', [
                             'value' => Setting::for($book)->get('sign_name_left'),
-                            'label' => __('report.sign_name')
+                            'label' => __('report.sign_name'),
                         ]) !!}
                     </div>
                     <div class="col-md-4">
                         <h4 class="text-primary">{{ __('app.mid_part') }}</h4>
                         {!! FormField::text('acknowledgment_text_mid', [
                             'value' => Setting::for($book)->get('acknowledgment_text_mid'),
-                            'label' => __('report.acknowledgment_text')
+                            'label' => __('report.acknowledgment_text'),
                         ]) !!}
                         {!! FormField::text('sign_position_mid', [
                             'value' => Setting::for($book)->get('sign_position_mid'),
-                            'label' => __('report.sign_position')
+                            'label' => __('report.sign_position'),
                         ]) !!}
                         {!! FormField::text('sign_name_mid', [
                             'value' => Setting::for($book)->get('sign_name_mid'),
-                            'label' => __('report.sign_name')
+                            'label' => __('report.sign_name'),
                         ]) !!}
                     </div>
                     <div class="col-md-4">
                         <h4 class="text-primary">{{ __('app.right_part') }}</h4>
                         {!! FormField::text('acknowledgment_text_right', [
                             'value' => Setting::for($book)->get('acknowledgment_text_right'),
-                            'label' => __('report.acknowledgment_text')
+                            'label' => __('report.acknowledgment_text'),
                         ]) !!}
                         {!! FormField::text('sign_position_right', [
                             'value' => Setting::for($book)->get('sign_position_right'),
-                            'label' => __('report.sign_position')
+                            'label' => __('report.sign_position'),
                         ]) !!}
                         {!! FormField::text('sign_name_right', [
                             'value' => Setting::for($book)->get('sign_name_right'),
-                            'label' => __('report.sign_name')
+                            'label' => __('report.sign_name'),
                         ]) !!}
                     </div>
                 </div>

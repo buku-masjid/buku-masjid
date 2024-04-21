@@ -53,6 +53,9 @@ return [
     // Signatures
     'acknowledgment' => 'Acknowledgment',
     'signatures' => 'Signatures',
+    'acknowledgment_text' => 'Acknowledgement Text',
+    'sign_position' => 'Position',
+    'sign_name' => 'Signature Name',
     'acknowledgment_text_left' => 'Acknowledgement Text Left',
     'sign_position_left' => 'Sign Position Left',
     'sign_name_left' => 'Sign Name Left',

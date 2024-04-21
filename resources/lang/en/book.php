@@ -15,6 +15,8 @@ return [
     'no_book' => 'No Cash Book',
     'back_to_show' => 'Back to Cash Book Detail',
     'back_to_index' => 'Back to Cash Book List',
+    'management_title' => 'Management Title',
+    'management_title_info_text' => 'Eg: Ramadhan committee, Qurban committee',
 
     // Actions
     'create' => 'Create new Cash Book',
