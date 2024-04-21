@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <td style="height: 40px">&nbsp;</td>
-            <td>{{ __('report.acknowledgement') }},</td>
+            <td>{{ __('report.acknowledgment') }},</td>
             <td>&nbsp;</td>
         </tr>
         <tr>

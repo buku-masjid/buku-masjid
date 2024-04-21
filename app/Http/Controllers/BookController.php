@@ -87,10 +87,13 @@ class BookController extends Controller
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
             'start_week_day_code' => ['required', 'string'],
+            'acknowledgment_text_left' => ['nullable', 'string', 'max:20'],
             'sign_position_left' => ['nullable', 'string', 'max:20'],
             'sign_name_left' => ['nullable', 'string', 'max:30'],
+            'acknowledgment_text_mid' => ['nullable', 'string', 'max:20'],
             'sign_position_mid' => ['nullable', 'string', 'max:20'],
             'sign_name_mid' => ['nullable', 'string', 'max:30'],
+            'acknowledgment_text_right' => ['nullable', 'string', 'max:20'],
             'sign_position_right' => ['nullable', 'string', 'max:20'],
             'sign_name_right' => ['nullable', 'string', 'max:30'],
         ]);
@@ -102,10 +105,13 @@ class BookController extends Controller
 
     private function updateBookSettings(Book $book, array $bookData): void
     {
+        $bookData['acknowledgment_text_left'] ? Setting::for($book)->set('acknowledgment_text_left', $bookData['acknowledgment_text_left']) : null;
         $bookData['sign_position_left'] ? Setting::for($book)->set('sign_position_left', $bookData['sign_position_left']) : null;
         $bookData['sign_name_left'] ? Setting::for($book)->set('sign_name_left', $bookData['sign_name_left']) : null;
+        $bookData['acknowledgment_text_mid'] ? Setting::for($book)->set('acknowledgment_text_mid', $bookData['acknowledgment_text_mid']) : null;
         $bookData['sign_position_mid'] ? Setting::for($book)->set('sign_position_mid', $bookData['sign_position_mid']) : null;
         $bookData['sign_name_mid'] ? Setting::for($book)->set('sign_name_mid', $bookData['sign_name_mid']) : null;
+        $bookData['acknowledgment_text_right'] ? Setting::for($book)->set('acknowledgment_text_right', $bookData['acknowledgment_text_right']) : null;
         $bookData['sign_position_right'] ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
         $bookData['sign_name_right'] ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
     }

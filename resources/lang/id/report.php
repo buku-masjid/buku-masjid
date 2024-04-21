@@ -51,12 +51,15 @@ return [
     'management' => 'Pengurus',
 
     // Signatures
-    'acknowledgement' => 'Mengetahui',
+    'acknowledgment' => 'Mengetahui',
     'signatures' => 'Tanda Tangan',
+    'acknowledgment_text_left' => 'Tanggung Jawab Text Kiri',
     'sign_position_left' => 'Jabatan Bagian Kiri',
     'sign_name_left' => 'Nama Bagian Kiri',
+    'acknowledgment_text_mid' => 'Tanggung Jawab Text Tengah',
     'sign_position_mid' => 'Jabatan Bagian Tengah',
     'sign_name_mid' => 'Nama Bagian Tengah',
+    'acknowledgment_text_right' => 'Tanggung Jawab Text Kanan',
     'sign_position_right' => 'Jabatan Bagian Kanan',
     'sign_name_right' => 'Nama Bagian Kanan',
 ];

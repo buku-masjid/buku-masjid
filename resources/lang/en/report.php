@@ -51,12 +51,15 @@ return [
     'management' => 'Management',
 
     // Signatures
-    'acknowledgement' => 'Acknowledgement',
+    'acknowledgment' => 'Acknowledgment',
     'signatures' => 'Signatures',
+    'acknowledgment_text_left' => 'Acknowledgement Text Left',
     'sign_position_left' => 'Sign Position Left',
     'sign_name_left' => 'Sign Name Left',
+    'acknowledgment_text_mid' => 'Acknowledgement Text Mid',
     'sign_position_mid' => 'Sign Position Mid',
     'sign_name_mid' => 'Sign Name Mid',
+    'acknowledgment_text_right' => 'Acknowledgement Text Right',
     'sign_position_right' => 'Sign Position Right',
     'sign_name_right' => 'Sign Name Right',
 ];

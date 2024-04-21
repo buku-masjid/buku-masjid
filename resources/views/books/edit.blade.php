@@ -113,6 +113,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        {!! FormField::text('acknowledgment_text_left', [
+                            'value' => Setting::for($book)->get('acknowledgment_text_left'),
+                            'label' => __('report.acknowledgment_text_left')
+                        ]) !!}
                         {!! FormField::text('sign_position_left', [
                             'value' => Setting::for($book)->get('sign_position_left'),
                             'label' => __('report.sign_position_left')
@@ -121,6 +125,10 @@
                             'value' => Setting::for($book)->get('sign_name_left'),
                             'label' => __('report.sign_name_left')
                         ]) !!}
+                        {!! FormField::text('acknowledgment_text_mid', [
+                            'value' => Setting::for($book)->get('acknowledgment_text_mid'),
+                            'label' => __('report.acknowledgment_text_mid')
+                        ]) !!}
                         {!! FormField::text('sign_position_mid', [
                             'value' => Setting::for($book)->get('sign_position_mid'),
                             'label' => __('report.sign_position_mid')
@@ -128,6 +136,10 @@
                         {!! FormField::text('sign_name_mid', [
                             'value' => Setting::for($book)->get('sign_name_mid'),
                             'label' => __('report.sign_name_mid')
+                        ]) !!}
+                        {!! FormField::text('acknowledgment_text_right', [
+                            'value' => Setting::for($book)->get('acknowledgment_text_right'),
+                            'label' => __('report.acknowledgment_text_right')
                         ]) !!}
                         {!! FormField::text('sign_position_right', [
                             'value' => Setting::for($book)->get('sign_position_right'),
