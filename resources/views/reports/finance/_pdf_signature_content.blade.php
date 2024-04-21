@@ -3,7 +3,13 @@
         <tr>
             <td style="width:33%;height: 40px">&nbsp;</td>
             <td style="width:33%">&nbsp;</td>
-            <td style="width:33%">{{ Setting::get('masjid_city_name') }}, {{ now()->isoFormat('D MMMM Y') }}</td>
+            <td style="width:33%">
+                @if (Setting::get('masjid_city_name'))
+                    {{ Setting::get('masjid_city_name') }}, {{ now()->isoFormat('D MMMM Y') }}
+                @else
+                    &nbsp;
+                @endif
+            </td>
         </tr>
         <tr>
             <td>{{ Setting::for(auth()->activeBook())->get('acknowledgment_text_left') }}</td>
