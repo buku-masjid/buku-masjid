@@ -26,6 +26,7 @@ class Setting
 
             return is_null($item->model_id) && is_null($item->model_type) && $item->key == $key;
         })->first();
+        $this->clearModel();
 
         if ($setting) {
             return $setting->value;
@@ -55,6 +56,7 @@ class Setting
             $setting->value = $value;
             $setting->save();
         }
+        $this->clearModel();
 
         return $value;
     }
@@ -63,6 +65,14 @@ class Setting
     {
         $this->modelId = $model->getKey();
         $this->modelType = $model->getMorphClass();
+
+        return $this;
+    }
+
+    private function clearModel()
+    {
+        $this->modelId = null;
+        $this->modelType = null;
 
         return $this;
     }

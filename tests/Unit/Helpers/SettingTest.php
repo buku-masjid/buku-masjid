@@ -63,6 +63,7 @@ class SettingTest extends TestCase
     {
         $user = factory(User::class)->create();
         Setting::for($user)->set('testing_key', 'testing_value');
+        Setting::set('more_key', 'more_value');
 
         $this->seeInDatabase('settings', [
             'model_id' => $user->id,
@@ -70,6 +71,33 @@ class SettingTest extends TestCase
             'key' => 'testing_key',
             'value' => 'testing_value',
         ]);
+        $this->seeInDatabase('settings', [
+            'model_id' => null,
+            'model_type' => null,
+            'key' => 'more_key',
+            'value' => 'more_value',
+        ]);
+    }
+
+    /** @test */
+    public function setting_can_be_get_for_specific_model()
+    {
+        $user = factory(User::class)->create();
+        DB::table('settings')->insert([
+            'model_id' => $user->getKey(),
+            'model_type' => $user->getMorphClass(),
+            'key' => 'testing_key',
+            'value' => 'testing_value',
+        ]);
+        DB::table('settings')->insert([
+            'model_id' => null,
+            'model_type' => null,
+            'key' => 'more_key',
+            'value' => 'more_value',
+        ]);
+
+        $this->assertEquals('testing_value', Setting::for($user)->get('testing_key'));
+        $this->assertEquals('more_value', Setting::get('more_key'));
     }
 
     /** @test */
@@ -119,27 +147,6 @@ class SettingTest extends TestCase
         ]);
 
         $this->assertEquals('testing_value_2', Setting::for($user)->get('testing_key'));
-    }
-
-    /** @test */
-    public function setting_can_be_retrieved_for_specific_model_id()
-    {
-        $user = factory(User::class)->create();
-        DB::table('settings')->insert([
-            'model_id' => $user->id,
-            'model_type' => 'users',
-            'key' => 'testing_key',
-            'value' => 'testing_value_1',
-        ]);
-
-        DB::table('settings')->insert([
-            'model_id' => factory(User::class)->create()->id,
-            'model_type' => 'users',
-            'key' => 'testing_key',
-            'value' => 'testing_value_2',
-        ]);
-
-        $this->assertEquals('testing_value_1', Setting::for($user)->get('testing_key'));
     }
 
     /** @test */
