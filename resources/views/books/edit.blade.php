@@ -1,12 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('book.edit'))
 
-@section('content')
+@section('content_settings')
 <div class="row justify-content-center">
     @if (request('action') == 'delete' && $book)
     <div class="col-md-6">
         @can('delete', $book)
+            <div class="page-header">
+                <h1 class="page-title">{{ $book->name }}</h1>
+                <div class="page-subtitle">{{ __('book.delete') }}</div>
+                <div class="page-options d-flex"></div>
+            </div>
             <div class="card">
                 <div class="card-header">{{ __('book.delete') }}</div>
                 <div class="card-body">
@@ -53,8 +58,14 @@
     </div>
     @else
     <div class="col-md-10">
+        <div class="page-header">
+            <h1 class="page-title">{{ $book->name }}</h1>
+            <div class="page-subtitle">{{ __('book.edit') }}</div>
+            <div class="page-options d-flex">
+                {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-secondary float-right']) }}
+            </div>
+        </div>
         <div class="card">
-            <div class="card-header">{{ __('book.edit') }}</div>
             {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
             <div class="card-body">
                 <div class="row">
@@ -120,6 +131,10 @@
                             'label' => __('book.management_title'),
                             'placeholder' => __('report.management'),
                             'info' => ['text' => __('book.management_title_info_text')],
+                        ]) !!}
+                        {!! FormField::select('manager_id', $financeUsers, [
+                            'label' => __('book.manager'),
+                            'info' => ['text' => __('book.manager_info_text')],
                         ]) !!}
                     </div>
                 </div>

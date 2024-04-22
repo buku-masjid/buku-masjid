@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BankAccount;
 use App\Models\Book;
+use App\User;
 use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,8 +71,9 @@ class BookController extends Controller
     {
         $this->authorize('update', $book);
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $financeUsers = User::where('role_id', User::ROLE_FINANCE)->pluck('name', 'id');
 
-        return view('books.edit', compact('book', 'bankAccounts'));
+        return view('books.edit', compact('book', 'bankAccounts', 'financeUsers'));
     }
 
     public function update(Request $request, Book $book)
@@ -87,6 +89,7 @@ class BookController extends Controller
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
             'start_week_day_code' => ['required', 'string'],
+            'manager_id' => ['nullable', 'exists:users,id'],
             'management_title' => ['nullable', 'string', 'max:20'],
             'acknowledgment_text_left' => ['nullable', 'string', 'max:20'],
             'sign_position_left' => ['nullable', 'string', 'max:20'],

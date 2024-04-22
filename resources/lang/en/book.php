@@ -45,6 +45,8 @@ return [
     'report_visibility' => 'Report Visibility',
     'report_visibility_public' => 'Public',
     'report_visibility_internal' => 'Internal',
+    'manager' => 'Finance User',
+    'manager_info_text' => 'Finance user will have write access to this book.',
 
     // Relations
     'transactions' => 'Cash Book Transactions',

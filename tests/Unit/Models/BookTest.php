@@ -25,6 +25,16 @@ class BookTest extends TestCase
     }
 
     /** @test */
+    public function a_book_has_belongs_to_manager_relation()
+    {
+        $financeUser = $this->createUser('finance');
+        $book = factory(Book::class)->make(['manager_id' => $financeUser->id]);
+
+        $this->assertInstanceOf(User::class, $book->manager);
+        $this->assertEquals($book->manager_id, $book->manager->id);
+    }
+
+    /** @test */
     public function a_book_can_be_belongs_to_system()
     {
         $book = factory(Book::class)->create(['creator_id' => null]);

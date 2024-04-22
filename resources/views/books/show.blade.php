@@ -23,6 +23,7 @@
                         <td>{{ __('book.management_title') }}</td>
                         <td>{{ Setting::for($book)->get('management_title', __('report.management')) }}</td>
                     </tr>
+                    <tr><td>{{ __('book.manager') }}</td><td>{{ optional($book->manager)->name }}</td></tr>
                     <tr><td>{{ __('book.description') }}</td><td>{{ $book->description }}</td></tr>
                     <tr><td>{{ __('bank_account.bank_account') }}</td><td>{{ $book->bankAccount->name }}</td></tr>
                     <tr><td>{{ __('book.budget') }}</td><td>{{ format_number($book->budget ?: 0) }}</td></tr>

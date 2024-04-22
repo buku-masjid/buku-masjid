@@ -45,6 +45,8 @@ return [
     'report_visibility' => 'Visibilitas Laporan',
     'report_visibility_public' => 'Publik',
     'report_visibility_internal' => 'Internal',
+    'manager' => 'Pengelola/Bendahara',
+    'manager_info_text' => 'User bendahara dapat mengisi dan mengubah data buku kas ini.',
 
     // Relations
     'transactions' => 'List Transaksi Buku Kas',

@@ -81,10 +81,11 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_edit_a_book()
     {
-        $user = $this->loginAsUser();
+        $adminUser = $this->loginAsUser();
+        $financeUser = $this->createUser('finance');
         $book = factory(Book::class)->create([
             'name' => 'Testing 123',
-            'creator_id' => $user->id,
+            'creator_id' => $adminUser->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
         ]);
         $bankAccount = factory(BankAccount::class)->create();
@@ -98,6 +99,7 @@ class ManageBookTest extends TestCase
             'description' => 'Book 1 description',
             'status_id' => Book::STATUS_ACTIVE,
             'bank_account_id' => $bankAccount->id,
+            'manager_id' => $financeUser->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
@@ -125,6 +127,7 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
+            'manager_id' => $financeUser->id,
         ]);
 
         $this->seeInDatabase('settings', [
