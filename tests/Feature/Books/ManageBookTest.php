@@ -102,6 +102,16 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
+            'management_title' => 'Panitia Ramadhan',
+            'acknowledgment_text_left' => 'Mengetahui',
+            'sign_position_left' => 'Ketua Umum',
+            'sign_name_left' => 'H. Andi',
+            'acknowledgment_text_mid' => 'Penanggung Jawab',
+            'sign_position_mid' => 'Bendahara',
+            'sign_name_mid' => 'H. Denny',
+            'acknowledgment_text_right' => 'Pembuat Laporan',
+            'sign_position_right' => 'Sekretariat',
+            'sign_name_right' => 'H. Dedy',
         ]);
 
         $this->seeRouteIs('books.show', [$book]);
@@ -115,6 +125,69 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'management_title',
+            'value' => 'Panitia Ramadhan',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'acknowledgment_text_left',
+            'value' => 'Mengetahui',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_position_left',
+            'value' => 'Ketua Umum',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_left',
+            'value' => 'H. Andi',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'acknowledgment_text_mid',
+            'value' => 'Penanggung Jawab',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_position_mid',
+            'value' => 'Bendahara',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_mid',
+            'value' => 'H. Denny',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'acknowledgment_text_right',
+            'value' => 'Pembuat Laporan',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_position_right',
+            'value' => 'Sekretariat',
+        ]);
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_right',
+            'value' => 'H. Dedy',
         ]);
     }
 

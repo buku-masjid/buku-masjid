@@ -49,4 +49,20 @@ return [
     'export_pdf' => 'Export PDF',
     'title_updated' => 'Judul laporan telah diupdate.',
     'management' => 'Pengurus',
+
+    // Signatures
+    'acknowledgment' => 'Mengetahui',
+    'signatures' => 'Tanda Tangan',
+    'acknowledgment_text' => 'Tanggung Jawab',
+    'sign_position' => 'Jabatan',
+    'sign_name' => 'Nama Tanda Tangan',
+    'acknowledgment_text_left' => 'Tanggung Jawab Text Kiri',
+    'sign_position_left' => 'Jabatan Bagian Kiri',
+    'sign_name_left' => 'Nama Bagian Kiri',
+    'acknowledgment_text_mid' => 'Tanggung Jawab Text Tengah',
+    'sign_position_mid' => 'Jabatan Bagian Tengah',
+    'sign_name_mid' => 'Nama Bagian Tengah',
+    'acknowledgment_text_right' => 'Tanggung Jawab Text Kanan',
+    'sign_position_right' => 'Jabatan Bagian Kanan',
+    'sign_name_right' => 'Nama Bagian Kanan',
 ];

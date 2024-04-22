@@ -11,7 +11,7 @@
                     <td style="border: 0px; border-bottom: 1px solid #000;height: 78px" class="text-center">
                 @endif
                     <h2 class="uppercase">
-                        {{ __('report.management') }}
+                        {{ Setting::for(auth()->activeBook())->get('management_title', __('report.management')) }}
                         <br/>
                         {{ Setting::get('masjid_name', config('masjid.name')) }}
                     </h2>

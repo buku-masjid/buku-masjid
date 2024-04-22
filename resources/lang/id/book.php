@@ -15,6 +15,8 @@ return [
     'no_book' => 'Tanpa Buku Kas',
     'back_to_show' => 'Kembali ke detail Buku Kas',
     'back_to_index' => 'Kembali ke daftar Buku Kas',
+    'management_title' => 'Kepengurusan/Kepanitiaan',
+    'management_title_info_text' => 'Misal: Takmir Ramadhan, Panitia Qurban',
 
     // Actions
     'create' => 'Input Buku Kas Baru',

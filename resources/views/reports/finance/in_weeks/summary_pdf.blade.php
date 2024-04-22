@@ -24,6 +24,8 @@
 <div class="">
     @include('reports.finance._internal_content_summary')
 </div>
+
+@include('reports.finance._pdf_signature_content')
 @endsection
 
 @section('style')

@@ -28,6 +28,7 @@ class MasjidProfileTest extends TestCase
         $this->submitForm(__('masjid_profile.update'), [
             'masjid_name' => 'Masjid Ar-Rahman',
             'masjid_address' => 'Jln. Kalimantan, No. 20, Kota Banjarmasin',
+            'masjid_city_name' => 'Banjarmasin',
             'masjid_google_maps_link' => 'https://maps.app.goo.gl/abcd',
         ]);
 
@@ -41,6 +42,10 @@ class MasjidProfileTest extends TestCase
         $this->seeInDatabase('settings', [
             'key' => 'masjid_address',
             'value' => 'Jln. Kalimantan, No. 20, Kota Banjarmasin',
+        ]);
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_city_name',
+            'value' => 'Banjarmasin',
         ]);
         $this->seeInDatabase('settings', [
             'key' => 'masjid_google_maps_link',

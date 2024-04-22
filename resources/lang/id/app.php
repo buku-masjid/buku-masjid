@@ -22,6 +22,9 @@ return [
     'system' => 'Sistem',
     'home' => 'Beranda',
     'public_home' => 'Beranda Publik',
+    'left_part' => 'Bagian Kiri',
+    'mid_part' => 'Bagian Tengah',
+    'right_part' => 'Bagian Kanan',
 
     // Action
     'create' => 'Input',

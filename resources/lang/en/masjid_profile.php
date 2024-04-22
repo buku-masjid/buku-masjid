@@ -18,6 +18,6 @@ return [
     // Attributes
     'name' => 'Masjid Name',
     'address' => 'Address',
-    'city' => 'City',
+    'city_name' => 'City Name',
     'google_maps_link' => 'Google Maps Link',
 ];

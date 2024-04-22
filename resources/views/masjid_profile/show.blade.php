@@ -22,6 +22,7 @@
                     </tr>
                     <tr><td class="col-4">{{ __('masjid_profile.name') }}</td><td>{{ Setting::get('masjid_name', config('masjid.name')) }}</td></tr>
                     <tr><td>{{ __('masjid_profile.address') }}</td><td>{{ Setting::get('masjid_address') }}</td></tr>
+                    <tr><td>{{ __('masjid_profile.city_name') }}</td><td>{{ Setting::get('masjid_city_name') }}</td></tr>
                     <tr><td>{{ __('masjid_profile.google_maps_link') }}</td><td>{{ Setting::get('masjid_google_maps_link') }}</td></tr>
                 </tbody>
             </table>

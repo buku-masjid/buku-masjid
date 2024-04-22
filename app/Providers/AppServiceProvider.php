@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Book;
+use App\User;
 use Illuminate\Auth\SessionGuard;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
         require_once app_path().'/Helpers/functions.php';
         require_once app_path().'/Helpers/date_time.php';
         Paginator::useBootstrap();
+
+        Relation::enforceMorphMap([
+            'books' => Book::class,
+            'users' => User::class,
+        ]);
 
         // Ref: https://dzone.com/articles/how-to-use-laravel-macro-with-example
         SessionGuard::macro('activeBook', function () {

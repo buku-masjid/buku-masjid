@@ -22,6 +22,9 @@ return [
     'system' => 'System',
     'home' => 'Home',
     'public_home' => 'Public Home',
+    'left_part' => 'Left Part',
+    'mid_part' => 'Mid Part',
+    'right_part' => 'Right Part',
 
     // Action
     'add' => 'Add',
