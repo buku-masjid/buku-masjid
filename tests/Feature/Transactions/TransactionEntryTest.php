@@ -27,7 +27,7 @@ class TransactionEntryTest extends TestCase
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_income'));
-        $this->seeRouteIs('transactions.index', ['action' => 'add-income', 'month' => $month, 'year' => $year]);
+        $this->seeRouteIs('transactions.create', ['action' => 'add-income', 'month' => $month, 'year' => $year]);
 
         $this->submitForm(__('transaction.add_income'), [
             'amount' => 99.99,
@@ -59,7 +59,7 @@ class TransactionEntryTest extends TestCase
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_spending'));
-        $this->seeRouteIs('transactions.index', ['action' => 'add-spending', 'month' => $month, 'year' => $year]);
+        $this->seeRouteIs('transactions.create', ['action' => 'add-spending', 'month' => $month, 'year' => $year]);
 
         $this->submitForm(__('transaction.add_spending'), [
             'amount' => 99.99,
@@ -97,7 +97,7 @@ class TransactionEntryTest extends TestCase
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_income'));
-        $this->seeRouteIs('transactions.index', ['action' => 'add-income', 'month' => $month, 'year' => $year]);
+        $this->seeRouteIs('transactions.create', ['action' => 'add-income', 'month' => $month, 'year' => $year]);
 
         $this->submitForm(__('transaction.add_income'), [
             'amount' => 99.99,
