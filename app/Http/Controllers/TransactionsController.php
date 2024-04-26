@@ -6,6 +6,7 @@ use App\Http\Requests\Transactions\CreateRequest;
 use App\Http\Requests\Transactions\UpdateRequest;
 use App\Models\Category;
 use App\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
@@ -22,6 +23,25 @@ class TransactionsController extends Controller
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
 
+        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
+            $editableTransaction = Transaction::find(request('id'));
+        }
+
+        $incomeTotal = $this->getIncomeTotal($transactions);
+        $spendingTotal = $this->getSpendingTotal($transactions);
+
+        return view('transactions.index', compact(
+            'transactions', 'editableTransaction',
+            'yearMonth', 'month', 'year', 'categories',
+            'incomeTotal', 'spendingTotal',
+            'startDate', 'date'
+        ));
+    }
+
+    public function create(Request $request)
+    {
+        $categories = collect([]);
+
         if (in_array(request('action'), ['add-income'])) {
             $categories = Category::orderBy('name')
                 ->where('color', config('masjid.income_color'))
@@ -36,19 +56,7 @@ class TransactionsController extends Controller
                 ->pluck('name', 'id');
         }
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableTransaction = Transaction::find(request('id'));
-        }
-
-        $incomeTotal = $this->getIncomeTotal($transactions);
-        $spendingTotal = $this->getSpendingTotal($transactions);
-
-        return view('transactions.index', compact(
-            'transactions', 'editableTransaction',
-            'yearMonth', 'month', 'year', 'categories',
-            'incomeTotal', 'spendingTotal',
-            'startDate', 'date'
-        ));
+        return view('transactions.create', compact('categories'));
     }
 
     public function store(CreateRequest $transactionCreateForm)
