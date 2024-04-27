@@ -34,7 +34,7 @@ class Book extends Model
 
     public function manager()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault(['name' => __('book.admin_only')]);
     }
 
     public function transactions()
