@@ -21,7 +21,7 @@ class Book extends Model
 
     protected $fillable = [
         'name', 'description', 'status_id', 'creator_id', 'bank_account_id', 'report_visibility_code', 'report_titles',
-        'budget', 'report_periode_code', 'start_week_day_code',
+        'budget', 'report_periode_code', 'start_week_day_code', 'manager_id',
     ];
     protected $casts = [
         'report_titles' => 'array',
@@ -30,6 +30,11 @@ class Book extends Model
     public function creator()
     {
         return $this->belongsTo(User::class)->withDefault(['name' => __('app.system')]);
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class)->withDefault(['name' => __('book.admin_only')]);
     }
 
     public function transactions()

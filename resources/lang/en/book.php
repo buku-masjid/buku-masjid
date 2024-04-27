@@ -17,6 +17,7 @@ return [
     'back_to_index' => 'Back to Cash Book List',
     'management_title' => 'Management Title',
     'management_title_info_text' => 'Eg: Ramadhan committee, Qurban committee',
+    'admin_only' => 'Admin Only',
 
     // Actions
     'create' => 'Create new Cash Book',
@@ -45,6 +46,8 @@ return [
     'report_visibility' => 'Report Visibility',
     'report_visibility_public' => 'Public',
     'report_visibility_internal' => 'Internal',
+    'manager' => 'Finance User',
+    'manager_info_text' => 'Finance user will have write access to this book.',
 
     // Relations
     'transactions' => 'Cash Book Transactions',

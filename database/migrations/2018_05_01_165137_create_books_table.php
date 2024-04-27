@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->text('report_titles')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
+            $table->unsignedInteger('manager_id')->nullable();
             $table->string('report_visibility_code', 10)->default(Book::REPORT_VISIBILITY_INTERNAL);
             $table->unsignedTinyInteger('status_id')->default(Book::STATUS_ACTIVE);
             $table->unsignedInteger('bank_account_id')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('manager_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
