@@ -101,6 +101,9 @@ class BookController extends Controller
             'sign_position_right' => ['nullable', 'string', 'max:20'],
             'sign_name_right' => ['nullable', 'string', 'max:30'],
         ]);
+        if ($request->user()->cannot('change-manager', $book)) {
+            unset($bookData['manager_id']);
+        }
         $book->update($bookData);
         $this->updateBookSettings($book, $bookData);
 

@@ -195,6 +195,23 @@ class ManageBookTest extends TestCase
     }
 
     /** @test */
+    public function finance_user_can_edit_a_book_except_manager_id_attribute()
+    {
+        $financeUser = $this->loginAsUser('finance');
+        $adminUser = $this->createUser('admin');
+        $otherFinanceUser = $this->createUser('finance');
+        $book = factory(Book::class)->create([
+            'name' => 'Testing 123',
+            'creator_id' => $adminUser->id,
+            'manager_id' => $financeUser->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
+        ]);
+
+        $this->visitRoute('books.edit', $book);
+        $this->dontSeeElement('select', ['name' => 'manager_id']);
+    }
+
+    /** @test */
     public function user_can_delete_a_book()
     {
         $user = $this->loginAsUser();

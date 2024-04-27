@@ -28,6 +28,11 @@ class BookPolicy
             || ($user->role_id == User::ROLE_FINANCE && $book->manager_id == $user->id);
     }
 
+    public function changeManager(User $user, Book $book): bool
+    {
+        return $user->role_id == User::ROLE_ADMIN;
+    }
+
     public function delete(User $user, Book $book): bool
     {
         if ($book->creator_id == null) {

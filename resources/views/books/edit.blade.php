@@ -132,11 +132,15 @@
                             'placeholder' => __('report.management'),
                             'info' => ['text' => __('book.management_title_info_text')],
                         ]) !!}
-                        {!! FormField::select('manager_id', $financeUsers, [
-                            'label' => __('book.manager'),
-                            'placeholder' => __('book.admin_only'),
-                            'info' => ['text' => __('book.manager_info_text')],
-                        ]) !!}
+                        @can('change-manager', $book)
+                            {!! FormField::select('manager_id', $financeUsers, [
+                                'label' => __('book.manager'),
+                                'placeholder' => __('book.admin_only'),
+                                'info' => ['text' => __('book.manager_info_text')],
+                            ]) !!}
+                        @else
+                            {!! FormField::textDisplay(__('book.manager'), $book->manager->name) !!}
+                        @endcan
                     </div>
                 </div>
                 <legend>{{ __('report.signatures') }}</legend>

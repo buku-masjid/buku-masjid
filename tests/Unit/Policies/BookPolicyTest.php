@@ -57,7 +57,7 @@ class BookPolicyTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_update_book()
+    public function admin_and_finance_user_can_update_book()
     {
         $admin = $this->createUser('admin');
         $chairman = $this->createUser('chairman');
@@ -86,6 +86,24 @@ class BookPolicyTest extends TestCase
         $this->assertTrue($admin->can('update', $book));
         $this->assertTrue($finance->can('update', $book));
         $this->assertFalse($finance->can('update', $othersBook));
+    }
+
+    /** @test */
+    public function only_admin_can_update_book_manager_attribute()
+    {
+        $admin = $this->createUser('admin');
+        $chairman = $this->createUser('chairman');
+        $secretary = $this->createUser('secretary');
+        $finance = $this->createUser('finance');
+
+        $book = factory(Book::class)->create(['creator_id' => $admin->id, 'manager_id' => $finance->id]);
+        $othersBook = factory(Book::class)->create();
+
+        $this->assertTrue($admin->can('change-manager', $book));
+        $this->assertTrue($admin->can('change-manager', $othersBook));
+        $this->assertFalse($chairman->can('change-manager', $book));
+        $this->assertFalse($secretary->can('change-manager', $book));
+        $this->assertFalse($finance->can('change-manager', $book));
     }
 
     /** @test */
