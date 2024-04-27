@@ -17,6 +17,7 @@ return [
     'back_to_index' => 'Kembali ke daftar Buku Kas',
     'management_title' => 'Kepengurusan/Kepanitiaan',
     'management_title_info_text' => 'Misal: Takmir Ramadhan, Panitia Qurban',
+    'admin_only' => 'Hanya Admin',
 
     // Actions
     'create' => 'Input Buku Kas Baru',
@@ -46,7 +47,7 @@ return [
     'report_visibility_public' => 'Publik',
     'report_visibility_internal' => 'Internal',
     'manager' => 'Pengelola/Bendahara',
-    'manager_info_text' => 'User bendahara dapat mengisi dan mengubah data buku kas ini.',
+    'manager_info_text' => 'User bendahara dapat mengelola dan mengubah data buku kas ini.',
 
     // Relations
     'transactions' => 'List Transaksi Buku Kas',

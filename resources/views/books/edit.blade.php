@@ -134,6 +134,7 @@
                         ]) !!}
                         {!! FormField::select('manager_id', $financeUsers, [
                             'label' => __('book.manager'),
+                            'placeholder' => __('book.admin_only'),
                             'info' => ['text' => __('book.manager_info_text')],
                         ]) !!}
                     </div>

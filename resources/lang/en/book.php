@@ -17,6 +17,7 @@ return [
     'back_to_index' => 'Back to Cash Book List',
     'management_title' => 'Management Title',
     'management_title_info_text' => 'Eg: Ramadhan committee, Qurban committee',
+    'admin_only' => 'Admin Only',
 
     // Actions
     'create' => 'Create new Cash Book',
