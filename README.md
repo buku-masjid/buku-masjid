@@ -87,6 +87,11 @@ Untuk menggunakan docker silahkan jalankan perintah ini di terminal:
     ```bash
     DB_HOST=mysql_host
     ```
+    Atau Anda dapat mengotomatiskan proses ini menggunakan perintah ini.
+    ```bash
+    COPY .env.example .env.tmp
+    sed 's/DB_HOST=127.0.0.1/DB_HOST=mysql_host/' .env.tmp > .env && rm .env.tmp
+    ```
 3. Build docker images dan jalankan container:
     ```bash
     docker-compose build

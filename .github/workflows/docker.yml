@@ -1,0 +1,43 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - master
+      - docker-ci
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Check Docker Access Token
+      id: check-docker-access-token
+      run: |
+        if [ -z "${{ secrets.DOCKER_ACCESS_TOKEN }}" ]; then
+          echo "::warning::Docker Access Token not set. Skipping Docker build and push."
+          echo "::set-output name=should-continue::false"
+        else
+          echo "::set-output name=should-continue::true"
+        fi
+
+    - name: Login to GitHub Container Registry
+      if: steps.check-docker-access-token.outputs.should-continue == 'true'
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+    - name: Build and push Docker image
+      if: steps.check-docker-access-token.outputs.should-continue == 'true'
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: ghcr.io/${{ github.repository }}:latest

@@ -28,6 +28,8 @@ USER $PUID:$PGID
 COPY --chown=$PUID:$PGID . .
 
 RUN composer install --optimize-autoloader --no-dev --no-interaction --no-progress --ansi
+COPY .env.example .env.tmp
+RUN sed 's/DB_HOST=127.0.0.1/DB_HOST=mysql_host/' .env.tmp > .env && rm .env.tmp
 
 # artisan commands
 RUN php ./artisan key:generate && \
