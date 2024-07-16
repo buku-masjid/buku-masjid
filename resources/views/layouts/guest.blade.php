@@ -26,7 +26,13 @@
 <body>
     <div class="container-fluid">
         <header class="py-5 text-center">
+            @if (Setting::get('masjid_logo_path'))
+                <div class="mb-4"><img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 150px"></div>
+            @endif
             <a class="h1 text-dark" href="{{ url('/') }}">{{ Setting::get('masjid_name', config('masjid.name')) }}</a>
+            @if (Setting::get('masjid_address'))
+            <div class="mt-4">{!! nl2br(htmlentities(Setting::get('masjid_address'))) !!}</div>
+            @endif
         </header>
     </div>
     <div class="navbar-light bg-white shadow-sm mb-4">
