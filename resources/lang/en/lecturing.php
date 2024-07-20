@@ -26,6 +26,7 @@ return [
     'create' => 'Add Lecturing Schedule',
     'create_for_friday' => 'Add Khatib Schedule',
     'created' => 'A new Lecturing Schedule has been added.',
+    'duplicate' => 'Duplicate Lecturing',
     'show' => 'View Lecturing Schedule Detail',
     'edit' => 'Edit Lecturing Schedule',
     'edit_for_friday' => 'Edit Khatib Schedule',

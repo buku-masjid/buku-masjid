@@ -26,6 +26,7 @@ return [
     'create' => 'Input Jadwal Pengajian',
     'create_for_friday' => 'Input Jadwal Khatib',
     'created' => 'Input Jadwal Pengajian baru telah berhasil.',
+    'duplicate' => 'Duplikat Jadwal',
     'show' => 'Lihat Detail Jadwal Pengajian',
     'edit' => 'Edit Jadwal Pengajian',
     'edit_for_friday' => 'Edit Jadwal Khatib',

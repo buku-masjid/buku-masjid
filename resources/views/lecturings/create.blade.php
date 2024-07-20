@@ -7,7 +7,11 @@
     <div class="col-md-7">
         <div class="card">
             <div class="card-header">{{ __('lecturing.create') }}</div>
-            {{ Form::open(['route' => 'lecturings.store']) }}
+            @if ($originalLecturing)
+                {{ Form::model($originalLecturing, ['route' => 'lecturings.store']) }}
+            @else
+                {{ Form::open(['route' => 'lecturings.store']) }}
+            @endif
             <div class="card-body">
                 {!! FormField::radios('audience_code', $audienceCodes, [
                     'required' => true,
@@ -19,7 +23,7 @@
                         {!! FormField::text('date', [
                             'required' => true,
                             'label' => __('lecturing.date'),
-                            'value' => old('date', date('Y-m-d')),
+                            'value' => old('date', today()->format('Y-m-d')),
                             'class' => 'date-select',
                         ]) !!}
                     </div>

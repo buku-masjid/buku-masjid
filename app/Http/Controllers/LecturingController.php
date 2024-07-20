@@ -37,7 +37,7 @@ class LecturingController extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $this->authorize('create', new Lecturing);
 
@@ -46,8 +46,12 @@ class LecturingController extends Controller
             Lecturing::AUDIENCE_MUSLIMAH => __('lecturing.audience_'.Lecturing::AUDIENCE_MUSLIMAH),
             Lecturing::AUDIENCE_TARAWIH => __('lecturing.audience_'.Lecturing::AUDIENCE_TARAWIH),
         ];
+        $originalLecturing = null;
+        if ($request->get('original_lecturing_id')) {
+            $originalLecturing = Lecturing::find($request->get('original_lecturing_id'));
+        }
 
-        return view('lecturings.create', compact('audienceCodes'));
+        return view('lecturings.create', compact('audienceCodes', 'originalLecturing'));
     }
 
     public function store(CreateRequest $lecturingCreateForm)
