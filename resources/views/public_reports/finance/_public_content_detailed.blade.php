@@ -9,6 +9,13 @@
         </tr>
     </thead>
     <tbody>
+        <tr class="strong">
+            <td>&nbsp;</td>
+            <td class="strong">{{ 'Saldo per '.$lastWeekDate->isoFormat('D MMMM Y') }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="strong">{{ format_number($currentWeekBalance = auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d'))) }}</td>
+        </tr>
         @foreach ($weekTransactions as $dayName => $daysTransactions)
             @if ($dayName)
                 <tr><td class="text-center strong">{{ strtoupper($dayName) }}</td><td colspan="4">&nbsp;</td></tr>
@@ -56,7 +63,7 @@
     </tbody>
     <tfoot>
         <tr class="strong">
-            <td colspan="2" class="text-right">{{ __('app.total') }}</td>
+            <td colspan="2" class="text-right">{{ __('app.total') }} {{ __('time.week') }} {{ $weekNumber }}</td>
             <td class="text-right">
                 @php
                     $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
@@ -74,6 +81,12 @@
                 {{ format_number($spendingAmount) }}
             </td>
             <td class="text-right">{{ format_number($incomeAmount - $spendingAmount) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-right strong">{{ __('transaction.end_balance') }} {{ __('time.week') }} {{ $weekNumber }}</td>
+            <td class="text-right strong">&nbsp;</td>
+            <td class="text-right strong">&nbsp;</td>
+            <td class="text-right strong">{{ format_number($currentWeekBalance + $incomeAmount - $spendingAmount) }}</td>
         </tr>
     </tfoot>
 </table>
