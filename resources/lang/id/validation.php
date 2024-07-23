@@ -95,6 +95,12 @@ return [
         ],
     ],
 
+    'lecturing' => [
+        'time_text' => [
+            'unique' => 'Sudah ada jadwal pengajian :time_text pada tanggal yang dipilih.',
+        ],
+    ],
+
     /*
     |---------------------------------------------------------------------------------------
     | Kustom Validasi Atribut
