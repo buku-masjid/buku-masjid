@@ -23,9 +23,13 @@ class CreateRequest extends FormRequest
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
             'end_time' => ['nullable', 'date_format:H:i'],
-            'time_text' => ['nullable', 'max:20', Rule::unique('lecturings')->where(function (Builder $query) {
-                $query->where('date', $this->get('date'));
-            })],
+            'time_text' => [
+                'nullable',
+                'max:20',
+                Rule::unique('lecturings')->where(function (Builder $query) {
+                    $query->where('date', $this->get('date'));
+                }),
+            ],
             'lecturer_name' => ['required', 'max:60'],
             'imam_name' => [$isImamRequired ? 'required' : 'nullable', 'max:60'],
             'muadzin_name' => ['nullable', 'max:60'],

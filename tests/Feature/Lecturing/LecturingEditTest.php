@@ -54,11 +54,31 @@ class LecturingEditTest extends TestCase
     public function validate_lecturing_date_update_is_required()
     {
         $this->loginAsUser();
-        $lecturing = factory(Lecturing::class)->create(['date' => 'Testing 123']);
+        $lecturing = factory(Lecturing::class)->create(['date' => '2023-03-01']);
 
         // date empty
         $this->patch(route('lecturings.update', $lecturing), $this->getEditFields(['date' => '']));
         $this->assertSessionHasErrors('date');
+    }
+
+    /** @test */
+    public function validate_lecturing_date_and_time_text_update_is_unique()
+    {
+        factory(Lecturing::class)->create([
+            'date' => '2023-05-01',
+            'time_text' => 'BA\'DA SUBUH',
+        ]);
+        $lecturing = factory(Lecturing::class)->create([
+            'date' => '2023-03-01',
+            'time_text' => 'BA\'DA ISYA',
+        ]);
+        $this->loginAsUser();
+
+        $this->patch(route('lecturings.update', $lecturing), $this->getEditFields([
+            'date' => '2023-05-01',
+            'time_text' => 'BA\'DA SUBUH',
+        ]));
+        $this->assertSessionHasErrors('time_text');
     }
 
     /** @test */

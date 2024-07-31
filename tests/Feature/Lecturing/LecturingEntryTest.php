@@ -81,7 +81,7 @@ class LecturingEntryTest extends TestCase
     /** @test */
     public function validate_lecturing_date_and_time_text_is_unique()
     {
-        $lecturing = factory(Lecturing::class)->create([
+        factory(Lecturing::class)->create([
             'date' => '2023-05-01',
             'time_text' => 'BA\'DA SUBUH',
         ]);
