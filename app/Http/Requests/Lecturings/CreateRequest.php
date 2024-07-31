@@ -22,6 +22,13 @@ class CreateRequest extends FormRequest
             'audience_code' => ['required', 'max:15'],
             'date' => ['required', 'date_format:Y-m-d'],
             'start_time' => ['required', 'date_format:H:i'],
+            'start_time' => [
+                'required',
+                'date_format:H:i',
+                Rule::unique('lecturings')->where(function (Builder $query) {
+                    $query->where('date', $this->get('date'));
+                }),
+            ],
             'end_time' => ['nullable', 'date_format:H:i'],
             'time_text' => [
                 'nullable',
@@ -46,6 +53,7 @@ class CreateRequest extends FormRequest
     public function messages()
     {
         return [
+            'start_time.unique' => __('validation.lecturing.start_time.unique', ['start_time' => $this->get('start_time')]),
             'time_text.unique' => __('validation.lecturing.time_text.unique', ['time_text' => $this->get('time_text')]),
         ];
     }

@@ -99,6 +99,9 @@ return [
         'time_text' => [
             'unique' => 'Sudah ada jadwal pengajian :time_text pada tanggal yang dipilih.',
         ],
+        'start_time' => [
+            'unique' => 'Sudah ada jadwal pengajian jam :start_time pada tanggal yang dipilih.',
+        ],
     ],
 
     /*

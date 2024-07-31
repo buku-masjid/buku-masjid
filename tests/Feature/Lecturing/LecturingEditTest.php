@@ -82,6 +82,29 @@ class LecturingEditTest extends TestCase
     }
 
     /** @test */
+    public function validate_lecturing_date_and_start_time_update_is_unique()
+    {
+        factory(Lecturing::class)->create([
+            'date' => '2023-05-01',
+            'start_time' => '05:50',
+            'time_text' => 'BA\'DA SUBUH',
+        ]);
+        $lecturing = factory(Lecturing::class)->create([
+            'date' => '2023-03-01',
+            'start_time' => '20:10',
+            'time_text' => 'BA\'DA ISYA',
+        ]);
+        $this->loginAsUser();
+
+        $this->patch(route('lecturings.update', $lecturing), $this->getEditFields([
+            'date' => '2023-05-01',
+            'start_time' => '05:50',
+            'time_text' => 'BA\'DA SUBUH',
+        ]));
+        $this->assertSessionHasErrors('start_time');
+    }
+
+    /** @test */
     public function validate_lecturing_title_update_is_not_more_than_60_characters()
     {
         $this->loginAsUser();

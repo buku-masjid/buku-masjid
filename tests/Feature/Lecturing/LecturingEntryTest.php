@@ -79,6 +79,24 @@ class LecturingEntryTest extends TestCase
     }
 
     /** @test */
+    public function validate_lecturing_date_and_start_time_is_unique()
+    {
+        factory(Lecturing::class)->create([
+            'date' => '2023-05-01',
+            'start_time' => '05:50',
+            'time_text' => 'BA\'DA SUBUH',
+        ]);
+        $this->loginAsUser();
+
+        $this->post(route('lecturings.store'), $this->getCreateFields([
+            'date' => '2023-05-01',
+            'start_time' => '05:50',
+            'time_text' => 'BA\'DA SUBUH',
+        ]));
+        $this->assertSessionHasErrors('time_text');
+    }
+
+    /** @test */
     public function validate_lecturing_date_and_time_text_is_unique()
     {
         factory(Lecturing::class)->create([
