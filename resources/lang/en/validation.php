@@ -106,6 +106,15 @@ return [
         ],
     ],
 
+    'lecturing' => [
+        'time_text' => [
+            'unique' => 'Duplicated lecturing schedule :time_text on the selected date.',
+        ],
+        'start_time' => [
+            'unique' => 'Duplicated lecturing schedule :start_time on the selected date.',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
