@@ -16,6 +16,7 @@ ENV APP_ENV=production
 ENV APP_DEBUG=false
 
 # Required Modules
+USER root:root
 RUN apt-get update && \
     apt-get install -y php${PHP_VERSION}-mysql php${PHP_VERSION}-gd libpng-dev && \
     apt-get clean && \
@@ -38,5 +39,3 @@ RUN php ./artisan key:generate && \
     php ./artisan route:cache && \
     php ./artisan config:cache && \
     php ./artisan storage:link
-
-USER root:root
