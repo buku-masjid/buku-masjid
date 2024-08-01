@@ -17,6 +17,16 @@ Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berba
 - Mengurangi beban tugas bendahara dalam pembuatan laporan kas masjid/mushalla.
 - Memungkinkan masyarakat/jamaah untuk memantau jadwal pengajian secara online.
 
+## Sponsor
+
+Kami ingin berterima kasih kepada sponsor yang mendukung development Buku Masjid.
+
+1. [Raizora Indonesia](https://www.instagram.com/raizora_indonesia)
+
+Jika anda tertarik untuk menjadi sponsor, silakan hubungi Whatsapp Tim Buku Masjid pada halaman ini: [Kontak Buku Masjid](https://bukumasjid.com/contact).
+
+
+
 ## Fitur
 
 1. Pengelolaan buku catatan: Setiap kegiatan dapat dicatat di buku catatan kas yang terpisah.
