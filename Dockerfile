@@ -16,7 +16,8 @@ ENV APP_DEBUG=false
 # Required Modules
 USER root:root
 RUN apt-get update && \
-    apt-get install -y php8.1-mysql php8.1-gd libpng-dev && \
+    apt-get install -y libpng-dev && \
+    docker-php-ext-install pdo_mysql gd && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
