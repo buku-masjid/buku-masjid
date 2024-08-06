@@ -1,9 +1,7 @@
-ARG PHP_VERSION='8.1'
-
 # ================
 # Base Stage
 # ================
-FROM serversideup/php:${PHP_VERSION}-fpm-nginx as base
+FROM serversideup/php:8.1-fpm-nginx as base
 ENV AUTORUN_ENABLED=false
 ENV SSL_MODE=off
 
@@ -18,7 +16,7 @@ ENV APP_DEBUG=false
 # Required Modules
 USER root:root
 RUN apt-get update && \
-    apt-get install -y php${PHP_VERSION}-mysql php${PHP_VERSION}-gd libpng-dev && \
+    apt-get install -y php8.1-mysql php8.1-gd libpng-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
