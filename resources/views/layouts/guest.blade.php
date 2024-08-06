@@ -41,19 +41,22 @@
                 <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
                     <div class="py-1">
                         <nav class="nav d-flex justify-content-between">
-                            <a class="p-2 {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
+                            <a class="py-2 px-1 {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
                                 <i class="fe fe-home"></i> {{ __('app.home') }}
                             </a>
-                            <a class="p-2 {{ in_array(Request::segment(1), ['laporan-kas']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_reports.index') }}">
+                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['laporan-kas']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_reports.index') }}">
                                 <i class="fe fe-layout"></i> {{ __('report.report') }}
                             </a>
-                            <a class="p-2 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
+                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['donasi']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public.donate') }}">
+                                <i class="fe fe-pocket"></i> {{ __('app.donate') }}
+                            </a>
+                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
                                 <i class="fe fe-calendar"></i> {{ __('lecturing.public_schedule') }}
                             </a>
                             @auth
-                            <a class="p-2 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
+                            <a class="py-2 px-1 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
                             @else
-                            <a class="p-2 text-dark" href="{{ route('login') }}"><i class="fe fe-user"></i> {{ __('auth.login') }}</a>
+                            <a class="py-2 px-1 text-dark" href="{{ route('login') }}"><i class="fe fe-user"></i> {{ __('auth.login') }}</a>
                             @endauth
                         </nav>
                     </div>

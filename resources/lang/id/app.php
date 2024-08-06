@@ -25,6 +25,7 @@ return [
     'left_part' => 'Bagian Kiri',
     'mid_part' => 'Bagian Tengah',
     'right_part' => 'Bagian Kanan',
+    'donate' => 'Infaq',
 
     // Action
     'create' => 'Input',

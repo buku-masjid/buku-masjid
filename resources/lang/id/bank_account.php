@@ -4,8 +4,8 @@ return [
     // Labels
     'bank_account' => 'Rek. Bank',
     'bank' => 'Bank',
-    'list' => 'Daftar Rek. Bank',
-    'empty' => 'Belum ada Rek. Bank',
+    'list' => 'Daftar Rekening Bank',
+    'empty' => 'Belum ada Rekening Bank',
     'back_to_index' => 'Kembali ke daftar Rek. Bank',
 
     // Actions

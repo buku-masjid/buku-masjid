@@ -12,6 +12,7 @@
 */
 
 Route::view('/', 'guest.welcome');
+Route::get('/infaq', 'PublicPagesController@donate')->name('public.donate');
 
 Auth::routes(['register' => false, 'reset' => false]);
 

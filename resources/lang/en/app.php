@@ -25,6 +25,7 @@ return [
     'left_part' => 'Left Part',
     'mid_part' => 'Mid Part',
     'right_part' => 'Right Part',
+    'donate' => 'Donate',
 
     // Action
     'add' => 'Add',
