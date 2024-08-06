@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\ClientRepository;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -14,8 +15,9 @@ class LoginTest extends TestCase
     public function user_can_login_and_logout()
     {
         $user = factory(User::class)->create(['name' => 'Nama Member', 'email' => 'email@mail.com']);
+        app(ClientRepository::class)->createPersonalAccessClient(null, config('app.name'), config('app.url'));
 
-        $this->visit(route('login'));
+        $this->visitRoute('login');
 
         $this->submitForm(__('auth.login'), [
             'email' => 'email@mail.com',

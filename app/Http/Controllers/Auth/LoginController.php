@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -55,6 +56,8 @@ class LoginController extends Controller
 
             return redirect()->route('login');
         }
+        $accessToken = $user->createToken('API Token')->accessToken;
+        Session::put('auth.access_token', $accessToken);
 
         flash(trans('auth.welcome', ['name' => $user->name]));
     }

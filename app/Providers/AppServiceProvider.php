@@ -10,6 +10,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Guards\TokenGuard;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -68,6 +69,8 @@ class AppServiceProvider extends ServiceProvider
 
             return $view->with('activeBooks', $activeBooks);
         });
+
+        Passport::personalAccessTokensExpireIn(now()->addDay());
     }
 
     /**

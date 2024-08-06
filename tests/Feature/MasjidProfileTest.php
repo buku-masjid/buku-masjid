@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Facades\App\Helpers\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\ClientRepository;
 use Tests\TestCase;
 
 class MasjidProfileTest extends TestCase
@@ -21,7 +22,14 @@ class MasjidProfileTest extends TestCase
     /** @test */
     public function admin_user_can_update_masjid_profile_data()
     {
-        $user = $this->loginAsUser();
+        $this->createUser('admin', ['name' => 'Nama Member', 'email' => 'email@mail.com']);
+        app(ClientRepository::class)->createPersonalAccessClient(null, config('app.name'), config('app.url'));
+
+        $this->visitRoute('login');
+        $this->submitForm(__('auth.login'), [
+            'email' => 'email@mail.com',
+            'password' => 'secret',
+        ]);
 
         $this->visitRoute('masjid_profile.edit');
 
