@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
             return $view->with('activeBooks', $activeBooks);
         });
 
-        Passport::personalAccessTokensExpireIn(now()->addDay());
+        Passport::personalAccessTokensExpireIn(now()->addMonth());
     }
 
     /**
