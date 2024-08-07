@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 
 class GrantApiAccess
@@ -14,8 +15,9 @@ class GrantApiAccess
             return $next($request);
         }
 
-        if (Session::has('auth.access_token')) {
-            Auth::guard($guard)->user()->withAccessToken(Session::get('auth.access_token'));
+        $user = Auth::guard($guard)->user();
+        if ($user->access_token) {
+            $user->withAccessToken(Crypt::decryptString($user->access_token));
 
             return $next($request);
         }
