@@ -166,6 +166,18 @@
                             });
 
                             $modal.modal('hide');
+                        },
+                        error : function(data){
+                            var status = 'error';
+                            var errorMessage = data.responseJSON.message;
+                            errorMessage += ' ';
+                            errorMessage += "{{ __('auth.please_relogin') }}";
+                            noty({
+                                type: status,
+                                layout: 'bottomRight',
+                                text: errorMessage,
+                                timeout: false
+                            });
                         }
                     });
                 }
