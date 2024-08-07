@@ -57,7 +57,7 @@ class LoginController extends Controller
 
             return redirect()->route('login');
         }
-        if (is_null($user->access_token)) {
+        if (is_null($user->access_token) && !$user->clients->isEmpty()) {
             $accessToken = $user->createToken('API Token')->accessToken;
             $user->access_token = Crypt::encryptString($accessToken);
             $user->save();
