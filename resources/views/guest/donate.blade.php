@@ -10,18 +10,29 @@
 
 <div class="row justify-content-center">
     @forelse ($bankAccounts as $bankAccount)
-        <div class="col-sm-6 col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $bankAccount->name }}</h3>
+        <div class="col-md-6 pb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ $bankAccount->name }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><span class="text-primary">{{ __('bank_account.number') }}</span>:<br><strong>{{ $bankAccount->number }}</strong></p>
+                            <p><span class="text-primary">{{ __('bank_account.account_name') }}</span>:<br><strong>{{ $bankAccount->account_name }}</strong></p>
+                        </div>
+                        @if ($bankAccount->description)
+                            <div class="card-body bg-green-lightest">{{ $bankAccount->description }}</div>
+                        @endif
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p><span class="text-primary">{{ __('bank_account.number') }}</span>:<br><strong>{{ $bankAccount->number }}</strong></p>
-                    <p><span class="text-primary">{{ __('bank_account.account_name') }}</span>:<br><strong>{{ $bankAccount->account_name }}</strong></p>
+                <div class="col-md-6">
+                    @if (Setting::for($bankAccount)->get('qris_image_path'))
+                        <a href="{{ Storage::url(Setting::for($bankAccount)->get('qris_image_path'))}}">
+                            <img id="bank_account_qris_image_show" class="img-fluid" src="{{ Storage::url(Setting::for($bankAccount)->get('qris_image_path'))}}" alt="QRIS">
+                        </a>
+                    @endif
                 </div>
-                @if ($bankAccount->description)
-                    <div class="card-body bg-green-lightest">{{ $bankAccount->description }}</div>
-                @endif
             </div>
         </div>
     @empty
