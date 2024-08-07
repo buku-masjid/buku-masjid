@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -57,12 +57,17 @@ class LoginController extends Controller
 
             return redirect()->route('login');
         }
-        if (is_null($user->access_token) && !$user->clients->isEmpty()) {
+        if ($this->personalAccessClientExists()) {
             $accessToken = $user->createToken('API Token')->accessToken;
             $user->access_token = Crypt::encryptString($accessToken);
             $user->save();
         }
 
         flash(trans('auth.welcome', ['name' => $user->name]));
+    }
+
+    private function personalAccessClientExists()
+    {
+        return DB::table('oauth_clients')->where(['personal_access_client' => 1, 'revoked' => 0])->count();
     }
 }
