@@ -13,7 +13,6 @@ return [
     'remember_me' => 'Ingat Saya',
     'have_account' => 'Saya sudah mendaftar',
     'api_token_expired' => 'API token kadaluarsa.',
-    'please_relogin' => 'Silakan logout dan login kembali.',
 
     // Password
     'change_password' => 'Ganti Password',

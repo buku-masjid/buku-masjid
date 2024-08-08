@@ -13,7 +13,6 @@ return [
     'remember_me' => 'Remember Me',
     'have_account' => 'I have an account',
     'api_token_expired' => 'API token expired.',
-    'please_relogin' => 'Please relogin.',
 
     // Password
     'change_password' => 'Change Password',
