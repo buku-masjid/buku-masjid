@@ -53,4 +53,9 @@ Route::group(['middleware' => ['auth', 'web'], 'as' => 'api.'], function () {
      * Masjid Profile Endpoints
      */
     Route::post('masjid_profile/image', [App\Http\Controllers\Api\MasjidProfileController::class, 'updateLogo'])->name('masjid_profile.image');
+
+    /*
+     * Upload QRIS for Bank Account Endpoint
+     */
+    Route::post('bank_account/{bank_account}/qris_image', [App\Http\Controllers\Api\BankAccountController::class, 'updateQrisImage'])->name('bank_account.qris_image');
 });
