@@ -52,12 +52,12 @@ Aplikasi ini dapat diinstal pada server lokal maupun online dengan spesifikasi b
 ### Langkah Instalasi
 
 1. Clone repositori ini dengan perintah: `git clone https://github.com/buku-masjid/buku-masjid.git`
-2. Masuk ke direktori buku-masjid: `$ cd buku-masjid`
-3. Instal dependensi menggunakan: `$ composer install`
-4. Salin berkas `.env.example` ke `.env`: `$ cp .env.example .env`
-5. Generate kunci aplikasi: `$ php artisan key:generate`
-6. Buat database MySQL untuk aplikasi ini.
-7. Konfigurasi database dan pengaturan lainnya di berkas `.env`.
+1. Masuk ke direktori buku-masjid: `$ cd buku-masjid`
+1. Instal dependensi menggunakan: `$ composer install`
+1. Salin berkas `.env.example` ke `.env`: `$ cp .env.example .env`
+1. Generate kunci aplikasi: `$ php artisan key:generate`
+1. Buat database MySQL untuk aplikasi ini.
+1. Konfigurasi database dan pengaturan lainnya di berkas `.env`.
     ```
     APP_URL=http://localhost
     APP_TIMEZONE="Asia/Makassar"
@@ -75,11 +75,12 @@ Aplikasi ini dapat diinstal pada server lokal maupun online dengan spesifikasi b
     MONEY_DECIMAL_SEPARATOR=","
     MONEY_THOUSANDS_SEPARATOR="."
     ```
-8. Jalankan migrasi database: `$ php artisan migrate --seed`
-9. Buat kunci passport: `$ php artisan passport:keys`
-10. Buat tautan penyimpanan: `$ php artisan storage:link`
-11. Mulai server: `$ php artisan serve`
-12. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
+1. Jalankan migrasi database: `$ php artisan migrate --seed`
+1. Buat kunci passport: `$ php artisan passport:keys`
+1. Buat access token client: `$ php artisan passport:client --personal --name="API Buku Masjid"`
+1. Buat tautan penyimpanan: `$ php artisan storage:link`
+1. Mulai server: `$ php artisan serve`
+1. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
     ```
     email: admin@example.net
     password: password
