@@ -226,6 +226,16 @@
                         });
 
                         $modal.modal('hide');
+                    },
+                    error : function(data){
+                        var status = 'error';
+                        var errorMessage = data.responseJSON.message;
+                        noty({
+                            type: status,
+                            layout: 'bottomRight',
+                            text: errorMessage,
+                            timeout: false
+                        });
                     }
                 });
             }
