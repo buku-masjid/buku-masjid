@@ -24,8 +24,8 @@ class BankAccountController extends Controller
             ]);
         }
 
-        if ($masjidLogoPath = Setting::for($bankAccount)->get('qris_image_path')) {
-            Storage::delete($masjidLogoPath);
+        if ($qrisImagePath = Setting::for($bankAccount)->get('qris_image_path')) {
+            Storage::delete($qrisImagePath);
         }
 
         $imageParts = explode(';base64,', $validatedPayload['image']);
