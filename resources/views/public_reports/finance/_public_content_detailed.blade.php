@@ -63,7 +63,7 @@
     </tbody>
     <tfoot>
         <tr class="strong">
-            <td colspan="2" class="text-right">{{ __('app.total') }} {{ __('time.week') }} {{ $weekNumber }}</td>
+            <td colspan="2" class="text-right">{{ __('transaction.in_out') }} {{ __('time.week') }} {{ $weekNumber }}</td>
             <td class="text-right">
                 @php
                     $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {

@@ -97,7 +97,7 @@
         <tr class="strong">
             <td>&nbsp;</td>
             <td class="text-center">
-                Total bulan ini hingga {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}
+                {{ __('transaction.in_out') }} hingga {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}
             </td>
             <td class="text-right">
                 @php

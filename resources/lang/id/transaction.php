@@ -44,5 +44,5 @@ return [
     // Attributes
     'amount' => 'Jumlah',
     'description' => 'Deskripsi Transaksi',
-    'in_out' => 'Pemasukan/Pengeluaran',
+    'in_out' => 'Pemasukan-Pengeluaran',
 ];

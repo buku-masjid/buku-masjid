@@ -44,5 +44,5 @@ return [
     // Attributes
     'amount' => 'Amount',
     'description' => 'Transaction Description',
-    'in_out' => 'Income/Spending',
+    'in_out' => 'Income-Spending',
 ];
