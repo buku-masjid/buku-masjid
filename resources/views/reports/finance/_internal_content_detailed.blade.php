@@ -14,7 +14,7 @@
             <td class="strong">{{ 'Saldo per '.$lastWeekDate->isoFormat('D MMMM Y') }}</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td class="strong">{{ format_number($currentWeekBalance = auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d'))) }}</td>
+            <td class="strong text-right text-nowrap">{{ format_number($currentWeekBalance = auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d'))) }}</td>
         </tr>
         @foreach ($weekTransactions as $dayName => $daysTransactions)
             @if ($dayName)
