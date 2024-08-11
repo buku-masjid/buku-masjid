@@ -80,13 +80,13 @@
                 @endphp
                 {{ format_number($spendingAmount) }}
             </td>
-            <td class="text-right">{{ format_number($incomeAmount - $spendingAmount) }}</td>
+            <td class="text-right text-nowrap">{{ format_number($incomeAmount - $spendingAmount) }}</td>
         </tr>
         <tr>
             <td colspan="2" class="text-right strong">{{ __('transaction.end_balance') }} {{ __('time.week') }} {{ $weekNumber }}</td>
             <td class="text-right strong">&nbsp;</td>
             <td class="text-right strong">&nbsp;</td>
-            <td class="text-right strong">{{ format_number($currentWeekBalance + $incomeAmount - $spendingAmount) }}</td>
+            <td class="text-right strong text-nowrap">{{ format_number($currentWeekBalance + $incomeAmount - $spendingAmount) }}</td>
         </tr>
     </tfoot>
 </table>
