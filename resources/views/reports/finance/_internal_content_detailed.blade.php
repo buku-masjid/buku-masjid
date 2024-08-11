@@ -1,4 +1,4 @@
-<table class="table table-sm mb-0 table-hover table-bordered">
+<table class="table table-sm mb-0 card-table table-hover table-bordered">
     <thead>
         <tr>
             <th class="text-center">{{ __('app.date') }}</th>
@@ -11,7 +11,7 @@
     <tbody>
         <tr class="strong">
             <td>&nbsp;</td>
-            <td class="strong">{{ 'Saldo per '.$lastWeekDate->isoFormat('D MMMM Y') }}</td>
+            <td class="strong">{{ 'Sisa saldo per '.$lastWeekDate->isoFormat('D MMMM Y') }}</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td class="strong text-right text-nowrap">{{ format_number($currentWeekBalance = auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d'))) }}</td>
