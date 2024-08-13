@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb093d31ab0c8e4ce08e7931aacca267",
+    "content-hash": "a4bdaa8b1223e9f03c37b585b261a5e6",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -2444,16 +2444,16 @@
         },
         {
             "name": "luthfi/formfield",
-            "version": "dev-laravel_11_support",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nafiesl/FormField.git",
-                "reference": "275ec44dd093a6dcb924d24cd62d3da78e70abf6"
+                "reference": "ff30de5f089f5f1866ed69d78387a7539cb3006d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nafiesl/FormField/zipball/275ec44dd093a6dcb924d24cd62d3da78e70abf6",
-                "reference": "275ec44dd093a6dcb924d24cd62d3da78e70abf6",
+                "url": "https://api.github.com/repos/nafiesl/FormField/zipball/ff30de5f089f5f1866ed69d78387a7539cb3006d",
+                "reference": "ff30de5f089f5f1866ed69d78387a7539cb3006d",
                 "shasum": ""
             },
             "require": {
@@ -2494,9 +2494,9 @@
             "description": "Laravel Form Field the extension of Laravelcollective Form for Laravel 5.3 and newer with Twitter Bootstrap 4.",
             "support": {
                 "issues": "https://github.com/nafiesl/FormField/issues",
-                "source": "https://github.com/nafiesl/FormField/tree/laravel_11_support"
+                "source": "https://github.com/nafiesl/FormField/tree/3.1.0"
             },
-            "time": "2024-07-24T07:13:02+00:00"
+            "time": "2024-08-13T15:22:08+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -9546,8 +9546,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "backup-manager/laravel": 20,
-        "luthfi/formfield": 20
+        "backup-manager/laravel": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

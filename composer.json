@@ -22,7 +22,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.12",
-        "luthfi/formfield": "dev-laravel_11_support",
+        "luthfi/formfield": "^3.1",
         "niklasravnsborg/laravel-pdf": "^4.1",
         "nunomaduro/collision": "^7.7",
         "riverskies/laravel-mobile-detect": "^1.3"
