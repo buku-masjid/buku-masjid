@@ -1,4 +1,4 @@
-<table class="table table-sm mb-0 table-hover table-bordered">
+<table class="table table-sm mb-0 card-table table-hover table-bordered">
     <thead>
         <tr>
             <th class="text-center">{{ __('app.date') }}</th>
@@ -9,6 +9,13 @@
         </tr>
     </thead>
     <tbody>
+        <tr class="strong">
+            <td>&nbsp;</td>
+            <td class="strong">{{ 'Sisa saldo per '.$lastWeekDate->isoFormat('D MMMM Y') }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="strong text-right text-nowrap">{{ format_number($currentWeekBalance = auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d'))) }}</td>
+        </tr>
         @foreach ($weekTransactions as $dayName => $daysTransactions)
             @if ($dayName)
                 <tr><td class="text-center strong">{{ strtoupper($dayName) }}</td><td colspan="4">&nbsp;</td></tr>
@@ -28,7 +35,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2" class="text-right strong">{{ __('app.total') }}</td>
+            <td colspan="2" class="text-right strong">{{ __('app.total') }} {{ __('time.week') }} {{ $weekNumber }}</td>
             <td class="text-right strong">
                 @php
                     $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
@@ -45,7 +52,13 @@
                 @endphp
                 {{ format_number($spendingAmount) }}
             </td>
-            <td class="text-right strong">{{ format_number($incomeAmount - $spendingAmount) }}</td>
+            <td class="text-right strong text-nowrap">{{ format_number($incomeAmount - $spendingAmount) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-right strong">{{ __('transaction.end_balance') }} {{ __('time.week') }} {{ $weekNumber }}</td>
+            <td class="text-right strong">&nbsp;</td>
+            <td class="text-right strong">&nbsp;</td>
+            <td class="text-right strong text-nowrap">{{ format_number($currentWeekBalance + $incomeAmount - $spendingAmount) }}</td>
         </tr>
     </tfoot>
 </table>

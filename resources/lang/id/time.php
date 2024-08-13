@@ -5,7 +5,7 @@ return [
     'today' => 'Hari Ini',
     'tomorrow' => 'Besok',
     'date' => 'Tanggal',
-    'week' => 'Minggu',
+    'week' => 'Pekan',
     'this_week' => 'Pekan Ini',
     'next_week' => 'Pekan Depan',
     'month' => 'Bulan',

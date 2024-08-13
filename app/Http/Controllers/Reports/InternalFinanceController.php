@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Models\BankAccountBalance;
-use App\Transaction;
 use Carbon\Carbon;
 use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
@@ -126,9 +125,10 @@ class InternalFinanceController extends FinanceController
         $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
+        $lastMonthDate = Carbon::parse($startDate)->subDay();
 
         return view('reports.finance.'.$reportPeriode.'.detailed', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode'
+            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode', 'lastMonthDate'
         ));
     }
 
@@ -142,8 +142,9 @@ class InternalFinanceController extends FinanceController
         $currentMonthEndDate = $endDate->clone();
         $showLetterhead = $this->showLetterhead();
         $reportPeriode = $book->report_periode_code;
+        $lastMonthDate = Carbon::parse($startDate)->subDay();
         $passedVariables = compact(
-            'startDate', 'endDate', 'groupedTransactions',
+            'startDate', 'endDate', 'groupedTransactions', 'lastMonthDate',
             'currentMonthEndDate', 'showLetterhead', 'reportPeriode'
         );
 
@@ -155,29 +156,15 @@ class InternalFinanceController extends FinanceController
 
     private function getWeeklyGroupedTransactions(string $startDate, string $endDate): Collection
     {
-        $lastMonthDate = Carbon::parse($startDate)->subDay();
-
         $transactions = $this->getTansactionsByDateRange($startDate, $endDate);
         $groupedTransactions = collect([]);
-        $lastWeekDate = null;
-
         $dateRangePerWeek = get_date_range_per_week($startDate, $endDate, auth()->activeBook()->start_week_day_code);
         foreach ($dateRangePerWeek as $weekNumber => $weekDates) {
             $weekTransactions = $transactions->filter(function ($transaction) use ($weekDates) {
                 return in_array($transaction->date, $weekDates);
             });
-            $lastWeekDate = $lastWeekDate ?: $lastMonthDate;
             if (!$weekTransactions->isEmpty()) {
-                $firstBalance = new Transaction([
-                    'date' => null,
-                    'description' => 'Saldo per '.$lastWeekDate->isoFormat('D MMMM Y'),
-                    'in_out' => 1,
-                    'amount' => auth()->activeBook()->getBalance($lastWeekDate->format('Y-m-d')),
-                ]);
-                $firstBalance->is_strong = 1;
-                $weekTransactions->prepend($firstBalance);
                 $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('day_name'));
-                $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
             }
         }
 

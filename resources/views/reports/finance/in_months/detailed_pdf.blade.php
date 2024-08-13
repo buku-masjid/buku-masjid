@@ -20,11 +20,23 @@
     </h2>
 </htmlpageheader>
 
+@php
+    $lastWeekDate = null;
+@endphp
 @foreach($groupedTransactions as $weekNumber => $weekTransactions)
-@include('reports.finance._internal_content_detailed')
-@if ($weekNumber != $groupedTransactions->keys()->last())
-    <pagebreak />
-@endif
+    @php
+        $lastWeekDate = $lastWeekDate ?: $lastMonthDate;
+    @endphp
+    <div class="card-header">
+        <h3 class="card-title">{{ __('time.week') }} {{ ++$weekNumber }}</h3>
+    </div>
+    @include('reports.finance._internal_content_detailed')
+    @php
+        $lastWeekDate = Carbon\Carbon::parse($weekTransactions->last()->last()->date);
+    @endphp
+    @if ($weekNumber != $groupedTransactions->keys()->last() + 1)
+        <pagebreak />
+    @endif
 @endforeach
 
 @include('reports.finance._pdf_signature_content')
