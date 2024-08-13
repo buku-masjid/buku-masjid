@@ -11,6 +11,7 @@ class FinancialSummary extends Component
 {
     public $bookId;
     public $start;
+    public $today;
     public $isAlltime = true;
     public $currentBudget = 0;
     public $currentBalance = 0;
