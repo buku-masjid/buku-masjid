@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "backup-manager/laravel": "dev-laravel_9_support",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",
