@@ -15,14 +15,14 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "backup-manager/laravel": "dev-laravel_9_support",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.12",
-        "luthfi/formfield": "^2.2",
+        "luthfi/formfield": "^3.1",
         "niklasravnsborg/laravel-pdf": "^4.1",
         "nunomaduro/collision": "^7.7",
         "riverskies/laravel-mobile-detect": "^1.3"

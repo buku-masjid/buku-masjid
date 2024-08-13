@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e88547eddf88cf39b7d892e7c83c39c",
+    "content-hash": "2a71ebd57234d42e653a5287214d9eb1",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -979,6 +979,84 @@
             "time": "2021-10-07T12:57:01+00:00"
         },
         {
+            "name": "konekt/html",
+            "version": "6.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artkonekt/html.git",
+                "reference": "599dfd0986a7a125170ed8897904cd65452a4e54"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artkonekt/html/zipball/599dfd0986a7a125170ed8897904cd65452a4e54",
+                "reference": "599dfd0986a7a125170ed8897904cd65452a4e54",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^10.0|^11.0",
+                "illuminate/routing": "^10.0|^11.0",
+                "illuminate/session": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "illuminate/view": "^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "replace": {
+                "laravelcollective/html": "^6.4"
+            },
+            "require-dev": {
+                "illuminate/database": "^10.0|^11.0",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.5.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Collective\\Html\\HtmlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Form": "Collective\\Html\\FormFacade",
+                        "Html": "Collective\\Html\\HtmlFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                },
+                {
+                    "name": "Attila Fulop"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "homepage": "https://laravelcollective.com",
+            "support": {
+                "issues": "https://github.com/artkonekt/html/issues",
+                "source": "https://github.com/artkonekt/html"
+            },
+            "time": "2024-03-12T18:48:30+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v10.13.5",
             "source": {
@@ -1445,79 +1523,6 @@
                 "source": "https://github.com/laravel/ui/tree/v4.2.2"
             },
             "time": "2023-05-09T19:47:28+00:00"
-        },
-        {
-            "name": "laravelcollective/html",
-            "version": "v6.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "64ddfdcaeeb8d332bd98bef442bef81e39c3910b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/64ddfdcaeeb8d332bd98bef442bef81e39c3910b",
-                "reference": "64ddfdcaeeb8d332bd98bef442bef81e39c3910b",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/http": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "illuminate/routing": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "illuminate/session": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "illuminate/view": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "php": ">=7.2.5"
-            },
-            "require-dev": {
-                "illuminate/database": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "mockery/mockery": "~1.0",
-                "phpunit/phpunit": "~8.5|^9.5.10"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Collective\\Html\\HtmlServiceProvider"
-                    ],
-                    "aliases": {
-                        "Form": "Collective\\Html\\FormFacade",
-                        "Html": "Collective\\Html\\HtmlFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Collective\\Html\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adam Engebretson",
-                    "email": "adam@laravelcollective.com"
-                },
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "description": "HTML and Form Builders for the Laravel Framework",
-            "homepage": "https://laravelcollective.com",
-            "support": {
-                "issues": "https://github.com/LaravelCollective/html/issues",
-                "source": "https://github.com/LaravelCollective/html"
-            },
-            "abandoned": "spatie/laravel-html",
-            "time": "2023-04-25T02:46:11+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -2439,24 +2444,24 @@
         },
         {
             "name": "luthfi/formfield",
-            "version": "2.2.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nafiesl/FormField.git",
-                "reference": "379d33fefca21d4fb961fd523ceec78373033bc5"
+                "reference": "ff30de5f089f5f1866ed69d78387a7539cb3006d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nafiesl/FormField/zipball/379d33fefca21d4fb961fd523ceec78373033bc5",
-                "reference": "379d33fefca21d4fb961fd523ceec78373033bc5",
+                "url": "https://api.github.com/repos/nafiesl/FormField/zipball/ff30de5f089f5f1866ed69d78387a7539cb3006d",
+                "reference": "ff30de5f089f5f1866ed69d78387a7539cb3006d",
                 "shasum": ""
             },
             "require": {
-                "laravelcollective/html": ">=5.3",
-                "php": ">=7.2"
+                "konekt/html": "^6.5",
+                "php": "^8.1"
             },
             "require-dev": {
-                "orchestra/testbench": ">=3.0 <3.8"
+                "orchestra/testbench": "^9.0"
             },
             "type": "library",
             "extra": {
@@ -2489,9 +2494,9 @@
             "description": "Laravel Form Field the extension of Laravelcollective Form for Laravel 5.3 and newer with Twitter Bootstrap 4.",
             "support": {
                 "issues": "https://github.com/nafiesl/FormField/issues",
-                "source": "https://github.com/nafiesl/FormField/tree/2.2.0"
+                "source": "https://github.com/nafiesl/FormField/tree/3.1.0"
             },
-            "time": "2021-03-20T14:58:05+00:00"
+            "time": "2024-08-13T15:22:08+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -9546,8 +9551,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
