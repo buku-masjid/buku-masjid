@@ -3,6 +3,7 @@
 return [
     'report' => 'Report',
     'periode' => 'Report Periode',
+    'page' => 'Page',
     'start_week_day' => 'Start Week Day',
     'in_months' => 'In Months',
     'in_weeks' => 'In Weeks',

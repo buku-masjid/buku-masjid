@@ -3,6 +3,7 @@
 return [
     'report' => 'Laporan',
     'periode' => 'Periode Laporan',
+    'page' => 'Hal.',
     'start_week_day' => 'Hari Awal Pekan',
     'in_months' => 'Per Bulan',
     'in_weeks' => 'Per Pekan',

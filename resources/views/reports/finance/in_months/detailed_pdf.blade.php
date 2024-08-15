@@ -19,7 +19,6 @@
         @endif
     </h2>
 </htmlpageheader>
-
 @php
     $lastWeekDate = null;
 @endphp
@@ -40,6 +39,10 @@
 @endforeach
 
 @include('reports.finance._pdf_signature_content')
+
+<htmlpagefooter name="wpFooter">
+    <div class="text-right">{{ __('report.page') }} {PAGENO}/{nb}</div>
+</htmlpagefooter>
 @endsection
 
 @section('style')
@@ -53,6 +56,7 @@
         margin-header: 40px;
         margin-footer: 40px;
         header: html_wpHeader;
+        footer: html_wpFooter;
     }
 </style>
 @endsection
