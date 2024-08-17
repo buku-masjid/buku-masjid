@@ -103,6 +103,7 @@ class ManageBookTest extends TestCase
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'has_pdf_page_number' => 0,
             'start_week_day_code' => 'friday',
             'management_title' => 'Panitia Ramadhan',
             'acknowledgment_text_left' => 'Mengetahui',
@@ -128,6 +129,13 @@ class ManageBookTest extends TestCase
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'start_week_day_code' => 'friday',
             'manager_id' => $financeUser->id,
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'has_pdf_page_number',
+            'value' => '0',
         ]);
 
         $this->seeInDatabase('settings', [

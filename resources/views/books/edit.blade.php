@@ -89,6 +89,15 @@
                                 ]) !!}
                             </div>
                         </div>
+                        @can('change-manager', $book)
+                            {!! FormField::select('manager_id', $financeUsers, [
+                                'label' => __('book.manager'),
+                                'placeholder' => __('book.admin_only'),
+                                'info' => ['text' => __('book.manager_info_text')],
+                            ]) !!}
+                        @else
+                            {!! FormField::textDisplay(__('book.manager'), $book->manager->name) !!}
+                        @endcan
                     </div>
                     <div class="col-md-6">
                         <h4 class="text-primary">{{ __('settings.settings') }}</h4>
@@ -132,17 +141,17 @@
                             'placeholder' => __('report.management'),
                             'info' => ['text' => __('book.management_title_info_text')],
                         ]) !!}
-                        @can('change-manager', $book)
-                            {!! FormField::select('manager_id', $financeUsers, [
-                                'label' => __('book.manager'),
-                                'placeholder' => __('book.admin_only'),
-                                'info' => ['text' => __('book.manager_info_text')],
-                            ]) !!}
-                        @else
-                            {!! FormField::textDisplay(__('book.manager'), $book->manager->name) !!}
-                        @endcan
+                        {!! FormField::radios('has_pdf_page_number', [
+                            '1' => __('app.yes'),
+                            '0' => __('app.no'),
+                        ], [
+                            'value' => Setting::for($book)->get('has_pdf_page_number') == '0' ? '0': '1',
+                            'label' => __('report.has_pdf_page_number'),
+                            'placeholder' => false,
+                        ]) !!}
                     </div>
                 </div>
+                <hr class="my-3">
                 <legend>{{ __('report.signatures') }}</legend>
                 <div class="row">
                     <div class="col-md-4">

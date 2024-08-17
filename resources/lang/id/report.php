@@ -3,6 +3,7 @@
 return [
     'report' => 'Laporan',
     'periode' => 'Periode Laporan',
+    'page' => 'Hal.',
     'start_week_day' => 'Hari Awal Pekan',
     'in_months' => 'Per Bulan',
     'in_weeks' => 'Per Pekan',
@@ -47,6 +48,7 @@ return [
     'view_in_out' => 'Laporan KAS per Kategori',
     'categorized_transactions' => 'Laporan Pemasukan dan Pengeluaran KAS',
     'export_pdf' => 'Export PDF',
+    'has_pdf_page_number' => 'Pakai Nomor Halaman PDF',
     'title_updated' => 'Judul laporan telah diupdate.',
     'management' => 'Pengurus',
 

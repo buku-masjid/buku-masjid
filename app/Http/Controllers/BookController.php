@@ -88,6 +88,7 @@ class BookController extends Controller
             'report_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
+            'has_pdf_page_number' => ['nullable', 'boolean'],
             'start_week_day_code' => ['required', 'string'],
             'manager_id' => ['nullable', 'exists:users,id'],
             'management_title' => ['nullable', 'string', 'max:20'],
@@ -122,6 +123,7 @@ class BookController extends Controller
         $bookData['acknowledgment_text_right'] ? Setting::for($book)->set('acknowledgment_text_right', $bookData['acknowledgment_text_right']) : null;
         $bookData['sign_position_right'] ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
         $bookData['sign_name_right'] ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
+        Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']);
     }
 
     public function destroy(Book $book)
