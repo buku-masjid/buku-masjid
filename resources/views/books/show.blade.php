@@ -31,6 +31,7 @@
                     <tr><td>{{ __('book.report_visibility') }}</td><td>{{ __('book.report_visibility_'.$book->report_visibility_code) }}</td></tr>
                     <tr><td>{{ __('report.periode') }}</td><td>{{ __('report.'.$book->report_periode_code) }}</td></tr>
                     <tr><td>{{ __('report.start_week_day') }}</td><td>{{ __('time.days.'.$book->start_week_day_code) }}</td></tr>
+                    <tr><td>{{ __('report.has_pdf_page_number') }}</td><td>{{ $book->start_week_day_code == '0' ? __('app.no') : __('app.yes') }}</td></tr>
                 </tbody>
             </table>
             <div class="card-footer">

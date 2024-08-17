@@ -89,6 +89,14 @@
                                 ]) !!}
                             </div>
                         </div>
+                        {!! FormField::radios('has_pdf_page_number', [
+                            '1' => __('app.yes'),
+                            '0' => __('app.no'),
+                        ], [
+                            'value' => Setting::for($book)->get('has_pdf_page_number') == '0' ? '0': '1',
+                            'label' => __('report.has_pdf_page_number'),
+                            'placeholder' => false,
+                        ]) !!}
                     </div>
                     <div class="col-md-6">
                         <h4 class="text-primary">{{ __('settings.settings') }}</h4>
@@ -143,6 +151,7 @@
                         @endcan
                     </div>
                 </div>
+                <hr class="my-3">
                 <legend>{{ __('report.signatures') }}</legend>
                 <div class="row">
                     <div class="col-md-4">

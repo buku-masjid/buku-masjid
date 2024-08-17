@@ -48,6 +48,7 @@ return [
     'view_in_out' => 'Categorized Transactions',
     'categorized_transactions' => 'Categorized Transactions Report',
     'export_pdf' => 'Export PDF',
+    'has_pdf_page_number' => 'Use PDF Page Number',
     'title_updated' => 'Report title updated.',
     'management' => 'Management',
 

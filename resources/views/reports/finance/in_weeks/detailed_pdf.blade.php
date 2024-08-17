@@ -37,7 +37,9 @@
 @include('reports.finance._pdf_signature_content')
 
 <htmlpagefooter name="wpFooter">
-    <div class="text-right">{{ __('report.page') }} {PAGENO}/{nb}</div>
+    @if (Setting::for(auth()->activeBook())->get('has_pdf_page_number') != '0')
+        <div class="text-right">{{ __('report.page') }} {PAGENO}/{nb}</div>
+    @endif
 </htmlpagefooter>
 @endsection
 
