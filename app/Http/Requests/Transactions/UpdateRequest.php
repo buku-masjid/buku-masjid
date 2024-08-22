@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
             'amount' => 'required|max:60',
             'description' => 'required|max:255',
             'category_id' => 'nullable|exists:categories,id',
+            'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ];
     }
 

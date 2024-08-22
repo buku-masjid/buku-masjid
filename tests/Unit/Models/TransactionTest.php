@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
@@ -32,6 +33,17 @@ class TransactionTest extends TestCase
 
         $this->assertInstanceOf(Category::class, $transaction->category);
         $this->assertEquals($transaction->category_id, $transaction->category->id);
+    }
+
+    /** @test */
+    public function a_transaction_has_belongs_to_bank_account_relation()
+    {
+        $user = $this->loginAsUser();
+        $bankAccount = factory(BankAccount::class)->create(['creator_id' => $user->id]);
+        $transaction = factory(Transaction::class)->make(['bank_account_id' => $bankAccount->id]);
+
+        $this->assertInstanceOf(BankAccount::class, $transaction->bankAccount);
+        $this->assertEquals($transaction->bank_account_id, $transaction->bankAccount->id);
     }
 
     /** @test */

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Categories\CreateRequest;
 use App\Http\Requests\Categories\DeleteRequest;
 use App\Http\Requests\Categories\UpdateRequest;
+use App\Models\BankAccount;
 use App\Models\Category;
 use App\Transaction;
 
@@ -53,6 +54,7 @@ class CategoriesController extends Controller
         ]);
         $incomeTotal = $this->getIncomeTotal($transactions);
         $spendingTotal = $this->getSpendingTotal($transactions);
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $categories = $this->getCategoryList();
@@ -61,7 +63,7 @@ class CategoriesController extends Controller
 
         return view('categories.show', compact(
             'category', 'transactions', 'year', 'incomeTotal', 'spendingTotal',
-            'startDate', 'endDate', 'editableTransaction', 'categories'
+            'startDate', 'endDate', 'editableTransaction', 'categories', 'bankAccounts'
         ));
     }
 

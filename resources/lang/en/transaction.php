@@ -45,4 +45,8 @@ return [
     'amount' => 'Amount',
     'description' => 'Transaction Description',
     'in_out' => 'Income/Spending',
+    'cash' => 'Cash',
+    'origin' => 'Origin',
+    'destination' => 'Destination',
+    'origin_destination' => 'Origin/Destination',
 ];

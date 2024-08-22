@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,6 +35,7 @@ class TransactionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'bank_account_id' => '',
         ]);
 
         $this->seeRouteIs('transactions.index', ['month' => $month, 'year' => $year]);
@@ -56,6 +58,7 @@ class TransactionEntryTest extends TestCase
         $date = '2017-01-01';
         $this->loginAsUser();
         $book = factory(Book::class)->create();
+        $bankAccount = factory(BankAccount::class)->create();
         $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
 
         $this->click(__('transaction.add_spending'));
@@ -65,6 +68,7 @@ class TransactionEntryTest extends TestCase
             'amount' => 99.99,
             'date' => $date,
             'description' => 'Spending description',
+            'bank_account_id' => $bankAccount->id,
         ]);
 
         $this->seeRouteIs('transactions.index', ['month' => $month, 'year' => $year]);
@@ -75,6 +79,7 @@ class TransactionEntryTest extends TestCase
             'amount' => 99.99,
             'date' => $date,
             'description' => 'Spending description',
+            'bank_account_id' => $bankAccount->id,
         ]);
     }
 
