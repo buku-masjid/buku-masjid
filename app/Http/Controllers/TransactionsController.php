@@ -28,6 +28,8 @@ class TransactionsController extends Controller
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
+            $categories = $categories->skip(1);
+            $bankAccounts = $bankAccounts->skip(1);
         }
 
         $incomeTotal = $this->getIncomeTotal($transactions);
