@@ -57,6 +57,9 @@
                         @endif
                         <td>
                             <span class="float-right">
+                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                    {{ $transaction->bankAccount->name }}
+                                </span>
                                 @if ($transaction->category)
                                     @php
                                         $categoryRoute = route('categories.show', [

@@ -10,6 +10,9 @@
     {{ $transaction->description }}
 </div>
 <div style="margin-bottom: 6px;">
+    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+        {{ $transaction->bankAccount->name }}
+    </span>
     @if ($transaction->category)
         @php
             $categoryRoute = route('categories.show', [

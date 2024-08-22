@@ -47,6 +47,9 @@
                             <td>
                                 {{ $transaction->description }}
                                 <div class="float-right">
+                                    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                        {{ $transaction->bankAccount->name }}
+                                    </span>
                                     @if ($transaction->category)
                                         @php
                                             $categoryRoute = route('categories.show', [
