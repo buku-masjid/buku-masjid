@@ -17,7 +17,7 @@ return [
     'finance_detailed' => 'Rincian Transaksi',
     'view_yearly_label' => 'Lihat Tahun',
     'view_monthly_label' => 'Lihat Bulan',
-    'view_date_range_label' => 'Rentang Tanggal',
+    'view_date_range_label' => 'Rentang Tgl',
     'view_report' => 'Lihat Laporan',
     'select_report' => 'Pilih Laporan',
     'this_year' => 'Tahun Ini',

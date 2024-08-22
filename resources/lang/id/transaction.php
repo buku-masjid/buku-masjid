@@ -48,5 +48,5 @@ return [
     'cash' => 'Tunai',
     'origin' => 'Asal Kas',
     'destination' => 'Tujuan Kas',
-    'origin_destination' => 'Asal/Tujuan Kas',
+    'origin_destination' => 'Asal/Tujuan',
 ];
