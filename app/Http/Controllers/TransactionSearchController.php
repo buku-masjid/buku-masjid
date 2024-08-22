@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use App\Transaction;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class TransactionSearchController extends Controller
         $transactions = collect([]);
         $searchQuery = $request->get('search_query');
         $categoryId = $request->get('category_id');
+        $bankAccountId = $request->get('bank_account_id');
         if ($searchQuery) {
             $transactionQuery = Transaction::orderBy('date', 'desc');
             $transactionQuery->whereBetween('date', [$startDate, $endDate]);
@@ -25,12 +27,21 @@ class TransactionSearchController extends Controller
             if ($categoryId) {
                 $transactionQuery->where('category_id', $categoryId);
             }
-            $transactions = $transactionQuery->with('category', 'book')->limit(100)->get();
+            if ($bankAccountId) {
+                if ($bankAccountId == 'null') {
+                    $transactionQuery->whereNull('bank_account_id');
+                } else {
+                    $transactionQuery->where('bank_account_id', $bankAccountId);
+                }
+            }
+            $transactions = $transactionQuery->with('category', 'bankAccount', 'book')->limit(100)->get();
         }
         $categories = $this->getCategoryList();
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+            ->prepend(__('transaction.cash'), 'null');
 
         return view('transaction_search.index', compact(
-            'searchQuery', 'transactions', 'startDate', 'endDate', 'categories'
+            'searchQuery', 'transactions', 'startDate', 'endDate', 'categories', 'bankAccounts'
         ));
     }
 }

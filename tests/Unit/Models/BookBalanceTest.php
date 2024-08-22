@@ -102,4 +102,18 @@ class BookBalanceTest extends TestCase
         // Assert balance from '2015-01-03' until '2015-01-30' with category_id 2
         $this->assertEquals(3100, $book->getBalance('2015-01-31', '2015-01-03', 2));
     }
+
+    /** @test */
+    public function balance_function_accepts_bank_account_id_parameter()
+    {
+        $book = factory(Book::class)->create();
+
+        // Other transaction with different bank_account_id
+        factory(Transaction::class)->create(['date' => '2015-01-03', 'amount' => 10000, 'in_out' => 1, 'book_id' => $book->id, 'bank_account_id' => 1]);
+        factory(Transaction::class)->create(['date' => '2015-01-05', 'amount' => 900, 'in_out' => 0, 'book_id' => $book->id, 'bank_account_id' => 1]);
+        factory(Transaction::class)->create(['date' => '2015-01-20', 'amount' => 4000, 'in_out' => 1, 'book_id' => $book->id, 'bank_account_id' => 2]);
+
+        // Assert balance from '2015-01-03' until '2015-01-30' with bank_account_id 2
+        $this->assertEquals(4000, $book->getBalance('2015-01-31', '2015-01-03', null, 2));
+    }
 }

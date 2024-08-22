@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
@@ -94,6 +95,38 @@ class TransactionListingTest extends TestCase
 
         $this->visitRoute('transactions.index', ['query' => 'listed', 'category_id' => $category->id]);
         $this->seeRouteIs('transactions.index', ['category_id' => $category->id, 'query' => 'listed']);
+        $this->dontSee('Unlisted transaction');
+        $this->see('Today listed transaction');
+    }
+
+    /** @test */
+    public function user_can_see_transaction_list_by_selected_origin_destination_query()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $bankAccount = factory(BankAccount::class)->create();
+        $todayDate = today()->format('Y-m-d');
+        factory(Transaction::class)->create([
+            'date' => $todayDate,
+            'description' => 'Unlisted transaction',
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'bank_account_id' => null,
+        ]);
+        factory(Transaction::class)->create([
+            'date' => $todayDate,
+            'description' => 'Today listed transaction',
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'bank_account_id' => $bankAccount->id,
+        ]);
+
+        $this->visitRoute('transactions.index');
+        $this->see('Unlisted transaction');
+        $this->see('Today listed transaction');
+
+        $this->visitRoute('transactions.index', ['bank_account_id' => $bankAccount->id]);
+        $this->seeRouteIs('transactions.index', ['bank_account_id' => $bankAccount->id]);
         $this->dontSee('Unlisted transaction');
         $this->see('Today listed transaction');
     }
