@@ -46,7 +46,7 @@ return [
     'description' => 'Deskripsi Transaksi',
     'in_out' => 'Pemasukan/Pengeluaran',
     'cash' => 'Tunai',
-    'origin' => 'Asal Kas',
-    'destination' => 'Tujuan Kas',
-    'origin_destination' => 'Asal/Tujuan',
+    'origin' => 'Rekening Asal',
+    'destination' => 'Rekening Tujuan',
+    'origin_destination' => 'Rekening',
 ];
