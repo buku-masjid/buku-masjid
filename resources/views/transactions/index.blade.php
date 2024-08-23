@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="page-header">
-    <h1 class="page-title">{{ __('transaction.list') }}</h1>
+    <h1 class="page-title"><div class="d-none d-sm-inline">{{ __('transaction.list') }}</div> {{ get_months()[$month] }} {{ $year }}</h1>
     <div class="page-subtitle">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
     <div class="page-options d-flex">
         {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary mr-2']) }}
