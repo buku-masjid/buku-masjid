@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Transactions\CreateRequest;
 use App\Http\Requests\Transactions\UpdateRequest;
+use App\Models\BankAccount;
 use App\Models\Category;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -22,9 +23,13 @@ class TransactionsController extends Controller
         $transactions = $this->getTansactions($yearMonth);
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+            ->prepend(__('transaction.cash'), 'null');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
+            $categories = $categories->skip(1);
+            $bankAccounts = $bankAccounts->skip(1);
         }
 
         $incomeTotal = $this->getIncomeTotal($transactions);
@@ -34,7 +39,7 @@ class TransactionsController extends Controller
             'transactions', 'editableTransaction',
             'yearMonth', 'month', 'year', 'categories',
             'incomeTotal', 'spendingTotal',
-            'startDate', 'date'
+            'startDate', 'date', 'bankAccounts'
         ));
     }
 
@@ -55,8 +60,9 @@ class TransactionsController extends Controller
                 ->where('status_id', Category::STATUS_ACTIVE)
                 ->pluck('name', 'id');
         }
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
 
-        return view('transactions.create', compact('categories'));
+        return view('transactions.create', compact('categories', 'bankAccounts'));
     }
 
     public function store(CreateRequest $transactionCreateForm)

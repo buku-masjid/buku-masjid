@@ -4,6 +4,7 @@
     {{ Form::select('month', get_months(), $month, ['class' => 'form-control form-control-sm mr-2']) }}
     {{ Form::select('year', get_years(), $year, ['class' => 'form-control form-control-sm mr-2']) }}
     {{ Form::select('category_id', $categories, request('category_id'), ['placeholder' => __('category.all'), 'class' => 'form-control form-control-sm mr-2']) }}
+    {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => '-- '.__('transaction.origin_destination').' --', 'class' => 'form-control form-control-sm mr-2']) }}
     <div class="form-group mt-4 mt-sm-0">
         {{ Form::submit(__('app.submit'), ['class' => 'btn btn-primary btn-sm mr-2']) }}
         {{ link_to_route('transactions.index', __('app.reset'), [], ['class' => 'btn btn-secondary btn-sm mr-2']) }}

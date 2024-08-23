@@ -40,7 +40,14 @@
                     <tr>
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td class="text-center">{{ $transaction->date }}</td>
-                        <td>{{ $transaction->description }}</td>
+                        <td>
+                            <span class="float-right">
+                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                    {{ $transaction->bankAccount->name }}
+                                </span>
+                            </span>
+                            {{ $transaction->description }}
+                        </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td class="text-center">
                             @can('update', $transaction)

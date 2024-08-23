@@ -35,10 +35,11 @@
         {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mr-1']) }}
         {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
         {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
+        {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.categorized', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d')], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         {{ Form::close() }}
     </div>

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Traits\Models\ForActiveBook;
@@ -14,7 +15,7 @@ class Transaction extends Model
 
     protected $fillable = [
         'date', 'amount', 'in_out', 'description',
-        'category_id', 'book_id', 'creator_id',
+        'category_id', 'book_id', 'creator_id', 'bank_account_id',
     ];
 
     public function creator()
@@ -25,6 +26,11 @@ class Transaction extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function bankAccount()
+    {
+        return $this->belongsTo(BankAccount::class)->withDefault(['name' => __('transaction.cash')]);
     }
 
     public function book()

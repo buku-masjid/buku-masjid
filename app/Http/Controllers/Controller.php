@@ -39,6 +39,7 @@ class Controller extends BaseController
     {
         $categoryId = request('category_id');
         $bookId = request('book_id');
+        $bankAccountId = request('bank_account_id');
 
         $transactionQuery = Transaction::query();
         $transactionQuery->where('date', 'like', $yearMonth.'%');
@@ -60,13 +61,22 @@ class Controller extends BaseController
             }
         });
 
-        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
+        $transactionQuery->when($bankAccountId, function ($queryBuilder, $bankAccountId) {
+            if ($bankAccountId == 'null') {
+                $queryBuilder->whereNull('bank_account_id');
+            } else {
+                $queryBuilder->where('bank_account_id', $bankAccountId);
+            }
+        });
+
+        return $transactionQuery->orderBy('date', 'asc')->with('category', 'bankAccount', 'book')->get();
     }
 
     protected function getTansactionsByDateRange(string $startDate, string $endDate)
     {
         $categoryId = request('category_id');
         $bookId = request('book_id');
+        $bankAccountId = request('bank_account_id');
 
         $transactionQuery = Transaction::query();
         $transactionQuery->whereBetween('date', [$startDate, $endDate]);
@@ -85,6 +95,14 @@ class Controller extends BaseController
                 $queryBuilder->whereNull('book_id');
             } else {
                 $queryBuilder->where('book_id', $bookId);
+            }
+        });
+
+        $transactionQuery->when($bankAccountId, function ($queryBuilder, $bankAccountId) {
+            if ($bankAccountId == 'null') {
+                $queryBuilder->whereNull('bank_account_id');
+            } else {
+                $queryBuilder->where('bank_account_id', $bankAccountId);
             }
         });
 

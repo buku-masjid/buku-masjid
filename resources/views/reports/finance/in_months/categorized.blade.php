@@ -37,13 +37,14 @@
     </h1>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('month', __('report.view_monthly_label'), ['class' => 'control-label mr-1']) }}
+        {{ Form::label('month', __('time.month'), ['class' => 'control-label mr-1']) }}
         {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1']) }}
+        {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.categorized', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m'))], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         @if (request('month') != '00')
             <div class="form-group">

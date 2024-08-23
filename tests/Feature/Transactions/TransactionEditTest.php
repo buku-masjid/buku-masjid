@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
@@ -20,6 +21,7 @@ class TransactionEditTest extends TestCase
         $date = '2017-01-01';
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
+        $bankAccount = factory(BankAccount::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
@@ -42,6 +44,7 @@ class TransactionEditTest extends TestCase
             'date' => $date,
             'description' => 'Transaction 1 description',
             'category_id' => $category->id,
+            'bank_account_id' => $bankAccount->id,
         ]);
 
         $this->seeRouteIs('transactions.index', ['month' => $transaction->month, 'year' => $transaction->year]);
@@ -52,6 +55,7 @@ class TransactionEditTest extends TestCase
             'date' => $date,
             'description' => 'Transaction 1 description',
             'category_id' => $category->id,
+            'bank_account_id' => $bankAccount->id,
         ]);
     }
 
@@ -158,6 +162,7 @@ class TransactionEditTest extends TestCase
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
+        $bankAccount = factory(BankAccount::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
@@ -187,6 +192,7 @@ class TransactionEditTest extends TestCase
             'date' => $date,
             'description' => 'Transaction 1 description',
             'category_id' => $category->id,
+            'bank_account_id' => $bankAccount->id,
         ]);
 
         $this->seeRouteIs('categories.show', [
@@ -201,6 +207,7 @@ class TransactionEditTest extends TestCase
             'date' => $date,
             'description' => 'Transaction 1 description',
             'category_id' => $category->id,
+            'bank_account_id' => $bankAccount->id,
         ]);
     }
 
