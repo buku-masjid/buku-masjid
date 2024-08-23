@@ -25,8 +25,8 @@
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}</div>
                     </div>
+                    {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
                 </div>
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_income'), ['class' => 'btn btn-success']) !!}
@@ -48,6 +48,7 @@
                 {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off']) !!}
                 {{ Form::hidden('in_out', 0) }}
                 <div class="card-body">
+                    {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin'), 'placeholder' => __('transaction.cash')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
                         <div class="col-md-6">{!! FormField::select('category_id', $categories, ['label' => __('category.category'), 'placeholder' => __('category.uncategorized')]) !!}</div>
@@ -55,7 +56,6 @@
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin'), 'placeholder' => __('transaction.cash')]) !!}</div>
                     </div>
                 </div>
                 <div class="card-footer">
