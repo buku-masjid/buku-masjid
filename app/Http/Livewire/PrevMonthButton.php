@@ -15,7 +15,12 @@ class PrevMonthButton extends Component
 
     public function mount()
     {
-        $yearMonth = request('year', date('Y')).'-'.request('month', date('m'));
+        $month = request('month', date('m'));
+        if (!isset(get_months()[$month])) {
+            $month = Carbon::now()->format('m');
+        }
+        $year = (int) request('year', date('Y'));
+        $yearMonth = $year.'-'.$month;
         $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
 
         $this->month = $prevMonthDate->format('m');
