@@ -24,6 +24,10 @@ return new class extends Migration
             $table->unsignedInteger('book_id')->default(config('masjid.default_book_id'));
             $table->unsignedInteger('creator_id');
             $table->timestamps();
+
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('restrict');
         });
     }
 
