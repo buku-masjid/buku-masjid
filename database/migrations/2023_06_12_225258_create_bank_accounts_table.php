@@ -60,6 +60,12 @@ return new class extends Migration
                 $table->dropColumn('bank_account_id');
             });
         }
+        if (Schema::hasColumn('transactions', 'bank_account_id')) {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->dropForeign('transactions_bank_account_id_foreign');
+                $table->dropColumn('bank_account_id');
+            });
+        }
 
         Schema::dropIfExists('bank_accounts');
     }
