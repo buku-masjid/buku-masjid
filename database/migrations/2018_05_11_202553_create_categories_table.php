@@ -24,6 +24,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('status_id')->default(Category::STATUS_ACTIVE);
             $table->string('report_visibility_code', 10)->default(Category::REPORT_VISIBILITY_PUBLIC);
             $table->timestamps();
+
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('restrict');
         });
     }
 

@@ -16,8 +16,11 @@ class TransactionsController extends Controller
         $editableTransaction = null;
         $yearMonth = $this->getYearMonth();
         $date = request('date');
-        $year = request('year', date('Y'));
+        $year = (int) request('year', date('Y'));
         $month = request('month', date('m'));
+        if (!isset(get_months()[$month])) {
+            $month = date('m');
+        }
         $startDate = $year.'-'.$month.'-01';
 
         $transactions = $this->getTansactions($yearMonth);

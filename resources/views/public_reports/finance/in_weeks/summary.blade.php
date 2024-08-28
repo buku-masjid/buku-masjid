@@ -16,7 +16,7 @@
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('public_reports.finance.summary', __('report.this_week'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-secondary mr-1']) }}
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4 mt-sm-0">
             @livewire('prev-week-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-secondary mr-1'])
             @livewire('next-week-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-secondary'])
         </div>

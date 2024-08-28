@@ -15,7 +15,12 @@ class NextMonthButton extends Component
 
     public function mount()
     {
-        $yearMonth = request('year', date('Y')).'-'.request('month', date('m'));
+        $month = request('month', date('m'));
+        if (!isset(get_months()[$month])) {
+            $month = Carbon::now()->format('m');
+        }
+        $year = (int) request('year', date('Y'));
+        $yearMonth = $year.'-'.$month;
         $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
 
         $this->month = $nextMonthDate->format('m');

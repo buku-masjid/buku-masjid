@@ -30,6 +30,22 @@ return new class extends Migration
 
                 $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
             });
+        } else {
+            Schema::table('books', function (Blueprint $table) {
+                $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
+            });
+        }
+
+        if (!Schema::hasColumn('transactions', 'bank_account_id')) {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->unsignedInteger('bank_account_id')->nullable()->after('category_id');
+
+                $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
+            });
+        } else {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('restrict');
+            });
         }
     }
 
@@ -38,11 +54,19 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bank_accounts');
         if (Schema::hasColumn('books', 'bank_account_id')) {
             Schema::table('books', function (Blueprint $table) {
+                $table->dropForeign('books_bank_account_id_foreign');
                 $table->dropColumn('bank_account_id');
             });
         }
+        if (Schema::hasColumn('transactions', 'bank_account_id')) {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->dropForeign('transactions_bank_account_id_foreign');
+                $table->dropColumn('bank_account_id');
+            });
+        }
+
+        Schema::dropIfExists('bank_accounts');
     }
 };
