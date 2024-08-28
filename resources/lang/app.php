@@ -2,7 +2,6 @@
 
 return [
     // Label
-    {
         "table_no": "#",
         "no": "No",
         "yes": "Ya",
@@ -64,7 +63,6 @@ return [
         "gender_female": "Perempuan",
         "pob": "Tempat Lahir",
         "dob": "Tarikh Lahir"
-    }
     
 ];
 
