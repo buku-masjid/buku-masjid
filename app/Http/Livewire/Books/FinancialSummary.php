@@ -65,8 +65,8 @@ class FinancialSummary extends Component
             $this->currentBudgetRemainingLabel = __('report.current_periode_budget_excess');
         }
 
-        $this->progressPercent = get_percent($this->currentIncomeTotal, $book->budget);
-        $this->progressPercentColor = $this->getProgressPercentColor($this->progressPercent);
+        $this->progressPercent = get_percent($this->currentIncomeTotal, (float) $book->budget);
+        $this->progressPercentColor = $this->getProgressPercentColor((float) $this->progressPercent);
     }
 
     private function getStartDate(Book $book): Carbon
