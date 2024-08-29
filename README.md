@@ -23,6 +23,8 @@ Kami ingin berterima kasih kepada sponsor yang mendukung development Buku Masjid
 
 1. [Raizora Indonesia](https://www.instagram.com/raizora_indonesia)
 1. [Pondok Teknologi](https://pondokteknologi.com)
+1. [Mushaira](https://mushaira.id)
+1. [Pyramidsoft Indonesia Group](https://ptpsig.com)
 
 Jika anda tertarik untuk menjadi sponsor, silakan hubungi Whatsapp Tim Buku Masjid pada halaman ini: [Kontak Buku Masjid](https://bukumasjid.com/contact).
 
