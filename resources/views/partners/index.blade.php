@@ -6,9 +6,21 @@
 <div class="page-header">
     <h1 class="page-title">{{ __('partner.list') }}</h1>
     <div class="page-subtitle">{{ __('app.total') }} : {{ $partners->count() }} {{ __('partner.partner') }}</div>
+    @if (count($partnerTypes) > 1)
+        <div class="btn-group ml-md-5">
+            @foreach ($partnerTypes as $partnerTypeCode => $partnerTypeName)
+                {!! link_to_route(
+                    'partners.index',
+                    $partnerTypeName,
+                    ['type_code' => $partnerTypeCode] + request()->all(),
+                    ['class' => 'btn btn-pill '.($selectedTypeCode == $partnerTypeCode ? 'btn-primary' : 'btn-secondary')]
+                ) !!}
+            @endforeach
+        </div>
+    @endif
     <div class="page-options d-flex">
         @can('create', new App\Models\Partner)
-            {{ link_to_route('partners.index', __('partner.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            {{ link_to_route('partners.index', __('partner.create'), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
@@ -59,7 +71,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="5">{{ __('partner.not_found') }}</td></tr>
+                    <tr><td colspan="5">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
                     @endforelse
                 </tbody>
             </table>

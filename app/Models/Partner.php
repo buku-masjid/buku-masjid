@@ -23,6 +23,11 @@ class Partner extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function getTypeAttribute(): string
+    {
+        return $this->getAvailableTypes()[$this->type_code] ?? $this->type_code;
+    }
+
     public function getAvailableTypes(): array
     {
         $partnerTypesConfig = config('partners.partner_types');

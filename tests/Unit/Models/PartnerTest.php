@@ -50,4 +50,19 @@ class PartnerTest extends TestCase
             'santri' => 'Santri',
         ], $partner->getAvailableTypes());
     }
+
+    /** @test */
+    public function partner_model_has_type_attribute()
+    {
+        $partner = factory(Partner::class)->make();
+
+        $this->assertEquals(__('partner.partner'), $partner->type);
+
+        $partner->type_code = 'santri';
+        $this->assertEquals('santri', $partner->type);
+
+        config(['partners.partner_types' => 'santri|Santri']);
+        $partner->type_code = 'santri';
+        $this->assertEquals('Santri', $partner->type);
+    }
 }

@@ -7,18 +7,28 @@ use Illuminate\Http\Request;
 
 class PartnerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view-any', new Partner);
 
         $editablePartner = null;
-        $partners = Partner::paginate();
         $partnerTypes = (new Partner)->getAvailableTypes();
+        $defaultTypeCode = collect($partnerTypes)->keys()->first();
+        $request->merge([
+            'type_code' => $request->get('type_code', $defaultTypeCode),
+        ]);
+        $selectedTypeCode = $request->get('type_code');
+        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
+        $partnerQuery = Partner::query();
+        $partnerQuery->where('type_code', $selectedTypeCode);
+        $partners = $partnerQuery->paginate(100);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
         }
 
-        return view('partners.index', compact('partners', 'editablePartner', 'partnerTypes'));
+        return view('partners.index', compact(
+            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName'
+        ));
     }
 
     public function store(Request $request)

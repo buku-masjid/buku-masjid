@@ -3,7 +3,7 @@
 return [
     // Labels
     'index_title' => 'Backup File List',
-    'list' => 'Database Backup Manager',
+    'list' => 'DB Backup',
     'file_name' => 'File Name',
     'file_size' => 'File Size',
     'created_at' => 'Created at',

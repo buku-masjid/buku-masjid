@@ -3,7 +3,7 @@
 return [
     // Labels
     'index_title' => 'Daftar File Backup',
-    'list' => 'Backup Database',
+    'list' => 'Backup DB',
     'file_name' => 'Nama File',
     'file_size' => 'Ukuran File',
     'created_at' => 'Dibuat pada',

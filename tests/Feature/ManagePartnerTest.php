@@ -27,7 +27,7 @@ class ManagePartnerTest extends TestCase
         $this->visitRoute('partners.index');
 
         $this->click(__('partner.create'));
-        $this->seeRouteIs('partners.index', ['action' => 'create']);
+        $this->seeRouteIs('partners.index', ['action' => 'create', 'type_code' => 'partner']);
 
         $this->submitForm(__('partner.create'), [
             'name' => 'Partner 1 name',
