@@ -8,6 +8,7 @@ use App\Models\BankAccount;
 use App\Models\Category;
 use App\Models\Partner;
 use App\Transaction;
+use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
@@ -29,7 +30,9 @@ class TransactionsController extends Controller
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
             ->prepend(__('transaction.cash'), 'null');
-        $partners = Partner::where('is_active', Partner::STATUS_ACTIVE)->orderBy('name')->pluck('name', 'id');
+        $partnerTypes = (new Partner)->getAvailableTypes();
+        $partnerTypeCodes = array_keys($partnerTypes);
+        $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
@@ -51,8 +54,17 @@ class TransactionsController extends Controller
     public function create(Request $request)
     {
         $categories = collect([]);
+        $partners = [];
+        $partnerTypes = (new Partner)->getAvailableTypes();
+        $partnerDefaultValue = __('partner.partner');
 
         if (in_array(request('action'), ['add-income'])) {
+            $partnerTypeCodes = Setting::for(auth()->activeBook())->get('income_partner_codes');
+            $partnerTypeCodes = json_decode($partnerTypeCodes, true);
+            if ($partnerTypeCodes) {
+                $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
+                $partnerDefaultValue = Setting::for(auth()->activeBook())->get('income_partner_null') ?: config('partners.income_default_value');
+            }
             $categories = Category::orderBy('name')
                 ->where('color', config('masjid.income_color'))
                 ->where('status_id', Category::STATUS_ACTIVE)
@@ -60,15 +72,45 @@ class TransactionsController extends Controller
         }
 
         if (in_array(request('action'), ['add-spending'])) {
+            $partnerTypeCodes = Setting::for(auth()->activeBook())->get('spending_partner_codes');
+            $partnerTypeCodes = json_decode($partnerTypeCodes, true);
+            if ($partnerTypeCodes) {
+                $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
+                $partnerDefaultValue = Setting::for(auth()->activeBook())->get('spending_partner_null') ?: config('partners.spending_default_value');
+            }
             $categories = Category::orderBy('name')
                 ->where('color', config('masjid.spending_color'))
                 ->where('status_id', Category::STATUS_ACTIVE)
                 ->pluck('name', 'id');
         }
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
-        $partners = Partner::where('is_active', Partner::STATUS_ACTIVE)->orderBy('name')->pluck('name', 'id');
 
-        return view('transactions.create', compact('categories', 'bankAccounts', 'partners'));
+        return view('transactions.create', compact(
+            'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue'
+        ));
+    }
+
+    private function getAvailablePartners(array $partnerTypes, array $partnerTypeCodes): array
+    {
+        $partners = Partner::where('is_active', BankAccount::STATUS_ACTIVE)
+            ->whereIn('type_code', $partnerTypeCodes)
+            ->orderBy('name')
+            ->get();
+        if (count($partnerTypeCodes) < 2) {
+            return $partners->pluck('name', 'id')->toArray();
+        }
+        $groupedPartners = $partners->groupBy('type_code');
+        $availablePartners = [];
+        foreach ($groupedPartners as $typeCode => $partners) {
+            if (!isset($partnerTypes[$typeCode])) {
+                continue;
+            }
+            foreach ($partners as $partner) {
+                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name;
+            }
+        }
+
+        return $availablePartners;
     }
 
     public function store(CreateRequest $transactionCreateForm)

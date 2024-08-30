@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BankAccount;
 use App\Models\Book;
+use App\Models\Partner;
 use App\User;
 use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
@@ -71,14 +72,17 @@ class BookController extends Controller
     {
         $this->authorize('update', $book);
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $partnerTypes = (new Partner())->getAvailableTypes();
         $financeUsers = User::where('role_id', User::ROLE_FINANCE)->pluck('name', 'id');
 
-        return view('books.edit', compact('book', 'bankAccounts', 'financeUsers'));
+        return view('books.edit', compact('book', 'bankAccounts', 'financeUsers', 'partnerTypes'));
     }
 
     public function update(Request $request, Book $book)
     {
         $this->authorize('update', $book);
+
+        $partnerTypes = collect((new Partner())->getAvailableTypes())->keys()->implode(',');
 
         $bookData = $request->validate([
             'name' => 'required|max:60',
@@ -88,6 +92,12 @@ class BookController extends Controller
             'report_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
+            'income_partner_codes' => ['nullable', 'array'],
+            'income_partner_codes.*' => ['in:'.$partnerTypes],
+            'income_partner_null' => ['nullable', 'string', 'max:20'],
+            'spending_partner_codes' => ['nullable', 'array'],
+            'spending_partner_codes.*' => ['in:'.$partnerTypes],
+            'spending_partner_null' => ['nullable', 'string', 'max:20'],
             'has_pdf_page_number' => ['nullable', 'boolean'],
             'start_week_day_code' => ['required', 'string'],
             'manager_id' => ['nullable', 'exists:users,id'],
@@ -124,6 +134,10 @@ class BookController extends Controller
         $bookData['sign_position_right'] ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
         $bookData['sign_name_right'] ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
         Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']);
+        Setting::for($book)->set('income_partner_codes', json_encode(array_keys($bookData['income_partner_codes'] ?? [])));
+        Setting::for($book)->set('income_partner_null', $bookData['income_partner_null']);
+        Setting::for($book)->set('spending_partner_codes', json_encode(array_keys($bookData['spending_partner_codes'] ?? [])));
+        Setting::for($book)->set('spending_partner_null', $bookData['spending_partner_null']);
     }
 
     public function destroy(Book $book)

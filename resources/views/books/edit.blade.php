@@ -149,6 +149,32 @@
                             'label' => __('report.has_pdf_page_number'),
                             'placeholder' => false,
                         ]) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! FormField::checkboxes('income_partner_codes', $partnerTypes, [
+                                    'value' => json_decode(Setting::for($book)->get('income_partner_codes')),
+                                    'label' => __('book.income_partners'),
+                                    'placeholder' => false,
+                                ]) !!}
+                                {!! FormField::text('income_partner_null', [
+                                    'value' => Setting::for($book)->get('income_partner_null'),
+                                    'label' => __('book.income_partner_null'),
+                                    'placeholder' => config('partners.income_default_value'),
+                                ]) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! FormField::checkboxes('spending_partner_codes', $partnerTypes, [
+                                    'value' => json_decode(Setting::for($book)->get('spending_partner_codes')),
+                                    'label' => __('book.spending_partners'),
+                                    'placeholder' => false,
+                                ]) !!}
+                                {!! FormField::text('spending_partner_null', [
+                                    'value' => Setting::for($book)->get('spending_partner_null'),
+                                    'label' => __('book.spending_partner_null'),
+                                    'placeholder' => config('partners.spending_default_value'),
+                                ]) !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr class="my-3">

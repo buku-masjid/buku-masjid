@@ -104,6 +104,10 @@ class ManageBookTest extends TestCase
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'has_pdf_page_number' => 0,
+            'income_partner_codes' => ['partner' => 'partner'],
+            'income_partner_null' => 'Hamba Allah',
+            'spending_partner_codes' => ['partner' => 'partner'],
+            'spending_partner_null' => 'Muzakki',
             'start_week_day_code' => 'friday',
             'management_title' => 'Panitia Ramadhan',
             'acknowledgment_text_left' => 'Mengetahui',
@@ -136,6 +140,34 @@ class ManageBookTest extends TestCase
             'model_id' => $book->id,
             'key' => 'has_pdf_page_number',
             'value' => '0',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'income_partner_codes',
+            'value' => json_encode(['partner']),
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'income_partner_null',
+            'value' => 'Hamba Allah',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'spending_partner_codes',
+            'value' => json_encode(['partner']),
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'spending_partner_null',
+            'value' => 'Muzakki',
         ]);
 
         $this->seeInDatabase('settings', [
