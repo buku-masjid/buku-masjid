@@ -28,6 +28,8 @@ class Transaction extends JsonResource
             'category_id' => $transaction->category_id,
             'category' => optional($transaction->category)->name,
             'category_color' => optional($transaction->category)->color,
+            'partner_id' => $transaction->partner_id,
+            'partner' => optional($transaction->partner)->name,
             'created_at' => $transaction->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $transaction->updated_at->format('Y-m-d H:i:s'),
         ];

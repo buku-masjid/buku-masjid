@@ -24,6 +24,18 @@ return new class extends Migration
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('restrict');
         });
+
+        if (!Schema::hasColumn('transactions', 'partner_id')) {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->unsignedInteger('partner_id')->nullable()->after('bank_account_id');
+
+                $table->foreign('partner_id')->references('id')->on('partners')->onDelete('restrict');
+            });
+        } else {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->foreign('partner_id')->references('id')->on('partners')->onDelete('restrict');
+            });
+        }
     }
 
     /**
@@ -31,6 +43,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (Schema::hasColumn('transactions', 'partner_id')) {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->dropForeign('transactions_partner_id_foreign');
+                $table->dropColumn('partner_id');
+            });
+        }
+
         Schema::dropIfExists('partners');
     }
 };

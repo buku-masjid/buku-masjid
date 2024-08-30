@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
@@ -23,6 +24,7 @@ class TransacionEntryTest extends TestCase
         Passport::actingAs($user);
         $book = factory(Book::class)->create();
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
+        $partner = factory(Partner::class)->create();
 
         $this->postJson(route('api.transactions.store'), [
             'in_out' => 1,
@@ -30,6 +32,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'partner_id' => $partner->id,
             'book_id' => $book->id,
         ]);
 
@@ -39,6 +42,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'partner_id' => $partner->id,
             'book_id' => $book->id,
         ]);
 
@@ -49,6 +53,7 @@ class TransacionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category' => $category->name,
+            'partner' => $partner->name,
             'book_id' => $book->id,
         ]);
     }

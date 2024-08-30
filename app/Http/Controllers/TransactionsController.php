@@ -6,6 +6,7 @@ use App\Http\Requests\Transactions\CreateRequest;
 use App\Http\Requests\Transactions\UpdateRequest;
 use App\Models\BankAccount;
 use App\Models\Category;
+use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class TransactionsController extends Controller
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
             ->prepend(__('transaction.cash'), 'null');
+        $partners = Partner::where('is_active', Partner::STATUS_ACTIVE)->orderBy('name')->pluck('name', 'id');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableTransaction = Transaction::find(request('id'));
@@ -41,7 +43,7 @@ class TransactionsController extends Controller
         return view('transactions.index', compact(
             'transactions', 'editableTransaction',
             'yearMonth', 'month', 'year', 'categories',
-            'incomeTotal', 'spendingTotal',
+            'incomeTotal', 'spendingTotal', 'partners',
             'startDate', 'date', 'bankAccounts'
         ));
     }
@@ -64,8 +66,9 @@ class TransactionsController extends Controller
                 ->pluck('name', 'id');
         }
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $partners = Partner::where('is_active', Partner::STATUS_ACTIVE)->orderBy('name')->pluck('name', 'id');
 
-        return view('transactions.create', compact('categories', 'bankAccounts'));
+        return view('transactions.create', compact('categories', 'bankAccounts', 'partners'));
     }
 
     public function store(CreateRequest $transactionCreateForm)
