@@ -45,7 +45,17 @@ class PartnerController extends Controller
     {
         $this->authorize('view', $partner);
 
-        return view('partners.show', compact('partner'));
+        $defaultStartDate = date('Y-m').'-01';
+        $startDate = request('start_date', $defaultStartDate);
+        $endDate = request('end_date', date('Y-m-d'));
+
+        $transactions = $this->getPartnerTransactions($partner, [
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'query' => request('query'),
+        ]);
+
+        return view('partners.show', compact('partner', 'startDate', 'endDate', 'transactions'));
     }
 
     public function update(Request $request, Partner $partner)
@@ -83,5 +93,20 @@ class PartnerController extends Controller
         }
 
         return back();
+    }
+
+    private function getPartnerTransactions(Partner $partner, array $criteria)
+    {
+        $query = $criteria['query'];
+        $endDate = $criteria['end_date'];
+        $startDate = $criteria['start_date'];
+
+        $transactionQuery = $partner->transactions();
+        $transactionQuery->whereBetween('date', [$startDate, $endDate]);
+        $transactionQuery->when($query, function ($queryBuilder, $query) {
+            $queryBuilder->where('description', 'like', '%'.$query.'%');
+        });
+
+        return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
     }
 }
