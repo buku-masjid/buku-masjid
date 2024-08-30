@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Transaction;
 use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
@@ -16,5 +17,9 @@ class Partner extends Model
     public function getStatusAttribute()
     {
         return $this->is_active == 1 ? __('app.active') : __('app.inactive');
+    }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

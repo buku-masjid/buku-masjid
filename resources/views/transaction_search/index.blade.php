@@ -48,6 +48,16 @@
                             <td>
                                 {{ $transaction->description }}
                                 <div class="float-right">
+                                    @if ($transaction->partner)
+                                        @php
+                                            $partnerRoute = route('partners.show', [
+                                                $transaction->partner_id,
+                                                'start_date' => $startDate,
+                                                'end_date' => $endDate,
+                                            ]);
+                                        @endphp
+                                        <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+                                    @endif
                                     <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
                                         {{ $transaction->bankAccount->name }}
                                     </span>
