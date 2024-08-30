@@ -32,8 +32,9 @@ class ManagePartnerTest extends TestCase
         $this->submitForm(__('partner.create'), [
             'name' => 'Partner 1 name',
             'phone' => '1234567890',
+            'work' => 'Dokter',
             'description' => 'Partner 1 description',
-            'address' => 'Partner 1 description',
+            'address' => 'Partner 1 address',
         ]);
 
         $this->seeRouteIs('partners.index');
@@ -41,8 +42,9 @@ class ManagePartnerTest extends TestCase
         $this->seeInDatabase('partners', [
             'name' => 'Partner 1 name',
             'phone' => '1234567890',
+            'work' => 'Dokter',
             'description' => 'Partner 1 description',
-            'address' => 'Partner 1 description',
+            'address' => 'Partner 1 address',
         ]);
     }
 
@@ -78,8 +80,9 @@ class ManagePartnerTest extends TestCase
         $this->submitForm(__('partner.update'), [
             'name' => 'Partner 2 name',
             'phone' => '1234567890',
+            'work' => 'Dokter',
             'description' => 'Partner 2 description',
-            'address' => 'Partner 2 description',
+            'address' => 'Partner 2 address',
             'is_active' => 0,
         ]);
 
@@ -88,8 +91,9 @@ class ManagePartnerTest extends TestCase
         $this->seeInDatabase('partners', [
             'name' => 'Partner 2 name',
             'phone' => '1234567890',
+            'work' => 'Dokter',
             'description' => 'Partner 2 description',
-            'address' => 'Partner 2 description',
+            'address' => 'Partner 2 address',
             'is_active' => 0,
         ]);
     }
