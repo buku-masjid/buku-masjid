@@ -13,12 +13,12 @@ class PartnerController extends Controller
 
         $editablePartner = null;
         $partners = Partner::paginate();
-
+        $partnerTypes = (new Partner)->getAvailableTypes();
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
         }
 
-        return view('partners.index', compact('partners', 'editablePartner'));
+        return view('partners.index', compact('partners', 'editablePartner', 'partnerTypes'));
     }
 
     public function store(Request $request)

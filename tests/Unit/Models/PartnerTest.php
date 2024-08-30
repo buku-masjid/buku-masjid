@@ -33,4 +33,21 @@ class PartnerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $partner->transactions);
         $this->assertInstanceOf(Transaction::class, $partner->transactions->first());
     }
+
+    /** @test */
+    public function partner_model_has_get_available_types_method()
+    {
+        $partner = factory(Partner::class)->make();
+        config(['partners.partner_types' => '']);
+        $this->assertEquals(['partner' => 'Partner'], $partner->getAvailableTypes());
+
+        config(['partners.partner_types' => 'donatur|Donatur']);
+        $this->assertEquals(['donatur' => 'Donatur'], $partner->getAvailableTypes());
+
+        config(['partners.partner_types' => 'donatur|Donatur,santri|Santri']);
+        $this->assertEquals([
+            'donatur' => 'Donatur',
+            'santri' => 'Santri',
+        ], $partner->getAvailableTypes());
+    }
 }

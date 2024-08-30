@@ -22,4 +22,24 @@ class Partner extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function getAvailableTypes(): array
+    {
+        $partnerTypesConfig = config('partners.partner_types');
+        if (!$partnerTypesConfig) {
+            return ['partner' => __('partner.partner')];
+        }
+        $partnerTypes = [];
+        // dump($partnerTypesConfig);
+        $rawPartnerTypes = explode(',', $partnerTypesConfig);
+        // dump($rawPartnerTypes);
+        foreach ($rawPartnerTypes as $rawPartnerType) {
+            $partnerType = explode('|', $rawPartnerType);
+            // dd($partnerType);
+            $partnerTypes[$partnerType[0]] = $partnerType[1];
+        }
+        // dd($partnerTypes);
+
+        return $partnerTypes;
+    }
 }

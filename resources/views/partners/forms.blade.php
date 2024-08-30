@@ -10,12 +10,21 @@
                 </div>
                 {!! Form::open(['route' => 'partners.store']) !!}
                 <div class="modal-body">
-                    {!! FormField::text('type_code', ['label' => __('partner.type')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
-                        <div class="col-md-6">{!! FormField::text('phone', ['label' => __('partner.phone')]) !!}</div>
+                        <div class="col-md-7">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
+                        <div class="col-md-5">
+                            {!! FormField::select('type_code', $partnerTypes, [
+                                'required' => true,
+                                'value' => old('type_code', request('type_code')),
+                                'placeholder' => false,
+                                'label' => __('partner.type'),
+                            ]) !!}
+                        </div>
                     </div>
-                    {!! FormField::text('work', ['label' => __('partner.work')]) !!}
+                    <div class="row">
+                        <div class="col-md-5">{!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}</div>
+                        <div class="col-md-7">{!! FormField::text('work', ['label' => __('partner.work')]) !!}</div>
+                    </div>
                     {!! FormField::textarea('address', ['label' => __('partner.address')]) !!}
                     {!! FormField::textarea('description', ['label' => __('partner.description')]) !!}
                 </div>
@@ -42,12 +51,21 @@
                 </div>
                 {!! Form::model($editablePartner, ['route' => ['partners.update', $editablePartner], 'method' => 'patch']) !!}
                 <div class="modal-body">
-                    {!! FormField::text('type_code', ['label' => __('partner.type')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
-                        <div class="col-md-6">{!! FormField::text('phone', ['label' => __('partner.phone')]) !!}</div>
+                        <div class="col-md-7">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
+                        <div class="col-md-5">
+                            {!! FormField::select('type_code', $partnerTypes, [
+                                'required' => true,
+                                'value' => old('type_code', $editablePartner->type_code),
+                                'placeholder' => false,
+                                'label' => __('partner.type'),
+                            ]) !!}
+                        </div>
                     </div>
-                    {!! FormField::text('work', ['label' => __('partner.work')]) !!}
+                    <div class="row">
+                        <div class="col-md-5">{!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}</div>
+                        <div class="col-md-7">{!! FormField::text('work', ['label' => __('partner.work')]) !!}</div>
+                    </div>
                     {!! FormField::textarea('address', ['label' => __('partner.address')]) !!}
                     {!! FormField::textarea('description', ['label' => __('partner.description')]) !!}
                     {!! FormField::radios('is_active', [__('app.inactive'), __('app.active')], ['label' => __('app.status')]) !!}
