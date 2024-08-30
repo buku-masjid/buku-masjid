@@ -27,6 +27,7 @@ class PartnerController extends Controller
 
         $newPartner = $request->validate([
             'name' => 'required|max:60',
+            'type_code' => 'required|max:30',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',
@@ -64,6 +65,7 @@ class PartnerController extends Controller
 
         $partnerData = $request->validate([
             'name' => 'required|max:60',
+            'type_code' => 'required|max:30',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',

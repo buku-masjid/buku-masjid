@@ -10,6 +10,7 @@
                 </div>
                 {!! Form::open(['route' => 'partners.store']) !!}
                 <div class="modal-body">
+                    {!! FormField::text('type_code', ['label' => __('partner.type')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
                         <div class="col-md-6">{!! FormField::text('phone', ['label' => __('partner.phone')]) !!}</div>
@@ -41,6 +42,7 @@
                 </div>
                 {!! Form::model($editablePartner, ['route' => ['partners.update', $editablePartner], 'method' => 'patch']) !!}
                 <div class="modal-body">
+                    {!! FormField::text('type_code', ['label' => __('partner.type')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
                         <div class="col-md-6">{!! FormField::text('phone', ['label' => __('partner.phone')]) !!}</div>

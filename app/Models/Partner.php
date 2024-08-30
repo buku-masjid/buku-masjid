@@ -11,7 +11,7 @@ class Partner extends Model
     const STATUS_ACTIVE = 1;
 
     protected $fillable = [
-        'name', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
+        'name', 'type_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
     ];
 
     public function getStatusAttribute()

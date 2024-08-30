@@ -23,6 +23,7 @@ return [
 
     // Attributes
     'name' => 'Nama',
+    'type' => 'Tipe',
     'phone' => 'Telp/HP',
     'work' => 'Pekerjaan',
     'address' => 'Alamat',

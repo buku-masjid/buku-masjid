@@ -7,7 +7,8 @@ use Illuminate\Support\Str;
 
 $factory->define(Partner::class, function (Faker $faker) {
     return [
-        'name' => 'Bank '.strtoupper(Str::random(4)),
+        'name' => $faker->name,
+        'type_code' => 'partner',
         'phone' => Str::random(10),
         'name' => $faker->name,
         'is_active' => Partner::STATUS_ACTIVE,

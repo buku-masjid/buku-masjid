@@ -31,6 +31,7 @@ class ManagePartnerTest extends TestCase
 
         $this->submitForm(__('partner.create'), [
             'name' => 'Partner 1 name',
+            'type_code' => 'partner',
             'phone' => '1234567890',
             'work' => 'Dokter',
             'description' => 'Partner 1 description',
@@ -45,6 +46,7 @@ class ManagePartnerTest extends TestCase
             'work' => 'Dokter',
             'description' => 'Partner 1 description',
             'address' => 'Partner 1 address',
+            'type_code' => 'partner',
         ]);
     }
 
@@ -79,6 +81,7 @@ class ManagePartnerTest extends TestCase
 
         $this->submitForm(__('partner.update'), [
             'name' => 'Partner 2 name',
+            'type_code' => 'partner',
             'phone' => '1234567890',
             'work' => 'Dokter',
             'description' => 'Partner 2 description',
@@ -94,6 +97,7 @@ class ManagePartnerTest extends TestCase
             'work' => 'Dokter',
             'description' => 'Partner 2 description',
             'address' => 'Partner 2 address',
+            'type_code' => 'partner',
             'is_active' => 0,
         ]);
     }

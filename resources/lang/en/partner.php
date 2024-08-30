@@ -23,6 +23,7 @@ return [
 
     // Attributes
     'name' => 'Name',
+    'type' => 'Type',
     'phone' => 'Phone',
     'work' => 'Work',
     'address' => 'Address',
