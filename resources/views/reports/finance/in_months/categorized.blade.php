@@ -41,8 +41,9 @@
         {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1']) }}
         {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control mr-1']) }}
+        {{ Form::select('order', ['normal' => __('app.normal') ] + get_amount_sortings(), request('order'), ['class' => 'form-control mr-1']) }}
+        {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.categorized', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
@@ -55,6 +56,26 @@
         {{ Form::close() }}
     </div>
 </div>
+
+@switch(request('order'))
+    @case('desc')
+        @php
+            $incomeCategoriesTransactions = collect($incomeCategoriesTransactions)->sortByDesc('total_amount');
+            $spendingCategoriesTransactions = collect($spendingCategoriesTransactions)->sortByDesc('total_amount');
+        @endphp
+        @break
+    @case('asc')
+        @php
+            $incomeCategoriesTransactions = collect($incomeCategoriesTransactions)->sortBy('amount');
+            $spendingCategoriesTransactions = collect($spendingCategoriesTransactions)->sortBy('amount');
+        @endphp
+        @break
+    @default
+        @php
+            $incomeCategoriesTransactions = collect($incomeCategoriesTransactions);
+            $spendingCategoriesTransactions = collect($spendingCategoriesTransactions);
+        @endphp
+@endswitch
 
 <div class="page-header mt-0 mb-2">
     <h2 class="page-title">{{ __('transaction.income') }}</h2>
@@ -71,13 +92,13 @@
     </div>
 @endif
 
-@foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
-<h4 class="mt-0">{{ $incomeCategory->name }}</h4>
+@foreach($incomeCategoriesTransactions as $key => $incomeCategory)
+<h4 class="mt-0">{{ $incomeCategory['name'] }}</h4>
 <div class="card table-responsive">
     @include('reports.finance._internal_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(1),
-        'transactions' => $groupedTransactions[1]->where('category_id', $incomeCategory->id),
-        'categoryName' => $incomeCategory->name,
+        'transactions' => $groupedTransactions[1]->where('category_id', $incomeCategory['id']),
+        'categoryName' => $incomeCategory['name'],
     ])
 </div>
 @endforeach
@@ -97,13 +118,13 @@
     </div>
 @endif
 
-@foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
-<h4 class="mt-0">{{ $spendingCategory->name }}</h4>
+@foreach($spendingCategoriesTransactions as $key => $spendingCategory)
+<h4 class="mt-0">{{ $spendingCategory['name'] }}</h4>
 <div class="card table-responsive">
     @include('reports.finance._internal_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(0),
-        'transactions' => $groupedTransactions[0]->where('category_id', $spendingCategory->id),
-        'categoryName' => $spendingCategory->name,
+        'transactions' => $groupedTransactions[0]->where('category_id', $spendingCategory['id']),
+        'categoryName' => $spendingCategory['name'],
     ])
 </div>
 @endforeach

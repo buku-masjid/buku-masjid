@@ -19,6 +19,32 @@ function flash($message = null, $level = 'info')
 }
 
 /**
+ * Get array of sorting list.
+ *
+ * @return array
+ */
+function get_sortings()
+{
+    return [
+        'asc' => __('app.asc'),
+        'desc' => __('app.desc'),
+    ];
+}
+
+/**
+ * Get array of sorting list.
+ *
+ * @return array
+ */
+function get_amount_sortings()
+{
+    return [
+        'asc' => __('transaction.smallest_transaction'),
+        'desc' => __('transaction.highest_transaction'),
+    ];
+}
+
+/**
  * Format number to string.
  *
  * @return string

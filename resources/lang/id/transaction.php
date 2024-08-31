@@ -40,6 +40,8 @@ return [
     'undeleted' => 'Data Transaksi gagal dihapus.',
     'undeleteable' => 'Data Transaksi tidak dapat dihapus.',
     'download' => 'Download CSV',
+    'highest_transaction' => 'Transaksi Terbesar',
+    'smallest_transaction' => 'Transaksi Terkecil',
 
     // Attributes
     'amount' => 'Jumlah',
