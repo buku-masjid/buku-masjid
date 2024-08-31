@@ -4,6 +4,7 @@ return [
     // Labels
     'partner' => 'Partner',
     'list' => 'Daftar Partner',
+    'list_by_type' => 'Daftar :type',
     'not_found' => 'Partner tidak ditemukan.',
     'empty' => 'Belum ada Partner',
     'back_to_index' => 'Kembali ke daftar Partner',
@@ -24,6 +25,7 @@ return [
     // Attributes
     'name' => 'Nama',
     'type' => 'Tipe',
+    'level' => 'Level',
     'phone' => 'Telp/HP',
     'work' => 'Pekerjaan',
     'address' => 'Alamat',

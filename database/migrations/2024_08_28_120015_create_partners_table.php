@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name', 60);
             $table->string('type_code', 30);
+            $table->string('level_code', 30)->nullable();
             $table->string('phone')->nullable();
             $table->string('work')->nullable();
             $table->string('address')->nullable();

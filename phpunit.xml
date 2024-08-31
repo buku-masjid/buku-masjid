@@ -19,6 +19,7 @@
     <env name="DB_DATABASE" value=":memory:"/>
     <env name="APP_URL" value="http://localhost"/>
     <env name="PARTNER_TYPES" value=""/>
+    <env name="PARTNER_LEVELS" value=""/>
   </php>
   <source>
     <include>

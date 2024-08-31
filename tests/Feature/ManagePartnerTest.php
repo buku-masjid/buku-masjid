@@ -35,10 +35,11 @@ class ManagePartnerTest extends TestCase
             'phone' => '1234567890',
             'work' => 'Dokter',
             'description' => 'Partner 1 description',
+            'level_code' => '',
             'address' => 'Partner 1 address',
         ]);
 
-        $this->seeRouteIs('partners.index');
+        $this->seeRouteIs('partners.index', ['type_code' => 'partner']);
 
         $this->seeInDatabase('partners', [
             'name' => 'Partner 1 name',
@@ -47,6 +48,7 @@ class ManagePartnerTest extends TestCase
             'description' => 'Partner 1 description',
             'address' => 'Partner 1 address',
             'type_code' => 'partner',
+            'level_code' => null,
         ]);
     }
 
@@ -69,27 +71,29 @@ class ManagePartnerTest extends TestCase
     public function user_can_edit_a_partner()
     {
         $creator = $this->loginAsUser();
-
-        $partner = factory(Partner::class)->create(['creator_id' => $creator->id]);
+        config(['partners.partner_types' => 'donatur|Donatur']);
+        config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar']);
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
 
         $this->visitRoute('partners.index');
         $this->click('edit-partner-1');
 
         $this->seeRouteIs('partners.index', [
-            'action' => 'edit', 'id' => $partner->id,
+            'action' => 'edit', 'id' => $partner->id, 'type_code' => $partner->type_code,
         ]);
 
         $this->submitForm(__('partner.update'), [
             'name' => 'Partner 2 name',
-            'type_code' => 'partner',
+            'type_code' => 'donatur',
             'phone' => '1234567890',
             'work' => 'Dokter',
             'description' => 'Partner 2 description',
             'address' => 'Partner 2 address',
+            'level_code' => 'donatur_tetap',
             'is_active' => 0,
         ]);
 
-        $this->seeRouteIs('partners.index');
+        $this->seeRouteIs('partners.index', ['type_code' => 'donatur']);
 
         $this->seeInDatabase('partners', [
             'name' => 'Partner 2 name',
@@ -97,7 +101,8 @@ class ManagePartnerTest extends TestCase
             'work' => 'Dokter',
             'description' => 'Partner 2 description',
             'address' => 'Partner 2 address',
-            'type_code' => 'partner',
+            'type_code' => 'donatur',
+            'level_code' => 'donatur_tetap',
             'is_active' => 0,
         ]);
     }
@@ -114,7 +119,7 @@ class ManagePartnerTest extends TestCase
         $this->click('del-partner-'.$partner->id);
 
         $this->seeRouteIs('partners.index', [
-            'action' => 'delete', 'id' => $partner->id,
+            'action' => 'delete', 'id' => $partner->id, 'type_code' => $partner->type_code,
         ]);
 
         $this->press(__('app.delete_confirm_button'));

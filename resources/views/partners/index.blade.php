@@ -1,10 +1,10 @@
 @extends('layouts.settings')
 
-@section('title', __('partner.list'))
+@section('title', __('partner.list_by_type', ['type' => $selectedTypeName]))
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('partner.list') }}</h1>
+    <h1 class="page-title">{{ __('partner.list_by_type', ['type' => $selectedTypeName]) }}</h1>
     <div class="page-subtitle">{{ __('app.total') }} : {{ $partners->count() }} {{ __('partner.partner') }}</div>
     @if (count($partnerTypes) > 1)
         <div class="btn-group ml-md-5">
@@ -34,6 +34,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('partner.name') }}</th>
                         <th class="text-nowrap">{{ __('partner.phone') }}</th>
+                        <th class="text-center">{{ __('partner.level') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
@@ -44,6 +45,7 @@
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td>{{ $partner->name }}</td>
                         <td>{{ $partner->phone }}</td>
+                        <td class="text-nowrap text-center">{{ $partner->level }}</td>
                         <td class="text-nowrap text-center">{{ $partner->status }}</td>
                         <td class="text-center text-nowrap">
                             @can('view', $partner)
@@ -61,7 +63,7 @@
                                 {{ link_to_route(
                                     'partners.index',
                                     __('app.edit'),
-                                    ['action' => 'edit', 'id' => $partner->id],
+                                    ['action' => 'edit', 'id' => $partner->id, 'type_code' => $partner->type_code],
                                     [
                                         'id' => 'edit-partner-'.$partner->id,
                                         'class' => 'btn btn-sm text-dark btn-warning',

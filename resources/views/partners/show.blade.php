@@ -1,6 +1,6 @@
 @extends('layouts.settings')
 
-@section('title', __('partner.partner'))
+@section('title', $partner->type.' '.$partner->name)
 
 @section('content_settings')
 
@@ -18,12 +18,14 @@
             <tr>
                 <td class="col-2 text-center">{{ __('partner.name') }}</td>
                 <td class="col-2 text-center">{{ __('partner.phone') }}</td>
+                <td class="col-2 text-center">{{ __('partner.level') }}</td>
                 <td class="col-2 text-center">{{ __('partner.work') }}</td>
                 <td class="col-2 text-center">{{ __('app.status') }}</td>
             </tr>
             <tr>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->name }}</td>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->phone }}</td>
+                <td class="text-center lead" style="border-top: none;">{{ $partner->level }}</td>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->work }}</td>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->status }}</td>
             </tr>
@@ -34,6 +36,7 @@
         <table class="table table-sm table-bordered mb-0">
             <tr><td class="col-4">{{ __('partner.name') }}</td><td>{{ $partner->name }}</td></tr>
             <tr><td>{{ __('partner.phone') }}</td><td>{{ $partner->phone }}</td></tr>
+            <tr><td>{{ __('partner.level') }}</td><td>{{ $partner->level }}</td></tr>
             <tr><td>{{ __('partner.work') }}</td><td>{{ $partner->work }}</td></tr>
             <tr><td>{{ __('app.status') }}</td><td>{{ $partner->status }}</td></tr>
         </table>

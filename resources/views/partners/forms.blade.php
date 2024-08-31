@@ -6,19 +6,26 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('partner.create') }}</h5>
-                    {{ link_to_route('partners.index', '', [], ['class' => 'close']) }}
+                    {{ link_to_route('partners.index', '', ['type_code' => $selectedTypeCode], ['class' => 'close']) }}
                 </div>
                 {!! Form::open(['route' => 'partners.store']) !!}
                 <div class="modal-body">
+                    {!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}
                     <div class="row">
-                        <div class="col-md-7">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
-                        <div class="col-md-5">
-                            {!! FormField::select('type_code', $partnerTypes, [
-                                'required' => true,
-                                'value' => old('type_code', request('type_code')),
-                                'placeholder' => false,
-                                'label' => __('partner.type'),
-                            ]) !!}
+                        <div class="col-md-6">
+                            {!! FormField::textDisplay('type_name', $selectedTypeName, ['required' => true, 'label' => __('partner.type')]) !!}
+                            {{ Form::hidden('type_code', $selectedTypeCode) }}
+                        </div>
+                        <div class="col-md-6">
+                            @if ($partnerLevels)
+                                {!! FormField::select('level_code', $partnerLevels, [
+                                    'value' => old('level_code', request('level_code')),
+                                    'placeholder' => false,
+                                    'label' => __('partner.level'),
+                                ]) !!}
+                            @else
+                                {{ Form::hidden('level_code') }}
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -30,7 +37,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('partner.create'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('partners.index', __('app.cancel'), ['type_code' => $selectedTypeCode], ['class' => 'btn btn-secondary']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -47,19 +54,26 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('partner.edit') }}</h5>
-                    {{ link_to_route('partners.index', '', [], ['class' => 'close']) }}
+                    {{ link_to_route('partners.index', '', ['type_code' => $selectedTypeCode], ['class' => 'close']) }}
                 </div>
                 {!! Form::model($editablePartner, ['route' => ['partners.update', $editablePartner], 'method' => 'patch']) !!}
                 <div class="modal-body">
+                    {!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}
                     <div class="row">
-                        <div class="col-md-7">{!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}</div>
-                        <div class="col-md-5">
-                            {!! FormField::select('type_code', $partnerTypes, [
-                                'required' => true,
-                                'value' => old('type_code', $editablePartner->type_code),
-                                'placeholder' => false,
-                                'label' => __('partner.type'),
-                            ]) !!}
+                        <div class="col-md-6">
+                            {!! FormField::textDisplay('type_name', $selectedTypeName, ['required' => true, 'label' => __('partner.type')]) !!}
+                            {{ Form::hidden('type_code', $selectedTypeCode) }}
+                        </div>
+                        <div class="col-md-6">
+                            @if ($partnerLevels)
+                                {!! FormField::select('level_code', $partnerLevels, [
+                                    'value' => old('level_code', request('level_code')),
+                                    'placeholder' => false,
+                                    'label' => __('partner.level'),
+                                ]) !!}
+                            @else
+                                {{ Form::hidden('level_code') }}
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -72,12 +86,12 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('partner.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('partners.index', __('app.cancel'), ['type_code' => $selectedTypeCode], ['class' => 'btn btn-secondary']) }}
                     @can('delete', $editablePartner)
                         {!! link_to_route(
                             'partners.index',
                             __('app.delete'),
-                            ['action' => 'delete', 'id' => $editablePartner->id],
+                            ['action' => 'delete', 'id' => $editablePartner->id, 'type_code' => $selectedTypeCode],
                             ['id' => 'del-partner-'.$editablePartner->id, 'class' => 'btn btn-danger float-left']
                         ) !!}
                     @endcan
@@ -97,7 +111,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('partner.delete') }} {{ $editablePartner->type }}</h5>
-                    {{ link_to_route('partners.index', '', [], ['class' => 'close']) }}
+                    {{ link_to_route('partners.index', '', ['type_code' => $selectedTypeCode], ['class' => 'close']) }}
                 </div>
                 <div class="modal-body">
                     <label class="control-label">{{ __('partner.name') }}</label>
@@ -110,7 +124,7 @@
                     <p>{{ $editablePartner->address }}</p>
                     <label class="control-label">{{ __('partner.description') }}</label>
                     <p>{{ $editablePartner->description }}</p>
-                    {!! $errors->first('partner_id', '<span class="form-error small">:message</span>') !!}
+                    {!! $errors->first('partner_id', '<span class="form-error small">:message</span> ') !!}
                 </div>
                 <hr style="margin:0">
                 <div class="modal-body">{{ __('app.delete_confirm') }}</div>
@@ -118,10 +132,10 @@
                     {!! FormField::delete(
                         ['route' => ['partners.destroy', $editablePartner], 'class' => ''],
                         __('app.delete_confirm_button'),
-                        ['class'=>'btn btn-danger'],
+                        ['class' => 'btn btn-danger'],
                         ['partner_id' => $editablePartner->id]
                     ) !!}
-                    {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('partners.index', __('app.cancel'), ['type_code' => $selectedTypeCode], ['class' => 'btn btn-secondary']) }}
                 </div>
             </div>
         </div>

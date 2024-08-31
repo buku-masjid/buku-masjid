@@ -18,6 +18,7 @@ class PartnerController extends Controller
             'type_code' => $request->get('type_code', $defaultTypeCode),
         ]);
         $selectedTypeCode = $request->get('type_code');
+        $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
         $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
         $partnerQuery = Partner::query();
         $partnerQuery->where('type_code', $selectedTypeCode);
@@ -27,7 +28,7 @@ class PartnerController extends Controller
         }
 
         return view('partners.index', compact(
-            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName'
+            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels'
         ));
     }
 
@@ -38,6 +39,7 @@ class PartnerController extends Controller
         $newPartner = $request->validate([
             'name' => 'required|max:60',
             'type_code' => 'required|max:30',
+            'level_code' => 'nullable|max:30',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',
@@ -49,7 +51,7 @@ class PartnerController extends Controller
 
         flash(__('partner.created'), 'success');
 
-        return redirect()->route('partners.index');
+        return redirect()->route('partners.index', ['type_code' => $newPartner['type_code']]);
     }
 
     public function show(Partner $partner)
@@ -76,6 +78,7 @@ class PartnerController extends Controller
         $partnerData = $request->validate([
             'name' => 'required|max:60',
             'type_code' => 'required|max:30',
+            'level_code' => 'nullable|max:30',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',
@@ -87,7 +90,7 @@ class PartnerController extends Controller
 
         flash(__('partner.updated'), 'success');
 
-        return redirect()->route('partners.index');
+        return redirect()->route('partners.index', ['type_code' => $partnerData['type_code']]);
     }
 
     public function destroy(Partner $partner)
