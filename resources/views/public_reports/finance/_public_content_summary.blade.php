@@ -96,7 +96,7 @@
     <tfoot>
         <tr class="strong">
             <td>&nbsp;</td>
-            <td class="text-center">
+            <td class="text-right">
                 {{ __('transaction.in_out') }} hingga {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}
             </td>
             <td class="text-right">
@@ -121,11 +121,23 @@
         @if (auth()->activeBook()->bank_account_id)
         <tr class="strong">
             <td>&nbsp;</td>
-            <td class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
-            <td class="text-right">-</td>
-            <td class="text-right">-</td>
+            <td class="text-right">Saldo Kas hingga per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+            <td class="text-right">&nbsp;</td>
+            <td class="text-right">&nbsp;</td>
             <td class="text-right text-nowrap">
-                {{ format_number($lastMonthBalance + $currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount) }}
+                @php
+                    $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
+                @endphp
+                {{ format_number($currentMonthBalance) }}
+            </td>
+        </tr>
+        <tr class="strong">
+            <td>&nbsp;</td>
+            <td class="text-right">Saldo Kas + Saldo bank per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+            <td class="text-right">&nbsp;</td>
+            <td class="text-right">&nbsp;</td>
+            <td class="text-right text-nowrap">
+                {{ format_number($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount) }}
             </td>
         </tr>
         @else
