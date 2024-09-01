@@ -5,7 +5,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('partner.create') }}</h5>
+                    <h5 class="modal-title">{{ __('partner.create', ['type' => $selectedTypeName]) }}</h5>
                     {{ link_to_route('partners.index', '', ['type_code' => $selectedTypeCode], ['class' => 'close']) }}
                 </div>
                 {!! Form::open(['route' => 'partners.store']) !!}
@@ -36,7 +36,7 @@
                     {!! FormField::textarea('description', ['label' => __('partner.description')]) !!}
                 </div>
                 <div class="modal-footer">
-                    {!! Form::submit(__('partner.create'), ['class' => 'btn btn-success']) !!}
+                    {!! Form::submit(__('partner.create', ['type' => $selectedTypeName]), ['class' => 'btn btn-success']) !!}
                     {{ link_to_route('partners.index', __('app.cancel'), ['type_code' => $selectedTypeCode], ['class' => 'btn btn-secondary']) }}
                 </div>
                 {{ Form::close() }}
@@ -53,7 +53,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('partner.edit') }}</h5>
+                    <h5 class="modal-title">{{ __('partner.edit', ['type' => $selectedTypeName]) }}</h5>
                     {{ link_to_route('partners.index', '', ['type_code' => $selectedTypeCode], ['class' => 'close']) }}
                 </div>
                 {!! Form::model($editablePartner, ['route' => ['partners.update', $editablePartner], 'method' => 'patch']) !!}
@@ -85,7 +85,7 @@
                     {!! FormField::radios('is_active', [__('app.inactive'), __('app.active')], ['label' => __('app.status')]) !!}
                 </div>
                 <div class="modal-footer">
-                    {!! Form::submit(__('partner.update'), ['class' => 'btn btn-success']) !!}
+                    {!! Form::submit(__('partner.update', ['type' => $selectedTypeName]), ['class' => 'btn btn-success']) !!}
                     {{ link_to_route('partners.index', __('app.cancel'), ['type_code' => $selectedTypeCode], ['class' => 'btn btn-secondary']) }}
                     @can('delete', $editablePartner)
                         {!! link_to_route(
@@ -110,7 +110,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('partner.delete') }} {{ $editablePartner->type }}</h5>
+                    <h5 class="modal-title">{{ __('partner.delete', ['type' => $selectedTypeName]) }}</h5>
                     {{ link_to_route('partners.index', '', ['type_code' => $selectedTypeCode], ['class' => 'close']) }}
                 </div>
                 <div class="modal-body">

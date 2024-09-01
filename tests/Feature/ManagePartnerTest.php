@@ -26,10 +26,10 @@ class ManagePartnerTest extends TestCase
         $this->loginAsUser();
         $this->visitRoute('partners.index');
 
-        $this->click(__('partner.create'));
+        $this->click(__('partner.create', ['type' => __('partner.partner')]));
         $this->seeRouteIs('partners.index', ['action' => 'create', 'type_code' => 'partner']);
 
-        $this->submitForm(__('partner.create'), [
+        $this->submitForm(__('partner.create', ['type' => __('partner.partner')]), [
             'name' => 'Partner 1 name',
             'type_code' => 'partner',
             'phone' => '1234567890',
@@ -82,7 +82,7 @@ class ManagePartnerTest extends TestCase
             'action' => 'edit', 'id' => $partner->id, 'type_code' => $partner->type_code,
         ]);
 
-        $this->submitForm(__('partner.update'), [
+        $this->submitForm(__('partner.update', ['type' => 'Donatur']), [
             'name' => 'Partner 2 name',
             'type_code' => 'donatur',
             'phone' => '1234567890',

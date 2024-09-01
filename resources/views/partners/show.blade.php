@@ -6,9 +6,9 @@
 
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ __('partner.partner') }}</div>
+    <div class="page-subtitle">{{ __('partner.partner_type', ['type' => $partner->type]) }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('partners.index', __('partner.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+        {{ link_to_route('partners.index', __('partner.back_to_index', ['type' => $partner->type]), ['type_code' => $partner->type_code], ['class' => 'btn btn-secondary']) }}
     </div>
 </div>
 

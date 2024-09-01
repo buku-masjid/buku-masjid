@@ -5,7 +5,7 @@
 @section('content_settings')
 <div class="page-header">
     <h1 class="page-title">{{ __('partner.list_by_type', ['type' => $selectedTypeName]) }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $partners->count() }} {{ __('partner.partner') }}</div>
+    <div class="page-subtitle">{{ __('app.total') }} : {{ $partners->count() }} {{ __('partner.partner_type', ['type' => $selectedTypeName]) }}</div>
     @if (count($partnerTypes) > 1)
         <div class="btn-group ml-md-5">
             @foreach ($partnerTypes as $partnerTypeCode => $partnerTypeName)
@@ -20,7 +20,7 @@
     @endif
     <div class="page-options d-flex">
         @can('create', new App\Models\Partner)
-            {{ link_to_route('partners.index', __('partner.create'), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
+            {{ link_to_route('partners.index', __('partner.create', ['type' => $selectedTypeName]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
