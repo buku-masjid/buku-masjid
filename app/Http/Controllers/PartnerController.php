@@ -20,8 +20,16 @@ class PartnerController extends Controller
         $selectedTypeCode = $request->get('type_code');
         $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
         $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
-        $partnerQuery = Partner::query();
+        $partnerQuery = Partner::orderBy('name');
         $partnerQuery->where('type_code', $selectedTypeCode);
+        if ($request->get('search_query')) {
+            $searchQuery = $request->get('search_query');
+            $partnerQuery->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%'.$searchQuery.'%');
+                $query->orWhere('phone', 'like', '%'.$searchQuery.'%');
+                $query->orWhere('address', 'like', '%'.$searchQuery.'%');
+            });
+        }
         $partners = $partnerQuery->paginate(100);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
