@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->name }}</td>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->phone }}</td>
+                <td class="text-center lead" style="border-top: none;">{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->level }}</td>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->work }}</td>
                 <td class="text-center lead" style="border-top: none;">{{ $partner->status }}</td>
@@ -35,7 +35,7 @@
     <div class="card table-responsive">
         <table class="table table-sm table-bordered mb-0">
             <tr><td class="col-4">{{ __('partner.name') }}</td><td>{{ $partner->name }}</td></tr>
-            <tr><td>{{ __('partner.phone') }}</td><td>{{ $partner->phone }}</td></tr>
+            <tr><td>{{ __('partner.phone') }}</td><td>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td></tr>
             <tr><td>{{ __('partner.level') }}</td><td>{{ $partner->level }}</td></tr>
             <tr><td>{{ __('partner.work') }}</td><td>{{ $partner->work }}</td></tr>
             <tr><td>{{ __('app.status') }}</td><td>{{ $partner->status }}</td></tr>

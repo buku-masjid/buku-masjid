@@ -44,7 +44,7 @@
                     <tr>
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td>{{ $partner->name }}</td>
-                        <td>{{ $partner->phone }}</td>
+                        <td>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td>
                         <td class="text-nowrap text-center">{{ $partner->level }}</td>
                         <td class="text-nowrap text-center">{{ $partner->status }}</td>
                         <td class="text-center text-nowrap">
