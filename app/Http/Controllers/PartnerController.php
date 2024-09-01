@@ -55,9 +55,9 @@ class PartnerController extends Controller
         ]);
         $newPartner['creator_id'] = auth()->id();
 
-        Partner::create($newPartner);
+        $partner = Partner::create($newPartner);
 
-        flash(__('partner.created'), 'success');
+        flash(__('partner.created', ['type' => $partner->type]), 'success');
 
         return redirect()->route('partners.index', ['type_code' => $newPartner['type_code']]);
     }
@@ -96,7 +96,7 @@ class PartnerController extends Controller
 
         $partner->update($partnerData);
 
-        flash(__('partner.updated'), 'success');
+        flash(__('partner.updated', ['type' => $partner->type]), 'success');
 
         return redirect()->route('partners.index', ['type_code' => $partnerData['type_code']]);
     }
@@ -110,10 +110,11 @@ class PartnerController extends Controller
         ]);
 
         if (request('partner_id') == $partner->id && $partner->delete()) {
-            flash(__('partner.deleted'), 'success');
+            flash(__('partner.deleted', ['type' => $partner->type]), 'warning');
 
             return redirect()->route('partners.index');
         }
+        flash(__('partner.undeleted', ['type' => $partner->type]), 'error');
 
         return back();
     }
