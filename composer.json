@@ -19,6 +19,7 @@
         "backup-manager/laravel": "dev-laravel_9_support",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",
+        "laravel/slack-notification-channel": "^3.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.12",
