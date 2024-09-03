@@ -48,6 +48,10 @@ return [
     'report_visibility_internal' => 'Internal',
     'manager' => 'Finance User',
     'manager_info_text' => 'Finance user will have write access to this book.',
+    'income_partners' => 'Income Partners',
+    'income_partner_null' => 'Income Partners Default Value',
+    'spending_partners' => 'Spending Partners',
+    'spending_partner_null' => 'Spending Partners Default Value',
 
     // Relations
     'transactions' => 'Cash Book Transactions',

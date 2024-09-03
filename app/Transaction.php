@@ -5,6 +5,7 @@ namespace App;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Partner;
 use App\Traits\Models\ForActiveBook;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ class Transaction extends Model
     use ForActiveBook;
 
     protected $fillable = [
-        'date', 'amount', 'in_out', 'description',
+        'date', 'amount', 'in_out', 'description', 'partner_id',
         'category_id', 'book_id', 'creator_id', 'bank_account_id',
     ];
 
@@ -26,6 +27,11 @@ class Transaction extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
     }
 
     public function bankAccount()

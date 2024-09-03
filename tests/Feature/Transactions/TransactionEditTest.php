@@ -5,6 +5,7 @@ namespace Tests\Feature\Transactions;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -30,6 +31,7 @@ class TransactionEditTest extends TestCase
             'book_id' => $book->id,
         ]);
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
+        $partner = factory(Partner::class)->create();
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
         $this->click('edit-transaction-'.$transaction->id);
@@ -44,6 +46,7 @@ class TransactionEditTest extends TestCase
             'date' => $date,
             'description' => 'Transaction 1 description',
             'category_id' => $category->id,
+            'partner_id' => $partner->id,
             'bank_account_id' => $bankAccount->id,
         ]);
 
@@ -55,6 +58,7 @@ class TransactionEditTest extends TestCase
             'date' => $date,
             'description' => 'Transaction 1 description',
             'category_id' => $category->id,
+            'partner_id' => $partner->id,
             'bank_account_id' => $bankAccount->id,
         ]);
     }
@@ -125,6 +129,7 @@ class TransactionEditTest extends TestCase
             'month' => $transaction->month,
             'query' => 'Unique',
             'year' => $transaction->year,
+            'partner_id' => null,
         ]);
     }
 

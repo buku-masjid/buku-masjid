@@ -5,6 +5,7 @@ namespace Tests\Feature\Transactions;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Partner;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -20,6 +21,7 @@ class TransactionEntryTest extends TestCase
         $date = '2017-01-01';
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create();
         $category = factory(Category::class)->create([
             'book_id' => $book->id,
             'creator_id' => $user->id,
@@ -35,6 +37,7 @@ class TransactionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'partner_id' => $partner->id,
             'bank_account_id' => '',
         ]);
 
@@ -47,6 +50,7 @@ class TransactionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Income description',
             'category_id' => $category->id,
+            'partner_id' => $partner->id,
         ]);
     }
 
@@ -80,6 +84,7 @@ class TransactionEntryTest extends TestCase
             'date' => $date,
             'description' => 'Spending description',
             'bank_account_id' => $bankAccount->id,
+            'partner_id' => null,
         ]);
     }
 

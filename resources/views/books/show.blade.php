@@ -32,6 +32,20 @@
                     <tr><td>{{ __('report.periode') }}</td><td>{{ __('report.'.$book->report_periode_code) }}</td></tr>
                     <tr><td>{{ __('report.start_week_day') }}</td><td>{{ __('time.days.'.$book->start_week_day_code) }}</td></tr>
                     <tr><td>{{ __('report.has_pdf_page_number') }}</td><td>{{ $book->start_week_day_code == '0' ? __('app.no') : __('app.yes') }}</td></tr>
+                    <tr>
+                        <td>{{ __('book.income_partners') }}</td>
+                        <td>
+                            {{ Setting::for($book)->get('income_partner_codes') }}
+                            (default: {{ Setting::for($book)->get('income_partner_null') ?: config('partners.income_default_value') }})
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ __('book.spending_partners') }}</td>
+                        <td>
+                            {{ Setting::for($book)->get('spending_partner_codes') }}
+                            (default: {{ Setting::for($book)->get('spending_partner_null') ?: config('partners.spending_default_value') }})
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="card-footer">

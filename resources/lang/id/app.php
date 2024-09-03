@@ -18,7 +18,7 @@ return [
     'all' => 'Semua',
     'remark' => 'Keterangan',
     'level' => 'Level',
-    'not_available' => 'Tidak Tersedia',
+    'not_available' => ':item tidak tersedia.',
     'system' => 'Sistem',
     'home' => 'Beranda',
     'public_home' => 'Beranda Publik',

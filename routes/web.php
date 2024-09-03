@@ -94,6 +94,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('bank_accounts.balances', 'BankAccounts\BalanceController');
 
     /*
+     * Partner Routes
+     */
+    Route::apiResource('partners', 'PartnerController');
+
+    /*
      * Lecturings Routes
      */
     Route::resource('friday_lecturings', App\Http\Controllers\FridayLecturingController::class)

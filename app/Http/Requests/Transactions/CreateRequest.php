@@ -31,6 +31,7 @@ class CreateRequest extends FormRequest
             'in_out' => 'required|boolean',
             'description' => 'required|max:255',
             'category_id' => 'nullable|exists:categories,id',
+            'partner_id' => 'nullable|exists:partners,id',
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ];

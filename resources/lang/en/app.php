@@ -18,7 +18,7 @@ return [
     'all' => 'All',
     'remark' => 'Remark',
     'level' => 'Level',
-    'not_available' => 'Not Available',
+    'not_available' => ':item not available.',
     'system' => 'System',
     'home' => 'Home',
     'public_home' => 'Public Home',

@@ -48,6 +48,10 @@ return [
     'report_visibility_internal' => 'Internal',
     'manager' => 'Pengelola/Bendahara',
     'manager_info_text' => 'User bendahara dapat mengelola dan mengubah data buku kas ini.',
+    'income_partners' => 'Partner utk Pemasukan',
+    'income_partner_null' => 'Partner Pemasukan Default',
+    'spending_partners' => 'Partner utk Pengeluaran',
+    'spending_partner_null' => 'Partner Pengeluaran Default',
 
     // Relations
     'transactions' => 'List Transaksi Buku Kas',
