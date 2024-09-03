@@ -82,7 +82,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="5">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
+                    <tr><td colspan="6">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
                     @endforelse
                 </tbody>
             </table>
