@@ -27,8 +27,9 @@
                         <div class="col-md-6">
                             @if ($partnerTypeCodes)
                                 {!! FormField::select('partner_id', $partners, [
-                                    'label' => count($partnerTypeCodes) < 2 ? $partnerTypes[$partnerTypeCodes[0]] : __('partner.partner'),
+                                    'label' => $partnerSelectionLabel,
                                     'placeholder' => $partnerDefaultValue,
+                                    'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
                                 ]) !!}
                             @else
                                 {{ Form::hidden('partner_id') }}
@@ -69,8 +70,9 @@
                         <div class="col-md-6">
                             @if ($partnerTypeCodes)
                                 {!! FormField::select('partner_id', $partners, [
-                                    'label' => count($partnerTypeCodes) < 2 ? $partnerTypes[$partnerTypeCodes[0]] : __('partner.partner'),
+                                    'label' => $partnerSelectionLabel,
                                     'placeholder' => $partnerDefaultValue,
+                                    'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
                                 ]) !!}
                             @else
                                 {{ Form::hidden('partner_id') }}

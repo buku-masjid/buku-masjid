@@ -57,6 +57,7 @@ class TransactionsController extends Controller
         $partners = [];
         $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerDefaultValue = __('partner.partner');
+        $partnerSelectionLabel = __('partner.partner');
 
         if (in_array(request('action'), ['add-income'])) {
             $partnerTypeCodes = Setting::for(auth()->activeBook())->get('income_partner_codes');
@@ -64,6 +65,18 @@ class TransactionsController extends Controller
             if ($partnerTypeCodes) {
                 $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
                 $partnerDefaultValue = Setting::for(auth()->activeBook())->get('income_partner_null') ?: config('partners.income_default_value');
+                $partnerSelectionLabel .= ' (';
+                if (count($partnerTypeCodes) > 1) {
+                    foreach ($partnerTypes as $partnerTypeCode => $partnerTypeName) {
+                        if (in_array($partnerTypeCode, $partnerTypeCodes)) {
+                            $partnerSelectionLabel .= $partnerTypeName.', ';
+                        }
+                    }
+                    $partnerSelectionLabel = trim($partnerSelectionLabel, ', ');
+                    $partnerSelectionLabel .= ')';
+                } else {
+                    $partnerSelectionLabel = $partnerTypes[$partnerTypeCodes[0]];
+                }
             }
             $categories = Category::orderBy('name')
                 ->where('color', config('masjid.income_color'))
@@ -77,6 +90,18 @@ class TransactionsController extends Controller
             if ($partnerTypeCodes) {
                 $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
                 $partnerDefaultValue = Setting::for(auth()->activeBook())->get('spending_partner_null') ?: config('partners.spending_default_value');
+                $partnerSelectionLabel .= ' (';
+                if (count($partnerTypeCodes) > 1) {
+                    foreach ($partnerTypes as $partnerTypeCode => $partnerTypeName) {
+                        if (in_array($partnerTypeCode, $partnerTypeCodes)) {
+                            $partnerSelectionLabel .= $partnerTypeName.', ';
+                        }
+                    }
+                    $partnerSelectionLabel = trim($partnerSelectionLabel, ', ');
+                    $partnerSelectionLabel .= ')';
+                } else {
+                    $partnerSelectionLabel = $partnerTypes[$partnerTypeCodes[0]];
+                }
             }
             $categories = Category::orderBy('name')
                 ->where('color', config('masjid.spending_color'))
@@ -84,9 +109,11 @@ class TransactionsController extends Controller
                 ->pluck('name', 'id');
         }
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $partnerSettingLink = link_to_route('partners.index', 'pengaturan', [], ['target' => '_blank']);
 
         return view('transactions.create', compact(
-            'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue'
+            'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue',
+            'partnerSelectionLabel', 'partnerSettingLink'
         ));
     }
 

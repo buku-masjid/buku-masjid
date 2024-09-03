@@ -30,6 +30,7 @@ return [
     'income_added' => 'Pemasukan berhasil diinput.',
     'add_spending' => 'Input Pengeluaran',
     'spending_added' => 'Pengeluaran berhasil diinput.',
+    'partner_help_text' => 'Tambah :partner dari :link.',
     'show' => 'Lihat Detail Transaksi',
     'edit' => 'Edit Transaksi',
     'update' => 'Update Transaksi',

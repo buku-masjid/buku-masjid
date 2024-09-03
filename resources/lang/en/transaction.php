@@ -30,6 +30,7 @@ return [
     'income_added' => 'Income has been added.',
     'add_spending' => 'Add Spending',
     'spending_added' => 'Spending has been added.',
+    'partner_help_text' => 'Add :partner from :link.',
     'show' => 'Show Transaction Detail',
     'edit' => 'Edit Transaction',
     'update' => 'Update Transaction',
