@@ -19,16 +19,16 @@ class PartnerPolicy
 
     public function create(User $user): bool
     {
-        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE, User::ROLE_FINANCE]);
+        return true;
     }
 
     public function update(User $user, Partner $partner): bool
     {
-        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE, User::ROLE_FINANCE]);
+        return true;
     }
 
     public function delete(User $user, Partner $partner): bool
     {
-        return in_array($user->role_id, [User::ROLE_ADMIN, User::ROLE_FINANCE, User::ROLE_FINANCE]);
+        return in_array($user->role_id, [User::ROLE_ADMIN]);
     }
 }

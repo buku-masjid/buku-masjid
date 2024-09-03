@@ -33,8 +33,8 @@ class PartnerPolicyTest extends TestCase
         $finance = $this->createUser('finance');
 
         $this->assertTrue($admin->can('create', new Partner));
-        $this->assertFalse($chairman->can('create', new Partner));
-        $this->assertFalse($secretary->can('create', new Partner));
+        $this->assertTrue($chairman->can('create', new Partner));
+        $this->assertTrue($secretary->can('create', new Partner));
         $this->assertTrue($finance->can('create', new Partner));
     }
 
@@ -69,8 +69,8 @@ class PartnerPolicyTest extends TestCase
 
         $this->assertTrue($admin->can('update', $partner));
         $this->assertTrue($admin->can('update', $othersPartner));
-        $this->assertFalse($chairman->can('update', $partner));
-        $this->assertFalse($secretary->can('update', $partner));
+        $this->assertTrue($chairman->can('update', $partner));
+        $this->assertTrue($secretary->can('update', $partner));
         $this->assertTrue($finance->can('update', $partner));
     }
 
@@ -89,6 +89,6 @@ class PartnerPolicyTest extends TestCase
         $this->assertTrue($admin->can('delete', $othersPartner));
         $this->assertFalse($chairman->can('delete', $partner));
         $this->assertFalse($secretary->can('delete', $partner));
-        $this->assertTrue($finance->can('delete', $partner));
+        $this->assertFalse($finance->can('delete', $partner));
     }
 }
