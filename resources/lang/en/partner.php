@@ -6,6 +6,7 @@ return [
     'partner_type' => ':type',
     'list' => ':type List',
     'list_by_type' => 'Daftar :type',
+    'search_text' => 'Name / phone / address',
     'not_found' => ':type tidak ditemukan.',
     'empty' => ':type list is empty',
     'back_to_index' => 'Back to :type list',

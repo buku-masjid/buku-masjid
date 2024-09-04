@@ -30,13 +30,19 @@ class PartnerController extends Controller
                 $query->orWhere('address', 'like', '%'.$searchQuery.'%');
             });
         }
+        if ($request->get('gender_code')) {
+            $partnerQuery->where('gender_code', $request->get('gender_code'));
+        }
+        if (!is_null($request->get('is_active'))) {
+            $partnerQuery->where('is_active', $request->get('is_active'));
+        }
         $partners = $partnerQuery->paginate(100);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
         }
         $genders = [
-            'm' => __('gender.male'),
-            'f' => __('gender.female'),
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
         ];
 
         return view('partners.index', compact(

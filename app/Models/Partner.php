@@ -24,7 +24,7 @@ class Partner extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function getGenderAttribute(): string
+    public function getGenderAttribute(): ?string
     {
         if ($this->gender_code == 'm') {
             return __('app.gender_male');
