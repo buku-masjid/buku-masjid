@@ -19,13 +19,15 @@
         </div>
     @endif
     <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mt-sm-0']) }}
+        {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3']) }}
         {{ Form::label('search_query', __('app.search'), ['class' => 'control-label mr-1']) }}
-        {{ Form::text('search_query', request('search_query'), ['placeholder' => __('app.name'), 'class' => 'date-select form-control mr-1']) }}
+        {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1']) }}
+        {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control mr-1']) }}
+        {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::hidden('type_code', request('type_code')) }}
             {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
-                {{ link_to_route('partners.index', __('app.reset'), request()->only('type_code'), ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('partners.index', __('app.reset'), request()->only('type_code'), ['class' => 'btn btn-secondary mr-1']) }}
             @can('create', new App\Models\Partner)
                 {{ link_to_route('partners.index', __('partner.create', ['type' => $selectedTypeName]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
             @endcan
@@ -43,6 +45,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('partner.name') }}</th>
                         <th class="text-nowrap">{{ __('partner.phone') }}</th>
+                        <th class="text-nowrap text-center">{{ __('app.gender') }}</th>
                         <th class="text-center">{{ __('partner.level') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
@@ -54,6 +57,7 @@
                         <td class="text-center">{{ $partners->firstItem() + $key }}</td>
                         <td>{{ $partner->name }}</td>
                         <td>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td>
+                        <td class="text-nowrap text-center">{{ $partner->gender }}</td>
                         <td class="text-nowrap text-center">{{ $partner->level }}</td>
                         <td class="text-nowrap text-center">{{ $partner->status }}</td>
                         <td class="text-center text-nowrap">
@@ -82,7 +86,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="5">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
+                    <tr><td colspan="6">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
                     @endforelse
                 </tbody>
             </table>

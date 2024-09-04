@@ -102,4 +102,21 @@ class PartnerTest extends TestCase
         $partner->level_code = 'gold';
         $this->assertEquals('Gold', $partner->level);
     }
+
+    /** @test */
+    public function partner_model_has_gender_attribute()
+    {
+        $partner = factory(Partner::class)->make(['gender_code' => null]);
+
+        $this->assertEquals(null, $partner->level);
+
+        $partner->gender_code = 'm';
+        $this->assertEquals(__('app.gender_male'), $partner->gender);
+
+        $partner->gender_code = 'f';
+        $this->assertEquals(__('app.gender_female'), $partner->gender);
+
+        $partner->gender_code = 'something';
+        $this->assertEquals('something', $partner->gender);
+    }
 }

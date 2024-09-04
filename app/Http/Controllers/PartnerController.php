@@ -30,13 +30,24 @@ class PartnerController extends Controller
                 $query->orWhere('address', 'like', '%'.$searchQuery.'%');
             });
         }
+        if ($request->get('gender_code')) {
+            $partnerQuery->where('gender_code', $request->get('gender_code'));
+        }
+        if (!is_null($request->get('is_active'))) {
+            $partnerQuery->where('is_active', $request->get('is_active'));
+        }
         $partners = $partnerQuery->paginate(100);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
         }
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
 
         return view('partners.index', compact(
-            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels'
+            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
+            'genders'
         ));
     }
 
@@ -48,6 +59,7 @@ class PartnerController extends Controller
             'name' => 'required|max:60',
             'type_code' => 'required|max:30',
             'level_code' => 'nullable|max:30',
+            'gender_code' => 'nullable|in:m,f',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',
