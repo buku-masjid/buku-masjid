@@ -12,6 +12,7 @@ class Partner extends Model
 
     protected $fillable = [
         'name', 'type_code', 'level_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
+        'gender_code',
     ];
 
     public function getStatusAttribute()
@@ -21,6 +22,18 @@ class Partner extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function getGenderAttribute(): string
+    {
+        if ($this->gender_code == 'm') {
+            return __('app.gender_male');
+        }
+        if ($this->gender_code == 'f') {
+            return __('app.gender_female');
+        }
+
+        return $this->gender_code;
     }
 
     public function getTypeAttribute(): string

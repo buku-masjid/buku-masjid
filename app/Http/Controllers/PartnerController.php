@@ -34,9 +34,14 @@ class PartnerController extends Controller
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
         }
+        $genders = [
+            'm' => __('gender.male'),
+            'f' => __('gender.female'),
+        ];
 
         return view('partners.index', compact(
-            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels'
+            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
+            'genders'
         ));
     }
 
@@ -48,6 +53,7 @@ class PartnerController extends Controller
             'name' => 'required|max:60',
             'type_code' => 'required|max:30',
             'level_code' => 'nullable|max:30',
+            'gender_code' => 'nullable|in:m,f',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',

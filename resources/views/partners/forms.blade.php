@@ -13,7 +13,11 @@
                     {!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::textDisplay('type_name', $selectedTypeName, ['required' => true, 'label' => __('partner.type')]) !!}
+                            {!! FormField::select('gender_code', $genders, [
+                                'value' => old('gender_code', request('gender_code')),
+                                'placeholder' => false,
+                                'label' => __('app.gender'),
+                            ]) !!}
                             {{ Form::hidden('type_code', $selectedTypeCode) }}
                         </div>
                         <div class="col-md-6">
@@ -61,7 +65,10 @@
                     {!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::textDisplay('type_name', $selectedTypeName, ['required' => true, 'label' => __('partner.type')]) !!}
+                            {!! FormField::select('gender_code', $genders, [
+                                'placeholder' => false,
+                                'label' => __('app.gender'),
+                            ]) !!}
                             {{ Form::hidden('type_code', $selectedTypeCode) }}
                         </div>
                         <div class="col-md-6">
