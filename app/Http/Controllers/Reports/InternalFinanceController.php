@@ -80,17 +80,33 @@ class InternalFinanceController extends FinanceController
         $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
+
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $incomeCategoriesTransactions = isset($groupedTransactions[1]) ? collect($groupedTransactions[1])->groupBy('category_id')->map(function ($transaction) {
+            return [
+                'id' => $transaction[0]->category_id,
+                'name' => $transaction[0]->category->name,
+                'total_amount' => $transaction->sum('amount'),
+            ];
+        }) : collect([]);
+
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategoriesTransactions = isset($groupedTransactions[0]) ? collect($groupedTransactions[0])->groupBy('category_id')->map(function ($transaction) {
+            return [
+                'id' => $transaction[0]->category_id,
+                'name' => $transaction[0]->category->name,
+                'total_amount' => $transaction->sum('amount'),
+            ];
+        }) : collect([]);
+
         $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
-            ->prepend(__('transaction.cash'), 'null');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')->prepend(__('transaction.cash'), 'null');
 
         return view('reports.finance.'.$reportPeriode.'.categorized', compact(
             'startDate', 'endDate', 'currentMonthEndDate', 'reportPeriode', 'bankAccounts',
-            'groupedTransactions', 'incomeCategories', 'spendingCategories'
+            'groupedTransactions', 'incomeCategories', 'incomeCategoriesTransactions', 'spendingCategories', 'spendingCategoriesTransactions'
         ));
     }
 

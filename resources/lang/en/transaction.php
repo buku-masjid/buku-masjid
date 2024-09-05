@@ -41,6 +41,8 @@ return [
     'undeleted' => 'Transaction data not deleted.',
     'undeleteable' => 'Transaction data cannot be deleted.',
     'download' => 'Download CSV',
+    'highest_transaction' => 'Highest Transaction',
+    'smallest_transaction' => 'Smallest Transaction',
 
     // Attributes
     'amount' => 'Amount',

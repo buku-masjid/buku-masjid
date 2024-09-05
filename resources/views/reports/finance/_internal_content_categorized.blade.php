@@ -12,6 +12,18 @@
         @php
             $key = 0;
         @endphp
+
+        @switch(request('order'))
+            @case('desc')
+                @php $transactions = collect($transactions)->sortByDesc('amount'); @endphp
+                @break
+            @case('asc')
+                @php $transactions = collect($transactions)->sortBy('amount'); @endphp
+                @break
+            @default
+                @php $transactions = collect($transactions); @endphp
+        @endswitch
+
         @foreach ($transactions as $transaction)
         <tr>
             <td class="text-center ">{{ ++$key }}</td>
