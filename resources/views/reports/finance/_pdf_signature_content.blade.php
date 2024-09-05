@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td>{{ Setting::for(auth()->activeBook())->get('sign_position_left') }}</td>
-            <td>&nbsp;</td>
+            <td>{{ Setting::for(auth()->activeBook())->get('sign_position_mid') }}</td>
             <td>{{ Setting::for(auth()->activeBook())->get('sign_position_right') }}</td>
         </tr>
         <tr>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td>{{ Setting::for(auth()->activeBook())->get('sign_name_left') }}</td>
-            <td>&nbsp;</td>
+            <td>{{ Setting::for(auth()->activeBook())->get('sign_name_mid') }}</td>
             <td>{{ Setting::for(auth()->activeBook())->get('sign_name_right') }}</td>
         </tr>
     </tbody>
