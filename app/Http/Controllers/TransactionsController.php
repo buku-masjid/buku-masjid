@@ -155,6 +155,11 @@ class TransactionsController extends Controller
         ]);
     }
 
+    public function show(Transaction $transaction)
+    {
+        return view('transactions.show', compact('transaction'));
+    }
+
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)
     {
         $this->authorize('update', $transaction);

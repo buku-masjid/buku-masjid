@@ -86,12 +86,7 @@
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td class="text-center text-nowrap">
-                            {{ link_to_route('transactions.index', __('app.show'), [
-                                'query' => request('query'),
-                                'date' => $transaction->date_only,
-                                'month' => $transaction->month,
-                                'year' => $transaction->year,
-                            ], ['class' => 'btn btn-secondary btn-sm']) }}
+                            {{ link_to_route('transactions.show', __('app.show'), $transaction, ['class' => 'btn btn-secondary btn-sm']) }}
                         </td>
                     </tr>
                     @empty

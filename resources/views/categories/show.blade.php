@@ -29,10 +29,10 @@
                 <thead>
                     <tr>
                         <th class="text-center col-md-1">{{ __('app.table_no') }}</th>
-                        <th class="text-center col-md-2">{{ __('app.date') }}</th>
-                        <th class="col-md-7">{{ __('transaction.description') }}</th>
+                        <th class="text-center col-md-1">{{ __('app.date') }}</th>
+                        <th class="col-md-6">{{ __('transaction.description') }}</th>
                         <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
-                        <th class="text-center">{{ __('app.action') }}</th>
+                        <th class="text-center col-md-2">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,8 +46,8 @@
                                     @php
                                         $partnerRoute = route('partners.show', [
                                             $transaction->partner_id,
-                                            'start_date' => $startDate,
-                                            'end_date' => $endDate,
+                                            'start_date' => $transaction->date,
+                                            'end_date' => $transaction->date,
                                         ]);
                                     @endphp
                                     <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
@@ -67,9 +67,10 @@
                                         __('app.edit'),
                                         [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
                                         ['id' => 'edit-transaction-'.$transaction->id]
-                                    ) !!}
+                                    ) !!} |
                                 @endcan
                             @endcan
+                            {{ link_to_route('transactions.show', __('app.show'), $transaction) }}
                         </td>
                     </tr>
                     @empty

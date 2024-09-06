@@ -43,6 +43,7 @@ return [
     'download' => 'Download CSV',
 
     // Attributes
+    'id' => 'Transaction ID',
     'amount' => 'Amount',
     'description' => 'Transaction Description',
     'in_out' => 'Income/Spending',

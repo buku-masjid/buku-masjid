@@ -93,9 +93,10 @@
                                             __('app.edit'),
                                             ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
                                             ['id' => 'edit-transaction-'.$transaction->id]
-                                        ) !!}
+                                        ) !!} |
                                     @endcan
                                 @endcan
+                                {{ link_to_route('transactions.show', __('app.detail'), $transaction) }}
                             </td>
                         </tr>
                         @empty

@@ -43,6 +43,7 @@ return [
     'download' => 'Download CSV',
 
     // Attributes
+    'id' => 'ID Transaksi',
     'amount' => 'Jumlah',
     'description' => 'Deskripsi Transaksi',
     'in_out' => 'Pemasukan/Pengeluaran',

@@ -25,6 +25,17 @@ class TransactionListingTest extends TestCase
     }
 
     /** @test */
+    public function user_can_see_transaction_detail_page()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
+
+        $this->visitRoute('transactions.show', $transaction);
+        $this->see($transaction->amount_string);
+    }
+
+    /** @test */
     public function user_can_see_transaction_list_based_on_the_selected_book()
     {
         $user = $this->loginAsUser();
