@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
         "backup-manager/laravel": "dev-laravel_9_support",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",

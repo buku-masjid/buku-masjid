@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b17bf1889ae858c3a118c1591e7f0ba",
+    "content-hash": "6b649836f90d999dcdb98ee8bc6464d3",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -10236,7 +10236,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-intl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
