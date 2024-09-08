@@ -214,14 +214,7 @@ class TransactionsController extends Controller
             }
         }
 
-        return redirect()->route('transactions.show', [
-            $transaction,
-            'return' => $transactionUpateForm->get('return'),
-            'month' => $transaction->month,
-            'year' => $transaction->year,
-            'category_id' => $transactionUpateForm->get('queried_category_id'),
-            'query' => $transactionUpateForm->get('query'),
-        ]);
+        return redirect()->route('transactions.show', [$transaction]);
     }
 
     public function destroy(Transaction $transaction)
