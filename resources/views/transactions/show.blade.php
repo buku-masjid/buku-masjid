@@ -9,13 +9,19 @@
     <div class="page-subtitle">{{ __('transaction.detail') }}</div>
     <div class="page-options d-flex">
         {{ link_to_route(
+            'transactions.print_receipt',
+            __('transaction.print_receipt'),
+            $transaction,
+            ['class' => 'btn btn-secondary mr-2']
+        ) }}
+        {{ link_to_route(
             'transactions.index',
             __('transaction.back_to_index'),
             [
                 'year' => $transaction->year,
                 'month' => $transaction->month,
             ],
-            ['class' => 'btn btn-secondary float-right']
+            ['class' => 'btn btn-secondary']
         ) }}
     </div>
 </div>

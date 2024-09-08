@@ -25,6 +25,12 @@ return [
     'no_category' => 'No Category',
     'no_book' => 'No Book',
 
+    'income_receipt' => 'Income Receipt',
+    'spending_receipt' => 'Spending Receipt',
+    'from' => 'Receive from',
+    'cash_amount' => 'Cash amount',
+    'words_amount' => 'In word amount',
+
     // Actions
     'add_income' => 'Add Income',
     'income_added' => 'Income has been added.',
@@ -41,6 +47,7 @@ return [
     'undeleted' => 'Transaction data not deleted.',
     'undeleteable' => 'Transaction data cannot be deleted.',
     'download' => 'Download CSV',
+    'print_receipt' => 'Print Receipt',
 
     // Attributes
     'id' => 'Transaction ID',
