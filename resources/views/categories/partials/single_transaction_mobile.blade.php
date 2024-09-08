@@ -6,14 +6,14 @@
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())
                 {!! link_to_route(
-                    'categories.show',
+                    'transactions.edit',
                     __('app.edit'),
-                    [$category->id, 'action' => 'edit', 'id' => $transaction->id] + request(['start_date', 'end_date', 'query', 'book_id']),
-                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'text-danger']
+                    [$transaction, 'reference_page' => 'category', 'category_id' => $category->id] + request(['start_date', 'end_date', 'query', 'book_id']),
+                    ['id' => 'edit-transaction-'.$transaction->id]
                 ) !!} |
             @endcan
         @endcan
-        {{ link_to_route('transactions.show', __('app.show'), $transaction) }}
+        {{ link_to_route('transactions.show', __('app.detail'), $transaction) }}
     </span>
 </div>
 <div style="margin-bottom: 6px;">

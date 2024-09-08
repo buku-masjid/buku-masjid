@@ -160,6 +160,17 @@ class TransactionsController extends Controller
         return view('transactions.show', compact('transaction'));
     }
 
+    public function edit(Request $request, Transaction $transaction)
+    {
+        $categories = $this->getCategoryList();
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $partnerTypes = (new Partner)->getAvailableTypes();
+        $partnerTypeCodes = array_keys($partnerTypes);
+        $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
+
+        return view('transactions.edit', compact('transaction', 'categories', 'bankAccounts', 'partners'));
+    }
+
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)
     {
         $this->authorize('update', $transaction);
@@ -180,9 +191,32 @@ class TransactionsController extends Controller
                     ]);
                 }
             }
+            if ($referencePage == 'partner') {
+                if ($transaction->partner) {
+                    return redirect()->route('partners.show', [
+                        $transaction->partner_id,
+                        'start_date' => $transactionUpateForm->get('start_date'),
+                        'end_date' => $transactionUpateForm->get('end_date'),
+                        'book_id' => $transactionUpateForm->get('book_id'),
+                        'query' => $transactionUpateForm->get('query'),
+                    ]);
+                }
+            }
+            if ($referencePage == 'transactions') {
+                if ($transaction->category) {
+                    return redirect()->route('transactions.index', [
+                        'month' => $transaction->month,
+                        'year' => $transaction->year,
+                        'category_id' => $transactionUpateForm->get('queried_category_id'),
+                        'query' => $transactionUpateForm->get('query'),
+                    ]);
+                }
+            }
         }
 
-        return redirect()->route('transactions.index', [
+        return redirect()->route('transactions.show', [
+            $transaction,
+            'return' => $transactionUpateForm->get('return'),
             'month' => $transaction->month,
             'year' => $transaction->year,
             'category_id' => $transactionUpateForm->get('queried_category_id'),
@@ -204,7 +238,14 @@ class TransactionsController extends Controller
                         $transaction->category_id,
                         'start_date' => request('start_date'),
                         'end_date' => request('end_date'),
-                        'book_id' => request('queried_book_id'),
+                        'query' => request('query'),
+                    ]);
+                }
+                if ($referencePage == 'partner') {
+                    return redirect()->route('partners.show', [
+                        $transaction->partner_id,
+                        'start_date' => request('start_date'),
+                        'end_date' => request('end_date'),
                         'query' => request('query'),
                     ]);
                 }

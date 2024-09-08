@@ -11,10 +11,10 @@
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())
                 {!! link_to_route(
-                    'transactions.index',
+                    'transactions.edit',
                     __('app.edit'),
-                    ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
-                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'text-danger']
+                    [$transaction->id, 'reference_page' => 'transactions'] + request(['query', 'category_id']),
+                    ['id' => 'edit-transaction-'.$transaction->id]
                 ) !!} |
             @endcan
         @endcan

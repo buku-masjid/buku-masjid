@@ -89,9 +89,9 @@
                                 @can('update', $transaction)
                                     @can('manage-transactions', auth()->activeBook())
                                         {!! link_to_route(
-                                            'transactions.index',
+                                            'transactions.edit',
                                             __('app.edit'),
-                                            ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
+                                            [$transaction->id, 'reference_page' => 'transactions'] + request(['query', 'category_id']),
                                             ['id' => 'edit-transaction-'.$transaction->id]
                                         ) !!} |
                                     @endcan
@@ -177,13 +177,6 @@
             @enddesktop
         </div>
     </div>
-    <div class="col-md-4">
-        @if(Request::has('action'))
-            @can('manage-transactions', auth()->activeBook())
-                @include('transactions.forms')
-            @endcan
-        @endif
-    </div>
 </div>
 @endsection
 
@@ -195,10 +188,6 @@
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {
-    $('#transactionModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
     $('.date-select').datetimepicker({
         timepicker:false,
         format:'Y-m-d',
