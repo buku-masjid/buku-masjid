@@ -30,24 +30,13 @@ class TransactionsController extends Controller
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
             ->prepend(__('transaction.cash'), 'null');
-        $partnerTypes = (new Partner)->getAvailableTypes();
-        $partnerTypeCodes = array_keys($partnerTypes);
-        $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
-
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableTransaction = Transaction::find(request('id'));
-            $categories = $categories->skip(1);
-            $bankAccounts = $bankAccounts->skip(1);
-        }
 
         $incomeTotal = $this->getIncomeTotal($transactions);
         $spendingTotal = $this->getSpendingTotal($transactions);
 
         return view('transactions.index', compact(
-            'transactions', 'editableTransaction',
-            'yearMonth', 'month', 'year', 'categories',
-            'incomeTotal', 'spendingTotal', 'partners',
-            'startDate', 'date', 'bankAccounts'
+            'transactions', 'yearMonth', 'month', 'year', 'categories', 'incomeTotal', 'spendingTotal', 'startDate',
+            'date', 'bankAccounts'
         ));
     }
 
