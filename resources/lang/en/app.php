@@ -26,6 +26,7 @@ return [
     'mid_part' => 'Mid Part',
     'right_part' => 'Right Part',
     'donate' => 'Donate',
+    'printed_at' => 'Printed at',
 
     // Action
     'add' => 'Add',

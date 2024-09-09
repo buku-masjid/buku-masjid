@@ -54,6 +54,7 @@
                             {{ __('transaction.spending_receipt') }}
                         @endif
                     </h3>
+                    <div style="font-size: 10px"><br>{{ __('app.printed_at') }}: {{ now()->isoFormat('DD MMM YYYY HH:mm:ss') }}</div>
                 </td>
             </tr>
             <tr>
