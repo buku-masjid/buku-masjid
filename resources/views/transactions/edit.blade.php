@@ -30,11 +30,29 @@
                         {!! Form::submit(__('transaction.update'), ['class' => 'btn btn-success']) !!}
                         {{ Form::hidden('query', request('query')) }}
                         {{ Form::hidden('queried_category_id', request('category_id')) }}
-                        {{ Form::hidden('queried_partner_id', request('partner_id')) }}
+                        {{ Form::hidden('queried_bank_account_id', request('bank_account_id')) }}
                         {{ Form::hidden('reference_page', request('reference_page')) }}
                         {{ Form::hidden('start_date', request('start_date')) }}
                         {{ Form::hidden('end_date', request('end_date')) }}
-                        {{ link_to_route('transactions.show', __('app.cancel'), [$transaction, 'month' => $transaction->month, 'year' => $transaction->year], ['class' => 'btn btn-secondary']) }}
+                        @php
+                            $routeName = 'transactions.show';
+                            $queryStrings = [$transaction, 'month' => $transaction->month, 'year' => $transaction->year];
+                            if ($referencePage = request('reference_page')) {
+                                if ($referencePage == 'transactions') {
+                                    $routeName = 'transactions.index';
+                                    $queryStrings = ['month' => $transaction->month, 'year' => $transaction->year] + request(['query', 'category_id', 'bank_account_id']);
+                                }
+                                if ($referencePage == 'partner') {
+                                    $routeName = 'partners.show';
+                                    $queryStrings = [request('partner_id')] + request(['start_date', 'end_date', 'query']);
+                                }
+                                if ($referencePage == 'category') {
+                                    $routeName = 'categories.show';
+                                    $queryStrings = [request('category_id')] + request(['start_date', 'end_date', 'query']);
+                                }
+                            }
+                        @endphp
+                        {{ link_to_route($routeName, __('app.cancel'), $queryStrings, ['class' => 'btn btn-secondary']) }}
                         @can('delete', $transaction)
                             {!! link_to_route(
                                 'transactions.edit',

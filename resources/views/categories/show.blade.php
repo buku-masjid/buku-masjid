@@ -65,7 +65,7 @@
                                     {!! link_to_route(
                                         'transactions.edit',
                                         __('app.edit'),
-                                        [$transaction, 'reference_page' => 'category', 'category_id' => $category->id] + request(['start_date', 'end_date', 'query', 'book_id']),
+                                        [$transaction, 'reference_page' => 'category', 'category_id' => $category->id, 'start_date' => $startDate, 'end_date' => $endDate] + request(['query']),
                                         ['id' => 'edit-transaction-'.$transaction->id]
                                     ) !!} |
                                 @endcan

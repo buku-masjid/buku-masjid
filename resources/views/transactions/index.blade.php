@@ -91,7 +91,7 @@
                                         {!! link_to_route(
                                             'transactions.edit',
                                             __('app.edit'),
-                                            [$transaction->id, 'reference_page' => 'transactions'] + request(['query', 'category_id']),
+                                            [$transaction->id, 'reference_page' => 'transactions'] + request(['month', 'year', 'query', 'category_id', 'bank_account_id']),
                                             ['id' => 'edit-transaction-'.$transaction->id]
                                         ) !!} |
                                     @endcan

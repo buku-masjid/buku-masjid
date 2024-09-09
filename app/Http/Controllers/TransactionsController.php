@@ -208,6 +208,7 @@ class TransactionsController extends Controller
                         'month' => $transaction->month,
                         'year' => $transaction->year,
                         'category_id' => $transactionUpateForm->get('queried_category_id'),
+                        'bank_account_id' => $transactionUpateForm->get('queried_bank_account_id'),
                         'query' => $transactionUpateForm->get('query'),
                     ]);
                 }

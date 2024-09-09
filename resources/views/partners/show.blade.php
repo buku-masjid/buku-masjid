@@ -91,7 +91,7 @@
                                     {!! link_to_route(
                                         'transactions.edit',
                                         __('app.edit'),
-                                        [$transaction, 'reference_page' => 'partner', 'partner_id' => $partner->id] + request(['start_date', 'end_date', 'query']),
+                                        [$transaction, 'reference_page' => 'partner', 'partner_id' => $partner->id, 'start_date' => $startDate, 'end_date' => $endDate] + request(['query']),
                                         ['id' => 'edit-transaction-'.$transaction->id]
                                     ) !!} |
                                 @endcan
