@@ -98,3 +98,26 @@
     </div>
 </div>
 @endsection
+
+@section('styles')
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
+    {{ Html::style(url('css/plugins/select2.min.css')) }}
+    {{ Html::style(url('css/plugins/select2-bootstrap.min.css')) }}
+@endsection
+
+@push('scripts')
+    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
+    {{ Html::script(url('js/plugins/select2.min.js')) }}
+<script>
+(function () {
+    $('.date-select').datetimepicker({
+        timepicker:false,
+        format:'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1
+    });
+    $('#partner_id').select2({theme: "bootstrap"});
+})();
+</script>
+@endpush
