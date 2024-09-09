@@ -35,7 +35,7 @@ class TransactionEditTest extends TestCase
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
         $this->click('edit-transaction-'.$transaction->id);
-        $this->seeRouteIs('transactions.edit', [$transaction->id, 'reference_page' => 'transactions']);
+        $this->seeRouteIs('transactions.edit', [$transaction->id, 'month' => $month, 'reference_page' => 'transactions', 'year' => $year]);
 
         $this->submitForm(__('transaction.update'), [
             'in_out' => 1,
@@ -107,8 +107,10 @@ class TransactionEditTest extends TestCase
         $this->seeRouteIs('transactions.edit', [
             $transaction,
             'category_id' => $category->id,
+            'month' => $month,
             'query' => 'Unique',
             'reference_page' => 'transactions',
+            'year' => $year,
         ]);
 
         $this->submitForm(__('transaction.update'), [
