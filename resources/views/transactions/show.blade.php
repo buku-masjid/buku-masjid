@@ -14,6 +14,16 @@
             $transaction,
             ['class' => 'btn btn-secondary mr-2']
         ) }}
+        @can('update', $transaction)
+            @can('manage-transactions', auth()->activeBook())
+                {!! link_to_route(
+                    'transactions.edit',
+                    __('transaction.edit'),
+                    $transaction,
+                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2']
+                ) !!}
+            @endcan
+        @endcan
         {{ link_to_route(
             'transactions.index',
             __('transaction.back_to_index'),
