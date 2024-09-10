@@ -151,6 +151,9 @@ class TransactionsController extends Controller
 
     public function edit(Request $request, Transaction $transaction)
     {
+        $this->authorize('manage-transactions', $transaction->book);
+        $this->authorize('update', $transaction);
+
         $categories = $this->getCategoryList();
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
@@ -162,8 +165,6 @@ class TransactionsController extends Controller
 
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)
     {
-        $this->authorize('update', $transaction);
-
         $transaction = $transactionUpateForm->save();
 
         flash(__('transaction.updated'), 'success');
@@ -209,6 +210,7 @@ class TransactionsController extends Controller
 
     public function destroy(Transaction $transaction)
     {
+        $this->authorize('manage-transactions', $transaction->book);
         $this->authorize('delete', $transaction);
 
         request()->validate(['transaction_id' => 'required']);
