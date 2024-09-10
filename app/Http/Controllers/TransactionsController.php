@@ -157,7 +157,9 @@ class TransactionsController extends Controller
         $categories = $this->getCategoryList();
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
-        $partnerTypeCodes = array_keys($partnerTypes);
+        $incomePartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('income_partner_codes'), true) ?: [];
+        $spendingPartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('spending_partner_codes'), true) ?: [];
+        $partnerTypeCodes = array_merge($incomePartnerTypeCodes, $spendingPartnerTypeCodes);
         $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
 
         return view('transactions.edit', compact('transaction', 'categories', 'bankAccounts', 'partners'));

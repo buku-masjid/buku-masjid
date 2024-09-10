@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class TransactionEditTest extends TestCase
@@ -22,6 +23,12 @@ class TransactionEditTest extends TestCase
         $date = '2017-01-01';
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
+        DB::table('settings')->insert([
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'income_partner_codes',
+            'value' => '["donatur"]',
+        ]);
         $bankAccount = factory(BankAccount::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
@@ -31,7 +38,7 @@ class TransactionEditTest extends TestCase
             'book_id' => $book->id,
         ]);
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
-        $partner = factory(Partner::class)->create();
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
         $this->click('edit-transaction-'.$transaction->id);
@@ -287,7 +294,13 @@ class TransactionEditTest extends TestCase
         $date = '2017-01-01';
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
-        $partner = factory(Partner::class)->create();
+        DB::table('settings')->insert([
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'income_partner_codes',
+            'value' => '["donatur"]',
+        ]);
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
         $bankAccount = factory(BankAccount::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
