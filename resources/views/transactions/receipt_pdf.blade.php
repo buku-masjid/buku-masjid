@@ -30,7 +30,7 @@
     <table class="receipt-table">
         <tbody>
             <tr>
-                <td style="width:150px;">
+                <td style="width:140px;">
                     @if (Setting::get('masjid_logo_path'))
                         <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 75px">
                     @endif
@@ -46,7 +46,7 @@
                         @endif
                     </div>
                 </td>
-                <td style="width:270px; text-align: center;">
+                <td style="width:280px; text-align: center;">
                     <h3 style="margin: 3px 0; font-size: 20px">
                         @if ($transaction->in_out)
                             {{ __('transaction.income_receipt') }}
@@ -83,13 +83,21 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td style="text-align: center;">
-                    {{ Setting::get('masjid_city_name') ? Setting::get('masjid_city_name').', ' : '' }}
-                    {{ Illuminate\Support\Carbon::parse($transaction->date)->isoFormat('DD MMMM YYYY') }}
+                    @php
+                        $cityName = Setting::get('masjid_city_name') ? Setting::get('masjid_city_name').', ' : '';
+                        $dateText = Illuminate\Support\Carbon::parse($transaction->date)->isoFormat('DD MMMM YYYY');
+                        $fullText = $cityName.$dateText;
+                    @endphp
+                    @if (strlen($fullText) > 32)
+                        {{ $cityName }}<br>{{ $dateText }}
+                    @else
+                        {{ $cityName }}{{ $dateText }}
+                    @endif
                 </td>
             </tr>
             <tr>
-                <td style="font-size: 18px; font-weight: bold; text-align: center;height: 100px;vertical-align: bottom;">{{ __('transaction.cash_amount') }}</td>
-                <td style="font-size: 18px; font-weight: bold; vertical-align: bottom;">
+                <td style="font-size: 16px; font-weight: bold; text-align: center;height: 100px;vertical-align: bottom;">{{ __('transaction.cash_amount') }}</td>
+                <td style="font-size: 16px; font-weight: bold; vertical-align: bottom;">
                     {{ config('money.currency_code') }} {{ format_number($transaction->amount) }}
                 </td>
                 <td style="text-align: center;vertical-align: bottom;">
