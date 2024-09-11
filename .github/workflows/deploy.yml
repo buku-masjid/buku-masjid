@@ -20,7 +20,7 @@ jobs:
           yarn run prod
           cat public/mix-manifest.json # see version in log
       - name: Upload compile assets
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: assets
           path: public
