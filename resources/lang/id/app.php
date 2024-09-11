@@ -26,6 +26,7 @@ return [
     'mid_part' => 'Bagian Tengah',
     'right_part' => 'Bagian Kanan',
     'donate' => 'Infaq',
+    'printed_at' => 'Dicetak pada',
 
     // Action
     'create' => 'Input',
@@ -37,6 +38,7 @@ return [
     'cancel' => 'Batal',
     'reset' => 'Reset',
     'show' => 'Lihat Detail',
+    'detail' => 'Detail',
     'edit' => 'Edit',
     'search' => 'Cari',
     'filter' => 'Filter',
@@ -58,7 +60,8 @@ return [
     'date' => 'Tanggal',
     'time' => 'Jam',
     'created_at' => 'Dibuat pada',
-    'created_by' => 'Oleh',
+    'created_by' => 'Diinput oleh',
+    'updated_at' => 'Updated pada',
     'start_date' => 'Tanggal Mulai',
     'end_date' => 'Tanggal Selesai',
     'gender' => 'Jenis Kelamin',

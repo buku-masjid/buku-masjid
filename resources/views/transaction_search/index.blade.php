@@ -46,7 +46,6 @@
                             <td class="text-center">{{ 1 + $key }}</td>
                             <td>{{ $transaction->date }} ({{ $transaction->day_name }})</td>
                             <td>
-                                {{ $transaction->description }}
                                 <div class="float-right">
                                     @if ($transaction->partner)
                                         @php
@@ -72,14 +71,16 @@
                                         <a href="{{ $categoryRoute }}">{!! $transaction->category->name_label !!}</a>
                                     @endif
                                 </div>
+                                <div style="max-width: 600px" class="mr-3">{{ $transaction->description }}</div>
                             </td>
                             <td class="text-right">{{ $transaction->amount_string }}</td>
                             <td class="text-center text-nowrap">
-                                {{ link_to_route('transactions.index', __('app.show'), [
+                                {{ link_to_route('transactions.show', __('app.show'), [
+                                    $transaction,
                                     'query' => $searchQuery,
-                                    'date' => $transaction->date_only,
-                                    'month' => $transaction->month,
-                                    'year' => $transaction->year,
+                                    'start_date' => $startDate,
+                                    'end_date' => $endDate,
+                                    'reference_page' => 'transaction_search',
                                 ], ['class' => 'btn btn-secondary btn-sm']) }}
                             </td>
                         </tr>

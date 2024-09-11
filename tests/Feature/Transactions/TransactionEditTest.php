@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class TransactionEditTest extends TestCase
@@ -22,6 +23,12 @@ class TransactionEditTest extends TestCase
         $date = '2017-01-01';
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
+        DB::table('settings')->insert([
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'income_partner_codes',
+            'value' => '["donatur"]',
+        ]);
         $bankAccount = factory(BankAccount::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
@@ -31,14 +38,11 @@ class TransactionEditTest extends TestCase
             'book_id' => $book->id,
         ]);
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
-        $partner = factory(Partner::class)->create();
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
         $this->click('edit-transaction-'.$transaction->id);
-        $this->seeRouteIs('transactions.index', [
-            'action' => 'edit', 'id' => $transaction->id,
-            'month' => $month, 'year' => $year,
-        ]);
+        $this->seeRouteIs('transactions.edit', [$transaction->id, 'month' => $month, 'reference_page' => 'transactions', 'year' => $year]);
 
         $this->submitForm(__('transaction.update'), [
             'in_out' => 1,
@@ -107,12 +111,12 @@ class TransactionEditTest extends TestCase
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year, 'query' => 'Unique', 'category_id' => $category->id]);
         $this->click('edit-transaction-'.$transaction->id);
-        $this->seeRouteIs('transactions.index', [
-            'action' => 'edit',
+        $this->seeRouteIs('transactions.edit', [
+            $transaction,
             'category_id' => $category->id,
-            'id' => $transaction->id,
             'month' => $month,
             'query' => 'Unique',
+            'reference_page' => 'transactions',
             'year' => $year,
         ]);
 
@@ -140,9 +144,9 @@ class TransactionEditTest extends TestCase
         $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
-        $this->visitRoute('transactions.index', ['action' => 'edit', 'id' => $transaction->id]);
+        $this->visitRoute('transactions.edit', $transaction);
         $this->click('del-transaction-'.$transaction->id);
-        $this->seeRouteIs('transactions.index', ['action' => 'delete', 'id' => $transaction->id]);
+        $this->seeRouteIs('transactions.edit', [$transaction, 'action' => 'delete']);
 
         $this->seeInDatabase('transactions', [
             'id' => $transaction->id,
@@ -183,11 +187,11 @@ class TransactionEditTest extends TestCase
             'end_date' => $year.'-'.$month.'-28',
         ]);
         $this->click('edit-transaction-'.$transaction->id);
-        $this->seeRouteIs('categories.show', [
-            $category->id,
-            'action' => 'edit',
+        $this->seeRouteIs('transactions.edit', [
+            $transaction,
+            'category_id' => $category->id,
             'end_date' => $year.'-'.$month.'-28',
-            'id' => $transaction->id,
+            'reference_page' => 'category',
             'start_date' => $date,
         ]);
 
@@ -233,17 +237,17 @@ class TransactionEditTest extends TestCase
 
         $this->visitRoute('categories.show', [
             $category->id,
-            'action' => 'edit',
-            'id' => $transaction->id,
             'start_date' => '2017-01-01',
             'end_date' => '2017-01-31',
         ]);
+        $this->click('edit-transaction-'.$transaction->id);
         $this->click('del-transaction-'.$transaction->id);
-        $this->seeRouteIs('categories.show', [
-            $category->id,
+        $this->seeRouteIs('transactions.edit', [
+            $transaction,
             'action' => 'delete',
+            'category_id' => $category->id,
             'end_date' => '2017-01-31',
-            'id' => $transaction->id,
+            'reference_page' => 'category',
             'start_date' => '2017-01-01',
         ]);
 
@@ -280,5 +284,114 @@ class TransactionEditTest extends TestCase
 
         $this->visitRoute('transactions.index', ['action' => 'delete', 'id' => $transaction->id, 'month' => $month, 'year' => $year]);
         $this->dontSeeInElement('button', __('app.delete_confirm_button'));
+    }
+
+    /** @test */
+    public function user_can_edit_a_transaction_from_partner_transactions_page()
+    {
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        DB::table('settings')->insert([
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'income_partner_codes',
+            'value' => '["donatur"]',
+        ]);
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $bankAccount = factory(BankAccount::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => 0,
+            'amount' => 99.99,
+            'date' => $date,
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'partner_id' => $partner->id,
+        ]);
+
+        $this->visitRoute('partners.show', [
+            $partner->id,
+            'start_date' => $date,
+            'end_date' => $year.'-'.$month.'-28',
+        ]);
+        $this->click('edit-transaction-'.$transaction->id);
+        $this->seeRouteIs('transactions.edit', [
+            $transaction,
+            'end_date' => $year.'-'.$month.'-28',
+            'partner_id' => $partner->id,
+            'reference_page' => 'partner',
+            'start_date' => $date,
+        ]);
+
+        $this->submitForm(__('transaction.update'), [
+            'in_out' => 1,
+            'amount' => 99.99,
+            'date' => $date,
+            'description' => 'Transaction 1 description',
+            'partner_id' => $partner->id,
+            'bank_account_id' => $bankAccount->id,
+        ]);
+
+        $this->seeRouteIs('partners.show', [
+            $partner->id,
+            'end_date' => $year.'-'.$month.'-28',
+            'start_date' => $date,
+        ]);
+        $this->see(__('transaction.updated'));
+
+        $this->seeInDatabase('transactions', [
+            'amount' => 99.99,
+            'date' => $date,
+            'description' => 'Transaction 1 description',
+            'partner_id' => $partner->id,
+            'bank_account_id' => $bankAccount->id,
+        ]);
+    }
+
+    /** @test */
+    public function user_can_delete_a_transaction_from_partner_transactions_page()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => 0,
+            'amount' => 99.99,
+            'date' => '2017-01-01',
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'partner_id' => $partner->id,
+        ]);
+
+        $this->visitRoute('partners.show', [
+            $partner->id,
+            'start_date' => '2017-01-01',
+            'end_date' => '2017-01-31',
+        ]);
+        $this->click('edit-transaction-'.$transaction->id);
+        $this->click('del-transaction-'.$transaction->id);
+        $this->seeRouteIs('transactions.edit', [
+            $transaction,
+            'action' => 'delete',
+            'end_date' => '2017-01-31',
+            'partner_id' => $partner->id,
+            'reference_page' => 'partner',
+            'start_date' => '2017-01-01',
+        ]);
+
+        $this->press(__('app.delete_confirm_button'));
+
+        $this->seeRouteIs('partners.show', [
+            $partner->id,
+            'end_date' => '2017-01-31',
+            'start_date' => '2017-01-01',
+        ]);
+        $this->see(__('transaction.deleted'));
+
+        $this->dontSeeInDatabase('transactions', [
+            'id' => $transaction->id,
+        ]);
     }
 }

@@ -82,20 +82,21 @@
                                         <a href="{{ $categoryRoute }}">{!! optional($transaction->category)->name_label !!}</a>
                                     @endif
                                 </span>
-                                {{ $transaction->description }}
+                                <div style="max-width: 600px" class="mr-3">{{ $transaction->description }}</div>
                             </td>
                             <td class="text-right">{{ $transaction->amount_string }}</td>
                             <td class="text-center">
                                 @can('update', $transaction)
                                     @can('manage-transactions', auth()->activeBook())
                                         {!! link_to_route(
-                                            'transactions.index',
+                                            'transactions.edit',
                                             __('app.edit'),
-                                            ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
+                                            [$transaction->id, 'reference_page' => 'transactions'] + request(['month', 'year', 'query', 'category_id', 'bank_account_id']),
                                             ['id' => 'edit-transaction-'.$transaction->id]
-                                        ) !!}
+                                        ) !!} |
                                     @endcan
                                 @endcan
+                                {{ link_to_route('transactions.show', __('app.detail'), $transaction) }}
                             </td>
                         </tr>
                         @empty
@@ -176,35 +177,5 @@
             @enddesktop
         </div>
     </div>
-    <div class="col-md-4">
-        @if(Request::has('action'))
-            @can('manage-transactions', auth()->activeBook())
-                @include('transactions.forms')
-            @endcan
-        @endif
-    </div>
 </div>
 @endsection
-
-@section('styles')
-    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
-
-@push('scripts')
-    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
-<script>
-(function () {
-    $('#transactionModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-    $('.date-select').datetimepicker({
-        timepicker:false,
-        format:'Y-m-d',
-        closeOnDateSelect: true,
-        scrollInput: false,
-        dayOfWeekStart: 1
-    });
-})();
-</script>
-@endpush

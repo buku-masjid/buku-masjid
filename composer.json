@@ -11,11 +11,12 @@
         },
         {
             "type": "vcs",
-            "url":  "https://github.com/xKZL/backup-manager"
+            "url":  "https://github.com/nafiesl/backup-manager-php"
         }
     ],
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
         "backup-manager/laravel": "dev-laravel_9_support",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",
@@ -24,7 +25,7 @@
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.12",
         "luthfi/formfield": "^3.1",
-        "niklasravnsborg/laravel-pdf": "^4.1",
+        "misterspelik/laravel-pdf": "^1.1",
         "nunomaduro/collision": "^7.7",
         "riverskies/laravel-mobile-detect": "^1.3"
     },

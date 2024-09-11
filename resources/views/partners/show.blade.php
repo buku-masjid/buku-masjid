@@ -82,16 +82,21 @@
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
-                            {{ $transaction->description }}
+                            <div style="max-width: 600px" class="mr-3">{{ $transaction->description }}</div>
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td class="text-center text-nowrap">
-                            {{ link_to_route('transactions.index', __('app.show'), [
-                                'query' => request('query'),
-                                'date' => $transaction->date_only,
-                                'month' => $transaction->month,
-                                'year' => $transaction->year,
-                            ], ['class' => 'btn btn-secondary btn-sm']) }}
+                            @can('update', $transaction)
+                                @can('manage-transactions', auth()->activeBook())
+                                    {!! link_to_route(
+                                        'transactions.edit',
+                                        __('app.edit'),
+                                        [$transaction, 'reference_page' => 'partner', 'partner_id' => $partner->id, 'start_date' => $startDate, 'end_date' => $endDate] + request(['query']),
+                                        ['id' => 'edit-transaction-'.$transaction->id]
+                                    ) !!} |
+                                @endcan
+                            @endcan
+                            {{ link_to_route('transactions.show', __('app.detail'), $transaction) }}
                         </td>
                     </tr>
                     @empty

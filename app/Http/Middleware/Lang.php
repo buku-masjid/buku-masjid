@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Number;
 
 class Lang
 {
@@ -15,6 +16,7 @@ class Lang
     public function handle($request, Closure $next)
     {
         app()->setLocale(session('lang', 'id'));
+        Number::useLocale(config('app.locale'));
 
         return $next($request);
     }

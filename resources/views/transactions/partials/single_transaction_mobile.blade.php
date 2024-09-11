@@ -7,16 +7,19 @@
 ]) }}
 <div>
     {{ $transaction->description }}
-    @can('update', $transaction)
-        @can('manage-transactions', auth()->activeBook())
-            {!! link_to_route(
-                'transactions.index',
-                __('app.edit'),
-                ['action' => 'edit', 'id' => $transaction->id] + request(['month', 'year', 'query', 'category_id']),
-                ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'float-right text-danger']
-            ) !!}
+    <span class="float-right">
+        @can('update', $transaction)
+            @can('manage-transactions', auth()->activeBook())
+                {!! link_to_route(
+                    'transactions.edit',
+                    __('app.edit'),
+                    [$transaction->id, 'reference_page' => 'transactions'] + request(['query', 'category_id']),
+                    ['id' => 'edit-transaction-'.$transaction->id]
+                ) !!} |
+            @endcan
         @endcan
-    @endcan
+        {{ link_to_route('transactions.show', __('app.detail'), $transaction) }}
+    </span>
 </div>
 <div style="margin-bottom: 6px;">
     @if ($transaction->partner)

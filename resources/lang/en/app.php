@@ -26,6 +26,7 @@ return [
     'mid_part' => 'Mid Part',
     'right_part' => 'Right Part',
     'donate' => 'Donate',
+    'printed_at' => 'Printed at',
 
     // Action
     'add' => 'Add',
@@ -36,6 +37,7 @@ return [
     'cancel' => 'Cancel',
     'reset' => 'Reset',
     'show' => 'View Detail',
+    'detail' => 'Detail',
     'edit' => 'Edit',
     'search' => 'Search',
     'filter' => 'Filter',
@@ -56,8 +58,9 @@ return [
     'code' => 'Code',
     'date' => 'Date',
     'time' => 'Time',
-    'created_at' => 'Created At',
-    'created_by' => 'Created By',
+    'created_at' => 'Created at',
+    'created_by' => 'Created by',
+    'updated_at' => 'Updated at',
     'start_date' => 'Start Date',
     'end_date' => 'End Date',
     'gender' => 'Gender',
