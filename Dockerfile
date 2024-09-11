@@ -16,7 +16,7 @@ ENV APP_DEBUG=false
 # Required Modules
 USER root:root
 RUN apt-get update && \
-    apt-get install -y libpng-dev && \
+    apt-get install -y libpng-dev libicu-dev && \
     docker-php-ext-configure intl && \
     docker-php-ext-install pdo_mysql gd intl && \
     docker-php-ext-enable intl && \
