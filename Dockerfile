@@ -19,6 +19,7 @@ RUN apt-get update && \
     apt-get install -y libpng-dev && \
     docker-php-ext-configure intl && \
     docker-php-ext-install pdo_mysql gd intl && \
+    docker-php-ext-enable intl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
