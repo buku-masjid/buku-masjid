@@ -174,6 +174,7 @@
                     <hr class="my-2">
                 @endforeach
                 @include('transactions.partials.transaction_summary_mobile', ['transactions' => $transactions])
+            </div>
             @enddesktop
         </div>
     </div>
