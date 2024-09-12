@@ -9,6 +9,7 @@ class WeeklyFinancialSummary extends Component
 {
     public $startWeek;
     public $todayDayDate;
+    public $bookVisibility = 'public';
     public $currentBalance = 0;
     public $startWeekBalance = 0;
     public $currentWeekIncomeTotal = 0;
