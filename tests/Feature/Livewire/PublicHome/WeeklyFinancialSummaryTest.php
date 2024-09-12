@@ -17,7 +17,6 @@ class WeeklyFinancialSummaryTest extends TestCase
     public function user_can_see_empty_weekly_financial_report_card()
     {
         factory(Book::class)->create();
-        $this->visit('/');
         $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMMM Y');
         $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
         Livewire::test(WeeklyFinancialSummary::class)
@@ -26,6 +25,21 @@ class WeeklyFinancialSummaryTest extends TestCase
             ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(0).'</span>')
             ->assertSeeHtml('<span id="current_balance_label">'.__('report.today_balance', ['date' => $todayDayDate]).'</span>')
             ->assertSeeHtml('<span id="current_balance">'.format_number(0).'</span>');
+    }
+
+    /** @test */
+    public function user_cannot_see_report_detail_button_if_book_visibility_is_internal()
+    {
+        $book = factory(Book::class)->create();
+        $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMMM Y');
+        $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
+        Livewire::test(WeeklyFinancialSummary::class)
+            ->assertDontSeeHtml('<a class="btn btn-sm btn-success" href="'.route('public_reports.finance.detailed').'" role="button">'.__('app.show').'</a>');
+
+        $book->report_visibility_code = 'public';
+        $book->save();
+        Livewire::test(WeeklyFinancialSummary::class)
+            ->assertSeeHtml('<a class="btn btn-sm btn-success" href="'.route('public_reports.finance.detailed').'" role="button">'.__('app.show').'</a>');
     }
 
     /** @test */

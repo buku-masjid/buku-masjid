@@ -22,9 +22,13 @@ class PublicFinanceController extends FinanceController
 
     public function summary(Request $request)
     {
+        $book = auth()->activeBook();
+        if ($book->report_visibility_code != 'public') {
+            return redirect()->route('public_reports.index');
+        }
+
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
-        $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
@@ -49,9 +53,13 @@ class PublicFinanceController extends FinanceController
 
     public function categorized(Request $request)
     {
+        $book = auth()->activeBook();
+        if ($book->report_visibility_code != 'public') {
+            return redirect()->route('public_reports.index');
+        }
+
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
-        $book = auth()->activeBook();
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
@@ -68,9 +76,13 @@ class PublicFinanceController extends FinanceController
 
     public function detailed(Request $request)
     {
+        $book = auth()->activeBook();
+        if ($book->report_visibility_code != 'public') {
+            return redirect()->route('public_reports.index');
+        }
+
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
-        $book = auth()->activeBook();
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
         $currentMonthEndDate = $endDate->clone();

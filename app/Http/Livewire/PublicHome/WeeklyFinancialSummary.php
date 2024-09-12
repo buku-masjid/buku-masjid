@@ -9,6 +9,7 @@ class WeeklyFinancialSummary extends Component
 {
     public $startWeek;
     public $todayDayDate;
+    public $bookVisibility = 'public';
     public $currentBalance = 0;
     public $startWeekBalance = 0;
     public $currentWeekIncomeTotal = 0;
@@ -27,6 +28,7 @@ class WeeklyFinancialSummary extends Component
         if (is_null($defaultBook)) {
             return;
         }
+        $this->bookVisibility = $defaultBook->report_visibility_code;
         $currentWeekTransactions = $defaultBook->transactions()
             ->whereBetween('date', [$this->startWeek->format('Y-m-d'), $this->today->format('Y-m-d')])->get();
         $this->currentWeekIncomeTotal = $currentWeekTransactions->where('in_out', 1)->sum('amount');
