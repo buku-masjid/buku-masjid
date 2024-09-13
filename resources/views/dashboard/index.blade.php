@@ -22,14 +22,14 @@
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('dashboard.index', __('report.this_month'), ['year' => $year, 'month' => now()->format('m')], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('dashboard.index', __('report.this_year'), [], ['class' => 'btn btn-secondary mr-1']) }}
+        </div>
+        <div class="form-group mt-0">
             @if ($month == '00')
                 {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1], ['class' => 'btn btn-secondary mr-1']) }}
                 {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1], ['class' => 'btn btn-secondary mr-1']) }}
             @else
-                <div class="form-group">
-                    @livewire('prev-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary mr-1'])
-                    @livewire('next-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary'])
-                </div>
+                @livewire('prev-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary mr-1'])
+                @livewire('next-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary'])
             @endif
         </div>
         {{ Form::close() }}
@@ -42,13 +42,15 @@
             <div class="card">
                 <div class="card-body p-3">
                     <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
-                    @livewire('dashboard.balance-by-months', [
-                        'book' => $book,
-                        'year' => $year,
-                        'selectedMonth' => $month,
-                        'startDate' => $startDate,
-                        'endDate' => $endDate,
-                    ])
+                    <div class="table-responsive">
+                        @livewire('dashboard.balance-by-months', [
+                            'book' => $book,
+                            'year' => $year,
+                            'selectedMonth' => $month,
+                            'startDate' => $startDate,
+                            'endDate' => $endDate,
+                        ])
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,13 +125,15 @@
             <div class="card">
                 <div class="card-body p-3">
                     <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
-                    @livewire('dashboard.balance-by-months', [
-                        'book' => $book,
-                        'year' => $year,
-                        'selectedMonth' => $month,
-                        'startDate' => $startDate,
-                        'endDate' => $endDate,
-                    ])
+                    <div class="table-responsive">
+                        @livewire('dashboard.balance-by-months', [
+                            'book' => $book,
+                            'year' => $year,
+                            'selectedMonth' => $month,
+                            'startDate' => $startDate,
+                            'endDate' => $endDate,
+                        ])
+                    </div>
                 </div>
             </div>
             <div class="card">
