@@ -10,6 +10,7 @@ return [
     'next_week' => 'Next Week',
     'month' => 'Month',
     'time' => 'Time',
+    'year' => 'Year',
 
     'months' => [
         '01' => 'January',

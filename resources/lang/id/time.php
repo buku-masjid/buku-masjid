@@ -10,6 +10,7 @@ return [
     'next_week' => 'Pekan Depan',
     'month' => 'Bulan',
     'time' => 'Waktu',
+    'year' => 'Tahun',
 
     'months' => [
         '01' => 'Januari',
