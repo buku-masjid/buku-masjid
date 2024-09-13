@@ -15,22 +15,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (get_months() as $monthNumber => $monthName)
+                @foreach ($balanceByMonthSummary as $monthNumber => $balanceSummary)
                     <tr>
                         <td>{{ $monthNumber }}</td>
-                        <td>{{ $monthName }}</td>
-                        <td class="text-right">0</td>
-                        <td class="text-right">0</td>
-                        <td class="text-right">0</td>
+                        <td>{{ $balanceSummary['month_name'] }}</td>
+                        <td class="text-right">{{ format_number($balanceSummary['income']) }}</td>
+                        <td class="text-right">{{ format_number($balanceSummary['spending']) }}</td>
+                        <td class="text-right">{{ format_number($balanceSummary['balance']) }}</td>
                     </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="2" class="text-right">{{ __('app.total') }}</th>
-                    <th class="text-right">0</th>
-                    <th class="text-right">0</th>
-                    <th class="text-right">0</th>
+                    <th class="text-right">{{ format_number($balanceByMonthSummary->sum('income')) }}</th>
+                    <th class="text-right">{{ format_number($balanceByMonthSummary->sum('spending')) }}</th>
+                    <th class="text-right">{{ format_number($balanceByMonthSummary->sum('balance')) }}</th>
                 </tr>
             </tfoot>
         </table>
