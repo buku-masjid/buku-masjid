@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -12,6 +13,7 @@ class BalanceByMonths extends Component
     public $isLoading = true;
     public $book;
     public $year;
+    public $startingBalance;
 
     public function render()
     {
@@ -21,6 +23,7 @@ class BalanceByMonths extends Component
     public function getBalanceByMonthsSummary()
     {
         $this->balanceByMonthSummary = $this->calculateBalanceByMonthsSummary();
+        $this->startingBalance = $this->book->getBalance(Carbon::parse($this->year.'-01-01')->subDay()->format('Y-m-d'));
         $this->isLoading = false;
     }
 

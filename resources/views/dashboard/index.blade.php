@@ -12,8 +12,8 @@
         {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('dashboard.index', __('report.this_year'), [], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         {{ Form::close() }}
@@ -32,13 +32,13 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('dashboard.spending_per_category') }}</div>
+                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_spending_category') }}</div>
                 @livewire('dashboard.top-category', ['year' => $year, 'book' => $book, 'typeCode' => 'spending'])
             </div>
         </div>
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('dashboard.income_per_category') }}</div>
+                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_income_category') }}</div>
                 @livewire('dashboard.top-category', ['year' => $year, 'book' => $book, 'typeCode' => 'income'])
             </div>
         </div>

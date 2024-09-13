@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('category.name') }}</th>
+                    <th>{{ __('category.category') }}</th>
                     <th class="text-right">{{ __('transaction.amount') }}</th>
                 </tr>
             </thead>
