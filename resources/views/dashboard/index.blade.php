@@ -10,11 +10,20 @@
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
         {{ Form::label('year', __('time.year'), ['class' => 'control-label mr-1']) }}
         {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
+        {{ Form::select('month', $months, $month, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
+            {{ link_to_route('dashboard.index', __('report.this_month'), ['year' => $year, 'month' => now()->format('m')], ['class' => 'btn btn-secondary mr-1']) }}
             {{ link_to_route('dashboard.index', __('report.this_year'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1], ['class' => 'btn btn-secondary mr-1']) }}
+            @if ($month == '00')
+                {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1], ['class' => 'btn btn-secondary mr-1']) }}
+                {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1], ['class' => 'btn btn-secondary mr-1']) }}
+            @else
+                <div class="form-group">
+                    @livewire('prev-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary mr-1'])
+                    @livewire('next-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary'])
+                </div>
+            @endif
         </div>
         {{ Form::close() }}
     </div>
