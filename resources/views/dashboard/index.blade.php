@@ -61,5 +61,13 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="text-muted mb-2 text-center">{{ __('dashboard.daily_averages') }}</div>
+                @livewire('dashboard.daily-averages', ['year' => $year, 'book' => $book])
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
