@@ -10,7 +10,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $year = (int) $request->get('year', now()->format('Y'));
-        $month = $request->get('month', '00');
+        $month = $request->get('month', now()->format('m'));
         $months = collect(get_months())->prepend(__('time.all_months'), '00');
         if (!$months->keys()->contains($month)) {
             $month = '00';
