@@ -16,7 +16,7 @@
                 @foreach ($topCategorySummary as $key => $categorySummary)
                     <tr>
                         <td>{{ ++$key }}</td>
-                        <td>{{ $categorySummary->name }}</td>
+                        <td>{{ Illuminate\Support\Str::limit($categorySummary->name, 28, '') }}</td>
                         <td class="text-right">
                             @if ($categorySummary->transactions_sum_amount)
                                 {{ format_number($categorySummary->transactions_sum_amount) }}
