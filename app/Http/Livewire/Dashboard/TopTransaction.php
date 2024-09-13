@@ -11,7 +11,8 @@ class TopTransaction extends Component
     public $topTransactionSummary;
     public $isLoading = true;
     public $year;
-    public $book;
+    public $startDate;
+    public $endDate;
     public $typeCode;
 
     public function render()
@@ -27,7 +28,7 @@ class TopTransaction extends Component
 
     private function calculateTopTransactionSummary()
     {
-        $cacheKey = 'calculateTopTransactionSummary_'.$this->year.'_'.$this->typeCode;
+        $cacheKey = 'calculateTopTransactionSummary_'.$this->startDate.'_'.$this->endDate.'_'.$this->typeCode;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -35,7 +36,7 @@ class TopTransaction extends Component
         }
         $inOut = $this->typeCode == 'income' ? 1 : 0;
         $topTransactionSummary = Transaction::where('in_out', $inOut)
-            ->whereYear('date', $this->year)
+            ->whereBetween('date', [$this->startDate, $this->endDate])
             ->orderBy('amount', 'desc')
             ->limit(5)
             ->get();

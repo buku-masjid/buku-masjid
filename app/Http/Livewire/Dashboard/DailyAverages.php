@@ -11,7 +11,8 @@ class DailyAverages extends Component
 {
     public $dailyAveragesSummary;
     public $isLoading = true;
-    public $year;
+    public $startDate;
+    public $endDate;
     public $book;
     public $typeCode;
 
@@ -28,7 +29,7 @@ class DailyAverages extends Component
 
     private function calculateDailyAveragesSummary()
     {
-        $cacheKey = 'calculateDailyAveragesSummary_'.$this->year;
+        $cacheKey = 'calculateDailyAveragesSummary_'.$this->startDate.'_'.$this->endDate;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -41,12 +42,11 @@ class DailyAverages extends Component
         $dailyAveragesSummary = DB::table('transactions')
             ->selectRaw($rawSelect)
             ->where('book_id', $this->book->id)
-            ->whereYear('date', $this->year)
+            ->whereBetween('date', [$this->startDate, $this->endDate])
             ->groupBy('in_out')
             ->orderBy('in_out', 'desc')
             ->get();
-        $endDate = $this->year == now()->format('Y') ? now()->format('Y-m-d') : $this->year.'-12-31';
-        $dayCount = Carbon::parse($this->year.'-01-01')->diffInDays($endDate);
+        $dayCount = Carbon::parse($this->startDate)->diffInDays($this->endDate);
         $dailyAveragesSummary->each(function ($totalTransaction) use ($dayCount) {
             $typeCode = $totalTransaction->in_out == 1 ? 'income' : 'spending';
             $totalTransaction->type_code = $typeCode;

@@ -25,7 +25,11 @@
         <div class="card">
             <div class="card-body p-3">
                 <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
-                @livewire('dashboard.balance-by-months', ['year' => $year, 'book' => $book])
+                @livewire('dashboard.balance-by-months', [
+                    'book' => $book,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                ])
             </div>
         </div>
     </div>
@@ -33,13 +37,23 @@
         <div class="card">
             <div class="card-body p-3">
                 <div class="text-muted mb-2 text-center">{{ __('dashboard.top_spending_category') }}</div>
-                @livewire('dashboard.top-category', ['year' => $year, 'book' => $book, 'typeCode' => 'spending'])
+                @livewire('dashboard.top-category', [
+                    'book' => $book,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                    'typeCode' => 'spending',
+                ])
             </div>
         </div>
         <div class="card">
             <div class="card-body p-3">
                 <div class="text-muted mb-2 text-center">{{ __('dashboard.top_income_category') }}</div>
-                @livewire('dashboard.top-category', ['year' => $year, 'book' => $book, 'typeCode' => 'income'])
+                @livewire('dashboard.top-category', [
+                    'book' => $book,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                    'typeCode' => 'income',
+                ])
             </div>
         </div>
     </div>
@@ -49,7 +63,12 @@
         <div class="card">
             <div class="card-body p-3">
                 <div class="text-muted mb-2 text-center">{{ __('dashboard.top_spending') }}</div>
-                @livewire('dashboard.top-transaction', ['year' => $year, 'book' => $book, 'typeCode' => 'spending'])
+                @livewire('dashboard.top-transaction', [
+                    'book' => $book,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                    'typeCode' => 'spending',
+                ])
             </div>
         </div>
     </div>
@@ -57,7 +76,12 @@
         <div class="card">
             <div class="card-body p-3">
                 <div class="text-muted mb-2 text-center">{{ __('dashboard.top_income') }}</div>
-                @livewire('dashboard.top-transaction', ['year' => $year, 'book' => $book, 'typeCode' => 'income'])
+                @livewire('dashboard.top-transaction', [
+                    'book' => $book,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                    'typeCode' => 'income',
+                ])
             </div>
         </div>
     </div>
@@ -65,7 +89,11 @@
         <div class="card">
             <div class="card-body p-3">
                 <div class="text-muted mb-2 text-center">{{ __('dashboard.daily_averages') }}</div>
-                @livewire('dashboard.daily-averages', ['year' => $year, 'book' => $book])
+                @livewire('dashboard.daily-averages', [
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
+                    'book' => $book,
+               ]),
             </div>
         </div>
     </div>

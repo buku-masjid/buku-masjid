@@ -13,6 +13,8 @@ class BalanceByMonths extends Component
     public $isLoading = true;
     public $book;
     public $year;
+    public $startDate;
+    public $endDate;
     public $startingBalance;
 
     public function render()
@@ -23,19 +25,20 @@ class BalanceByMonths extends Component
     public function getBalanceByMonthsSummary()
     {
         $this->balanceByMonthSummary = $this->calculateBalanceByMonthsSummary();
-        $this->startingBalance = $this->book->getBalance(Carbon::parse($this->year.'-01-01')->subDay()->format('Y-m-d'));
+        $this->startingBalance = $this->book->getBalance(Carbon::parse($this->startDate)->subDay()->format('Y-m-d'));
+        $this->year = substr($this->startDate, 0, 4);
         $this->isLoading = false;
     }
 
     private function calculateBalanceByMonthsSummary()
     {
-        $cacheKey = 'calculateBalanceByMonthsSummary_'.$this->year;
+        $cacheKey = 'calculateBalanceByMonthsSummary_'.$this->startDate.'_'.$this->endDate;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $transactionSummaryByMonth = $this->getYearlyTransactionSummary($this->year, $this->book->id);
+        $transactionSummaryByMonth = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
         $balanceByMonthSummary = collect(get_months())->map(function ($monthName, $monthNumber) use ($transactionSummaryByMonth) {
             $transactionSummary = ['month_name' => $monthName, 'spending' => 0, 'income' => 0, 'balance' => 0];
             if (isset($transactionSummaryByMonth[$monthNumber])) {
@@ -51,7 +54,7 @@ class BalanceByMonths extends Component
         return $balanceByMonthSummary;
     }
 
-    private function getYearlyTransactionSummary($year, $bookId)
+    private function getYearlyTransactionSummary($startDate, $endDate, $bookId)
     {
         $rawQuery = 'MONTH(date) as month';
         $rawQuery .= ', YEAR(date) as year';
@@ -60,7 +63,7 @@ class BalanceByMonths extends Component
         $rawQuery .= ', sum(if(in_out = 0, amount, 0)) AS spending';
 
         $reportQuery = DB::table('transactions')->select(DB::raw($rawQuery))
-            ->where(DB::raw('YEAR(date)'), $year)
+            ->whereBetween('date', [$startDate, $endDate])
             ->where('book_id', $bookId);
 
         $reportsData = $reportQuery->orderBy('year', 'ASC')

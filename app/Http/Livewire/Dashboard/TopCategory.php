@@ -10,7 +10,8 @@ class TopCategory extends Component
 {
     public $topCategorySummary;
     public $isLoading = true;
-    public $year;
+    public $startDate;
+    public $endDate;
     public $book;
     public $typeCode;
 
@@ -27,7 +28,7 @@ class TopCategory extends Component
 
     private function calculateTopCategorySummary()
     {
-        $cacheKey = 'calculateTopCategorySummary_'.$this->year.'_'.$this->typeCode;
+        $cacheKey = 'calculateTopCategorySummary_'.$this->startDate.'_'.$this->endDate.'_'.$this->typeCode;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -37,7 +38,7 @@ class TopCategory extends Component
         $topCategorySummary = Category::where('color', $color)
             ->where('book_id', $this->book->id)
             ->withSum(['transactions' => function ($query) {
-                $query->whereYear('date', $this->year);
+                $query->whereBetween('date', [$this->startDate, $this->endDate]);
             }], 'amount')
             ->get()
             ->sortByDesc('transactions_sum_amount')
