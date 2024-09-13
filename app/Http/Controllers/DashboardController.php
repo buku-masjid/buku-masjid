@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,8 +16,14 @@ class DashboardController extends Controller
             $month = '00';
         }
         $book = auth()->activeBook();
-        $startDate = $year.'-01-01';
-        $endDate = $year == now()->format('Y') ? now()->format('Y-m-d') : $year.'-12-31';
+        if ($month == '00') {
+            $startDate = $year.'-01-01';
+            $endDate = $year == now()->format('Y') ? now()->format('Y-m-d') : $year.'-12-31';
+        } else {
+            $yearMonth = $year.'-'.$month;
+            $startDate = $yearMonth.'-01';
+            $endDate = $yearMonth == now()->format('Y-m') ? now()->format('Y-m-d') : Carbon::parse($yearMonth.'-01')->format('Y-m-t');
+        }
 
         return view('dashboard.index', compact('year', 'months', 'month', 'book', 'startDate', 'endDate'));
     }
