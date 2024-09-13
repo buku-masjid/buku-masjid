@@ -16,7 +16,7 @@
                 @foreach ($topTransactionSummary as $key => $transaction)
                     <tr>
                         <td>{{ ++$key }}</td>
-                        <td>{{ Illuminate\Support\Str::limit($transaction->description, 35, '') }}</td>
+                        <td>{{ link_to_route('transactions.show', Illuminate\Support\Str::limit($transaction->description, 35, ''), $transaction) }}</td>
                         <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             {{ format_number($transaction->amount) }}
                         </td>

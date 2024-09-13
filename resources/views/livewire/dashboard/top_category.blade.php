@@ -16,7 +16,13 @@
                 @foreach ($topCategorySummary as $key => $categorySummary)
                     <tr>
                         <td>{{ ++$key }}</td>
-                        <td>{{ Illuminate\Support\Str::limit($categorySummary->name, 28, '') }}</td>
+                        <td>
+                            {{ link_to_route('categories.show', Illuminate\Support\Str::limit($categorySummary->name, 28, ''), [
+                                $categorySummary->id,
+                                'start_date' => $year.'-01-01',
+                                'end_date' => $year.'-12-31',
+                            ]) }}
+                        </td>
                         <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             @if ($categorySummary->transactions_sum_amount)
                                 {{ format_number($categorySummary->transactions_sum_amount) }}

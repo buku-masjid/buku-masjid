@@ -23,12 +23,14 @@
                 @foreach ($balanceByMonthSummary as $monthNumber => $balanceSummary)
                     <tr>
                         <td>{{ $monthNumber }}</td>
-                        <td>{{ $balanceSummary['month_name'] }}</td>
+                        <td>
+                            {{ link_to_route('transactions.index', $balanceSummary['month_name'], [
+                                'month' => $monthNumber,
+                                'year' => $year,
+                            ]) }}
+                        </td>
                         <td class="text-right" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>
                         <td class="text-right" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary['spending']) }}</td>
-                        @if ($balanceSummary['balance'] < 0)
-                            {{-- expr --}}
-                        @endif
                         @php
                             $typeCode = $balanceSummary['balance'] >= 0 ? 'income' : 'spending';
                         @endphp
