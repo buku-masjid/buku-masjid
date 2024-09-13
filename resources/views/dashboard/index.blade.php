@@ -4,7 +4,14 @@
 
 @section('content-report')
 <div class="page-header mt-0 mb-4">
-    <h1 class="page-title"><div class="d-none d-sm-inline">{{ __('dashboard.dashboard') }}</div> {{ __('time.year') }} {{ $year }}</h1>
+    <h1 class="page-title">
+        <div class="d-none d-sm-inline">{{ __('dashboard.dashboard') }}</div>
+        @if ($month != '00')
+            {{ $months[$month] }} {{ $year }}
+        @else
+            {{ __('time.year') }} {{ $year }}
+        @endif
+    </h1>
     <div class="page-subtitle"></div>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
@@ -36,6 +43,8 @@
                 <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
                 @livewire('dashboard.balance-by-months', [
                     'book' => $book,
+                    'year' => $year,
+                    'selectedMonth' => $month,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
                 ])

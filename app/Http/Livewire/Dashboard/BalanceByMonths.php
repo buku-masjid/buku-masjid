@@ -13,6 +13,7 @@ class BalanceByMonths extends Component
     public $isLoading = true;
     public $book;
     public $year;
+    public $selectedMonth;
     public $startDate;
     public $endDate;
     public $startingBalance;
@@ -26,7 +27,6 @@ class BalanceByMonths extends Component
     {
         $this->balanceByMonthSummary = $this->calculateBalanceByMonthsSummary();
         $this->startingBalance = $this->book->getBalance(Carbon::parse($this->startDate)->subDay()->format('Y-m-d'));
-        $this->year = substr($this->startDate, 0, 4);
         $this->isLoading = false;
     }
 
@@ -39,7 +39,13 @@ class BalanceByMonths extends Component
             return Cache::get($cacheKey);
         }
         $transactionSummaryByMonth = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
-        $balanceByMonthSummary = collect(get_months())->map(function ($monthName, $monthNumber) use ($transactionSummaryByMonth) {
+        $months = collect(get_months());
+        if ($this->selectedMonth != '00') {
+            $months = $months->filter(function ($monthName, $monthNumber) {
+                return $monthNumber == $this->selectedMonth;
+            });
+        }
+        $balanceByMonthSummary = $months->map(function ($monthName, $monthNumber) use ($transactionSummaryByMonth) {
             $transactionSummary = ['month_name' => $monthName, 'spending' => 0, 'income' => 0, 'balance' => 0];
             if (isset($transactionSummaryByMonth[$monthNumber])) {
                 $transactionSummary['spending'] = $transactionSummaryByMonth[$monthNumber]->spending;

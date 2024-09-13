@@ -41,13 +41,15 @@
                 @endforeach
             </tbody>
             <tfoot>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>{{ __('app.total') }}</th>
-                    <th class="text-right">{{ format_number($balanceByMonthSummary->sum('income')) }}</th>
-                    <th class="text-right">{{ format_number($balanceByMonthSummary->sum('spending')) }}</th>
-                    <th class="text-right">{{ format_number($balanceByMonthSummary->sum('balance')) }}</th>
-                </tr>
+                @if ($balanceByMonthSummary->count() > 1)
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>{{ __('app.total') }}</th>
+                        <th class="text-right">{{ format_number($balanceByMonthSummary->sum('income')) }}</th>
+                        <th class="text-right">{{ format_number($balanceByMonthSummary->sum('spending')) }}</th>
+                        <th class="text-right">{{ format_number($balanceByMonthSummary->sum('balance')) }}</th>
+                    </tr>
+                @endif
                 <tr>
                     <th>&nbsp;</th>
                     <th colspan="3">{{ __('transaction.end_balance') }}</th>
