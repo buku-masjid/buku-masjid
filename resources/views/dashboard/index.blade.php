@@ -44,4 +44,22 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_spending') }}</div>
+                @livewire('dashboard.top-transaction', ['year' => $year, 'book' => $book, 'typeCode' => 'spending'])
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_income') }}</div>
+                @livewire('dashboard.top-transaction', ['year' => $year, 'book' => $book, 'typeCode' => 'income'])
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
