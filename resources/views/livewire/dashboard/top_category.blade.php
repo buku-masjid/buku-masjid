@@ -17,7 +17,7 @@
                     <tr>
                         <td>{{ ++$key }}</td>
                         <td>{{ Illuminate\Support\Str::limit($categorySummary->name, 28, '') }}</td>
-                        <td class="text-right">
+                        <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             @if ($categorySummary->transactions_sum_amount)
                                 {{ format_number($categorySummary->transactions_sum_amount) }}
                             @else

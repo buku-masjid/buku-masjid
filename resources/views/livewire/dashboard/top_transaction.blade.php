@@ -17,7 +17,7 @@
                     <tr>
                         <td>{{ ++$key }}</td>
                         <td>{{ Illuminate\Support\Str::limit($transaction->description, 35, '') }}</td>
-                        <td class="text-right">
+                        <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             {{ format_number($transaction->amount) }}
                         </td>
                     </tr>

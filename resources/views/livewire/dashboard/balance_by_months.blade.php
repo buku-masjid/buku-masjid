@@ -24,9 +24,17 @@
                     <tr>
                         <td>{{ $monthNumber }}</td>
                         <td>{{ $balanceSummary['month_name'] }}</td>
-                        <td class="text-right">{{ format_number($balanceSummary['income']) }}</td>
-                        <td class="text-right">{{ format_number($balanceSummary['spending']) }}</td>
-                        <td class="text-right">{{ format_number($balanceSummary['balance']) }}</td>
+                        <td class="text-right" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>
+                        <td class="text-right" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary['spending']) }}</td>
+                        @if ($balanceSummary['balance'] < 0)
+                            {{-- expr --}}
+                        @endif
+                        @php
+                            $typeCode = $balanceSummary['balance'] >= 0 ? 'income' : 'spending';
+                        @endphp
+                        <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
+                            {{ format_number($balanceSummary['balance']) }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

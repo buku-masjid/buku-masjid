@@ -48,11 +48,9 @@ class DailyAverages extends Component
         $endDate = $this->year == now()->format('Y') ? now()->format('Y-m-d') : $this->year.'-12-31';
         $dayCount = Carbon::parse($this->year.'-01-01')->diffInDays($endDate);
         $dailyAveragesSummary->each(function ($totalTransaction) use ($dayCount) {
-            $description = __('transaction.spending');
-            if ($totalTransaction->in_out == 1) {
-                $description = __('transaction.income');
-            }
-            $totalTransaction->description = $description.' / '.__('time.day_name');
+            $typeCode = $totalTransaction->in_out == 1 ? 'income' : 'spending';
+            $totalTransaction->type_code = $typeCode;
+            $totalTransaction->description = __('transaction.'.$typeCode).' / '.__('time.day_name');
             $totalTransaction->day_count = $dayCount;
             $totalTransaction->average = $totalTransaction->total / $dayCount;
         });
