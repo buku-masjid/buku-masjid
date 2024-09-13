@@ -24,7 +24,7 @@
     <div class="col-md-7">
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('transaction.balance') }}</div>
+                <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
                 @livewire('dashboard.balance-by-months', ['year' => $year, 'book' => $book])
             </div>
         </div>
@@ -32,13 +32,13 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_spending_category') }}</div>
+                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_spending_category') }}</div>
                 @livewire('dashboard.top-category', ['year' => $year, 'book' => $book, 'typeCode' => 'spending'])
             </div>
         </div>
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_income_category') }}</div>
+                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_income_category') }}</div>
                 @livewire('dashboard.top-category', ['year' => $year, 'book' => $book, 'typeCode' => 'income'])
             </div>
         </div>
@@ -48,7 +48,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_spending') }}</div>
+                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_spending') }}</div>
                 @livewire('dashboard.top-transaction', ['year' => $year, 'book' => $book, 'typeCode' => 'spending'])
             </div>
         </div>
@@ -56,7 +56,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body p-3">
-                <div class="text-muted mb-4 text-center">{{ __('dashboard.top_income') }}</div>
+                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_income') }}</div>
                 @livewire('dashboard.top-transaction', ['year' => $year, 'book' => $book, 'typeCode' => 'income'])
             </div>
         </div>
