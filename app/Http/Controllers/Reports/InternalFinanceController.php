@@ -20,10 +20,13 @@ class InternalFinanceController extends FinanceController
             $month = '00';
         }
         $book = auth()->activeBook();
+        $reportPeriode = $book->report_periode_code;
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
 
-        return view('dashboard.index', compact('year', 'months', 'month', 'book', 'startDate', 'endDate'));
+        return view('reports.finance.'.$reportPeriode.'.dashboard', compact(
+            'year', 'months', 'month', 'book', 'startDate', 'endDate'
+        ));
     }
 
     public function summary(Request $request)
