@@ -35,12 +35,9 @@ class DailyAverages extends Component
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $rawSelect = "";
-        $rawSelect .= "sum(amount) as total";
-        $rawSelect .= " , in_out";
 
         $dailyAveragesSummary = DB::table('transactions')
-            ->selectRaw($rawSelect)
+            ->selectRaw('sum(amount) as total, in_out')
             ->where('book_id', $this->book->id)
             ->whereBetween('date', [$this->startDate, $this->endDate])
             ->groupBy('in_out')
