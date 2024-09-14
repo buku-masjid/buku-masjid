@@ -25,8 +25,8 @@
         </div>
         <div class="form-group mt-0">
             @if ($month == '00')
-                {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1], ['class' => 'btn btn-secondary mr-1']) }}
-                {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1], ['class' => 'btn btn-secondary mr-1']) }}
+                {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
+                {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
             @else
                 @livewire('prev-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary mr-1'])
                 @livewire('next-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary'])
