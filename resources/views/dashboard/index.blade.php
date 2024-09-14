@@ -21,7 +21,7 @@
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('dashboard.index', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('dashboard.index', __('report.this_year'), ['year' => $year, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('dashboard.index', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group mt-0">
             @if ($month == '00')
