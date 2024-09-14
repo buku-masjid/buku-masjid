@@ -46,11 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('profile/update', 'Auth\ProfileController@update')->name('profile.update');
 
     /*
-     * Dashboard routes
-     */
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
-
-    /*
      * Transactions Routes
      */
     Route::get('transaction_search', 'TransactionSearchController@index')->name('transaction_search.index');
@@ -68,7 +63,9 @@ Route::group(['middleware' => 'auth'], function () {
      * Report Routes
      */
     Route::group(['prefix' => 'report'], function () {
-        Route::get('/', 'Reports\InternalFinanceController@summary')->name('reports.index');
+        Route::get('/', 'Reports\InternalFinanceController@dashboard')->name('reports.index');
+
+        Route::get('/finance/dashboard', 'Reports\InternalFinanceController@dashboard')->name('reports.finance.dashboard');
 
         Route::get('/finance/summary', 'Reports\InternalFinanceController@summary')->name('reports.finance.summary');
         Route::get('/finance/summary_pdf', 'Reports\InternalFinanceController@summaryPdf')->name('reports.finance.summary_pdf');

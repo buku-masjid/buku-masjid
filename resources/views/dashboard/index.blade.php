@@ -20,16 +20,16 @@
         {{ Form::select('month', $months, $month, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('dashboard.index', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('dashboard.index', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.finance.dashboard', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
+            {{ link_to_route('reports.finance.dashboard', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         <div class="form-group mt-0">
             @if ($month == '00')
-                {{ link_to_route('dashboard.index', __('report.prev_year'), ['year' => $year - 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-                {{ link_to_route('dashboard.index', __('report.next_year'), ['year' => $year + 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
+                {{ link_to_route('reports.finance.dashboard', __('report.prev_year'), ['year' => $year - 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
+                {{ link_to_route('reports.finance.dashboard', __('report.next_year'), ['year' => $year + 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
             @else
-                @livewire('prev-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary mr-1'])
-                @livewire('next-month-button', ['routeName' => 'dashboard.index', 'buttonClass' => 'btn btn-secondary'])
+                @livewire('prev-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary mr-1'])
+                @livewire('next-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary'])
             @endif
         </div>
         {{ Form::close() }}
