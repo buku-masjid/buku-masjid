@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dashboard;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class BalanceAllTime extends Component
@@ -12,8 +13,6 @@ class BalanceAllTime extends Component
     public $balanceAllTimeSummary;
     public $isLoading = true;
     public $book;
-    public $year;
-    public $selectedMonth;
     public $startDate;
     public $endDate;
     public $startingBalance;
@@ -38,23 +37,7 @@ class BalanceAllTime extends Component
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $transactionSummaryAllTime = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
-        $months = collect(get_months());
-        if ($this->selectedMonth != '00') {
-            $months = $months->filter(function ($monthName, $monthNumber) {
-                return $monthNumber == $this->selectedMonth;
-            });
-        }
-        $balanceAllTimeSummary = $months->map(function ($monthName, $monthNumber) use ($transactionSummaryAllTime) {
-            $transactionSummary = ['month_name' => $monthName, 'spending' => 0, 'income' => 0, 'balance' => 0];
-            if (isset($transactionSummaryAllTime[$monthNumber])) {
-                $transactionSummary['spending'] = $transactionSummaryAllTime[$monthNumber]->spending;
-                $transactionSummary['income'] = $transactionSummaryAllTime[$monthNumber]->income;
-                $transactionSummary['balance'] = $transactionSummaryAllTime[$monthNumber]->balance;
-            }
-
-            return $transactionSummary;
-        });
+        $balanceAllTimeSummary = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
         Cache::put($cacheKey, $balanceAllTimeSummary, $duration);
 
         return $balanceAllTimeSummary;
@@ -80,9 +63,12 @@ class BalanceAllTime extends Component
 
         $reports = [];
         foreach ($reportsData as $report) {
-            $key = str_pad($report->month, 2, '0', STR_PAD_LEFT);
-            $reports[$key] = $report;
-            $reports[$key]->balance = $report->income - $report->spending;
+            $monthNumber = str_pad($report->month, 2, '0', STR_PAD_LEFT);
+            $key = $report->year.'-'.$monthNumber;
+            $reports[$key] = (array) $report;
+            $reports[$key]['month_number'] = $monthNumber;
+            $reports[$key]['balance'] = $report->income - $report->spending;
+            $reports[$key]['month_name'] = Str::limit(get_months()[$monthNumber], 3, '');
         }
 
         return collect($reports);

@@ -20,13 +20,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($balanceAllTimeSummary as $monthNumber => $balanceSummary)
+                @php
+                    $no = 1;
+                @endphp
+                @foreach ($balanceAllTimeSummary as $yearMonth => $balanceSummary)
                     <tr>
-                        <td>{{ $monthNumber }}</td>
+                        <td>{{ $no++ }}</td>
                         <td>
-                            {{ link_to_route('transactions.index', $balanceSummary['month_name'], [
-                                'month' => $monthNumber,
-                                'year' => $year,
+                            {{ link_to_route('transactions.index', $balanceSummary['month_name'].' '.$balanceSummary['year'], [
+                                'month' => $balanceSummary['month_number'],
+                                'year' => $balanceSummary['year'],
                             ]) }}
                         </td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>
