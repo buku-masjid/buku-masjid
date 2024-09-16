@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class BalanceByMonths extends Component
+class BalanceInWeeks extends Component
 {
     public $balanceByMonthSummary;
     public $isLoading = true;

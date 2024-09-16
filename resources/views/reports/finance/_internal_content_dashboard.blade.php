@@ -5,7 +5,7 @@
                 <div class="card-body p-3">
                     <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
                     <div class="table-responsive">
-                        @livewire('dashboard.balance-by-months', [
+                        @livewire('dashboard.balance-'.Illuminate\Support\Str::slug($book->report_periode_code), [
                             'book' => $book,
                             'year' => $year,
                             'selectedMonth' => $month,
@@ -88,7 +88,7 @@
                 <div class="card-body p-3">
                     <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
                     <div class="table-responsive">
-                        @livewire('dashboard.balance-by-months', [
+                        @livewire('dashboard.balance-'.Illuminate\Support\Str::slug($book->report_periode_code), [
                             'book' => $book,
                             'year' => $year,
                             'selectedMonth' => $month,
