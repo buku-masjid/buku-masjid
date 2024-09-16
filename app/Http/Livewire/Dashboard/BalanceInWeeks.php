@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class BalanceInWeeks extends Component
 {
-    public $balanceByMonthSummary;
+    public $balanceInWeekSummary;
     public $isLoading = true;
     public $book;
     public $year;
@@ -20,44 +20,44 @@ class BalanceInWeeks extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.balance_by_months');
+        return view('livewire.dashboard.balance_by_weeks');
     }
 
-    public function getBalanceByMonthsSummary()
+    public function getBalanceInWeeksSummary()
     {
-        $this->balanceByMonthSummary = $this->calculateBalanceByMonthsSummary();
+        $this->balanceInWeekSummary = $this->calculateBalanceInWeeksSummary();
         $this->startingBalance = $this->book->getBalance(Carbon::parse($this->startDate)->subDay()->format('Y-m-d'));
         $this->isLoading = false;
     }
 
-    private function calculateBalanceByMonthsSummary()
+    private function calculateBalanceInWeeksSummary()
     {
-        $cacheKey = 'calculateBalanceByMonthsSummary_'.$this->startDate.'_'.$this->endDate;
+        $cacheKey = 'calculateBalanceInWeeksSummary_'.$this->startDate.'_'.$this->endDate;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $transactionSummaryByMonth = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
+        $transactionSummaryInWeek = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
         $months = collect(get_months());
         if ($this->selectedMonth != '00') {
             $months = $months->filter(function ($monthName, $monthNumber) {
                 return $monthNumber == $this->selectedMonth;
             });
         }
-        $balanceByMonthSummary = $months->map(function ($monthName, $monthNumber) use ($transactionSummaryByMonth) {
+        $balanceInWeekSummary = $months->map(function ($monthName, $monthNumber) use ($transactionSummaryInWeek) {
             $transactionSummary = ['month_name' => $monthName, 'spending' => 0, 'income' => 0, 'balance' => 0];
-            if (isset($transactionSummaryByMonth[$monthNumber])) {
-                $transactionSummary['spending'] = $transactionSummaryByMonth[$monthNumber]->spending;
-                $transactionSummary['income'] = $transactionSummaryByMonth[$monthNumber]->income;
-                $transactionSummary['balance'] = $transactionSummaryByMonth[$monthNumber]->balance;
+            if (isset($transactionSummaryInWeek[$monthNumber])) {
+                $transactionSummary['spending'] = $transactionSummaryInWeek[$monthNumber]->spending;
+                $transactionSummary['income'] = $transactionSummaryInWeek[$monthNumber]->income;
+                $transactionSummary['balance'] = $transactionSummaryInWeek[$monthNumber]->balance;
             }
 
             return $transactionSummary;
         });
-        Cache::put($cacheKey, $balanceByMonthSummary, $duration);
+        Cache::put($cacheKey, $balanceInWeekSummary, $duration);
 
-        return $balanceByMonthSummary;
+        return $balanceInWeekSummary;
     }
 
     private function getYearlyTransactionSummary($startDate, $endDate, $bookId)

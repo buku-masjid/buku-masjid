@@ -1,4 +1,4 @@
-<div wire:init="getBalanceByMonthsSummary">
+<div wire:init="getBalanceInMonthsSummary">
     @if ($isLoading)
         <div class="loading-state text-center">
             <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($balanceByMonthSummary as $monthNumber => $balanceSummary)
+                @foreach ($balanceInMonthsSummary as $monthNumber => $balanceSummary)
                     <tr>
                         <td>{{ $monthNumber }}</td>
                         <td>
@@ -41,19 +41,19 @@
                 @endforeach
             </tbody>
             <tfoot>
-                @if ($balanceByMonthSummary->count() > 1)
+                @if ($balanceInMonthsSummary->count() > 1)
                     <tr>
                         <th>&nbsp;</th>
                         <th>{{ __('app.total') }}</th>
-                        <th class="text-right">{{ format_number($balanceByMonthSummary->sum('income')) }}</th>
-                        <th class="text-right">{{ format_number($balanceByMonthSummary->sum('spending')) }}</th>
-                        <th class="text-right">{{ format_number($balanceByMonthSummary->sum('balance')) }}</th>
+                        <th class="text-right">{{ format_number($balanceInMonthsSummary->sum('income')) }}</th>
+                        <th class="text-right">{{ format_number($balanceInMonthsSummary->sum('spending')) }}</th>
+                        <th class="text-right">{{ format_number($balanceInMonthsSummary->sum('balance')) }}</th>
                     </tr>
                 @endif
                 <tr>
                     <th>&nbsp;</th>
                     <th colspan="3">{{ __('transaction.end_balance') }}</th>
-                    <th class="text-right">{{ format_number($startingBalance + $balanceByMonthSummary->sum('balance')) }}</th>
+                    <th class="text-right">{{ format_number($startingBalance + $balanceInMonthsSummary->sum('balance')) }}</th>
                 </tr>
             </tfoot>
         </table>
