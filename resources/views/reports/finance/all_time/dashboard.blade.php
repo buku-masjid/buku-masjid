@@ -15,22 +15,12 @@
     <div class="page-subtitle"></div>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('year', __('time.year'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
-        {{ Form::select('month', $months, $month, ['class' => 'form-control mr-1']) }}
+        {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mr-1']) }}
+        {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
+        {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
         <div class="form-group mt-4 mt-sm-0">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-        </div>
-        <div class="form-group mt-0">
-            @if ($month == '00')
-                {{ link_to_route('reports.finance.dashboard', __('report.prev_year'), ['year' => $year - 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-                {{ link_to_route('reports.finance.dashboard', __('report.next_year'), ['year' => $year + 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-            @else
-                @livewire('prev-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary mr-1'])
-                @livewire('next-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary'])
-            @endif
+            {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
         {{ Form::close() }}
     </div>
@@ -39,3 +29,27 @@
 @include('reports.finance._internal_content_dashboard')
 
 @endsection
+
+@section('styles')
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
+@endsection
+
+@push('scripts')
+    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
+<script>
+(function () {
+    $('#reportModal').modal({
+        show: true,
+        backdrop: 'static',
+    });
+    $('.date-select').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1,
+        scrollMonth: false,
+    });
+})();
+</script>
+@endpush
