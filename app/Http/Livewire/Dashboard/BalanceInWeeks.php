@@ -12,15 +12,13 @@ class BalanceInWeeks extends Component
     public $balanceInWeekSummary;
     public $isLoading = true;
     public $book;
-    public $year;
-    public $selectedMonth;
     public $startDate;
     public $endDate;
     public $startingBalance;
 
     public function render()
     {
-        return view('livewire.dashboard.balance_by_weeks');
+        return view('livewire.dashboard.balance_in_weeks');
     }
 
     public function getBalanceInWeeksSummary()
@@ -38,51 +36,42 @@ class BalanceInWeeks extends Component
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $transactionSummaryInWeek = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
-        $months = collect(get_months());
-        if ($this->selectedMonth != '00') {
-            $months = $months->filter(function ($monthName, $monthNumber) {
-                return $monthNumber == $this->selectedMonth;
-            });
-        }
-        $balanceInWeekSummary = $months->map(function ($monthName, $monthNumber) use ($transactionSummaryInWeek) {
-            $transactionSummary = ['month_name' => $monthName, 'spending' => 0, 'income' => 0, 'balance' => 0];
-            if (isset($transactionSummaryInWeek[$monthNumber])) {
-                $transactionSummary['spending'] = $transactionSummaryInWeek[$monthNumber]->spending;
-                $transactionSummary['income'] = $transactionSummaryInWeek[$monthNumber]->income;
-                $transactionSummary['balance'] = $transactionSummaryInWeek[$monthNumber]->balance;
-            }
+        $transactionSummaryInWeek = $this->getWeeklyTransactionSummary(
+            $this->startDate->format('Y-m-d'),
+            $this->endDate->format('Y-m-d'),
+            $this->book
+        );
+        Cache::put($cacheKey, $transactionSummaryInWeek, $duration);
 
-            return $transactionSummary;
-        });
-        Cache::put($cacheKey, $balanceInWeekSummary, $duration);
-
-        return $balanceInWeekSummary;
+        return $transactionSummaryInWeek;
     }
 
-    private function getYearlyTransactionSummary($startDate, $endDate, $bookId)
+    private function getWeeklyTransactionSummary($startDate, $endDate, $book)
     {
-        $rawQuery = 'MONTH(date) as month';
-        $rawQuery .= ', YEAR(date) as year';
-        $rawQuery .= ', count(`id`) as count';
-        $rawQuery .= ', sum(if(in_out = 1, amount, 0)) AS income';
-        $rawQuery .= ', sum(if(in_out = 0, amount, 0)) AS spending';
-
-        $reportQuery = DB::table('transactions')->select(DB::raw($rawQuery))
-            ->whereBetween('date', [$startDate, $endDate])
-            ->where('book_id', $bookId);
-
-        $reportsData = $reportQuery->orderBy('year', 'ASC')
-            ->orderBy('month', 'ASC')
-            ->groupBy(DB::raw('YEAR(date)'))
-            ->groupBy(DB::raw('MONTH(date)'))
-            ->get();
-
+        // dd($startDate, $endDate, $book->start_week_day_code);
+        $weekRanges = get_date_range_per_week($startDate, $endDate, $book->start_week_day_code);
         $reports = [];
-        foreach ($reportsData as $report) {
-            $key = str_pad($report->month, 2, '0', STR_PAD_LEFT);
-            $reports[$key] = $report;
-            $reports[$key]->balance = $report->income - $report->spending;
+        foreach ($weekRanges as $weekNumber => $weekDates) {
+            $startDate = collect($weekDates)->first();
+            $endDate = collect($weekDates)->last();
+
+            $rawQuery = 'count(`id`) as count';
+            $rawQuery .= ', sum(if(in_out = 1, amount, 0)) AS income';
+            $rawQuery .= ', sum(if(in_out = 0, amount, 0)) AS spending';
+
+            $reportQuery = DB::table('transactions')->select(DB::raw($rawQuery))
+                ->whereBetween('date', [$startDate, $endDate])
+                ->where('book_id', $book->id);
+
+            $reportData = $reportQuery->get()->first();
+            $reportData->start_date = $startDate;
+            $reportData->end_date = $endDate;
+            $reportData->date_range_text = get_date_range_text($startDate, $endDate);
+            $reportData->income = $reportData->income ?: 0;
+            $reportData->spending = $reportData->spending ?: 0;
+            $reportData->balance = $reportData->income - $reportData->spending;
+
+            $reports[$weekNumber] = $reportData;
         }
 
         return collect($reports);

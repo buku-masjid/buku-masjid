@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('time.month') }}</th>
+                    <th>{{ __('time.date') }}</th>
                     <th class="text-right">{{ __('transaction.income') }}</th>
                     <th class="text-right">{{ __('transaction.spending') }}</th>
                     <th class="text-right">{{ __('transaction.balance') }}</th>
@@ -20,22 +20,26 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($balanceInWeekSummary as $monthNumber => $balanceSummary)
+                @php
+                    $no = 1;
+                @endphp
+                @foreach ($balanceInWeekSummary as $weekNumber => $balanceSummary)
                     <tr>
-                        <td>{{ $monthNumber }}</td>
+                        <td>{{ $no++ }}</td>
                         <td>
-                            {{ link_to_route('transactions.index', $balanceSummary['month_name'], [
-                                'month' => $monthNumber,
-                                'year' => $year,
-                            ]) }}
+                            {{ $balanceSummary->date_range_text }}
+                            {{-- {{ link_to_route('transactions.index', $balanceSummary->start_date, [
+                                // 'month' => $monthNumber,
+                                // 'year' => $year,
+                            ]) }} --}}
                         </td>
-                        <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>
-                        <td class="text-right text-nowrap" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary['spending']) }}</td>
+                        <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary->income) }}</td>
+                        <td class="text-right text-nowrap" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary->spending) }}</td>
                         @php
-                            $typeCode = $balanceSummary['balance'] >= 0 ? 'income' : 'spending';
+                            $typeCode = $balanceSummary->balance >= 0 ? 'income' : 'spending';
                         @endphp
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
-                            {{ format_number($balanceSummary['balance']) }}
+                            {{ format_number($balanceSummary->balance) }}
                         </td>
                     </tr>
                 @endforeach
