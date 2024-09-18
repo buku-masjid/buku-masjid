@@ -2,9 +2,9 @@
 
 return [
     'dashboard' => 'Dashboard',
-    'top_spending_category' => 'Top Kategori Pengeluaran',
-    'top_income_category' => 'Top Kategori Pemasukan',
-    'top_spending' => 'Top Pengeluaran',
-    'top_income' => 'Top Pemasukan',
+    'top_spending_category' => 'Kategori Pengeluaran Terbesar',
+    'top_income_category' => 'Kategori Pemasukan Terbesar',
+    'top_spending' => 'Transaksi Pengeluaran Terbesar',
+    'top_income' => 'Transaksi Pemasukan Terbesar',
     'daily_averages' => 'Rata-Rata per Hari',
 ];

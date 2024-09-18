@@ -18,7 +18,7 @@
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
             {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4 mt-sm-0">
             @livewire('prev-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary mr-1'])
             @livewire('next-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary'])
         </div>

@@ -26,7 +26,7 @@
                 @foreach ($balanceInWeekSummary as $weekNumber => $balanceSummary)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             {{ link_to_route('reports.finance.dashboard', $balanceSummary->date_range_text, [
                                 'start_date' => $balanceSummary->start_date,
                                 'end_date' => $balanceSummary->end_date,

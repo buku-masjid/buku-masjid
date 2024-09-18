@@ -48,7 +48,6 @@ class BalanceInWeeks extends Component
 
     private function getWeeklyTransactionSummary($startDate, $endDate, $book)
     {
-        // dd($startDate, $endDate, $book->start_week_day_code);
         $weekRanges = get_date_range_per_week($startDate, $endDate, $book->start_week_day_code);
         $reports = [];
         foreach ($weekRanges as $weekNumber => $weekDates) {
