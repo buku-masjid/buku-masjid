@@ -27,9 +27,9 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>
-                            {{ link_to_route('transactions.index', $balanceSummary['month_name'].' '.$balanceSummary['year'], [
-                                'month' => $balanceSummary['month_number'],
-                                'year' => $balanceSummary['year'],
+                            {{ link_to_route('reports.finance.dashboard', $balanceSummary['month_name'].' '.$balanceSummary['year'], [
+                                'start_date' => $yearMonth.'-01',
+                                'end_date' => Carbon\Carbon::parse($yearMonth.'-10')->format('Y-m-t'),
                             ]) }}
                         </td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>

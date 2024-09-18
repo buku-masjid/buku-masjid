@@ -4,7 +4,10 @@
 
 @section('content-report')
 <div class="page-header mt-0 mb-4">
-    <h1 class="page-title">{{ __('dashboard.dashboard') }}</h1>
+    <h1 class="page-title">
+        <div class="d-none d-sm-inline">{{ __('dashboard.dashboard') }}</div>
+        {{ get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d')) }}
+    </h1>
     <div class="page-subtitle"></div>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}

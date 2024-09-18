@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('time.date') }}</th>
+                    <th class="text-right">{{ __('time.date') }}</th>
                     <th class="text-right">{{ __('transaction.income') }}</th>
                     <th class="text-right">{{ __('transaction.spending') }}</th>
                     <th class="text-right">{{ __('transaction.balance') }}</th>
@@ -26,12 +26,11 @@
                 @foreach ($balanceInWeekSummary as $weekNumber => $balanceSummary)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>
-                            {{ $balanceSummary->date_range_text }}
-                            {{-- {{ link_to_route('transactions.index', $balanceSummary->start_date, [
-                                // 'month' => $monthNumber,
-                                // 'year' => $year,
-                            ]) }} --}}
+                        <td class="text-right">
+                            {{ link_to_route('reports.finance.dashboard', $balanceSummary->date_range_text, [
+                                'start_date' => $balanceSummary->start_date,
+                                'end_date' => $balanceSummary->end_date,
+                            ]) }}
                         </td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary->income) }}</td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary->spending) }}</td>

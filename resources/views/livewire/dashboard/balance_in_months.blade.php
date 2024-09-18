@@ -24,7 +24,7 @@
                     <tr>
                         <td>{{ $monthNumber }}</td>
                         <td>
-                            {{ link_to_route('transactions.index', $balanceSummary['month_name'], [
+                            {{ link_to_route('reports.finance.dashboard', $balanceSummary['month_name'], [
                                 'month' => $monthNumber,
                                 'year' => $year,
                             ]) }}
