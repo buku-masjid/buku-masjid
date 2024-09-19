@@ -27,7 +27,9 @@ return [
 
     'income_receipt' => 'Income Receipt',
     'spending_receipt' => 'Spending Receipt',
+    'spending_request' => 'Spending Request',
     'from' => 'Receive from',
+    'paid_to' => 'Paid to',
     'cash_amount' => 'Cash amount',
     'words_amount' => 'In word amount',
 
@@ -48,6 +50,7 @@ return [
     'undeleteable' => 'Transaction data cannot be deleted.',
     'download' => 'Download CSV',
     'print_receipt' => 'Print Receipt',
+    'print_spending_request' => 'Print Spending Request',
 
     // Attributes
     'id' => 'Transaction ID',
