@@ -70,6 +70,17 @@
                                     ]
                                 ) }}
                             @endcan
+                            @can('update', $book)
+                                {{ link_to_route(
+                                    'books.edit',
+                                    __('app.edit'),
+                                    [$book],
+                                    [
+                                        'id' => 'edit-book-'.$book->id,
+                                        'class' => 'btn btn-sm text-dark btn-warning',
+                                    ]
+                                ) }}
+                            @endcan
                         </td>
                     </tr>
                     @empty
