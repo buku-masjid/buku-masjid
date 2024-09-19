@@ -21,6 +21,8 @@ return [
     'view_report' => 'View Report',
     'select_report' => 'Select Report',
     'this_year' => 'This Year',
+    'prev_year' => 'Prev Year',
+    'next_year' => 'Next Year',
     'this_month' => 'This Month',
     'prev_month' => 'Prev Month',
     'next_month' => 'Next Month',

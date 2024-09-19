@@ -63,7 +63,9 @@ Route::group(['middleware' => 'auth'], function () {
      * Report Routes
      */
     Route::group(['prefix' => 'report'], function () {
-        Route::get('/', 'Reports\InternalFinanceController@summary')->name('reports.index');
+        Route::get('/', 'Reports\InternalFinanceController@dashboard')->name('reports.index');
+
+        Route::get('/finance/dashboard', 'Reports\InternalFinanceController@dashboard')->name('reports.finance.dashboard');
 
         Route::get('/finance/summary', 'Reports\InternalFinanceController@summary')->name('reports.finance.summary');
         Route::get('/finance/summary_pdf', 'Reports\InternalFinanceController@summaryPdf')->name('reports.finance.summary_pdf');

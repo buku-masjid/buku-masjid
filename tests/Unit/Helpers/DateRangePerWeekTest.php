@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Helpers;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class DateRangePerWeekTest extends TestCase
@@ -9,6 +10,12 @@ class DateRangePerWeekTest extends TestCase
     /** @test */
     public function it_return_correct_date_range_per_week_for_the_given_start_and_end_date()
     {
+        $this->assertEquals([
+            ['2023-04-01', '2023-04-02'],
+            ['2023-04-03', '2023-04-04', '2023-04-05', '2023-04-06', '2023-04-07', '2023-04-08', '2023-04-09'],
+            ['2023-04-10', '2023-04-11', '2023-04-12', '2023-04-13'],
+        ], get_date_range_per_week('2023-04-01', '2023-04-13'));
+
         $this->assertEquals([
             ['2023-04-01', '2023-04-02'],
             ['2023-04-03', '2023-04-04', '2023-04-05', '2023-04-06', '2023-04-07', '2023-04-08', '2023-04-09'],
@@ -62,5 +69,30 @@ class DateRangePerWeekTest extends TestCase
             ['2023-10-20', '2023-10-21', '2023-10-22', '2023-10-23', '2023-10-24', '2023-10-25', '2023-10-26'],
             ['2023-10-27', '2023-10-28', '2023-10-29', '2023-10-30', '2023-10-31'],
         ], get_date_range_per_week('2023-10-01', '2023-10-31', 'friday'));
+    }
+
+    /** @test */
+    public function it_return_correct_date_range_text_for_the_given_start_and_end_date()
+    {
+        $startDate = '2023-10-01';
+        $endDate = '2023-10-31';
+        $startDateText = Carbon::parse($startDate)->isoFormat('DD');
+        $endDateText = Carbon::parse($endDate)->isoFormat('DD MMM YYYY');
+
+        $this->assertEquals($startDateText.' - '.$endDateText, get_date_range_text($startDate, $endDate));
+
+        $startDate = '2023-10-01';
+        $endDate = '2023-11-03';
+        $startDateText = Carbon::parse($startDate)->isoFormat('DD MMM');
+        $endDateText = Carbon::parse($endDate)->isoFormat('DD MMM YYYY');
+
+        $this->assertEquals($startDateText.' - '.$endDateText, get_date_range_text($startDate, $endDate));
+
+        $startDate = '2023-10-01';
+        $endDate = '2024-01-13';
+        $startDateText = Carbon::parse($startDate)->isoFormat('DD MMM YYYY');
+        $endDateText = Carbon::parse($endDate)->isoFormat('DD MMM YYYY');
+
+        $this->assertEquals($startDateText.' - '.$endDateText, get_date_range_text($startDate, $endDate));
     }
 }

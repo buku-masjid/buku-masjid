@@ -1,8 +1,11 @@
 <h4 class="page-title mb-3">{{ __('report.report') }}</h4>
 
 <div class="list-group list-group-transparent mb-0 text-uppercase">
-    <a href="{{ route('reports.finance.summary', Request::all()) }}" style="padding-right: 4px;" class="list-group-item list-group-item-action d-flex align-items-center {{ in_array(Request::segment(3), ['summary', null]) ? 'active' : '' }}">
-        <span class="icon mr-2"><i class="fe fe-home"></i></span>{{ __('report.'.$reportPeriode) }}
+    <a href="{{ route('reports.finance.dashboard', Request::all()) }}" style="padding-right: 4px;" class="list-group-item list-group-item-action d-flex align-items-center {{ in_array(Request::segment(3),['dashboard', null]) ? 'active' : '' }}">
+        <span class="icon mr-2"><i class="fe fe-database"></i></span>{{ __('dashboard.dashboard') }}
+    </a>
+    <a href="{{ route('reports.finance.summary', Request::all()) }}" style="padding-right: 4px;" class="list-group-item list-group-item-action d-flex align-items-center {{ Request::segment(3) == 'summary' ? 'active' : '' }}">
+        <span class="icon mr-2"><i class="fe fe-home"></i></span>{{ __('report.'.auth()->activeBook()->report_periode_code) }}
     </a>
     <a href="{{ route('reports.finance.categorized', Request::all()) }}" style="padding-right: 4px;" class="list-group-item list-group-item-action d-flex align-items-center {{ Request::segment(3) == 'categorized' ? 'active' : '' }}">
         <span class="icon mr-2"><i class="fe fe-package"></i></span>{{ __('report.finance_categorized') }}

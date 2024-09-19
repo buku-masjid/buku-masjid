@@ -22,7 +22,7 @@
             @endif
             @foreach ($daysTransactions as $transaction)
             <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
-                <td class="text-center">{{ $transaction->date }}</td>
+                <td class="text-center text-nowrap">{{ Carbon\Carbon::parse($transaction->date)->isoFormat('DD MMM YYYY') }}</td>
                 <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }} class="{{ $transaction->is_strong ? 'strong' : '' }}">
                     {{ $transaction->description }}
                 </td>

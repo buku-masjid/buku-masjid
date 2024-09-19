@@ -11,6 +11,24 @@ use Illuminate\Support\Collection;
 
 class InternalFinanceController extends FinanceController
 {
+    public function dashboard(Request $request)
+    {
+        $year = (int) $request->get('year', now()->format('Y'));
+        $month = $request->get('month', now()->format('m'));
+        $months = collect(get_months())->prepend(__('time.all_months'), '00');
+        if (!$months->keys()->contains($month)) {
+            $month = '00';
+        }
+        $book = auth()->activeBook();
+        $reportPeriode = $book->report_periode_code;
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
+
+        return view('reports.finance.'.$reportPeriode.'.dashboard', compact(
+            'year', 'months', 'month', 'book', 'startDate', 'endDate'
+        ));
+    }
+
     public function summary(Request $request)
     {
         $startDate = $this->getStartDate($request);

@@ -90,7 +90,7 @@ function get_date_range_per_week(string $startDate, string $endDate, string $sta
     $periode = new \DatePeriod(
         $startDate = Carbon::parse($startDate),
         new \DateInterval('P1D'),
-        Carbon::parse($endDate)->endOfMonth()
+        Carbon::parse($endDate)->addDay()
     );
 
     $dateRanges = [];
@@ -104,4 +104,18 @@ function get_date_range_per_week(string $startDate, string $endDate, string $sta
     }
 
     return array_values(array_filter($dateRanges));
+}
+
+function get_date_range_text(string $startDate, string $endDate): string
+{
+    $endDateText = Carbon::parse($endDate)->isoFormat('DD MMM YYYY');
+    $startDateText = Carbon::parse($startDate)->isoFormat('DD MMM YYYY');
+    if (substr(Carbon::parse($startDate)->isoFormat('DD MMM YYYY'), -4) == substr($endDateText, -4)) {
+        $startDateText = Carbon::parse($startDate)->isoFormat('DD MMM');
+    }
+    if (substr(Carbon::parse($startDate)->isoFormat('DD MMM YYYY'), 3) == substr($endDateText, 3)) {
+        $startDateText = Carbon::parse($startDate)->isoFormat('DD');
+    }
+
+    return $startDateText.' - '.$endDateText;
 }

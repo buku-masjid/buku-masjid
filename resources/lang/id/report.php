@@ -21,6 +21,8 @@ return [
     'view_report' => 'Lihat Laporan',
     'select_report' => 'Pilih Laporan',
     'this_year' => 'Tahun Ini',
+    'prev_year' => 'Tahun Sblm',
+    'next_year' => 'Tahun Brtk',
     'this_month' => 'Bulan Ini',
     'prev_month' => 'Bulan Sblm',
     'next_month' => 'Bulan Brkt',
