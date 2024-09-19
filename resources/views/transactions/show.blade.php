@@ -8,6 +8,14 @@
     <h1 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h1>
     <div class="page-subtitle">{{ __('transaction.detail') }}</div>
     <div class="page-options d-flex">
+        @if ($transaction->in_out == 0)
+            {{ link_to_route(
+                'transactions.print_spending_request',
+                __('transaction.print_spending_request'),
+                $transaction,
+                ['class' => 'btn btn-secondary mr-2']
+            ) }}
+        @endif
         {{ link_to_route(
             'transactions.print_receipt',
             __('transaction.print_receipt'),

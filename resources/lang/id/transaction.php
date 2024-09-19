@@ -27,7 +27,9 @@ return [
 
     'income_receipt' => 'Bukti Kas Masuk',
     'spending_receipt' => 'Bukti Kas Keluar',
+    'spending_request' => 'Permintaan Kas Keluar',
     'from' => 'Terima dari',
+    'paid_to' => 'Kepada',
     'cash_amount' => 'Uang Sejumlah',
     'words_amount' => 'Terbilang',
 
@@ -48,6 +50,7 @@ return [
     'undeleteable' => 'Data Transaksi tidak dapat dihapus.',
     'download' => 'Download CSV',
     'print_receipt' => 'Cetak Kwitansi',
+    'print_spending_request' => 'Cetak Permintaan Kas Keluar',
 
     // Attributes
     'id' => 'ID Transaksi',

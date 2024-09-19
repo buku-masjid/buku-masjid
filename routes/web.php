@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('transaction_search', 'TransactionSearchController@index')->name('transaction_search.index');
     Route::get('transactions/export-csv', 'Transactions\ExportController@csv')->name('transactions.exports.csv');
     Route::get('transactions/{transaction}/print_receipt', 'Transactions\ReceiptPrintController@show')->name('transactions.print_receipt');
+    Route::get('transactions/{transaction}/print_spending_request', 'Transactions\SpendingRequestPrintController@show')
+        ->name('transactions.print_spending_request');
     Route::resource('transactions', 'TransactionsController');
 
     /*
