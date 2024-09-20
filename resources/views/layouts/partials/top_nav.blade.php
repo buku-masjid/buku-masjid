@@ -36,12 +36,14 @@
                     <span class="d-none d-lg-inline"><i class="fe fe-book"></i> {{ __('bank_account.bank_account') }}</span>
                 </a>
             @endcan
-            @can('view-any', new App\Models\Lecturing)
-                <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
-                    <i class="fe fe-book-open h3 d-inline d-lg-none"></i>
-                    <span class="d-none d-lg-inline"><i class="fe fe-book-open"></i> {{ __('lecturing.lecturing') }}</span>
-                </a>
-            @endcan
+            @if (Route::has('lecturings.index'))
+                @can('view-any', new App\Models\Lecturing)
+                    <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
+                        <i class="fe fe-book-open h3 d-inline d-lg-none"></i>
+                        <span class="d-none d-lg-inline"><i class="fe fe-book-open"></i> {{ __('lecturing.lecturing') }}</span>
+                    </a>
+                @endcan
+            @endif
             <a class="xs-navbar mr-4" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
                 <i class="fe fe-bar-chart-2 h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-bar-chart-2"></i> {{ __('report.report') }}</span>
@@ -78,12 +80,14 @@
                 {{ __('bank_account.bank') }}
             </a>
         @endcan
-        @can('view-any', new App\Models\Lecturing)
-            <a class="col border-right border-primary" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
-                <div><i class="fe fe-book-open h3"></i></div>
-                {{ __('lecturing.lecturing') }}
-            </a>
-        @endcan
+        @if (Route::has('lecturings.index'))
+            @can('view-any', new App\Models\Lecturing)
+                <a class="col border-right border-primary" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
+                    <div><i class="fe fe-book-open h3"></i></div>
+                    {{ __('lecturing.lecturing') }}
+                </a>
+            @endcan
+        @endif
         <a class="col border-right border-primary" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
             <div><i class="fe fe-bar-chart-2 h3"></i></div>
             {{ __('report.report') }}

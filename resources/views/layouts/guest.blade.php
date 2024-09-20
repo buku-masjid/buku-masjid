@@ -50,9 +50,11 @@
                             <a class="py-2 px-1 {{ in_array(Request::segment(1), ['donasi']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public.donate') }}">
                                 <i class="fe fe-pocket"></i> {{ __('app.donate') }}
                             </a>
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
-                                <i class="fe fe-calendar"></i> {{ __('lecturing.public_schedule') }}
-                            </a>
+                            @if (Route::has('public_schedules.index'))
+                                <a class="py-2 px-1 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
+                                    <i class="fe fe-calendar"></i> {{ __('lecturing.public_schedule') }}
+                                </a>
+                            @endif
                             @auth
                             <a class="py-2 px-1 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
                             @else
