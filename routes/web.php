@@ -23,13 +23,15 @@ Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function ()
     Route::get('/rincian', 'Reports\PublicFinanceController@detailed')->name('finance.detailed');
 });
 
-Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
-    Route::get('/', 'PublicScheduleController@today')->name('index');
-    Route::get('/hari_ini', 'PublicScheduleController@today')->name('today');
-    Route::get('/besok', 'PublicScheduleController@tomorrow')->name('tomorrow');
-    Route::get('/pekan_ini', 'PublicScheduleController@thisWeek')->name('this_week');
-    Route::get('/pekan_depan', 'PublicScheduleController@nextWeek')->name('next_week');
-});
+if (config('features.lecturings.is_active')) {
+    Route::group(['prefix' => 'jadwal', 'as' => 'public_schedules.'], function () {
+        Route::get('/', 'PublicScheduleController@today')->name('index');
+        Route::get('/hari_ini', 'PublicScheduleController@today')->name('today');
+        Route::get('/besok', 'PublicScheduleController@tomorrow')->name('tomorrow');
+        Route::get('/pekan_ini', 'PublicScheduleController@thisWeek')->name('this_week');
+        Route::get('/pekan_depan', 'PublicScheduleController@nextWeek')->name('next_week');
+    });
+}
 
 // Change Password Routes
 Route::get('change-password', 'Auth\ChangePasswordController@show');
@@ -106,10 +108,12 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * Lecturings Routes
      */
-    Route::resource('friday_lecturings', App\Http\Controllers\FridayLecturingController::class)
-        ->parameters(['friday_lecturings' => 'lecturing'])
-        ->only(['create', 'store', 'show', 'edit', 'update']);
-    Route::resource('lecturings', App\Http\Controllers\LecturingController::class);
+    if (config('features.lecturings.is_active')) {
+        Route::resource('friday_lecturings', App\Http\Controllers\FridayLecturingController::class)
+            ->parameters(['friday_lecturings' => 'lecturing'])
+            ->only(['create', 'store', 'show', 'edit', 'update']);
+        Route::resource('lecturings', App\Http\Controllers\LecturingController::class);
+    }
 
     Route::get('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'show'])->name('masjid_profile.show');
     Route::get('masjid_profile/edit', [App\Http\Controllers\MasjidProfileController::class, 'edit'])->name('masjid_profile.edit');

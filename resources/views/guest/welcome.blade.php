@@ -11,18 +11,22 @@
             <p class="lead mb-0">
                 <a class="btn btn-lg btn-success mr-2" href="{{ route('public_reports.index') }}"
                     role="button">{{ __('report.view_report') }}</a>
-                <a class="btn btn-lg btn-info" href="{{ route('public_schedules.index') }}"
-                    role="button">{{ __('lecturing.lecturing') }}</a>
+                @if (Route::has('lecturings.index'))
+                    <a class="btn btn-lg btn-info" href="{{ route('public_schedules.index') }}"
+                        role="button">{{ __('lecturing.lecturing') }}</a>
+                @endif
             </p>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-6">
             @livewire('public-home.weekly-financial-summary')
         </div>
-        <div class="col-lg-6">
-            @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
-            @livewire('public-home.daily-lecturings', ['date' => today()->addDay(), 'dayTitle' => 'tomorrow'])
-        </div>
+        @if (Route::has('lecturings.index'))
+            <div class="col-lg-6">
+                @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
+                @livewire('public-home.daily-lecturings', ['date' => today()->addDay(), 'dayTitle' => 'tomorrow'])
+            </div>
+        @endif
     </div>
 @endsection
