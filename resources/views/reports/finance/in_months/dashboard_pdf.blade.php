@@ -1,18 +1,20 @@
 @extends('layouts.print')
 
-@section('title', __('dashboard.dashboard'))
+@section('title')
+    {{ __('dashboard.dashboard') }}
+    @if ($month != '00')
+        {{ $months[$month] }} {{ $year }}
+    @else
+        {{ __('time.year') }} {{ $year }}
+    @endif
+@endsection
 
 @section('content')
 <htmlpageheader name="wpHeader">
     @include('reports.partials.letterhead')
 
     <h2 class="text-center strong">
-        {{ __('dashboard.dashboard') }}
-        @if ($month != '00')
-            {{ $months[$month] }} {{ $year }}
-        @else
-            {{ __('time.year') }} {{ $year }}
-        @endif
+        @yield('title')
     </h2>
 </htmlpageheader>
 

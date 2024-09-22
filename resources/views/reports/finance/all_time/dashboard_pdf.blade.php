@@ -1,14 +1,16 @@
 @extends('layouts.print')
 
-@section('title', __('dashboard.dashboard'))
+@section('title')
+    {{ __('dashboard.dashboard') }}
+    {{ get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d')) }}
+@endsection
 
 @section('content')
 <htmlpageheader name="wpHeader">
     @include('reports.partials.letterhead')
 
     <h2 class="text-center strong">
-        {{ __('dashboard.dashboard') }}
-        {{ get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d')) }}
+        @yield('title')
     </h2>
 </htmlpageheader>
 
