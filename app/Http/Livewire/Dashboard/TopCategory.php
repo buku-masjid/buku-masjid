@@ -10,6 +10,7 @@ class TopCategory extends Component
 {
     public $topCategorySummary;
     public $isLoading = true;
+    public $isForPrint = false;
     public $startDate;
     public $endDate;
     public $book;
@@ -17,6 +18,11 @@ class TopCategory extends Component
 
     public function render()
     {
+        if ($this->isForPrint) {
+            $this->isLoading = false;
+            $this->getTopCategorySummary();
+        }
+
         return view('livewire.dashboard.top_category');
     }
 

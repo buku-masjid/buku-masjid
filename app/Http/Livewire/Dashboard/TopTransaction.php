@@ -10,6 +10,7 @@ class TopTransaction extends Component
 {
     public $topTransactionSummary;
     public $isLoading = true;
+    public $isForPrint = false;
     public $year;
     public $startDate;
     public $endDate;
@@ -17,6 +18,11 @@ class TopTransaction extends Component
 
     public function render()
     {
+        if ($this->isForPrint) {
+            $this->isLoading = false;
+            $this->getTopTransactionSummary();
+        }
+
         return view('livewire.dashboard.top_transaction');
     }
 

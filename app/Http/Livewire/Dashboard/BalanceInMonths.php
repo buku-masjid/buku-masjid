@@ -11,6 +11,7 @@ class BalanceInMonths extends Component
 {
     public $balanceInMonthsSummary;
     public $isLoading = true;
+    public $isForPrint = false;
     public $book;
     public $year;
     public $selectedMonth;
@@ -20,6 +21,11 @@ class BalanceInMonths extends Component
 
     public function render()
     {
+        if ($this->isForPrint) {
+            $this->isLoading = false;
+            $this->getBalanceInMonthsSummary();
+        }
+
         return view('livewire.dashboard.balance_in_months');
     }
 

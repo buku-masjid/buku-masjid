@@ -8,15 +8,20 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('transaction.transaction') }}</th>
-                    <th class="text-right">{{ __('transaction.amount') }}</th>
+                    <th style="width: 70%" class="text-left">{{ __('transaction.transaction') }}</th>
+                    <th style="width: 25%" class="text-right">{{ __('transaction.amount') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($topTransactionSummary as $key => $transaction)
                     <tr>
-                        <td>{{ ++$key }}</td>
-                        <td>{{ link_to_route('transactions.show', Illuminate\Support\Str::limit($transaction->description, 35, ''), $transaction) }}</td>
+                        <td class="text-center">{{ ++$key }}</td>
+                        <td>
+                            @if ($isForPrint)
+                                {{ $transaction->description }}
+                            @else
+                                {{ link_to_route('transactions.show', Illuminate\Support\Str::limit($transaction->description, 35, ''), $transaction) }}</td>
+                            @endif
                         <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             {{ format_number($transaction->amount) }}
                         </td>

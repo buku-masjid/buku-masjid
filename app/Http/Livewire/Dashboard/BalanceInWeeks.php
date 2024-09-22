@@ -11,6 +11,7 @@ class BalanceInWeeks extends Component
 {
     public $balanceInWeekSummary;
     public $isLoading = true;
+    public $isForPrint = false;
     public $book;
     public $startDate;
     public $endDate;
@@ -18,6 +19,11 @@ class BalanceInWeeks extends Component
 
     public function render()
     {
+        if ($this->isForPrint) {
+            $this->isLoading = false;
+            $this->getBalanceInWeeksSummary();
+        }
+
         return view('livewire.dashboard.balance_in_weeks');
     }
 

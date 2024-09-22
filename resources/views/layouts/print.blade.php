@@ -25,6 +25,8 @@
         .header { top: 0px; }
         .footer { bottom: 0px; }
         .pagenum:before { content: counter(page); }
+        .card { page-break-inside: avoid; }
+        .text-muted.mb-2.text-center { display: block; padding-bottom: 1em; }
     </style>
     @yield('style')
 </head>
