@@ -1,4 +1,4 @@
-<table {{-- border="1" --}} class="text-center" style="border-collapse: collapse; width: 100%;">
+<table {{-- border="1" --}} class="text-center" style="border-collapse: collapse; width: 100%;page-break-inside: avoid;">
     <tbody>
         <tr>
             <td style="width:33%;height: 40px">&nbsp;</td>

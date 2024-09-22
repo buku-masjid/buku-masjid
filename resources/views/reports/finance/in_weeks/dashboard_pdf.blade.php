@@ -14,6 +14,8 @@
 
 @include('reports.finance._internal_content_dashboard', ['isForPrint' => true])
 
+@include('reports.finance._pdf_signature_content')
+
 <htmlpagefooter name="wpFooter">
     @if (Setting::for(auth()->activeBook())->get('has_pdf_page_number') != '0')
         <div class="text-right">{{ __('report.page') }} {PAGENO}/{nb}</div>
