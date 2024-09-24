@@ -20,7 +20,6 @@ class BalanceInWeeks extends Component
     public function render()
     {
         if ($this->isForPrint) {
-            $this->isLoading = false;
             $this->getBalanceInWeeksSummary();
         }
 

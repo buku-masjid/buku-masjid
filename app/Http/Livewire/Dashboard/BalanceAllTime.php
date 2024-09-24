@@ -21,7 +21,6 @@ class BalanceAllTime extends Component
     public function render()
     {
         if ($this->isForPrint) {
-            $this->isLoading = false;
             $this->getBalanceAllTimeSummary();
         }
 
