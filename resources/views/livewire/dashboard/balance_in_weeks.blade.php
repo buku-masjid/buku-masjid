@@ -27,10 +27,14 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td class="text-right text-nowrap">
-                            {{ link_to_route('reports.finance.dashboard', $balanceSummary->date_range_text, [
-                                'start_date' => $balanceSummary->start_date,
-                                'end_date' => $balanceSummary->end_date,
-                            ]) }}
+                            @if ($isForPrint)
+                                {{ $balanceSummary->date_range_text }}
+                            @else
+                                {{ link_to_route('reports.finance.dashboard', $balanceSummary->date_range_text, [
+                                    'start_date' => $balanceSummary->start_date,
+                                    'end_date' => $balanceSummary->end_date,
+                                ]) }}
+                            @endif
                         </td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary->income) }}</td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary->spending) }}</td>

@@ -8,6 +8,7 @@
                 'selectedMonth' => $month,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
+                'isForPrint' => $isForPrint ?? false,
             ])
         </div>
     </div>
@@ -21,6 +22,7 @@
                     'book' => $book,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
+                    'isForPrint' => $isForPrint ?? false,
                     'typeCode' => 'spending',
                 ])
             </div>
@@ -34,6 +36,7 @@
                     'book' => $book,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
+                    'isForPrint' => $isForPrint ?? false,
                     'typeCode' => 'income',
                 ])
             </div>
@@ -50,6 +53,7 @@
                     'book' => $book,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
+                    'isForPrint' => $isForPrint ?? false,
                     'typeCode' => 'spending',
                 ])
             </div>
@@ -63,6 +67,7 @@
                     'book' => $book,
                     'startDate' => $startDate,
                     'endDate' => $endDate,
+                    'isForPrint' => $isForPrint ?? false,
                     'typeCode' => 'income',
                 ])
             </div>
@@ -75,6 +80,7 @@
                 @livewire('dashboard.daily-averages', [
                     'startDate' => $startDate,
                     'endDate' => $endDate,
+                    'isForPrint' => $isForPrint ?? false,
                     'book' => $book,
                ])
             </div>

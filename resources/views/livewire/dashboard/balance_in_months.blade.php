@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('time.month') }}</th>
+                    <th class="text-left">{{ __('time.month') }}</th>
                     <th class="text-right">{{ __('transaction.income') }}</th>
                     <th class="text-right">{{ __('transaction.spending') }}</th>
                     <th class="text-right">{{ __('transaction.balance') }}</th>
@@ -22,12 +22,16 @@
             <tbody>
                 @foreach ($balanceInMonthsSummary as $monthNumber => $balanceSummary)
                     <tr>
-                        <td>{{ $monthNumber }}</td>
+                        <td class="text-center">{{ $monthNumber }}</td>
                         <td>
-                            {{ link_to_route('reports.finance.dashboard', $balanceSummary['month_name'], [
-                                'month' => $monthNumber,
-                                'year' => $year,
-                            ]) }}
+                            @if ($isForPrint)
+                                {{ $balanceSummary['month_name'] }}
+                            @else
+                                {{ link_to_route('reports.finance.dashboard', $balanceSummary['month_name'], [
+                                    'month' => $monthNumber,
+                                    'year' => $year,
+                                ]) }}
+                            @endif
                         </td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary['spending']) }}</td>

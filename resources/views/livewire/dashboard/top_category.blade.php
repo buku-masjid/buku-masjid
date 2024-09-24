@@ -8,20 +8,24 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('category.category') }}</th>
-                    <th class="text-right">{{ __('transaction.amount') }}</th>
+                    <th style="width: 70%" class="text-left">{{ __('category.category') }}</th>
+                    <th style="width: 25%" class="text-right">{{ __('transaction.amount') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($topCategorySummary as $key => $categorySummary)
                     <tr>
-                        <td>{{ ++$key }}</td>
+                        <td class="text-center">{{ ++$key }}</td>
                         <td>
-                            {{ link_to_route('categories.show', Illuminate\Support\Str::limit($categorySummary->name, 28, ''), [
-                                $categorySummary->id,
-                                'start_date' => $startDate,
-                                'end_date' => $endDate,
-                            ]) }}
+                            @if ($isForPrint)
+                                {{ $categorySummary->name }}
+                            @else
+                                {{ link_to_route('categories.show', Illuminate\Support\Str::limit($categorySummary->name, 28, ''), [
+                                    $categorySummary->id,
+                                    'start_date' => $startDate,
+                                    'end_date' => $endDate,
+                                ]) }}
+                            @endif
                         </td>
                         <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             @if ($categorySummary->transactions_sum_amount)

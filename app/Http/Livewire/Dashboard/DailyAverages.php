@@ -11,6 +11,7 @@ class DailyAverages extends Component
 {
     public $dailyAveragesSummary;
     public $isLoading = true;
+    public $isForPrint = false;
     public $startDate;
     public $endDate;
     public $book;
@@ -18,6 +19,10 @@ class DailyAverages extends Component
 
     public function render()
     {
+        if ($this->isForPrint) {
+            $this->getDailyAveragesSummary();
+        }
+
         return view('livewire.dashboard.daily_averages');
     }
 

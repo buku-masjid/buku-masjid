@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'Reports\InternalFinanceController@dashboard')->name('reports.index');
 
         Route::get('/finance/dashboard', 'Reports\InternalFinanceController@dashboard')->name('reports.finance.dashboard');
+        Route::get('/finance/dashboard_pdf', 'Reports\InternalFinanceController@dashboardPdf')->name('reports.finance.dashboard_pdf');
 
         Route::get('/finance/summary', 'Reports\InternalFinanceController@summary')->name('reports.finance.summary');
         Route::get('/finance/summary_pdf', 'Reports\InternalFinanceController@summaryPdf')->name('reports.finance.summary_pdf');

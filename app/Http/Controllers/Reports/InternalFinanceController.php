@@ -29,6 +29,30 @@ class InternalFinanceController extends FinanceController
         ));
     }
 
+    public function dashboardPdf(Request $request)
+    {
+        $year = (int) $request->get('year', now()->format('Y'));
+        $month = $request->get('month', now()->format('m'));
+        $months = collect(get_months())->prepend(__('time.all_months'), '00');
+        if (!$months->keys()->contains($month)) {
+            $month = '00';
+        }
+        $book = auth()->activeBook();
+        $reportPeriode = $book->report_periode_code;
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
+        $showLetterhead = $this->showLetterhead();
+
+        $passedVariables = compact(
+            'year', 'months', 'month', 'book', 'startDate', 'endDate', 'showLetterhead'
+        );
+
+        // return view('reports.finance.'.$reportPeriode.'.dashboard_pdf', $passedVariables);
+        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.dashboard_pdf', $passedVariables);
+
+        return $pdf->stream(__('dashboard.dashboard').'.pdf');
+    }
+
     public function summary(Request $request)
     {
         $startDate = $this->getStartDate($request);

@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th>{{ __('time.month') }}</th>
+                    <th class="text-left">{{ __('time.month') }}</th>
                     <th class="text-right">{{ __('transaction.income') }}</th>
                     <th class="text-right">{{ __('transaction.spending') }}</th>
                     <th class="text-right">{{ __('transaction.balance') }}</th>
@@ -25,12 +25,16 @@
                 @endphp
                 @foreach ($balanceAllTimeSummary as $yearMonth => $balanceSummary)
                     <tr>
-                        <td>{{ $no++ }}</td>
+                        <td class="text-center">{{ $no++ }}</td>
                         <td>
-                            {{ link_to_route('reports.finance.dashboard', $balanceSummary['month_name'].' '.$balanceSummary['year'], [
-                                'start_date' => $yearMonth.'-01',
-                                'end_date' => Carbon\Carbon::parse($yearMonth.'-10')->format('Y-m-t'),
-                            ]) }}
+                            @if ($isForPrint)
+                                {{ $balanceSummary['month_name'].' '.$balanceSummary['year'] }}
+                            @else
+                                {{ link_to_route('reports.finance.dashboard', $balanceSummary['month_name'].' '.$balanceSummary['year'], [
+                                    'start_date' => $yearMonth.'-01',
+                                    'end_date' => Carbon\Carbon::parse($yearMonth.'-10')->format('Y-m-t'),
+                                ]) }}
+                            @endif
                         </td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.income_color') }}">{{ format_number($balanceSummary['income']) }}</td>
                         <td class="text-right text-nowrap" style="color: {{ config('masjid.spending_color') }}">{{ format_number($balanceSummary['spending']) }}</td>

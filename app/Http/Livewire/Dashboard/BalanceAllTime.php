@@ -12,6 +12,7 @@ class BalanceAllTime extends Component
 {
     public $balanceAllTimeSummary;
     public $isLoading = true;
+    public $isForPrint = false;
     public $book;
     public $startDate;
     public $endDate;
@@ -19,6 +20,10 @@ class BalanceAllTime extends Component
 
     public function render()
     {
+        if ($this->isForPrint) {
+            $this->getBalanceAllTimeSummary();
+        }
+
         return view('livewire.dashboard.balance_all_time');
     }
 
