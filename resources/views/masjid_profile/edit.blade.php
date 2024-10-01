@@ -141,7 +141,7 @@
                         dataType: "json",
                         url: "{{ route('api.masjid_profile.image')}}",
                         headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            'Authorization': "Bearer {{ auth()->user()->token() }}"
                         },
                         data: {
                             '_token': $('meta[name="_token"]').attr('content'),
