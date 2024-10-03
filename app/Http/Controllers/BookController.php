@@ -101,16 +101,16 @@ class BookController extends Controller
             'has_pdf_page_number' => ['nullable', 'boolean'],
             'start_week_day_code' => ['required', 'string'],
             'manager_id' => ['nullable', 'exists:users,id'],
-            'management_title' => ['nullable', 'string', 'max:20'],
+            'management_title' => ['nullable', 'string', 'max:60'],
             'acknowledgment_text_left' => ['nullable', 'string', 'max:20'],
             'sign_position_left' => ['nullable', 'string', 'max:20'],
-            'sign_name_left' => ['nullable', 'string', 'max:30'],
+            'sign_name_left' => ['nullable', 'string', 'max:60'],
             'acknowledgment_text_mid' => ['nullable', 'string', 'max:20'],
             'sign_position_mid' => ['nullable', 'string', 'max:20'],
-            'sign_name_mid' => ['nullable', 'string', 'max:30'],
+            'sign_name_mid' => ['nullable', 'string', 'max:60'],
             'acknowledgment_text_right' => ['nullable', 'string', 'max:20'],
             'sign_position_right' => ['nullable', 'string', 'max:20'],
-            'sign_name_right' => ['nullable', 'string', 'max:30'],
+            'sign_name_right' => ['nullable', 'string', 'max:60'],
         ]);
         if ($request->user()->cannot('change-manager', $book)) {
             unset($bookData['manager_id']);
