@@ -42,6 +42,7 @@ class BookController extends Controller
         $newBook['creator_id'] = auth()->id();
 
         Book::create($newBook);
+        flash(__('book.created'), 'success');
 
         return redirect()->route('books.index');
     }
@@ -117,6 +118,7 @@ class BookController extends Controller
         }
         $book->update($bookData);
         $this->updateBookSettings($book, $bookData);
+        flash(__('book.updated'), 'success');
 
         return redirect()->route('books.show', $book);
     }
@@ -155,6 +157,7 @@ class BookController extends Controller
         DB::commit();
 
         if (request('book_id') == $book->id && $isBookDeleted) {
+            flash(__('book.deleted'), 'warning');
             return redirect()->route('books.index');
         }
 
