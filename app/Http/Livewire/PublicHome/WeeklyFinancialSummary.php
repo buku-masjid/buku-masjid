@@ -22,18 +22,23 @@ class WeeklyFinancialSummary extends Component
 
     public function mount()
     {
-        $this->startWeek = today()->startOfWeek();
+        $startWeek = today()->startOfWeek();
+        $this->startWeek = $startWeek->copy();
         $this->today = today();
         $defaultBook = Book::find(config('masjid.default_book_id'));
         if (is_null($defaultBook)) {
             return;
+        }
+        if ($defaultBook->start_week_day_code != 'monday') {
+            $startWeek = today()->previous(constant('Carbon\Carbon::'.strtoupper($defaultBook->start_week_day_code)));
+            $this->startWeek = $startWeek->copy();
         }
         $this->bookVisibility = $defaultBook->report_visibility_code;
         $currentWeekTransactions = $defaultBook->transactions()
             ->whereBetween('date', [$this->startWeek->format('Y-m-d'), $this->today->format('Y-m-d')])->get();
         $this->currentWeekIncomeTotal = $currentWeekTransactions->where('in_out', 1)->sum('amount');
         $this->currentWeekSpendingTotal = $currentWeekTransactions->where('in_out', 0)->sum('amount');
-        $endOfLastWeekDate = today()->startOfWeek()->subDay()->format('Y-m-d');
+        $endOfLastWeekDate = $startWeek->subDay()->format('Y-m-d');
         $this->startWeekBalance = $defaultBook->getBalance($endOfLastWeekDate);
         $this->currentBalance = $this->startWeekBalance + $this->currentWeekIncomeTotal - $this->currentWeekSpendingTotal;
     }
