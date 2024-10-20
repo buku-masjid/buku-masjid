@@ -18,7 +18,7 @@
             <tr>
                 <td class="text-center col-1">{{ ++$key }}</td>
                 <td class="text-center col-2">{{ $transaction->date }}</td>
-                <td class="col-4">{{ $transaction->description }}</td>
+                <td class="col-4">{!! $transaction->date_alert !!} {{ $transaction->description }}</td>
                 <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
             </tr>
             @endforeach

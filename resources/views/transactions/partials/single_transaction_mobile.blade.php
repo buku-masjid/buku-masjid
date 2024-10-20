@@ -5,6 +5,7 @@
     'year' => $year,
     'category_id' => request('category_id'),
 ]) }}
+{!! $transaction->date_alert !!}
 <div>
     {{ $transaction->description }}
     <span class="float-right">

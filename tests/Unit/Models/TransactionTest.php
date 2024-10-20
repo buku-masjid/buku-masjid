@@ -80,6 +80,24 @@ class TransactionTest extends TestCase
     }
 
     /** @test */
+    public function transaction_model_has_date_alert_attribute()
+    {
+        Carbon::setTestNow('2024-10-20');
+        $transaction = factory(Transaction::class)->make(['date' => '2024-10-22']);
+        $this->assertEquals(
+            '<i class="fe fe-alert-circle text-danger" title="'.__('transaction.forward_date_alert').'"></i>',
+            $transaction->date_alert
+        );
+
+        $transaction->date = '2024-10-20';
+        $this->assertEquals('', $transaction->date_alert);
+
+        $transaction->date = '2024-10-19';
+        $this->assertEquals('', $transaction->date_alert);
+        Carbon::setTestNow();
+    }
+
+    /** @test */
     public function a_transaction_has_amount_string_attribute()
     {
         $amount = 1099.00;

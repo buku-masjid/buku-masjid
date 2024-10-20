@@ -12,6 +12,7 @@ return [
     'not_found' => 'Transaction not found.',
     'empty' => 'Transaction list is empty',
     'count' => 'Transaction entries',
+    'forward_date_alert' => 'This transaction date is greater than today!',
     'back_to_show' => 'Back to Transaction detail',
     'back_to_index' => 'Back to Transaction list',
 

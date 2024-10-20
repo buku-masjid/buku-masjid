@@ -49,7 +49,7 @@
                         <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
                             <td class="text-center">{{ $transaction->date }}</td>
                             <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
-                                {{ $transaction->description }}
+                                {!! $transaction->date_alert !!} {{ $transaction->description }}
                             </td>
                             <td class="text-right text-nowrap">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
                             <td class="text-right text-nowrap">{{ !$transaction->in_out ? format_number($transaction->amount) : '' }}</td>

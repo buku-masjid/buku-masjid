@@ -49,6 +49,15 @@ class Transaction extends Model
         return $this->in_out ? __('transaction.income') : __('transaction.spending');
     }
 
+    public function getDateAlertAttribute(): string
+    {
+        if (Carbon::parse($this->date)->lte(now())) {
+            return '';
+        }
+
+        return '<i class="fe fe-alert-circle text-danger" title="'.__('transaction.forward_date_alert').'"></i>';
+    }
+
     public function getDateOnlyAttribute()
     {
         return substr($this->date, -2);

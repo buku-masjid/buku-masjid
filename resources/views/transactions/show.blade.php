@@ -52,6 +52,7 @@
                     <tr>
                         <td>{{ __('time.day_name') }} / {{ __('time.date') }}</td>
                         <td>
+                            {!! $transaction->date_alert !!}
                             {{ $transaction->day_name }}, {{ $transaction->date_only.'-'.$transaction->month_name.'-'.$transaction->year }}
                         </td>
                     </tr>

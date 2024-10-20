@@ -1,5 +1,6 @@
 <span class="float-right">{{ $transaction->amount_string }}</span>
 {{ $transaction->date }}
+{!! $transaction->date_alert !!}
 <div>
     {{ $transaction->description }}
     <span class="float-right">
