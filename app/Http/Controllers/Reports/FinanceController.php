@@ -115,10 +115,18 @@ class FinanceController extends Controller
                 $month = Carbon::now()->format('m');
             }
 
+            if ($year.'-'.$month == Carbon::now()->format('Y-m')) {
+                return now();
+            }
+
             return Carbon::parse(Carbon::parse($year.'-'.$month.'-10')->format('Y-m-t'));
         }
 
         $yearMonth = $this->getYearMonth();
+
+        if ($yearMonth == Carbon::now()->format('Y-m')) {
+            return now();
+        }
 
         return Carbon::parse($yearMonth.'-01')->endOfMonth();
     }
