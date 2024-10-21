@@ -158,6 +158,7 @@ class BookController extends Controller
 
         if (request('book_id') == $book->id && $isBookDeleted) {
             flash(__('book.deleted'), 'warning');
+
             return redirect()->route('books.index');
         }
 
