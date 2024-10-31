@@ -37,13 +37,13 @@ class BalanceInMonths extends Component
 
     private function calculateBalanceInMonthsSummary()
     {
-        $cacheKey = 'calculateBalanceInMonthsSummary_'.$this->startDate.'_'.$this->endDate;
+        $cacheKey = 'calculateBalanceInMonthsSummary_'.$this->startDate->format('Y-m-d').'_'.$this->endDate->format('Y-m-d');
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $transactionSummaryInMonths = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
+        $transactionSummaryInMonths = $this->getYearlyTransactionSummary($this->startDate->format('Y-m-d'), $this->endDate->format('Y-m-d'), $this->book->id);
         $months = collect(get_months());
         if ($this->selectedMonth != '00') {
             $months = $months->filter(function ($monthName, $monthNumber) {

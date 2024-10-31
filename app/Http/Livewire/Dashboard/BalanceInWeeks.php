@@ -35,7 +35,7 @@ class BalanceInWeeks extends Component
 
     private function calculateBalanceInWeeksSummary()
     {
-        $cacheKey = 'calculateBalanceInWeeksSummary_'.$this->startDate.'_'.$this->endDate;
+        $cacheKey = 'calculateBalanceInWeeksSummary_'.$this->startDate->format('Y-m-d').'_'.$this->endDate->format('Y-m-d');
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {

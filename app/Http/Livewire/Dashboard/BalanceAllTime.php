@@ -36,13 +36,13 @@ class BalanceAllTime extends Component
 
     private function calculateBalanceAllTimeSummary()
     {
-        $cacheKey = 'calculateBalanceAllTimeSummary_'.$this->startDate.'_'.$this->endDate;
+        $cacheKey = 'calculateBalanceAllTimeSummary_'.$this->startDate->format('Y-m-d').'_'.$this->endDate->format('Y-m-d');
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $balanceAllTimeSummary = $this->getYearlyTransactionSummary($this->startDate, $this->endDate, $this->book->id);
+        $balanceAllTimeSummary = $this->getYearlyTransactionSummary($this->startDate->format('Y-m-d'), $this->endDate->format('Y-m-d'), $this->book->id);
         Cache::put($cacheKey, $balanceAllTimeSummary, $duration);
 
         return $balanceAllTimeSummary;

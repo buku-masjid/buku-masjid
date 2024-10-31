@@ -34,7 +34,7 @@ class DailyAverages extends Component
 
     private function calculateDailyAveragesSummary()
     {
-        $cacheKey = 'calculateDailyAveragesSummary_'.$this->startDate.'_'.$this->endDate;
+        $cacheKey = 'calculateDailyAveragesSummary_'.$this->startDate->format('Y-m-d').'_'.$this->endDate->format('Y-m-d');
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -44,7 +44,7 @@ class DailyAverages extends Component
         $dailyAveragesSummary = DB::table('transactions')
             ->selectRaw('sum(amount) as total, in_out')
             ->where('book_id', $this->book->id)
-            ->whereBetween('date', [$this->startDate, $this->endDate])
+            ->whereBetween('date', [$this->startDate->format('Y-m-d'), $this->endDate->format('Y-m-d')])
             ->groupBy('in_out')
             ->orderBy('in_out', 'desc')
             ->get();
