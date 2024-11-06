@@ -8,6 +8,7 @@ return [
     'list_by_type' => 'Daftar :type',
     'search_text' => 'Name / phone / address',
     'not_found' => ':type tidak ditemukan.',
+    'all_level' => 'All Level',
     'empty' => ':type list is empty',
     'back_to_index' => 'Back to :type list',
 

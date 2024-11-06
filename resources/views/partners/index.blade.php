@@ -29,6 +29,7 @@
 <div class="row justify-content-center">
     {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3']) }}
     {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1']) }}
+    {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1']) }}
     {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1']) }}
     <div class="form-group mt-4 mt-sm-0">
         {{ Form::hidden('type_code', request('type_code')) }}

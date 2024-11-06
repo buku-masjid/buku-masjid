@@ -145,6 +145,9 @@ class PartnerController extends Controller
         if ($request->get('gender_code')) {
             $partnerQuery->where('gender_code', $request->get('gender_code'));
         }
+        if ($request->get('level_code')) {
+            $partnerQuery->where('level_code', $request->get('level_code'));
+        }
         if (!is_null($request->get('is_active'))) {
             $partnerQuery->where('is_active', $request->get('is_active'));
         }
