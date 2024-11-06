@@ -36,12 +36,6 @@
                     <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner') }}</span>
                 </a>
             @endcan
-            @can('view-any', new App\Models\BankAccount)
-                <a class="xs-navbar mr-4" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
-                    <i class="fe fe-book h3 d-inline d-lg-none"></i>
-                    <span class="d-none d-lg-inline"><i class="fe fe-book"></i> {{ __('bank_account.bank_account') }}</span>
-                </a>
-            @endcan
             @if (Route::has('lecturings.index'))
                 @can('view-any', new App\Models\Lecturing)
                     <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
@@ -84,12 +78,6 @@
             <a class="col border-right border-primary" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
                 <div><i class="fe fe-users h3"></i></div>
                 {{ __('partner.partner') }}
-            </a>
-        @endcan
-        @can('view-any', new App\Models\BankAccount)
-            <a class="col border-right border-primary" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
-                <div><i class="fe fe-book h3"></i></div>
-                {{ __('bank_account.bank') }}
             </a>
         @endcan
         @if (Route::has('lecturings.index'))

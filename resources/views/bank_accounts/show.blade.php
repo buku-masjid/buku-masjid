@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('bank_account.bank_account'))
 
-@section('content')
+@section('content_settings')
 
 <div class="page-header">
     <h1 class="page-title">{{ $bankAccount->name }}</h1>
