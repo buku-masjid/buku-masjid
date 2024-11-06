@@ -20,23 +20,7 @@ class PartnerController extends Controller
         $selectedTypeCode = $request->get('type_code');
         $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
         $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
-        $partnerQuery = Partner::orderBy('name');
-        $partnerQuery->where('type_code', $selectedTypeCode);
-        if ($request->get('search_query')) {
-            $searchQuery = $request->get('search_query');
-            $partnerQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('phone', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('address', 'like', '%'.$searchQuery.'%');
-            });
-        }
-        if ($request->get('gender_code')) {
-            $partnerQuery->where('gender_code', $request->get('gender_code'));
-        }
-        if (!is_null($request->get('is_active'))) {
-            $partnerQuery->where('is_active', $request->get('is_active'));
-        }
-        $partners = $partnerQuery->paginate(100);
+        $partners = $this->getPartners($request);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
         }
@@ -144,5 +128,28 @@ class PartnerController extends Controller
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
+    }
+
+    private function getPartners(Request $request)
+    {
+        $partnerQuery = Partner::orderBy('name');
+        $partnerQuery->where('type_code', $request->get('type_code'));
+        if ($request->get('search_query')) {
+            $searchQuery = $request->get('search_query');
+            $partnerQuery->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%'.$searchQuery.'%');
+                $query->orWhere('phone', 'like', '%'.$searchQuery.'%');
+                $query->orWhere('address', 'like', '%'.$searchQuery.'%');
+            });
+        }
+        if ($request->get('gender_code')) {
+            $partnerQuery->where('gender_code', $request->get('gender_code'));
+        }
+        if (!is_null($request->get('is_active'))) {
+            $partnerQuery->where('is_active', $request->get('is_active'));
+        }
+        $partners = $partnerQuery->paginate(100);
+
+        return $partners;
     }
 }
