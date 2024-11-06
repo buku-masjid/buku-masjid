@@ -6,8 +6,8 @@
 
 @include('partners._partner_type_selector')
 <hr>
-<div class="row">
-    <div class="col-md-4">
+<div class="row mt-4 mt-sm-0">
+    <div class="col-md-4 text-center text-sm-left">
         <h1 class="page-title">
             {{ __('partner.list_by_type', ['type' => $selectedTypeName]) }}
         </h1>
@@ -16,10 +16,10 @@
             {{-- {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner_type', ['type' => $selectedTypeName]) }} --}}
         </div>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 mt-3 text-center">
         @include('partners._partner_gender_selector')
     </div>
-    <div class="col-md-4 text-right">
+    <div class="col-md-4 mt-3 mt-sm-0 text-center text-sm-right">
         @can('create', new App\Models\Partner)
             {{ link_to_route('partners.index', __('partner.create', ['type' => $selectedTypeName]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
         @endcan
@@ -27,7 +27,7 @@
 </div>
 
 <div class="row justify-content-center">
-    {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3']) }}
+    {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mx-3']) }}
     {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1']) }}
     {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1']) }}
     {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1']) }}
