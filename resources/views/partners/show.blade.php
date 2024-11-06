@@ -1,8 +1,8 @@
-@extends('layouts.settings')
+@extends('layouts.app')
 
 @section('title', $partner->type.' '.$partner->name)
 
-@section('content_settings')
+@section('content')
 
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>

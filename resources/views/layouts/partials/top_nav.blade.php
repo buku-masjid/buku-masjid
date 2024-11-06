@@ -30,6 +30,12 @@
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-repeat"></i> {{ __('transaction.transaction') }}</span>
             </a>
+            @can('view-any', new App\Models\Partner)
+                <a class="xs-navbar mr-4" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                    <i class="fe fe-users h3 d-inline d-lg-none"></i>
+                    <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner') }}</span>
+                </a>
+            @endcan
             @can('view-any', new App\Models\BankAccount)
                 <a class="xs-navbar mr-4" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
                     <i class="fe fe-book h3 d-inline d-lg-none"></i>
@@ -74,6 +80,12 @@
             <div><i class="fe fe-repeat h3"></i></div>
             {{ __('transaction.transaction') }}
         </a>
+        @can('view-any', new App\Models\Partner)
+            <a class="col border-right border-primary" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                <div><i class="fe fe-users h3"></i></div>
+                {{ __('partner.partner') }}
+            </a>
+        @endcan
         @can('view-any', new App\Models\BankAccount)
             <a class="col border-right border-primary" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
                 <div><i class="fe fe-book h3"></i></div>
