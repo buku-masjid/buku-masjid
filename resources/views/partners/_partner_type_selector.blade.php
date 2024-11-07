@@ -1,5 +1,5 @@
 @if (count($partnerTypes) > 1)
-    <div class="text-center mt-4">
+    <div class="text-center my-4">
         <div class="btn-group">
             @foreach ($partnerTypes as $partnerTypeCode => $partnerTypeName)
                 {!! link_to_route(

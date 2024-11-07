@@ -5,7 +5,9 @@
 @section('content')
 
 @include('partners._partner_type_selector')
-<hr>
+
+@include('partners._partner_statistics')
+
 <div class="row mt-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">
         <h1 class="page-title">
@@ -19,7 +21,7 @@
     <div class="col-md-4 mt-3 text-center">
         @include('partners._partner_gender_selector')
     </div>
-    <div class="col-md-4 mt-3 mt-sm-0 text-center text-sm-right">
+    <div class="col-md-4 mt-3 text-center text-sm-right">
         @can('create', new App\Models\Partner)
             {{ link_to_route('partners.index', __('partner.create', ['type' => $selectedTypeName]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
         @endcan

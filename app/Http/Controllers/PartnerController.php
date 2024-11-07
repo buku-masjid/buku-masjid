@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Transaction;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller
@@ -28,10 +29,12 @@ class PartnerController extends Controller
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
+        $partnerTotalIncome = $this->getPartnerTransactionTotal($selectedTypeCode, 1);
+        $partnerTotalSpending = $this->getPartnerTransactionTotal($selectedTypeCode, 0);
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders'
+            'genders', 'partnerTotalIncome', 'partnerTotalSpending'
         ));
     }
 
@@ -154,5 +157,17 @@ class PartnerController extends Controller
         $partners = $partnerQuery->paginate(100);
 
         return $partners;
+    }
+
+    private function getPartnerTransactionTotal(string $partnerType, int $inOut): float
+    {
+        $income = Transaction::withoutGlobalScope('forActiveBook')
+            ->whereHas('partner', function ($query) use ($partnerType) {
+                $query->where('type_code', $partnerType);
+            })
+            ->where('in_out', $inOut)
+            ->sum('amount');
+
+        return (float) $income;
     }
 }
