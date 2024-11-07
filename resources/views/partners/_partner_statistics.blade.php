@@ -43,22 +43,22 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="card shadow-lg" style="border-radius:1em;">
-                    <div class="card-body p-6">
-                        <div class="row align-items-center">
-                            <div class="col-8">
-                                <div class="h5 mb-2">{{ __('book.book') }}</div>
-                                <div class="text-muted">Jumlah buku kas</div>
+                <div class="card shadow-lg" style="border-radius:1em; height: 10em">
+                    <div class="card-body p-3 row align-items-center" >
+                        <div class="col row align-items-center">
+                            <div class="col-9">
+                                <div class="h4 mb-1">Jenis Donasi</div>
+                                <div class="text-muted">Berdasarkan jumlah {{ __('book.book') }}</div>
                             </div>
-                            <div class="col-4"><div class="display-4 font-weight-bold text-orange">{{ $booksCount }}</div></div>
+                            <div class="col-3"><div class="display-4 font-weight-bold text-orange">{{ $booksCount }}</div></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-lg" style="border-radius:1em;">
-                    <div class="card-body p-3">
-                        <div id="apexcharts_partner_level" style="max-width: 22em;margin: 0 auto;"></div>
+                <div class="card shadow-lg align-item-center" style="border-radius:1em; height: 10em">
+                    <div class="card-body py-2 row align-items-center" >
+                        <div id="apexcharts_partner_level" style="width: 30em;margin: 0 auto;"></div>
                         @push('scripts')
                             <script>
                                 var options = {
@@ -80,7 +80,26 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-lg" style="border-radius:1em; height: 150px">
+                <div class="card shadow-lg align-item-center" style="border-radius:1em; height: 10em">
+                    <div class="card-body py-2 row align-items-center" >
+                        <div id="apexcharts_partner_gender" style="width: 30em;margin: 0 auto;"></div>
+                        @push('scripts')
+                            <script>
+                                var options = {
+                                    series: {!! json_encode(array_values($partnerGenderStats)) !!},
+                                    chart: {
+                                        type: 'donut',
+                                    },
+                                    labels: {!! json_encode(array_keys($partnerGenderStats)) !!},
+                                    dataLabels: {
+                                        enabled: false,
+                                    }
+                                };
+                                var apexcharts_partner_gender = new ApexCharts(document.querySelector("#apexcharts_partner_gender"), options);
+                                apexcharts_partner_gender.render();
+                            </script>
+                        @endpush
+                    </div>
                 </div>
             </div>
         </div>

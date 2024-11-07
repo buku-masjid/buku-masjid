@@ -31,13 +31,14 @@ class PartnerController extends Controller
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
+        $partnerGenderStats = $this->getPartnerGenderStats($selectedTypeCode, $genders);
         $partnerTotalIncome = $this->getPartnerTransactionTotal($selectedTypeCode, 1);
         $partnerTotalSpending = $this->getPartnerTransactionTotal($selectedTypeCode, 0);
         $booksCount = Book::count();
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats'
+            'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats', 'partnerGenderStats'
         ));
     }
 
@@ -182,14 +183,21 @@ class PartnerController extends Controller
             $partnerLevelCount = Partner::where('type_code', $typeCode)->where('level_code', $partnerLevelCode)->count();
             $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);
             $partnerLevelStats[$partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)'] = $partnerLevelCount;
-            // $partnerLevelStats[$partnerLevelCode] = [
-            //     'count' => $partnerLevelCount,
-            //     'percent' => $partnerLevelPercent.'%',
-            //     'color' => $partnerLevelPercent.'%',
-            //     'label' => $partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)',
-            // ];
         }
 
         return $partnerLevelStats;
+    }
+
+    private function getPartnerGenderStats(string $typeCode, array $genders): array
+    {
+        $partnerGenderStats = [];
+        $partnerTotal = Partner::where('type_code', $typeCode)->count();
+        foreach ($genders as $genderCode => $genderName) {
+            $partnerGenderCount = Partner::where('type_code', $typeCode)->where('gender_code', $genderCode)->count();
+            $partnerGenderPercent = get_percent($partnerGenderCount, $partnerTotal);
+            $partnerGenderStats[$genderName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerGenderCount.'</strong> ('.$partnerGenderPercent.'%)'] = $partnerGenderCount;
+        }
+
+        return $partnerGenderStats;
     }
 }
