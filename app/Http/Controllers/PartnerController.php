@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class PartnerController extends Controller
         ]);
         $selectedTypeCode = $request->get('type_code');
         $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
+        $partnerLevelStats = $this->getPartnerLevelStats($selectedTypeCode, $partnerLevels);
         $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
         $partners = $this->getPartners($request);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -31,10 +33,11 @@ class PartnerController extends Controller
         ];
         $partnerTotalIncome = $this->getPartnerTransactionTotal($selectedTypeCode, 1);
         $partnerTotalSpending = $this->getPartnerTransactionTotal($selectedTypeCode, 0);
+        $booksCount = Book::count();
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'partnerTotalIncome', 'partnerTotalSpending'
+            'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats'
         ));
     }
 
@@ -169,5 +172,24 @@ class PartnerController extends Controller
             ->sum('amount');
 
         return (float) $income;
+    }
+
+    private function getPartnerLevelStats(string $typeCode, array $partnerLevels): array
+    {
+        $partnerLevelStats = [];
+        $partnerTotal = Partner::where('type_code', $typeCode)->count();
+        foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
+            $partnerLevelCount = Partner::where('type_code', $typeCode)->where('level_code', $partnerLevelCode)->count();
+            $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);
+            $partnerLevelStats[$partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)'] = $partnerLevelCount;
+            // $partnerLevelStats[$partnerLevelCode] = [
+            //     'count' => $partnerLevelCount,
+            //     'percent' => $partnerLevelPercent.'%',
+            //     'color' => $partnerLevelPercent.'%',
+            //     'label' => $partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)',
+            // ];
+        }
+
+        return $partnerLevelStats;
     }
 }
