@@ -103,6 +103,32 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div id="apexcharts_partner_monthly" style="margin: 0 auto;"></div>
+            </div>
+        </div>
+        @push('scripts')
+            <script>
+                var options = {
+                    series: {!! json_encode(array_values($partnerMonthlySeries)) !!},
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
+                        }
+                    },
+                    labels: {!! json_encode(array_values(get_months())) !!},
+                    stroke: {
+                        width: 4,
+                        curve: 'smooth'
+                    },
+                };
+                var apexcharts_partner_monthly = new ApexCharts(document.querySelector("#apexcharts_partner_monthly"), options);
+                apexcharts_partner_monthly.render();
+            </script>
+        @endpush
     </div>
 </div>
 <div class="container">

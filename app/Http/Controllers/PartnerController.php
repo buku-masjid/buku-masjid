@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Partner;
 use App\Transaction;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class PartnerController extends Controller
 {
@@ -35,11 +38,61 @@ class PartnerController extends Controller
         $partnerTotalIncome = $this->getPartnerTransactionTotal($selectedTypeCode, 1);
         $partnerTotalSpending = $this->getPartnerTransactionTotal($selectedTypeCode, 0);
         $booksCount = Book::count();
+        $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 1);
+        $partnerMonthlySeries = $this->parsePartnerMonthlySeries($partnerMonthlySummary);
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats', 'partnerGenderStats'
+            'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats', 'partnerGenderStats',
+            'partnerMonthlySummary', 'partnerMonthlySeries'
         ));
+    }
+
+    private function calculatePartnerMonthlySummary(string $partnerType, int $inOut): Collection
+    {
+        $rawSelect = "count(id) as transactions_count";
+        $rawSelect = "sum(amount) as total";
+        $rawSelect .= ", year(date) as transaction_year";
+        $rawSelect .= ", month(date) as transaction_month";
+        $partnerMonthlySummary = DB::table('transactions')->selectRaw($rawSelect)
+            ->whereExists(function (Builder $query) use ($partnerType) {
+                $query->select(DB::raw(1))
+                    ->from('partners')
+                    ->whereColumn('transactions.partner_id', 'partners.id')
+                    ->where('partners.type_code', $partnerType);
+            })
+            ->where('in_out', $inOut)
+            ->groupBy('transaction_year')
+            ->groupBy('transaction_month')
+            ->get();
+        $partnerMonthlySummary = $partnerMonthlySummary->each(function ($monthlySummary) {
+            $monthlySummary->month_string = str_pad($monthlySummary->transaction_month, 2, '0', STR_PAD_LEFT);
+            return $monthlySummary;
+        });
+
+        return $partnerMonthlySummary;
+    }
+
+    private function parsePartnerMonthlySeries(Collection $partnerMonthlySummary): array
+    {
+        $availableYears = $partnerMonthlySummary->pluck('transaction_year')->unique();
+        $series = [];
+        foreach ($availableYears as $year) {
+            $serie = [
+                'name' => $year,
+                'type' => 'line',
+                'data' => [],
+            ];
+            foreach (get_months() as $monthNumber => $monthName) {
+                $monthlySummary = $partnerMonthlySummary->filter(function ($monthlySummary) use ($year, $monthNumber) {
+                    return $monthlySummary->transaction_year == $year && $monthlySummary->month_string == $monthNumber;
+                })->first();
+                $serie['data'][] = $monthlySummary ? (float) $monthlySummary->total : 0;
+            }
+            $series[] = $serie;
+        }
+
+        return $series;
     }
 
     public function store(Request $request)
