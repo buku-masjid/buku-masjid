@@ -6,7 +6,7 @@
 
 @include('partners._partner_type_selector')
 
-@include('partners._partner_statistics')
+@include('partners._partner_statistics', ['partnerTotalIncome' => $partnerTotalIncome])
 
 <div class="row mt-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">

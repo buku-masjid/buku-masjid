@@ -2,7 +2,7 @@
 
 <div class="bg-white py-6 mb-5 mt-3 mt-sm-5">
     <div class="container">
-        <div class="row">
+        <div class="row" style="min-height: 8em;">
             <div class="col-md-4">
                 <h1 class="page-title">{{ $selectedTypeName }}</h1>
                 <div class="page-subtitle ml-0">

@@ -165,14 +165,14 @@ class PartnerController extends Controller
 
     private function getPartnerTransactionTotal(string $partnerType, int $inOut): float
     {
-        $income = Transaction::withoutGlobalScope('forActiveBook')
+        $amount = Transaction::withoutGlobalScope('forActiveBook')
             ->whereHas('partner', function ($query) use ($partnerType) {
                 $query->where('type_code', $partnerType);
             })
             ->where('in_out', $inOut)
             ->sum('amount');
 
-        return (float) $income;
+        return (float) $amount;
     }
 
     private function getPartnerLevelStats(string $typeCode, array $partnerLevels): array
