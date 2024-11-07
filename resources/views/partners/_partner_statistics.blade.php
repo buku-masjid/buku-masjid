@@ -59,6 +59,23 @@
                 <div class="card shadow-lg" style="border-radius:1em;">
                     <div class="card-body p-3">
                         <div id="apexcharts_partner_level" style="max-width: 22em;margin: 0 auto;"></div>
+                        @push('scripts')
+                            <script>
+                                var options = {
+                                    series: {!! json_encode(array_values($partnerLevelStats)) !!},
+                                    colors: ['#C0C0C0', '#FFD700', '#a0b2c6'],
+                                    chart: {
+                                        type: 'donut',
+                                    },
+                                    labels: {!! json_encode(array_keys($partnerLevelStats)) !!},
+                                    dataLabels: {
+                                        enabled: false,
+                                    }
+                                };
+                                var apexcharts_partner_level = new ApexCharts(document.querySelector("#apexcharts_partner_level"), options);
+                                apexcharts_partner_level.render();
+                            </script>
+                        @endpush
                     </div>
                 </div>
             </div>

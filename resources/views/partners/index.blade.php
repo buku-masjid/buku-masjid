@@ -100,28 +100,17 @@
 </div>
 @endsection
 
+@prepend('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+@endprepend
+
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
 (function () {
     $('#partnerModal').modal({
         show: true,
         backdrop: 'static',
     });
-
-    var options = {
-        series: {!! json_encode(array_values($partnerLevelStats)) !!},
-        colors: ['#C0C0C0', '#FFD700', '#a0b2c6'],
-        chart: {
-            type: 'donut',
-        },
-        labels: {!! json_encode(array_keys($partnerLevelStats)) !!},
-        dataLabels: {
-            enabled: false,
-        }
-    };
-    var apexcharts_partner_level = new ApexCharts(document.querySelector("#apexcharts_partner_level"), options);
-    apexcharts_partner_level.render();
 })();
 </script>
 @endpush
