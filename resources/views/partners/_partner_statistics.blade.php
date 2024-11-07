@@ -103,32 +103,64 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div id="apexcharts_partner_monthly" style="margin: 0 auto;"></div>
+        @if ($partnerMonthlyIncomeSeries)
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="h1" style="color: {{ config('masjid.income_color') }}">{{ __('transaction.income') }}</div>
+                    <div id="apexcharts_partner_monthly_income" style="margin: 0 auto;"></div>
+                </div>
             </div>
-        </div>
-        @push('scripts')
-            <script>
-                var options = {
-                    series: {!! json_encode(array_values($partnerMonthlySeries)) !!},
-                    chart: {
-                        height: 350,
-                        type: 'line',
-                        zoom: {
-                            enabled: false
-                        }
-                    },
-                    labels: {!! json_encode(array_values(get_months())) !!},
-                    stroke: {
-                        width: 4,
-                        curve: 'smooth'
-                    },
-                };
-                var apexcharts_partner_monthly = new ApexCharts(document.querySelector("#apexcharts_partner_monthly"), options);
-                apexcharts_partner_monthly.render();
-            </script>
-        @endpush
+            @push('scripts')
+                <script>
+                    var options = {
+                        series: {!! json_encode(array_values($partnerMonthlyIncomeSeries)) !!},
+                        chart: {
+                            height: 350,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        labels: {!! json_encode(array_values(get_months())) !!},
+                        stroke: {
+                            width: 4,
+                            curve: 'smooth'
+                        },
+                    };
+                    var apexcharts_partner_monthly_income = new ApexCharts(document.querySelector("#apexcharts_partner_monthly_income"), options);
+                    apexcharts_partner_monthly_income.render();
+                </script>
+            @endpush
+        @endif
+        @if ($partnerMonthlySpendingSeries)
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="h1" style="color: {{ config('masjid.spending_color') }}">{{ __('transaction.spending') }}</div>
+                    <div id="apexcharts_partner_monthly_spending" style="margin: 0 auto;"></div>
+                </div>
+            </div>
+            @push('scripts')
+                <script>
+                    var options = {
+                        series: {!! json_encode(array_values($partnerMonthlySpendingSeries)) !!},
+                        chart: {
+                            height: 350,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        labels: {!! json_encode(array_values(get_months())) !!},
+                        stroke: {
+                            width: 4,
+                            curve: 'smooth'
+                        },
+                    };
+                    var apexcharts_partner_monthly_spending = new ApexCharts(document.querySelector("#apexcharts_partner_monthly_spending"), options);
+                    apexcharts_partner_monthly_spending.render();
+                </script>
+            @endpush
+        @endif
     </div>
 </div>
 <div class="container">

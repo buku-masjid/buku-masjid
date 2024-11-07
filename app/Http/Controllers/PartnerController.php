@@ -39,12 +39,14 @@ class PartnerController extends Controller
         $partnerTotalSpending = $this->getPartnerTransactionTotal($selectedTypeCode, 0);
         $booksCount = Book::count();
         $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 1);
-        $partnerMonthlySeries = $this->parsePartnerMonthlySeries($partnerMonthlySummary);
+        $partnerMonthlyIncomeSeries = $this->parsePartnerMonthlySeries($partnerMonthlySummary);
+        $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 0);
+        $partnerMonthlySpendingSeries = $this->parsePartnerMonthlySeries($partnerMonthlySummary);
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
             'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats', 'partnerGenderStats',
-            'partnerMonthlySummary', 'partnerMonthlySeries'
+            'partnerMonthlyIncomeSeries', 'partnerMonthlySpendingSeries'
         ));
     }
 
