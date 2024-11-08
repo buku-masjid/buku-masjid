@@ -106,7 +106,7 @@
         @if ($partnerMonthlyIncomeSeries)
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <div class="h1" style="color: {{ config('masjid.income_color') }}">{{ __('transaction.income') }}</div>
+                    <div class="h2" style="color: {{ config('masjid.income_color') }}">{{ __('transaction.income') }}</div>
                     <div id="apexcharts_partner_monthly_income" style="margin: 0 auto;"></div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
         @if ($partnerMonthlySpendingSeries)
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <div class="h1" style="color: {{ config('masjid.spending_color') }}">{{ __('transaction.spending') }}</div>
+                    <div class="h2" style="color: {{ config('masjid.spending_color') }}">{{ __('transaction.spending') }}</div>
                     <div id="apexcharts_partner_monthly_spending" style="margin: 0 auto;"></div>
                 </div>
             </div>
