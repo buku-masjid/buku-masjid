@@ -10,15 +10,7 @@
                 </div>
             </div>
             <div class="col-md-4 text-center">
-                @if ($partnerTotalIncome && $partnerTotalSpending)
-                    <div>
-                        <div class="lead">{{ __('report.current_week_income_total') }}</div>
-                        <div class="text-muted my-1">{{ __('app.update') }}: {{ today()->isoFormat('dddd, DD MMM YYYY') }}</div>
-                        <div class="h1" style="color: {{ config('masjid.income_color') }}">
-                            {{ config('money.currency_code') }} {{ format_number($partnerTotalIncome) }}
-                        </div>
-                    </div>
-                @endif
+                @livewire('partners.total-income-from-partner', ['partnerTypeCode' => $selectedTypeCode])
             </div>
             <div class="col-md-4 text-right">
                 @if ($partnerTotalIncome && !$partnerTotalSpending)
