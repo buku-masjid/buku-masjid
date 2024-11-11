@@ -6,7 +6,7 @@
             <div class="col-md-4 text-center text-md-left">
                 <h1 class="page-title">{{ $selectedTypeName }}</h1>
                 <div class="page-subtitle ml-0">
-                    Berikut adalah data pemasukan/pengeluaran {{ $selectedTypeName }} {{ Setting::get('masjid_name') }}.
+                    Berikut adalah data {{ __('transaction.in_out') }} {{ $selectedTypeName }} {{ Setting::get('masjid_name') }}.
                 </div>
             </div>
             <div class="col-md-4 mt-3 mt-sm-0 text-center">
@@ -18,17 +18,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="card shadow-lg" style="border-radius:1em; height: 10em">
-                    <div class="card-body p-3 row align-items-center" >
-                        <div class="col row align-items-center">
-                            <div class="col-9">
-                                <div class="h4 mb-1">Jenis Donasi</div>
-                                <div class="text-muted">Berdasarkan jumlah {{ __('book.book') }}</div>
-                            </div>
-                            <div class="col-3"><div class="display-4 font-weight-bold text-orange">{{ $booksCount }}</div></div>
-                        </div>
-                    </div>
-                </div>
+                @livewire('partners.books-count')
             </div>
             <div class="col-md-4">
                 <div class="card shadow-lg align-item-center" style="border-radius:1em; height: 10em">
