@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Models\Partner;
-use App\Transaction;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -35,9 +33,6 @@ class PartnerController extends Controller
             'f' => __('app.gender_female'),
         ];
         $partnerGenderStats = $this->getPartnerGenderStats($selectedTypeCode, $genders);
-        $partnerTotalIncome = $this->getPartnerTransactionTotal($selectedTypeCode, 1);
-        $partnerTotalSpending = $this->getPartnerTransactionTotal($selectedTypeCode, 0);
-        $booksCount = Book::count();
         $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 1);
         $partnerMonthlyIncomeSeries = $this->parsePartnerMonthlySeries($partnerMonthlySummary);
         $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 0);
@@ -45,7 +40,7 @@ class PartnerController extends Controller
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'partnerTotalIncome', 'partnerTotalSpending', 'booksCount', 'partnerLevelStats', 'partnerGenderStats',
+            'genders', 'partnerLevelStats', 'partnerGenderStats',
             'partnerMonthlyIncomeSeries', 'partnerMonthlySpendingSeries'
         ));
     }
@@ -216,18 +211,6 @@ class PartnerController extends Controller
         $partners = $partnerQuery->paginate(100);
 
         return $partners;
-    }
-
-    private function getPartnerTransactionTotal(string $partnerType, int $inOut): float
-    {
-        $amount = Transaction::withoutGlobalScope('forActiveBook')
-            ->whereHas('partner', function ($query) use ($partnerType) {
-                $query->where('type_code', $partnerType);
-            })
-            ->where('in_out', $inOut)
-            ->sum('amount');
-
-        return (float) $amount;
     }
 
     private function getPartnerLevelStats(string $typeCode, array $partnerLevels): array
