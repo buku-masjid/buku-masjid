@@ -8,6 +8,7 @@ return [
     'in_months' => 'In Months',
     'in_weeks' => 'In Weeks',
     'all_time' => 'All Time',
+    'in_thousand' => 'In Thousand',
     'finance' => 'Finance',
     'finance_summary' => 'Summary',
     'finance_summary_in_months' => 'Monthly Summary',

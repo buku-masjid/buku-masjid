@@ -8,6 +8,7 @@ return [
     'in_months' => 'Per Bulan',
     'in_weeks' => 'Per Pekan',
     'all_time' => 'Keseluruhan',
+    'in_thousand' => 'Dalam Ribuan',
     'finance' => 'Keuangan',
     'finance_summary' => 'Summary',
     'finance_summary_in_months' => 'Laporan Kas Bulanan',

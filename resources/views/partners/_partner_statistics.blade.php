@@ -27,35 +27,7 @@
                 @livewire('partners.gender-stats', ['partnerTypeCode' => $selectedTypeCode])
             </div>
         </div>
-        @if ($partnerMonthlyIncomeSeries)
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="h2" style="color: {{ config('masjid.income_color') }}">{{ __('transaction.income') }}</div>
-                    <div id="apexcharts_partner_monthly_income" style="margin: 0 auto;"></div>
-                </div>
-            </div>
-            @push('scripts')
-                <script>
-                    var options = {
-                        series: {!! json_encode(array_values($partnerMonthlyIncomeSeries)) !!},
-                        chart: {
-                            height: 350,
-                            type: 'line',
-                            zoom: {
-                                enabled: false
-                            }
-                        },
-                        labels: {!! json_encode(array_values(get_months())) !!},
-                        stroke: {
-                            width: 4,
-                            curve: 'smooth'
-                        },
-                    };
-                    var apexcharts_partner_monthly_income = new ApexCharts(document.querySelector("#apexcharts_partner_monthly_income"), options);
-                    apexcharts_partner_monthly_income.render();
-                </script>
-            @endpush
-        @endif
+        @livewire('partners.income-from-partner-graph', ['partnerTypeCode' => $selectedTypeCode])
         @if ($partnerMonthlySpendingSeries)
             <div class="row justify-content-center">
                 <div class="col-md-10">
