@@ -28,35 +28,7 @@
             </div>
         </div>
         @livewire('partners.income-from-partner-graph', ['partnerTypeCode' => $selectedTypeCode])
-        @if ($partnerMonthlySpendingSeries)
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="h2" style="color: {{ config('masjid.spending_color') }}">{{ __('transaction.spending') }}</div>
-                    <div id="apexcharts_partner_monthly_spending" style="margin: 0 auto;"></div>
-                </div>
-            </div>
-            @push('scripts')
-                <script>
-                    var options = {
-                        series: {!! json_encode(array_values($partnerMonthlySpendingSeries)) !!},
-                        chart: {
-                            height: 350,
-                            type: 'line',
-                            zoom: {
-                                enabled: false
-                            }
-                        },
-                        labels: {!! json_encode(array_values(get_months())) !!},
-                        stroke: {
-                            width: 4,
-                            curve: 'smooth'
-                        },
-                    };
-                    var apexcharts_partner_monthly_spending = new ApexCharts(document.querySelector("#apexcharts_partner_monthly_spending"), options);
-                    apexcharts_partner_monthly_spending.render();
-                </script>
-            @endpush
-        @endif
+        @livewire('partners.spending-to-partner-graph', ['partnerTypeCode' => $selectedTypeCode])
     </div>
 </div>
 <div class="container">
