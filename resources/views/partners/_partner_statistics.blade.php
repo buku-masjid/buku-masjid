@@ -21,28 +21,7 @@
                 @livewire('partners.books-count')
             </div>
             <div class="col-md-4">
-                <div class="card shadow-lg align-item-center" style="border-radius:1em; height: 10em">
-                    <div class="card-body py-2 row align-items-center" >
-                        <div id="apexcharts_partner_level" style="width: 30em;margin: 0 auto;"></div>
-                        @push('scripts')
-                            <script>
-                                var options = {
-                                    series: {!! json_encode(array_values($partnerLevelStats)) !!},
-                                    colors: ['#C0C0C0', '#FFD700', '#a0b2c6'],
-                                    chart: {
-                                        type: 'donut',
-                                    },
-                                    labels: {!! json_encode(array_keys($partnerLevelStats)) !!},
-                                    dataLabels: {
-                                        enabled: false,
-                                    }
-                                };
-                                var apexcharts_partner_level = new ApexCharts(document.querySelector("#apexcharts_partner_level"), options);
-                                apexcharts_partner_level.render();
-                            </script>
-                        @endpush
-                    </div>
-                </div>
+                @livewire('partners.level-stats', ['partnerTypeCode' => $selectedTypeCode])
             </div>
             <div class="col-md-4">
                 <div class="card shadow-lg align-item-center" style="border-radius:1em; height: 10em">

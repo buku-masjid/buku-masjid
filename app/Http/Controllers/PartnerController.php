@@ -22,7 +22,6 @@ class PartnerController extends Controller
         ]);
         $selectedTypeCode = $request->get('type_code');
         $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
-        $partnerLevelStats = $this->getPartnerLevelStats($selectedTypeCode, $partnerLevels);
         $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
         $partners = $this->getPartners($request);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
@@ -40,7 +39,7 @@ class PartnerController extends Controller
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'partnerLevelStats', 'partnerGenderStats',
+            'genders', 'partnerGenderStats',
             'partnerMonthlyIncomeSeries', 'partnerMonthlySpendingSeries'
         ));
     }
@@ -211,19 +210,6 @@ class PartnerController extends Controller
         $partners = $partnerQuery->paginate(100);
 
         return $partners;
-    }
-
-    private function getPartnerLevelStats(string $typeCode, array $partnerLevels): array
-    {
-        $partnerLevelStats = [];
-        $partnerTotal = Partner::where('type_code', $typeCode)->count();
-        foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
-            $partnerLevelCount = Partner::where('type_code', $typeCode)->where('level_code', $partnerLevelCode)->count();
-            $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);
-            $partnerLevelStats[$partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)'] = $partnerLevelCount;
-        }
-
-        return $partnerLevelStats;
     }
 
     private function getPartnerGenderStats(string $typeCode, array $genders): array
