@@ -21,7 +21,7 @@ class Partner extends Model
     }
     public function transactions()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class)->withoutGlobalScope('forActiveBook');
     }
 
     public function getGenderAttribute(): ?string

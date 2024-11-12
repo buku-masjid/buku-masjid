@@ -10,6 +10,7 @@ return [
     'not_found' => ':type tidak ditemukan.',
     'all_level' => 'All Level',
     'empty' => ':type list is empty',
+    'largest_transaction' => 'Largest Transaction',
     'back_to_index' => 'Back to :type list',
 
     // Actions

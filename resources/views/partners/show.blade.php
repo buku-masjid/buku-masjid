@@ -4,47 +4,32 @@
 
 @section('content')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ route('home') }}"><i class="fe fe-home"></i> {{ __('app.home') }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            {{ link_to_route('partners.index', $partner->type, ['type_code' => $partner->type_code]) }}
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('app.detail') }}</li>
+    </ol>
+</nav>
+
+
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ __('partner.partner_type', ['type' => $partner->type]) }}</div>
+    <div class="page-subtitle">{{ $partner->level ?: __('partner.partner_type', ['type' => $partner->type]) }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('partners.index', __('partner.back_to_index', ['type' => $partner->type]), ['type_code' => $partner->type_code], ['class' => 'btn btn-secondary']) }}
+        {{-- {{ link_to_route('partners.index', __('partner.edit', ['type' => $partner->type]), $partner, ['class' => 'btn btn-warning text-dark']) }} --}}
     </div>
 </div>
 
-@desktop
-    <div class="card table-responsive">
-        <table class="table table-sm table-bordered mb-0">
-            <tr>
-                <td class="col-2 text-center">{{ __('partner.name') }}</td>
-                <td class="col-2 text-center">{{ __('partner.phone') }}</td>
-                <td class="col-2 text-center">{{ __('app.gender') }}</td>
-                <td class="col-2 text-center">{{ __('partner.level') }}</td>
-                <td class="col-2 text-center">{{ __('partner.work') }}</td>
-                <td class="col-2 text-center">{{ __('app.status') }}</td>
-            </tr>
-            <tr>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->name }}</td>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->gender }}</td>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->level }}</td>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->work }}</td>
-                <td class="text-center lead" style="border-top: none;">{{ $partner->status }}</td>
-            </tr>
-        </table>
-    </div>
-@elsedesktop
-    <div class="card table-responsive">
-        <table class="table table-sm table-bordered mb-0">
-            <tr><td class="col-4">{{ __('partner.name') }}</td><td>{{ $partner->name }}</td></tr>
-            <tr><td>{{ __('partner.phone') }}</td><td>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td></tr>
-            <tr><td>{{ __('app.gender') }}</td><td>{{ $partner->gender }}</td></tr>
-            <tr><td>{{ __('partner.level') }}</td><td>{{ $partner->level }}</td></tr>
-            <tr><td>{{ __('partner.work') }}</td><td>{{ $partner->work }}</td></tr>
-            <tr><td>{{ __('app.status') }}</td><td>{{ $partner->status }}</td></tr>
-        </table>
-    </div>
-@enddesktop
+<div class="row">
+    <div class="col-md-4">@include('partners._profile_card')</div>
+    <div class="col-md-4">@include('partners._largest_transaction')</div>
+    <div class="col-md-4">@include('partners._transactions_total')</div>
+</div>
 
 @if ($partner->address)
     <div class="alert alert-warning"><strong>{{ __('partner.address') }}:</strong><br>{{ $partner->address }}</div>
@@ -56,12 +41,12 @@
 
 <div class="row">
     <div class="col-md-12">
+        <div class="mb-2">
+            @include('partners.partials.show_filter')
+        </div>
         <div class="card table-responsive">
-            <div class="card-header">
-                @include('partners.partials.show_filter')
-            </div>
             @desktop
-            <table class="table table-sm table-responsive-sm table-hover table-bordered mb-0">
+            <table class="table table-sm table-responsive-sm table-striped mb-0">
                 <thead>
                     <tr>
                         <th class="text-center col-md-1">{{ __('app.table_no') }}</th>

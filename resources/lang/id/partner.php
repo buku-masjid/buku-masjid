@@ -10,6 +10,7 @@ return [
     'not_found' => ':type tidak ditemukan.',
     'all_level' => 'Semua Level',
     'empty' => 'Belum ada :type',
+    'largest_transaction' => 'Transaksi Terbesar',
     'back_to_index' => 'Kembali ke daftar :type',
 
     // Actions

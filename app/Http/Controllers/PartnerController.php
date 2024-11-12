@@ -62,7 +62,7 @@ class PartnerController extends Controller
     {
         $this->authorize('view', $partner);
 
-        $defaultStartDate = date('Y-m').'-01';
+        $defaultStartDate = date('Y').'-01-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
 
@@ -71,8 +71,9 @@ class PartnerController extends Controller
             'end_date' => $endDate,
             'query' => request('query'),
         ]);
+        $largestTransaction = $partner->transactions()->orderBy('amount', 'desc')->first();
 
-        return view('partners.show', compact('partner', 'startDate', 'endDate', 'transactions'));
+        return view('partners.show', compact('partner', 'startDate', 'endDate', 'transactions', 'largestTransaction'));
     }
 
     public function update(Request $request, Partner $partner)
@@ -151,7 +152,7 @@ class PartnerController extends Controller
         if (!is_null($request->get('is_active'))) {
             $partnerQuery->where('is_active', $request->get('is_active'));
         }
-        $partners = $partnerQuery->paginate(100);
+        $partners = $partnerQuery->withSum('transactions', 'amount')->paginate(100);
 
         return $partners;
     }

@@ -16,6 +16,7 @@ return [
     'back_to_show' => 'Kembali ke detail Transaksi',
     'back_to_index' => 'Kembali ke daftar Transaksi',
 
+    'total' => 'Total Transaksi',
     'income_total' => 'Total Pemasukan',
     'spending_total' => 'Total Pengeluaran',
     'difference' => 'Saldo',
