@@ -31,7 +31,6 @@ class PartnerController extends Controller
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
-        $partnerGenderStats = $this->getPartnerGenderStats($selectedTypeCode, $genders);
         $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 1);
         $partnerMonthlyIncomeSeries = $this->parsePartnerMonthlySeries($partnerMonthlySummary);
         $partnerMonthlySummary = $this->calculatePartnerMonthlySummary($selectedTypeCode, 0);
@@ -39,7 +38,7 @@ class PartnerController extends Controller
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'partnerGenderStats',
+            'genders',
             'partnerMonthlyIncomeSeries', 'partnerMonthlySpendingSeries'
         ));
     }

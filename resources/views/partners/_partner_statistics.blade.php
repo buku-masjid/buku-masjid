@@ -24,27 +24,7 @@
                 @livewire('partners.level-stats', ['partnerTypeCode' => $selectedTypeCode])
             </div>
             <div class="col-md-4">
-                <div class="card shadow-lg align-item-center" style="border-radius:1em; height: 10em">
-                    <div class="card-body py-2 row align-items-center" >
-                        <div id="apexcharts_partner_gender" style="width: 30em;margin: 0 auto;"></div>
-                        @push('scripts')
-                            <script>
-                                var options = {
-                                    series: {!! json_encode(array_values($partnerGenderStats)) !!},
-                                    chart: {
-                                        type: 'donut',
-                                    },
-                                    labels: {!! json_encode(array_keys($partnerGenderStats)) !!},
-                                    dataLabels: {
-                                        enabled: false,
-                                    }
-                                };
-                                var apexcharts_partner_gender = new ApexCharts(document.querySelector("#apexcharts_partner_gender"), options);
-                                apexcharts_partner_gender.render();
-                            </script>
-                        @endpush
-                    </div>
-                </div>
+                @livewire('partners.gender-stats', ['partnerTypeCode' => $selectedTypeCode])
             </div>
         </div>
         @if ($partnerMonthlyIncomeSeries)
