@@ -59,10 +59,10 @@ class SpendingToPartnerGraph extends Component
 
     private function calculatePartnerMonthlySummary(string $partnerType, int $inOut): Collection
     {
-        $rawSelect = "count(id) as transactions_count";
-        $rawSelect = "sum(amount) as total";
-        $rawSelect .= ", year(date) as transaction_year";
-        $rawSelect .= ", month(date) as transaction_month";
+        $rawSelect = 'count(id) as transactions_count';
+        $rawSelect .= 'sum(amount) as total';
+        $rawSelect .= ', year(date) as transaction_year';
+        $rawSelect .= ', month(date) as transaction_month';
         $partnerMonthlySummary = DB::table('transactions')->selectRaw($rawSelect)
             ->whereExists(function (Builder $query) use ($partnerType) {
                 $query->select(DB::raw(1))
