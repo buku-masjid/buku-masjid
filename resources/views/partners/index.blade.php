@@ -62,7 +62,7 @@
                         <td class="text-center">{{ $partners->firstItem() + $key }}</td>
                         <td>
                             @can('view', $partner)
-                                {{ link_to_route('partners.show', $partner->name, [$partner->id]) }}
+                                {{ link_to_route('partners.show', $partner->name, [$partner->id], ['id' => 'show-partner-'.$partner->id]) }}
                             @else
                                 {{ $partner->name }}
                             @endcan
