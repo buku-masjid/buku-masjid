@@ -1,6 +1,6 @@
 <div class="row justify-content-center" wire:init="getIncomeFromPartnerSeries">
     @if ($isLoading)
-        <div class="loading-state text-center w-100">
+        <div class="loading-state text-center w-100 py-6">
             <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
         </div>
     @else
@@ -13,6 +13,7 @@
                 <div id="apexcharts_income_from_partner" style="margin: 0 auto;"></div>
                 <script>
                     var options = {
+                        colors: ['#4ECDC4','#C7F464','#81D4FA','#546E7A','#FD6A6A'],
                         series: {!! json_encode(array_values($incomeFromPartnerSeries)) !!},
                         chart: {
                             height: 350,

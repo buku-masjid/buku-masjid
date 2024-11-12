@@ -1,6 +1,6 @@
 <div class="row justify-content-center" wire:init="getSpendingToPartnerSeries">
     @if ($isLoading)
-        <div class="loading-state text-center w-100">
+        <div class="loading-state text-center w-100 py-6">
             <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
         </div>
     @else
@@ -13,6 +13,7 @@
                 <div id="apexcharts_spending_to_partner" style="margin: 0 auto;"></div>
                 <script>
                     var options = {
+                        colors: ['#D7263D','#D35EF7','#2E294E','#F46036','#E2C044'],
                         series: {!! json_encode(array_values($spendingToPartnerSeries)) !!},
                         chart: {
                             height: 350,
