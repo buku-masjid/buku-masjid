@@ -107,6 +107,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('partners', 'PartnerController');
 
     /*
+     * Donor Routes
+     */
+    Route::apiResource('donors', 'DonorController')->parameters([
+        'donors' => 'partner',
+    ]);
+
+    /*
      * Lecturings Routes
      */
     if (config('features.lecturings.is_active')) {

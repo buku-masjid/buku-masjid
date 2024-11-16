@@ -4,6 +4,7 @@ return [
     // Labels
     'partner' => 'Partner',
     'partner_type' => ':type',
+    'partner_type_donor' => 'Donors',
     'list' => ':type List',
     'list_by_type' => 'Daftar :type',
     'search_text' => 'Name / phone / address',
