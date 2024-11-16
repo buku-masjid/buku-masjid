@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('partner.list_by_type', ['type' => $selectedTypeName]))
 
-@section('content')
+@section('content_settings')
 
 @include('partners._partner_type_selector')
 

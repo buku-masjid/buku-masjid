@@ -30,12 +30,6 @@
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-repeat"></i> {{ __('transaction.transaction') }}</span>
             </a>
-            @can('view-any', new App\Models\Partner)
-                <a class="xs-navbar mr-4" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
-                    <i class="fe fe-users h3 d-inline d-lg-none"></i>
-                    <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner') }}</span>
-                </a>
-            @endcan
             @if (Route::has('lecturings.index'))
                 @can('view-any', new App\Models\Lecturing)
                     <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
