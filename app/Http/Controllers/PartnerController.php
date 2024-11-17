@@ -152,7 +152,7 @@ class PartnerController extends Controller
         if (!is_null($request->get('is_active'))) {
             $partnerQuery->where('is_active', $request->get('is_active'));
         }
-        $partners = $partnerQuery->withSum('transactions', 'amount')->paginate(100);
+        $partners = $partnerQuery->paginate(100);
 
         return $partners;
     }

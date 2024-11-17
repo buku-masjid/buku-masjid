@@ -47,7 +47,6 @@
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('partner.name') }}</th>
-                        <th class="text-right">{{ __('transaction.transaction') }}</th>
                         <th class="text-nowrap">{{ __('partner.phone') }}</th>
                         <th class="text-center">{{ __('partner.level') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
@@ -70,7 +69,6 @@
                                 {{ $partner->name }}
                             @endcan
                         </td>
-                        <td class="text-nowrap text-right">{{ format_number($partner->transactions_sum_amount ?: 0) }}</td>
                         <td>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td>
                         <td class="text-nowrap text-center">{{ $partner->level }}</td>
                         <td class="text-nowrap text-center">{{ $partner->status }}</td>
