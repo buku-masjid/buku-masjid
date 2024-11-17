@@ -6,8 +6,6 @@
 
 @include('partners._partner_type_selector')
 
-@include('partners._partner_statistics')
-
 <div class="row mt-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">
         <h1 class="page-title">
@@ -19,7 +17,6 @@
         </div>
     </div>
     <div class="col-md-4 mt-3 text-center">
-        @include('partners._partner_gender_selector')
     </div>
     <div class="col-md-4 mt-3 text-center text-sm-right">
         @can('create', new App\Models\Partner)
@@ -31,11 +28,11 @@
 <div class="row justify-content-center">
     {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mx-3']) }}
     {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1']) }}
+    {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control mr-1']) }}
     {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1']) }}
     {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1']) }}
     <div class="form-group mt-4 mt-sm-0">
         {{ Form::hidden('type_code', request('type_code')) }}
-        {{ Form::hidden('gender_code', request('gender_code')) }}
         {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
         {{ link_to_route('partners.index', __('app.reset'), request()->only('type_code'), ['class' => 'btn btn-secondary mr-1']) }}
     </div>
