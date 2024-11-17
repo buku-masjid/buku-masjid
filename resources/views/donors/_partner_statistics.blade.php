@@ -10,10 +10,9 @@
                 </div>
             </div>
             <div class="col-md-4 mt-3 mt-sm-0 text-center">
-                @livewire('partners.total-income-from-partner', ['partnerTypeCode' => $selectedTypeCode])
             </div>
             <div class="col-md-4 mt-3 mt-sm-0 text-center text-md-right">
-                @livewire('partners.total-spending-to-partner', ['partnerTypeCode' => $selectedTypeCode])
+                @livewire('partners.total-income-from-partner', ['partnerTypeCode' => $selectedTypeCode])
             </div>
         </div>
         <div class="row">
@@ -28,7 +27,6 @@
             </div>
         </div>
         @livewire('partners.income-from-partner-graph', ['partnerTypeCode' => $selectedTypeCode])
-        @livewire('partners.spending-to-partner-graph', ['partnerTypeCode' => $selectedTypeCode])
     </div>
 </div>
 <div class="container">
