@@ -12,14 +12,7 @@ class DonorController extends Controller
         $this->authorize('view-any', new Partner);
 
         $editablePartner = null;
-        $partnerTypes = (new Partner)->getAvailableTypes();
-        $defaultTypeCode = collect($partnerTypes)->keys()->first();
-        $request->merge([
-            'type_code' => $request->get('type_code', $defaultTypeCode),
-        ]);
-        $selectedTypeCode = $request->get('type_code');
-        $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
-        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
+        $partnerLevels = (new Partner)->getAvailableLevels('donatur');
         $partners = $this->getDonors($request);
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editablePartner = Partner::find(request('id'));
@@ -30,8 +23,7 @@ class DonorController extends Controller
         ];
 
         return view('donors.index', compact(
-            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders'
+            'partners', 'editablePartner', 'partnerLevels', 'genders'
         ));
     }
 
@@ -134,7 +126,7 @@ class DonorController extends Controller
     private function getDonors(Request $request)
     {
         $partnerQuery = Partner::orderBy('name');
-        $partnerQuery->where('type_code', $request->get('type_code'));
+        $partnerQuery->where('type_code', 'donatur');
         if ($request->get('search_query')) {
             $searchQuery = $request->get('search_query');
             $partnerQuery->where(function ($query) use ($searchQuery) {

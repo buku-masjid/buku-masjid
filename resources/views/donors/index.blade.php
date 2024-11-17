@@ -8,12 +8,9 @@
 
 <div class="row mt-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">
-        <h1 class="page-title">
-            {{ __('partner.list_by_type', ['type' => $selectedTypeName]) }}
-        </h1>
+        <h1 class="page-title">{{ __('partner.partner_type_donor') }}</h1>
         <div class="page-subtitle ml-0">
-            Berikut adalah {{ strtolower(__('partner.list_by_type', ['type' => $selectedTypeName])) }} {{ Setting::get('masjid_name') }}.
-            {{-- {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner_type', ['type' => $selectedTypeName]) }} --}}
+            Berikut adalah data {{ __('partner.partner_type_donor') }} {{ Setting::get('masjid_name') }}.
         </div>
     </div>
     <div class="col-md-4 mt-3 text-center">
@@ -21,7 +18,7 @@
     </div>
     <div class="col-md-4 mt-3 text-center text-sm-right">
         @can('create', new App\Models\Partner)
-            {{ link_to_route('donors.index', __('partner.create', ['type' => $selectedTypeName]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
+            {{ link_to_route('donors.index', __('partner.create', ['type' => __('partner.partner_type_donor')]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
@@ -90,7 +87,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="6">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
+                    <tr><td colspan="6">{{ __('app.not_available', ['item' => __('partner.partner_type_donor')]) }}</td></tr>
                     @endforelse
                 </tbody>
             </table>
