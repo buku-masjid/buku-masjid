@@ -18,7 +18,7 @@
             <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
         </div>
     @else
-        <div class="card">
+        <div class="card table-responsive-sm">
             <table class="table-sm table-striped table-bordered">
                 <thead>
                     <tr>
