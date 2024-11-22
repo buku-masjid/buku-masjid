@@ -19,7 +19,7 @@
         </div>
     @else
         <div class="card table-responsive-sm">
-            <table class="table-sm table-striped table-bordered">
+            <table class="table-sm table-striped table-bordered small">
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
@@ -27,6 +27,7 @@
                         @foreach (get_months() as $monthNumber => $monthName)
                             <th class="text-center">{{ Carbon\Carbon::parse($year.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
                         @endforeach
+                        <th class="text-center">{{ __('app.total') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,11 +46,32 @@
                                 @endphp
                                 <td class="text-right">{{ $incomeEntry ? format_number($incomeEntry->total_amount) : '' }}</td>
                             @endforeach
+
+                            @php
+                                $incomeTotal = $incomeDashboardEntries->filter(function ($income) use ($partnerId) {
+                                    return $income->partner_id == $partnerId;
+                                })->sum('total_amount');
+                            @endphp
+                            <td class="text-right">{{ format_number($incomeTotal) }}</td>
                         </tr>
                     @empty
-                        <tr><td colspan="14">Tidak ada transaksi donatur tahun {{ $year }}.</td></tr>
+                        <tr><td colspan="15">Tidak ada transaksi donatur tahun {{ $year }}.</td></tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                    <tr class="strong">
+                        <td colspan="2" class="text-right">{{ __('app.total') }}</td>
+                        @foreach (get_months() as $monthNumber => $monthName)
+                            @php
+                                $monthTotal = $incomeDashboardEntries->filter(function ($income) use ($year, $monthNumber) {
+                                    return $income->tr_year_month == $year.'-'.$monthNumber;
+                                })->sum('total_amount');
+                            @endphp
+                            <td class="text-right">{{ format_number($monthTotal) }}</td>
+                        @endforeach
+                        <td class="text-right">{{ format_number($incomeDashboardEntries->sum('total_amount')) }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     @endif
