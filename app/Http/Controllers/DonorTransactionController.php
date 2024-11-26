@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class DonorTransactionController extends Controller
 {
@@ -38,9 +39,26 @@ class DonorTransactionController extends Controller
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ]);
+        $partner = null;
+        $partnerName = $payload['partner_name'] ?? null;
         if ($payload['partner_id']) {
             $partner = Partner::find($payload['partner_id']);
-        } else {
+            $partnerName = $partner->name;
+        }
+        $transactionDescription = __('donor.donation_from', ['donor_name' => $partnerName]);
+        if ($payload['notes']) {
+            $transactionDescription .= '|'.$payload['notes'];
+        }
+
+        if (strlen($transactionDescription) > 255) {
+            $descriptionPrefix = str_replace('|'.$payload['notes'], '', $transactionDescription);
+            $maxNotesLength = (255 - strlen($descriptionPrefix));
+            throw ValidationException::withMessages([
+                'notes' => [__('validation.donor.notes.max', ['max' => $maxNotesLength])],
+            ]);
+        }
+
+        if (!$payload['partner_id']) {
             $partner = Partner::create([
                 'name' => $payload['partner_name'],
                 'phone' => $payload['partner_phone'],
@@ -49,6 +67,7 @@ class DonorTransactionController extends Controller
                 'creator_id' => auth()->id(),
             ]);
         }
+
         $newTransaction = [
             'date' => $payload['date'],
             'amount' => $payload['amount'],
@@ -58,10 +77,7 @@ class DonorTransactionController extends Controller
             'in_out' => Transaction::TYPE_INCOME,
             'creator_id' => auth()->id(),
         ];
-        $newTransaction['description'] = __('donor.donation_from', ['donor_name' => $partner->name]);
-        if ($payload['notes']) {
-            $newTransaction['description'] .= '|'.$payload['notes'];
-        }
+        $newTransaction['description'] = $transactionDescription;
         $transaction = Transaction::create($newTransaction);
 
         flash(__('transaction.income_added'), 'success');

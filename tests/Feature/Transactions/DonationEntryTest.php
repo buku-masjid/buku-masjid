@@ -131,4 +131,52 @@ class DonationEntryTest extends TestCase
             'partner_id' => $partner->id,
         ]);
     }
+
+    /** @test */
+    public function validate_when_notes_are_too_long_for_existing_partner()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create(['name' => 'Abdullah bin Abdurrahman', 'type_code' => 'donatur']);
+        $notes = str_repeat('Lorem ipsum dolor sit, amet consectetur adipisicing elit.', 4);
+
+        $this->post(route('donor_transactions.store'), [
+            'amount' => 99.99,
+            'date' => '2024-11-26',
+            'partner_id' => $partner->id,
+            'book_id' => $book->id,
+            'bank_account_id' => '',
+            'notes' => $notes,
+        ]);
+
+        $transactionDescription = __('donor.donation_from', ['donor_name' => $partner->name]);
+        $noteStringLimit = (255 - strlen($transactionDescription));
+
+        $this->assertSessionHasErrors(['notes' => __('validation.donor.notes.max', ['max' => $noteStringLimit])]);
+    }
+
+    /** @test */
+    public function validate_when_notes_are_too_long_for_new_partner()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $notes = str_repeat('Lorem ipsum dolor sit, amet consectetur adipisicing elit.', 4);
+
+        $this->post(route('donor_transactions.store'), [
+            'amount' => 99.99,
+            'date' => '2024-11-26',
+            'partner_id' => '',
+            'partner_name' => 'Abdullah bin Abdul Hadi',
+            'partner_phone' => '081234567890',
+            'partner_gender_code' => Partner::GENDER_MALE,
+            'book_id' => $book->id,
+            'bank_account_id' => '',
+            'notes' => $notes,
+        ]);
+
+        $transactionDescription = __('donor.donation_from', ['donor_name' => 'Abdullah bin Abdul Hadi']);
+        $noteStringLimit = (255 - strlen($transactionDescription));
+
+        $this->assertSessionHasErrors(['notes' => __('validation.donor.notes.max', ['max' => $noteStringLimit])]);
+    }
 }

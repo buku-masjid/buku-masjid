@@ -115,6 +115,12 @@ return [
         ],
     ],
 
+    'donor' => [
+        'notes' => [
+            'max' => 'Catatan donatur maksimal :max karakter.',
+        ],
+    ],
+
     /*
     |---------------------------------------------------------------------------------------
     | Kustom Validasi Atribut

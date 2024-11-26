@@ -115,6 +115,12 @@ return [
         ],
     ],
 
+    'donor' => [
+        'notes' => [
+            'max' => 'Donor notes are too long, max :max characters.',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
