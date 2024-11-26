@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    const TYPE_INCOME = 1;
+    const TYPE_SPENDING = 0;
+
     use ForActiveBook;
 
     protected $fillable = [
