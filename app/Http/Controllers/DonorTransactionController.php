@@ -63,6 +63,12 @@ class DonorTransactionController extends Controller
 
         flash(__('transaction.income_added'), 'success');
 
+        if ($referencePage = $request->get('reference_page')) {
+            if ($referencePage == 'donor') {
+                return redirect()->route('donors.show', [$partner->id]);
+            }
+        }
+
         return redirect()->route('donors.index');
     }
 

@@ -21,7 +21,9 @@
     <h1 class="page-title">{{ $partner->name }}</h1>
     <div class="page-subtitle">{{ $partner->level ?: __('partner.partner_type', ['type' => $partner->type]) }}</div>
     <div class="page-options d-flex">
-        {{-- {{ link_to_route('partners.index', __('partner.edit', ['type' => $partner->type]), $partner, ['class' => 'btn btn-warning text-dark']) }} --}}
+        @can('create', new App\Transaction)
+            {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success']) }}
+        @endcan
     </div>
 </div>
 

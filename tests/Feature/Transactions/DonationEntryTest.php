@@ -95,4 +95,40 @@ class DonationEntryTest extends TestCase
             'partner_id' => $partner->id,
         ]);
     }
+
+    /** @test */
+    public function user_can_entry_transction_from_donor_detail_page()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+
+        $this->visitRoute('donors.show', $partner);
+
+        $this->click(__('donor.add_donation'));
+        $this->seeRouteIs('donor_transactions.create', ['partner_id' => $partner->id, 'reference_page' => 'donor']);
+
+        $this->submitForm(__('donor.add_donation'), [
+            'amount' => 99.99,
+            'date' => '2024-11-26',
+            'partner_id' => $partner->id,
+            'book_id' => $book->id,
+            'bank_account_id' => '',
+            'notes' => 'Doa donatur.',
+        ]);
+
+        $this->seeRouteIs('donors.show', $partner);
+        $this->see(__('transaction.income_added'));
+
+        $this->seeInDatabase('transactions', [
+            'in_out' => Transaction::TYPE_INCOME,
+            'amount' => 99.99,
+            'date' => '2024-11-26',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'|Doa donatur.',
+            'category_id' => null,
+            'bank_account_id' => null,
+            'book_id' => $book->id,
+            'partner_id' => $partner->id,
+        ]);
+    }
 }
