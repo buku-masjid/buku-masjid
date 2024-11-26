@@ -57,7 +57,7 @@ class DonationEntryTest extends TestCase
 
         $this->click(__('donor.add_donation'));
         $this->seeRouteIs('donor_transactions.create');
-        $this->click(__('donor.new_donor'));
+        $this->click(__('donor.new'));
         $this->seeRouteIs('donor_transactions.create', ['action' => 'new_donor']);
 
         $this->submitForm(__('donor.add_donation'), [
@@ -114,7 +114,7 @@ class DonationEntryTest extends TestCase
             'partner_id' => $partner->id,
             'book_id' => $book->id,
             'bank_account_id' => '',
-            'notes' => 'Doa donatur.',
+            'notes' => '',
         ]);
 
         $this->seeRouteIs('donors.show', $partner);
@@ -124,7 +124,7 @@ class DonationEntryTest extends TestCase
             'in_out' => Transaction::TYPE_INCOME,
             'amount' => 99.99,
             'date' => '2024-11-26',
-            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'|Doa donatur.',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'',
             'category_id' => null,
             'bank_account_id' => null,
             'book_id' => $book->id,

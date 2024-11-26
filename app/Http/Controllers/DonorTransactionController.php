@@ -58,7 +58,10 @@ class DonorTransactionController extends Controller
             'in_out' => Transaction::TYPE_INCOME,
             'creator_id' => auth()->id(),
         ];
-        $newTransaction['description'] = __('donor.donation_from', ['donor_name' => $partner->name]).'|'.$payload['notes'];
+        $newTransaction['description'] = __('donor.donation_from', ['donor_name' => $partner->name]);
+        if ($payload['notes']) {
+            $newTransaction['description'] .= '|'.$payload['notes'];
+        }
         $transaction = Transaction::create($newTransaction);
 
         flash(__('transaction.income_added'), 'success');
