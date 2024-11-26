@@ -177,6 +177,31 @@ class DonationEntryTest extends TestCase
         $transactionDescription = __('donor.donation_from', ['donor_name' => 'Abdullah bin Abdul Hadi']);
         $noteStringLimit = (255 - strlen($transactionDescription));
 
+        $this->assertSessionHasErrors('notes');
         $this->assertSessionHasErrors(['notes' => __('validation.donor.notes.max', ['max' => $noteStringLimit])]);
+    }
+
+    /** @test */
+    public function validate_to_ensure_selected_partner_id_exists()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $invalidPartner = factory(Partner::class)->create(['type_code' => 'employee']);
+        $validPartner = factory(Partner::class)->create(['type_code' => 'donatur']);
+
+        $this->post(route('donor_transactions.store'), [
+            'partner_id' => $validPartner->id,
+        ]);
+        $this->assertSessionMissingErrors('partner_id');
+
+        $this->post(route('donor_transactions.store'), [
+            'partner_id' => $invalidPartner->id,
+        ]);
+        $this->assertSessionHasErrors(['partner_id' => __('validation.exists', ['attribute' => 'partner id'])]);
+
+        $this->post(route('donor_transactions.store'), [
+            'partner_id' => 9999,
+        ]);
+        $this->assertSessionHasErrors(['partner_id' => __('validation.exists', ['attribute' => 'partner id'])]);
     }
 }

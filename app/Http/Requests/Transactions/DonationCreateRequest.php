@@ -14,7 +14,7 @@ class DonationCreateRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $rules = [
             'date' => 'required|date|date_format:Y-m-d',
             'amount' => 'required|max:60',
             'notes' => 'nullable|max:255',
@@ -25,5 +25,10 @@ class DonationCreateRequest extends FormRequest
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ];
+        if ($this->get('partner_id')) {
+            $rules['partner_id'] = 'required_without:partner_name|exists:partners,id,type_code,donatur';
+        }
+
+        return $rules;
     }
 }

@@ -31,15 +31,11 @@ class DonorTransactionController extends Controller
     public function store(DonationCreateRequest $request)
     {
         $payload = $request->validated();
-        $partner = null;
-        $partnerName = $payload['partner_name'] ?? null;
-        if ($payload['partner_id']) {
-            $partner = Partner::find($payload['partner_id']);
-            $partnerName = $partner->name;
-        }
+        $partner = Partner::find($payload['partner_id']);
+        $partnerName = $partner ? $partner->name : $payload['partner_name'];
         $transactionDescription = $this->buildTransactionDescription($partnerName, $payload['notes']);
 
-        if (!$payload['partner_id']) {
+        if (!$partner) {
             $partner = Partner::create([
                 'name' => $payload['partner_name'],
                 'phone' => $payload['partner_phone'],
