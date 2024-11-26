@@ -5,8 +5,8 @@ return [
     'donor' => 'Donatur',
     'donors' => 'Donatur',
     'search' => 'Cari Donatur',
+    'select' => 'Pilih Donatur',
     'new' => 'Donatur Baru',
-    'new_donor' => 'Input Donatur Baru',
     'notes' => 'Catatan Donatur',
     'notes_placeholder' => 'Doa dari donatur untuk program atau diri sendiri.',
 

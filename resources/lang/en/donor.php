@@ -4,9 +4,9 @@ return [
     // Labels
     'donor' => 'Donor',
     'donors' => 'Donors',
-    'search' => 'Cari Donatur',
+    'search' => 'Search Donors',
+    'select' => 'Select a Donor',
     'new' => 'New Donor',
-    'new_donor' => 'Add a new Donor',
     'notes' => 'Donor Notes',
     'notes_placeholder' => 'Words/pray from donor for the program or them-self.',
 
