@@ -14,28 +14,51 @@ class DonorTransactionController extends Controller
     {
         $partners = $this->getAvailablePartners(['donatur']);
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
-
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
         $books = Book::orderBy('name')
             ->where('status_id', Book::STATUS_ACTIVE)
             ->pluck('name', 'id');
 
-        return view('donors.transactions.create', compact('partners', 'bankAccounts', 'books'));
+        return view('donors.transactions.create', compact('partners', 'bankAccounts', 'genders', 'books'));
     }
 
     public function store(Request $request)
     {
-        $newTransaction = $request->validate([
+        $payload = $request->validate([
             'date' => 'required|date|date_format:Y-m-d',
             'amount' => 'required|max:60',
             'notes' => 'nullable|max:255',
-            'partner_id' => 'required|exists:partners,id',
+            'partner_id' => 'required_without:partner_name',
+            'partner_name' => 'required_without:partner_id|max:60',
+            'partner_phone' => 'required_without:partner_id|max:255',
+            'partner_gender_code' => 'required_without:partner_id|in:m,f',
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ]);
-        $partner = Partner::find($newTransaction['partner_id']);
-        $newTransaction['description'] = __('donor.donation_from', ['donor_name' => $partner->name]).'|'.$newTransaction['notes'];
-        $newTransaction['in_out'] = Transaction::TYPE_INCOME;
-        $newTransaction['creator_id'] = auth()->id();
+        if ($payload['partner_id']) {
+            $partner = Partner::find($payload['partner_id']);
+        } else {
+            $partner = Partner::create([
+                'name' => $payload['partner_name'],
+                'phone' => $payload['partner_phone'],
+                'gender_code' => $payload['partner_gender_code'],
+                'type_code' => 'donatur',
+                'creator_id' => auth()->id(),
+            ]);
+        }
+        $newTransaction = [
+            'date' => $payload['date'],
+            'amount' => $payload['amount'],
+            'partner_id' => $partner->id,
+            'book_id' => $payload['book_id'],
+            'bank_account_id' => $payload['bank_account_id'],
+            'in_out' => Transaction::TYPE_INCOME,
+            'creator_id' => auth()->id(),
+        ];
+        $newTransaction['description'] = __('donor.donation_from', ['donor_name' => $partner->name]).'|'.$payload['notes'];
         $transaction = Transaction::create($newTransaction);
 
         flash(__('transaction.income_added'), 'success');

@@ -6,7 +6,9 @@
         </div>
     </div>
     <div class="col-md-4 mt-3 mt-sm-0 text-center">
-        {{ link_to_route('donor_transactions.create', __('donor.add_donation'), [], ['class' => 'btn btn-success']) }}
+        @can('create', new App\Transaction)
+            {{ link_to_route('donor_transactions.create', __('donor.add_donation'), [], ['class' => 'btn btn-success']) }}
+        @endcan
     </div>
     <div class="col-md-4 mt-3 mt-sm-0 text-center text-md-right">
         @livewire('partners.total-income-from-partner', ['partnerTypeCode' => 'donatur'])

@@ -9,6 +9,8 @@ class Partner extends Model
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const GENDER_MALE = 'm';
+    const GENDER_FEMALE = 'f';
 
     protected $fillable = [
         'name', 'type_code', 'level_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
