@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transactions\DonationCreateRequest;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Partner;
 use App\Transaction;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class DonorTransactionController extends Controller
@@ -28,39 +28,16 @@ class DonorTransactionController extends Controller
         return view('donors.transactions.create', compact('partners', 'bankAccounts', 'genders', 'books'));
     }
 
-    public function store(Request $request)
+    public function store(DonationCreateRequest $request)
     {
-        $this->authorize('create', new Transaction);
-
-        $payload = $request->validate([
-            'date' => 'required|date|date_format:Y-m-d',
-            'amount' => 'required|max:60',
-            'notes' => 'nullable|max:255',
-            'partner_id' => 'required_without:partner_name',
-            'partner_name' => 'required_without:partner_id|max:60',
-            'partner_phone' => 'required_without:partner_id|max:255',
-            'partner_gender_code' => 'required_without:partner_id|in:m,f',
-            'book_id' => ['required', 'exists:books,id'],
-            'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
-        ]);
+        $payload = $request->validated();
         $partner = null;
         $partnerName = $payload['partner_name'] ?? null;
         if ($payload['partner_id']) {
             $partner = Partner::find($payload['partner_id']);
             $partnerName = $partner->name;
         }
-        $transactionDescription = __('donor.donation_from', ['donor_name' => $partnerName]);
-        if ($payload['notes']) {
-            $transactionDescription .= '|'.$payload['notes'];
-        }
-
-        if (strlen($transactionDescription) > 255) {
-            $descriptionPrefix = str_replace('|'.$payload['notes'], '', $transactionDescription);
-            $maxNotesLength = (255 - strlen($descriptionPrefix));
-            throw ValidationException::withMessages([
-                'notes' => [__('validation.donor.notes.max', ['max' => $maxNotesLength])],
-            ]);
-        }
+        $transactionDescription = $this->buildTransactionDescription($partnerName, $payload['notes']);
 
         if (!$payload['partner_id']) {
             $partner = Partner::create([
@@ -75,13 +52,13 @@ class DonorTransactionController extends Controller
         $newTransaction = [
             'date' => $payload['date'],
             'amount' => $payload['amount'],
+            'description' => $transactionDescription,
             'partner_id' => $partner->id,
             'book_id' => $payload['book_id'],
             'bank_account_id' => $payload['bank_account_id'],
             'in_out' => Transaction::TYPE_INCOME,
             'creator_id' => auth()->id(),
         ];
-        $newTransaction['description'] = $transactionDescription;
         $transaction = Transaction::create($newTransaction);
 
         flash(__('transaction.income_added'), 'success');
@@ -103,5 +80,23 @@ class DonorTransactionController extends Controller
             ->get();
 
         return $partners->pluck('name', 'id')->toArray();
+    }
+
+    private function buildTransactionDescription(string $partnerName, ?string $donationNotes): string
+    {
+        $transactionDescription = __('donor.donation_from', ['donor_name' => $partnerName]);
+        if ($donationNotes) {
+            $transactionDescription .= '|'.$donationNotes;
+        }
+
+        if (strlen($transactionDescription) > 255) {
+            $descriptionPrefix = str_replace('|'.$donationNotes, '', $transactionDescription);
+            $maxNotesLength = (255 - strlen($descriptionPrefix));
+            throw ValidationException::withMessages([
+                'notes' => [__('validation.donor.notes.max', ['max' => $maxNotesLength])],
+            ]);
+        }
+
+        return $transactionDescription;
     }
 }
