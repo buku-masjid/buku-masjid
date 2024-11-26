@@ -13,6 +13,8 @@ class DonorTransactionController extends Controller
 {
     public function create()
     {
+        $this->authorize('create', new Transaction);
+
         $partners = $this->getAvailablePartners(['donatur']);
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $genders = [
@@ -28,6 +30,8 @@ class DonorTransactionController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', new Transaction);
+
         $payload = $request->validate([
             'date' => 'required|date|date_format:Y-m-d',
             'amount' => 'required|max:60',
