@@ -29,9 +29,9 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">@include('partners._profile_card')</div>
-    <div class="col-md-4">@include('partners._largest_transaction')</div>
-    <div class="col-md-4">@include('partners._transactions_total')</div>
+    <div class="col-md-4">@include('donors._profile_card')</div>
+    <div class="col-md-4">@include('donors._largest_transaction')</div>
+    <div class="col-md-4">@include('donors._transactions_total')</div>
 </div>
 
 @if ($partner->address)
@@ -45,7 +45,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="mb-2">
-            @include('partners.partials.show_filter')
+            @include('donors.partials.show_filter')
         </div>
         <div class="card table-responsive">
             @desktop
@@ -106,7 +106,7 @@
             @elsedesktop
             <div class="card-body">
                 @foreach ($transactions as $transaction)
-                    @include('partners.partials.single_transaction_mobile', ['transaction' => $transaction])
+                    @include('donors.partials.single_transaction_mobile', ['transaction' => $transaction])
                 @endforeach
             </div>
             @enddesktop

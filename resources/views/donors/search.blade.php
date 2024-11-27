@@ -17,7 +17,7 @@
         <div class="col-md-4 text-center text-sm-left">
             <h1 class="page-title">{{ __('partner.partner_type_donor') }}</h1>
             <div class="page-subtitle ml-0">
-                Berikut adalah data {{ __('partner.partner_type_donor') }} {{ Setting::get('masjid_name') }}.
+                {{ __('donor.donor') }} {{ Setting::get('masjid_name') }}.
             </div>
         </div>
         <div class="col-md-4 mt-3 text-center">
