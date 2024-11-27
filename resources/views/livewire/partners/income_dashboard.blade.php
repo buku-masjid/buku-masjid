@@ -34,22 +34,27 @@
                     @php
                         $no = 1;
                     @endphp
-                    @forelse ($incomeDashboardEntries->pluck('partner_name', 'partner_id') as $partnerId => $partnerName)
+                    @forelse ($availablePartners as $partner)
                         <tr>
                             <td class="text-center">{{ $no++ }}</td>
-                            <td>{{ $partnerName }}</td>
+                            <td>
+                                {{ link_to_route('donors.show', $partner->name, $partner->id) }}
+                                <a href="https://wa.me/{{ str_replace([' ', '+', '(', ')'], '', $partner->phone) }}">
+                                    <i class="fe fe-phone-outgoing float-right"></i>
+                                </a>
+                            </td>
                             @foreach (get_months() as $monthNumber => $monthName)
                                 @php
-                                    $incomeEntry = $incomeDashboardEntries->filter(function ($income) use ($year, $monthNumber, $partnerId) {
-                                        return $income->tr_year_month == $year.'-'.$monthNumber && $income->partner_id == $partnerId;
+                                    $incomeEntry = $incomeDashboardEntries->filter(function ($income) use ($year, $monthNumber, $partner) {
+                                        return $income->tr_year_month == $year.'-'.$monthNumber && $income->partner_id == $partner->id;
                                     })->first();
                                 @endphp
                                 <td class="text-right">{{ $incomeEntry ? format_number($incomeEntry->total_amount) : '' }}</td>
                             @endforeach
 
                             @php
-                                $incomeTotal = $incomeDashboardEntries->filter(function ($income) use ($partnerId) {
-                                    return $income->partner_id == $partnerId;
+                                $incomeTotal = $incomeDashboardEntries->filter(function ($income) use ($partner) {
+                                    return $income->partner_id == $partner->id;
                                 })->sum('total_amount');
                             @endphp
                             <td class="text-right">{{ format_number($incomeTotal) }}</td>

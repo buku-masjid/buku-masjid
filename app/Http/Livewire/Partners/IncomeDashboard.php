@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Partners;
 
+use App\Models\Partner;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,7 @@ use Livewire\Component;
 class IncomeDashboard extends Component
 {
     public $incomeDashboardEntries;
-    public $availableParners;
+    public $availablePartners;
     public $year;
     public $partnerTypeCode;
     public $isLoading = true;
@@ -26,7 +27,9 @@ class IncomeDashboard extends Component
     {
         $this->year = $this->year ?: Carbon::now()->format('Y');
         $this->incomeDashboardEntries = $this->calculateIncomeDashboardEntries();
-        $this->availableParners = $this->incomeDashboardEntries->pluck('partner_name', 'partner_id')->sort();
+        $this->availablePartners = Partner::whereIn('id', $this->incomeDashboardEntries->pluck('partner_id'))
+            ->orderBy('name')
+            ->get();
         $this->isLoading = false;
     }
 
