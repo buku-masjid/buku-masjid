@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * Donor Routes
      */
+    Route::get('donors/search', 'DonorController@search')->name('donors.search');
     Route::resource('donors', 'DonorController')->parameters(['donors' => 'partner']);
     Route::get('donor_transactions', 'DonorTransactionController@create')->name('donor_transactions.create');
     Route::post('donor_transactions', 'DonorTransactionController@store')->name('donor_transactions.store');

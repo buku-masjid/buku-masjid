@@ -18,7 +18,7 @@ class ManageDonorTest extends TestCase
         config(['partners.partner_types' => 'donatur|Donatur']);
         $creator = $this->loginAsUser();
         $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
-        $this->visitRoute('donors.index');
+        $this->visitRoute('donors.search');
 
         $this->seeText($partner->name);
     }
@@ -27,7 +27,7 @@ class ManageDonorTest extends TestCase
     public function user_can_create_a_donor()
     {
         $this->loginAsUser();
-        $this->visitRoute('donors.index');
+        $this->visitRoute('donors.search');
 
         $this->click(__('donor.create'));
         $this->seeRouteIs('donors.create');
@@ -42,7 +42,7 @@ class ManageDonorTest extends TestCase
             'address' => 'Donor 1 address',
         ]);
 
-        $this->seeRouteIs('donors.index');
+        $this->seeRouteIs('donors.search');
 
         $this->seeInDatabase('partners', [
             'name' => 'Donor 1 name',
@@ -62,7 +62,7 @@ class ManageDonorTest extends TestCase
         config(['partners.partner_types' => 'donatur|Donatur']);
         $creator = $this->loginAsUser();
         $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
-        $this->visitRoute('donors.index');
+        $this->visitRoute('donors.search');
         $this->seeElement('a', ['id' => 'show-partner-'.$partner->id]);
 
         $this->click('show-partner-'.$partner->id);

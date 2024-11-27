@@ -11,7 +11,13 @@ class DonorController extends Controller
     {
         $this->authorize('view-any', new Partner);
 
-        $editablePartner = null;
+        return view('donors.index');
+    }
+
+    public function search(Request $request)
+    {
+        $this->authorize('view-any', new Partner);
+
         $partnerLevels = (new Partner)->getAvailableLevels('donatur');
         $partners = $this->getDonors($request);
         $genders = [
@@ -19,7 +25,7 @@ class DonorController extends Controller
             'f' => __('app.gender_female'),
         ];
 
-        return view('donors.index', compact(
+        return view('donors.search', compact(
             'partners', 'partnerLevels', 'genders'
         ));
     }
@@ -55,7 +61,7 @@ class DonorController extends Controller
 
         flash(__('partner.created', ['type' => $partner->type]), 'success');
 
-        return redirect()->route('donors.index');
+        return redirect()->route('donors.search');
     }
 
     public function show(Partner $partner)
@@ -122,7 +128,7 @@ class DonorController extends Controller
         if (request('partner_id') == $partner->id && $partner->delete()) {
             flash(__('donor.deleted'), 'warning');
 
-            return redirect()->route('donors.index');
+            return redirect()->route('donors.search');
         }
         flash(__('donor.undeleted'), 'error');
 
