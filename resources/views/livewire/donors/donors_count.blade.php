@@ -2,12 +2,18 @@
     <div class="card-body p-3 row align-items-center" >
         <div class="col row align-items-center">
             <div class="col-8">
-                <div class="h4 mb-1">{{ __('donor.donors') }}</div>
-                <div class="text-muted">{{ __('donor.donors_count') }}</div>
+                <div class="h4 mb-1">{{ __('donor.donors_count') }}</div>
+                <div class="text-muted">
+                    @if ($book)
+                        {{ __('donor.donors_count_of_book', ['book_name' => $book->name]) }}
+                    @else
+                        {{ __('donor.all') }}
+                    @endif
+                </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 text-right">
                 @if ($isLoading)
-                    <div class="loading-state text-center">
+                    <div class="loading-state">
                         <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
                     </div>
                 @else

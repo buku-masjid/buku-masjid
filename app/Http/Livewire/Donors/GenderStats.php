@@ -9,7 +9,8 @@ use Livewire\Component;
 class GenderStats extends Component
 {
     public $partnerGenderStats;
-    public $partnerTypeCode;
+    public $book;
+    public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
     public function render()
@@ -25,7 +26,7 @@ class GenderStats extends Component
 
     private function calculateGenderStats()
     {
-        $cacheKey = 'calculatePartnerGenderStats_'.$this->partnerTypeCode;
+        $cacheKey = 'calculatePartnerGenderStats_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {

@@ -9,6 +9,8 @@ use Livewire\Component;
 class DonorsCount extends Component
 {
     public $donorsCount;
+    public $book;
+    public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
     public function render()
@@ -24,14 +26,20 @@ class DonorsCount extends Component
 
     private function calculateDonorsCount()
     {
-        $cacheKey = 'calculateDonorsCount';
+        $cacheKey = 'calculateDonorsCount_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
-        $amount = Partner::count();
+        $partnerQuery = Partner::where('type_code', $this->partnerTypeCode);
+        if ($this->book) {
+            $partnerQuery->whereHas('transactions', function ($query) {
+                $query->where('book_id', $this->book->id);
+            });
+        }
+        $amount = $partnerQuery->count();
 
         Cache::put($cacheKey, $amount, $duration);
 

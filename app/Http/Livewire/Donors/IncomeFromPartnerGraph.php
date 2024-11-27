@@ -11,7 +11,8 @@ use Livewire\Component;
 class IncomeFromPartnerGraph extends Component
 {
     public $incomeFromPartnerSeries;
-    public $partnerTypeCode;
+    public $book;
+    public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
     public function render()
@@ -27,7 +28,7 @@ class IncomeFromPartnerGraph extends Component
 
     private function calculateIncomeFromPartnerSeries()
     {
-        $cacheKey = 'calculatePartnerIncomeFromPartnerSeries_'.$this->partnerTypeCode;
+        $cacheKey = 'calculatePartnerIncomeFromPartnerSeries_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {

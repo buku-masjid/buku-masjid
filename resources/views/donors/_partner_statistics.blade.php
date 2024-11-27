@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-6 mt-3 mt-sm-0">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center mt-3 mx-3']) }}
-        {{ Form::select('book_id', ['' => '-- '.__('book.all').' --'] + $availableBooks, $selectedBook, ['class' => 'form-control mr-1']) }}
+        {{ Form::select('book_id', ['' => '-- '.__('book.all').' --'] + $availableBooks, optional($selectedBook)->id, ['class' => 'form-control mr-1']) }}
         {{ Form::select('month', ['00' => '-- '.__('time.month').' --'] + get_months(), $selectedMonth, ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', ['0000' => '-- '.__('time.year').' --'] + get_years(), $selectedYear, ['class' => 'form-control mr-1']) }}
         <div class="form-group mt-4 mt-sm-0 pt-0 pt-sm-2">
@@ -20,18 +20,18 @@
         {{ Form::close() }}
     </div>
     <div class="col-md-3 mt-3 mt-sm-0 text-center text-md-right">
-        @livewire('donors.total-income-from-partner', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.total-income-from-partner', ['book' => $selectedBook])
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        @livewire('donors.donors-count')
+        @livewire('donors.donors-count', ['book' => $selectedBook])
     </div>
     <div class="col-md-4">
-        @livewire('donors.level-stats', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.level-stats', ['book' => $selectedBook])
     </div>
     <div class="col-md-4">
-        @livewire('donors.gender-stats', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.gender-stats', ['book' => $selectedBook])
     </div>
 </div>
-@livewire('donors.income-from-partner-graph', ['partnerTypeCode' => 'donatur'])
+@livewire('donors.income-from-partner-graph', ['book' => $selectedBook])

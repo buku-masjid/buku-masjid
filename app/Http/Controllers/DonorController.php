@@ -15,9 +15,15 @@ class DonorController extends Controller
         $availableBooks = Book::orderBy('name')->pluck('name', 'id')->toArray();
         $selectedMonth = $request->get('month', '00');
         $selectedYear = $request->get('year', '0000');
-        $selectedBook = $request->get('book_id');
+        $selectedBookId = $request->get('book_id');
+        $selectedBook = null;
+        if ($request->get('book_id')) {
+            $selectedBook = Book::find($request->get('book_id'));
+        }
 
-        return view('donors.index', compact('availableBooks', 'selectedMonth', 'selectedYear', 'selectedBook'));
+        return view('donors.index', compact(
+            'availableBooks', 'selectedMonth', 'selectedYear', 'selectedBookId', 'selectedBook'
+        ));
     }
 
     public function search(Request $request)

@@ -9,7 +9,8 @@ use Livewire\Component;
 class LevelStats extends Component
 {
     public $partnerLevelStats;
-    public $partnerTypeCode;
+    public $book;
+    public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
     public function render()
@@ -25,7 +26,7 @@ class LevelStats extends Component
 
     private function calculateLevelStats()
     {
-        $cacheKey = 'calculatePartnerLevelStats_'.$this->partnerTypeCode;
+        $cacheKey = 'calculatePartnerLevelStats_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {

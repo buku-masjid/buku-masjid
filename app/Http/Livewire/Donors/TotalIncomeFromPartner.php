@@ -9,7 +9,8 @@ use Livewire\Component;
 class TotalIncomeFromPartner extends Component
 {
     public $totalIncomeFromPartner;
-    public $partnerTypeCode;
+    public $book;
+    public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
     public function render()
@@ -25,21 +26,24 @@ class TotalIncomeFromPartner extends Component
 
     private function calculateTotalIncomeFromPartner()
     {
-        $cacheKey = 'calculateTotalIncomeFromPartner_'.$this->partnerTypeCode;
+        $cacheKey = 'calculateTotalIncomeFromPartner_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
-        $amount = Transaction::withoutGlobalScope('forActiveBook')
+        $transactionQuery = Transaction::withoutGlobalScope('forActiveBook')
             ->whereHas('partner', function ($query) {
                 $query->where('type_code', $this->partnerTypeCode);
             })
-            ->where('in_out', 1)
-            ->sum('amount');
+            ->where('in_out', 1);
 
-        $amount = (float) $amount;
+        if ($this->book) {
+            $transactionQuery->where('book_id', $this->book->id);
+        }
+
+        $amount = (float) $transactionQuery->sum('amount');
 
         Cache::put($cacheKey, $amount, $duration);
 
