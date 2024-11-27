@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Partners;
+namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
 use Carbon\Carbon;
@@ -20,7 +20,7 @@ class IncomeDashboard extends Component
     {
         // $this->getIncomeDashboardEntries();
         // dump($this->year);
-        return view('livewire.partners.income_dashboard');
+        return view('livewire.donors.income_dashboard');
     }
 
     public function getIncomeDashboardEntries()

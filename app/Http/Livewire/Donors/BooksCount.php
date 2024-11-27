@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Partners;
+namespace App\Http\Livewire\Donors;
 
 use App\Models\Book;
 use Illuminate\Support\Facades\Cache;
@@ -13,7 +13,7 @@ class BooksCount extends Component
 
     public function render()
     {
-        return view('livewire.partners.books_count');
+        return view('livewire.donors.books_count');
     }
 
     public function getBooksCount()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Partners;
+namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +14,7 @@ class GenderStats extends Component
 
     public function render()
     {
-        return view('livewire.partners.gender_stats');
+        return view('livewire.donors.gender_stats');
     }
 
     public function getGenderStats()

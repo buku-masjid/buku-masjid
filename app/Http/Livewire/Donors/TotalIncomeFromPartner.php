@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Partners;
+namespace App\Http\Livewire\Donors;
 
 use App\Transaction;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +14,7 @@ class TotalIncomeFromPartner extends Component
 
     public function render()
     {
-        return view('livewire.partners.total_income_from_partner');
+        return view('livewire.donors.total_income_from_partner');
     }
 
     public function getTotalIncomeFromPartner()

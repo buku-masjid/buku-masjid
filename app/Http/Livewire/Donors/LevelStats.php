@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Partners;
+namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +14,7 @@ class LevelStats extends Component
 
     public function render()
     {
-        return view('livewire.partners.level_stats');
+        return view('livewire.donors.level_stats');
     }
 
     public function getLevelStats()

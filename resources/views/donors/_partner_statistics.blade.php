@@ -11,18 +11,18 @@
         @endcan
     </div>
     <div class="col-md-4 mt-3 mt-sm-0 text-center text-md-right">
-        @livewire('partners.total-income-from-partner', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.total-income-from-partner', ['partnerTypeCode' => 'donatur'])
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        @livewire('partners.books-count')
+        @livewire('donors.books-count')
     </div>
     <div class="col-md-4">
-        @livewire('partners.level-stats', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.level-stats', ['partnerTypeCode' => 'donatur'])
     </div>
     <div class="col-md-4">
-        @livewire('partners.gender-stats', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.gender-stats', ['partnerTypeCode' => 'donatur'])
     </div>
 </div>
-@livewire('partners.income-from-partner-graph', ['partnerTypeCode' => 'donatur'])
+@livewire('donors.income-from-partner-graph', ['partnerTypeCode' => 'donatur'])

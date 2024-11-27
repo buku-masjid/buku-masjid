@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Partners;
+namespace App\Http\Livewire\Donors;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
@@ -16,7 +16,7 @@ class IncomeFromPartnerGraph extends Component
 
     public function render()
     {
-        return view('livewire.partners.income_from_partner_graph');
+        return view('livewire.donors.income_from_partner_graph');
     }
 
     public function getIncomeFromPartnerSeries()
