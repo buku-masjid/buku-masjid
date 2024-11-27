@@ -75,9 +75,9 @@
             {{ __('transaction.transaction') }}
         </a>
         @can('view-any', new App\Models\Partner)
-            <a class="col border-right border-primary" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+            <a class="col border-right border-primary" href="{{ route('donors.index') }}" title="{{ __('donor.donor') }}">
                 <div><i class="fe fe-users h3"></i></div>
-                {{ __('partner.partner') }}
+                {{ __('donor.donor') }}
             </a>
         @endcan
         @if (Route::has('lecturings.index'))
