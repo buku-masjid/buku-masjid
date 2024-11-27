@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-4 mt-3 text-center text-sm-right">
             @can('create', new App\Models\Partner)
-                {{ link_to_route('donors.index', __('partner.create', ['type' => __('partner.partner_type_donor')]), ['action' => 'create'] + request()->only('type_code'), ['class' => 'btn btn-success']) }}
+                {{ link_to_route('donors.create', __('donor.create'), [], ['class' => 'btn btn-success']) }}
             @endcan
         </div>
     </div>
@@ -76,19 +76,7 @@
                             <td>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</td>
                             <td class="text-nowrap text-center">{{ $partner->level }}</td>
                             <td class="text-nowrap text-center">{{ $partner->status }}</td>
-                            <td class="text-center text-nowrap">
-                                @can('update', $partner)
-                                    {{ link_to_route(
-                                        'donors.index',
-                                        __('app.edit'),
-                                        ['action' => 'edit', 'id' => $partner->id, 'type_code' => $partner->type_code],
-                                        [
-                                            'id' => 'edit-partner-'.$partner->id,
-                                            'class' => 'btn btn-sm text-dark btn-warning',
-                                        ]
-                                    ) }}
-                                @endcan
-                            </td>
+                            <td class="text-center text-nowrap">&nbsp;</td>
                         </tr>
                         @empty
                         <tr><td colspan="6">{{ __('app.not_available', ['item' => __('partner.partner_type_donor')]) }}</td></tr>

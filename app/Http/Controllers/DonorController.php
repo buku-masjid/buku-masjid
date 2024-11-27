@@ -14,26 +14,33 @@ class DonorController extends Controller
         $editablePartner = null;
         $partnerLevels = (new Partner)->getAvailableLevels('donatur');
         $partners = $this->getDonors($request);
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editablePartner = Partner::find(request('id'));
-        }
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
 
         return view('donors.index', compact(
-            'partners', 'editablePartner', 'partnerLevels', 'genders'
+            'partners', 'partnerLevels', 'genders'
         ));
+    }
+
+    public function create()
+    {
+        $partnerLevels = (new Partner)->getAvailableLevels('donatur');
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
+
+        return view('donors.create', compact('partnerLevels', 'genders'));
     }
 
     public function store(Request $request)
     {
-        $this->authorize('create', new Donor);
+        $this->authorize('create', new Partner);
 
         $newPartner = $request->validate([
             'name' => 'required|max:60',
-            'type_code' => 'required|max:30',
             'level_code' => 'nullable|max:30',
             'gender_code' => 'nullable|in:m,f',
             'phone' => 'nullable|max:60',
@@ -41,13 +48,14 @@ class DonorController extends Controller
             'address' => 'nullable|max:255',
             'description' => 'nullable|max:255',
         ]);
+        $newPartner['type_code'] = 'donatur';
         $newPartner['creator_id'] = auth()->id();
 
         $partner = Partner::create($newPartner);
 
         flash(__('partner.created', ['type' => $partner->type]), 'success');
 
-        return redirect()->route('donors.index', ['type_code' => $newPartner['type_code']]);
+        return redirect()->route('donors.index');
     }
 
     public function show(Partner $partner)
@@ -68,13 +76,26 @@ class DonorController extends Controller
         return view('donors.show', compact('partner', 'startDate', 'endDate', 'transactions', 'largestTransaction'));
     }
 
+    public function edit(Partner $partner)
+    {
+        $this->authorize('update', $partner);
+
+        $partner->loadSum('transactions', 'amount');
+        $partnerLevels = (new Partner)->getAvailableLevels('donatur');
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
+
+        return view('donors.edit', compact('partner', 'partnerLevels', 'genders'));
+    }
+
     public function update(Request $request, Partner $partner)
     {
         $this->authorize('update', $partner);
 
         $partnerData = $request->validate([
             'name' => 'required|max:60',
-            'type_code' => 'required|max:30',
             'level_code' => 'nullable|max:30',
             'phone' => 'nullable|max:60',
             'work' => 'nullable|max:60',
@@ -85,9 +106,9 @@ class DonorController extends Controller
 
         $partner->update($partnerData);
 
-        flash(__('partner.updated', ['type' => $partner->type]), 'success');
+        flash(__('donor.updated'), 'success');
 
-        return redirect()->route('donors.index', ['type_code' => $partnerData['type_code']]);
+        return redirect()->route('donors.show', $partner);
     }
 
     public function destroy(Partner $partner)
@@ -99,11 +120,11 @@ class DonorController extends Controller
         ]);
 
         if (request('partner_id') == $partner->id && $partner->delete()) {
-            flash(__('partner.deleted', ['type' => $partner->type]), 'warning');
+            flash(__('donor.deleted'), 'warning');
 
             return redirect()->route('donors.index');
         }
-        flash(__('partner.undeleted', ['type' => $partner->type]), 'error');
+        flash(__('donor.undeleted'), 'error');
 
         return back();
     }

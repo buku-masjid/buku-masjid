@@ -9,9 +9,7 @@
         <li class="breadcrumb-item">
             <a href="{{ route('home') }}"><i class="fe fe-home"></i> {{ __('app.home') }}</a>
         </li>
-        <li class="breadcrumb-item">
-            {{ link_to_route('partners.index', $partner->type, ['type_code' => $partner->type_code]) }}
-        </li>
+        <li class="breadcrumb-item">{{ link_to_route('donors.index', $partner->type) }}</li>
         <li class="breadcrumb-item active" aria-current="page">{{ __('app.detail') }}</li>
     </ol>
 </nav>
@@ -23,6 +21,9 @@
     <div class="page-options d-flex">
         @can('create', new App\Transaction)
             {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success']) }}
+        @endcan
+        @can('update', $partner)
+            {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark ml-2', 'id' => 'edit-partner-'.$partner->id]) }}
         @endcan
     </div>
 </div>
