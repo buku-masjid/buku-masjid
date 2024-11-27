@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,12 @@ class DonorController extends Controller
     {
         $this->authorize('view-any', new Partner);
 
-        return view('donors.index');
+        $availableBooks = Book::orderBy('name')->pluck('name', 'id')->toArray();
+        $selectedMonth = $request->get('month', '00');
+        $selectedYear = $request->get('year', '0000');
+        $selectedBook = $request->get('book_id');
+
+        return view('donors.index', compact('availableBooks', 'selectedMonth', 'selectedYear', 'selectedBook'));
     }
 
     public function search(Request $request)
