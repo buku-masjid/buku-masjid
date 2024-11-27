@@ -20,7 +20,7 @@
                     {!! FormField::text('partner_name', ['required' => true, 'label' => __('donor.name')]) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::text('partner_phone', ['required' => true, 'label' => __('donor.phone')]) !!}
+                            {!! FormField::text('partner_phone', ['label' => __('donor.phone')]) !!}
                         </div>
                         <div class="col-md-6">
                             {!! FormField::select('partner_gender_code', $genders, [

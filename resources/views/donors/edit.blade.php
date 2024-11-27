@@ -75,6 +75,7 @@
                     <div class="col-md-6">
                         {!! FormField::select('gender_code', $genders, [
                             'value' => old('gender_code', $partner->gender_code),
+                            'required' => true,
                             'placeholder' => false,
                             'label' => __('app.gender'),
                         ]) !!}
