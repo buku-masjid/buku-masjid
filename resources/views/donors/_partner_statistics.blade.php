@@ -16,7 +16,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        @livewire('donors.books-count')
+        @livewire('donors.donors-count')
     </div>
     <div class="col-md-4">
         @livewire('donors.level-stats', ['partnerTypeCode' => 'donatur'])

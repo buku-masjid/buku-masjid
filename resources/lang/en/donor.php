@@ -4,6 +4,7 @@ return [
     // Labels
     'donor' => 'Donor',
     'donors' => 'Donors',
+    'donors_count' => 'Donors count',
     'search' => 'Search Donors',
     'select' => 'Select a Donor',
     'new' => 'New Donor',

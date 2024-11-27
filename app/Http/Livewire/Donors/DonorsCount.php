@@ -2,36 +2,36 @@
 
 namespace App\Http\Livewire\Donors;
 
-use App\Models\Book;
+use App\Models\Partner;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
-class BooksCount extends Component
+class DonorsCount extends Component
 {
-    public $booksCount;
+    public $donorsCount;
     public $isLoading = true;
 
     public function render()
     {
-        return view('livewire.donors.books_count');
+        return view('livewire.donors.donors_count');
     }
 
-    public function getBooksCount()
+    public function getDonorsCount()
     {
-        $this->booksCount = $this->calculateBooksCount();
+        $this->donorsCount = $this->calculateDonorsCount();
         $this->isLoading = false;
     }
 
-    private function calculateBooksCount()
+    private function calculateDonorsCount()
     {
-        $cacheKey = 'calculateBooksCount';
+        $cacheKey = 'calculateDonorsCount';
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
-        $amount = Book::count();
+        $amount = Partner::count();
 
         Cache::put($cacheKey, $amount, $duration);
 

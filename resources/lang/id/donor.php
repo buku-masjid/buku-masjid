@@ -4,6 +4,7 @@ return [
     // Labels
     'donor' => 'Donatur',
     'donors' => 'Donatur',
+    'donors_count' => 'Jumlah donatur',
     'search' => 'Cari Donatur',
     'select' => 'Pilih Donatur',
     'new' => 'Donatur Baru',
