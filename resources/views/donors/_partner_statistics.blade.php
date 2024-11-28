@@ -8,8 +8,10 @@
     <div class="col-md-6 mt-3 mt-sm-0">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center mt-3 mx-3']) }}
         {{ Form::select('book_id', ['' => '-- '.__('book.all').' --'] + $availableBooks, optional($selectedBook)->id, ['class' => 'form-control mr-1']) }}
-        {{ Form::select('month', ['00' => '-- '.__('time.month').' --'] + get_months(), $selectedMonth, ['class' => 'form-control mr-1']) }}
         {{ Form::select('year', ['0000' => '-- '.__('time.year').' --'] + get_years(), $selectedYear, ['class' => 'form-control mr-1']) }}
+        @if ($selectedYear !== '0000')
+            {{ Form::select('month', ['00' => '-- '.__('time.month').' --'] + get_months(), $selectedMonth, ['class' => 'form-control mr-1']) }}
+        @endif
         <div class="form-group mt-4 mt-sm-0 pt-0 pt-sm-2">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-2']) }}
             {{ link_to_route('donors.index', __('app.reset'), [], ['class' => 'btn btn-secondary mr-2']) }}
