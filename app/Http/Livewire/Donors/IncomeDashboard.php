@@ -74,7 +74,7 @@ class IncomeDashboard extends Component
         $availablePartners = [];
         foreach ($incomeDashboardEntries as $trYear => $incomeEntries) {
             foreach ($incomeEntries as $incomeEntry) {
-                $availablePartners[$trYear][] = (object) [
+                $availablePartners[$trYear][$incomeEntry->partner_id] = (object) [
                     'id' => $incomeEntry->partner_id,
                     'name' => $incomeEntry->partner_name,
                     'phone' => $incomeEntry->partner_phone,
