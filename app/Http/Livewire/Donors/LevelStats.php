@@ -48,8 +48,19 @@ class LevelStats extends Component
         }
 
         $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
-            ->when($this->book || $dateRange, function ($query) use ($dateRange) {
-                $query->whereHas('transactions', function ($query) use ($dateRange) {
+            ->whereHas('transactions', function ($query) use ($dateRange) {
+                if ($this->book) {
+                    $query->where('book_id', $this->book->id);
+                }
+                if ($dateRange) {
+                    $query->whereBetween('date', $dateRange);
+                }
+                $query->where('in_out', Transaction::TYPE_INCOME);
+            })->count();
+
+        foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
+            $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)
+                ->whereHas('transactions', function ($query) use ($dateRange) {
                     if ($this->book) {
                         $query->where('book_id', $this->book->id);
                     }
@@ -57,21 +68,6 @@ class LevelStats extends Component
                         $query->whereBetween('date', $dateRange);
                     }
                     $query->where('in_out', Transaction::TYPE_INCOME);
-                });
-            })->count();
-
-        foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
-            $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)
-                ->when($this->book || $dateRange, function ($query) use ($dateRange) {
-                    $query->whereHas('transactions', function ($query) use ($dateRange) {
-                        if ($this->book) {
-                            $query->where('book_id', $this->book->id);
-                        }
-                        if ($dateRange) {
-                            $query->whereBetween('date', $dateRange);
-                        }
-                        $query->where('in_out', Transaction::TYPE_INCOME);
-                    });
                 })->count();
             $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);
             $partnerLevelStats[$partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)'] = $partnerLevelCount;

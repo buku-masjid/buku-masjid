@@ -65,16 +65,14 @@ class GenderStats extends Component
         foreach ($partnerGenders as $partnerGenderCode => $partnerGenderName) {
             $partnerGenderCount = Partner::where('type_code', $this->partnerTypeCode)
                 ->where('gender_code', $partnerGenderCode)
-                ->when($this->book || $dateRange, function ($query) use ($dateRange) {
-                    $query->whereHas('transactions', function ($query) use ($dateRange) {
-                        if ($this->book) {
-                            $query->where('book_id', $this->book->id);
-                        }
-                        if ($dateRange) {
-                            $query->whereBetween('date', $dateRange);
-                        }
-                        $query->where('in_out', Transaction::TYPE_INCOME);
-                    });
+                ->whereHas('transactions', function ($query) use ($dateRange) {
+                    if ($this->book) {
+                        $query->where('book_id', $this->book->id);
+                    }
+                    if ($dateRange) {
+                        $query->whereBetween('date', $dateRange);
+                    }
+                    $query->where('in_out', Transaction::TYPE_INCOME);
                 })->count();
             $partnerGenderPercent = get_percent($partnerGenderCount, $partnerTotal);
             $partnerGenderStats[$partnerGenderName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerGenderCount.'</strong> ('.$partnerGenderPercent.'%)'] = $partnerGenderCount;

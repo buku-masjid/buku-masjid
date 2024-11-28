@@ -45,17 +45,15 @@ class DonorsCount extends Component
             }
         }
         $partnerQuery = Partner::where('type_code', $this->partnerTypeCode);
-        if ($this->book || $dateRange) {
-            $partnerQuery->whereHas('transactions', function ($query) use ($dateRange) {
-                if ($this->book) {
-                    $query->where('book_id', $this->book->id);
-                }
-                if ($dateRange) {
-                    $query->whereBetween('date', $dateRange);
-                }
-                $query->where('in_out', Transaction::TYPE_INCOME);
-            });
-        }
+        $partnerQuery->whereHas('transactions', function ($query) use ($dateRange) {
+            if ($this->book) {
+                $query->where('book_id', $this->book->id);
+            }
+            if ($dateRange) {
+                $query->whereBetween('date', $dateRange);
+            }
+            $query->where('in_out', Transaction::TYPE_INCOME);
+        });
 
         $amount = $partnerQuery->count();
 

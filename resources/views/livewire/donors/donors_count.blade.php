@@ -7,7 +7,7 @@
                     @if ($book)
                         {{ __('donor.donors_count_of_book', ['book_name' => $book->name]) }}
                     @else
-                        {{ __('donor.all') }}
+                        {{ __('donor.total_donating') }}
                     @endif
                     {{ get_months()[$month] ?? '' }}
                     {{ $year != '0000' ? $year : '' }}
