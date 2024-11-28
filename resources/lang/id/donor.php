@@ -6,7 +6,7 @@ return [
     'donors' => 'Donatur',
     'all' => 'Semua Donatur',
     'donors_count' => 'Jumlah donatur',
-    'donors_count_of_book' => 'Jumlah donatur pada :book_name',
+    'donors_count_of_book' => 'Donatur pada :book_name',
     'search' => 'Cari Donatur',
     'select' => 'Pilih Donatur',
     'new' => 'Donatur Baru',

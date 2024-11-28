@@ -6,7 +6,7 @@ return [
     'donors' => 'Donors',
     'all' => 'All Donor',
     'donors_count' => 'Donors count',
-    'donors_count_of_book' => 'Donors count of :book_name',
+    'donors_count_of_book' => 'Donors of :book_name',
     'search' => 'Search Donors',
     'select' => 'Select a Donor',
     'new' => 'New Donor',

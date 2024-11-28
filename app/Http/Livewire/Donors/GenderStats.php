@@ -38,9 +38,20 @@ class GenderStats extends Component
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
-        $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)->count();
+        $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
+            ->when($this->book, function ($query) {
+                $query->whereHas('transactions', function ($query) {
+                    $query->where('book_id', $this->book->id);
+                });
+            })->count();
         foreach ($partnerGenders as $partnerGenderCode => $partnerGenderName) {
-            $partnerGenderCount = Partner::where('type_code', $this->partnerTypeCode)->where('gender_code', $partnerGenderCode)->count();
+            $partnerGenderCount = Partner::where('type_code', $this->partnerTypeCode)
+                ->where('gender_code', $partnerGenderCode)
+                ->when($this->book, function ($query) {
+                    $query->whereHas('transactions', function ($query) {
+                        $query->where('book_id', $this->book->id);
+                    });
+                })->count();
             $partnerGenderPercent = get_percent($partnerGenderCount, $partnerTotal);
             $partnerGenderStats[$partnerGenderName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerGenderCount.'</strong> ('.$partnerGenderPercent.'%)'] = $partnerGenderCount;
         }

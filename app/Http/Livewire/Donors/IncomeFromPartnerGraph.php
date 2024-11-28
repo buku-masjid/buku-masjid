@@ -71,6 +71,9 @@ class IncomeFromPartnerGraph extends Component
                     ->whereColumn('transactions.partner_id', 'partners.id')
                     ->where('partners.type_code', $partnerType);
             })
+            ->when($this->book, function ($query) {
+                $query->where('book_id', $this->book->id);
+            })
             ->where('in_out', $inOut)
             ->groupBy('transaction_year')
             ->groupBy('transaction_month')

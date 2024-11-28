@@ -35,9 +35,19 @@ class LevelStats extends Component
 
         $partnerLevelStats = [];
         $partnerLevels = (new Partner)->getAvailableLevels($this->partnerTypeCode);
-        $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)->count();
+        $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
+            ->when($this->book, function ($query) {
+                $query->whereHas('transactions', function ($query) {
+                    $query->where('book_id', $this->book->id);
+                });
+            })->count();
         foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
-            $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)->count();
+            $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)
+                ->when($this->book, function ($query) {
+                    $query->whereHas('transactions', function ($query) {
+                        $query->where('book_id', $this->book->id);
+                    });
+                })->count();
             $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);
             $partnerLevelStats[$partnerLevelName.'&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$partnerLevelCount.'</strong> ('.$partnerLevelPercent.'%)'] = $partnerLevelCount;
         }
