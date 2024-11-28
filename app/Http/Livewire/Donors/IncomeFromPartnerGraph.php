@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Donors;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -12,6 +13,7 @@ class IncomeFromPartnerGraph extends Component
 {
     public $incomeFromPartnerSeries;
     public $book;
+    public $month;
     public $year;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
@@ -29,7 +31,7 @@ class IncomeFromPartnerGraph extends Component
 
     private function calculateIncomeFromPartnerSeries()
     {
-        $cacheKey = 'calculatePartnerIncomeFromPartnerSeries_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
+        $cacheKey = 'calculatePartnerIncomeFromPartnerSeries_'.$this->partnerTypeCode.'_'.$this->year.'_'.$this->month.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -62,8 +64,11 @@ class IncomeFromPartnerGraph extends Component
     private function calculatePartnerMonthlySummary(string $partnerType, int $inOut): Collection
     {
         $dateRange = [];
-        if ($this->year) {
+        if ($this->year != '0000') {
             $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+            if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
+                $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
+            }
         }
 
         $rawSelect = 'count(id) as transactions_count';

@@ -9,6 +9,7 @@
                     @else
                         {{ __('donor.all') }}
                     @endif
+                    {{ get_months()[$month] ?? '' }}
                     {{ $year != '0000' ? $year : '' }}
                 </div>
             </div>

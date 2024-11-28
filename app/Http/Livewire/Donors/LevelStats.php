@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
@@ -11,6 +12,7 @@ class LevelStats extends Component
     public $partnerLevelStats;
     public $book;
     public $year;
+    public $month;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
@@ -27,7 +29,7 @@ class LevelStats extends Component
 
     private function calculateLevelStats()
     {
-        $cacheKey = 'calculatePartnerLevelStats_'.$this->partnerTypeCode.'_'.$this->year.'_'.optional($this->book)->id;
+        $cacheKey = 'calculatePartnerLevelStats_'.$this->partnerTypeCode.'_'.$this->year.'_'.$this->month.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -39,6 +41,9 @@ class LevelStats extends Component
         $dateRange = [];
         if ($this->year != '0000') {
             $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+            if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
+                $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
+            }
         }
 
         $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)

@@ -20,18 +20,18 @@
         {{ Form::close() }}
     </div>
     <div class="col-md-3 mt-3 mt-sm-0 text-center text-md-right">
-        @livewire('donors.total-income-from-partner', ['book' => $selectedBook, 'year' => $selectedYear])
+        @livewire('donors.total-income-from-partner', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        @livewire('donors.donors-count', ['book' => $selectedBook, 'year' => $selectedYear])
+        @livewire('donors.donors-count', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
     <div class="col-md-4">
-        @livewire('donors.level-stats', ['book' => $selectedBook, 'year' => $selectedYear])
+        @livewire('donors.level-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
     <div class="col-md-4">
-        @livewire('donors.gender-stats', ['book' => $selectedBook, 'year' => $selectedYear])
+        @livewire('donors.gender-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 </div>
-@livewire('donors.income-from-partner-graph', ['book' => $selectedBook, 'year' => $selectedYear])
+@livewire('donors.income-from-partner-graph', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
