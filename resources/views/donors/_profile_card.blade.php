@@ -7,7 +7,7 @@
             <span class="badge p-2 bg-blue-lighter text-dark float-right">{{ $partner->status }}</span>
             <div>
                 <div class="text-muted small">{{ __('partner.phone') }}</div>
-                <strong>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</strong>
+                <strong>{{ $partner->phone ? link_to('https://wa.me/'.str_replace([' ', '+', '(', ')'], '', $partner->phone), $partner->phone) : '' }}</strong>
             </div>
             <div>
                 <div class="text-muted small">{{ __('partner.work') }}</div>
