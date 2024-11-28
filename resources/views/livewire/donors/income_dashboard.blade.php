@@ -5,23 +5,24 @@
         </div>
     @else
         @foreach ($incomeDashboardEntries as $trYear => $incomeDashboardEntriesPerYear)
-            <h1 class="page-title mb-4">
+            <div class="h3">
                 {{ __('donor.all') }}
                 {{ optional($book)->name }}
                 {{ get_months()[$month] ?? '' }}
                 {{ $trYear }}
-            </h1>
+                <span class="h6 text-muted">{{ __('report.in_thousand') }} {{ config('money.currency_text') }}</span>
+            </div>
 
             <div class="card table-responsive-sm">
                 <table class="table-sm table-striped table-bordered small">
                     <thead>
                         <tr>
-                            <th class="text-center">{{ __('app.table_no') }}</th>
-                            <th>{{ __('partner.partner_type_donor') }}</th>
+                            <th class="text-center" style="width: 3em">{{ __('app.table_no') }}</th>
+                            <th style="width: 20em">{{ __('partner.partner_type_donor') }}</th>
                             @if (isset(get_months()[$month]))
                             @else
                                 @foreach (get_months() as $monthNumber => $monthName)
-                                    <th class="text-center">{{ Carbon\Carbon::parse($trYear.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
+                                    <th class="text-center" style="width: 8em">{{ Carbon\Carbon::parse($trYear.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
                                 @endforeach
                             @endif
                             <th class="text-center">{{ __('app.total') }}</th>
