@@ -10,7 +10,7 @@
                 {{ optional($book)->name }}
                 {{ get_months()[$month] ?? '' }}
                 {{ $trYear }}
-                <span class="h6 text-muted">{{ __('report.in_thousand') }} {{ config('money.currency_text') }}</span>
+                <span class="h6 text-muted float-right">{{ __('report.in_thousand') }} {{ config('money.currency_text') }}</span>
             </div>
 
             <div class="card table-responsive-sm">
@@ -22,7 +22,7 @@
                             @if (isset(get_months()[$month]))
                             @else
                                 @foreach (get_months() as $monthNumber => $monthName)
-                                    <th class="text-center" style="width: 8em">{{ Carbon\Carbon::parse($trYear.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
+                                    <th class="text-center" style="width: 5em">{{ Carbon\Carbon::parse($trYear.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
                                 @endforeach
                             @endif
                             <th class="text-center">{{ __('app.total') }}</th>
@@ -49,7 +49,7 @@
                                                 return $income->tr_year_month == $trYear.'-'.$monthNumber && $income->partner_id == $partner->id;
                                             })->first();
                                         @endphp
-                                        <td class="text-right">{{ $incomeEntry ? format_number($incomeEntry->total_amount) : '' }}</td>
+                                        <td class="text-right">{{ $incomeEntry ? format_number($incomeEntry->total_amount / 1000) : '' }}</td>
                                     @endforeach
                                 @endif
 
@@ -58,7 +58,7 @@
                                         return $income->partner_id == $partner->id;
                                     })->sum('total_amount');
                                 @endphp
-                                <td class="text-right">{{ format_number($incomeTotal) }}</td>
+                                <td class="text-right">{{ format_number($incomeTotal / 1000) }}</td>
                             </tr>
                         @empty
                             <tr><td colspan="15">Tidak ada transaksi donatur tahun {{ $trYear }}.</td></tr>
@@ -75,10 +75,10 @@
                                             return $income->tr_year_month == $trYear.'-'.$monthNumber;
                                         })->sum('total_amount');
                                     @endphp
-                                    <td class="text-right">{{ format_number($monthTotal) }}</td>
+                                    <td class="text-right">{{ format_number($monthTotal / 1000) }}</td>
                                 @endforeach
                             @endif
-                            <td class="text-right">{{ format_number($incomeDashboardEntriesPerYear->sum('total_amount')) }}</td>
+                            <td class="text-right">{{ format_number($incomeDashboardEntriesPerYear->sum('total_amount') / 1000) }}</td>
                         </tr>
                     </tfoot>
                 </table>
