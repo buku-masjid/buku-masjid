@@ -4,13 +4,19 @@
             <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
         </div>
     @else
-        @foreach ($incomeDashboardEntries as $trYear => $incomeDashboardEntriesPerYear)
-            <div class="h3">
-                {{ __('donor.all') }}
-                {{ optional($book)->name }}
-                {{ get_months()[$month] ?? '' }}
-                {{ $trYear }}
-                <span class="h6 text-muted float-right">{{ __('report.in_thousand') }} {{ config('money.currency_text') }}</span>
+        @forelse ($incomeDashboardEntries as $trYear => $incomeDashboardEntriesPerYear)
+            <div class="row align-items-end">
+                <div class="col-sm-6">
+                    <div class="h3">
+                        {{ __('donor.all') }}
+                        {{ optional($book)->name }}
+                        {{ get_months()[$month] ?? '' }}
+                        {{ $trYear }}
+                    </div>
+                </div>
+                <div class="col-sm-6 text-right mb-2">
+                    <span class="text-muted">({{ __('report.in_thousand') }} {{ config('money.currency_text') }})</span>
+                </div>
             </div>
 
             <div class="card table-responsive-sm">
@@ -83,6 +89,13 @@
                     </tfoot>
                 </table>
             </div>
-        @endforeach
+        @empty
+            <div>
+                {{ __('transaction.not_found') }}
+                {{ optional($book)->name }}
+                {{ get_months()[$month] ?? '' }}
+                {{ $year != '0000' ? $year : '' }}
+            </div>
+        @endforelse
     @endif
 </div>

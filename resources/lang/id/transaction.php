@@ -9,7 +9,7 @@ return [
     'income' => 'Pemasukan',
     'spending' => 'Pengeluaran',
     'detail' => 'Detail Transaksi',
-    'not_found' => 'Transaksi tidak ditemukan.',
+    'not_found' => 'Transaksi tidak ditemukan',
     'empty' => 'Belum ada Transaksi',
     'count' => 'Input Transaksi',
     'forward_date_alert' => 'Tanggal transaksi lewat dari tanggal hari ini!',

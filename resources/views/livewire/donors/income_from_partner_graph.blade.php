@@ -6,9 +6,13 @@
     @else
         @if ($incomeFromPartnerSeries)
             <div class="col-md-10">
-                <div class="h2" style="color: {{ config('masjid.income_color') }}">
-                    {{ __('transaction.income') }}
-                    <span class="h6 text-muted">{{ __('report.in_thousand') }} {{ config('money.currency_text') }}</span>
+                <div class="row align-items-end">
+                    <div class="col-sm-6">
+                        <div class="h2" style="color: {{ config('masjid.income_color') }}">{{ __('transaction.income') }}</div>
+                    </div>
+                    <div class="col-sm-6 text-right mb-2">
+                        <span class="text-muted">({{ __('report.in_thousand') }} {{ config('money.currency_text') }})</span>
+                    </div>
                 </div>
                 <div id="apexcharts_income_from_partner" style="margin: 0 auto;"></div>
                 <script>
