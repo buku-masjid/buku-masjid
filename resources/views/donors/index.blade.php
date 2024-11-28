@@ -17,7 +17,7 @@
 
 <div class="bg-white py-6 mb-5 mt-3 mt-sm-5">
     <div class="container">
-        @livewire('donors.income-dashboard', ['partnerTypeCode' => 'donatur'])
+        @livewire('donors.income-dashboard', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 @endsection
 
