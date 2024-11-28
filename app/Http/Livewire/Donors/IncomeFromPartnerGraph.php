@@ -12,6 +12,7 @@ class IncomeFromPartnerGraph extends Component
 {
     public $incomeFromPartnerSeries;
     public $book;
+    public $year;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
@@ -60,6 +61,11 @@ class IncomeFromPartnerGraph extends Component
 
     private function calculatePartnerMonthlySummary(string $partnerType, int $inOut): Collection
     {
+        $dateRange = [];
+        if ($this->year) {
+            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        }
+
         $rawSelect = 'count(id) as transactions_count';
         $rawSelect .= ', sum(amount) as total';
         $rawSelect .= ', year(date) as transaction_year';
@@ -73,6 +79,9 @@ class IncomeFromPartnerGraph extends Component
             })
             ->when($this->book, function ($query) {
                 $query->where('book_id', $this->book->id);
+            })
+            ->when($dateRange, function ($query) use ($dateRange) {
+                $query->whereBetween('date', $dateRange);
             })
             ->where('in_out', $inOut)
             ->groupBy('transaction_year')

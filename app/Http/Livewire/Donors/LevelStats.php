@@ -10,6 +10,7 @@ class LevelStats extends Component
 {
     public $partnerLevelStats;
     public $book;
+    public $year;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
@@ -26,7 +27,7 @@ class LevelStats extends Component
 
     private function calculateLevelStats()
     {
-        $cacheKey = 'calculatePartnerLevelStats_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
+        $cacheKey = 'calculatePartnerLevelStats_'.$this->partnerTypeCode.'_'.$this->year.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -35,17 +36,32 @@ class LevelStats extends Component
 
         $partnerLevelStats = [];
         $partnerLevels = (new Partner)->getAvailableLevels($this->partnerTypeCode);
+        $dateRange = [];
+        if ($this->year != '0000') {
+            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        }
+
         $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
-            ->when($this->book, function ($query) {
-                $query->whereHas('transactions', function ($query) {
-                    $query->where('book_id', $this->book->id);
+            ->when($this->book || $dateRange, function ($query) use ($dateRange) {
+                $query->whereHas('transactions', function ($query) use ($dateRange) {
+                    if ($this->book) {
+                        $query->where('book_id', $this->book->id);
+                    }
+                    if ($dateRange) {
+                        $query->whereBetween('date', $dateRange);
+                    }
                 });
             })->count();
         foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
             $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)
-                ->when($this->book, function ($query) {
-                    $query->whereHas('transactions', function ($query) {
-                        $query->where('book_id', $this->book->id);
+                ->when($this->book || $dateRange, function ($query) use ($dateRange) {
+                    $query->whereHas('transactions', function ($query) use ($dateRange) {
+                        if ($this->book) {
+                            $query->where('book_id', $this->book->id);
+                        }
+                        if ($dateRange) {
+                            $query->whereBetween('date', $dateRange);
+                        }
                     });
                 })->count();
             $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);

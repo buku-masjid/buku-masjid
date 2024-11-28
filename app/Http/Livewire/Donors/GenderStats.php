@@ -10,6 +10,7 @@ class GenderStats extends Component
 {
     public $partnerGenderStats;
     public $book;
+    public $year;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
@@ -26,7 +27,7 @@ class GenderStats extends Component
 
     private function calculateGenderStats()
     {
-        $cacheKey = 'calculatePartnerGenderStats_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
+        $cacheKey = 'calculatePartnerGenderStats_'.$this->partnerTypeCode.'_'.$this->year.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
@@ -38,18 +39,33 @@ class GenderStats extends Component
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
+        $dateRange = [];
+        if ($this->year != '0000') {
+            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        }
+
         $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
-            ->when($this->book, function ($query) {
-                $query->whereHas('transactions', function ($query) {
-                    $query->where('book_id', $this->book->id);
+            ->when($this->book || $dateRange, function ($query) use ($dateRange) {
+                $query->whereHas('transactions', function ($query) use ($dateRange) {
+                    if ($this->book) {
+                        $query->where('book_id', $this->book->id);
+                    }
+                    if ($dateRange) {
+                        $query->whereBetween('date', $dateRange);
+                    }
                 });
             })->count();
         foreach ($partnerGenders as $partnerGenderCode => $partnerGenderName) {
             $partnerGenderCount = Partner::where('type_code', $this->partnerTypeCode)
                 ->where('gender_code', $partnerGenderCode)
-                ->when($this->book, function ($query) {
-                    $query->whereHas('transactions', function ($query) {
-                        $query->where('book_id', $this->book->id);
+                ->when($this->book || $dateRange, function ($query) use ($dateRange) {
+                    $query->whereHas('transactions', function ($query) use ($dateRange) {
+                        if ($this->book) {
+                            $query->where('book_id', $this->book->id);
+                        }
+                        if ($dateRange) {
+                            $query->whereBetween('date', $dateRange);
+                        }
                     });
                 })->count();
             $partnerGenderPercent = get_percent($partnerGenderCount, $partnerTotal);

@@ -10,6 +10,7 @@ class DonorsCount extends Component
 {
     public $donorsCount;
     public $book;
+    public $year;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
@@ -26,19 +27,29 @@ class DonorsCount extends Component
 
     private function calculateDonorsCount()
     {
-        $cacheKey = 'calculateDonorsCount_'.$this->partnerTypeCode.'_'.optional($this->book)->id;
+        $cacheKey = 'calculateDonorsCount_'.$this->partnerTypeCode.'_'.$this->year.'_'.optional($this->book)->id;
         $duration = now()->addSeconds(10);
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
 
+        $dateRange = [];
+        if ($this->year != '0000') {
+            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        }
         $partnerQuery = Partner::where('type_code', $this->partnerTypeCode);
-        if ($this->book) {
-            $partnerQuery->whereHas('transactions', function ($query) {
-                $query->where('book_id', $this->book->id);
+        if ($this->book || $dateRange) {
+            $partnerQuery->whereHas('transactions', function ($query) use ($dateRange) {
+                if ($this->book) {
+                    $query->where('book_id', $this->book->id);
+                }
+                if ($dateRange) {
+                    $query->whereBetween('date', $dateRange);
+                }
             });
         }
+
         $amount = $partnerQuery->count();
 
         Cache::put($cacheKey, $amount, $duration);

@@ -20,18 +20,18 @@
         {{ Form::close() }}
     </div>
     <div class="col-md-3 mt-3 mt-sm-0 text-center text-md-right">
-        @livewire('donors.total-income-from-partner', ['book' => $selectedBook])
+        @livewire('donors.total-income-from-partner', ['book' => $selectedBook, 'year' => $selectedYear])
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        @livewire('donors.donors-count', ['book' => $selectedBook])
+        @livewire('donors.donors-count', ['book' => $selectedBook, 'year' => $selectedYear])
     </div>
     <div class="col-md-4">
-        @livewire('donors.level-stats', ['book' => $selectedBook])
+        @livewire('donors.level-stats', ['book' => $selectedBook, 'year' => $selectedYear])
     </div>
     <div class="col-md-4">
-        @livewire('donors.gender-stats', ['book' => $selectedBook])
+        @livewire('donors.gender-stats', ['book' => $selectedBook, 'year' => $selectedYear])
     </div>
 </div>
-@livewire('donors.income-from-partner-graph', ['book' => $selectedBook])
+@livewire('donors.income-from-partner-graph', ['book' => $selectedBook, 'year' => $selectedYear])

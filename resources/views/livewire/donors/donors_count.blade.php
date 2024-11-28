@@ -9,6 +9,7 @@
                     @else
                         {{ __('donor.all') }}
                     @endif
+                    {{ $year != '0000' ? $year : '' }}
                 </div>
             </div>
             <div class="col-4 text-right">
