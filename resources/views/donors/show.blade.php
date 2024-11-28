@@ -52,10 +52,11 @@
             <table class="table table-sm table-responsive-sm table-striped mb-0">
                 <thead>
                     <tr>
-                        <th class="text-center col-md-1">{{ __('app.table_no') }}</th>
-                        <th class="text-center col-md-2">{{ __('app.date') }}</th>
-                        <th class="col-md-5">{{ __('transaction.description') }}</th>
+                        <th class="text-center">{{ __('app.table_no') }}</th>
+                        <th class="text-center col-md-1">{{ __('app.date') }}</th>
+                        <th class="col-md-4">{{ __('transaction.description') }}</th>
                         <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                        <th class="col-md-3">{{ __('book.book') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -73,6 +74,7 @@
                             <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {{ $transaction->description }}</div>
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
+                        <td>{{ $transaction->book->name }}</td>
                         <td class="text-center text-nowrap">
                             @can('update', $transaction)
                                 @can('manage-transactions', auth()->activeBook())

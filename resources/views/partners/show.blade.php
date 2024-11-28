@@ -4,19 +4,6 @@
 
 @section('content_settings')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('home') }}"><i class="fe fe-home"></i> {{ __('app.home') }}</a>
-        </li>
-        <li class="breadcrumb-item">
-            {{ link_to_route('partners.index', $partner->type, ['type_code' => $partner->type_code]) }}
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">{{ __('app.detail') }}</li>
-    </ol>
-</nav>
-
-
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>
     <div class="page-subtitle">{{ $partner->level ?: __('partner.partner_type', ['type' => $partner->type]) }}</div>
@@ -49,10 +36,11 @@
             <table class="table table-sm table-responsive-sm table-striped mb-0">
                 <thead>
                     <tr>
-                        <th class="text-center col-md-1">{{ __('app.table_no') }}</th>
-                        <th class="text-center col-md-2">{{ __('app.date') }}</th>
-                        <th class="col-md-5">{{ __('transaction.description') }}</th>
+                        <th class="text-center">{{ __('app.table_no') }}</th>
+                        <th class="text-center col-md-1">{{ __('app.date') }}</th>
+                        <th class="col-md-4">{{ __('transaction.description') }}</th>
                         <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                        <th class="col-md-3">{{ __('book.book') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -70,6 +58,7 @@
                             <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {{ $transaction->description }}</div>
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
+                        <td>{{ $transaction->book->name }}</td>
                         <td class="text-center text-nowrap">
                             @can('update', $transaction)
                                 @can('manage-transactions', auth()->activeBook())
@@ -85,7 +74,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="5">{{ __('transaction.not_found') }}</td></tr>
+                    <tr><td colspan="6">{{ __('transaction.not_found') }}</td></tr>
                     @endforelse
                 </tbody>
                 <tfoot>
@@ -96,6 +85,7 @@
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}
                         </td>
+                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>

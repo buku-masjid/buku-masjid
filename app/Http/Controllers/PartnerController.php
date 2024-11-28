@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 
@@ -65,15 +66,19 @@ class PartnerController extends Controller
         $defaultStartDate = date('Y').'-01-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
+        $availableBooks = Book::orderBy('name')->pluck('name', 'id')->toArray();
 
         $transactions = $this->getPartnerTransactions($partner, [
             'start_date' => $startDate,
             'end_date' => $endDate,
             'query' => request('query'),
+            'book_id' => request('book_id'),
         ]);
         $largestTransaction = $partner->transactions()->orderBy('amount', 'desc')->first();
 
-        return view('partners.show', compact('partner', 'startDate', 'endDate', 'transactions', 'largestTransaction'));
+        return view('partners.show', compact(
+            'partner', 'startDate', 'endDate', 'transactions', 'largestTransaction', 'availableBooks'
+        ));
     }
 
     public function update(Request $request, Partner $partner)
@@ -121,11 +126,14 @@ class PartnerController extends Controller
         $query = $criteria['query'];
         $endDate = $criteria['end_date'];
         $startDate = $criteria['start_date'];
-
+        $bookId = $criteria['book_id'] ?? null;
         $transactionQuery = $partner->transactions();
         $transactionQuery->whereBetween('date', [$startDate, $endDate]);
         $transactionQuery->when($query, function ($queryBuilder, $query) {
             $queryBuilder->where('description', 'like', '%'.$query.'%');
+        });
+        $transactionQuery->when($bookId, function ($queryBuilder, $bookId) {
+            $queryBuilder->where('book_id', $bookId);
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
