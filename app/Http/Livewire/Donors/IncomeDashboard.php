@@ -54,6 +54,9 @@ class IncomeDashboard extends Component
             ->when($dateRange, function ($query) use ($dateRange) {
                 $query->whereBetween('t.date', $dateRange);
             })
+            ->when($this->book, function ($query) {
+                $query->where('t.book_id', $this->book->id);
+            })
             ->selectRaw($rawSelect)
             ->groupBy('p.id', 'p.name', 'p.phone', 'tr_year', 'tr_month', 'tr_year_month')
             ->having('total_amount', '>', 0)
