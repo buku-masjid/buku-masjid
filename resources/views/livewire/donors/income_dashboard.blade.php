@@ -31,7 +31,7 @@
                         @php
                             $no = 1;
                         @endphp
-                        @forelse ($availablePartners as $partner)
+                        @forelse ($availablePartners[$trYear] as $partner)
                             <tr>
                                 <td class="text-center">{{ $no++ }}</td>
                                 <td>

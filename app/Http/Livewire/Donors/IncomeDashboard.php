@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Donors;
 
-use App\Models\Partner;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -25,11 +24,8 @@ class IncomeDashboard extends Component
 
     public function getIncomeDashboardEntries()
     {
-        $incomeDashboardEntries = $this->calculateIncomeDashboardEntries();
-        $this->incomeDashboardEntries = $incomeDashboardEntries->groupBy('tr_year');
-        $this->availablePartners = Partner::whereIn('id', $incomeDashboardEntries->pluck('partner_id'))
-            ->orderBy('name')
-            ->get();
+        $this->incomeDashboardEntries = $this->calculateIncomeDashboardEntries()->groupBy('tr_year');
+        $this->availablePartners = $this->getAvailablePartners($this->incomeDashboardEntries);
         $this->isLoading = false;
     }
 
@@ -45,6 +41,7 @@ class IncomeDashboard extends Component
 
         $rawSelect = 'p.id as partner_id';
         $rawSelect .= ', p.name as partner_name';
+        $rawSelect .= ', p.phone as partner_phone';
         $rawSelect .= ', YEAR(t.date) as tr_year';
         $rawSelect .= ', MONTH(t.date) as tr_month';
         $rawSelect .= ', CONCAT(YEAR(t.date), "-", LPAD(MONTH(t.date), 2, "0")) as tr_year_month';
@@ -58,13 +55,30 @@ class IncomeDashboard extends Component
                 $query->whereBetween('t.date', $dateRange);
             })
             ->selectRaw($rawSelect)
-            ->groupBy('p.id', 'p.name', 'tr_year', 'tr_month', 'tr_year_month')
+            ->groupBy('p.id', 'p.name', 'p.phone', 'tr_year', 'tr_month', 'tr_year_month')
             ->having('total_amount', '>', 0)
+        // ->orderBy('tr_year', 'desc')
             ->orderBy('p.name')
             ->get();
 
         // echo '<pre>$incomeEntries->toArray() : ', print_r($incomeEntries->toArray(), true), '</pre>';die();
 
         return $incomeEntries;
+    }
+
+    private function getAvailablePartners(Collection $incomeDashboardEntries): array
+    {
+        $availablePartners = [];
+        foreach ($incomeDashboardEntries as $trYear => $incomeEntries) {
+            foreach ($incomeEntries as $incomeEntry) {
+                $availablePartners[$trYear][] = (object) [
+                    'id' => $incomeEntry->partner_id,
+                    'name' => $incomeEntry->partner_name,
+                    'phone' => $incomeEntry->partner_phone,
+                ];
+            }
+        }
+
+        return $availablePartners;
     }
 }
