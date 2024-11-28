@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
+use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -52,6 +53,7 @@ class DonorsCount extends Component
                 if ($dateRange) {
                     $query->whereBetween('date', $dateRange);
                 }
+                $query->where('in_out', Transaction::TYPE_INCOME);
             });
         }
 

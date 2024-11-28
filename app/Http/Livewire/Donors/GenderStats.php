@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
+use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -58,6 +59,7 @@ class GenderStats extends Component
                     if ($dateRange) {
                         $query->whereBetween('date', $dateRange);
                     }
+                    $query->where('in_out', Transaction::TYPE_INCOME);
                 });
             })->count();
         foreach ($partnerGenders as $partnerGenderCode => $partnerGenderName) {
@@ -71,6 +73,7 @@ class GenderStats extends Component
                         if ($dateRange) {
                             $query->whereBetween('date', $dateRange);
                         }
+                        $query->where('in_out', Transaction::TYPE_INCOME);
                     });
                 })->count();
             $partnerGenderPercent = get_percent($partnerGenderCount, $partnerTotal);

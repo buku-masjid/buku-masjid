@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Donors;
 
 use App\Models\Partner;
+use App\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -55,8 +56,10 @@ class LevelStats extends Component
                     if ($dateRange) {
                         $query->whereBetween('date', $dateRange);
                     }
+                    $query->where('in_out', Transaction::TYPE_INCOME);
                 });
             })->count();
+
         foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
             $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)
                 ->when($this->book || $dateRange, function ($query) use ($dateRange) {
@@ -67,6 +70,7 @@ class LevelStats extends Component
                         if ($dateRange) {
                             $query->whereBetween('date', $dateRange);
                         }
+                        $query->where('in_out', Transaction::TYPE_INCOME);
                     });
                 })->count();
             $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);
