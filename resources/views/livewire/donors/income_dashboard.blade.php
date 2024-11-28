@@ -41,11 +41,13 @@
                         @forelse ($availablePartners[$trYear] as $partner)
                             <tr>
                                 <td class="text-center">{{ $no++ }}</td>
-                                <td>
+                                <td style="min-width: 14em">
                                     {{ link_to_route('donors.show', $partner->name, $partner->id) }}
-                                    <a href="https://wa.me/{{ str_replace([' ', '+', '(', ')'], '', $partner->phone) }}">
-                                        <i class="fe fe-phone-outgoing float-right"></i>
-                                    </a>
+                                    @if ($partner->phone)
+                                        <a href="https://wa.me/{{ str_replace([' ', '+', '(', ')'], '', $partner->phone) }}" target="_blank" class="float-right">
+                                            <img src="{{ asset('images/whatsapp.svg') }}" style="width: 18px;vertical-align: text-bottom;">
+                                        </a>
+                                    @endif
                                 </td>
                                 @if (isset(get_months()[$month]))
                                 @else
