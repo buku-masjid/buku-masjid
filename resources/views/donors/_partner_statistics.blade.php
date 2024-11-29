@@ -36,4 +36,3 @@
         @livewire('donors.gender-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 </div>
-@livewire('donors.income-from-partner-graph', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
