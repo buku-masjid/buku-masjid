@@ -7,7 +7,7 @@ return [
     'all' => 'All Donors',
     'total_donating' => 'All donors from donation entries',
     'donors_count' => 'Donors Count',
-    'donors_count_of_book' => 'Donors of :book_name',
+    'donors_total' => 'Total Donatur',
     'search' => 'Search Donors',
     'select' => 'Select a Donor',
     'new' => 'New Donor',
