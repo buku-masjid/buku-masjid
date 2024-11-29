@@ -2,7 +2,7 @@
     <div class="col-md-3 text-center text-md-left">
         <h1 class="page-title">{{ __('partner.partner_type_donor') }}</h1>
         <div class="page-subtitle ml-0">
-            {{ __('transaction.income') }} {{ __('donor.donor') }} {{ Setting::get('masjid_name') }}.
+            {{ __('dashboard.dashboard') }} {{ __('donor.donor') }} {{ Setting::get('masjid_name') }}.
         </div>
     </div>
     <div class="col-md-6 mt-3 mt-sm-0">
@@ -14,7 +14,7 @@
         @endif
         <div class="form-group mt-4 mt-sm-0 pt-0 pt-sm-2">
             {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-2']) }}
-            {{ link_to_route('donors.index', __('app.reset'), [], ['class' => 'btn btn-secondary mr-2']) }}
+            {{ link_to_route('donors.index', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-2']) }}
             @can('create', new App\Transaction)
                 {{ link_to_route('donor_transactions.create', __('donor.add_donation'), [], ['class' => 'btn btn-success']) }}
             @endcan

@@ -14,7 +14,6 @@ class TotalIncomeFromPartner extends Component
     public $year;
     public $month;
     public $endDate;
-    public $monthText;
     public $partnerTypeCode = 'donatur';
     public $isLoading = true;
 
@@ -35,7 +34,6 @@ class TotalIncomeFromPartner extends Component
                 $endDate = Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t');
             }
         }
-        $this->monthText = $this->year.'-'.$this->month == today()->format('Y-m') ? __('report.this_month') : Carbon::parse($endDate)->isoFormat('MMMM YYYY');
         $endDate = Carbon::parse($endDate)->isoFormat('dddd, DD MMM YYYY');
         $this->endDate = str_replace('Minggu', 'Ahad', $endDate);
         $this->isLoading = false;
