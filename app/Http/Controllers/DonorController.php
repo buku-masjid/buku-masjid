@@ -13,8 +13,8 @@ class DonorController extends Controller
         $this->authorize('view-any', new Partner);
 
         $availableBooks = Book::orderBy('name')->pluck('name', 'id')->toArray();
-        $selectedMonth = $request->get('month', '00');
-        $selectedYear = $request->get('year', '0000');
+        $selectedMonth = $request->get('month', today()->format('m'));
+        $selectedYear = $request->get('year', today()->format('Y'));
         $selectedBookId = $request->get('book_id');
         $selectedBook = null;
         if ($request->get('book_id')) {
