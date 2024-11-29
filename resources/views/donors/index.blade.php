@@ -19,6 +19,11 @@
     <div class="container">
         @livewire('donors.income-dashboard', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
+</div>
+<div class="mt-3 mt-sm-5">
+    <div class="container">
+        @livewire('donors.book-dashboard', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
+    </div>
 @endsection
 
 @prepend('scripts')
