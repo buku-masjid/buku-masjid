@@ -31,12 +31,9 @@ class IncomeDashboard extends Component
 
     private function calculateIncomeDashboardEntries(): Collection
     {
-        $dateRange = [];
-        if ($this->year != '0000') {
-            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
-            if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
-                $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
-            }
+        $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
+            $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
         }
 
         $rawSelect = 'p.id as partner_id';
@@ -51,16 +48,13 @@ class IncomeDashboard extends Component
             ->join('transactions as t', 'p.id', '=', 't.partner_id')
             ->where('t.in_out', 1)
             ->where('p.type_code', 'donatur')
-            ->when($dateRange, function ($query) use ($dateRange) {
-                $query->whereBetween('t.date', $dateRange);
-            })
+            ->whereBetween('t.date', $dateRange)
             ->when($this->book, function ($query) {
                 $query->where('t.book_id', $this->book->id);
             })
             ->selectRaw($rawSelect)
             ->groupBy('p.id', 'p.name', 'p.phone', 'tr_year', 'tr_month', 'tr_year_month')
             ->having('total_amount', '>', 0)
-        // ->orderBy('tr_year', 'desc')
             ->orderBy('p.name')
             ->get();
 

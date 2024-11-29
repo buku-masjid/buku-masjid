@@ -39,12 +39,9 @@ class LevelStats extends Component
 
         $partnerLevelStats = [];
         $partnerLevels = (new Partner)->getAvailableLevels($this->partnerTypeCode);
-        $dateRange = [];
-        if ($this->year != '0000') {
-            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
-            if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
-                $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
-            }
+        $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
+            $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
         }
 
         $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
@@ -52,9 +49,7 @@ class LevelStats extends Component
                 if ($this->book) {
                     $query->where('book_id', $this->book->id);
                 }
-                if ($dateRange) {
-                    $query->whereBetween('date', $dateRange);
-                }
+                $query->whereBetween('date', $dateRange);
                 $query->where('in_out', Transaction::TYPE_INCOME);
             })->count();
 
@@ -64,9 +59,7 @@ class LevelStats extends Component
                     if ($this->book) {
                         $query->where('book_id', $this->book->id);
                     }
-                    if ($dateRange) {
-                        $query->whereBetween('date', $dateRange);
-                    }
+                    $query->whereBetween('date', $dateRange);
                     $query->where('in_out', Transaction::TYPE_INCOME);
                 })->count();
             $partnerLevelPercent = get_percent($partnerLevelCount, $partnerTotal);

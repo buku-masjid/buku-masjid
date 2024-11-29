@@ -31,12 +31,9 @@ class BookDashboard extends Component
 
     private function calculateBookDashboardEntries(): Collection
     {
-        $dateRange = [];
-        if ($this->year != '0000') {
-            $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
-            if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
-                $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
-            }
+        $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
+        if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
+            $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
         }
 
         $rawSelect = 'b.id as book_id';
@@ -51,9 +48,7 @@ class BookDashboard extends Component
             ->join('partners as p', 'p.id', '=', 't.partner_id')
             ->where('t.in_out', 1)
             ->where('p.type_code', 'donatur')
-            ->when($dateRange, function ($query) use ($dateRange) {
-                $query->whereBetween('t.date', $dateRange);
-            })
+            ->whereBetween('t.date', $dateRange)
             ->when($this->book, function ($query) {
                 $query->where('t.book_id', $this->book->id);
             })
