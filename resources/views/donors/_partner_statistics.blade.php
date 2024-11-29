@@ -8,7 +8,7 @@
     <div class="col-md-6 mt-3 mt-sm-0">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center mt-3 mx-3']) }}
         {{ Form::select('book_id', ['' => '-- '.__('book.all').' --'] + $availableBooks, optional($selectedBook)->id, ['class' => 'form-control mr-1']) }}
-        {{ Form::select('year', ['0000' => '-- '.__('time.year').' --'] + get_years(), $selectedYear, ['class' => 'form-control mr-1']) }}
+        {{ Form::select('year', get_years(), $selectedYear, ['class' => 'form-control mr-1']) }}
         @if ($selectedYear !== '0000')
             {{ Form::select('month', ['00' => '-- '.__('time.month').' --'] + get_months(), $selectedMonth, ['class' => 'form-control mr-1']) }}
         @endif
