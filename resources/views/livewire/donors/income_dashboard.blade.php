@@ -26,12 +26,11 @@
                             <tr>
                                 <th class="text-center" style="width: 3em">{{ __('app.table_no') }}</th>
                                 <th style="width: 20em">{{ __('partner.partner_type_donor') }}</th>
-                                @if (isset(get_months()[$month]))
-                                @else
+                                @unless (isset(get_months()[$month]))
                                     @foreach (get_months() as $monthNumber => $monthName)
                                         <th class="text-center" style="width: 5em">{{ Carbon\Carbon::parse($trYear.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
                                     @endforeach
-                                @endif
+                                @endunless
                                 <th class="text-center">{{ __('app.total') }}</th>
                             </tr>
                         </thead>
@@ -39,7 +38,7 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @forelse ($availablePartners[$trYear] as $partner)
+                            @foreach ($availablePartners[$trYear] as $partner)
                                 <tr>
                                     <td class="text-center">{{ $no++ }}</td>
                                     <td style="min-width: 14em">
@@ -50,8 +49,7 @@
                                             </a>
                                         @endif
                                     </td>
-                                    @if (isset(get_months()[$month]))
-                                    @else
+                                    @unless (isset(get_months()[$month]))
                                         @foreach (get_months() as $monthNumber => $monthName)
                                             @php
                                                 $incomeEntry = $incomeDashboardEntriesPerYear->filter(function ($income) use ($trYear, $monthNumber, $partner) {
@@ -60,7 +58,7 @@
                                             @endphp
                                             <td class="text-right">{{ $incomeEntry ? format_number($incomeEntry->total_amount / 1000) : '' }}</td>
                                         @endforeach
-                                    @endif
+                                    @endunless
 
                                     @php
                                         $incomeTotal = $incomeDashboardEntriesPerYear->filter(function ($income) use ($partner) {
@@ -69,15 +67,12 @@
                                     @endphp
                                     <td class="text-right">{{ format_number($incomeTotal / 1000) }}</td>
                                 </tr>
-                            @empty
-                                <tr><td colspan="15">Tidak ada transaksi donatur tahun {{ $trYear }}.</td></tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr class="strong">
                                 <td colspan="2" class="text-right">{{ __('app.total') }}</td>
-                                @if (isset(get_months()[$month]))
-                                @else
+                                @unless (isset(get_months()[$month]))
                                     @foreach (get_months() as $monthNumber => $monthName)
                                         @php
                                             $monthTotal = $incomeDashboardEntriesPerYear->filter(function ($income) use ($trYear, $monthNumber) {
@@ -86,7 +81,7 @@
                                         @endphp
                                         <td class="text-right">{{ format_number($monthTotal / 1000) }}</td>
                                     @endforeach
-                                @endif
+                                @endunless
                                 <td class="text-right">{{ format_number($incomeDashboardEntriesPerYear->sum('total_amount') / 1000) }}</td>
                             </tr>
                         </tfoot>

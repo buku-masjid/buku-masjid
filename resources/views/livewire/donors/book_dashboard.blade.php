@@ -26,12 +26,11 @@
                             <tr>
                                 <th class="text-center" style="width: 3em">{{ __('app.table_no') }}</th>
                                 <th style="width: 20em">{{ __('book.name') }}</th>
-                                @if (isset(get_months()[$month]))
-                                @else
+                                @unless (isset(get_months()[$month]))
                                     @foreach (get_months() as $monthNumber => $monthName)
                                         <th class="text-center" style="width: 5em">{{ Carbon\Carbon::parse($trYear.'-'.$monthNumber.'-01')->isoFormat('MMM') }}</th>
                                     @endforeach
-                                @endif
+                                @endunless
                                 <th class="text-center">{{ __('app.total') }}</th>
                             </tr>
                         </thead>
@@ -39,14 +38,13 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @forelse ($availableBooks[$trYear] as $availableBook)
+                            @foreach ($availableBooks[$trYear] as $availableBook)
                                 <tr>
                                     <td class="text-center">{{ $no++ }}</td>
                                     <td style="min-width: 14em">
                                         {{ link_to_route('donors.index', $availableBook->name, ['book_id' => $availableBook->id, 'year' => $trYear, 'month' => $month]) }}
                                     </td>
-                                    @if (isset(get_months()[$month]))
-                                    @else
+                                    @unless (isset(get_months()[$month]))
                                         @foreach (get_months() as $monthNumber => $monthName)
                                             @php
                                                 $bookEntry = $bookDashboardEntriesPerYear->filter(function ($bookEntry) use ($trYear, $monthNumber, $availableBook) {
@@ -55,7 +53,7 @@
                                             @endphp
                                             <td class="text-right">{{ $bookEntry ? format_number($bookEntry->total_amount / 1000) : '' }}</td>
                                         @endforeach
-                                    @endif
+                                    @endunless
 
                                     @php
                                         $bookTotal = $bookDashboardEntriesPerYear->filter(function ($bookEntry) use ($availableBook) {
@@ -64,9 +62,7 @@
                                     @endphp
                                     <td class="text-right">{{ format_number($bookTotal / 1000) }}</td>
                                 </tr>
-                            @empty
-                                <tr><td colspan="15">Tidak ada transaksi donatur tahun {{ $trYear }}.</td></tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr class="strong">
