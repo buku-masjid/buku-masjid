@@ -16,10 +16,7 @@ class DonorController extends Controller
         $selectedMonth = $request->get('month', today()->format('m'));
         $selectedYear = $request->get('year', today()->format('Y'));
         $selectedBookId = $request->get('book_id');
-        $selectedBook = null;
-        if ($request->get('book_id')) {
-            $selectedBook = Book::find($request->get('book_id'));
-        }
+        $selectedBook = Book::find($request->get('book_id'));
 
         return view('donors.index', compact(
             'availableBooks', 'selectedMonth', 'selectedYear', 'selectedBookId', 'selectedBook'

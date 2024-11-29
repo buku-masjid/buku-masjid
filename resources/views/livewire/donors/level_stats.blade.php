@@ -5,7 +5,7 @@
                 <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
             </div>
         @else
-            <div id="apex_partner_level_stats" style="width: 30em;margin: 0 auto;"></div>
+            <div id="apex_partner_level_stats" style="width: 22em;margin: 0 auto;"></div>
             <script>
                 var options = {
                     series: {!! json_encode(array_values($partnerLevelStats)) !!},

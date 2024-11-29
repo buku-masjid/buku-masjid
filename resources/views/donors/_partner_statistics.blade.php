@@ -33,6 +33,6 @@
         @livewire('donors.level-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
     <div class="col-md-4">
-        @livewire('donors.gender-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
+        @livewire('donors.income-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 </div>
