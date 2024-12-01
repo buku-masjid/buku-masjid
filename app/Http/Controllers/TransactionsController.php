@@ -113,7 +113,7 @@ class TransactionsController extends Controller
             ->orderBy('name')
             ->get();
         if (count($partnerTypeCodes) < 2) {
-            return $partners->pluck('name', 'id')->toArray();
+            return $partners->pluck('name_phone', 'id')->toArray();
         }
         $groupedPartners = $partners->groupBy('type_code');
         $availablePartners = [];
@@ -122,7 +122,7 @@ class TransactionsController extends Controller
                 continue;
             }
             foreach ($partners as $partner) {
-                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name;
+                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name_phone;
             }
         }
 

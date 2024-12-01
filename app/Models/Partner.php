@@ -94,4 +94,13 @@ class Partner extends Model
 
         return $partnerLevels;
     }
+
+    public function getNamePhoneAttribute(): string
+    {
+        if ($this->phone) {
+            return $this->name.' ('.$this->phone.')';
+        }
+
+        return $this->name;
+    }
 }

@@ -75,7 +75,7 @@ class DonorTransactionController extends Controller
             ->orderBy('name')
             ->get();
 
-        return $partners->pluck('name', 'id')->toArray();
+        return $partners->pluck('name_phone', 'id')->toArray();
     }
 
     private function buildTransactionDescription(string $partnerName, ?string $donationNotes): string
