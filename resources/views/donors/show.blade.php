@@ -90,7 +90,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="5">{{ __('transaction.not_found') }}</td></tr>
+                    <tr><td colspan="6">{{ __('transaction.not_found') }}</td></tr>
                     @endforelse
                 </tbody>
                 <tfoot>
@@ -101,6 +101,7 @@
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}
                         </td>
+                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>
