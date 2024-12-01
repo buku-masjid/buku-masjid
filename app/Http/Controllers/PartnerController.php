@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Partner;
+use App\Rules\PhoneNumberRule;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller
@@ -45,7 +46,7 @@ class PartnerController extends Controller
             'type_code' => 'required|max:30',
             'level_code' => 'nullable|max:30',
             'gender_code' => 'nullable|in:m,f',
-            'phone' => 'nullable|max:60',
+            'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',
             'description' => 'nullable|max:255',
@@ -89,7 +90,7 @@ class PartnerController extends Controller
             'name' => 'required|max:60',
             'type_code' => 'required|max:30',
             'level_code' => 'nullable|max:30',
-            'phone' => 'nullable|max:60',
+            'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
             'work' => 'nullable|max:60',
             'address' => 'nullable|max:255',
             'description' => 'nullable|max:255',

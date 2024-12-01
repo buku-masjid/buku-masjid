@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">{!! FormField::text('phone', ['label' => __('donor.phone'), 'type' => 'number']) !!}</div>
+                    <div class="col-md-5">{!! FormField::text('phone', ['label' => __('donor.phone')]) !!}</div>
                     <div class="col-md-7">{!! FormField::text('work', ['label' => __('partner.work')]) !!}</div>
                 </div>
                 {!! FormField::textarea('address', ['label' => __('partner.address')]) !!}

@@ -31,7 +31,7 @@ return [
     'name' => 'Nama',
     'type' => 'Tipe',
     'level' => 'Level',
-    'phone' => 'Telp/HP',
+    'phone' => 'No. HP/WA',
     'work' => 'Pekerjaan',
     'address' => 'Alamat',
     'description' => 'Catatan',

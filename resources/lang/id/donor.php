@@ -30,5 +30,5 @@ return [
 
     // Attributes
     'name' => 'Nama Donatur',
-    'phone' => 'Telp./Hp Donatur',
+    'phone' => 'No. HP/WA Donatur',
 ];

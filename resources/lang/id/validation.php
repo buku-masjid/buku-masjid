@@ -119,6 +119,9 @@ return [
         'notes' => [
             'max' => 'Catatan donatur maksimal :max karakter.',
         ],
+        'phone' => [
+            'starts_with' => 'No. HP/WA harus diawali :starting_numberxxx.',
+        ],
     ],
 
     /*

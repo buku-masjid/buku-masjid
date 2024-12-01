@@ -43,6 +43,12 @@ abstract class TestCase extends BaseTestCase
         $bindings = (array) $bindings;
         $errors = $this->app['session.store']->get('errors');
 
+        if (is_null($errors)) {
+            PHPUnit::assertTrue(true);
+
+            return $this;
+        }
+
         foreach ($bindings as $key => $value) {
             if (is_int($key)) {
                 PHPUnit::assertFalse($errors->has($value), "Session missing error: $value");

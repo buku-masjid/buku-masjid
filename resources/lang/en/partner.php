@@ -31,7 +31,7 @@ return [
     'name' => 'Name',
     'type' => 'Type',
     'level' => 'Level',
-    'phone' => 'Phone',
+    'phone' => 'Phone/WA Number',
     'work' => 'Work',
     'address' => 'Address',
     'description' => 'Notes',

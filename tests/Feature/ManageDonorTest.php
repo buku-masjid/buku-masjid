@@ -34,7 +34,7 @@ class ManageDonorTest extends TestCase
 
         $this->submitForm(__('donor.create'), [
             'name' => 'Donor 1 name',
-            'phone' => '1234567890',
+            'phone' => '081234567890',
             'gender_code' => 'f',
             'work' => 'Dokter',
             'description' => 'Donor 1 description',
@@ -46,7 +46,7 @@ class ManageDonorTest extends TestCase
 
         $this->seeInDatabase('partners', [
             'name' => 'Donor 1 name',
-            'phone' => '1234567890',
+            'phone' => '081234567890',
             'work' => 'Dokter',
             'gender_code' => 'f',
             'description' => 'Donor 1 description',
@@ -86,7 +86,7 @@ class ManageDonorTest extends TestCase
 
         $this->submitForm(__('donor.update'), [
             'name' => 'Donor 2 name',
-            'phone' => '1234567890',
+            'phone' => '081234567890',
             'work' => 'Dokter',
             'gender_code' => 'm',
             'description' => 'Donor 2 description',
@@ -99,7 +99,7 @@ class ManageDonorTest extends TestCase
 
         $this->seeInDatabase('partners', [
             'name' => 'Donor 2 name',
-            'phone' => '1234567890',
+            'phone' => '081234567890',
             'work' => 'Dokter',
             'gender_code' => 'm',
             'description' => 'Donor 2 description',
@@ -147,5 +147,42 @@ class ManageDonorTest extends TestCase
 
         $this->dontSeeText(__('app.delete_confirm_button'));
         $this->seeText(__('donor.undeleteable'));
+    }
+
+    /** @test */
+    public function validate_donor_phone_number_entries()
+    {
+        $this->loginAsUser();
+
+        // // Valid phone number
+        $this->post(route('donors.store'), [
+            'phone' => '081234560000',
+        ]);
+        $this->assertSessionMissingErrors('phone');
+
+        // Invalid cases
+        // Fails because doesn't start with 08
+        $this->post(route('donors.store'), [
+            'phone' => '091234560000',
+        ]);
+        $this->assertSessionHasErrors('phone');
+
+        // Fails because contains space
+        $this->post(route('donors.store'), [
+            'phone' => '081234 56000',
+        ]);
+        $this->assertSessionHasErrors('phone');
+
+        // Fails because contains symbols
+        $this->post(route('donors.store'), [
+            'phone' => '081234-560000',
+        ]);
+        $this->assertSessionHasErrors('phone');
+
+        // Fails because contains non-digit characters
+        $this->post(route('donors.store'), [
+            'phone' => '081234abc000',
+        ]);
+        $this->assertSessionHasErrors('phone');
     }
 }
