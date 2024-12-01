@@ -23,8 +23,17 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">{!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin_destination'), 'placeholder' => __('transaction.cash')]) !!}</div>
-                            <div class="col-md-6">{!! FormField::select('partner_id', $partners, ['label' => __('partner.partner'), 'placeholder' => __('partner.partner')]) !!}</div>
+                            <div class="col-md-6"></div>
                         </div>
+                        @if ($partnerTypeCodes)
+                            {!! FormField::select('partner_id', $partners, [
+                                'label' => $partnerSelectionLabel,
+                                'placeholder' => $partnerDefaultValue,
+                                'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
+                            ]) !!}
+                        @else
+                            {{ Form::hidden('partner_id') }}
+                        @endif
                     </div>
                     <div class="card-footer">
                         {!! Form::submit(__('transaction.update'), ['class' => 'btn btn-success']) !!}
