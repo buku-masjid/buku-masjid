@@ -112,7 +112,7 @@ class ManageDonorTest extends TestCase
     {
         $creator = $this->loginAsUser();
 
-        $partner = factory(Partner::class)->create(['creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
 
         $this->visitRoute('donors.show', $partner);
         $this->click('edit-partner-'.$partner->id);
@@ -132,7 +132,7 @@ class ManageDonorTest extends TestCase
     public function user_cannot_delete_a_donor_that_has_transactions()
     {
         $creator = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
         $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create(['partner_id' => $partner->id, 'book_id' => $book->id]);
 
