@@ -23,6 +23,16 @@ class PartnerTest extends TestCase
     }
 
     /** @test */
+    public function partner_model_has_name_phone_attribute()
+    {
+        $partner = factory(Partner::class)->make(['name' => 'Abdullah', 'phone' => '081234567890', 'is_active' => 1]);
+        $this->assertEquals('Abdullah (081234567890)', $partner->name_phone);
+
+        $partner->phone = null;
+        $this->assertEquals('Abdullah', $partner->name_phone);
+    }
+
+    /** @test */
     public function partner_model_has_has_many_transactions_relation()
     {
         $partner = factory(Partner::class)->create();

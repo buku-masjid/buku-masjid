@@ -113,7 +113,7 @@ class TransactionsController extends Controller
             ->orderBy('name')
             ->get();
         if (count($partnerTypeCodes) < 2) {
-            return $partners->pluck('name', 'id')->toArray();
+            return $partners->pluck('name_phone', 'id')->toArray();
         }
         $groupedPartners = $partners->groupBy('type_code');
         $availablePartners = [];
@@ -122,7 +122,7 @@ class TransactionsController extends Controller
                 continue;
             }
             foreach ($partners as $partner) {
-                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name;
+                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name_phone;
             }
         }
 
@@ -157,12 +157,18 @@ class TransactionsController extends Controller
         $categories = $this->getCategoryList();
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
+        $partnerDefaultValue = __('partner.partner');
+        $partnerSelectionLabel = __('partner.partner');
         $incomePartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('income_partner_codes'), true) ?: [];
         $spendingPartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('spending_partner_codes'), true) ?: [];
         $partnerTypeCodes = array_merge($incomePartnerTypeCodes, $spendingPartnerTypeCodes);
+        $partnerSettingLink = link_to_route('partners.index', 'pengaturan', [], ['target' => '_blank']);
         $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
 
-        return view('transactions.edit', compact('transaction', 'categories', 'bankAccounts', 'partners'));
+        return view('transactions.edit', compact(
+            'transaction', 'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue',
+            'partnerSelectionLabel', 'partnerSettingLink'
+        ));
     }
 
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)

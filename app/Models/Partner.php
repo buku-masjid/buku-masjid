@@ -9,6 +9,8 @@ class Partner extends Model
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const GENDER_MALE = 'm';
+    const GENDER_FEMALE = 'f';
 
     protected $fillable = [
         'name', 'type_code', 'level_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
@@ -21,7 +23,7 @@ class Partner extends Model
     }
     public function transactions()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class)->withoutGlobalScope('forActiveBook');
     }
 
     public function getGenderAttribute(): ?string
@@ -91,5 +93,14 @@ class Partner extends Model
         }
 
         return $partnerLevels;
+    }
+
+    public function getNamePhoneAttribute(): string
+    {
+        if ($this->phone) {
+            return $this->name.' ('.$this->phone.')';
+        }
+
+        return $this->name;
     }
 }

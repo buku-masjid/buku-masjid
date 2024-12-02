@@ -4,11 +4,14 @@ return [
     // Labels
     'partner' => 'Partner',
     'partner_type' => ':type',
+    'partner_type_donor' => 'Donatur',
     'list' => 'Daftar Partner',
     'list_by_type' => 'Daftar :type',
     'search_text' => 'Nama / telp / alamat',
     'not_found' => ':type tidak ditemukan.',
+    'all_level' => 'Semua Level',
     'empty' => 'Belum ada :type',
+    'largest_transaction' => 'Transaksi Terbesar',
     'back_to_index' => 'Kembali ke daftar :type',
 
     // Actions
@@ -28,7 +31,7 @@ return [
     'name' => 'Nama',
     'type' => 'Tipe',
     'level' => 'Level',
-    'phone' => 'Telp/HP',
+    'phone' => 'No. HP/WA',
     'work' => 'Pekerjaan',
     'address' => 'Alamat',
     'description' => 'Catatan',

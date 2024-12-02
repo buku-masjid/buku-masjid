@@ -9,7 +9,7 @@ return [
     'income' => 'Income',
     'spending' => 'Spending',
     'detail' => 'Transaction Detail',
-    'not_found' => 'Transaction not found.',
+    'not_found' => 'Transaction not found',
     'empty' => 'Transaction list is empty',
     'count' => 'Transaction entries',
     'forward_date_alert' => 'This transaction date is greater than today!',

@@ -24,18 +24,17 @@
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
                         <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
-                        <div class="col-md-6">
-                            @if ($partnerTypeCodes)
-                                {!! FormField::select('partner_id', $partners, [
-                                    'label' => $partnerSelectionLabel,
-                                    'placeholder' => $partnerDefaultValue,
-                                    'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
-                                ]) !!}
-                            @else
-                                {{ Form::hidden('partner_id') }}
-                            @endif
-                        </div>
+                        <div class="col-md-6"></div>
                     </div>
+                    @if ($partnerTypeCodes)
+                        {!! FormField::select('partner_id', $partners, [
+                            'label' => $partnerSelectionLabel,
+                            'placeholder' => $partnerDefaultValue,
+                            'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
+                        ]) !!}
+                    @else
+                        {{ Form::hidden('partner_id') }}
+                    @endif
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
                 </div>
                 <div class="card-footer">

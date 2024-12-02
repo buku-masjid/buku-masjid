@@ -30,12 +30,14 @@
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-repeat"></i> {{ __('transaction.transaction') }}</span>
             </a>
-            @can('view-any', new App\Models\BankAccount)
-                <a class="xs-navbar mr-4" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
-                    <i class="fe fe-book h3 d-inline d-lg-none"></i>
-                    <span class="d-none d-lg-inline"><i class="fe fe-book"></i> {{ __('bank_account.bank_account') }}</span>
-                </a>
-            @endcan
+            @if (Route::has('donors.index'))
+                @can('view-any', new App\Models\Partner)
+                    <a class="xs-navbar mr-4" href="{{ route('donors.index') }}" title="{{ __('partner.partner_type_donor') }}">
+                        <i class="fe fe-users h3 d-inline d-lg-none"></i>
+                        <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner_type_donor') }}</span>
+                    </a>
+                @endcan
+            @endif
             @if (Route::has('lecturings.index'))
                 @can('view-any', new App\Models\Lecturing)
                     <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
@@ -74,12 +76,14 @@
             <div><i class="fe fe-repeat h3"></i></div>
             {{ __('transaction.transaction') }}
         </a>
-        @can('view-any', new App\Models\BankAccount)
-            <a class="col border-right border-primary" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
-                <div><i class="fe fe-book h3"></i></div>
-                {{ __('bank_account.bank') }}
-            </a>
-        @endcan
+        @if (Route::has('donors.index'))
+            @can('view-any', new App\Models\Partner)
+                <a class="col border-right border-primary" href="{{ route('donors.index') }}" title="{{ __('donor.donor') }}">
+                    <div><i class="fe fe-users h3"></i></div>
+                    {{ __('donor.donor') }}
+                </a>
+            @endcan
+        @endif
         @if (Route::has('lecturings.index'))
             @can('view-any', new App\Models\Lecturing)
                 <a class="col border-right border-primary" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">

@@ -115,6 +115,15 @@ return [
         ],
     ],
 
+    'donor' => [
+        'notes' => [
+            'max' => 'Donor notes are too long, max :max characters.',
+        ],
+        'phone' => [
+            'starts_with' => 'Phone/WA Number should starts with :starting_numberxxx.',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

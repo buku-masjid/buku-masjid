@@ -107,6 +107,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('partners', 'PartnerController');
 
     /*
+     * Donor Routes
+     */
+    if (config('features.donors.is_active')) {
+        Route::get('donors/search', 'DonorController@search')->name('donors.search');
+        Route::resource('donors', 'DonorController')->parameters(['donors' => 'partner']);
+        Route::get('donor_transactions', 'DonorTransactionController@create')->name('donor_transactions.create');
+        Route::post('donor_transactions', 'DonorTransactionController@store')->name('donor_transactions.store');
+    }
+
+    /*
      * Lecturings Routes
      */
     if (config('features.lecturings.is_active')) {

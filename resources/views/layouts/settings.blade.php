@@ -12,6 +12,11 @@
     <li class="nav-item">
         {!! link_to_route('password.change', __('auth.change_password'), [], ['class' => 'nav-link'.(Request::segment(1) == 'change-password' ? ' active' : '')]) !!}
     </li>
+    @can('view-any', new App\Models\BankAccount)
+        <li class="nav-item">
+            {!! link_to_route('bank_accounts.index', __('bank_account.bank_account'), [], ['class' => 'nav-link'.(Request::segment(1) == 'bank_accounts' ? ' active' : '')]) !!}
+        </li>
+    @endcan
     @can('view-any', new App\Models\Partner)
         <li class="nav-item">
             {!! link_to_route('partners.index', __('partner.partner'), [], ['class' => 'nav-link'.(Request::segment(1) == 'partners' ? ' active' : '')]) !!}
