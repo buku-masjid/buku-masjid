@@ -181,5 +181,10 @@ class ManageDonorTest extends TestCase
             'phone' => '081234abc000',
         ]);
         $this->assertSessionHasErrors('phone');
+
+        $this->post(route('donor_transactions.store'), [
+            'partner_phone' => '81234abc000',
+        ]);
+        $this->assertSessionHasErrors('partner_phone');
     }
 }
