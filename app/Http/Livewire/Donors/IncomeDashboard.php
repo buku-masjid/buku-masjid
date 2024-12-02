@@ -58,8 +58,6 @@ class IncomeDashboard extends Component
             ->orderBy('p.name')
             ->get();
 
-        // echo '<pre>$incomeEntries->toArray() : ', print_r($incomeEntries->toArray(), true), '</pre>';die();
-
         return $incomeEntries;
     }
 
