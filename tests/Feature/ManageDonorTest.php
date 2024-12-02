@@ -15,7 +15,6 @@ class ManageDonorTest extends TestCase
     /** @test */
     public function user_can_see_donor_list_in_donor_index_page()
     {
-        config(['partners.partner_types' => 'donatur|Donatur']);
         $creator = $this->loginAsUser();
         $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
         $this->visitRoute('donors.search');
@@ -59,7 +58,6 @@ class ManageDonorTest extends TestCase
     /** @test */
     public function user_can_see_donor_detail()
     {
-        config(['partners.partner_types' => 'donatur|Donatur']);
         $creator = $this->loginAsUser();
         $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
         $this->visitRoute('donors.search');
@@ -75,7 +73,6 @@ class ManageDonorTest extends TestCase
     public function user_can_edit_a_donor()
     {
         $creator = $this->loginAsUser();
-        config(['partners.partner_types' => 'donatur|Donatur']);
         config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar']);
         $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
 
