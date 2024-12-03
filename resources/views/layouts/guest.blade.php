@@ -28,12 +28,9 @@
     @yield('styles')
 </head>
 <body>
-    <!--<div class="pattern" style="pointer-events: none">
-        <img src="../images/pattern.svg">
-    </div> -->
     <div class="d-none d-sm-block">
         <div class="nav-public d-flex align-items-center justify-content-between position-relative">
-            <img src="../images/logo_bukumasjid.svg" style="width: 150px">
+            <img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 150px">
             <div class="position-relative text-center">
                 <div class="nav-desktop position-relative shadow-sm rounded">
                     <ul class="nav">
@@ -52,7 +49,7 @@
         <div class="d-sm-none">
             <div class="row p-3">
                 <div class="col text-start">
-                    <img src="../images/logo_bukumasjid.svg" style="width: 100px">
+                    <img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 100px">
                 </div>
                 <div class="col text-end">
                     <a class="btn position-relative z-2" data-bs-toggle="offcanvas" href="#offcanvasStart" role="button" aria-controls="offcanvasStart">
@@ -67,7 +64,7 @@
             </div>
             <div class="offcanvas-body pt-0 d-flex align-items-stretch flex-column bd-highlight">
                 <div class="text-center bd-highlight">
-                    <img src="../images/logo_bm_shape.svg" style="width: 100px">
+                    <img src="{{ asset('images/logo_bm_shape.svg') }}" style="width: 100px">
                 </div>
                 <div class="mt-5 fs-2 sidebar-menu bd-highlight">
                     <ul>
@@ -82,7 +79,7 @@
                 <div class="mt-auto bd-highlight">
                     <div>
                         <div class="p-10 cta-join">
-                            Ingin kelola finansial masjid Anda ? 
+                            Ingin kelola finansial masjid Anda ?
                             <span>Gabung ke BukuMasjid</span>
                         </div>
                     </div>
@@ -148,7 +145,7 @@
     <!-- <main role="main" class="container-fluid px-0">
         <div class="row">
             <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
-                 
+
             </div>
         </div>
     </main> -->

@@ -5,7 +5,7 @@
 @section('content')
 <style>
     .pattern { display: none !important;}
-</style> 
+</style>
 <section class="bg-white">
     <div class="container-md">
         <div class="masjid-info-top row">

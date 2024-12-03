@@ -13,37 +13,37 @@
             <div class="d-none d-lg-flex col-7 justify-content-end align-items-end">
                 <div>
                     <div class="d-flex align-items-end gap-2 align-items-end">
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('/images/photo_masjid.png'); background-repeat: no-repeat; background-position: 0 -30px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat; background-position: 0 -30px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Fajr</h4>
                                 <h1 class="m-0 d-block">04.12</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('/images/photo_masjid.png'); background-repeat: no-repeat;background-position: -95px -70px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -95px -70px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Sunrise</h4>
                                 <h1 class="m-0 d-block">04.12</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 210px; background-image: url('/images/photo_masjid.png'); background-repeat: no-repeat;background-position: -190px -60px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 210px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -190px -60px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Dhuhr</h4>
                                 <h1 class="m-0 d-block">04.12</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 270px; background-image: url('/images/photo_masjid.png'); background-repeat: no-repeat;background-position: -285px 0px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 270px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -285px 0px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Asr</h4>
                                 <h1 class="m-0 d-block">04.12</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('/images/photo_masjid.png'); background-repeat: no-repeat;background-position: -380px -70px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -380px -70px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Maghrib</h4>
                                 <h1 class="m-0 d-block">04.12</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 230px; background-image: url('/images/photo_masjid.png'); background-repeat: no-repeat;background-position: -475px -40px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 230px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -475px -40px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Isha</h4>
                                 <h1 class="m-0 d-block">04.12</h3>
@@ -105,7 +105,7 @@
 </section>
 <div class="section-bottom pb-5">
     <div class="container-md p-3 py-lg-0">
-        <div class="pt-4 pt-lg-5"> 
+        <div class="pt-4 pt-lg-5">
             <!-- JUMAT -->
             <h2 class="fw-bolder mb-3 ">Jadwal Jum'at</h2>
             <div class="row row-cols-lg-2">
@@ -195,7 +195,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon">
-                                                <img src="/images/temp_foto.png">
+                                                <img src="{{ asset('images/temp_foto.png') }}">
                                             </div>
                                         </div>
                                         <div class="timeline-text">
@@ -237,7 +237,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -258,7 +258,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -287,7 +287,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -308,7 +308,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -329,7 +329,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -358,7 +358,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -390,7 +390,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <!-- WEEK -->
@@ -408,7 +408,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -429,7 +429,7 @@
                                     <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                         <div>
                                             <div class="timeline-icon"></div>
-                                            
+
                                         </div>
                                         <div class="timeline-text">
                                             <h5 class="text-secondary">Kajian Bada Subuh</h5>
@@ -441,7 +441,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -451,8 +451,8 @@
     </div>
 </div>
 @include('layouts._public_footer')
-<?php 
-/*
+<?php
+    /*
 @include('public_schedules._nav')
 
 @foreach ($audienceCodes as $audienceCode => $audience)
