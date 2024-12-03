@@ -12,7 +12,7 @@
                 @if (Setting::get('masjid_logo_path'))
                     <div class="mb-3"><img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 80px"></div>
                 @endif
-                
+
             </div>
             <div class="col fs-2 fw-bold lh-sm text-dark">
                 Masjid<br>
@@ -58,7 +58,7 @@
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">Laporan</div>
                 <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
                     <button type="button" class="btn btn-teal bm-btn justify-content-between" data-bs-toggle="offcanvas" data-bs-target="#books" aria-controls="books">
-                        <div>Kegiatan Rutin</div> 
+                        <div>Kegiatan Rutin</div>
                         <div class="ms-2"><i class="ti">&#xea61;</i></div>
                     </button>
                 </div>
@@ -132,11 +132,6 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="row fs-3 fw-bold" style="padding: 1rem 1.25rem">
-                <div class="col me-1 ">Transaksi</div>
-                <div class="col-2 me-1 text-end">Pemasukan</div>
-                <div class="col-2 me-1 text-end">Pengeluaran</div>
-            </div> -->
             <div class="px-3 p-lg-0">
                 <div class="accordion accordion-flush">
                     <div class="accordion-item card mb-2">
@@ -257,7 +252,7 @@
                                                         <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold"></div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                         <div id="tw1-1" class="accordion-collapse collapse">
@@ -341,44 +336,11 @@
                     Saldo
                     <h1 class="bm-txt-netral fw-bolder">Rp 570.000</h1>
                 </div>
-                <!-- <div class="text-center text-sm-start fs-2 fw-bold py-3">
-                    Kas Oktober 2024
-                </div>
-                <div class="row">
-                    <div class="col-lg text-center py-3 border-bottom">
-                        Pemasukan
-                        <h1 class="bm-txt-primary fw-bolder">Rp 570.000</h1>
-                    </div>
-                    <div class="col-lg text-center py-3 border-bottom">
-                        Pengeluaran
-                        <h1 class="bm-txt-out fw-bolder">Rp 570.000</h1>
-                    </div>
-                    <div class="col-lg text-center py-3">
-                        Saldo
-                        <h1 class="bm-txt-netral fw-bolder">Rp 570.000</h1>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
 </div>
 @include('layouts._public_footer')
-<?php 
-  /*<div class="page-header mt-0">
-    <h1 class="page-title">{{ __('book.book') }}: {{ auth()->activeBook()->name }}</h1>
-    <div class="page-options d-flex">
-        <span class="badge text-uppercase badge-primary mr-1" title="{{ __('report.periode') }}: {{ __('report.'.auth()->activeBook()->report_periode_code) }}">
-            {{ __('report.'.auth()->activeBook()->report_periode_code) }}
-        </span>
-        <span class="badge text-uppercase badge-warning text-dark" title="{{ __('report.start_week_day') }}: {{ __('time.days.'.auth()->activeBook()->start_week_day_code) }}">
-            {{ __('time.days.'.auth()->activeBook()->start_week_day_code) }}
-        </span>
-    </div>
-</div>
-@include('layouts._public_report_nav')
-<hr class="mt-2 mb-4">
-@yield('content-report') */
-?>
 @endsection
 
 @section('styles')

@@ -141,25 +141,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="pt-5">
-            <div class="d-flex justify-content-center">
-                <ul class="nav nav-pills mb-3" id="pills-taba" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="btn btn-outline-primary bm-btn active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
 
-
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="btn btn-outline-primary bm-btn" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">Home</div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">beranda</div>
-            </div>
-        </div> -->
         <div class="timeline_area pt-4 pt-lg-5">
             <div class="d-lg-flex justify-content-between pb-3">
                 <h2 class="fw-bolder mb-3 ">Jadwal Kajian</h2>
@@ -451,30 +433,4 @@
     </div>
 </div>
 @include('layouts._public_footer')
-<?php
-    /*
-@include('public_schedules._nav')
-
-@foreach ($audienceCodes as $audienceCode => $audience)
-    @if (isset($lecturings[$audienceCode]))
-        <div class="page-header my-4">
-            <h2 class="page-title">{{ __('lecturing.audience_'.$audienceCode) }}</h2>
-        </div>
-        @foreach($lecturings[$audienceCode] as $lecturing)
-            @include('public_schedules._single_'.$audienceCode)
-        @endforeach
-    @endif
-@endforeach
-
-@if ($lecturings->isEmpty())
-    <p class="my-4">
-        {{ __('lecturing.empty') }}
-        {{ in_array(Request::segment(2), [null, 'hari_ini']) ? __('time.today').'.' : '' }}
-        {{ in_array(Request::segment(2), ['besok']) ? __('time.tomorrow').'.' : '' }}
-        {{ Request::segment(2) == 'pekan_ini' ? __('time.this_week').'.' : '' }}
-        {{ Request::segment(2) == 'pekan_depan' ? __('time.next_week').'.' : '' }}
-    </p>
-@endif
-*/
-?>
 @endsection

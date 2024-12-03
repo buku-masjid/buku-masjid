@@ -3,21 +3,7 @@
 @section('title', __('app.welcome'))
 
 @section('content')
-    <!-- <div class="jumbotron p-4 mb-0 p-md-5 text-dark rounded bg-lightgray">
-        <div class="col-md-6 px-0">asdasdasd
-            <h2 class="font-italic">
-                @yield('title'),<br> {{ Setting::get('masjid_name', config('masjid.name')) }}
-            </h2>
-            <p class="lead mb-0">
-                <a class="btn btn-lg btn-success mr-2" href="{{ route('public_reports.index') }}"
-                    role="button">{{ __('report.view_report') }}</a>
-                @if (Route::has('lecturings.index'))
-                    <a class="btn btn-lg btn-info" href="{{ route('public_schedules.index') }}"
-                        role="button">{{ __('lecturing.lecturing') }}</a>
-                @endif
-            </p>
-        </div>
-    </div> -->
+
 <section class="bg-white">
     <div class="container-md">
         <div class="masjid-info-top row">
@@ -86,15 +72,15 @@
                                 Munawir
                             </div>
                         </div>
-                        
+
                         <h1 class="pt-4 fw-bolder">7199793588</h1>
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="text-center py-4 d-sm-none">
-            (c) 2024 Bukumasjid 
+            (c) 2024 Bukumasjid
         </div>
         <div class=" py-4 d-none d-sm-block position-relative">
             (c) 2024 Bukumasjid. <i class="ti ps-4">&#xf7e6;</i> bukumasjid <i class="ti ps-2">&#xf7eb;</i> bukumasjid <i class="ti ps-2">&#xec26;</i> bukumasjid <i class="ti ps-2">&#xec20;</i> bukumasjid
@@ -105,17 +91,4 @@
         </div>
     </div>
 </div>
-    <?php
-    /* <div class="row justify-content-center">
-        <div class="col-lg-6">
-            @livewire('public-home.weekly-financial-summary')
-        </div>
-        @if (Route::has('lecturings.index'))
-            <div class="col-lg-6">
-                @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
-                @livewire('public-home.daily-lecturings', ['date' => today()->addDay(), 'dayTitle' => 'tomorrow'])
-            </div>
-        @endif
-    </div> */
-    ?>
 @endsection

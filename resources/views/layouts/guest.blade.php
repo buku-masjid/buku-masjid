@@ -17,8 +17,7 @@
 
     <title>@yield('title') - {{ Setting::get('masjid_name', config('masjid.name')) }}</title>
 
-   <!-- Styles -->
-    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+    <!-- Styles -->
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
@@ -110,47 +109,8 @@
             </div>
         </div>
     </div>
-    <!-- <div class="navbar-light bg-white shadow-sm mb-4">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
-                    <div class="py-1">
-                        <nav class="nav d-flex justify-content-between">
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
-                                <i class="fe fe-home"></i> {{ __('app.home') }}
-                            </a>
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['laporan-kas']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_reports.index') }}">
-                                <i class="fe fe-layout"></i> {{ __('report.report') }}
-                            </a>
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['donasi']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public.donate') }}">
-                                <i class="fe fe-pocket"></i> {{ __('app.donate') }}
-                            </a>
-                            @if (Route::has('public_schedules.index'))
-                                <a class="py-2 px-1 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
-                                    <i class="fe fe-calendar"></i> {{ __('lecturing.public_schedule') }}
-                                </a>
-                            @endif
-                            @auth
-                            <a class="py-2 px-1 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
-                            @else
-                            <a class="py-2 px-1 text-dark" href="{{ route('login') }}"><i class="fe fe-user"></i> {{ __('auth.login') }}</a>
-                            @endauth
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     @yield('content')
-    <!-- <main role="main" class="container-fluid px-0">
-        <div class="row">
-            <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
-
-            </div>
-        </div>
-    </main> -->
     <script src="{{ asset('js/app.js') }}" ></script>
-    @include('layouts.partials.noty')
     @stack('scripts')
 </body>
 </html>
