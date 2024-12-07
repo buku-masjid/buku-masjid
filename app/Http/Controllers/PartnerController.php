@@ -30,10 +30,11 @@ class PartnerController extends Controller
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
+        $availableWorks = [];
 
         return view('partners.index', compact(
             'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders'
+            'genders', 'availableWorks'
         ));
     }
 
@@ -42,14 +43,23 @@ class PartnerController extends Controller
         $this->authorize('create', new Partner);
 
         $newPartner = $request->validate([
-            'name' => 'required|max:60',
-            'type_code' => 'required|max:30',
-            'level_code' => 'nullable|max:30',
-            'gender_code' => 'nullable|in:m,f',
+            'name' => ['required', 'max:60'],
+            'type_code' => ['required', 'max:30'],
+            'gender_code' => ['nullable', 'in:m,f'],
             'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
-            'work' => 'nullable|max:60',
-            'address' => 'nullable|max:255',
-            'description' => 'nullable|max:255',
+            'pob' => ['nullable', 'max:255'],
+            'dob' => ['nullable', 'date_format:Y-m-d'],
+            'address' => ['nullable', 'max:255'],
+            'rt' => ['nullable', 'max:3'],
+            'rw' => ['nullable', 'max:3'],
+            'description' => ['nullable', 'max:255'],
+            'level_code' => ['nullable', 'max:30'],
+            'religion_id' => ['nullable'],
+            'work_id' => ['nullable'],
+            'work' => 'nullable', 'max:60',
+            'marital_status_id' => ['nullable'],
+            'financial_status_id' => ['nullable'],
+            'activity_status_id' => ['nullable'],
         ]);
         $newPartner['creator_id'] = auth()->id();
 
@@ -87,14 +97,24 @@ class PartnerController extends Controller
         $this->authorize('update', $partner);
 
         $partnerData = $request->validate([
-            'name' => 'required|max:60',
-            'type_code' => 'required|max:30',
-            'level_code' => 'nullable|max:30',
+            'name' => ['required', 'max:60'],
+            'type_code' => ['required', 'max:30'],
+            'gender_code' => ['nullable', 'in:m,f'],
             'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
-            'work' => 'nullable|max:60',
-            'address' => 'nullable|max:255',
-            'description' => 'nullable|max:255',
-            'is_active' => 'required|in:0,1',
+            'pob' => ['nullable', 'max:255'],
+            'dob' => ['nullable', 'date_format:Y-m-d'],
+            'address' => ['nullable', 'max:255'],
+            'rt' => ['nullable', 'max:3'],
+            'rw' => ['nullable', 'max:3'],
+            'description' => ['nullable', 'max:255'],
+            'level_code' => ['nullable', 'max:30'],
+            'religion_id' => ['nullable'],
+            'work_id' => ['nullable'],
+            'work' => ['nullable', 'max:60'],
+            'marital_status_id' => ['nullable'],
+            'financial_status_id' => ['nullable'],
+            'activity_status_id' => ['nullable'],
+            'is_active' => ['required', 'in:0,1'],
         ]);
 
         $partner->update($partnerData);

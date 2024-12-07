@@ -14,7 +14,8 @@ class Partner extends Model
 
     protected $fillable = [
         'name', 'type_code', 'level_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
-        'gender_code',
+        'gender_code', 'pob', 'dob', 'work_id', 'marital_status_id', 'financial_status_id', 'activity_status_id',
+        'religion_id', 'rt', 'rw',
     ];
 
     public function getStatusAttribute()
