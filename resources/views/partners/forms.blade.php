@@ -116,7 +116,7 @@
                                 {{ Form::hidden('level_code') }}
                             @endif
                             {!! FormField::select('religion_id', __('partner.religions'), ['label' => __('partner.religion'), 'placeholder' => __('app.unknown')]) !!}
-                            {!! FormField::select('work_id', $availableWorks, ['label' => __('partner.work'), 'placeholder' => __('app.unknown')]) !!}
+                            {!! FormField::select('work_id', __('partner.works'), ['label' => __('partner.work'), 'placeholder' => __('app.unknown')]) !!}
                             {!! FormField::text('work', ['label' => __('partner.work_detail')]) !!}
                             {!! FormField::select('marital_status_id', __('partner.marital_statuses'), ['label' => __('partner.marital_status'), 'placeholder' => __('app.unknown')]) !!}
                             {!! FormField::select('financial_status_id', __('partner.financial_statuses'), ['label' => __('partner.financial_status'), 'placeholder' => __('app.unknown')]) !!}
