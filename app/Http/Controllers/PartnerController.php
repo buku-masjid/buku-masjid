@@ -206,6 +206,41 @@ class PartnerController extends Controller
         if ($request->get('level_code')) {
             $partnerQuery->where('level_code', $request->get('level_code'));
         }
+        if ($workTypeId = $request->get('work_type_id')) {
+            if ($workTypeId == 'null') {
+                $partnerQuery->whereNull('work_type_id');
+            } else {
+                $partnerQuery->where('work_type_id', $workTypeId);
+            }
+        }
+        if ($maritalStatusId = $request->get('marital_status_id')) {
+            if ($maritalStatusId == 'null') {
+                $partnerQuery->whereNull('marital_status_id');
+            } else {
+                $partnerQuery->where('marital_status_id', $maritalStatusId);
+            }
+        }
+        if ($financialStatusId = $request->get('financial_status_id')) {
+            if ($financialStatusId == 'null') {
+                $partnerQuery->whereNull('financial_status_id');
+            } else {
+                $partnerQuery->where('financial_status_id', $financialStatusId);
+            }
+        }
+        if ($activityStatusId = $request->get('activity_status_id')) {
+            if ($activityStatusId == 'null') {
+                $partnerQuery->whereNull('activity_status_id');
+            } else {
+                $partnerQuery->where('activity_status_id', $activityStatusId);
+            }
+        }
+        if ($religionId = $request->get('religion_id')) {
+            if ($religionId == 'null') {
+                $partnerQuery->whereNull('religion_id');
+            } else {
+                $partnerQuery->where('religion_id', $religionId);
+            }
+        }
         if (!is_null($request->get('is_active'))) {
             $partnerQuery->where('is_active', $request->get('is_active'));
         }
