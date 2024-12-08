@@ -38,7 +38,7 @@ return [
     'dob' => 'Tgl Lahir',
     'work' => 'Pekerjaan',
     'work_detail' => 'Detail Pekerjaan',
-    'works' => [
+    'work_types' => [
         1 => 'Tidak Bekerja',
         2 => 'Buruh (Tani/Pabrik/Bangunan)',
         3 => 'Content Creator',

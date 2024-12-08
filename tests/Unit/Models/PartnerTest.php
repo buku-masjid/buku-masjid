@@ -133,10 +133,10 @@ class PartnerTest extends TestCase
     /** @test */
     public function partner_model_has_work_type_attribute()
     {
-        $partner = factory(Partner::class)->make(['work_id' => 14]);
-        $this->assertEquals(__('partner.works')[14], $partner->work_type);
+        $partner = factory(Partner::class)->make(['work_type_id' => 14]);
+        $this->assertEquals(__('partner.work_types')[14], $partner->work_type);
 
-        $partner->work_id = null;
+        $partner->work_type_id = null;
         $this->assertEquals(__('app.unknown'), $partner->work_type);
     }
 

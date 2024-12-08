@@ -38,7 +38,7 @@ return [
     'dob' => 'Date of Birth',
     'work' => 'Work',
     'work_detail' => 'Work Detail',
-    'works' => [
+    'work_types' => [
         1 => 'Not Working',
         2 => 'Laborer (Farm/Factory/Construction)',
         3 => 'Content Creator',

@@ -14,7 +14,7 @@ class Partner extends Model
 
     protected $fillable = [
         'name', 'type_code', 'level_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
-        'gender_code', 'pob', 'dob', 'work_id', 'marital_status_id', 'financial_status_id', 'activity_status_id',
+        'gender_code', 'pob', 'dob', 'work_type_id', 'marital_status_id', 'financial_status_id', 'activity_status_id',
         'religion_id', 'rt', 'rw',
     ];
 
@@ -103,7 +103,7 @@ class Partner extends Model
 
     public function getWorkTypeAttribute()
     {
-        return __('partner.works')[$this->work_id] ?? __('app.unknown');
+        return __('partner.work_types')[$this->work_type_id] ?? __('app.unknown');
     }
 
     public function getReligionAttribute()

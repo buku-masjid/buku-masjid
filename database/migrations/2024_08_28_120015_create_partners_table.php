@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('pob', 60)->nullable();
             $table->date('dob')->nullable();
-            $table->unsignedInteger('work_id')->nullable();
+            $table->unsignedTinyInteger('work_type_id')->nullable();
             $table->string('work')->nullable();
             $table->string('address')->nullable();
             $table->string('rt', 3)->nullable();

@@ -21,9 +21,9 @@ return new class extends Migration
                 $table->date('dob')->nullable()->after('pob');
             });
         }
-        if (!Schema::hasColumn('partners', 'work_id')) {
+        if (!Schema::hasColumn('partners', 'work_type_id')) {
             Schema::table('partners', function (Blueprint $table) {
-                $table->unsignedInteger('work_id')->nullable()->after('dob');
+                $table->unsignedTinyInteger('work_type_id')->nullable()->after('dob');
             });
         }
         if (!Schema::hasColumn('partners', 'rt')) {
@@ -73,9 +73,9 @@ return new class extends Migration
                 $table->dropColumn('dob');
             });
         }
-        if (Schema::hasColumn('partners', 'work_id')) {
+        if (Schema::hasColumn('partners', 'work_type_id')) {
             Schema::table('partners', function (Blueprint $table) {
-                $table->dropColumn('work_id');
+                $table->dropColumn('work_type_id');
             });
         }
         if (Schema::hasColumn('partners', 'rt')) {
