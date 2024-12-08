@@ -104,7 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * Partner Routes
      */
-    Route::apiResource('partners', 'PartnerController');
+    Route::resource('partners', 'PartnerController');
 
     /*
      * Donor Routes

@@ -13,7 +13,6 @@ class PartnerController extends Controller
     {
         $this->authorize('view-any', new Partner);
 
-        $editablePartner = null;
         $partnerTypes = (new Partner)->getAvailableTypes();
         $defaultTypeCode = collect($partnerTypes)->keys()->first();
         $request->merge([
@@ -23,9 +22,6 @@ class PartnerController extends Controller
         $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
         $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
         $partners = $this->getPartners($request);
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editablePartner = Partner::find(request('id'));
-        }
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
@@ -33,9 +29,27 @@ class PartnerController extends Controller
         $availableWorks = [];
 
         return view('partners.index', compact(
-            'partners', 'editablePartner', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
+            'partners', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
             'genders', 'availableWorks'
         ));
+    }
+
+    public function create(Request $request)
+    {
+        $partnerTypes = (new Partner)->getAvailableTypes();
+        $defaultTypeCode = collect($partnerTypes)->keys()->first();
+        $request->merge([
+            'type_code' => $request->get('type_code', $defaultTypeCode),
+        ]);
+        $selectedTypeCode = $request->get('type_code');
+        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
+        $partnerLevels = (new Partner)->getAvailableLevels($request->get('type_code'));
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
+
+        return view('partners.create', compact('partnerLevels', 'selectedTypeCode', 'selectedTypeName', 'genders'));
     }
 
     public function store(Request $request)
@@ -92,6 +106,20 @@ class PartnerController extends Controller
         ));
     }
 
+    public function edit(Request $request, Partner $partner)
+    {
+        $this->authorize('update', $partner);
+
+        $partner->loadSum('transactions', 'amount');
+        $partnerLevels = (new Partner)->getAvailableLevels($partner->type_code);
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
+
+        return view('partners.edit', compact('partner', 'partnerLevels', 'genders'));
+    }
+
     public function update(Request $request, Partner $partner)
     {
         $this->authorize('update', $partner);
@@ -121,7 +149,7 @@ class PartnerController extends Controller
 
         flash(__('partner.updated', ['type' => $partner->type]), 'success');
 
-        return redirect()->route('partners.index', ['type_code' => $partnerData['type_code']]);
+        return redirect()->route('partners.show', $partner);
     }
 
     public function destroy(Partner $partner)
@@ -135,7 +163,7 @@ class PartnerController extends Controller
         if (request('partner_id') == $partner->id && $partner->delete()) {
             flash(__('partner.deleted', ['type' => $partner->type]), 'warning');
 
-            return redirect()->route('partners.index');
+            return redirect()->route('partners.index', ['type_code' => $partner->type_code]);
         }
         flash(__('partner.undeleted', ['type' => $partner->type]), 'error');
 

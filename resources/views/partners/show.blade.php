@@ -18,7 +18,14 @@
     <h1 class="page-title">{{ $partner->name }}</h1>
     <div class="page-subtitle">{{ $partner->type }}</div>
     <div class="page-options d-flex">
-        {{-- {{ link_to_route('partners.index', __('partner.edit', ['type' => $partner->type]), $partner, ['class' => 'btn btn-warning text-dark']) }} --}}
+        @can('update', $partner)
+            {{ link_to_route(
+                'partners.edit',
+                __('app.edit'),
+                $partner,
+                ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning']
+            ) }}
+        @endcan
     </div>
 </div>
 

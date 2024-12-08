@@ -12,6 +12,7 @@ return [
     'all_level' => 'Semua Level',
     'empty' => 'Belum ada :type',
     'largest_transaction' => 'Transaksi Terbesar',
+    'transaction_total' => 'Total Transaksi',
     'back_to_index' => 'Kembali ke daftar :type',
 
     // Actions

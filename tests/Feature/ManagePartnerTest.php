@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Book;
 use App\Models\Partner;
+use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -27,7 +29,7 @@ class ManagePartnerTest extends TestCase
         $this->visitRoute('partners.index');
 
         $this->click(__('partner.create', ['type' => __('partner.partner')]));
-        $this->seeRouteIs('partners.index', ['action' => 'create', 'type_code' => 'partner']);
+        $this->seeRouteIs('partners.create', ['type_code' => 'partner']);
 
         $this->submitForm(__('partner.create', ['type' => __('partner.partner')]), [
             'name' => 'Partner 1 name',
@@ -96,12 +98,10 @@ class ManagePartnerTest extends TestCase
         config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar']);
         $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
 
-        $this->visitRoute('partners.index');
+        $this->visitRoute('partners.show', $partner);
         $this->click('edit-partner-1');
 
-        $this->seeRouteIs('partners.index', [
-            'action' => 'edit', 'id' => $partner->id, 'type_code' => $partner->type_code,
-        ]);
+        $this->seeRouteIs('partners.edit', $partner);
 
         $this->submitForm(__('partner.update', ['type' => 'Donatur']), [
             'name' => 'Partner 2 name',
@@ -124,7 +124,7 @@ class ManagePartnerTest extends TestCase
             'is_active' => 0,
         ]);
 
-        $this->seeRouteIs('partners.index', ['type_code' => 'donatur']);
+        $this->seeRouteIs('partners.show', $partner);
 
         $this->seeInDatabase('partners', [
             'name' => 'Partner 2 name',
@@ -153,20 +153,38 @@ class ManagePartnerTest extends TestCase
     {
         $creator = $this->loginAsUser();
 
-        $partner = factory(Partner::class)->create(['creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
 
-        $this->visitRoute('partners.index');
-        $this->click('edit-partner-1');
+        $this->visitRoute('partners.show', $partner);
+        $this->click('edit-partner-'.$partner->id);
         $this->click('del-partner-'.$partner->id);
 
-        $this->seeRouteIs('partners.index', [
-            'action' => 'delete', 'id' => $partner->id, 'type_code' => $partner->type_code,
-        ]);
+        $this->seeRouteIs('partners.edit', [$partner->id, 'action' => 'delete']);
 
         $this->press(__('app.delete_confirm_button'));
+        $this->seeText(__('partner.deleted', ['type' => $partner->type]));
+        $this->seeRouteIs('partners.index', ['type_code' => $partner->type_code]);
 
         $this->dontSeeInDatabase('partners', [
             'id' => $partner->id,
         ]);
+    }
+
+    /** @test */
+    public function user_cannot_delete_a_partner_that_has_transactions()
+    {
+        $creator = $this->loginAsUser();
+        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['partner_id' => $partner->id, 'book_id' => $book->id]);
+
+        $this->visitRoute('partners.show', $partner);
+        $this->click('edit-partner-'.$partner->id);
+        $this->click('del-partner-'.$partner->id);
+
+        $this->seeRouteIs('partners.edit', [$partner->id, 'action' => 'delete']);
+
+        $this->dontSeeText(__('app.delete_confirm_button'));
+        $this->seeText(__('partner.undeleteable', ['type' => $partner->type]));
     }
 }

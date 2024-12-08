@@ -12,6 +12,7 @@ return [
     'all_level' => 'All Level',
     'empty' => ':type list is empty',
     'largest_transaction' => 'Largest Transaction',
+    'transaction_total' => 'Transaction Total',
     'back_to_index' => 'Back to :type list',
 
     // Actions
