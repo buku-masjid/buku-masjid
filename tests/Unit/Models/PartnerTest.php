@@ -129,4 +129,54 @@ class PartnerTest extends TestCase
         $partner->gender_code = 'something';
         $this->assertEquals('something', $partner->gender);
     }
+
+    /** @test */
+    public function partner_model_has_work_type_attribute()
+    {
+        $partner = factory(Partner::class)->make(['work_id' => 14]);
+        $this->assertEquals(__('partner.works')[14], $partner->work_type);
+
+        $partner->work_id = null;
+        $this->assertEquals(__('app.unknown'), $partner->work_type);
+    }
+
+    /** @test */
+    public function partner_model_has_religion_attribute()
+    {
+        $partner = factory(Partner::class)->make(['religion_id' => 1]);
+        $this->assertEquals(__('partner.religions')[1], $partner->religion);
+
+        $partner->religion_id = null;
+        $this->assertEquals(__('app.unknown'), $partner->religion);
+    }
+
+    /** @test */
+    public function partner_model_has_marital_status_attribute()
+    {
+        $partner = factory(Partner::class)->make(['marital_status_id' => 4]);
+        $this->assertEquals(__('partner.marital_statuses')[4], $partner->marital_status);
+
+        $partner->marital_status_id = null;
+        $this->assertEquals(__('app.unknown'), $partner->marital_status);
+    }
+
+    /** @test */
+    public function partner_model_has_financial_status_attribute()
+    {
+        $partner = factory(Partner::class)->make(['financial_status_id' => 2]);
+        $this->assertEquals(__('partner.financial_statuses')[2], $partner->financial_status);
+
+        $partner->financial_status_id = null;
+        $this->assertEquals(__('app.unknown'), $partner->financial_status);
+    }
+
+    /** @test */
+    public function partner_model_has_activity_status_attribute()
+    {
+        $partner = factory(Partner::class)->make(['activity_status_id' => 2]);
+        $this->assertEquals(__('partner.activity_statuses')[2], $partner->activity_status);
+
+        $partner->activity_status_id = null;
+        $this->assertEquals(__('app.unknown'), $partner->activity_status);
+    }
 }

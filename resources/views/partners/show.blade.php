@@ -4,9 +4,19 @@
 
 @section('content_settings')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mt-4">
+        <li class="breadcrumb-item">
+            <a href="{{ route('partners.index') }}"><i class="fe fe-users"></i> {{ __('partner.partner') }}</a>
+        </li>
+        <li class="breadcrumb-item">{{ link_to_route('partners.index', $partner->type, ['type_code' => $partner->type_code]) }}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('app.detail') }}</li>
+    </ol>
+</nav>
+
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ $partner->level ?: __('partner.partner_type', ['type' => $partner->type]) }}</div>
+    <div class="page-subtitle">{{ $partner->type }}</div>
     <div class="page-options d-flex">
         {{-- {{ link_to_route('partners.index', __('partner.edit', ['type' => $partner->type]), $partner, ['class' => 'btn btn-warning text-dark']) }} --}}
     </div>
@@ -18,9 +28,50 @@
     <div class="col-md-4">@include('partners._transactions_total')</div>
 </div>
 
-@if ($partner->address)
-    <div class="alert alert-warning"><strong>{{ __('partner.address') }}:</strong><br>{{ $partner->address }}</div>
-@endif
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label text-primary">{{ __('partner.pdob') }}</label>
+                <p>
+                    @if ($partner->pob)
+                        {{ $partner->pob }},
+                    @endif
+                    @if ($partner->dob)
+                        {{ Carbon\Carbon::parse($partner->dob)->isoFormat('DD MMMM YYYY') }}
+                    @endif
+                    @if (!$partner->pob && !$partner->dob)
+                        {{ __('app.unknown') }}
+                    @endif
+                </p>
+                <label class="control-label text-primary">{{ __('address.address') }}</label>
+                <p>{{ $partner->address ?: __('app.unknown') }}</p>
+                <label class="control-label text-primary">{{ __('address.rt') }} / {{ __('address.rt') }}</label>
+                <p>
+                    @if (!$partner->rt && !$partner->rw)
+                        {{ __('app.unknown') }}
+                    @else
+                        {{ $partner->rt ?: __('app.unknown') }} / {{ $partner->rw ?: __('app.unknown') }}
+                    @endif
+                </p>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label text-primary">{{ __('partner.religion') }}</label>
+                <p>{{ $partner->religion }}</p>
+                <label class="control-label text-primary">{{ __('partner.work_detail') }}</label>
+                <p>{{ $partner->work_type }} {{ $partner->work ? '('.$partner->work.')' : '' }}</p>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label text-primary">{{ __('partner.marital_status') }}</label>
+                <p>{{ $partner->marital_status }}</p>
+                <label class="control-label text-primary">{{ __('partner.financial_status') }}</label>
+                <p>{{ $partner->financial_status }}</p>
+                <label class="control-label text-primary">{{ __('partner.activity_status') }}</label>
+                <p>{{ $partner->activity_status }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if ($partner->description)
     <div class="alert alert-info"><strong>{{ __('partner.description') }}:</strong><br>{{ $partner->description }}</div>

@@ -11,7 +11,7 @@
             </div>
             <div>
                 <div class="text-muted small">{{ __('partner.work') }}</div>
-                <strong>{{ $partner->work ?: '-' }}</strong>
+                <strong>{{ $partner->work_type }}</strong>
             </div>
             <div>
                 <div class="text-muted small">{{ __('app.gender') }}</div>

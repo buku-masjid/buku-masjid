@@ -56,15 +56,11 @@ class Partner extends Model
             return ['partner' => __('partner.partner')];
         }
         $partnerTypes = [];
-        // dump($partnerTypesConfig);
         $rawPartnerTypes = explode(',', $partnerTypesConfig);
-        // dump($rawPartnerTypes);
         foreach ($rawPartnerTypes as $rawPartnerType) {
             $partnerType = explode('|', $rawPartnerType);
-            // dd($partnerType);
             $partnerTypes[$partnerType[0]] = $partnerType[1];
         }
-        // dd($partnerTypes);
 
         return $partnerTypes;
     }
@@ -103,5 +99,30 @@ class Partner extends Model
         }
 
         return $this->name;
+    }
+
+    public function getWorkTypeAttribute()
+    {
+        return __('partner.works')[$this->work_id] ?? __('app.unknown');
+    }
+
+    public function getReligionAttribute()
+    {
+        return __('partner.religions')[$this->religion_id] ?? __('app.unknown');
+    }
+
+    public function getMaritalStatusAttribute()
+    {
+        return __('partner.marital_statuses')[$this->marital_status_id] ?? __('app.unknown');
+    }
+
+    public function getFinancialStatusAttribute()
+    {
+        return __('partner.financial_statuses')[$this->financial_status_id] ?? __('app.unknown');
+    }
+
+    public function getActivityStatusAttribute()
+    {
+        return __('partner.activity_statuses')[$this->activity_status_id] ?? __('app.unknown');
     }
 }

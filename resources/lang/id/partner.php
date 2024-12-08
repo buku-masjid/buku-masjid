@@ -32,6 +32,7 @@ return [
     'type' => 'Tipe',
     'level' => 'Level',
     'phone' => 'No. HP/WA',
+    'pdob' => 'Tempat/Tanggal Lahir',
     'pob' => 'Tempat Lahir',
     'dob' => 'Tgl Lahir',
     'work' => 'Pekerjaan',

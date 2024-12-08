@@ -32,6 +32,7 @@ return [
     'type' => 'Type',
     'level' => 'Level',
     'phone' => 'Phone/WA Number',
+    'pdob' => 'Place/Date of Birth',
     'pob' => 'Place of Birth',
     'dob' => 'Date of Birth',
     'work' => 'Work',
