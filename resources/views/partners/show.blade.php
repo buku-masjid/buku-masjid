@@ -53,7 +53,7 @@
                 </p>
                 <label class="control-label text-primary">{{ __('address.address') }}</label>
                 <p>{{ $partner->address ?: __('app.unknown') }}</p>
-                <label class="control-label text-primary">{{ __('address.rt') }} / {{ __('address.rt') }}</label>
+                <label class="control-label text-primary">{{ __('address.rt') }} / {{ __('address.rw') }}</label>
                 <p>
                     @if (!$partner->rt && !$partner->rw)
                         {{ __('app.unknown') }}
