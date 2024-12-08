@@ -206,6 +206,21 @@ class PartnerController extends Controller
         if ($request->get('level_code')) {
             $partnerQuery->where('level_code', $request->get('level_code'));
         }
+        if ($ageGroupCode = $request->get('age_group_code')) {
+            if ($ageGroupCode == 'null') {
+                $partnerQuery->whereNull('dob');
+            } else {
+                $ageGroups = get_age_group_date_ranges();
+                $dateRange = isset($ageGroups[$ageGroupCode]) ? $ageGroups[$ageGroupCode] : [];
+                if ($dateRange) {
+                    if (in_array($dateRange[1], ['<=', '>='])) {
+                        $partnerQuery->where('dob', $dateRange[1], $dateRange[0]);
+                    } else {
+                        $partnerQuery->whereBetween('dob', $dateRange);
+                    }
+                }
+            }
+        }
         if ($workTypeId = $request->get('work_type_id')) {
             if ($workTypeId == 'null') {
                 $partnerQuery->whereNull('work_type_id');
@@ -247,5 +262,12 @@ class PartnerController extends Controller
         $partners = $partnerQuery->paginate(100);
 
         return $partners;
+    }
+
+    private function getDateRangeByAgeGroupCode(string $ageGroupCode): array
+    {
+        $ageGroups = get_age_group_date_ranges();
+
+        return isset($ageGroups[$ageGroupCode]) ? $ageGroups[$ageGroupCode] : [];
     }
 }
