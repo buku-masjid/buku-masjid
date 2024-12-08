@@ -36,6 +36,14 @@ return [
     'pdob' => 'Place/Date of Birth',
     'pob' => 'Place of Birth',
     'dob' => 'Date of Birth',
+    'age_group' => 'Age Group',
+    'age_groups' => [
+        'old' => 'Old',
+        'mature' => 'Mature',
+        'young' => 'Young',
+        'teenager' => 'Teenager',
+        'kids' => 'Kids',
+    ],
     'work' => 'Work',
     'work_detail' => 'Work Detail',
     'work_types' => [

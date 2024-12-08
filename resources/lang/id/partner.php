@@ -36,6 +36,14 @@ return [
     'pdob' => 'Tempat/Tanggal Lahir',
     'pob' => 'Tempat Lahir',
     'dob' => 'Tgl Lahir',
+    'age_group' => 'Kelompok Usia',
+    'age_groups' => [
+        'old' => 'Tua',
+        'mature' => 'Dewasa',
+        'young' => 'Muda',
+        'teenager' => 'Remaja',
+        'kids' => 'Anak-anak',
+    ],
     'work' => 'Pekerjaan',
     'work_detail' => 'Detail Pekerjaan',
     'work_types' => [
