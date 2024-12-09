@@ -7,6 +7,7 @@ return [
     'partner_type_donor' => 'Donatur',
     'list' => 'Daftar Partner',
     'list_by_type' => 'Daftar :type',
+    'search' => 'Cari :type',
     'search_text' => 'Nama / telp / alamat',
     'not_found' => ':type tidak ditemukan.',
     'all_level' => 'Semua Level',

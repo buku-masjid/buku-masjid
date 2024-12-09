@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * Partner Routes
      */
+    Route::get('partners/search', 'PartnerController@search')->name('partners.search');
     Route::resource('partners', 'PartnerController');
 
     /*

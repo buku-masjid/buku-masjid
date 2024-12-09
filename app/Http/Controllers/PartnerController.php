@@ -34,6 +34,31 @@ class PartnerController extends Controller
         ));
     }
 
+    public function search(Request $request)
+    {
+        $this->authorize('view-any', new Partner);
+
+        $partnerTypes = (new Partner)->getAvailableTypes();
+        $defaultTypeCode = collect($partnerTypes)->keys()->first();
+        $request->merge([
+            'type_code' => $request->get('type_code', $defaultTypeCode),
+        ]);
+        $selectedTypeCode = $request->get('type_code');
+        $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
+        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
+        $partners = $this->getPartners($request);
+        $genders = [
+            'm' => __('app.gender_male'),
+            'f' => __('app.gender_female'),
+        ];
+        $availableWorks = [];
+
+        return view('partners.search', compact(
+            'partners', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
+            'genders', 'availableWorks'
+        ));
+    }
+
     public function create(Request $request)
     {
         $partnerTypes = (new Partner)->getAvailableTypes();
