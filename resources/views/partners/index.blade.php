@@ -52,7 +52,9 @@
     <div class="col-md-6">
         @livewire('partners.financial-statuses', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
     </div>
-
+    <div class="col-md-6">
+        @livewire('partners.age-groups', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+    </div>
 </div>
 
 @endsection
