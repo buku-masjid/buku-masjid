@@ -1,6 +1,6 @@
 @extends('layouts.settings')
 
-@section('title', __('partner.list_by_type', ['type' => $selectedTypeName]))
+@section('title', __('partner.search', ['type' => $selectedTypeName]))
 
 @section('content_settings')
 
@@ -59,7 +59,7 @@
     <div class="form-group mt-4 mt-sm-2">
         {{ Form::hidden('type_code', request('type_code')) }}
         {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
-        {{ link_to_route('partners.index', __('app.reset'), request()->only('type_code'), ['class' => 'btn btn-secondary mr-1']) }}
+        {{ link_to_route('partners.search', __('app.reset'), request()->only('type_code'), ['class' => 'btn btn-secondary mr-1']) }}
     </div>
     {{ Form::close() }}
 </div>

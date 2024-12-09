@@ -1,6 +1,6 @@
 @extends('layouts.settings')
 
-@section('title', __('partner.list_by_type', ['type' => $selectedTypeName]))
+@section('title', __('dashboard.dashboard'))
 
 @section('content_settings')
 
