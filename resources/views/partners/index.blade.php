@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<div class="row mt-4 mt-sm-0">
+<div class="row my-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">
         <h1 class="page-title">
             {{ __('dashboard.dashboard') }}
@@ -39,6 +39,12 @@
         @can('create', new App\Models\Partner)
             {{ link_to_route('partners.create', __('partner.create', ['type' => $selectedTypeName]), request()->only('type_code'), ['class' => 'btn btn-success']) }}
         @endcan
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        @livewire('partners.marital-statuses', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
     </div>
 </div>
 
