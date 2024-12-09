@@ -41,7 +41,7 @@
                                     {{ link_to_route('partners.search', $activityStatusCount, ['gender_code' => $genderCode, 'activity_status_id' => $statusId, 'type_code' => $partnerTypeCode]) }}
                                 </td>
                             @endforeach
-                         @php
+                            @php
                                 $activityStatusCount = $activityStatuses->filter(function ($activityStatus) use ($statusId) {
                                     return $activityStatus->activity_status_id == $statusId;
                                 })->sum('partners_count');
@@ -51,28 +51,30 @@
                             </td>
                         </tr>
                     @endforeach
-                    <tr>
-                        <td class="text-center">{{ $no }}</td>
-                        <td>{{ __('app.unknown') }}</td>
-                        @foreach ($genders as $genderCode => $genderName)
-                            @php
-                                $activityStatusCount = $activityStatuses->filter(function ($activityStatus) use ($statusId, $genderCode) {
-                                    return $activityStatus->gender_code == $genderCode && is_null($activityStatus->activity_status_id);
-                                })->sum('partners_count');
-                            @endphp
+                    @php
+                        $unknownActivityStatusCount = $activityStatuses->filter(function ($activityStatus) use ($statusId) {
+                            return is_null($activityStatus->activity_status_id);
+                        })->sum('partners_count');
+                    @endphp
+                    @if ($unknownActivityStatusCount)
+                        <tr>
+                            <td class="text-center">{{ $no }}</td>
+                            <td>{{ __('app.unknown') }}</td>
+                            @foreach ($genders as $genderCode => $genderName)
+                                @php
+                                    $activityStatusCount = $activityStatuses->filter(function ($activityStatus) use ($statusId, $genderCode) {
+                                        return $activityStatus->gender_code == $genderCode && is_null($activityStatus->activity_status_id);
+                                    })->sum('partners_count');
+                                @endphp
+                                <td class="text-center">
+                                    {{ link_to_route('partners.search', $activityStatusCount, ['gender_code' => $genderCode, 'activity_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                                </td>
+                            @endforeach
                             <td class="text-center">
-                                {{ link_to_route('partners.search', $activityStatusCount, ['gender_code' => $genderCode, 'activity_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                                {{ link_to_route('partners.search', $unknownActivityStatusCount, ['activity_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
                             </td>
-                        @endforeach
-                     @php
-                            $activityStatusCount = $activityStatuses->filter(function ($activityStatus) use ($statusId) {
-                                return is_null($activityStatus->activity_status_id);
-                            })->sum('partners_count');
-                        @endphp
-                        <td class="text-center">
-                            {{ link_to_route('partners.search', $activityStatusCount, ['activity_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
-                        </td>
-                    </tr>
+                        </tr>
+                    @endif
                 </tbody>
                 <tfoot>
                     <tr class="strong">

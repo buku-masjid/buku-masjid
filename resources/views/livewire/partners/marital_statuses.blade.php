@@ -41,7 +41,7 @@
                                     {{ link_to_route('partners.search', $maritalStatusCount, ['gender_code' => $genderCode, 'marital_status_id' => $statusId, 'type_code' => $partnerTypeCode]) }}
                                 </td>
                             @endforeach
-                         @php
+                            @php
                                 $maritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId) {
                                     return $maritalStatus->marital_status_id == $statusId;
                                 })->sum('partners_count');
@@ -51,28 +51,35 @@
                             </td>
                         </tr>
                     @endforeach
-                    <tr>
-                        <td class="text-center">{{ $no }}</td>
-                        <td>{{ __('app.unknown') }}</td>
-                        @foreach ($genders as $genderCode => $genderName)
+                    @php
+                        $unknownMaritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId) {
+                            return is_null($maritalStatus->marital_status_id);
+                        })->sum('partners_count');
+                    @endphp
+                    @if ($unknownMaritalStatusCount)
+                        <tr>
+                            <td class="text-center">{{ $no }}</td>
+                            <td>{{ __('app.unknown') }}</td>
+                            @foreach ($genders as $genderCode => $genderName)
+                                @php
+                                    $maritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId, $genderCode) {
+                                        return $maritalStatus->gender_code == $genderCode && is_null($maritalStatus->marital_status_id);
+                                    })->sum('partners_count');
+                                @endphp
+                                <td class="text-center">
+                                    {{ link_to_route('partners.search', $maritalStatusCount, ['gender_code' => $genderCode, 'marital_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                                </td>
+                            @endforeach
                             @php
-                                $maritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId, $genderCode) {
-                                    return $maritalStatus->gender_code == $genderCode && is_null($maritalStatus->marital_status_id);
+                                $maritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId) {
+                                    return is_null($maritalStatus->marital_status_id);
                                 })->sum('partners_count');
                             @endphp
                             <td class="text-center">
-                                {{ link_to_route('partners.search', $maritalStatusCount, ['gender_code' => $genderCode, 'marital_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                                {{ link_to_route('partners.search', $maritalStatusCount, ['marital_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
                             </td>
-                        @endforeach
-                     @php
-                            $maritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId) {
-                                return is_null($maritalStatus->marital_status_id);
-                            })->sum('partners_count');
-                        @endphp
-                        <td class="text-center">
-                            {{ link_to_route('partners.search', $maritalStatusCount, ['marital_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
-                        </td>
-                    </tr>
+                        </tr>
+                    @endif
                 </tbody>
                 <tfoot>
                     <tr class="strong">

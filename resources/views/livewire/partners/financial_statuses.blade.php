@@ -41,7 +41,7 @@
                                     {{ link_to_route('partners.search', $financialStatusCount, ['gender_code' => $genderCode, 'financial_status_id' => $statusId, 'type_code' => $partnerTypeCode]) }}
                                 </td>
                             @endforeach
-                         @php
+                            @php
                                 $financialStatusCount = $financialStatuses->filter(function ($financialStatus) use ($statusId) {
                                     return $financialStatus->financial_status_id == $statusId;
                                 })->sum('partners_count');
@@ -51,28 +51,35 @@
                             </td>
                         </tr>
                     @endforeach
-                    <tr>
-                        <td class="text-center">{{ $no }}</td>
-                        <td>{{ __('app.unknown') }}</td>
-                        @foreach ($genders as $genderCode => $genderName)
-                            @php
-                                $financialStatusCount = $financialStatuses->filter(function ($financialStatus) use ($statusId, $genderCode) {
-                                    return $financialStatus->gender_code == $genderCode && is_null($financialStatus->financial_status_id);
+                    @php
+                        $unknownFinancialStatusCount = $financialStatuses->filter(function ($financialStatus) use ($statusId) {
+                            return is_null($financialStatus->financial_status_id);
+                        })->sum('partners_count');
+                    @endphp
+                    @if ($unknownFinancialStatusCount)
+                        <tr>
+                            <td class="text-center">{{ $no }}</td>
+                            <td>{{ __('app.unknown') }}</td>
+                            @foreach ($genders as $genderCode => $genderName)
+                                @php
+                                    $financialStatusCount = $financialStatuses->filter(function ($financialStatus) use ($statusId, $genderCode) {
+                                        return $financialStatus->gender_code == $genderCode && is_null($financialStatus->financial_status_id);
+                                    })->sum('partners_count');
+                                @endphp
+                                <td class="text-center">
+                                    {{ link_to_route('partners.search', $financialStatusCount, ['gender_code' => $genderCode, 'financial_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                                </td>
+                            @endforeach
+                         @php
+                                $financialStatusCount = $financialStatuses->filter(function ($financialStatus) use ($statusId) {
+                                    return is_null($financialStatus->financial_status_id);
                                 })->sum('partners_count');
                             @endphp
                             <td class="text-center">
-                                {{ link_to_route('partners.search', $financialStatusCount, ['gender_code' => $genderCode, 'financial_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                                {{ link_to_route('partners.search', $financialStatusCount, ['financial_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
                             </td>
-                        @endforeach
-                     @php
-                            $financialStatusCount = $financialStatuses->filter(function ($financialStatus) use ($statusId) {
-                                return is_null($financialStatus->financial_status_id);
-                            })->sum('partners_count');
-                        @endphp
-                        <td class="text-center">
-                            {{ link_to_route('partners.search', $financialStatusCount, ['financial_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
-                        </td>
-                    </tr>
+                        </tr>
+                    @endif
                 </tbody>
                 <tfoot>
                     <tr class="strong">
