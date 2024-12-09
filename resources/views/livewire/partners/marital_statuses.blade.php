@@ -38,7 +38,7 @@
                                     })->sum('partners_count');
                                 @endphp
                                 <td class="text-center">
-                                    {{ $maritalStatusCount }}
+                                    {{ link_to_route('partners.search', $maritalStatusCount, ['gender_code' => $genderCode, 'marital_status_id' => $statusId, 'type_code' => $partnerTypeCode]) }}
                                 </td>
                             @endforeach
                          @php
@@ -46,7 +46,9 @@
                                     return $maritalStatus->marital_status_id == $statusId;
                                 })->sum('partners_count');
                             @endphp
-                            <td class="text-center">{{ $maritalStatusCount }}</td>
+                            <td class="text-center">
+                                {{ link_to_route('partners.search', $maritalStatusCount, ['marital_status_id' => $statusId, 'type_code' => $partnerTypeCode]) }}
+                            </td>
                         </tr>
                     @endforeach
                     <tr>
@@ -58,14 +60,18 @@
                                     return $maritalStatus->gender_code == $genderCode && is_null($maritalStatus->marital_status_id);
                                 })->sum('partners_count');
                             @endphp
-                            <td class="text-center">{{ $maritalStatusCount }}</td>
+                            <td class="text-center">
+                                {{ link_to_route('partners.search', $maritalStatusCount, ['gender_code' => $genderCode, 'marital_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                            </td>
                         @endforeach
                      @php
                             $maritalStatusCount = $maritalStatuses->filter(function ($maritalStatus) use ($statusId) {
                                 return is_null($maritalStatus->marital_status_id);
                             })->sum('partners_count');
                         @endphp
-                        <td class="text-center">{{ $maritalStatusCount }}</td>
+                        <td class="text-center">
+                            {{ link_to_route('partners.search', $maritalStatusCount, ['marital_status_id' => 'null', 'type_code' => $partnerTypeCode]) }}
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -77,9 +83,13 @@
                                     return $maritalStatus->gender_code == $genderCode;
                                 })->sum('partners_count');
                             @endphp
-                            <td class="text-center">{{ $maritalStatusCount }}</td>
+                            <td class="text-center">
+                                {{ link_to_route('partners.search', $maritalStatusCount, ['gender_code' => $genderCode, 'type_code' => $partnerTypeCode]) }}
+                            </td>
                         @endforeach
-                        <td class="text-center">{{ $maritalStatuses->sum('partners_count') }}</td>
+                        <td class="text-center">
+                            {{ link_to_route('partners.search', $maritalStatuses->sum('partners_count'), ['type_code' => $partnerTypeCode]) }}
+                        </td>
                     </tr>
                 </tfoot>
             </table>
