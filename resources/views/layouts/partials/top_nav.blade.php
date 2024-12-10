@@ -33,8 +33,8 @@
             @if (Route::has('donors.index'))
                 @can('view-any', new App\Models\Partner)
                     <a class="xs-navbar mr-4" href="{{ route('donors.index') }}" title="{{ __('partner.partner_type_donor') }}">
-                        <i class="fe fe-users h3 d-inline d-lg-none"></i>
-                        <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner_type_donor') }}</span>
+                        <i class="fe fe-pocket h3 d-inline d-lg-none"></i>
+                        <span class="d-none d-lg-inline"><i class="fe fe-pocket"></i> {{ __('partner.partner_type_donor') }}</span>
                     </a>
                 @endcan
             @endif
@@ -79,7 +79,7 @@
         @if (Route::has('donors.index'))
             @can('view-any', new App\Models\Partner)
                 <a class="col border-right border-primary" href="{{ route('donors.index') }}" title="{{ __('donor.donor') }}">
-                    <div><i class="fe fe-users h3"></i></div>
+                    <div><i class="fe fe-pocket h3"></i></div>
                     {{ __('donor.donor') }}
                 </a>
             @endcan
