@@ -47,6 +47,7 @@ return [
     ],
     'work' => 'Pekerjaan',
     'work_detail' => 'Detail Pekerjaan',
+    'work_type' => 'Jenis Pekerjaan',
     'work_types' => [
         1 => 'Tidak Bekerja',
         2 => 'Buruh (Tani/Pabrik/Bangunan)',

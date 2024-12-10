@@ -47,6 +47,7 @@ return [
     ],
     'work' => 'Work',
     'work_detail' => 'Work Detail',
+    'work_type' => 'Work Type',
     'work_types' => [
         1 => 'Not Working',
         2 => 'Laborer (Farm/Factory/Construction)',
