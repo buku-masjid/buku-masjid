@@ -19,8 +19,8 @@
                             <p>{{ $partner->phone }}</p>
                             <label class="control-label text-primary">{{ __('partner.work') }}</label>
                             <p>{{ $partner->work ?: '-' }}</p>
-                            <label class="control-label text-primary">{{ __('partner.level') }}</label>
-                            <p>{{ $partner->level ?: '-' }}</p>
+                            <label class="control-label text-primary">{{ __('partner.type') }} / {{ __('partner.level') }}</label>
+                            <p>{{ $partner->type ?: '-' }} / {{ $partner->level ?: '-' }}</p>
                             <label class="control-label text-primary">{{ __('address.address') }}</label>
                             <p>{{ $partner->address ?: '-' }}</p>
                             {!! $errors->first('partner_id', '<span class="form-error small">:message</span>') !!}
@@ -98,12 +98,20 @@
                     </div>
                     <div class="col-md-6">
                         @if ($partnerLevels)
-                            {!! FormField::select('level_code', $partnerLevels, [
-                                'value' => old('level_code', request('level_code')),
-                                'placeholder' => false,
-                                'label' => __('partner.level'),
-                            ]) !!}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {!! FormField::textDisplay('type_code', $partner->type, ['label' => __('partner.type')]) !!}
+                                </div>
+                                <div class="col-md-6">
+                                    {!! FormField::select('level_code', $partnerLevels, [
+                                        'value' => old('level_code', request('level_code')),
+                                        'placeholder' => false,
+                                        'label' => __('partner.level'),
+                                    ]) !!}
+                                </div>
+                            </div>
                         @else
+                            {!! FormField::textDisplay('type_code', $partner->type, ['label' => __('partner.type')]) !!}
                             {{ Form::hidden('level_code') }}
                         @endif
                         {!! FormField::select('religion_id', __('partner.religions'), ['label' => __('partner.religion'), 'placeholder' => __('app.unknown')]) !!}
