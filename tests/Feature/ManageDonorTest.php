@@ -98,7 +98,6 @@ class ManageDonorTest extends TestCase
             'name' => 'Donor 2 name',
             'phone' => '081234567890',
             'work' => 'Dokter',
-            'gender_code' => 'm',
             'description' => 'Donor 2 description',
             'address' => 'Donor 2 address',
             'type_code' => 'donatur',

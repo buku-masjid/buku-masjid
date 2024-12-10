@@ -1,35 +1,25 @@
 @extends('layouts.app')
 
-@section('title', __('partner.search', ['type' => $selectedTypeName]))
+@section('title', __('partner.search'))
 
 @section('content')
 
-@include('partners._partner_type_selector')
-
-<div class="text-center my-4">
-    <div class="btn-group">
-        {!! link_to_route(
-            'partners.index',
-            __('dashboard.dashboard'),
-            ['type_code' => $selectedTypeCode] + request()->all(),
-            ['class' => 'btn btn-pill '.(in_array(Request::segment(2), ['dashboard', null]) ? 'btn-primary' : 'btn-secondary')]
-        ) !!}
-        {!! link_to_route(
-            'partners.search',
-            __('partner.search', ['type' => $selectedTypeName]),
-            ['type_code' => $selectedTypeCode] + request()->all(),
-            ['class' => 'btn btn-pill '.(Request::segment(2) == 'search' ? 'btn-primary' : 'btn-secondary')]
-        ) !!}
-    </div>
-</div>
+<ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+        {!! link_to_route('partners.index', __('dashboard.dashboard'), [], ['class' => 'nav-link'.(in_array(Request::segment(2), ['dashboard', null]) ? ' active' : '')]) !!}
+    </li>
+    <li class="nav-item">
+        {!! link_to_route('partners.search', __('partner.search'), [], ['class' => 'nav-link'.(Request::segment(2) == 'search' ? ' active' : '')]) !!}
+    </li>
+</ul>
 
 <div class="row mt-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">
         <h1 class="page-title">
-            {{ __('partner.list_by_type', ['type' => $selectedTypeName]) }}
+            {{ __('partner.list') }}
         </h1>
         <div class="page-subtitle ml-0">
-            {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner_type', ['type' => $selectedTypeName]) }}
+            {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}
             {{ Setting::get('masjid_name') }}.
         </div>
     </div>
@@ -37,7 +27,7 @@
     </div>
     <div class="col-md-4 mt-3 text-center text-sm-right">
         @can('create', new App\Models\Partner)
-            {{ link_to_route('partners.create', __('partner.create', ['type' => $selectedTypeName]), request()->only('type_code'), ['class' => 'btn btn-success']) }}
+            {{ link_to_route('partners.create', __('partner.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
@@ -46,6 +36,7 @@
     {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mx-3 justify-content-center']) }}
     {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1 mt-2']) }}
     {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control mr-1 mt-2']) }}
+    {{ Form::select('type_code', $partnerTypes, request('type_code'), ['placeholder' => __('partner.all_type'), 'class' => 'form-control mr-1 mt-2']) }}
     @if ($partnerLevels)
         {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1 mt-2']) }}
     @endif
@@ -57,9 +48,8 @@
     {{ Form::select('religion_id', __('partner.religions') + ['null' => __('app.unknown')], request('religion_id'), ['placeholder' => __('partner.religion'), 'class' => 'form-control mr-1 mt-2']) }}
     {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1 mt-2']) }}
     <div class="form-group mt-4 mt-sm-2">
-        {{ Form::hidden('type_code', request('type_code')) }}
         {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
-        {{ link_to_route('partners.search', __('app.reset'), request()->only('type_code'), ['class' => 'btn btn-secondary mr-1']) }}
+        {{ link_to_route('partners.search', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
     </div>
     {{ Form::close() }}
 </div>
@@ -73,6 +63,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('partner.name') }}</th>
                         <th class="text-nowrap">{{ __('partner.phone') }}</th>
+                        <th class="text-center">{{ __('partner.type') }}</th>
                         @if ($partnerLevels)
                             <th class="text-center">{{ __('partner.level') }}</th>
                         @endif
@@ -97,6 +88,7 @@
                             @endcan
                         </td>
                         <td>{{ $partner->phone ? link_to('https://wa.me/'.str_replace([' ', '+', '(', ')'], '', $partner->phone), $partner->phone) : '' }}</td>
+                        <td class="text-nowrap text-center">{{ $partner->type }}</td>
                         @if ($partnerLevels)
                             <td class="text-nowrap text-center">{{ $partner->level }}</td>
                         @endif
@@ -104,7 +96,7 @@
                         <td class="text-nowrap text-center">{{ $partner->status }}</td>
                     </tr>
                     @empty
-                    <tr><td colspan="6">{{ __('app.not_available', ['item' => $selectedTypeName]) }}</td></tr>
+                    <tr><td colspan="6">{{ __('partner.not_found') }}</td></tr>
                     @endforelse
                 </tbody>
             </table>

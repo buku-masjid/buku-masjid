@@ -4,24 +4,14 @@
 
 @section('content')
 
-@include('partners._partner_type_selector')
-
-<div class="text-center my-4">
-    <div class="btn-group">
-        {!! link_to_route(
-            'partners.index',
-            __('dashboard.dashboard'),
-            ['type_code' => $selectedTypeCode] + request()->all(),
-            ['class' => 'btn btn-pill '.(in_array(Request::segment(2), ['dashboard', null]) ? 'btn-primary' : 'btn-secondary')]
-        ) !!}
-        {!! link_to_route(
-            'partners.search',
-            __('partner.search', ['type' => $selectedTypeName]),
-            ['type_code' => $selectedTypeCode] + request()->all(),
-            ['class' => 'btn btn-pill '.(Request::segment(2) == 'search' ? 'btn-primary' : 'btn-secondary')]
-        ) !!}
-    </div>
-</div>
+<ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+        {!! link_to_route('partners.index', __('dashboard.dashboard'), [], ['class' => 'nav-link'.(in_array(Request::segment(2), ['dashboard', null]) ? ' active' : '')]) !!}
+    </li>
+    <li class="nav-item">
+        {!! link_to_route('partners.search', __('partner.search'), [], ['class' => 'nav-link'.(Request::segment(2) == 'search' ? ' active' : '')]) !!}
+    </li>
+</ul>
 
 <div class="row my-4 mt-sm-0">
     <div class="col-md-4 text-center text-sm-left">
@@ -29,7 +19,7 @@
             {{ __('dashboard.dashboard') }}
         </h1>
         <div class="page-subtitle ml-0">
-            {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner_type', ['type' => $selectedTypeName]) }}
+            {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}
             {{ Setting::get('masjid_name') }}.
         </div>
     </div>
@@ -37,29 +27,29 @@
     </div>
     <div class="col-md-4 mt-3 text-center text-sm-right">
         @can('create', new App\Models\Partner)
-            {{ link_to_route('partners.create', __('partner.create', ['type' => $selectedTypeName]), request()->only('type_code'), ['class' => 'btn btn-success']) }}
+            {{ link_to_route('partners.create', __('partner.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        @livewire('partners.marital-statuses', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+        @livewire('partners.marital-statuses')
     </div>
     <div class="col-md-6">
-        @livewire('partners.activity-statuses', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+        @livewire('partners.activity-statuses')
     </div>
     <div class="col-md-6">
-        @livewire('partners.financial-statuses', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+        @livewire('partners.financial-statuses')
     </div>
     <div class="col-md-6">
-        @livewire('partners.religions', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+        @livewire('partners.religions')
     </div>
     <div class="col-md-6">
-        @livewire('partners.work-types', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+        @livewire('partners.work-types')
     </div>
     <div class="col-md-6">
-        @livewire('partners.age-groups', ['partnerTypeCode' => $selectedTypeCode, 'partnerType' => $selectedTypeName])
+        @livewire('partners.age-groups')
     </div>
 </div>
 

@@ -14,13 +14,10 @@ class PartnerController extends Controller
         $this->authorize('view-any', new Partner);
 
         $partnerTypes = (new Partner)->getAvailableTypes();
-        $defaultTypeCode = collect($partnerTypes)->keys()->first();
-        $request->merge([
-            'type_code' => $request->get('type_code', $defaultTypeCode),
-        ]);
-        $selectedTypeCode = $request->get('type_code');
-        $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
-        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
+        $partnerLevels = [];
+        if ($request->get('type_code')) {
+            $partnerLevels = (new Partner)->getAvailableLevels($request->get('type_code'));
+        }
         $partners = $this->getPartners($request);
         $genders = [
             'm' => __('app.gender_male'),
@@ -29,8 +26,7 @@ class PartnerController extends Controller
         $availableWorks = [];
 
         return view('partners.index', compact(
-            'partners', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'availableWorks'
+            'partners', 'partnerTypes', 'partnerLevels', 'genders', 'availableWorks'
         ));
     }
 
@@ -39,13 +35,10 @@ class PartnerController extends Controller
         $this->authorize('view-any', new Partner);
 
         $partnerTypes = (new Partner)->getAvailableTypes();
-        $defaultTypeCode = collect($partnerTypes)->keys()->first();
-        $request->merge([
-            'type_code' => $request->get('type_code', $defaultTypeCode),
-        ]);
-        $selectedTypeCode = $request->get('type_code');
-        $partnerLevels = (new Partner)->getAvailableLevels($selectedTypeCode);
-        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
+        $partnerLevels = [];
+        if ($request->get('type_code')) {
+            $partnerLevels = (new Partner)->getAvailableLevels($request->get('type_code'));
+        }
         $partners = $this->getPartners($request);
         $genders = [
             'm' => __('app.gender_male'),
@@ -54,27 +47,19 @@ class PartnerController extends Controller
         $availableWorks = [];
 
         return view('partners.search', compact(
-            'partners', 'partnerTypes', 'selectedTypeCode', 'selectedTypeName', 'partnerLevels',
-            'genders', 'availableWorks'
+            'partners', 'partnerTypes', 'partnerLevels', 'genders', 'availableWorks'
         ));
     }
 
     public function create(Request $request)
     {
         $partnerTypes = (new Partner)->getAvailableTypes();
-        $defaultTypeCode = collect($partnerTypes)->keys()->first();
-        $request->merge([
-            'type_code' => $request->get('type_code', $defaultTypeCode),
-        ]);
-        $selectedTypeCode = $request->get('type_code');
-        $selectedTypeName = $partnerTypes[$selectedTypeCode] ?? __('partner.partner');
-        $partnerLevels = (new Partner)->getAvailableLevels($request->get('type_code'));
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
 
-        return view('partners.create', compact('partnerLevels', 'selectedTypeCode', 'selectedTypeName', 'genders'));
+        return view('partners.create', compact('partnerTypes', 'genders'));
     }
 
     public function store(Request $request)
@@ -104,9 +89,9 @@ class PartnerController extends Controller
 
         $partner = Partner::create($newPartner);
 
-        flash(__('partner.created', ['type' => $partner->type]), 'success');
+        flash(__('partner.created'), 'success');
 
-        return redirect()->route('partners.index', ['type_code' => $newPartner['type_code']]);
+        return redirect()->route('partners.search');
     }
 
     public function show(Partner $partner)
@@ -186,11 +171,11 @@ class PartnerController extends Controller
         ]);
 
         if (request('partner_id') == $partner->id && $partner->delete()) {
-            flash(__('partner.deleted', ['type' => $partner->type]), 'warning');
+            flash(__('partner.deleted'), 'warning');
 
-            return redirect()->route('partners.index', ['type_code' => $partner->type_code]);
+            return redirect()->route('partners.search');
         }
-        flash(__('partner.undeleted', ['type' => $partner->type]), 'error');
+        flash(__('partner.undeleted'), 'error');
 
         return back();
     }
@@ -216,7 +201,9 @@ class PartnerController extends Controller
     private function getPartners(Request $request)
     {
         $partnerQuery = Partner::orderBy('name');
-        $partnerQuery->where('type_code', $request->get('type_code'));
+        if ($request->get('type_code')) {
+            $partnerQuery->where('type_code', $request->get('type_code'));
+        }
         if ($request->get('search_query')) {
             $searchQuery = $request->get('search_query');
             $partnerQuery->where(function ($query) use ($searchQuery) {

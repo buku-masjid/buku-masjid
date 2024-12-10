@@ -17,7 +17,7 @@ class ManagePartnerTest extends TestCase
     {
         $creator = $this->loginAsUser();
         $partner = factory(Partner::class)->create(['creator_id' => $creator->id]);
-        $this->visitRoute('partners.index');
+        $this->visitRoute('partners.search');
 
         $this->seeText($partner->name);
     }
@@ -26,12 +26,12 @@ class ManagePartnerTest extends TestCase
     public function user_can_create_a_partner()
     {
         $this->loginAsUser();
-        $this->visitRoute('partners.index');
+        $this->visitRoute('partners.search');
 
-        $this->click(__('partner.create', ['type' => __('partner.partner')]));
-        $this->seeRouteIs('partners.create', ['type_code' => 'partner']);
+        $this->click(__('partner.create'));
+        $this->seeRouteIs('partners.create');
 
-        $this->submitForm(__('partner.create', ['type' => __('partner.partner')]), [
+        $this->submitForm(__('partner.create'), [
             'name' => 'Partner 1 name',
             'type_code' => 'partner',
             'phone' => '081234567890',
@@ -51,7 +51,7 @@ class ManagePartnerTest extends TestCase
             'religion_id' => '1',
         ]);
 
-        $this->seeRouteIs('partners.index', ['type_code' => 'partner']);
+        $this->seeRouteIs('partners.search');
 
         $this->seeInDatabase('partners', [
             'name' => 'Partner 1 name',
@@ -81,7 +81,7 @@ class ManagePartnerTest extends TestCase
         $creator = $this->loginAsUser();
         $partner = factory(Partner::class)->create(['creator_id' => $creator->id]);
 
-        $this->visitRoute('partners.index');
+        $this->visitRoute('partners.search');
         $this->seeElement('a', ['id' => 'show-partner-'.$partner->id]);
 
         $this->click('show-partner-'.$partner->id);
@@ -103,7 +103,7 @@ class ManagePartnerTest extends TestCase
 
         $this->seeRouteIs('partners.edit', $partner);
 
-        $this->submitForm(__('partner.update', ['type' => 'Donatur']), [
+        $this->submitForm(__('partner.update'), [
             'name' => 'Partner 2 name',
             'type_code' => 'donatur',
             'phone' => '081234567890',
@@ -163,7 +163,7 @@ class ManagePartnerTest extends TestCase
 
         $this->press(__('app.delete_confirm_button'));
         $this->seeText(__('partner.deleted', ['type' => $partner->type]));
-        $this->seeRouteIs('partners.index', ['type_code' => $partner->type_code]);
+        $this->seeRouteIs('partners.search');
 
         $this->dontSeeInDatabase('partners', [
             'id' => $partner->id,

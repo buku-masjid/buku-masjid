@@ -49,7 +49,7 @@ class PartnerTest extends TestCase
     {
         $partner = factory(Partner::class)->make();
         config(['partners.partner_types' => '']);
-        $this->assertEquals(['partner' => 'Partner'], $partner->getAvailableTypes());
+        $this->assertEquals(['partner' => __('partner.partner')], $partner->getAvailableTypes());
 
         config(['partners.partner_types' => 'donatur|Donatur']);
         $this->assertEquals(['donatur' => 'Donatur'], $partner->getAvailableTypes());

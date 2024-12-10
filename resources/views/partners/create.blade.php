@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('partner.create', ['type' => $selectedTypeName]))
+@section('title', __('partner.create'))
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">{{ __('partner.create', ['type' => $selectedTypeName]) }}</h5>
+                <h5 class="card-title">{{ __('partner.create') }}</h5>
             </div>
             {!! Form::open(['route' => 'partners.store']) !!}
             <div class="card-body">
@@ -22,7 +22,11 @@
                                     'placeholder' => false,
                                     'label' => __('app.gender'),
                                 ]) !!}
-                                {{ Form::hidden('type_code', $selectedTypeCode) }}
+                                {!! FormField::select('type_code', $partnerTypes, [
+                                    'value' => old('type_code', request('type_code')),
+                                    'placeholder' => false,
+                                    'label' => __('partner.type'),
+                                ]) !!}
                             </div>
                             <div class="col-md-7">
                                 {!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}
@@ -40,15 +44,7 @@
                         {!! FormField::textarea('description', ['label' => __('partner.description')]) !!}
                     </div>
                     <div class="col-md-6">
-                        @if ($partnerLevels)
-                            {!! FormField::select('level_code', $partnerLevels, [
-                                'value' => old('level_code', request('level_code')),
-                                'placeholder' => false,
-                                'label' => __('partner.level'),
-                            ]) !!}
-                        @else
-                            {{ Form::hidden('level_code') }}
-                        @endif
+                        {{ Form::hidden('level_code') }}
                         {!! FormField::select('religion_id', __('partner.religions'), ['label' => __('partner.religion'), 'placeholder' => __('app.unknown')]) !!}
                         {!! FormField::select('work_type_id', __('partner.work_types'), ['label' => __('partner.work'), 'placeholder' => __('app.unknown')]) !!}
                         {!! FormField::text('work', ['label' => __('partner.work_detail')]) !!}
@@ -59,8 +55,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                {!! Form::submit(__('partner.create', ['type' => $selectedTypeName]), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('partners.index', __('app.cancel'), ['type_code' => $selectedTypeCode], ['class' => 'btn btn-secondary']) }}
+                {!! Form::submit(__('partner.create'), ['class' => 'btn btn-success']) !!}
+                {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
             </div>
             {{ Form::close() }}
         </div>
