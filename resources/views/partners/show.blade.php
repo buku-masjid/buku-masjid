@@ -1,8 +1,8 @@
-@extends('layouts.settings')
+@extends('layouts.app')
 
 @section('title', $partner->type.' '.$partner->name)
 
-@section('content_settings')
+@section('content')
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb mt-4">

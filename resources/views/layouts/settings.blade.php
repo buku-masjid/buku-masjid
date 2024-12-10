@@ -17,11 +17,6 @@
             {!! link_to_route('bank_accounts.index', __('bank_account.bank_account'), [], ['class' => 'nav-link'.(Request::segment(1) == 'bank_accounts' ? ' active' : '')]) !!}
         </li>
     @endcan
-    @can('view-any', new App\Models\Partner)
-        <li class="nav-item">
-            {!! link_to_route('partners.index', __('partner.partner'), [], ['class' => 'nav-link'.(Request::segment(1) == 'partners' ? ' active' : '')]) !!}
-        </li>
-    @endcan
     @can('view-any', new App\Models\Category)
         <li class="nav-item">
             {!! link_to_route('categories.index', __('category.category'), [], ['class' => 'nav-link'.(Request::segment(1) == 'categories' ? ' active' : '')]) !!}

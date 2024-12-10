@@ -2,10 +2,10 @@
 
 return [
     // Labels
-    'partner' => 'Partner',
+    'partner' => 'People',
     'partner_type' => ':type',
     'partner_type_donor' => 'Donors',
-    'list' => 'Partner List',
+    'list' => 'People List',
     'list_by_type' => ':type List',
     'search' => 'Search :type',
     'search_text' => 'Name / phone / address',

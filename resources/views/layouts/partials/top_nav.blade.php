@@ -38,6 +38,14 @@
                     </a>
                 @endcan
             @endif
+            @if (Route::has('partners.index'))
+                @can('view-any', new App\Models\Partner)
+                    <a class="xs-navbar mr-4" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                        <i class="fe fe-users h3 d-inline d-lg-none"></i>
+                        <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner') }}</span>
+                    </a>
+                @endcan
+            @endif
             @if (Route::has('lecturings.index'))
                 @can('view-any', new App\Models\Lecturing)
                     <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
@@ -81,6 +89,14 @@
                 <a class="col border-right border-primary" href="{{ route('donors.index') }}" title="{{ __('donor.donor') }}">
                     <div><i class="fe fe-pocket h3"></i></div>
                     {{ __('donor.donor') }}
+                </a>
+            @endcan
+        @endif
+        @if (Route::has('partners.index'))
+            @can('view-any', new App\Models\Partner)
+                <a class="col border-right border-primary" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                    <div><i class="fe fe-users h3"></i></div>
+                    {{ __('partner.partner') }}
                 </a>
             @endcan
         @endif
