@@ -23,7 +23,14 @@
             {{ Setting::get('masjid_name') }}.
         </div>
     </div>
-    <div class="col-md-4 mt-3 text-center">
+    <div class="col-md-4 text-center">
+        {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center']) }}
+        {{ Form::select('type_code', $partnerTypes, request('type_code'), [
+            'placeholder' => '-- '.__('partner.all').' --',
+            'class' => 'form-control mr-1 mt-2',
+            'onchange' => 'submit()',
+        ]) }}
+        {{ Form::close() }}
     </div>
     <div class="col-md-4 mt-3 text-center text-sm-right">
         @can('create', new App\Models\Partner)
@@ -34,22 +41,22 @@
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        @livewire('partners.marital-statuses')
+        @livewire('partners.marital-statuses', ['partnerTypeCode' => $selectedTypeCode])
     </div>
     <div class="col-md-6">
-        @livewire('partners.activity-statuses')
+        @livewire('partners.activity-statuses', ['partnerTypeCode' => $selectedTypeCode])
     </div>
     <div class="col-md-6">
-        @livewire('partners.financial-statuses')
+        @livewire('partners.financial-statuses', ['partnerTypeCode' => $selectedTypeCode])
     </div>
     <div class="col-md-6">
-        @livewire('partners.religions')
+        @livewire('partners.religions', ['partnerTypeCode' => $selectedTypeCode])
     </div>
     <div class="col-md-6">
-        @livewire('partners.work-types')
+        @livewire('partners.work-types', ['partnerTypeCode' => $selectedTypeCode])
     </div>
     <div class="col-md-6">
-        @livewire('partners.age-groups')
+        @livewire('partners.age-groups', ['partnerTypeCode' => $selectedTypeCode])
     </div>
 </div>
 

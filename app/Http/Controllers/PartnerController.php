@@ -14,10 +14,7 @@ class PartnerController extends Controller
         $this->authorize('view-any', new Partner);
 
         $partnerTypes = (new Partner)->getAvailableTypes();
-        $partnerLevels = [];
-        if ($request->get('type_code')) {
-            $partnerLevels = (new Partner)->getAvailableLevels([$request->get('type_code')]);
-        }
+        $selectedTypeCode = $request->get('type_code');
         $partners = $this->getPartners($request);
         $genders = [
             'm' => __('app.gender_male'),
@@ -26,7 +23,7 @@ class PartnerController extends Controller
         $availableWorks = [];
 
         return view('partners.index', compact(
-            'partners', 'partnerTypes', 'partnerLevels', 'genders', 'availableWorks'
+            'partners', 'partnerTypes', 'genders', 'availableWorks', 'selectedTypeCode'
         ));
     }
 

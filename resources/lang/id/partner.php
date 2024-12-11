@@ -10,6 +10,7 @@ return [
     'search' => 'Cari Warga',
     'search_text' => 'Nama / telp / alamat',
     'not_found' => 'Warga tidak ditemukan.',
+    'all' => 'Semua Warga',
     'all_type' => 'Semua Tipe',
     'all_level' => 'Semua Level',
     'empty' => 'Belum ada Warga',
