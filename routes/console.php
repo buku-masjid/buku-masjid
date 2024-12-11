@@ -2,6 +2,7 @@
 
 use App\Models\Partner;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /*
@@ -37,3 +38,21 @@ Artisan::command('partner:generate {type_code} {--count=} {--reset}', function (
     $partnerFactory->times($count);
     $partnerFactory->create(['type_code' => $typeCode]);
 })->describe('Generate fake partner records');
+
+Artisan::command('partner:upgrade-type-levels', function () {
+    $partners = DB::table('partners')->get();
+    $updatedPartnersCount = 0;
+    foreach ($partners as $partner) {
+        $newTypeCode = '["'.$partner->type_code.'"]';
+        $newLevelCode = $partner->level_code ? '{"'.$partner->type_code.'":"'.$partner->level_code.'"}' : null;
+        $updated = DB::table('partners')->where('id', $partner->id)->update([
+            'type_code' => $newTypeCode,
+            'level_code' => $newLevelCode,
+        ]);
+
+        if ($updated) {
+            $updatedPartnersCount++;
+        }
+    }
+    $this->comment('Done upgrading '.$updatedPartnersCount.' partners');
+})->describe('Ugprade existing partner types and levels');
