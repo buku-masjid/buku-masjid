@@ -19,9 +19,15 @@
                 'partners.edit',
                 __('app.edit'),
                 $partner,
-                ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning']
+                ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning mr-2']
             ) }}
         @endcan
+        {{ link_to_route(
+            'partners.search',
+            __('partner.back_to_index'),
+            [],
+            ['class' => 'btn btn-secondary']
+        ) }}
     </div>
 </div>
 
