@@ -1,4 +1,4 @@
-@if (request('action') == 'change_levels' && $partner)
+@if (request('action') == 'change_levels' && $partner && $availableLevels)
     @can('update', $partner)
     <div id="partnerModal" class="modal" role="dialog">
         <div class="modal-dialog">
@@ -10,11 +10,13 @@
                 {!! Form::model($partner, ['route' => ['partners.change_levels', $partner], 'method' => 'patch']) !!}
                 <div class="modal-body">
                     @foreach ($partnerTypes as $typeCode => $typeName)
-                        {!! FormField::select('level_code['.$typeCode.']', $availableLevels[$typeName], [
-                            'value' => old('level_code.'.$typeCode, request('level_code.'.$typeCode)),
-                            'placeholder' => false,
-                            'label' => $typeName,
-                        ]) !!}
+                        @if (isset($availableLevels[$typeName]))
+                            {!! FormField::select('level_code['.$typeCode.']', $availableLevels[$typeName], [
+                                'value' => old('level_code.'.$typeCode, request('level_code.'.$typeCode)),
+                                'placeholder' => false,
+                                'label' => $typeName,
+                            ]) !!}
+                        @endif
                     @endforeach
                 </div>
                 <div class="modal-footer">

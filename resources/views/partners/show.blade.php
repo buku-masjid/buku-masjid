@@ -9,12 +9,14 @@
     <div class="page-subtitle">{{ $partner->type }}</div>
     <div class="page-options d-flex">
         @can('update', $partner)
-            {{ link_to_route(
-                'partners.show',
-                __('partner.change_levels'),
-                [$partner, 'action' => 'change_levels'],
-                ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary mr-2']
-            ) }}
+            @if ($availableLevels)
+                {{ link_to_route(
+                    'partners.show',
+                    __('partner.change_levels'),
+                    [$partner, 'action' => 'change_levels'],
+                    ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary mr-2']
+                ) }}
+            @endif
             {{ link_to_route(
                 'partners.edit',
                 __('app.edit'),
