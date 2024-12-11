@@ -16,7 +16,7 @@ class PartnerController extends Controller
         $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerLevels = [];
         if ($request->get('type_code')) {
-            $partnerLevels = (new Partner)->getAvailableLevels($request->get('type_code'));
+            $partnerLevels = (new Partner)->getAvailableLevels([$request->get('type_code')]);
         }
         $partners = $this->getPartners($request);
         $genders = [
@@ -37,7 +37,7 @@ class PartnerController extends Controller
         $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerLevels = [];
         if ($request->get('type_code')) {
-            $partnerLevels = (new Partner)->getAvailableLevels($request->get('type_code'));
+            $partnerLevels = (new Partner)->getAvailableLevels([$request->get('type_code')]);
         }
         $partners = $this->getPartners($request);
         $genders = [
@@ -68,7 +68,7 @@ class PartnerController extends Controller
 
         $newPartner = $request->validate([
             'name' => ['required', 'max:60'],
-            'type_code' => ['required', 'max:30'],
+            'type_code' => ['required', 'array'],
             'gender_code' => ['nullable', 'in:m,f'],
             'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
             'pob' => ['nullable', 'max:255'],
@@ -86,6 +86,7 @@ class PartnerController extends Controller
             'activity_status_id' => ['nullable'],
         ]);
         $newPartner['creator_id'] = auth()->id();
+        $newPartner['type_code'] = array_values($newPartner['type_code']);
 
         $partner = Partner::create($newPartner);
 
@@ -98,6 +99,8 @@ class PartnerController extends Controller
     {
         $this->authorize('view', $partner);
 
+        $partnerTypes = $this->getPartnerTypes($partner->type_code);
+        $availableLevels = (new Partner())->getAvailableLevels($partner->type_code);
         $defaultStartDate = date('Y').'-01-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
@@ -112,8 +115,17 @@ class PartnerController extends Controller
         $largestTransaction = $partner->transactions()->orderBy('amount', 'desc')->first();
 
         return view('partners.show', compact(
-            'partner', 'startDate', 'endDate', 'transactions', 'largestTransaction', 'availableBooks'
+            'partner', 'startDate', 'endDate', 'transactions', 'largestTransaction', 'availableBooks', 'partnerTypes',
+            'availableLevels'
         ));
+    }
+
+    private function getPartnerTypes(array $partnerTypeCodes): array
+    {
+        $availableTypes = (new Partner)->getAvailableTypes();
+        $partnerTypes = collect($availableTypes)->only($partnerTypeCodes)->toArray();
+
+        return $partnerTypes;
     }
 
     public function edit(Request $request, Partner $partner)
@@ -121,13 +133,14 @@ class PartnerController extends Controller
         $this->authorize('update', $partner);
 
         $partner->loadSum('transactions', 'amount');
+        $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerLevels = (new Partner)->getAvailableLevels($partner->type_code);
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
 
-        return view('partners.edit', compact('partner', 'partnerLevels', 'genders'));
+        return view('partners.edit', compact('partner', 'partnerTypes', 'partnerLevels', 'genders'));
     }
 
     public function update(Request $request, Partner $partner)
@@ -154,10 +167,11 @@ class PartnerController extends Controller
             'activity_status_id' => ['nullable'],
             'is_active' => ['required', 'in:0,1'],
         ]);
+        $partnerData['type_code'] = array_values($partnerData['type_code']);
 
         $partner->update($partnerData);
 
-        flash(__('partner.updated', ['type' => $partner->type]), 'success');
+        flash(__('partner.updated'), 'success');
 
         return redirect()->route('partners.show', $partner);
     }
@@ -281,5 +295,19 @@ class PartnerController extends Controller
         $ageGroups = get_age_group_date_ranges();
 
         return isset($ageGroups[$ageGroupCode]) ? $ageGroups[$ageGroupCode] : [];
+    }
+
+    public function changeLevels(Request $request, Partner $partner)
+    {
+        $partnerData = $request->validate([
+            'level_code' => ['nullable', 'array'],
+            'level_code.*' => ['nullable'],
+        ]);
+
+        $partner->update($partnerData);
+
+        flash(__('partner.updated'), 'success');
+
+        return redirect()->route('partners.show', $partner);
     }
 }

@@ -106,6 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::get('partners/search', 'PartnerController@search')->name('partners.search');
     Route::resource('partners', 'PartnerController');
+    Route::patch('partners/{partner}/change_levels', 'PartnerController@changeLevels')->name('partners.change_levels');
 
     /*
      * Donor Routes

@@ -25,6 +25,7 @@ class ManagePartnerTest extends TestCase
     /** @test */
     public function user_can_create_a_partner()
     {
+        config(['partners.partner_types' => 'partner|Partner']);
         $this->loginAsUser();
         $this->visitRoute('partners.search');
 
@@ -33,7 +34,7 @@ class ManagePartnerTest extends TestCase
 
         $this->submitForm(__('partner.create'), [
             'name' => 'Partner 1 name',
-            'type_code' => 'partner',
+            'type_code' => ['partner' => 'partner'],
             'phone' => '081234567890',
             'dob' => '2000-02-29',
             'pob' => 'Banjarmasin',
@@ -55,7 +56,7 @@ class ManagePartnerTest extends TestCase
 
         $this->seeInDatabase('partners', [
             'name' => 'Partner 1 name',
-            'type_code' => 'partner',
+            'type_code' => json_encode(['partner']),
             'phone' => '081234567890',
             'dob' => '2000-02-29',
             'pob' => 'Banjarmasin',
@@ -63,7 +64,6 @@ class ManagePartnerTest extends TestCase
             'work_type_id' => null,
             'work' => 'Dokter',
             'description' => 'Partner 1 description',
-            'type_code' => 'partner',
             'level_code' => null,
             'address' => 'Partner 1 address',
             'rt' => '001',
@@ -91,12 +91,45 @@ class ManagePartnerTest extends TestCase
     }
 
     /** @test */
+    public function user_can_change_partner_level_code_based_on_selected_types()
+    {
+        $creator = $this->loginAsUser();
+        config(['partners.partner_types' => 'donatur|Donatur,santri|Santri']);
+        config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar,santri:1st|Kelas 1|2nd|Kelas 2|3rd|Kelas 3']);
+        $partner = factory(Partner::class)->create(['type_code' => ['santri', 'donatur'], 'creator_id' => $creator->id]);
+
+        $this->visitRoute('partners.show', $partner);
+        $this->seeElement('a', ['id' => 'change_levels-'.$partner->id]);
+
+        $this->click('change_levels-'.$partner->id);
+        $this->seeRouteIs('partners.show', [$partner, 'action' => 'change_levels']);
+
+        $this->submitForm(__('app.update'), [
+            'level_code' => [
+                'donatur' => 'terdaftar',
+                'santri' => '2nd',
+            ],
+        ]);
+
+        $this->seeText(__('partner.updated'));
+        $this->seeRouteIs('partners.show', $partner);
+
+        $this->seeInDatabase('partners', [
+            'id' => $partner->id,
+            'level_code' => json_encode([
+                'donatur' => 'terdaftar',
+                'santri' => '2nd',
+            ]),
+        ]);
+    }
+
+    /** @test */
     public function user_can_edit_a_partner()
     {
         $creator = $this->loginAsUser();
         config(['partners.partner_types' => 'donatur|Donatur']);
         config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar']);
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
 
         $this->visitRoute('partners.show', $partner);
         $this->click('edit-partner-1');
@@ -105,7 +138,7 @@ class ManagePartnerTest extends TestCase
 
         $this->submitForm(__('partner.update'), [
             'name' => 'Partner 2 name',
-            'type_code' => 'donatur',
+            'type_code' => ['donatur' => 'donatur'],
             'phone' => '081234567890',
             'dob' => '2000-02-29',
             'pob' => 'Banjarmasin',
@@ -120,7 +153,6 @@ class ManagePartnerTest extends TestCase
             'financial_status_id' => '1',
             'activity_status_id' => '1',
             'religion_id' => '1',
-            'level_code' => 'donatur_tetap',
             'is_active' => 0,
         ]);
 
@@ -142,8 +174,7 @@ class ManagePartnerTest extends TestCase
             'financial_status_id' => '1',
             'activity_status_id' => '1',
             'religion_id' => '1',
-            'type_code' => 'donatur',
-            'level_code' => 'donatur_tetap',
+            'type_code' => json_encode(['donatur']),
             'is_active' => 0,
         ]);
     }
@@ -153,7 +184,7 @@ class ManagePartnerTest extends TestCase
     {
         $creator = $this->loginAsUser();
 
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur'], 'creator_id' => $creator->id]);
 
         $this->visitRoute('partners.show', $partner);
         $this->click('edit-partner-'.$partner->id);
@@ -174,7 +205,7 @@ class ManagePartnerTest extends TestCase
     public function user_cannot_delete_a_partner_that_has_transactions()
     {
         $creator = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur'], 'creator_id' => $creator->id]);
         $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create(['partner_id' => $partner->id, 'book_id' => $book->id]);
 

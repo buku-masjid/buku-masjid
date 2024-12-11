@@ -8,7 +8,7 @@ $factory->define(Partner::class, function (Faker $faker) {
 
     return [
         'name' => $faker->name($genderCode == 'f' ? 'female' : 'male'),
-        'type_code' => 'partner',
+        'type_code' => ['partner'],
         'gender_code' => $genderCode,
         'phone' => '08'.rand(1111111111, 9999999999),
         'pob' => $faker->city,

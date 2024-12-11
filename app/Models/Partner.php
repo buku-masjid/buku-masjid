@@ -18,6 +18,11 @@ class Partner extends Model
         'religion_id', 'rt', 'rw',
     ];
 
+    public $casts = [
+        'type_code' => 'array',
+        'level_code' => 'array',
+    ];
+
     public function getStatusAttribute()
     {
         return $this->is_active == 1 ? __('app.active') : __('app.inactive');
@@ -41,12 +46,27 @@ class Partner extends Model
 
     public function getTypeAttribute(): string
     {
-        return $this->getAvailableTypes()[$this->type_code] ?? $this->type_code;
+        $typeCodes = [];
+        foreach ($this->type_code as $typeCode) {
+            $typeCodes[] = $this->getAvailableTypes()[$typeCode] ?? $typeCode;
+        }
+
+        return implode(', ', $typeCodes);
     }
 
     public function getLevelAttribute(): ?string
     {
-        return $this->getAvailableLevels($this->type_code)[$this->level_code] ?? $this->level_code;
+        if (!$this->level_code) {
+            return null;
+        }
+        $levelCodes = [];
+        foreach ($this->level_code as $rawLevelCode) {
+            $levelCode = explode(':', $rawLevelCode);
+            $availableLevelCodes = collect($this->getAvailableLevels([$levelCode[0]]))->first();
+            $levelCodes[] = $availableLevelCodes[$levelCode[1]] ?? $levelCode[1];
+        }
+
+        return implode(', ', $levelCodes);
     }
 
     public function getAvailableTypes(): array
@@ -65,7 +85,7 @@ class Partner extends Model
         return $partnerTypes;
     }
 
-    public function getAvailableLevels(string $typeCode): array
+    public function getAvailableLevels(array $typeCodes): array
     {
         $partnerLevelsConfig = config('partners.partner_levels');
         if (!$partnerLevelsConfig) {
@@ -73,20 +93,24 @@ class Partner extends Model
         }
         $partnerLevels = [];
         $rawPartnerLevels = explode(',', $partnerLevelsConfig);
-        foreach ($rawPartnerLevels as $rawPartnerLevelArray) {
-            $rawPartnerLevel = explode(':', $rawPartnerLevelArray);
-            $partnerLevelCode = $rawPartnerLevel[0];
-            if ($partnerLevelCode != $typeCode) {
-                continue;
-            }
-            $singlePartnerLevels = [];
-            $partnerLevelCodeNames = explode('|', $rawPartnerLevel[1]);
-            foreach ($partnerLevelCodeNames as $key => $partnerLevelCodeName) {
-                if ($key % 2 == 0) {
-                    $singlePartnerLevels[$partnerLevelCodeNames[$key]] = $partnerLevelCodeNames[$key + 1];
+        foreach ($typeCodes as $typeCode) {
+            $typeName = $this->getAvailableTypes()[$typeCode] ?? null;
+            foreach ($rawPartnerLevels as $rawPartnerLevelArray) {
+                $rawPartnerLevel = explode(':', $rawPartnerLevelArray);
+                $partnerLevelCode = $rawPartnerLevel[0];
+                if ($partnerLevelCode != $typeCode) {
+                    continue;
                 }
+                $singlePartnerLevels = [];
+                $partnerLevelCodeNames = explode('|', $rawPartnerLevel[1]);
+                foreach ($partnerLevelCodeNames as $key => $partnerLevelCodeName) {
+                    if ($key % 2 == 0) {
+                        $singlePartnerLevels[$partnerLevelCodeNames[$key]] = $partnerLevelCodeNames[$key + 1];
+                    }
+                }
+                $key = $typeName ?: $typeCode;
+                $partnerLevels[$key] = $singlePartnerLevels;
             }
-            $partnerLevels = $singlePartnerLevels;
         }
 
         return $partnerLevels;

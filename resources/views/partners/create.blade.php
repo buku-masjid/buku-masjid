@@ -22,7 +22,7 @@
                                     'placeholder' => false,
                                     'label' => __('app.gender'),
                                 ]) !!}
-                                {!! FormField::select('type_code', $partnerTypes, [
+                                {!! FormField::checkboxes('type_code', $partnerTypes, [
                                     'value' => old('type_code', request('type_code')),
                                     'placeholder' => false,
                                     'label' => __('partner.type'),

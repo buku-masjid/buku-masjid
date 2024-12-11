@@ -29,6 +29,7 @@ return [
     'deleted' => 'Hapus data Warga telah berhasil.',
     'undeleted' => 'Data Warga gagal dihapus.',
     'undeleteable' => 'Data Warga tidak dapat dihapus.',
+    'change_levels' => 'Ubah Level',
 
     // Attributes
     'name' => 'Nama',

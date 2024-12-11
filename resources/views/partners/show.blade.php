@@ -20,6 +20,12 @@
     <div class="page-options d-flex">
         @can('update', $partner)
             {{ link_to_route(
+                'partners.show',
+                __('partner.change_levels'),
+                [$partner, 'action' => 'change_levels'],
+                ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary mr-2']
+            ) }}
+            {{ link_to_route(
                 'partners.edit',
                 __('app.edit'),
                 $partner,
@@ -158,6 +164,10 @@
         </div>
     </div>
 </div>
+
+@if(Request::has('action'))
+    @include('partners._show_forms')
+@endif
 @endsection
 
 @section('styles')
@@ -168,6 +178,10 @@
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {
+    $('#partnerModal').modal({
+        show: true,
+        backdrop: 'static',
+    });
     $('.date-select').datetimepicker({
         timepicker: false,
         format: 'Y-m-d',

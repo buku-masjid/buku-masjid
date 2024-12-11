@@ -29,6 +29,7 @@ return [
     'deleted' => 'People data has been deleted.',
     'undeleted' => 'People Data not deleted.',
     'undeleteable' => 'People Data can not be deleted.',
+    'change_levels' => 'Change Level',
 
     // Attributes
     'name' => 'Name',

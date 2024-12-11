@@ -103,11 +103,6 @@
             <div class="card-body">{{ $partners->links() }}</div>
         </div>
     </div>
-    <div class="col-md-4">
-        @if(Request::has('action'))
-            @include('partners.forms')
-        @endif
-    </div>
 </div>
 @endsection
 

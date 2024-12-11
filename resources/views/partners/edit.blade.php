@@ -79,7 +79,11 @@
                                     'placeholder' => false,
                                     'label' => __('app.gender'),
                                 ]) !!}
-                                {{ Form::hidden('type_code', $partner->type_code) }}
+                                {!! FormField::checkboxes('type_code', $partnerTypes, [
+                                    'value' => old('type_code', $partner->type_code),
+                                    'placeholder' => false,
+                                    'label' => __('partner.type'),
+                                ]) !!}
                             </div>
                             <div class="col-md-6">
                                 {!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}
@@ -101,13 +105,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     {!! FormField::textDisplay('type_code', $partner->type, ['label' => __('partner.type')]) !!}
-                                </div>
-                                <div class="col-md-6">
-                                    {!! FormField::select('level_code', $partnerLevels, [
-                                        'value' => old('level_code', request('level_code')),
-                                        'placeholder' => false,
-                                        'label' => __('partner.level'),
-                                    ]) !!}
                                 </div>
                             </div>
                         @else

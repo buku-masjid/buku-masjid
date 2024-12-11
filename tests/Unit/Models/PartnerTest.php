@@ -68,12 +68,16 @@ class PartnerTest extends TestCase
 
         $this->assertEquals(__('partner.partner'), $partner->type);
 
-        $partner->type_code = 'santri';
+        $partner->type_code = ['santri'];
         $this->assertEquals('santri', $partner->type);
 
         config(['partners.partner_types' => 'santri|Santri']);
-        $partner->type_code = 'santri';
+        $partner->type_code = ['santri'];
         $this->assertEquals('Santri', $partner->type);
+
+        config(['partners.partner_types' => 'santri|Santri,mitra|Mitra']);
+        $partner->type_code = ['mitra', 'santri'];
+        $this->assertEquals('Mitra, Santri', $partner->type);
     }
 
     /** @test */
@@ -81,35 +85,52 @@ class PartnerTest extends TestCase
     {
         $partner = factory(Partner::class)->make();
         config(['partners.partner_levels' => '']);
-        $this->assertEquals([], $partner->getAvailableLevels('donatur'));
+        $this->assertEquals([], $partner->getAvailableLevels(['donatur']));
 
         config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar']);
         $this->assertEquals([
-            'donatur_tetap' => 'Donatur Tetap',
-            'terdaftar' => 'Terdaftar',
-        ], $partner->getAvailableLevels('donatur'));
+            'donatur' => [
+                'donatur_tetap' => 'Donatur Tetap',
+                'terdaftar' => 'Terdaftar',
+            ],
+        ], $partner->getAvailableLevels(['donatur']));
 
+        config(['partners.partner_types' => 'donatur|Donatur']);
         config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar,santri:1st|Kelas 1|2nd|Kelas 2|3rd|Kelas 3']);
         $this->assertEquals([
-            '1st' => 'Kelas 1',
-            '2nd' => 'Kelas 2',
-            '3rd' => 'Kelas 3',
-        ], $partner->getAvailableLevels('santri'));
+            'santri' => [
+                '1st' => 'Kelas 1',
+                '2nd' => 'Kelas 2',
+                '3rd' => 'Kelas 3',
+            ],
+        ], $partner->getAvailableLevels(['santri']));
+
+        $this->assertEquals([
+            'Donatur' => [
+                'donatur_tetap' => 'Donatur Tetap',
+                'terdaftar' => 'Terdaftar',
+            ],
+            'santri' => [
+                '1st' => 'Kelas 1',
+                '2nd' => 'Kelas 2',
+                '3rd' => 'Kelas 3',
+            ],
+        ], $partner->getAvailableLevels(['donatur', 'santri']));
     }
 
     /** @test */
     public function partner_model_has_level_attribute()
     {
         config(['partners.partner_types' => 'santri|Santri']);
-        $partner = factory(Partner::class)->make(['type_code' => 'santri']);
+        $partner = factory(Partner::class)->make(['type_code' => ['santri']]);
 
         $this->assertEquals(null, $partner->level);
 
-        $partner->level_code = 'gold';
+        $partner->level_code = ['santri:gold'];
         $this->assertEquals('gold', $partner->level);
 
         config(['partners.partner_levels' => 'santri:silver|Silver|gold|Gold|platinum|Platinum']);
-        $partner->level_code = 'gold';
+        $partner->level_code = ['santri:gold'];
         $this->assertEquals('Gold', $partner->level);
     }
 
