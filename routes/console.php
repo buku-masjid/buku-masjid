@@ -21,6 +21,11 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('partner:generate {type_code} {--count=} {--reset}', function () {
+    if (app()->environment('production')) {
+        $this->error('This command is only for non production!');
+
+        return 0;
+    }
 
     $typeCode = $this->argument('type_code');
     if (!in_array($typeCode, array_keys((new Partner)->getAvailableTypes()))) {
