@@ -17,7 +17,6 @@ class AgeGroups extends Component
 
     public function render()
     {
-        $this->calculateAgeGroups();
         return view('livewire.partners.age_groups');
     }
 

@@ -25,6 +25,7 @@ Artisan::command('partner:generate {type_code} {--count=} {--reset}', function (
     $typeCode = $this->argument('type_code');
     if (!in_array($typeCode, array_keys((new Partner)->getAvailableTypes()))) {
         $this->error("Partner type code does not exists: '{$typeCode}'");
+
         return 0;
     }
     if ($this->option('reset')) {
