@@ -74,19 +74,19 @@
                     <div class="col-md-6">
                         {!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 {!! FormField::select('gender_code', $genders, [
                                     'placeholder' => false,
                                     'label' => __('app.gender'),
                                 ]) !!}
+                                {!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}
+                            </div>
+                            <div class="col-md-5">
                                 {!! FormField::checkboxes('type_code', $partnerTypes, [
                                     'value' => old('type_code', $partner->type_code),
                                     'placeholder' => false,
                                     'label' => __('partner.type'),
                                 ]) !!}
-                            </div>
-                            <div class="col-md-6">
-                                {!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}
                             </div>
                         </div>
                         <div class="row">
@@ -101,16 +101,6 @@
                         {!! FormField::textarea('description', ['label' => __('partner.description')]) !!}
                     </div>
                     <div class="col-md-6">
-                        @if ($partnerLevels)
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {!! FormField::textDisplay('type_code', $partner->type, ['label' => __('partner.type')]) !!}
-                                </div>
-                            </div>
-                        @else
-                            {!! FormField::textDisplay('type_code', $partner->type, ['label' => __('partner.type')]) !!}
-                            {{ Form::hidden('level_code') }}
-                        @endif
                         {!! FormField::select('religion_id', __('partner.religions'), ['label' => __('partner.religion'), 'placeholder' => __('app.unknown')]) !!}
                         {!! FormField::select('work_type_id', __('partner.work_types'), ['label' => __('partner.work'), 'placeholder' => __('app.unknown')]) !!}
                         {!! FormField::text('work', ['label' => __('partner.work_detail')]) !!}

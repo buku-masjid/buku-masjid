@@ -16,20 +16,20 @@
                     <div class="col-md-6">
                         {!! FormField::text('name', ['required' => true, 'label' => __('partner.name')]) !!}
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-7">
                                 {!! FormField::select('gender_code', $genders, [
                                     'value' => old('gender_code', request('gender_code')),
                                     'placeholder' => false,
                                     'label' => __('app.gender'),
                                 ]) !!}
+                                {!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}
+                            </div>
+                            <div class="col-md-5">
                                 {!! FormField::checkboxes('type_code', $partnerTypes, [
                                     'value' => old('type_code', request('type_code')),
                                     'placeholder' => false,
                                     'label' => __('partner.type'),
                                 ]) !!}
-                            </div>
-                            <div class="col-md-7">
-                                {!! FormField::text('phone', ['label' => __('partner.phone'), 'type' => 'number']) !!}
                             </div>
                         </div>
                         <div class="row">
