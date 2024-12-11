@@ -59,11 +59,11 @@ class Partner extends Model
         if (!$this->level_code) {
             return null;
         }
+
         $levelCodes = [];
-        foreach ($this->level_code as $rawLevelCode) {
-            $levelCode = explode(':', $rawLevelCode);
-            $availableLevelCodes = collect($this->getAvailableLevels([$levelCode[0]]))->first();
-            $levelCodes[] = $availableLevelCodes[$levelCode[1]] ?? $levelCode[1];
+        foreach ($this->level_code as $typeCode => $levelCode) {
+            $availableLevelCodes = collect($this->getAvailableLevels([$typeCode]))->first();
+            $levelCodes[] = $availableLevelCodes[$levelCode] ?? $levelCode;
         }
 
         return implode(', ', $levelCodes);

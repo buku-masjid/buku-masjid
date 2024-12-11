@@ -216,7 +216,7 @@ class PartnerController extends Controller
     {
         $partnerQuery = Partner::orderBy('name');
         if ($request->get('type_code')) {
-            $partnerQuery->where('type_code', $request->get('type_code'));
+            $partnerQuery->whereJsonContains('type_code', $request->get('type_code'));
         }
         if ($request->get('search_query')) {
             $searchQuery = $request->get('search_query');

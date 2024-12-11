@@ -4,27 +4,22 @@
 
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('home') }}"><i class="fe fe-home"></i> {{ __('app.home') }}</a>
-        </li>
-        <li class="breadcrumb-item">{{ link_to_route('donors.index', $partner->type) }}</li>
-        <li class="breadcrumb-item active" aria-current="page">{{ __('app.detail') }}</li>
-    </ol>
-</nav>
-
-
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ $partner->level ?: __('partner.partner_type', ['type' => $partner->type]) }}</div>
+    <div class="page-subtitle">{{ $partner->level ?: __('donor.donor') }}</div>
     <div class="page-options d-flex">
         @can('create', new App\Transaction)
-            {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success']) }}
+            {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success mr-2']) }}
         @endcan
         @can('update', $partner)
-            {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark ml-2', 'id' => 'edit-partner-'.$partner->id]) }}
+            {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark mr-2', 'id' => 'edit-partner-'.$partner->id]) }}
         @endcan
+        {{ link_to_route(
+            'donors.search',
+            __('donor.back_to_index'),
+            [],
+            ['class' => 'btn btn-secondary']
+        ) }}
     </div>
 </div>
 

@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('donor', function ($id) {
-            return Partner::where('id', $id)->where('type_code', 'donatur')->firstOrFail();
+            return Partner::where('id', $id)->whereJsonContains('type_code', 'donatur')->firstOrFail();
         });
     }
 

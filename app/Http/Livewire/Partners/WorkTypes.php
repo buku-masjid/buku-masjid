@@ -37,7 +37,7 @@ class WorkTypes extends Component
             ->where('is_active', Partner::STATUS_ACTIVE)
             ->groupBy('gender_code', 'work_type_id');
         if ($this->partnerTypeCode) {
-            $partnersCountQuery->where('type_code', $this->partnerTypeCode);
+            $partnersCountQuery->whereJsonContains('type_code', $this->partnerTypeCode);
         }
         $partnersCount = $partnersCountQuery->get();
 

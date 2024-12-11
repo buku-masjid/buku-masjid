@@ -126,11 +126,11 @@ class PartnerTest extends TestCase
 
         $this->assertEquals(null, $partner->level);
 
-        $partner->level_code = ['santri:gold'];
+        $partner->level_code = ['santri' => 'gold'];
         $this->assertEquals('gold', $partner->level);
 
         config(['partners.partner_levels' => 'santri:silver|Silver|gold|Gold|platinum|Platinum']);
-        $partner->level_code = ['santri:gold'];
+        $partner->level_code = ['santri' => 'gold'];
         $this->assertEquals('Gold', $partner->level);
     }
 
