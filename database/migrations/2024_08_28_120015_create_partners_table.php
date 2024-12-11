@@ -14,13 +14,22 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 60);
-            $table->string('type_code', 30);
-            $table->string('level_code', 30)->nullable();
+            $table->string('type_code');
+            $table->string('level_code')->nullable();
             $table->string('gender_code', 10)->nullable();
             $table->string('phone')->nullable();
+            $table->string('pob', 60)->nullable();
+            $table->date('dob')->nullable();
+            $table->unsignedTinyInteger('work_type_id')->nullable();
             $table->string('work')->nullable();
             $table->string('address')->nullable();
+            $table->string('rt', 3)->nullable();
+            $table->string('rw', 3)->nullable();
             $table->string('description')->nullable();
+            $table->unsignedTinyInteger('marital_status_id')->nullable();
+            $table->unsignedTinyInteger('financial_status_id')->nullable();
+            $table->unsignedTinyInteger('activity_status_id')->nullable();
+            $table->unsignedTinyInteger('religion_id')->nullable();
             $table->boolean('is_active')->default(1);
             $table->unsignedInteger('creator_id');
             $table->timestamps();

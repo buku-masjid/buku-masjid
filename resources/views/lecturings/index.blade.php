@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('lecturing.list'))
 
-@section('content')
-<div class="card">
+@section('content_settings')
+<div class="card mt-4">
     <div class="card-body">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
             {{ Form::text('q', request('q'), ['class' => 'form-control mr-0 mr-sm-2', 'placeholder' => __('lecturing.search_text')]) }}

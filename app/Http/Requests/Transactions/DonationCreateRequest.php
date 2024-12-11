@@ -27,7 +27,7 @@ class DonationCreateRequest extends FormRequest
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ];
         if ($this->get('partner_id')) {
-            $rules['partner_id'] = 'required_without:partner_name|exists:partners,id,type_code,donatur';
+            $rules['partner_id'] = 'required_without:partner_name|exists:partners,id';
         }
 
         return $rules;

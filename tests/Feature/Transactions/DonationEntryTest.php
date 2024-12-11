@@ -17,7 +17,7 @@ class DonationEntryTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
         $this->visitRoute('donors.index');
 
         $this->click(__('donor.add_donation'));
@@ -79,7 +79,7 @@ class DonationEntryTest extends TestCase
             'name' => 'Abdullah',
             'phone' => '081234567890',
             'gender_code' => Partner::GENDER_MALE,
-            'type_code' => 'donatur',
+            'type_code' => json_encode(['donatur']),
         ]);
 
         $partner = Partner::first();
@@ -101,7 +101,7 @@ class DonationEntryTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
 
         $this->visitRoute('donors.show', $partner);
 
@@ -137,7 +137,7 @@ class DonationEntryTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
-        $partner = factory(Partner::class)->create(['name' => 'Abdullah bin Abdurrahman', 'type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['name' => 'Abdullah bin Abdurrahman', 'type_code' => ['donatur']]);
         $notes = str_repeat('Lorem ipsum dolor sit, amet consectetur adipisicing elit.', 4);
 
         $this->post(route('donor_transactions.store'), [
@@ -186,18 +186,12 @@ class DonationEntryTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
-        $invalidPartner = factory(Partner::class)->create(['type_code' => 'employee']);
-        $validPartner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $validPartner = factory(Partner::class)->create(['type_code' => ['donatur']]);
 
         $this->post(route('donor_transactions.store'), [
             'partner_id' => $validPartner->id,
         ]);
         $this->assertSessionMissingErrors('partner_id');
-
-        $this->post(route('donor_transactions.store'), [
-            'partner_id' => $invalidPartner->id,
-        ]);
-        $this->assertSessionHasErrors(['partner_id' => __('validation.exists', ['attribute' => 'partner id'])]);
 
         $this->post(route('donor_transactions.store'), [
             'partner_id' => 9999,

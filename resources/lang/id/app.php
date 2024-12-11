@@ -27,6 +27,7 @@ return [
     'right_part' => 'Bagian Kanan',
     'donate' => 'Infaq',
     'printed_at' => 'Dicetak pada',
+    'unknown' => 'Tidak diketahui',
 
     // Action
     'create' => 'Input',

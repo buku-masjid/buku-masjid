@@ -38,7 +38,7 @@ class TransactionEditTest extends TestCase
             'book_id' => $book->id,
         ]);
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
 
         $this->visitRoute('transactions.index', ['month' => $month, 'year' => $year]);
         $this->click('edit-transaction-'.$transaction->id);
@@ -300,7 +300,7 @@ class TransactionEditTest extends TestCase
             'key' => 'income_partner_codes',
             'value' => '["donatur"]',
         ]);
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
         $bankAccount = factory(BankAccount::class)->create();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,

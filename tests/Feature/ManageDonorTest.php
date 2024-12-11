@@ -16,7 +16,7 @@ class ManageDonorTest extends TestCase
     public function user_can_see_donor_list_in_donor_index_page()
     {
         $creator = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur'], 'creator_id' => $creator->id]);
         $this->visitRoute('donors.search');
 
         $this->seeText($partner->name);
@@ -50,7 +50,7 @@ class ManageDonorTest extends TestCase
             'gender_code' => 'f',
             'description' => 'Donor 1 description',
             'address' => 'Donor 1 address',
-            'type_code' => 'donatur',
+            'type_code' => json_encode(['donatur']),
             'level_code' => null,
         ]);
     }
@@ -59,7 +59,7 @@ class ManageDonorTest extends TestCase
     public function user_can_see_donor_detail()
     {
         $creator = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur'], 'creator_id' => $creator->id]);
         $this->visitRoute('donors.search');
         $this->seeElement('a', ['id' => 'show-partner-'.$partner->id]);
 
@@ -74,7 +74,7 @@ class ManageDonorTest extends TestCase
     {
         $creator = $this->loginAsUser();
         config(['partners.partner_levels' => 'donatur:donatur_tetap|Donatur Tetap|terdaftar|Terdaftar']);
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur']);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
 
         $this->visitRoute('donors.show', $partner);
         $this->click('edit-partner-'.$partner->id);
@@ -98,11 +98,10 @@ class ManageDonorTest extends TestCase
             'name' => 'Donor 2 name',
             'phone' => '081234567890',
             'work' => 'Dokter',
-            'gender_code' => 'm',
             'description' => 'Donor 2 description',
             'address' => 'Donor 2 address',
-            'type_code' => 'donatur',
-            'level_code' => 'donatur_tetap',
+            'type_code' => json_encode(['donatur']),
+            'level_code' => json_encode(['donatur' => 'donatur_tetap']),
             'is_active' => 0,
         ]);
     }
@@ -112,7 +111,7 @@ class ManageDonorTest extends TestCase
     {
         $creator = $this->loginAsUser();
 
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur'], 'creator_id' => $creator->id]);
 
         $this->visitRoute('donors.show', $partner);
         $this->click('edit-partner-'.$partner->id);
@@ -132,7 +131,7 @@ class ManageDonorTest extends TestCase
     public function user_cannot_delete_a_donor_that_has_transactions()
     {
         $creator = $this->loginAsUser();
-        $partner = factory(Partner::class)->create(['type_code' => 'donatur', 'creator_id' => $creator->id]);
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur'], 'creator_id' => $creator->id]);
         $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create(['partner_id' => $partner->id, 'book_id' => $book->id]);
 

@@ -47,7 +47,7 @@ class BookDashboard extends Component
             ->join('transactions as t', 'b.id', '=', 't.book_id')
             ->join('partners as p', 'p.id', '=', 't.partner_id')
             ->where('t.in_out', 1)
-            ->where('p.type_code', 'donatur')
+            ->whereJsonContains('p.type_code', 'donatur')
             ->whereBetween('t.date', $dateRange)
             ->when($this->book, function ($query) {
                 $query->where('t.book_id', $this->book->id);

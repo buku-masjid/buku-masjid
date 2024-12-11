@@ -41,8 +41,8 @@ class DonorsCount extends Component
             return Cache::get($cacheKey);
         }
 
-        $donorsCount['total'] = Partner::where('type_code', $this->partnerTypeCode)->count();
-        $donorsCount['last_periode_total'] = Partner::where('type_code', $this->partnerTypeCode)->count();
+        $donorsCount['total'] = Partner::whereJsonContains('type_code', $this->partnerTypeCode)->count();
+        $donorsCount['last_periode_total'] = Partner::whereJsonContains('type_code', $this->partnerTypeCode)->count();
 
         $currentPeriodeDateRange = [$this->year.'-01-01', $this->year.'-12-31'];
         $lastPeriodeDateRange = [($this->year - 1).'-01-01', ($this->year - 1).'-12-31'];
@@ -51,7 +51,7 @@ class DonorsCount extends Component
             $lastPeriodeDate = Carbon::parse($this->year.'-'.$this->month.'-01')->subDay();
             $lastPeriodeDateRange = [$lastPeriodeDate->format('Y-m').'-01', $lastPeriodeDate->format('Y-m-t')];
         }
-        $partnerQuery = Partner::where('type_code', $this->partnerTypeCode);
+        $partnerQuery = Partner::whereJsonContains('type_code', $this->partnerTypeCode);
         $partnerQuery->whereHas('transactions', function ($query) use ($currentPeriodeDateRange) {
             if ($this->book) {
                 $query->where('book_id', $this->book->id);
@@ -61,7 +61,7 @@ class DonorsCount extends Component
         });
         $donorsCount['current_periode_total'] = $partnerQuery->count();
 
-        $partnerQuery = Partner::where('type_code', $this->partnerTypeCode);
+        $partnerQuery = Partner::whereJsonContains('type_code', $this->partnerTypeCode);
         $partnerQuery->whereHas('transactions', function ($query) use ($lastPeriodeDateRange) {
             if ($this->book) {
                 $query->where('book_id', $this->book->id);

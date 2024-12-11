@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('lecturing.detail'))
 
-@section('content')
-<div class="row justify-content-center">
+@section('content_settings')
+<div class="row justify-content-center mt-4">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">

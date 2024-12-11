@@ -57,7 +57,7 @@ class TotalIncomeFromPartner extends Component
             ->where('in_out', 1)
             ->whereBetween('date', $dateRange)
             ->whereHas('partner', function ($query) {
-                $query->where('type_code', $this->partnerTypeCode);
+                $query->whereJsonContains('type_code', $this->partnerTypeCode);
             });
         if ($this->book) {
             $transactionQuery->where('book_id', $this->book->id);

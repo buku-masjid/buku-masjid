@@ -27,6 +27,7 @@ return [
     'right_part' => 'Right Part',
     'donate' => 'Donate',
     'printed_at' => 'Printed at',
+    'unknown' => 'Unknown',
 
     // Action
     'add' => 'Add',
