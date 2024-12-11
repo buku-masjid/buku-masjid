@@ -4,16 +4,6 @@
 
 @section('content')
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb mt-4">
-        <li class="breadcrumb-item">
-            <a href="{{ route('partners.index') }}"><i class="fe fe-users"></i> {{ __('partner.partner') }}</a>
-        </li>
-        <li class="breadcrumb-item">{{ link_to_route('partners.index', $partner->type, ['type_code' => $partner->type_code]) }}</li>
-        <li class="breadcrumb-item active" aria-current="page">{{ __('app.detail') }}</li>
-    </ol>
-</nav>
-
 <div class="page-header">
     <h1 class="page-title">{{ $partner->name }}</h1>
     <div class="page-subtitle">{{ $partner->type }}</div>
