@@ -20,10 +20,9 @@ class PartnerController extends Controller
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
-        $availableWorks = [];
 
         return view('partners.index', compact(
-            'partners', 'partnerTypes', 'genders', 'availableWorks', 'selectedTypeCode'
+            'partners', 'partnerTypes', 'genders', 'selectedTypeCode'
         ));
     }
 
