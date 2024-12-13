@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\EloquentFilters\PartnersFilter;
 use App\Transaction;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Partner extends Model
 {
@@ -11,6 +14,7 @@ class Partner extends Model
     const STATUS_ACTIVE = 1;
     const GENDER_MALE = 'm';
     const GENDER_FEMALE = 'f';
+    const SEARCH_KEYS = ['name', 'phone', 'address'];
 
     protected $fillable = [
         'name', 'type_code', 'level_code', 'phone', 'work', 'address', 'description', 'is_active', 'creator_id',
@@ -22,6 +26,11 @@ class Partner extends Model
         'type_code' => 'array',
         'level_code' => 'array',
     ];
+
+    public function scopeFilterBy(Builder $queryBuilder, Request $request)
+    {
+        return (new PartnersFilter($queryBuilder))->apply($request);
+    }
 
     public function getStatusAttribute()
     {

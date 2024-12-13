@@ -15,7 +15,7 @@ class PartnerController extends Controller
 
         $partnerTypes = (new Partner)->getAvailableTypes();
         $selectedTypeCode = $request->get('type_code');
-        $partners = $this->getPartners($request);
+        $partners = Partner::filterBy($request)->orderBy('name')->paginate(100);
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
@@ -35,7 +35,7 @@ class PartnerController extends Controller
         if ($request->get('type_code')) {
             $partnerLevels = (new Partner)->getAvailableLevels([$request->get('type_code')]);
         }
-        $partners = $this->getPartners($request);
+        $partners = Partner::filterBy($request)->orderBy('name')->paginate(100);
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
@@ -205,84 +205,6 @@ class PartnerController extends Controller
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
-    }
-
-    private function getPartners(Request $request)
-    {
-        $partnerQuery = Partner::orderBy('name');
-        if ($request->get('type_code')) {
-            $partnerQuery->whereJsonContains('type_code', $request->get('type_code'));
-        }
-        if ($request->get('search_query')) {
-            $searchQuery = $request->get('search_query');
-            $partnerQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('phone', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('address', 'like', '%'.$searchQuery.'%');
-            });
-        }
-        if ($request->get('gender_code')) {
-            $partnerQuery->where('gender_code', $request->get('gender_code'));
-        }
-        if ($request->get('level_code')) {
-            $partnerQuery->where('level_code', $request->get('level_code'));
-        }
-        if ($ageGroupCode = $request->get('age_group_code')) {
-            if ($ageGroupCode == 'null') {
-                $partnerQuery->whereNull('dob');
-            } else {
-                $ageGroups = get_age_group_date_ranges();
-                $dateRange = isset($ageGroups[$ageGroupCode]) ? $ageGroups[$ageGroupCode] : [];
-                if ($dateRange) {
-                    if (in_array($dateRange[1], ['<=', '>='])) {
-                        $partnerQuery->where('dob', $dateRange[1], $dateRange[0]);
-                    } else {
-                        $partnerQuery->whereBetween('dob', $dateRange);
-                    }
-                }
-            }
-        }
-        if ($workTypeId = $request->get('work_type_id')) {
-            if ($workTypeId == 'null') {
-                $partnerQuery->whereNull('work_type_id');
-            } else {
-                $partnerQuery->where('work_type_id', $workTypeId);
-            }
-        }
-        if ($maritalStatusId = $request->get('marital_status_id')) {
-            if ($maritalStatusId == 'null') {
-                $partnerQuery->whereNull('marital_status_id');
-            } else {
-                $partnerQuery->where('marital_status_id', $maritalStatusId);
-            }
-        }
-        if ($financialStatusId = $request->get('financial_status_id')) {
-            if ($financialStatusId == 'null') {
-                $partnerQuery->whereNull('financial_status_id');
-            } else {
-                $partnerQuery->where('financial_status_id', $financialStatusId);
-            }
-        }
-        if ($activityStatusId = $request->get('activity_status_id')) {
-            if ($activityStatusId == 'null') {
-                $partnerQuery->whereNull('activity_status_id');
-            } else {
-                $partnerQuery->where('activity_status_id', $activityStatusId);
-            }
-        }
-        if ($religionId = $request->get('religion_id')) {
-            if ($religionId == 'null') {
-                $partnerQuery->whereNull('religion_id');
-            } else {
-                $partnerQuery->where('religion_id', $religionId);
-            }
-        }
-        if (!is_null($request->get('is_active'))) {
-            $partnerQuery->where('is_active', $request->get('is_active'));
-        }
-        $partners = $partnerQuery->paginate(100);
-
-        return $partners;
     }
 
     private function getDateRangeByAgeGroupCode(string $ageGroupCode): array
