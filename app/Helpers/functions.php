@@ -81,6 +81,22 @@ function get_week_numbers(string $year): array
     return range(0, $lastWeekOfTheYear);
 }
 
+function calculate_folder_size(string $absolutePath)
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $cmd = sprintf('powershell -Command "(Get-ChildItem -Path %s -Recurse | Measure-Object -Property Length -Sum).Sum"', escapeshellarg($absolutePath));
+    } else {
+        $cmd = sprintf('du -sb %s', escapeshellarg($absolutePath));
+    }
+
+    $output = trim(shell_exec($cmd));
+    if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+        $output = trim(preg_replace('/\s.*$/', '', $output));
+    }
+
+    return is_numeric($output) ? (int) $output : false;
+}
+
 function format_size_units($bytes)
 {
     if ($bytes >= 1073741824) {
