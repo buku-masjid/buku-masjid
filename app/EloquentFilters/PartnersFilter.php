@@ -12,7 +12,7 @@ class PartnersFilter extends EloquentFilter
         $this->filterBySearchQuery($request->get('search_query'), Partner::SEARCH_KEYS);
         $this->filterByTypeCode($request->get('type_code'));
         $this->filterByGenderCode($request->get('gender_code'));
-        $this->filterByLevelCode($request->get('level_code'));
+        $this->filterByLevelCode($request->get('type_code'), $request->get('level_code'));
         $this->filterByAgeGroupCode($request->get('age_group_code'));
         $this->filterByWorkTypeId($request->get('work_type_id'));
         $this->filterByMaritalStatusId($request->get('marital_status_id'));
@@ -38,10 +38,10 @@ class PartnersFilter extends EloquentFilter
         }
     }
 
-    private function filterByLevelCode($levelCode)
+    private function filterByLevelCode($partnerCode, $levelCode)
     {
         if ($levelCode) {
-            $this->queryBuilder->where('level_code', $levelCode);
+            $this->queryBuilder->whereJsonContains('level_code', [$partnerCode => $levelCode]);
         }
     }
 

@@ -29,7 +29,8 @@ class DonorController extends Controller
         $this->authorize('view-any', new Partner);
 
         $partnerLevels = (new Partner)->getAvailableLevels(['donatur']);
-        $partners = $this->getDonors($request);
+        $request->merge(['type_code' => 'donatur']);
+        $partners = Partner::filterBy($request)->orderBy('name')->withSum('transactions', 'amount')->paginate(100);
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
@@ -174,31 +175,5 @@ class DonorController extends Controller
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
-    }
-
-    private function getDonors(Request $request)
-    {
-        $partnerQuery = Partner::orderBy('name');
-        $partnerQuery->whereJsonContains('type_code', 'donatur');
-        if ($request->get('search_query')) {
-            $searchQuery = $request->get('search_query');
-            $partnerQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('phone', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('address', 'like', '%'.$searchQuery.'%');
-            });
-        }
-        if ($request->get('gender_code')) {
-            $partnerQuery->where('gender_code', $request->get('gender_code'));
-        }
-        if ($request->get('level_code')) {
-            $partnerQuery->where('level_code', $request->get('level_code'));
-        }
-        if (!is_null($request->get('is_active'))) {
-            $partnerQuery->where('is_active', $request->get('is_active'));
-        }
-        $partners = $partnerQuery->withSum('transactions', 'amount')->paginate(100);
-
-        return $partners;
     }
 }
