@@ -37,6 +37,25 @@ class FileController extends Controller
         return redirect()->route('transactions.show', $transaction);
     }
 
+    public function update(Request $request, Transaction $transaction, File $file)
+    {
+        $this->authorize('update', $transaction);
+
+        $payload = $request->validate([
+            'title' => ['nullable', 'max:255'],
+            'description' => ['nullable', 'max:255'],
+        ]);
+
+        $file->update([
+            'title' => $payload['title'],
+            'description' => $payload['description'],
+        ]);
+
+        flash(__('file.updated'), 'success');
+
+        return redirect()->route('transactions.show', $transaction);
+    }
+
     public function destroy(Request $request, Transaction $transaction, File $file)
     {
         $this->authorize('update', $transaction);

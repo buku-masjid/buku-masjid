@@ -141,14 +141,17 @@
                                     <h4 class="card-title mb-2"><a href="javascript:void(0)">{{ $file->title }}</a></h4>
                                 @endif
                                 <div class="card-subtitle mt-3">{{ $file->description }}</div>
-                                <div class="mt-5 d-flex align-items-center">
-                                    {{--
-                                    <div class="product-price">
-                                        <strong>$599</strong>
-                                    </div>
-                                    --}}
-                                    <div class="ml-auto">
-                                        @can('update', $transaction)
+                                @can('update', $transaction)
+                                    <div class="mt-5 d-flex align-items-center">
+                                        <div class="product-price">
+                                            <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
+                                                id="edit-file-{{ $file->id }}"
+                                                class="btn btn-warning text-dark">
+                                                <i class="fe fe-edit"></i> {{ __('app.edit') }}
+                                            </a>
+                                        </div>
+
+                                        <div class="ml-auto">
                                             @can('manage-transactions', auth()->activeBook())
                                                 {!! FormField::delete(
                                                     ['route' => ['transactions.files.destroy', [$transaction, $file->id]], 'onsubmit' => __('app.delete_confirm')],
@@ -157,9 +160,9 @@
                                                     ['file_id' => $file->id]
                                                 ) !!}
                                             @endcan
-                                        @endcan
+                                        </div>
                                     </div>
-                                </div>
+                                @endcan
                             </div>
                         </div>
                     </div>

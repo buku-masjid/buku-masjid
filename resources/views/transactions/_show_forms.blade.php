@@ -31,3 +31,32 @@
     </div>
     @endcan
 @endif
+@if (request('action') == 'edit_file' && $editableFile)
+    @can('update', $transaction)
+    <div id="transactionModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('file.edit') }}</h5>
+                    {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'close']) }}
+                </div>
+                {!! Form::model($editableFile, ['route' => ['transactions.files.update', [$transaction, $editableFile]], 'method' => 'patch']) !!}
+                <div class="modal-body">
+                    @if (in_array($file->type_code, ['raw_image', 'image']))
+                        <a href="{{ asset('storage/'.$file->file_path) }}" class="d-block mb-4">
+                            <img src="{{ asset('storage/'.$file->file_path) }}" alt="{{ $file->title }}" class="img-fluid">
+                        </a>
+                    @endif
+                    {!! FormField::text('title', ['label' => __('app.description'), 'placeholder' => __('transaction.upload_file_placeholder')]) !!}
+                    {!! FormField::textarea('description', ['label' => __('app.notes')]) !!}
+                </div>
+                <div class="modal-footer">
+                    {!! Form::submit(__('file.update'), ['class' => 'btn btn-success']) !!}
+                    {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn btn-secondary']) }}
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+    @endcan
+@endif
