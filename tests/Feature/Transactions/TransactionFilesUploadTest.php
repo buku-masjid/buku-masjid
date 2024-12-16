@@ -80,12 +80,8 @@ class TransactionFilesUploadTest extends TestCase
         Storage::assertExists($file->file_path);
 
         $this->visitRoute('transactions.show', $transaction);
-        $this->seeElement('a', ['id' => 'delete-file-'.$file->id]);
-        $this->click('delete-file-'.$file->id);
-        $this->seeRouteIs('transactions.show', [$transaction, 'action' => 'delete_file', 'file_id' => $file->id]);
-
-        $this->press(__('app.delete_confirm_button'));
-
+        $this->seeElement('button', ['id' => 'delete-file-'.$file->id]);
+        $this->press('delete-file-'.$file->id);
         $this->seeRouteIs('transactions.show', $transaction);
 
         $this->seeText(__('file.deleted'));

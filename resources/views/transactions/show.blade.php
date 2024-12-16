@@ -148,11 +148,16 @@
                                     </div>
                                     --}}
                                     <div class="ml-auto">
-                                        <a href="{{ route('transactions.show', [$transaction, 'action' => 'delete_file','file_id' => $file->id]) }}"
-                                            id="delete-file-{{ $file->id }}"
-                                            class="btn btn-danger">
-                                            <i class="fe fe-delete"></i> {{ __('app.delete') }}
-                                        </a>
+                                        @can('update', $transaction)
+                                            @can('manage-transactions', auth()->activeBook())
+                                                {!! FormField::delete(
+                                                    ['route' => ['transactions.files.destroy', [$transaction, $file->id]], 'onsubmit' => __('app.delete_confirm')],
+                                                    '',
+                                                    ['class' => 'close bg-danger px-1 py-0 rounded text-white', 'id' => 'delete-file-'.$file->id],
+                                                    ['file_id' => $file->id]
+                                                ) !!}
+                                            @endcan
+                                        @endcan
                                     </div>
                                 </div>
                             </div>

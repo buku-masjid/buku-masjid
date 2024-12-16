@@ -31,29 +31,3 @@
     </div>
     @endcan
 @endif
-@if (request('action') == 'delete_file' && $editableFile)
-    @can('update', $transaction)
-    <div id="transactionModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{ __('file.delete') }}</h5>
-                    {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'close']) }}
-                </div>
-                <div class="modal-body">
-                    &nbsp;
-                </div>
-                <div class="modal-footer">
-                    {!! FormField::delete(
-                        ['route' => ['transactions.files.destroy', [$transaction, $editableFile->id]]],
-                        __('app.delete_confirm_button'),
-                        ['class' => 'btn btn-danger'],
-                        ['file_id' => $editableFile->id, ]
-                    ) !!}
-                    {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn btn-secondary']) }}
-                </div>
-            </div>
-        </div>
-    </div>
-    @endcan
-@endif
