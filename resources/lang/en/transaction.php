@@ -53,6 +53,8 @@ return [
     'download' => 'Download CSV',
     'print_receipt' => 'Print Receipt',
     'print_spending_request' => 'Print Spending Request',
+    'upload_files' => 'Upload Transaction Receipt',
+    'upload_file_placeholder' => 'Transaction receipt',
 
     // Attributes
     'id' => 'Transaction ID',

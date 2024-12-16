@@ -9,8 +9,16 @@
                 </div>
                 {!! Form::open(['route' => ['transactions.files.store', $transaction], 'files' => true]) !!}
                 <div class="modal-body">
-                    {!! FormField::file('file') !!}
-                    {!! FormField::textarea('description') !!}
+                    <div class="form-group mb-3 {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                        <label for="files" class="form-label fw-bold">{{ __('file.select') }}</label>
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
+                    </div>
+                    {!! FormField::textarea('description', ['label' => __('app.description'), 'placeholder' => __('transaction.upload_file_placeholder')]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('file.upload'), ['class' => 'btn btn-success']) !!}

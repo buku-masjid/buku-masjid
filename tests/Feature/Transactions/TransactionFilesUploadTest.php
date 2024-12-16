@@ -31,15 +31,21 @@ class TransactionFilesUploadTest extends TestCase
         $this->seeRouteIs('transactions.show', [$transaction, 'action' => 'upload_files']);
 
         $this->submitForm(__('file.upload'), [
-            'file' => public_path('screenshots/01-monthly-report-for-public.jpg'),
+            'files' => [
+                public_path('screenshots/01-monthly-report-for-public.jpg'),
+            ],
             'description' => 'Deskripsi file yang diuplod.',
         ]);
+
+        $this->seeText(__('file.uploaded'));
+        $this->seeRouteIs('transactions.show', $transaction);
 
         $this->assertCount(1, $transaction->files);
 
         $this->seeInDatabase('files', [
             'fileable_id' => $transaction->id,
             'fileable_type' => 'transactions',
+            'type_code' => 'image',
             'title' => __('transaction.transaction').' '.$transaction->id,
             'description' => 'Deskripsi file yang diuplod.',
         ]);

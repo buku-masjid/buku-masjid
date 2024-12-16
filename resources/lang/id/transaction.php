@@ -53,6 +53,8 @@ return [
     'download' => 'Download CSV',
     'print_receipt' => 'Cetak Kwitansi',
     'print_spending_request' => 'Cetak Permintaan Kas Keluar',
+    'upload_files' => 'Upload Bukti Transaksi',
+    'upload_file_placeholder' => 'Bukti transaksi pembayaran',
 
     // Attributes
     'id' => 'ID Transaksi',

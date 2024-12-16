@@ -153,7 +153,7 @@ class TransactionTest extends TestCase
         $file = File::create([
             'fileable_id' => $transaction->id,
             'fileable_type' => 'transactions',
-            'type_code' => 'image.png',
+            'type_code' => 'image',
             'file_path' => 'File title',
             'title' => 'File title',
             'description' => 'Some transaction description',
