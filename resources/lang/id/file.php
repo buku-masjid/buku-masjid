@@ -22,6 +22,7 @@ return [
     'undeleteable' => 'Data File tidak dapat dihapus.',
     'select' => 'Pilih File',
     'upload' => 'Upload File',
+    'uploaded' => 'File berhasil diupload.',
     'download' => 'Download',
 
     // Attributes

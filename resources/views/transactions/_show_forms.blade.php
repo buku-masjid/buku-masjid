@@ -18,8 +18,8 @@
                             @endforeach
                         @endif
                     </div>
-                    {!! FormField::text('title', ['label' => __('file.title'), 'placeholder' => __('transaction.upload_file_placeholder')]) !!}
-                    {!! FormField::textarea('description', ['label' => __('app.description')]) !!}
+                    {!! FormField::text('title', ['label' => __('app.description'), 'placeholder' => __('transaction.upload_file_placeholder')]) !!}
+                    {!! FormField::textarea('description', ['label' => __('app.notes')]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('file.upload'), ['class' => 'btn btn-success']) !!}

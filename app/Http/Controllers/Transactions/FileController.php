@@ -15,7 +15,7 @@ class FileController extends Controller
 
         $payload = $request->validate([
             'files' => ['required', 'array'],
-            'files.*' => ['file', 'max:1000'],
+            'files.*' => ['file', 'max:5120'],
             'title' => ['nullable', 'max:255'],
             'description' => ['nullable', 'max:255'],
         ]);
@@ -25,7 +25,7 @@ class FileController extends Controller
         foreach ($payload['files'] as $uploadedFile) {
             $fileName = $uploadedFile->store($filePath);
             $transaction->files()->create([
-                'type_code' => 'image',
+                'type_code' => 'raw_image',
                 'file_path' => $fileName,
                 'title' => $payload['title'],
                 'description' => $payload['description'],

@@ -22,6 +22,7 @@ return [
     'undeleteable' => 'File can not be deleted.',
     'select' => 'Select File',
     'upload' => 'Upload File',
+    'uploaded' => 'File uploaded successfully.',
     'download' => 'Download',
 
     // Attributes

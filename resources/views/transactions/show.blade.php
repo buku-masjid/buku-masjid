@@ -128,7 +128,7 @@
         </div>
         <div class="row">
             @foreach ($transaction->files as $file)
-                @if ($file->type_code == 'image')
+                @if (in_array($file->type_code, ['raw_image', 'image']))
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
