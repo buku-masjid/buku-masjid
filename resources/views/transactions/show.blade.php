@@ -30,12 +30,6 @@
                     $transaction,
                     ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2']
                 ) !!}
-                {!! link_to_route(
-                    'transactions.show',
-                    __('transaction.upload_files'),
-                    [$transaction, 'action' => 'upload_files'],
-                    ['id' => 'upload_files-transaction-'.$transaction->id, 'class' => 'btn btn-success mr-2']
-                ) !!}
             @endcan
         @endcan
         {{ link_to_route(
@@ -112,6 +106,54 @@
                     <tr><td>{{ __('app.updated_at') }}</td><td>{{ $transaction->updated_at }}</td></tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ __('transaction.files') }}</h3>
+                <div class="card-options">
+                    @can('update', $transaction)
+                        @can('manage-transactions', auth()->activeBook())
+                            {!! link_to_route(
+                                'transactions.show',
+                                __('transaction.upload_files'),
+                                [$transaction, 'action' => 'upload_files'],
+                                ['id' => 'upload_files-transaction-'.$transaction->id, 'class' => 'btn btn-success mr-2']
+                            ) !!}
+                        @endcan
+                    @endcan
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach ($transaction->files as $file)
+                @if ($file->type_code == 'image')
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-4 text-center">
+                                    <a href="{{ asset('storage/'.$file->file_path) }}">
+                                        <img src="{{ asset('storage/'.$file->file_path) }}" alt="{{ $file->title }}" class="img-fluid">
+                                    </a>
+                                </div>
+                                <h4 class="card-title"><a href="javascript:void(0)">{{ $file->title }}</a></h4>
+                                <div class="card-subtitle">{{ $file->description }}</div>
+                                {{--
+                                <div class="mt-5 d-flex align-items-center">
+                                    <div class="product-price">
+                                        <strong>$599</strong>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fe fe-plus"></i> Add to cart</a>
+                                    </div>
+                                </div>
+                                --}}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </div>
