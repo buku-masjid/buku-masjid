@@ -142,26 +142,26 @@
                                 @endif
                                 <div class="card-subtitle mt-3">{{ $file->description }}</div>
                                 @can('update', $transaction)
-                                    <div class="mt-5 d-flex align-items-center">
-                                        <div class="product-price">
-                                            <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
-                                                id="edit-file-{{ $file->id }}"
-                                                class="btn btn-warning text-dark">
-                                                <i class="fe fe-edit"></i> {{ __('app.edit') }}
-                                            </a>
-                                        </div>
-
-                                        <div class="ml-auto">
-                                            @can('manage-transactions', auth()->activeBook())
+                                    @can('manage-transactions', auth()->activeBook())
+                                        <div class="mt-5 d-flex align-items-center">
+                                            <div>
                                                 {!! FormField::delete(
                                                     ['route' => ['transactions.files.destroy', [$transaction, $file->id]], 'onsubmit' => __('app.delete_confirm')],
-                                                    '',
-                                                    ['class' => 'close bg-danger px-1 py-0 rounded text-white', 'id' => 'delete-file-'.$file->id],
+                                                    '<i class="fe fe-trash-2"></i> '.__('app.delete'),
+                                                    ['class' => 'btn btn-danger ', 'id' => 'delete-file-'.$file->id],
                                                     ['file_id' => $file->id]
                                                 ) !!}
-                                            @endcan
+                                            </div>
+
+                                            <div class="ml-auto">
+                                                <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
+                                                    id="edit-file-{{ $file->id }}"
+                                                    class="btn btn-warning text-dark">
+                                                    <i class="fe fe-edit"></i> {{ __('app.edit') }}
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endcan
                                 @endcan
                             </div>
                         </div>
