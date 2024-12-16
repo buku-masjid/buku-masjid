@@ -46,7 +46,7 @@ class TransactionFilesUploadTest extends TestCase
             'fileable_id' => $transaction->id,
             'fileable_type' => 'transactions',
             'type_code' => 'image',
-            'title' => __('transaction.transaction').' '.$transaction->id,
+            'title' => null,
             'description' => 'Deskripsi file yang diuplod.',
         ]);
 

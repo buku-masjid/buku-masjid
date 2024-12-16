@@ -24,7 +24,6 @@ class FileController extends Controller
                 'type_code' => 'image',
                 'file_path' => $fileName,
                 'description' => $payload['description'],
-                'title' => __('transaction.transaction').' '.$transaction->id,
             ]);
         }
 

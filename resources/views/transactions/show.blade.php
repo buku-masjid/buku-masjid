@@ -137,8 +137,10 @@
                                         <img src="{{ asset('storage/'.$file->file_path) }}" alt="{{ $file->title }}" class="img-fluid">
                                     </a>
                                 </div>
-                                <h4 class="card-title"><a href="javascript:void(0)">{{ $file->title }}</a></h4>
-                                <div class="card-subtitle">{{ $file->description }}</div>
+                                @if ($file->title)
+                                    <h4 class="card-title mb-2"><a href="javascript:void(0)">{{ $file->title }}</a></h4>
+                                @endif
+                                <div class="card-subtitle mt-3">{{ $file->description }}</div>
                                 {{--
                                 <div class="mt-5 d-flex align-items-center">
                                     <div class="product-price">
