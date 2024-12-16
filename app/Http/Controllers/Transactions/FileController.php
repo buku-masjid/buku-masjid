@@ -13,6 +13,7 @@ class FileController extends Controller
         $payload = $request->validate([
             'files' => ['required', 'array'],
             'files.*' => ['file', 'max:1000'],
+            'title' => ['nullable', 'max:255'],
             'description' => ['nullable', 'max:255'],
         ]);
 
@@ -23,6 +24,7 @@ class FileController extends Controller
             $transaction->files()->create([
                 'type_code' => 'image',
                 'file_path' => $fileName,
+                'title' => $payload['title'],
                 'description' => $payload['description'],
             ]);
         }

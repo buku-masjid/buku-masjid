@@ -34,7 +34,8 @@ class TransactionFilesUploadTest extends TestCase
             'files' => [
                 public_path('screenshots/01-monthly-report-for-public.jpg'),
             ],
-            'description' => 'Deskripsi file yang diuplod.',
+            'title' => 'Document title',
+            'description' => 'Document file description',
         ]);
 
         $this->seeText(__('file.uploaded'));
@@ -46,8 +47,8 @@ class TransactionFilesUploadTest extends TestCase
             'fileable_id' => $transaction->id,
             'fileable_type' => 'transactions',
             'type_code' => 'image',
-            'title' => null,
-            'description' => 'Deskripsi file yang diuplod.',
+            'title' => 'Document title',
+            'description' => 'Document file description',
         ]);
 
         $file = $transaction->files->first();

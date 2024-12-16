@@ -25,7 +25,8 @@ return [
     'download' => 'Download',
 
     // Attributes
-    'title' => 'File Name',
+    'title' => 'File Title',
+    'path' => 'File Path',
     'description' => 'File Description',
     'size' => 'File Size',
     'updated_at' => 'Udpated at',

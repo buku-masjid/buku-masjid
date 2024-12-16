@@ -55,7 +55,7 @@ return [
     'print_spending_request' => 'Cetak Permintaan Kas Keluar',
     'files' => 'Bukti Transaksi',
     'upload_files' => 'Upload Bukti Transaksi',
-    'upload_file_placeholder' => 'Bukti transaksi pembayaran',
+    'upload_file_placeholder' => 'Dokumentasi serah terima / pembayaran',
 
     // Attributes
     'id' => 'ID Transaksi',

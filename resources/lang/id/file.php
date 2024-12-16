@@ -25,7 +25,8 @@ return [
     'download' => 'Download',
 
     // Attributes
-    'title' => 'Nama File',
+    'title' => 'Judul File',
+    'path' => 'Lokasi File',
     'description' => 'Deskripsi File',
     'size' => 'Ukuran File',
     'updated_at' => 'Tanggal',
