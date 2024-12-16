@@ -141,16 +141,20 @@
                                     <h4 class="card-title mb-2"><a href="javascript:void(0)">{{ $file->title }}</a></h4>
                                 @endif
                                 <div class="card-subtitle mt-3">{{ $file->description }}</div>
-                                {{--
                                 <div class="mt-5 d-flex align-items-center">
+                                    {{--
                                     <div class="product-price">
                                         <strong>$599</strong>
                                     </div>
+                                    --}}
                                     <div class="ml-auto">
-                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fe fe-plus"></i> Add to cart</a>
+                                        <a href="{{ route('transactions.show', [$transaction, 'action' => 'delete_file','file_id' => $file->id]) }}"
+                                            id="delete-file-{{ $file->id }}"
+                                            class="btn btn-danger">
+                                            <i class="fe fe-delete"></i> {{ __('app.delete') }}
+                                        </a>
                                     </div>
                                 </div>
-                                --}}
                             </div>
                         </div>
                     </div>
