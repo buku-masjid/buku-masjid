@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('transactions/{transaction}/print_spending_request', 'Transactions\SpendingRequestPrintController@show')
         ->name('transactions.print_spending_request');
     Route::resource('transactions', 'TransactionsController');
+    Route::apiResource('transactions.files', 'Transactions\FileController');
 
     /*
      * Categories Routes

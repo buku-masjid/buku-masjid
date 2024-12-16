@@ -30,6 +30,12 @@
                     $transaction,
                     ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2']
                 ) !!}
+                {!! link_to_route(
+                    'transactions.show',
+                    __('transaction.upload_files'),
+                    [$transaction, 'action' => 'upload_files'],
+                    ['id' => 'upload_files-transaction-'.$transaction->id, 'class' => 'btn btn-success mr-2']
+                ) !!}
             @endcan
         @endcan
         {{ link_to_route(
@@ -110,4 +116,18 @@
     </div>
 </div>
 
+@if(Request::has('action'))
+    @include('transactions._show_forms')
+@endif
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+    $('#transactionModal').modal({
+        show: true,
+        backdrop: 'static',
+    });
+})();
+</script>
+@endpush

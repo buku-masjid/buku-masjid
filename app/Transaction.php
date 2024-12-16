@@ -5,6 +5,7 @@ namespace App;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\File;
 use App\Models\Partner;
 use App\Traits\Models\ForActiveBook;
 use Carbon\Carbon;
@@ -104,5 +105,10 @@ class Transaction extends Model
         }
 
         return $amountString;
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }
