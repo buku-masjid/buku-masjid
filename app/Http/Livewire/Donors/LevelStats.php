@@ -38,13 +38,13 @@ class LevelStats extends Component
         }
 
         $partnerLevelStats = [];
-        $partnerLevels = (new Partner)->getAvailableLevels($this->partnerTypeCode);
+        $partnerLevels = (new Partner)->getAvailableLevels([$this->partnerTypeCode]);
         $dateRange = [$this->year.'-01-01', $this->year.'-12-31'];
         if ($this->month != '00' && in_array($this->month, array_keys(get_months()))) {
             $dateRange = [$this->year.'-'.$this->month.'-01', Carbon::parse($this->year.'-'.$this->month.'-01')->format('Y-m-t')];
         }
 
-        $partnerTotal = Partner::where('type_code', $this->partnerTypeCode)
+        $partnerTotal = Partner::whereJsonContains('type_code', $this->partnerTypeCode)
             ->whereHas('transactions', function ($query) use ($dateRange) {
                 if ($this->book) {
                     $query->where('book_id', $this->book->id);
@@ -53,8 +53,9 @@ class LevelStats extends Component
                 $query->where('in_out', Transaction::TYPE_INCOME);
             })->count();
 
-        foreach ($partnerLevels as $partnerLevelCode => $partnerLevelName) {
-            $partnerLevelCount = Partner::where('type_code', $this->partnerTypeCode)->where('level_code', $partnerLevelCode)
+        foreach ($partnerLevels['Donatur'] as $partnerLevelCode => $partnerLevelName) {
+            $partnerLevelCount = Partner::whereJsonContains('type_code', $this->partnerTypeCode)
+                ->whereJsonContains('level_code', ['donatur' => $partnerLevelCode])
                 ->whereHas('transactions', function ($query) use ($dateRange) {
                     if ($this->book) {
                         $query->where('book_id', $this->book->id);

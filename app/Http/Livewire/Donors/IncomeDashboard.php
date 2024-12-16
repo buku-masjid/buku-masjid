@@ -47,7 +47,7 @@ class IncomeDashboard extends Component
         $incomeEntries = DB::table('partners as p')
             ->join('transactions as t', 'p.id', '=', 't.partner_id')
             ->where('t.in_out', 1)
-            ->where('p.type_code', 'donatur')
+            ->whereJsonContains('p.type_code', 'donatur')
             ->whereBetween('t.date', $dateRange)
             ->when($this->book, function ($query) {
                 $query->where('t.book_id', $this->book->id);

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('lecturing.edit'))
 
-@section('content')
-<div class="row justify-content-center">
+@section('content_settings')
+<div class="row justify-content-center mt-4">
     <div class="col-md-7">
         @if (request('action') == 'delete' && $lecturing)
         @can('delete', $lecturing)

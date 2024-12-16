@@ -14,6 +14,7 @@ return [
     'notes' => 'Catatan Donatur',
     'notes_placeholder' => 'Doa dari donatur untuk program atau diri sendiri.',
     'donation_total' => 'Total Donasi',
+    'back_to_index' => 'Kembali ke List Donatur',
 
     // Action
     'add_donation' => 'Input Donasi',

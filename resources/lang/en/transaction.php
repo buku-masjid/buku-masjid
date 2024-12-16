@@ -16,6 +16,7 @@ return [
     'back_to_show' => 'Back to Transaction detail',
     'back_to_index' => 'Back to Transaction list',
 
+    'total' => 'Transction Total',
     'income_total' => 'Income Total',
     'spending_total' => 'Spending Total',
     'difference' => 'Difference',

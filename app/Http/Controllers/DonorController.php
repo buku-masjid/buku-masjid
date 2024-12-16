@@ -28,8 +28,9 @@ class DonorController extends Controller
     {
         $this->authorize('view-any', new Partner);
 
-        $partnerLevels = (new Partner)->getAvailableLevels('donatur');
-        $partners = $this->getDonors($request);
+        $partnerLevels = (new Partner)->getAvailableLevels(['donatur']);
+        $request->merge(['type_code' => 'donatur']);
+        $partners = Partner::filterBy($request)->orderBy('name')->withSum('transactions', 'amount')->paginate(100);
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
@@ -42,7 +43,7 @@ class DonorController extends Controller
 
     public function create()
     {
-        $partnerLevels = (new Partner)->getAvailableLevels('donatur');
+        $partnerLevels = (new Partner)->getAvailableLevels(['donatur']);
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
@@ -64,12 +65,12 @@ class DonorController extends Controller
             'address' => 'nullable|max:255',
             'description' => 'nullable|max:255',
         ]);
-        $newPartner['type_code'] = 'donatur';
+        $newPartner['type_code'] = ['donatur'];
         $newPartner['creator_id'] = auth()->id();
 
         $partner = Partner::create($newPartner);
 
-        flash(__('partner.created', ['type' => $partner->type]), 'success');
+        flash(__('partner.created'), 'success');
 
         return redirect()->route('donors.search');
     }
@@ -101,13 +102,14 @@ class DonorController extends Controller
         $this->authorize('update', $partner);
 
         $partner->loadSum('transactions', 'amount');
-        $partnerLevels = (new Partner)->getAvailableLevels('donatur');
+        $partnerLevels = (new Partner)->getAvailableLevels(['donatur']);
+        $selectedPartnerLevel = $partner->level_code['donatur'] ?? null;
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
         ];
 
-        return view('donors.edit', compact('partner', 'partnerLevels', 'genders'));
+        return view('donors.edit', compact('partner', 'partnerLevels', 'genders', 'selectedPartnerLevel'));
     }
 
     public function update(Request $request, Partner $partner)
@@ -123,6 +125,13 @@ class DonorController extends Controller
             'description' => 'nullable|max:255',
             'is_active' => 'required|in:0,1',
         ]);
+        if ($partnerData['level_code']) {
+            $existingPartnerLevelCode = $partner->level_code ?: [];
+            $newPartnerLevelCode = array_merge($existingPartnerLevelCode, [
+                'donatur' => $partnerData['level_code'],
+            ]);
+            $partnerData['level_code'] = $newPartnerLevelCode;
+        }
 
         $partner->update($partnerData);
 
@@ -166,31 +175,5 @@ class DonorController extends Controller
         });
 
         return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
-    }
-
-    private function getDonors(Request $request)
-    {
-        $partnerQuery = Partner::orderBy('name');
-        $partnerQuery->where('type_code', 'donatur');
-        if ($request->get('search_query')) {
-            $searchQuery = $request->get('search_query');
-            $partnerQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('phone', 'like', '%'.$searchQuery.'%');
-                $query->orWhere('address', 'like', '%'.$searchQuery.'%');
-            });
-        }
-        if ($request->get('gender_code')) {
-            $partnerQuery->where('gender_code', $request->get('gender_code'));
-        }
-        if ($request->get('level_code')) {
-            $partnerQuery->where('level_code', $request->get('level_code'));
-        }
-        if (!is_null($request->get('is_active'))) {
-            $partnerQuery->where('is_active', $request->get('is_active'));
-        }
-        $partners = $partnerQuery->withSum('transactions', 'amount')->paginate(100);
-
-        return $partners;
     }
 }

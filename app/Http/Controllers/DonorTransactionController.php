@@ -40,7 +40,7 @@ class DonorTransactionController extends Controller
                 'name' => $payload['partner_name'],
                 'phone' => $payload['partner_phone'],
                 'gender_code' => $payload['partner_gender_code'],
-                'type_code' => 'donatur',
+                'type_code' => ['donatur'],
                 'creator_id' => auth()->id(),
             ]);
         }
@@ -71,7 +71,7 @@ class DonorTransactionController extends Controller
     private function getAvailablePartners(array $partnerTypeCodes): array
     {
         $partners = Partner::where('is_active', Partner::STATUS_ACTIVE)
-            ->where('type_code', 'donatur')
+            ->whereJsonContains('type_code', 'donatur')
             ->orderBy('name')
             ->get();
 

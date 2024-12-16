@@ -109,7 +109,11 @@ class TransactionsController extends Controller
     private function getAvailablePartners(array $partnerTypes, array $partnerTypeCodes): array
     {
         $partners = Partner::where('is_active', BankAccount::STATUS_ACTIVE)
-            ->whereIn('type_code', $partnerTypeCodes)
+            ->where(function ($query) use ($partnerTypeCodes) {
+                foreach ($partnerTypeCodes as $partnerTypeCode) {
+                    $query->orWhereJsonContains('type_code', $partnerTypeCode);
+                }
+            })
             ->orderBy('name')
             ->get();
         if (count($partnerTypeCodes) < 2) {

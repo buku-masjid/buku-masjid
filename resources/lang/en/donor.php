@@ -14,6 +14,7 @@ return [
     'notes' => 'Donor Notes',
     'notes_placeholder' => 'Words/pray from donor for the program or them-self.',
     'donation_total' => 'Donation Total',
+    'back_to_index' => 'Back to Donor List',
 
     // Action
     'add_donation' => 'Add Donation',

@@ -51,7 +51,7 @@ class IncomeStats extends Component
 
         $transactionQuery = Transaction::withoutGlobalScope('forActiveBook')->where('in_out', 1)
             ->whereHas('partner', function ($query) {
-                $query->where('type_code', $this->partnerTypeCode);
+                $query->whereJsonContains('type_code', $this->partnerTypeCode);
             });
         $transactionQuery->whereBetween('date', $dateRange);
         if ($this->book) {
@@ -67,7 +67,7 @@ class IncomeStats extends Component
 
         $transactionQuery = Transaction::withoutGlobalScope('forActiveBook')->where('in_out', 1)
             ->whereHas('partner', function ($query) {
-                $query->where('type_code', $this->partnerTypeCode);
+                $query->whereJsonContains('type_code', $this->partnerTypeCode);
             });
 
         $transactionQuery->whereBetween('date', $dateRange);

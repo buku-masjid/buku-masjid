@@ -81,15 +81,10 @@
                         ]) !!}
                     </div>
                     <div class="col-md-6">
-                        @if ($partnerLevels)
-                            {!! FormField::select('level_code', $partnerLevels, [
-                                'value' => old('level_code', $partner->level_code),
-                                'placeholder' => false,
-                                'label' => __('partner.level'),
-                            ]) !!}
-                        @else
-                            {{ Form::hidden('level_code') }}
-                        @endif
+                        {!! FormField::select('level_code', $partnerLevels, [
+                            'value' => old('level_code', $selectedPartnerLevel),
+                            'label' => __('partner.level'),
+                        ]) !!}
                     </div>
                 </div>
                 <div class="row">
