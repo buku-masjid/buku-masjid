@@ -42,9 +42,9 @@
                 </div>
                 {!! Form::model($editableFile, ['route' => ['transactions.files.update', [$transaction, $editableFile]], 'method' => 'patch']) !!}
                 <div class="modal-body">
-                    @if (in_array($file->type_code, ['raw_image', 'image']))
-                        <a href="{{ asset('storage/'.$file->file_path) }}" class="d-block mb-4">
-                            <img src="{{ asset('storage/'.$file->file_path) }}" alt="{{ $file->title }}" class="img-fluid">
+                    @if (in_array($editableFile->type_code, ['raw_image', 'image']))
+                        <a href="{{ asset('storage/'.$editableFile->file_path) }}" class="d-block mb-4">
+                            <img src="{{ asset('storage/'.$editableFile->file_path) }}" alt="{{ $editableFile->title }}" class="img-fluid">
                         </a>
                     @endif
                     {!! FormField::text('title', ['label' => __('app.description'), 'placeholder' => __('transaction.upload_file_placeholder')]) !!}
