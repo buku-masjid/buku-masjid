@@ -6,11 +6,15 @@
                 <img src="{{ asset('images/spinner.gif') }}" alt="Data loading spinner">
             </div>
         @else
-            <div class="h2 font-weight-bold mb-4 text-{{ $percentColor }}">{{ $diskUsageInPercent }} %</div>
-            <div class="progress progress-sm">
-                <div class="progress-bar bg-{{ $percentColor }}" style="width: {{ $diskUsageInPercent }}%"></div>
-            </div>
-            <div class="text-muted">{{ $diskUsage }} of {{ $diskQuota }}</div>
+            @if ($diskUsageInPercent)
+                <div class="h2 font-weight-bold mb-4 text-{{ $percentColor }}">{{ $diskUsageInPercent }} %</div>
+                <div class="progress progress-sm">
+                    <div class="progress-bar bg-{{ $percentColor }}" style="width: {{ $diskUsageInPercent }}%"></div>
+                </div>
+                <div class="text-muted">{{ $diskUsage }} of {{ $diskQuota }}</div>
+            @else
+                <div class="h2 font-weight-bold text-info">{{ $diskUsage }}</div>
+            @endif
         @endif
     </div>
 </div>

@@ -22,8 +22,10 @@ class DiskUsage extends Component
     public function getDiskUsage()
     {
         $this->diskUsage = $this->calculateDiskUsage();
-        $this->diskQuota = config('filesystems.disk_quota');
-        $this->diskUsageInPercent = get_percent($this->diskUsageInBytes, convert_to_bytes($this->diskQuota));
+        if (config('filesystems.disk_quota')) {
+            $this->diskQuota = config('filesystems.disk_quota');
+            $this->diskUsageInPercent = get_percent($this->diskUsageInBytes, convert_to_bytes($this->diskQuota));
+        }
         $this->percentColor = $this->getPercentColor((float) $this->diskUsageInPercent);
         $this->isLoading = false;
     }

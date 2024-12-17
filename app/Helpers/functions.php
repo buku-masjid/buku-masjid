@@ -123,9 +123,9 @@ function convert_to_bytes(string $from): ?int
     $number = substr($from, 0, -2);
     $suffix = strtoupper(substr($from, -2));
 
-    //B or no suffix
+    // B or no suffix
     if (is_numeric(substr($suffix, 0, 1))) {
-        return preg_replace('/[^\d]/', '', $from);
+        return null;
     }
 
     $exponent = array_flip($units)[$suffix] ?? null;
