@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Transactions;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Files\OptimizeImage;
 use App\Models\File;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -24,12 +25,14 @@ class FileController extends Controller
 
         foreach ($payload['files'] as $uploadedFile) {
             $fileName = $uploadedFile->store($filePath);
-            $transaction->files()->create([
+            $file = $transaction->files()->create([
                 'type_code' => 'raw_image',
                 'file_path' => $fileName,
                 'title' => $payload['title'],
                 'description' => $payload['description'],
             ]);
+
+            dispatch(new OptimizeImage($file));
         }
 
         flash(__('file.uploaded'), 'success');

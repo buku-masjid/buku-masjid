@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Jobs\Files\OptimizeImage;
 use App\Models\Book;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -15,6 +17,7 @@ class TransactionFilesUploadTest extends TestCase
     /** @test */
     public function user_can_upload_transaction_files()
     {
+        Bus::fake();
         Storage::fake(config('filesystem.default'));
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create();
@@ -53,6 +56,10 @@ class TransactionFilesUploadTest extends TestCase
 
         $file = $transaction->files->first();
         Storage::assertExists('files/'.$file->filename);
+
+        Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
+            return $job->file->id = $file->id;
+        });
     }
 
     /** @test */
