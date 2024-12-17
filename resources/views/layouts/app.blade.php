@@ -30,8 +30,6 @@
     @yield('styles')
 </head>
 <body>
-    @dump(Storage::cloud()->path('/'));
-    Disk free space ({{ Storage::disk('public')->path('/') }}): @dump(format_size_units(calculate_folder_size(Storage::disk('public')->path('/'))))
     <div id="app" class="page pb-7">
         <div class="flex-fill">
             @include('layouts.partials.top_nav')
@@ -40,9 +38,6 @@
             </div>
         </div>
     </div>
-    <footer>
-        {{-- Disk free space ({{ Storage::path('/') }}): {{ format_size_units(disk_total_space(Storage::path('/'))) }} --}}
-    </footer>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @include('layouts.partials.noty')

@@ -64,6 +64,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('categories/{category}/export-csv', 'Transactions\ExportController@byCategory')->name('transactions.exports.by_category');
     Route::resource('categories', 'CategoriesController');
 
+    Route::get('system_info', 'SystemInfoController@index')->name('system_info.index');
+
     /*
      * Report Routes
      */
