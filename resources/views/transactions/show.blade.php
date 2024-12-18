@@ -111,7 +111,12 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('transaction.files') }}</h3>
+                <h3 class="card-title">
+                    {{ __('transaction.files') }}
+                    @if (!$transaction->files->isEmpty())
+                        ({{ $transaction->files->count() }})
+                    @endif
+                </h3>
                 <div class="card-options">
                     @can('update', $transaction)
                         @can('manage-transactions', auth()->activeBook())
