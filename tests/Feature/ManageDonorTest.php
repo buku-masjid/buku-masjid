@@ -26,6 +26,7 @@ class ManageDonorTest extends TestCase
     public function user_can_create_a_donor()
     {
         $this->loginAsUser();
+        config(['partners.partner_levels' => 'donatur:silver|Silver|gold|Gold']);
         $this->visitRoute('donors.search');
 
         $this->click(__('donor.create'));
@@ -37,7 +38,7 @@ class ManageDonorTest extends TestCase
             'gender_code' => 'f',
             'work' => 'Dokter',
             'description' => 'Donor 1 description',
-            'level_code' => '',
+            'level_code' => 'silver',
             'address' => 'Donor 1 address',
         ]);
 
@@ -51,7 +52,7 @@ class ManageDonorTest extends TestCase
             'description' => 'Donor 1 description',
             'address' => 'Donor 1 address',
             'type_code' => json_encode(['donatur']),
-            'level_code' => null,
+            'level_code' => json_encode(['donatur' => 'silver']),
         ]);
     }
 
