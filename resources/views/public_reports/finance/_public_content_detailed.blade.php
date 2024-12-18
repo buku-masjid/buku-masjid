@@ -49,6 +49,25 @@
                         <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
                             <td class="text-center">{{ $transaction->date }}</td>
                             <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
+                                @if ($transaction->files->count())
+                                    <div class="dropdown float-right">
+                                        <a class="badge badge-light text-dark" data-toggle="dropdown" aria-expanded="false">
+                                            {{ $transaction->files->count() }} <i class="fe fe-image"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            @foreach ($transaction->files as $file)
+                                                <div class="dropdown-item">
+                                                    <a href="{{ asset('storage/'.$file->file_path) }}">
+                                                        <img src="{{ asset('storage/'.$file->file_path) }}" alt="{{ $file->title }}" class="img-fluid" style="width: 100%">
+                                                        @if ($file->title)
+                                                            <div>{{ $file->title }}</div>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
                                 {!! $transaction->date_alert !!} {{ $transaction->description }}
                             </td>
                             <td class="text-right text-nowrap">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
