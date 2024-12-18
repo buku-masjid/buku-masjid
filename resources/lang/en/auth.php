@@ -12,6 +12,7 @@ return [
     'user_inactive' => 'This user is in active.',
     'remember_me' => 'Remember Me',
     'have_account' => 'I have an account',
+    'api_token_expired' => 'API token expired.',
 
     // Password
     'change_password' => 'Change Password',
