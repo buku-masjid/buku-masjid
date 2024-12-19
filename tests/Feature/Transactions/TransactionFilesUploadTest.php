@@ -55,7 +55,7 @@ class TransactionFilesUploadTest extends TestCase
         ]);
 
         $file = $transaction->files->first();
-        Storage::assertExists('files/'.$file->filename);
+        Storage::assertExists($file->file_path);
 
         Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
             return $job->file->id = $file->id;
