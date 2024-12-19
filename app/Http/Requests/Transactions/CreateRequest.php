@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Transactions;
 
+use App\Jobs\Files\OptimizeImage;
 use App\Transaction;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -34,6 +35,8 @@ class CreateRequest extends FormRequest
             'partner_id' => 'nullable|exists:partners,id',
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
+            'files' => ['nullable', 'array'],
+            'files.*' => ['file', 'max:5120'],
         ];
     }
 
@@ -46,7 +49,22 @@ class CreateRequest extends FormRequest
     {
         $newTransaction = $this->validated();
         $newTransaction['creator_id'] = $this->user()->id;
+        $transaction = Transaction::create($newTransaction);
 
-        return Transaction::create($newTransaction);
+        if (!isset($newTransaction['files'])) {
+            return $transaction;
+        }
+
+        $filePath = 'files/'.now()->format('Y/m/d');
+        foreach ($newTransaction['files'] as $uploadedFile) {
+            $fileName = $uploadedFile->store($filePath);
+            $file = $transaction->files()->create([
+                'type_code' => 'raw_image',
+                'file_path' => $fileName,
+            ]);
+            dispatch(new OptimizeImage($file));
+        }
+
+        return $transaction;
     }
 }

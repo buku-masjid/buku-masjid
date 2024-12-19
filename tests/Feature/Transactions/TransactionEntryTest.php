@@ -2,11 +2,15 @@
 
 namespace Tests\Feature\Transactions;
 
+use App\Jobs\Files\OptimizeImage;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Partner;
+use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class TransactionEntryTest extends TestCase
@@ -55,6 +59,70 @@ class TransactionEntryTest extends TestCase
     }
 
     /** @test */
+    public function user_can_create_an_income_transaction_with_files()
+    {
+        Bus::fake();
+        Storage::fake(config('filesystem.default'));
+
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create();
+        $category = factory(Category::class)->create([
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'color' => config('masjid.income_color'),
+        ]);
+        $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
+
+        $this->click(__('transaction.add_income'));
+        $this->seeRouteIs('transactions.create', ['action' => 'add-income', 'month' => $month, 'year' => $year]);
+
+        $this->submitForm(__('transaction.add_income'), [
+            'amount' => 99.99,
+            'date' => $date,
+            'description' => 'Income description',
+            'category_id' => $category->id,
+            'partner_id' => $partner->id,
+            'bank_account_id' => '',
+            'files' => [
+                public_path('screenshots/01-monthly-report-for-public.jpg'),
+            ],
+        ]);
+
+        $this->seeRouteIs('transactions.index', ['month' => $month, 'year' => $year]);
+        $this->see(__('transaction.income_added'));
+
+        $transaction = Transaction::first();
+        $this->seeInDatabase('transactions', [
+            'id' => $transaction->id,
+            'in_out' => 1, // 0:spending, 1:income
+            'amount' => 99.99,
+            'date' => $date,
+            'description' => 'Income description',
+            'category_id' => $category->id,
+            'partner_id' => $partner->id,
+        ]);
+
+        $this->seeInDatabase('files', [
+            'fileable_id' => $transaction->id,
+            'fileable_type' => 'transactions',
+            'type_code' => 'raw_image',
+            'title' => null,
+            'description' => null,
+        ]);
+
+        $file = $transaction->files()->first();
+        Storage::assertExists($file->file_path);
+
+        Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
+            return $job->file->id = $file->id;
+        });
+    }
+
+    /** @test */
     public function user_can_create_a_spending_transaction()
     {
         $month = '01';
@@ -86,6 +154,63 @@ class TransactionEntryTest extends TestCase
             'bank_account_id' => $bankAccount->id,
             'partner_id' => null,
         ]);
+    }
+
+    /** @test */
+    public function user_can_create_a_spending_transaction_with_uploaded_files()
+    {
+        Bus::fake();
+        Storage::fake(config('filesystem.default'));
+
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $bankAccount = factory(BankAccount::class)->create();
+        $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
+
+        $this->click(__('transaction.add_spending'));
+        $this->seeRouteIs('transactions.create', ['action' => 'add-spending', 'month' => $month, 'year' => $year]);
+
+        $this->submitForm(__('transaction.add_spending'), [
+            'amount' => 99.99,
+            'date' => $date,
+            'description' => 'Spending description',
+            'bank_account_id' => $bankAccount->id,
+            'files' => [
+                public_path('screenshots/01-monthly-report-for-public.jpg'),
+            ],
+        ]);
+
+        $this->seeRouteIs('transactions.index', ['month' => $month, 'year' => $year]);
+        $this->see(__('transaction.spending_added'));
+
+        $transaction = Transaction::first();
+        $this->seeInDatabase('transactions', [
+            'id' => $transaction->id,
+            'in_out' => 0, // 0:spending, 1:income
+            'amount' => 99.99,
+            'date' => $date,
+            'description' => 'Spending description',
+            'bank_account_id' => $bankAccount->id,
+            'partner_id' => null,
+        ]);
+
+        $this->seeInDatabase('files', [
+            'fileable_id' => $transaction->id,
+            'fileable_type' => 'transactions',
+            'type_code' => 'raw_image',
+            'title' => null,
+            'description' => null,
+        ]);
+
+        $file = $transaction->files()->first();
+        Storage::assertExists($file->file_path);
+
+        Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
+            return $job->file->id = $file->id;
+        });
     }
 
     /** @test */

@@ -14,7 +14,7 @@
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-secondary btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
-                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
                 {{ Form::hidden('in_out', 1) }}
                 <div class="card-body">
                     <div class="row">
@@ -36,6 +36,15 @@
                         {{ Form::hidden('partner_id') }}
                     @endif
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
+                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                        <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_income'), ['class' => 'btn btn-success']) !!}
@@ -55,7 +64,7 @@
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-gray btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
-                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
                 {{ Form::hidden('in_out', 0) }}
                 <div class="card-body">
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin'), 'placeholder' => __('transaction.cash')]) !!}
@@ -77,6 +86,15 @@
                                 {{ Form::hidden('partner_id') }}
                             @endif
                         </div>
+                    </div>
+                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                        <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="card-footer">
