@@ -69,7 +69,10 @@ class Controller extends BaseController
             }
         });
 
-        return $transactionQuery->orderBy('date', 'asc')->with('category', 'bankAccount', 'book')->get();
+        return $transactionQuery->orderBy('date', 'asc')
+            ->with('category', 'bankAccount', 'book')
+            ->withCount('files')
+            ->get();
     }
 
     protected function getTansactionsByDateRange(string $startDate, string $endDate)

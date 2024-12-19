@@ -42,6 +42,9 @@
             {!! link_to_route('database_backups.index', __('database_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'database_backups' ? ' active' : '')]) !!}
         </li>
     @endcan
+    <li class="nav-item">
+        {!! link_to_route('system_info.index', __('settings.system_info'), [], ['class' => 'nav-link'.(Request::segment(1) == 'system_info' ? ' active' : '')]) !!}
+    </li>
 </ul>
 
 @yield('content_settings')

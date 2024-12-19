@@ -18,6 +18,7 @@
         "php": "^8.1",
         "ext-intl": "*",
         "backup-manager/laravel": "dev-laravel_9_support",
+        "intervention/image-laravel": "^1.3",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",
         "laravel/slack-notification-channel": "^3.3",

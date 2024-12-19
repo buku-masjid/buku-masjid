@@ -23,6 +23,11 @@
     </span>
 </div>
 <div style="margin-bottom: 6px;">
+    @if ($transaction->files_count)
+        <a href="{{ route('transactions.show', $transaction) }}" class="badge text-dark px-1" style="font-size: 90%;">
+            {{ $transaction->files_count }} <i class="fe fe-image"></i>
+        </a>
+    @endif
     @if ($transaction->partner)
         @php
             $partnerRoute = route('partners.show', [
