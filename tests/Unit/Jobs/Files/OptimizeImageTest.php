@@ -43,4 +43,20 @@ class OptimizeImageTest extends TestCase
             'type_code' => 'image',
         ]);
     }
+
+    /** @test */
+    public function resize_image_skip_non_raw_images()
+    {
+        $file = File::create([
+            'file_path' => 'files/landscape_image.jpg',
+            'type_code' => 'other_type_code',
+        ]);
+
+        dispatch(new OptimizeImage($file));
+
+        $this->seeInDatabase('files', [
+            'id' => $file->id,
+            'type_code' => 'other_type_code',
+        ]);
+    }
 }

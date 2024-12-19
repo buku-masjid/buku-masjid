@@ -24,6 +24,10 @@ class OptimizeImage implements ShouldQueue
     public function handle(): void
     {
         $file = $this->file;
+        if ($file->type_code != 'raw_image') {
+            return;
+        }
+
         $image = Image::read(Storage::path($file->file_path));
         $image->scale(1000, 1000);
         $image->save();
