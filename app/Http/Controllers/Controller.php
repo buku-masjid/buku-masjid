@@ -109,7 +109,7 @@ class Controller extends BaseController
             }
         });
 
-        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book', 'files')->get();
+        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book')->get();
     }
 
     protected function getIncomeTotal($transactions)
