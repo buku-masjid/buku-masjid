@@ -66,6 +66,11 @@ class DonorController extends Controller
             'description' => 'nullable|max:255',
         ]);
         $newPartner['type_code'] = ['donatur'];
+        if ($newPartner['level_code']) {
+            $newPartner['level_code'] = [
+                'donatur' => $newPartner['level_code'],
+            ];
+        }
         $newPartner['creator_id'] = auth()->id();
 
         $partner = Partner::create($newPartner);
