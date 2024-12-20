@@ -139,4 +139,42 @@ class TransactionFilesUploadTest extends TestCase
 
         Storage::assertMissing($file->file_path);
     }
+
+    /** @test */
+    public function deleting_transaction_will_also_deletes_transaction_files()
+    {
+        Storage::fake(config('filesystem.default'));
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => 0,
+            'amount' => 99.99,
+            'creator_id' => $user->id,
+            'book_id' => $book->id,
+        ]);
+        $this->visitRoute('transactions.show', [$transaction, 'action' => 'upload_files']);
+        $this->submitForm(__('file.upload'), [
+            'files' => [
+                public_path('screenshots/01-monthly-report-for-public.jpg'),
+            ],
+            'title' => 'Document title',
+            'description' => 'Document file description',
+        ]);
+
+        $file = $transaction->files->first();
+        Storage::assertExists($file->file_path);
+
+        $this->visitRoute('transactions.show', $transaction);
+        $this->click('edit-transaction-'.$file->id);
+        $this->seeRouteIs('transactions.edit', $transaction);
+        $this->click('del-transaction-'.$file->id);
+        $this->seeRouteIs('transactions.edit', [$transaction, 'action' => 'delete']);
+
+        $this->press(__('app.delete_confirm_button'));
+
+        $this->seeText(__('transaction.deleted'));
+        $this->dontSeeInDatabase('files', ['id' => $file->id]);
+
+        Storage::assertMissing($file->file_path);
+    }
 }

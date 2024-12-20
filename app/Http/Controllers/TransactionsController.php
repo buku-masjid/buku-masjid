@@ -11,6 +11,7 @@ use App\Models\Partner;
 use App\Transaction;
 use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionsController extends Controller
 {
@@ -232,7 +233,13 @@ class TransactionsController extends Controller
         $this->authorize('delete', $transaction);
 
         request()->validate(['transaction_id' => 'required']);
-        if (request('transaction_id') == $transaction->id && $transaction->delete()) {
+
+        DB::beginTransaction();
+        $transaction->files->each->delete();
+        $isTransactionDeleted = $transaction->delete();
+        DB::commit();
+
+        if (request('transaction_id') == $transaction->id && $isTransactionDeleted) {
             flash(__('transaction.deleted'), 'warning');
 
             if ($referencePage = request('reference_page')) {
