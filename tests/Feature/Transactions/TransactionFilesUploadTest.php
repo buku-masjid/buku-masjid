@@ -74,16 +74,12 @@ class TransactionFilesUploadTest extends TestCase
             'creator_id' => $user->id,
             'book_id' => $book->id,
         ]);
-        $this->visitRoute('transactions.show', [$transaction, 'action' => 'upload_files']);
-        $this->submitForm(__('file.upload'), [
-            'files' => [
-                public_path('screenshots/01-monthly-report-for-public.jpg'),
-            ],
-            'title' => 'Document title',
-            'description' => 'Document file description',
+        Storage::makeDirectory('files');
+        copy(public_path('screenshots/01-monthly-report-for-public.jpg'), Storage::path('files/landscape_image.jpg'));
+        $file = $transaction->files()->create([
+            'file_path' => 'files/landscape_image.jpg',
+            'type_code' => 'raw_image',
         ]);
-
-        $file = $transaction->files->first();
         Storage::assertExists($file->file_path);
 
         $this->visitRoute('transactions.show', $transaction);
@@ -117,16 +113,13 @@ class TransactionFilesUploadTest extends TestCase
             'creator_id' => $user->id,
             'book_id' => $book->id,
         ]);
-        $this->visitRoute('transactions.show', [$transaction, 'action' => 'upload_files']);
-        $this->submitForm(__('file.upload'), [
-            'files' => [
-                public_path('screenshots/01-monthly-report-for-public.jpg'),
-            ],
-            'title' => 'Document title',
-            'description' => 'Document file description',
-        ]);
 
-        $file = $transaction->files->first();
+        Storage::makeDirectory('files');
+        copy(public_path('screenshots/01-monthly-report-for-public.jpg'), Storage::path('files/landscape_image.jpg'));
+        $file = $transaction->files()->create([
+            'file_path' => 'files/landscape_image.jpg',
+            'type_code' => 'raw_image',
+        ]);
         Storage::assertExists($file->file_path);
 
         $this->visitRoute('transactions.show', $transaction);
