@@ -63,7 +63,11 @@ class FileController extends Controller
     {
         $this->authorize('update', $transaction);
 
-        $file->delete();
+        $deletableFile = $transaction->files()->where('id', $file->id)->first();
+        if (is_null($deletableFile)) {
+            abort(404);
+        }
+        $deletableFile->delete();
 
         flash(__('file.deleted'), 'warning');
 

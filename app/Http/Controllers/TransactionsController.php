@@ -6,7 +6,6 @@ use App\Http\Requests\Transactions\CreateRequest;
 use App\Http\Requests\Transactions\UpdateRequest;
 use App\Models\BankAccount;
 use App\Models\Category;
-use App\Models\File;
 use App\Models\Partner;
 use App\Transaction;
 use Facades\App\Helpers\Setting;
@@ -154,7 +153,7 @@ class TransactionsController extends Controller
     {
         $editableFile = null;
         if (in_array($request->get('action'), ['edit_file'])) {
-            $editableFile = File::find($request->get('file_id'));
+            $editableFile = $transaction->files()->where('id', $request->get('file_id'))->first();
         }
 
         return view('transactions.show', compact('transaction', 'editableFile'));

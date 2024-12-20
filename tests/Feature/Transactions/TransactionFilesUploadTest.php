@@ -102,6 +102,27 @@ class TransactionFilesUploadTest extends TestCase
     }
 
     /** @test */
+    public function security_prevent_user_from_editing_other_transactions_file_from_the_current_transaction()
+    {
+        Storage::fake(config('filesystem.default'));
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['creator_id' => $user->id, 'book_id' => $book->id]);
+        $transactionFile = $transaction->files()->create(['file_path' => 'file.jpg', 'type_code' => 'raw_image']);
+        $otherTransaction = factory(Transaction::class)->create(['creator_id' => $user->id, 'book_id' => $book->id]);
+        $otherTransactionFile = $otherTransaction->files()->create(['file_path' => 'file.jpg', 'type_code' => 'raw_image']);
+
+        $this->visitRoute('transactions.show', [$transaction, 'action' => 'edit_file', 'file_id' => $transactionFile->id]);
+        $this->seeElement('input', ['type' => 'submit', 'value' => __('file.update')]);
+
+        $this->visitRoute('transactions.show', [$otherTransaction, 'action' => 'edit_file', 'file_id' => $otherTransactionFile->id]);
+        $this->seeElement('input', ['type' => 'submit', 'value' => __('file.update')]);
+
+        $this->visitRoute('transactions.show', [$transaction, 'action' => 'edit_file', 'file_id' => $otherTransactionFile->id]);
+        $this->dontSeeElement('input', ['type' => 'submit', 'value' => __('file.update')]);
+    }
+
+    /** @test */
     public function user_can_delete_transaction_file()
     {
         Storage::fake(config('filesystem.default'));
@@ -169,5 +190,26 @@ class TransactionFilesUploadTest extends TestCase
         $this->dontSeeInDatabase('files', ['id' => $file->id]);
 
         Storage::assertMissing($file->file_path);
+    }
+
+    /** @test */
+    public function security_prevent_user_from_deleting_other_transactions_file_from_the_current_transaction()
+    {
+        Storage::fake(config('filesystem.default'));
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create(['creator_id' => $user->id, 'book_id' => $book->id]);
+        $transactionFile = $transaction->files()->create(['file_path' => 'file.jpg', 'type_code' => 'raw_image']);
+        $otherTransaction = factory(Transaction::class)->create(['creator_id' => $user->id, 'book_id' => $book->id]);
+        $otherTransactionFile = $otherTransaction->files()->create(['file_path' => 'file.jpg', 'type_code' => 'raw_image']);
+
+        $this->delete(route('transactions.files.destroy', [$transaction, $transactionFile]));
+        $this->seeStatusCode(302);
+
+        $this->delete(route('transactions.files.destroy', [$transaction, $otherTransactionFile]));
+        $this->seeStatusCode(404);
+
+        $this->delete(route('transactions.files.destroy', [$otherTransaction, $otherTransactionFile]));
+        $this->seeStatusCode(302);
     }
 }
