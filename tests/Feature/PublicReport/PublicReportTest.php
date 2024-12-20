@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\PublicSchedule;
+namespace Tests\Feature\PublicReport;
 
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
