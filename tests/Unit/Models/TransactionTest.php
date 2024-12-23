@@ -147,7 +147,7 @@ class TransactionTest extends TestCase
     }
 
     /** @test */
-    public function transaction_model_has_has_many_attachments_relation()
+    public function transaction_model_has_has_many_files_relation()
     {
         $transaction = factory(Transaction::class)->create();
         $file = File::create([
