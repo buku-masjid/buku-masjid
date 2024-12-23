@@ -108,6 +108,87 @@
             </table>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    {{ __('transaction.files') }}
+                    @if (!$transaction->files->isEmpty())
+                        ({{ $transaction->files->count() }})
+                    @endif
+                </h3>
+                <div class="card-options">
+                    @can('update', $transaction)
+                        @can('manage-transactions', auth()->activeBook())
+                            {!! link_to_route(
+                                'transactions.show',
+                                __('transaction.upload_files'),
+                                [$transaction, 'action' => 'upload_files'],
+                                ['id' => 'upload_files-transaction-'.$transaction->id, 'class' => 'btn btn-success mr-2']
+                            ) !!}
+                        @endcan
+                    @endcan
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach ($transaction->files as $file)
+                @if (in_array($file->type_code, ['raw_image', 'image']))
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-4 text-center">
+                                    <a href="{{ asset('storage/'.$file->file_path) }}">
+                                        <img src="{{ asset('storage/'.$file->file_path) }}" alt="{{ $file->title }}" class="img-fluid">
+                                    </a>
+                                </div>
+                                @if ($file->title)
+                                    <h4 class="card-title mb-2"><a href="javascript:void(0)">{{ $file->title }}</a></h4>
+                                @endif
+                                <div class="card-subtitle mt-3">{{ $file->description }}</div>
+                                @can('update', $transaction)
+                                    @can('manage-transactions', auth()->activeBook())
+                                        <div class="mt-5 d-flex align-items-center">
+                                            <div>
+                                                {!! FormField::delete(
+                                                    ['route' => ['transactions.files.destroy', [$transaction, $file->id]], 'onsubmit' => __('app.delete_confirm')],
+                                                    '<i class="fe fe-trash-2"></i> '.__('app.delete'),
+                                                    ['class' => 'btn btn-danger btn-sm', 'id' => 'delete-file-'.$file->id],
+                                                    ['file_id' => $file->id]
+                                                ) !!}
+                                            </div>
+
+                                            <div class="ml-auto">
+                                                <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
+                                                    id="edit-file-{{ $file->id }}"
+                                                    class="btn btn-warning btn-sm text-dark">
+                                                    <i class="fe fe-edit"></i> {{ __('app.edit') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endcan
+                                @endcan
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
 </div>
 
+@if(Request::has('action'))
+    @include('transactions._show_forms')
+@endif
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+    $('#transactionModal').modal({
+        show: true,
+        backdrop: 'static',
+    });
+})();
+</script>
+@endpush

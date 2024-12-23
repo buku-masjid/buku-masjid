@@ -78,6 +78,10 @@ return [
     */
 
     'failed' => [
+        // Refs:
+        // - https://laracasts.com/discuss/channels/lumen/uuid-on-queue-failed-jobs-is-empty
+        // - https://github.com/laravel/laravel/blob/e87bfd60ed4ca30109aa73c4d23250c113fe75ff/config/queue.php#L88
+        'driver' => 'database-uuids',
         'database' => env('DB_CONNECTION', 'mysql'),
         'table' => 'failed_jobs',
     ],

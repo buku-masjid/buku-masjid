@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Transactions;
+namespace Tests\Feature\Reports;
 
 use App\Models\Book;
 use App\Transaction;

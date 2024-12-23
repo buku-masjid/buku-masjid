@@ -65,4 +65,5 @@ return [
 
     ],
 
+    'disk_quota' => env('DISK_QUOTA'),
 ];

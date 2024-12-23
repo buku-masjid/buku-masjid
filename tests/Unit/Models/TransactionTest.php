@@ -5,10 +5,12 @@ namespace Tests\Unit\Models;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\File;
 use App\Models\Partner;
 use App\Transaction;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -142,5 +144,22 @@ class TransactionTest extends TestCase
         $transaction = factory(Transaction::class)->make(['date' => $date]);
 
         $this->assertEquals('Ahad', $transaction->day_name);
+    }
+
+    /** @test */
+    public function transaction_model_has_has_many_files_relation()
+    {
+        $transaction = factory(Transaction::class)->create();
+        $file = File::create([
+            'fileable_id' => $transaction->id,
+            'fileable_type' => 'transactions',
+            'type_code' => 'image',
+            'file_path' => 'File title',
+            'title' => 'File title',
+            'description' => 'Some transaction description',
+        ]);
+
+        $this->assertInstanceOf(Collection::class, $transaction->files);
+        $this->assertInstanceOf(File::class, $transaction->files->first());
     }
 }
