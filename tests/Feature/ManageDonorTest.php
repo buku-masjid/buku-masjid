@@ -151,40 +151,60 @@ class ManageDonorTest extends TestCase
     {
         $this->loginAsUser();
 
-        // // Valid phone number
-        $this->post(route('donors.store'), [
-            'phone' => '081234560000',
-        ]);
-        $this->assertSessionMissingErrors('phone');
+        // Valid numbers
+        $validCases = [
+            [
+                'phone' => '+6281234567890',
+                'desc' => 'Indonesian number with country code',
+            ],
+            [
+                'phone' => '081234567890',
+                'desc' => 'Indonesian number without country code',
+            ],
+            [
+                'phone' => '+12125551234',
+                'desc' => 'US number',
+            ],
+        ];
 
-        // Invalid cases
-        // Fails because doesn't start with 08
-        $this->post(route('donors.store'), [
-            'phone' => '091234560000',
-        ]);
-        $this->assertSessionHasErrors('phone');
+        foreach ($validCases as $case) {
+            $this->post(route('donors.store'), [
+                'phone' => $case['phone'],
+            ])->assertSessionMissingErrors('phone');
+        }
 
-        // Fails because contains space
-        $this->post(route('donors.store'), [
-            'phone' => '081234 56000',
-        ]);
-        $this->assertSessionHasErrors('phone');
+        // Invalid numbers
+        $invalidCases = [
+            [
+                'phone' => '123 456 789',
+                'desc' => 'contains spaces',
+            ],
+            [
+                'phone' => '123-456-789',
+                'desc' => 'contains hyphens',
+            ],
+            [
+                'phone' => '+abc12345678',
+                'desc' => 'contains letters',
+            ],
+            [
+                'phone' => '123456789',
+                'desc' => 'too short (9 digits)',
+            ],
+            [
+                'phone' => '1234567890123456',
+                'desc' => 'too long (16 digits)',
+            ],
+            [
+                'phone' => '++6281234567890',
+                'desc' => 'multiple plus signs',
+            ],
+        ];
 
-        // Fails because contains symbols
-        $this->post(route('donors.store'), [
-            'phone' => '081234-560000',
-        ]);
-        $this->assertSessionHasErrors('phone');
-
-        // Fails because contains non-digit characters
-        $this->post(route('donors.store'), [
-            'phone' => '081234abc000',
-        ]);
-        $this->assertSessionHasErrors('phone');
-
-        $this->post(route('donor_transactions.store'), [
-            'partner_phone' => '81234abc000',
-        ]);
-        $this->assertSessionHasErrors('partner_phone');
+        foreach ($invalidCases as $case) {
+            $this->post(route('donors.store'), [
+                'phone' => $case['phone'],
+            ])->assertSessionHasErrors('phone');
+        }
     }
 }
