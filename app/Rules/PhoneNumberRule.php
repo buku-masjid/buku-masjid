@@ -13,12 +13,11 @@ class PhoneNumberRule implements ValidationRule
         $value = trim($value);
 
         if (Str::contains($value, ' ')) {
-            $fail('The :attribute must not contain spaces.');
+            $fail(__('validation.numeric'));
         }
 
-        // Check if starts with optional + and followed by numbers only
         if (!preg_match('/^\+?\d+$/', $value)) {
-            $fail('The :attribute must contain only numbers and may start with +.');
+            $fail(__('validation.partner.phone.starts_with'));
         }
 
         // Check length (excluding + if present)
@@ -26,7 +25,7 @@ class PhoneNumberRule implements ValidationRule
         $length = strlen($numberOnly);
 
         if ($length < 10 || $length > 15) {
-            $fail('The :attribute must be between 10 and 15 digits.');
+            $fail(__('validation.partner.phone.between', ['min' => 10, 'max' => 15]));
         }
     }
 }
