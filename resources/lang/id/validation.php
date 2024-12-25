@@ -119,8 +119,12 @@ return [
         'notes' => [
             'max' => 'Catatan donatur maksimal :max karakter.',
         ],
+    ],
+
+    'partner' => [
         'phone' => [
-            'starts_with' => 'No. HP/WA harus diawali :starting_numberxxx.',
+            'between' => 'No. HP/WA antara :min dan :max digit.',
+            'starts_with' => 'No. HP/WA harus berupa nomor dan dapat diawali dengan +.',
         ],
     ],
 

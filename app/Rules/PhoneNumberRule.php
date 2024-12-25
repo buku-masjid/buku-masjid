@@ -10,16 +10,22 @@ class PhoneNumberRule implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!Str::startsWith($value, '08')) {
-            $fail(__('validation.donor.phone.starts_with', ['starting_number' => '08']));
-        }
+        $value = trim($value);
 
         if (Str::contains($value, ' ')) {
             $fail(__('validation.numeric'));
         }
 
-        if (!preg_match('/^[0-9]+$/', $value)) {
-            $fail(__('validation.numeric'));
+        if (!preg_match('/^\+?\d+$/', $value)) {
+            $fail(__('validation.partner.phone.starts_with'));
+        }
+
+        // Check length (excluding + if present)
+        $numberOnly = ltrim($value, '+');
+        $length = strlen($numberOnly);
+
+        if ($length < 10 || $length > 15) {
+            $fail(__('validation.partner.phone.between', ['min' => 10, 'max' => 15]));
         }
     }
 }
