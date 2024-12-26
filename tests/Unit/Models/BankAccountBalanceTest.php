@@ -23,8 +23,9 @@ class BankAccountBalanceTest extends TestCase
     /** @test */
     public function bank_account_balance_model_has_amount_string_attribute()
     {
-        $bankAccountBalance = factory(BankAccountBalance::class)->make();
+        $amount = 1000001;
+        $bankAccountBalance = factory(BankAccountBalance::class)->make(['amount' => $amount]);
 
-        $this->assertEquals('1,000,001.00', $bankAccountBalance->amount_string);
+        $this->assertEquals(format_number($amount), $bankAccountBalance->amount_string);
     }
 }
