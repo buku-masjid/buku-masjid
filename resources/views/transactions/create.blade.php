@@ -19,22 +19,36 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('category_id', $categories, ['label' => __('category.category'), 'placeholder' => __('category.uncategorized')]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::select('category_id', $categories, [
+                                'label' => __('category.category'),
+                                'placeholder' => __('category.uncategorized'),
+                                'info' => ['text' => __('transaction.category_help_text', ['link' => $categorySettingLink])],
+                            ]) !!}
+                        </div>
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            {!! FormField::text('amount', [
+                                'required' => true,
+                                'label' => __('transaction.amount'),
+                                'addon' => ['before' => config('money.currency_code')],
+                                'step' => number_step(),
+                            ]) !!}
+                        </div>
+                        <div class="col-md-6">
+                            @if ($partnerTypeCodes)
+                                {!! FormField::select('partner_id', $partners, [
+                                    'label' => $partnerSelectionLabel,
+                                    'placeholder' => $partnerDefaultValue,
+                                    'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
+                                ]) !!}
+                            @else
+                                {{ Form::hidden('partner_id') }}
+                            @endif
+                        </div>
                     </div>
-                    @if ($partnerTypeCodes)
-                        {!! FormField::select('partner_id', $partners, [
-                            'label' => $partnerSelectionLabel,
-                            'placeholder' => $partnerDefaultValue,
-                            'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
-                        ]) !!}
-                    @else
-                        {{ Form::hidden('partner_id') }}
-                    @endif
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
                     <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
@@ -74,7 +88,14 @@
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('amount', [
+                                'required' => true,
+                                'label' => __('transaction.amount'),
+                                'addon' => ['before' => config('money.currency_code')],
+                                'step' => number_step(),
+                            ]) !!}
+                        </div>
                         <div class="col-md-6">
                             @if ($partnerTypeCodes)
                                 {!! FormField::select('partner_id', $partners, [
@@ -119,6 +140,7 @@
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
     {{ Html::script(url('js/plugins/select2.min.js')) }}
+    {{ Html::script(url('js/plugins/number-format.js')) }}
 <script>
 (function () {
     $('.date-select').datetimepicker({
@@ -129,6 +151,10 @@
         dayOfWeekStart: 1
     });
     $('#partner_id').select2({theme: "bootstrap"});
+    initNumberFormatter('#amount', {
+        thousandSeparator: '{{ config('money.thousands_separator') }}',
+        decimalSeparator: '{{ config('money.decimal_separator') }}'
+    });
 })();
 </script>
 @endpush
