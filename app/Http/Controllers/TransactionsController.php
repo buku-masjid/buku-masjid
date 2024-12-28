@@ -99,7 +99,7 @@ class TransactionsController extends Controller
                 ->pluck('name', 'id');
         }
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
-        $partnerSettingLink = link_to_route('partners.index', 'pengaturan', [], ['target' => '_blank']);
+        $partnerSettingLink = link_to_route('partners.search', __('settings.settings'), [], ['target' => '_blank']);
         $categorySettingLink = link_to_route('categories.index', __('settings.settings'), [], ['target' => '_blank']);
 
         return view('transactions.create', compact(
@@ -173,7 +173,7 @@ class TransactionsController extends Controller
         $incomePartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('income_partner_codes'), true) ?: [];
         $spendingPartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('spending_partner_codes'), true) ?: [];
         $partnerTypeCodes = array_merge($incomePartnerTypeCodes, $spendingPartnerTypeCodes);
-        $partnerSettingLink = link_to_route('partners.index', 'pengaturan', [], ['target' => '_blank']);
+        $partnerSettingLink = link_to_route('partners.search', __('settings.settings'), [], ['target' => '_blank']);
         $categorySettingLink = link_to_route('categories.index', __('settings.settings'), [], ['target' => '_blank']);
         $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
 

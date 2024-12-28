@@ -37,17 +37,18 @@
                                 'step' => number_step(),
                             ]) !!}
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            @if ($partnerTypeCodes)
+                                {!! FormField::select('partner_id', $partners, [
+                                    'label' => $partnerSelectionLabel,
+                                    'placeholder' => $partnerDefaultValue,
+                                    'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
+                                ]) !!}
+                            @else
+                                {{ Form::hidden('partner_id') }}
+                            @endif
+                        </div>
                     </div>
-                    @if ($partnerTypeCodes)
-                        {!! FormField::select('partner_id', $partners, [
-                            'label' => $partnerSelectionLabel,
-                            'placeholder' => $partnerDefaultValue,
-                            'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
-                        ]) !!}
-                    @else
-                        {{ Form::hidden('partner_id') }}
-                    @endif
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
                     <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
