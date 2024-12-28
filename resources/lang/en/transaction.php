@@ -41,6 +41,7 @@ return [
     'add_spending' => 'Add Spending',
     'spending_added' => 'Spending has been added.',
     'partner_help_text' => 'Add :partner from :link.',
+    'category_help_text' => 'Add category from :link.',
     'show' => 'Show Transaction Detail',
     'edit' => 'Edit Transaction',
     'update' => 'Update Transaction',

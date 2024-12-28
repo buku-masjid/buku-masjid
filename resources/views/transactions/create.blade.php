@@ -19,7 +19,13 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('category_id', $categories, ['label' => __('category.category'), 'placeholder' => __('category.uncategorized')]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::select('category_id', $categories, [
+                                'label' => __('category.category'),
+                                'placeholder' => __('category.uncategorized'),
+                                'info' => ['text' => __('transaction.category_help_text', ['link' => $categorySettingLink])],
+                            ]) !!}
+                        </div>
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
