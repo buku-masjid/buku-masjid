@@ -54,7 +54,7 @@ class DailyAverages extends Component
             $totalTransaction->type_code = $typeCode;
             $totalTransaction->description = __('transaction.'.$typeCode).' / '.__('time.day_name');
             $totalTransaction->day_count = $dayCount;
-            $totalTransaction->average = $totalTransaction->total / $dayCount;
+            $totalTransaction->average = $dayCount ? ($totalTransaction->total / $dayCount) : 0;
         });
         Cache::put($cacheKey, $dailyAveragesSummary, $duration);
 
