@@ -8,7 +8,6 @@ use App\Models\Lecturing;
 use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -46,7 +45,6 @@ class UserController extends Controller
         ]);
         $password = $newUser['password'] ?: config('auth.passwords.default');
         $newUser['password'] = bcrypt($password);
-        $newUser['api_token'] = Str::random(24);
         $newUser['is_active'] = 1;
 
         $user = User::create($newUser);
