@@ -37,7 +37,7 @@ class LecturingEditTest extends TestCase
         $lecturing = factory(Lecturing::class)->create(['title' => 'Testing 123']);
 
         $this->visitRoute('lecturings.show', $lecturing);
-        $this->click('edit-lecturing-' . $lecturing->id);
+        $this->click('edit-lecturing-'.$lecturing->id);
         $this->seeRouteIs('lecturings.edit', $lecturing);
 
         $this->submitForm(__('app.save'), $this->getEditFields());
@@ -138,7 +138,7 @@ class LecturingEditTest extends TestCase
         factory(Lecturing::class)->create();
 
         $this->visitRoute('lecturings.edit', $lecturing);
-        $this->click('del-lecturing-' . $lecturing->id);
+        $this->click('del-lecturing-'.$lecturing->id);
         $this->seeRouteIs('lecturings.edit', [$lecturing, 'action' => 'delete']);
 
         $this->press(__('app.delete_confirm_button'));
@@ -158,7 +158,7 @@ class LecturingEditTest extends TestCase
         $lecturing = factory(Lecturing::class)->create(['audience_code' => 'friday']);
 
         $this->visitRoute('lecturings.show', $lecturing);
-        $this->click('edit-lecturing-' . $lecturing->id);
+        $this->click('edit-lecturing-'.$lecturing->id);
         $this->seeRouteIs('friday_lecturings.edit', $lecturing);
         $this->seeText(__('lecturing.edit_for_friday'));
 
