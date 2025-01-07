@@ -101,10 +101,14 @@ class TransactionsController extends Controller
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $partnerSettingLink = link_to_route('partners.search', __('settings.settings'), [], ['target' => '_blank']);
         $categorySettingLink = link_to_route('categories.index', __('settings.settings'), [], ['target' => '_blank']);
+        $selectedDate = now()->format('Y-m-d');
+        if ($request->get('year') && $request->get('month')) {
+            $selectedDate = $request->get('year').'-'.$request->get('month').'-'.now()->format('d');
+        }
 
         return view('transactions.create', compact(
             'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue',
-            'partnerSelectionLabel', 'partnerSettingLink', 'categorySettingLink'
+            'partnerSelectionLabel', 'partnerSettingLink', 'categorySettingLink', 'selectedDate'
         ));
     }
 

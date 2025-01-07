@@ -59,6 +59,28 @@ class TransactionEntryTest extends TestCase
     }
 
     /** @test */
+    public function selected_date_is_based_on_selected_month()
+    {
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create();
+        $category = factory(Category::class)->create([
+            'book_id' => $book->id,
+            'creator_id' => $user->id,
+            'color' => config('masjid.income_color'),
+        ]);
+        $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
+
+        $this->click(__('transaction.add_income'));
+        $this->seeRouteIs('transactions.create', ['action' => 'add-income', 'month' => $month, 'year' => $year]);
+
+        $this->seeElement('input', ['id' => 'date', 'value' => $year.'-'.$month.'-'.now()->format('d')]);
+    }
+
+    /** @test */
     public function user_can_create_an_income_transaction_with_files()
     {
         Bus::fake();
