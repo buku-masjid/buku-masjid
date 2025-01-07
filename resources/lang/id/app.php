@@ -49,6 +49,7 @@ return [
     'delete_confirm_button' => 'Ya, silakan hapus!',
     'delete_confirm' => 'Anda yakin ingin menghapus?',
     'done' => 'Selesai',
+    'save' => 'Simpan',
     'switch_lang' => 'Ganti Bahasa',
     'switch_en_lang' => 'Gunakan Bahasa Inggris',
     'switch_id_lang' => 'Gunakan Bahasa Indonesia',

@@ -67,7 +67,7 @@
                 {!! FormField::textarea('description', ['label' => __('lecturing.description')]) !!}
             </div>
             <div class="card-footer">
-                {{ Form::submit(__('lecturing.update'), ['class' => 'btn btn-success']) }}
+                {{ Form::submit(__('app.save'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('lecturings.show', __('app.cancel'), [$lecturing], ['class' => 'btn btn-link']) }}
                 @can('delete', $lecturing)
                     {{ link_to_route('lecturings.edit', __('app.delete'), [$lecturing, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-lecturing-'.$lecturing->id]) }}

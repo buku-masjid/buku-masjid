@@ -30,7 +30,6 @@ return [
     'show' => 'View Lecturing Schedule Detail',
     'edit' => 'Edit Lecturing Schedule',
     'edit_for_friday' => 'Edit Khatib Schedule',
-    'update' => 'Update Lecturing Schedule',
     'updated' => 'Lecturing Schedule has been updated.',
     'delete' => 'Delete Lecturing Schedule',
     'delete_for_friday' => 'Delete Khatib Schedule',
