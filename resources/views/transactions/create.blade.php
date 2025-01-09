@@ -18,7 +18,14 @@
                 {{ Form::hidden('in_out', 1) }}
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('date', [
+                                'required' => true,
+                                'label' => __('app.date'),
+                                'value' => old('date', $selectedDate),
+                                'class' => 'date-select'
+                            ]) !!}
+                        </div>
                         <div class="col-md-6">
                             {!! FormField::select('category_id', $categories, [
                                 'label' => __('category.category'),
@@ -83,7 +90,14 @@
                 <div class="card-body">
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin'), 'placeholder' => __('transaction.cash')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('date', [
+                                'required' => true,
+                                'label' => __('app.date'),
+                                'value' => old('date', $selectedDate),
+                                'class' => 'date-select'
+                            ]) !!}
+                        </div>
                         <div class="col-md-6">
                             {!! FormField::select('category_id', $categories, [
                                 'label' => __('category.category'),
