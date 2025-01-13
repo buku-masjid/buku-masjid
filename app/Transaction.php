@@ -5,6 +5,7 @@ namespace App;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\File;
 use App\Models\Partner;
 use App\Traits\Models\ForActiveBook;
 use Carbon\Carbon;
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    const TYPE_INCOME = 1;
+    const TYPE_SPENDING = 0;
+
     use ForActiveBook;
 
     protected $fillable = [
@@ -101,5 +105,10 @@ class Transaction extends Model
         }
 
         return $amountString;
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }

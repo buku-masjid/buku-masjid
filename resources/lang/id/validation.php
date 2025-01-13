@@ -115,6 +115,19 @@ return [
         ],
     ],
 
+    'donor' => [
+        'notes' => [
+            'max' => 'Catatan donatur maksimal :max karakter.',
+        ],
+    ],
+
+    'partner' => [
+        'phone' => [
+            'between' => 'No. HP/WA antara :min dan :max digit.',
+            'starts_with' => 'No. HP/WA harus berupa nomor dan dapat diawali dengan +.',
+        ],
+    ],
+
     /*
     |---------------------------------------------------------------------------------------
     | Kustom Validasi Atribut

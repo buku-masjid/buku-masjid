@@ -9,13 +9,14 @@ return [
     'income' => 'Income',
     'spending' => 'Spending',
     'detail' => 'Transaction Detail',
-    'not_found' => 'Transaction not found.',
+    'not_found' => 'Transaction not found',
     'empty' => 'Transaction list is empty',
     'count' => 'Transaction entries',
     'forward_date_alert' => 'This transaction date is greater than today!',
     'back_to_show' => 'Back to Transaction detail',
     'back_to_index' => 'Back to Transaction list',
 
+    'total' => 'Transction Total',
     'income_total' => 'Income Total',
     'spending_total' => 'Spending Total',
     'difference' => 'Difference',
@@ -40,6 +41,7 @@ return [
     'add_spending' => 'Add Spending',
     'spending_added' => 'Spending has been added.',
     'partner_help_text' => 'Add :partner from :link.',
+    'category_help_text' => 'Add category from :link.',
     'show' => 'Show Transaction Detail',
     'edit' => 'Edit Transaction',
     'update' => 'Update Transaction',
@@ -52,6 +54,9 @@ return [
     'download' => 'Download CSV',
     'print_receipt' => 'Print Receipt',
     'print_spending_request' => 'Print Spending Request',
+    'files' => 'Transaction Receipts',
+    'upload_files' => 'Upload Transaction Receipt',
+    'upload_file_placeholder' => 'Transaction receipt',
 
     // Attributes
     'id' => 'Transaction ID',

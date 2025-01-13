@@ -15,6 +15,6 @@ class BankAccountBalance extends Model
     }
     public function getAmountStringAttribute()
     {
-        return number_format($this->amount, 2);
+        return format_number($this->amount);
     }
 }

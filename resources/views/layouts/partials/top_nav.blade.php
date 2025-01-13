@@ -30,17 +30,19 @@
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-repeat"></i> {{ __('transaction.transaction') }}</span>
             </a>
-            @can('view-any', new App\Models\BankAccount)
-                <a class="xs-navbar mr-4" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
-                    <i class="fe fe-book h3 d-inline d-lg-none"></i>
-                    <span class="d-none d-lg-inline"><i class="fe fe-book"></i> {{ __('bank_account.bank_account') }}</span>
-                </a>
-            @endcan
-            @if (Route::has('lecturings.index'))
-                @can('view-any', new App\Models\Lecturing)
-                    <a class="xs-navbar mr-4" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
-                        <i class="fe fe-book-open h3 d-inline d-lg-none"></i>
-                        <span class="d-none d-lg-inline"><i class="fe fe-book-open"></i> {{ __('lecturing.lecturing') }}</span>
+            @if (Route::has('donors.index'))
+                @can('view-any', new App\Models\Partner)
+                    <a class="xs-navbar mr-4" href="{{ route('donors.index') }}" title="{{ __('partner.partner_type_donor') }}">
+                        <i class="fe fe-pocket h3 d-inline d-lg-none"></i>
+                        <span class="d-none d-lg-inline"><i class="fe fe-pocket"></i> {{ __('partner.partner_type_donor') }}</span>
+                    </a>
+                @endcan
+            @endif
+            @if (Route::has('partners.index'))
+                @can('view-any', new App\Models\Partner)
+                    <a class="xs-navbar mr-4" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                        <i class="fe fe-users h3 d-inline d-lg-none"></i>
+                        <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner') }}</span>
                     </a>
                 @endcan
             @endif
@@ -70,29 +72,31 @@
 <!-- Mobile Navigation -->
 <nav class="navbar fixed-bottom navbar-light bg-white d-block d-sm-none border-top">
     <div class="row text-center small justify-content-center">
-        <a class="col border-right border-primary" href="{{ route('transactions.index') }}" title="{{ __('transaction.transaction') }}">
+        <a class="col px-1 border-right border-primary" href="{{ route('transactions.index') }}" title="{{ __('transaction.transaction') }}">
             <div><i class="fe fe-repeat h3"></i></div>
             {{ __('transaction.transaction') }}
         </a>
-        @can('view-any', new App\Models\BankAccount)
-            <a class="col border-right border-primary" href="{{ route('bank_accounts.index') }}" title="{{ __('bank_account.bank_account') }}">
-                <div><i class="fe fe-book h3"></i></div>
-                {{ __('bank_account.bank') }}
-            </a>
-        @endcan
-        @if (Route::has('lecturings.index'))
-            @can('view-any', new App\Models\Lecturing)
-                <a class="col border-right border-primary" href="{{ route('lecturings.index') }}" title="{{ __('lecturing.lecturing') }}">
-                    <div><i class="fe fe-book-open h3"></i></div>
-                    {{ __('lecturing.lecturing') }}
+        @if (Route::has('donors.index'))
+            @can('view-any', new App\Models\Partner)
+                <a class="col px-1 border-right border-primary" href="{{ route('donors.index') }}" title="{{ __('donor.donor') }}">
+                    <div><i class="fe fe-pocket h3"></i></div>
+                    {{ __('donor.donor') }}
                 </a>
             @endcan
         @endif
-        <a class="col border-right border-primary" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
+        @if (Route::has('partners.index'))
+            @can('view-any', new App\Models\Partner)
+                <a class="col px-1 border-right border-primary" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                    <div><i class="fe fe-users h3"></i></div>
+                    {{ __('partner.partner') }}
+                </a>
+            @endcan
+        @endif
+        <a class="col px-1 border-right border-primary" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
             <div><i class="fe fe-bar-chart-2 h3"></i></div>
             {{ __('report.report') }}
         </a>
-        <a class="col" href="{{ route('profile.show') }}" title="{{ __('settings.settings') }}">
+        <a class="col px-1" href="{{ route('profile.show') }}" title="{{ __('settings.settings') }}">
             <div><i class="fe fe-settings h3"></i></div>
             {{ __('settings.settings') }}
         </a>

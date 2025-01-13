@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\User;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
+use PHPUnit\Framework\Assert as PHPUnit;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -35,5 +36,25 @@ abstract class TestCase extends BaseTestCase
         }
 
         return factory(User::class)->create($userDataOverrides);
+    }
+
+    protected function assertSessionMissingErrors($bindings = [], $format = null)
+    {
+        $bindings = (array) $bindings;
+        $errors = $this->app['session.store']->get('errors');
+
+        if (is_null($errors)) {
+            PHPUnit::assertTrue(true);
+
+            return $this;
+        }
+
+        foreach ($bindings as $key => $value) {
+            if (is_int($key)) {
+                PHPUnit::assertFalse($errors->has($value), "Session missing error: $value");
+            } else {
+                PHPUnit::assertNotContains($value, $errors->get($key, $format));
+            }
+        }
     }
 }

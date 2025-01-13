@@ -14,16 +14,36 @@
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-secondary btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
-                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
                 {{ Form::hidden('in_out', 1) }}
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('category_id', $categories, ['label' => __('category.category'), 'placeholder' => __('category.uncategorized')]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('date', [
+                                'required' => true,
+                                'label' => __('app.date'),
+                                'value' => old('date', $selectedDate),
+                                'class' => 'date-select'
+                            ]) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! FormField::select('category_id', $categories, [
+                                'label' => __('category.category'),
+                                'placeholder' => __('category.uncategorized'),
+                                'info' => ['text' => __('transaction.category_help_text', ['link' => $categorySettingLink])],
+                            ]) !!}
+                        </div>
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('amount', [
+                                'required' => true,
+                                'label' => __('transaction.amount'),
+                                'addon' => ['before' => config('money.currency_code')],
+                                'step' => number_step(),
+                            ]) !!}
+                        </div>
                         <div class="col-md-6">
                             @if ($partnerTypeCodes)
                                 {!! FormField::select('partner_id', $partners, [
@@ -37,6 +57,15 @@
                         </div>
                     </div>
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
+                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                        <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_income'), ['class' => 'btn btn-success']) !!}
@@ -56,17 +85,37 @@
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-gray btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
-                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
                 {{ Form::hidden('in_out', 0) }}
                 <div class="card-body">
                     {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin'), 'placeholder' => __('transaction.cash')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::text('date', ['required' => true, 'label' => __('app.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
-                        <div class="col-md-6">{!! FormField::select('category_id', $categories, ['label' => __('category.category'), 'placeholder' => __('category.uncategorized')]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('date', [
+                                'required' => true,
+                                'label' => __('app.date'),
+                                'value' => old('date', $selectedDate),
+                                'class' => 'date-select'
+                            ]) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! FormField::select('category_id', $categories, [
+                                'label' => __('category.category'),
+                                'placeholder' => __('category.uncategorized'),
+                                'info' => ['text' => __('transaction.category_help_text', ['link' => $categorySettingLink])],
+                            ]) !!}
+                        </div>
                     </div>
                     {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
                     <div class="row">
-                        <div class="col-md-6">{!! FormField::price('amount', ['required' => true, 'label' => __('transaction.amount'), 'type' => 'number', 'currency' => config('money.currency_code'), 'step' => number_step()]) !!}</div>
+                        <div class="col-md-6">
+                            {!! FormField::text('amount', [
+                                'required' => true,
+                                'label' => __('transaction.amount'),
+                                'addon' => ['before' => config('money.currency_code')],
+                                'step' => number_step(),
+                            ]) !!}
+                        </div>
                         <div class="col-md-6">
                             @if ($partnerTypeCodes)
                                 {!! FormField::select('partner_id', $partners, [
@@ -78,6 +127,15 @@
                                 {{ Form::hidden('partner_id') }}
                             @endif
                         </div>
+                    </div>
+                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                        <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="card-footer">
@@ -102,6 +160,7 @@
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
     {{ Html::script(url('js/plugins/select2.min.js')) }}
+    {{ Html::script(url('js/plugins/number-format.js')) }}
 <script>
 (function () {
     $('.date-select').datetimepicker({
@@ -112,6 +171,10 @@
         dayOfWeekStart: 1
     });
     $('#partner_id').select2({theme: "bootstrap"});
+    initNumberFormatter('#amount', {
+        thousandSeparator: '{{ config('money.thousands_separator') }}',
+        decimalSeparator: '{{ config('money.decimal_separator') }}'
+    });
 })();
 </script>
 @endpush

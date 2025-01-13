@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Partner;
+use App\Transaction;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,14 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        Route::bind('transaction', function ($id) {
+            return Transaction::withoutGlobalScope('forActiveBook')->where('id', $id)->firstOrFail();
+        });
+
+        Route::bind('donor', function ($id) {
+            return Partner::where('id', $id)->whereJsonContains('type_code', 'donatur')->firstOrFail();
+        });
     }
 
     /**

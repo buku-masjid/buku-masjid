@@ -9,13 +9,14 @@ return [
     'income' => 'Pemasukan',
     'spending' => 'Pengeluaran',
     'detail' => 'Detail Transaksi',
-    'not_found' => 'Transaksi tidak ditemukan.',
+    'not_found' => 'Transaksi tidak ditemukan',
     'empty' => 'Belum ada Transaksi',
     'count' => 'Input Transaksi',
     'forward_date_alert' => 'Tanggal transaksi lewat dari tanggal hari ini!',
     'back_to_show' => 'Kembali ke detail Transaksi',
     'back_to_index' => 'Kembali ke daftar Transaksi',
 
+    'total' => 'Total Transaksi',
     'income_total' => 'Total Pemasukan',
     'spending_total' => 'Total Pengeluaran',
     'difference' => 'Saldo',
@@ -40,6 +41,7 @@ return [
     'add_spending' => 'Input Pengeluaran',
     'spending_added' => 'Pengeluaran berhasil diinput.',
     'partner_help_text' => 'Tambah :partner dari :link.',
+    'category_help_text' => 'Tambah kategori dari :link.',
     'show' => 'Lihat Detail Transaksi',
     'edit' => 'Edit Transaksi',
     'update' => 'Update Transaksi',
@@ -52,6 +54,9 @@ return [
     'download' => 'Download CSV',
     'print_receipt' => 'Cetak Kwitansi',
     'print_spending_request' => 'Cetak Permintaan Kas Keluar',
+    'files' => 'Bukti Transaksi',
+    'upload_files' => 'Upload Bukti Transaksi',
+    'upload_file_placeholder' => 'Dokumentasi serah terima / pembayaran',
 
     // Attributes
     'id' => 'ID Transaksi',

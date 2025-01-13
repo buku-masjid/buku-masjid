@@ -57,12 +57,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('transactions/{transaction}/print_spending_request', 'Transactions\SpendingRequestPrintController@show')
         ->name('transactions.print_spending_request');
     Route::resource('transactions', 'TransactionsController');
+    Route::apiResource('transactions.files', 'Transactions\FileController');
 
     /*
      * Categories Routes
      */
     Route::get('categories/{category}/export-csv', 'Transactions\ExportController@byCategory')->name('transactions.exports.by_category');
     Route::resource('categories', 'CategoriesController');
+
+    Route::get('system_info', 'SystemInfoController@index')->name('system_info.index');
 
     /*
      * Report Routes
@@ -105,7 +108,19 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * Partner Routes
      */
-    Route::apiResource('partners', 'PartnerController');
+    Route::get('partners/search', 'PartnerController@search')->name('partners.search');
+    Route::resource('partners', 'PartnerController');
+    Route::patch('partners/{partner}/change_levels', 'PartnerController@changeLevels')->name('partners.change_levels');
+
+    /*
+     * Donor Routes
+     */
+    if (config('features.donors.is_active')) {
+        Route::get('donors/search', 'DonorController@search')->name('donors.search');
+        Route::resource('donors', 'DonorController');
+        Route::get('donor_transactions', 'DonorTransactionController@create')->name('donor_transactions.create');
+        Route::post('donor_transactions', 'DonorTransactionController@store')->name('donor_transactions.store');
+    }
 
     /*
      * Lecturings Routes

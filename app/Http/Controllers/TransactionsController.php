@@ -10,6 +10,7 @@ use App\Models\Partner;
 use App\Transaction;
 use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionsController extends Controller
 {
@@ -98,22 +99,31 @@ class TransactionsController extends Controller
                 ->pluck('name', 'id');
         }
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
-        $partnerSettingLink = link_to_route('partners.index', 'pengaturan', [], ['target' => '_blank']);
+        $partnerSettingLink = link_to_route('partners.search', __('settings.settings'), [], ['target' => '_blank']);
+        $categorySettingLink = link_to_route('categories.index', __('settings.settings'), [], ['target' => '_blank']);
+        $selectedDate = now()->format('Y-m-d');
+        if ($request->get('year') && $request->get('month')) {
+            $selectedDate = $request->get('year').'-'.$request->get('month').'-'.now()->format('d');
+        }
 
         return view('transactions.create', compact(
             'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue',
-            'partnerSelectionLabel', 'partnerSettingLink'
+            'partnerSelectionLabel', 'partnerSettingLink', 'categorySettingLink', 'selectedDate'
         ));
     }
 
     private function getAvailablePartners(array $partnerTypes, array $partnerTypeCodes): array
     {
         $partners = Partner::where('is_active', BankAccount::STATUS_ACTIVE)
-            ->whereIn('type_code', $partnerTypeCodes)
+            ->where(function ($query) use ($partnerTypeCodes) {
+                foreach ($partnerTypeCodes as $partnerTypeCode) {
+                    $query->orWhereJsonContains('type_code', $partnerTypeCode);
+                }
+            })
             ->orderBy('name')
             ->get();
         if (count($partnerTypeCodes) < 2) {
-            return $partners->pluck('name', 'id')->toArray();
+            return $partners->pluck('name_phone', 'id')->toArray();
         }
         $groupedPartners = $partners->groupBy('type_code');
         $availablePartners = [];
@@ -122,7 +132,7 @@ class TransactionsController extends Controller
                 continue;
             }
             foreach ($partners as $partner) {
-                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name;
+                $availablePartners[$partnerTypes[$typeCode]][$partner->id] = $partner->name_phone;
             }
         }
 
@@ -144,9 +154,14 @@ class TransactionsController extends Controller
         ]);
     }
 
-    public function show(Transaction $transaction)
+    public function show(Request $request, Transaction $transaction)
     {
-        return view('transactions.show', compact('transaction'));
+        $editableFile = null;
+        if (in_array($request->get('action'), ['edit_file'])) {
+            $editableFile = $transaction->files()->where('id', $request->get('file_id'))->first();
+        }
+
+        return view('transactions.show', compact('transaction', 'editableFile'));
     }
 
     public function edit(Request $request, Transaction $transaction)
@@ -157,12 +172,19 @@ class TransactionsController extends Controller
         $categories = $this->getCategoryList();
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
+        $partnerDefaultValue = __('partner.partner');
+        $partnerSelectionLabel = __('partner.partner');
         $incomePartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('income_partner_codes'), true) ?: [];
         $spendingPartnerTypeCodes = json_decode(Setting::for($transaction->book)->get('spending_partner_codes'), true) ?: [];
         $partnerTypeCodes = array_merge($incomePartnerTypeCodes, $spendingPartnerTypeCodes);
+        $partnerSettingLink = link_to_route('partners.search', __('settings.settings'), [], ['target' => '_blank']);
+        $categorySettingLink = link_to_route('categories.index', __('settings.settings'), [], ['target' => '_blank']);
         $partners = $this->getAvailablePartners($partnerTypes, $partnerTypeCodes);
 
-        return view('transactions.edit', compact('transaction', 'categories', 'bankAccounts', 'partners'));
+        return view('transactions.edit', compact(
+            'transaction', 'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue',
+            'partnerSelectionLabel', 'partnerSettingLink', 'categorySettingLink'
+        ));
     }
 
     public function update(UpdateRequest $transactionUpateForm, Transaction $transaction)
@@ -216,7 +238,13 @@ class TransactionsController extends Controller
         $this->authorize('delete', $transaction);
 
         request()->validate(['transaction_id' => 'required']);
-        if (request('transaction_id') == $transaction->id && $transaction->delete()) {
+
+        DB::beginTransaction();
+        $transaction->files->each->delete();
+        $isTransactionDeleted = $transaction->delete();
+        DB::commit();
+
+        if (request('transaction_id') == $transaction->id && $isTransactionDeleted) {
             flash(__('transaction.deleted'), 'warning');
 
             if ($referencePage = request('reference_page')) {

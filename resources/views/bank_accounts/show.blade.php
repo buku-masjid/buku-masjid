@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.settings')
 
 @section('title', __('bank_account.bank_account'))
 
-@section('content')
+@section('content_settings')
 
 <div class="page-header">
     <h1 class="page-title">{{ $bankAccount->name }}</h1>
@@ -151,6 +151,7 @@
 {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}
 {{ Html::script(url('js/plugins/noty.js')) }}
+{{ Html::script(url('js/plugins/number-format.js')) }}
 <script>
 (function () {
     var $modal = $('#modal-masjid');
@@ -251,6 +252,10 @@
         closeOnDateSelect: true,
         scrollInput: false,
         dayOfWeekStart: 1
+    });
+    initNumberFormatter('#amount', {
+        thousandSeparator: '{{ config('money.thousands_separator') }}',
+        decimalSeparator: '{{ config('money.decimal_separator') }}'
     });
 })();
 </script>

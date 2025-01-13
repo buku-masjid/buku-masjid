@@ -30,7 +30,6 @@ return [
     'show' => 'Lihat Detail Jadwal Pengajian',
     'edit' => 'Edit Jadwal Pengajian',
     'edit_for_friday' => 'Edit Jadwal Khatib',
-    'update' => 'Update Jadwal Pengajian',
     'updated' => 'Update data Jadwal Pengajian telah berhasil.',
     'delete' => 'Hapus Jadwal Pengajian',
     'delete_for_friday' => 'Hapus Jadwal Khatib',

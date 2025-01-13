@@ -115,6 +115,19 @@ return [
         ],
     ],
 
+    'donor' => [
+        'notes' => [
+            'max' => 'Donor notes are too long, max :max characters.',
+        ],
+    ],
+
+    'partner' => [
+        'phone' => [
+            'between' => 'Phone/WA Number between :min and :max digits.',
+            'starts_with' => 'Phone/WA Number should be number and may start with +.',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

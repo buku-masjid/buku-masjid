@@ -119,3 +119,35 @@ function get_date_range_text(string $startDate, string $endDate): string
 
     return $startDateText.' - '.$endDateText;
 }
+
+function get_age_group_date_ranges()
+{
+    $currentDate = Carbon::now();
+
+    $dateRanges = [];
+
+    foreach (config('partners.age_groups') as $groupName => $ageRange) {
+        $startDate = $currentDate->copy();
+        $endDate = $currentDate->copy();
+
+        if (is_array($ageRange)) {
+            if ($ageRange[0] === '>=') {
+                $startDate->subYears($ageRange[1]);
+                $endDate = '>=';
+            } elseif ($ageRange[0] === '<=') {
+                $startDate->subYears($ageRange[1]);
+                $endDate = '<=';
+            } else {
+                $startDate->subYears($ageRange[1]);
+                $endDate->subYears($ageRange[0]);
+            }
+        }
+
+        $dateRanges[$groupName] = [
+            in_array($startDate, ['>=', '<=']) ? $startDate : $startDate->format('Y-m-d'),
+            in_array($endDate, ['>=', '<=']) ? $endDate : $endDate->format('Y-m-d'),
+        ];
+    }
+
+    return $dateRanges;
+}
