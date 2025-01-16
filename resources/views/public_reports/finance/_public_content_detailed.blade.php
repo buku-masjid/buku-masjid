@@ -50,24 +50,30 @@
                             <td class="text-center">{{ $transaction->date }}</td>
                             <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
                                 @if ($transaction->files->count())
-                                    <div class="dropdown float-right">
-                                        <a class="badge badge-light text-dark" data-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
-                                            {{ $transaction->files->count() }} <i class="fe fe-image"></i>
+                                    @if ($transaction->files->count() == 1)
+                                        <a href="{{ asset('storage/'.$transaction->files->first()->file_path) }}" class="badge badge-light text-dark float-right">
+                                            1 <i class="fe fe-image"></i>
                                         </a>
-                                        <div class="dropdown-menu">
-                                            @foreach ($transaction->files as $key => $file)
-                                                <div class="dropdown-item">
-                                                    <a href="{{ asset('storage/'.$file->file_path) }}">
-                                                        @if ($file->title)
-                                                            <div>{{ $file->title }}</div>
-                                                        @else
-                                                            <div>{{ __('transaction.files') }} {{ 1 + $key }}</div>
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                            @endforeach
+                                    @else
+                                        <div class="dropdown float-right">
+                                            <a class="badge badge-light text-dark" data-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
+                                                {{ $transaction->files->count() }} <i class="fe fe-image"></i>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                @foreach ($transaction->files as $key => $file)
+                                                    <div class="dropdown-item">
+                                                        <a href="{{ asset('storage/'.$file->file_path) }}">
+                                                            @if ($file->title)
+                                                                <div>{{ $file->title }}</div>
+                                                            @else
+                                                                <div>{{ __('transaction.files') }} {{ 1 + $key }}</div>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endif
                                 {!! $transaction->date_alert !!} {{ $transaction->description }}
                             </td>
