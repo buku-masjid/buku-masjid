@@ -1,3 +1,5 @@
+<?php
+/*
 <div class="page-header">
     <h3 class="page-title">{{ __('report.summary_weekly') }}</h3>
     <div class="page-options d-flex">
@@ -43,4 +45,44 @@
             </tr>
         </tbody>
     </table>
+</div>
+*/
+?>
+
+<div class="col-lg-9">
+    <div class="fs-4 pt-3 pb-3 d-flex align-items-center">
+        <span class="fs-2 fw-bold pe-2">Laporan Pekan Ini</span>
+        <span class="badge bg-cyan-lt">Kegiatan Rutin</span>
+    </div>
+    <div class="row align-items-end">
+        <div class="col-lg ps-sm-0">
+            <div class="card fw-bold p-3 mb-2 shadow-lg">
+                Pemasukan<br>
+                <span class="date">{{ __('report.current_week_income_total') }}</span>
+                <h1 class="pt-4 bm-txt-primary fw-bolder">Rp {{ format_number($currentWeekIncomeTotal) }}</h1>
+            </div>
+        </div>
+        <div class="col-lg ps-sm-0">
+            <div class="card fw-bold p-3 mb-2 shadow-lg">
+                Pengeluaran<br>
+                <span class="date">{{ __('report.current_week_spending_total') }}</span>
+                <h1 class="pt-4 bm-txt-out fw-bolder">Rp {{ format_number($currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0) }}</h1>
+            </div>
+        </div>
+        <div class="col-lg ps-sm-0">
+            <div class="card fs-3 fw-bold p-3 mb-2 position-relative shadow-lg">
+                <button type="button" class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1">
+                Lebih Detil
+                </button>
+                Saldo Terakhir<br>
+                <span class="date">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
+                <h1 class="pt-4 bm-txt-netral fw-bolder">{{ format_number($currentBalance) }}</h1>
+            </div>
+        </div>
+    </div>
+    <a class="d-sm-none">
+        <button type="button" class="btn bm-btn btn-sm btn-ghost-cyan mt-2">
+            &nbsp;Lihat Semua Laporan <i class="ti">&#xea1c;</i>&nbsp;
+        </button>
+    </a>
 </div>

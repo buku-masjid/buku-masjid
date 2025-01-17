@@ -19,7 +19,7 @@
     <div class="container-md home-bottom">
         <div>
             <div class="row p-3 align-items-end">
-                <div class="col-lg-9">
+                <!--<div class="col-lg-9">
                     <div class="fs-4 pt-3 pb-3 d-flex align-items-center">
                         <span class="fs-2 fw-bold pe-2">Laporan Pekan Ini</span>
                         <span class="badge bg-cyan-lt">Kegiatan Rutin</span>
@@ -55,7 +55,8 @@
                             &nbsp;Lihat Semua Laporan <i class="ti">&#xea1c;</i>&nbsp;
                         </button>
                     </a>
-                </div>
+                </div>-->
+                @livewire('public-home.weekly-financial-summary')
                 <div class="col ps-sm-0">
                     <div class="fs-2 fw-bold pb-3">
                         <br class="d-sm-none">
