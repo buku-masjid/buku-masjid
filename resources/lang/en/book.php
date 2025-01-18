@@ -46,6 +46,7 @@ return [
     'report_visibility' => 'Report Visibility',
     'report_visibility_public' => 'Public',
     'report_visibility_internal' => 'Internal',
+    'transaction_files_visibility' => 'Transaction Files Visibility',
     'manager' => 'Finance User',
     'manager_info_text' => 'Finance user will have write access to this book.',
     'income_partners' => 'Income Partners',

@@ -46,6 +46,7 @@ return [
     'report_visibility' => 'Visibilitas Laporan',
     'report_visibility_public' => 'Publik',
     'report_visibility_internal' => 'Internal',
+    'transaction_files_visibility' => 'Visibilitas File pada Transaksi',
     'manager' => 'Pengelola/Bendahara',
     'manager_info_text' => 'User bendahara dapat mengelola dan mengubah data buku kas / program kas ini.',
     'income_partners' => 'Partner utk Pemasukan',

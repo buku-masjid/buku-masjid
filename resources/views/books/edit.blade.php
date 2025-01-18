@@ -98,21 +98,28 @@
                         @else
                             {!! FormField::textDisplay(__('book.manager'), $book->manager->name) !!}
                         @endcan
+                        {!! FormField::radios('status_id', [
+                            App\Models\Book::STATUS_INACTIVE => __('book.status_inactive'),
+                            App\Models\Book::STATUS_ACTIVE => __('app.active')
+                        ], ['label' => __('app.status')]) !!}
                     </div>
                     <div class="col-md-6">
                         <h4 class="text-primary">{{ __('settings.settings') }}</h4>
                         <div class="row">
                             <div class="col-md-6">
-                                {!! FormField::radios('status_id', [
-                                    App\Models\Book::STATUS_INACTIVE => __('book.status_inactive'),
-                                    App\Models\Book::STATUS_ACTIVE => __('app.active')
-                                ], ['label' => __('app.status')]) !!}
+                                {!! FormField::radios('report_visibility_code', [
+                                    App\Models\Book::REPORT_VISIBILITY_PUBLIC => __('book.report_visibility_public'),
+                                    App\Models\Book::REPORT_VISIBILITY_INTERNAL => __('book.report_visibility_internal')
+                                ], ['label' => __('book.report_visibility')]) !!}
                             </div>
                             <div class="col-md-6">
-                                {!! FormField::radios('report_visibility_code', [
-                                    App\Models\Book::REPORT_VISIBILITY_PUBLIC => __('category.report_visibility_public'),
-                                    App\Models\Book::REPORT_VISIBILITY_INTERNAL => __('category.report_visibility_internal')
-                                ], ['label' => __('category.report_visibility')]) !!}
+                                {!! FormField::radios('transaction_files_visibility_code', [
+                                    App\Models\Book::REPORT_VISIBILITY_PUBLIC => __('book.report_visibility_public'),
+                                    App\Models\Book::REPORT_VISIBILITY_INTERNAL => __('book.report_visibility_internal')
+                                ], [
+                                    'value' => Setting::for($book)->get('transaction_files_visibility_code', App\Models\Book::REPORT_VISIBILITY_INTERNAL),
+                                    'label' => __('book.transaction_files_visibility'),
+                                ]) !!}
                             </div>
                         </div>
                         <div class="row">

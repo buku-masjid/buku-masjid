@@ -49,6 +49,11 @@
                         <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
                             <td class="text-center">{{ $transaction->date }}</td>
                             <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }}>
+                                @if ($isTransactionFilesVisible)
+                                    <span class="float-right">
+                                        @livewire('transactions.files-indicator', ['transaction' => $transaction])
+                                    </span>
+                                @endif
                                 {!! $transaction->date_alert !!} {{ $transaction->description }}
                             </td>
                             <td class="text-right text-nowrap">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
