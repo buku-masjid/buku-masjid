@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ManageBookTest extends TestCase
@@ -231,6 +232,78 @@ class ManageBookTest extends TestCase
             'model_id' => $book->id,
             'key' => 'sign_name_right',
             'value' => 'H. Dedy',
+        ]);
+    }
+
+    /** @test */
+    public function bugfix_user_can_remove_book_attributes_from_settings_table()
+    {
+        $adminUser = $this->loginAsUser();
+        $financeUser = $this->createUser('finance');
+        $book = factory(Book::class)->create([
+            'name' => 'Testing 123',
+            'creator_id' => $adminUser->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_INTERNAL,
+        ]);
+        DB::table('settings')->insert([
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_right',
+            'value' => 'H. Dedy',
+        ]);
+        $bankAccount = factory(BankAccount::class)->create();
+
+        $this->visitRoute('books.show', $book);
+        $this->click('edit-book-'.$book->id);
+        $this->seeRouteIs('books.edit', [$book]);
+        $this->seeElement('input', ['id' => 'sign_name_right', 'value' => 'H. Dedy']);
+
+        $this->submitForm(__('book.update'), [
+            'name' => 'Book 1 name',
+            'description' => 'Book 1 description',
+            'status_id' => Book::STATUS_ACTIVE,
+            'bank_account_id' => $bankAccount->id,
+            'manager_id' => $financeUser->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'budget' => 1000000,
+            'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'has_pdf_page_number' => 0,
+            'income_partner_codes' => ['partner' => 'partner'],
+            'income_partner_null' => 'Hamba Allah',
+            'spending_partner_codes' => ['partner' => 'partner'],
+            'spending_partner_null' => 'Muzakki',
+            'start_week_day_code' => 'friday',
+            'management_title' => '',
+            'acknowledgment_text_left' => '',
+            'sign_position_left' => '',
+            'sign_name_left' => '',
+            'acknowledgment_text_mid' => '',
+            'sign_position_mid' => '',
+            'sign_name_mid' => '',
+            'acknowledgment_text_right' => '',
+            'sign_position_right' => '',
+            'sign_name_right' => '',
+        ]);
+
+        $this->seeRouteIs('books.show', [$book]);
+
+        $this->seeInDatabase('books', [
+            'name' => 'Book 1 name',
+            'description' => 'Book 1 description',
+            'status_id' => Book::STATUS_ACTIVE,
+            'bank_account_id' => $bankAccount->id,
+            'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'budget' => 1000000,
+            'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
+            'start_week_day_code' => 'friday',
+            'manager_id' => $financeUser->id,
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'sign_name_right',
+            'value' => null,
         ]);
     }
 
