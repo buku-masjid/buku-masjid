@@ -91,6 +91,7 @@ class BookController extends Controller
             'status_id' => ['required', Rule::in(Book::getConstants('STATUS'))],
             'bank_account_id' => 'nullable|exists:bank_accounts,id',
             'report_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
+            'transaction_files_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
             'income_partner_codes' => ['nullable', 'array'],
@@ -135,6 +136,7 @@ class BookController extends Controller
         array_key_exists('acknowledgment_text_right', $bookData) ? Setting::for($book)->set('acknowledgment_text_right', $bookData['acknowledgment_text_right']) : null;
         array_key_exists('sign_position_right', $bookData) ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
         array_key_exists('sign_name_right', $bookData) ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
+        array_key_exists('transaction_files_visibility_code', $bookData) ? Setting::for($book)->set('transaction_files_visibility_code', $bookData['transaction_files_visibility_code']) : null;
         Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']);
         Setting::for($book)->set('income_partner_codes', json_encode(array_keys($bookData['income_partner_codes'] ?? [])));
         Setting::for($book)->set('income_partner_null', $bookData['income_partner_null']);

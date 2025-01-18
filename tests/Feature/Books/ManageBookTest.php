@@ -102,6 +102,7 @@ class ManageBookTest extends TestCase
             'bank_account_id' => $bankAccount->id,
             'manager_id' => $financeUser->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'transaction_files_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'has_pdf_page_number' => 0,
@@ -141,6 +142,13 @@ class ManageBookTest extends TestCase
             'model_id' => $book->id,
             'key' => 'has_pdf_page_number',
             'value' => '0',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'model_type' => 'books',
+            'model_id' => $book->id,
+            'key' => 'transaction_files_visibility_code',
+            'value' => Book::REPORT_VISIBILITY_PUBLIC,
         ]);
 
         $this->seeInDatabase('settings', [
@@ -257,6 +265,11 @@ class ManageBookTest extends TestCase
         $this->click('edit-book-'.$book->id);
         $this->seeRouteIs('books.edit', [$book]);
         $this->seeElement('input', ['id' => 'sign_name_right', 'value' => 'H. Dedy']);
+        $this->seeElement('input', [
+            'id' => 'transaction_files_visibility_code_'.Book::REPORT_VISIBILITY_INTERNAL,
+            'type' => 'radio',
+            'checked' => 'checked',
+        ]);
 
         $this->submitForm(__('book.update'), [
             'name' => 'Book 1 name',
@@ -265,6 +278,7 @@ class ManageBookTest extends TestCase
             'bank_account_id' => $bankAccount->id,
             'manager_id' => $financeUser->id,
             'report_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
+            'transaction_files_visibility_code' => Book::REPORT_VISIBILITY_PUBLIC,
             'budget' => 1000000,
             'report_periode_code' => Book::REPORT_PERIODE_IN_WEEKS,
             'has_pdf_page_number' => 0,
