@@ -19,9 +19,11 @@
                 <td class="text-center col-1">{{ ++$key }}</td>
                 <td class="text-center col-2">{{ $transaction->date }}</td>
                 <td class="col-4">
-                    <span class="float-right">
-                        @livewire('transactions.files-indicator', ['transaction' => $transaction])
-                    </span>
+                    @if ($isTransactionFilesVisible)
+                        <span class="float-right">
+                            @livewire('transactions.files-indicator', ['transaction' => $transaction])
+                        </span>
+                    @endif
                     {!! $transaction->date_alert !!} {{ $transaction->description }}
                 </td>
                 <td class="text-right col-3">{{ format_number($transaction->amount) }}</td>
