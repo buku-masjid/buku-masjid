@@ -8,7 +8,7 @@
 </style>
 <section class="bg-white">
     <div class="container-md">
-        <div class="masjid-info-top row">{{ __('app.donate') }} {{ Setting::get('masjid_name', config('masjid.name')) }}
+        <div class="masjid-info-top row">
             @include('layouts._public_infomasjid')
             <div class="d-none d-lg-flex align-items-center col-7 position-relative">
                 <img src="images/donate_infaq.png" style="width: 80%">

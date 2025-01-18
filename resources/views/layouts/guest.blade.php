@@ -36,7 +36,7 @@
                         <li class="nav-item px-2"><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_reports.index') }}">Laporan</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.donate') }}">Infaq</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_schedules.index') }}">Kegiatan</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="jadwal/pekan_ini">Kegiatan</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ url('/kontak') }}">Kontak</a></li>
                     </ul>
                 </div>

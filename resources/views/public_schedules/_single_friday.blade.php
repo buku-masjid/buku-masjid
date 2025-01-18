@@ -1,4 +1,35 @@
-<div class="card">
+<div class="card fw-bold p-3 mb-2 shadow-lg position-relative">
+    <div class="row">
+        <div class="col-auto lh-1">
+            <span class="badge rounded-pill bg-orange mb-3 me-3">JADWAL JUMAT</span>
+            <h3 class="p-0 m-0">{{ $lecturing->day_name }}, {{ $lecturing->full_date }}</h3>
+            <span class="date">{{ $lecturing->start_time }} (waktu setempat)</span>
+        </div>
+        <div class="col px-5 py-3">
+            <div class="fs-3">
+                <h3>Pembahasan</h3>
+                <p class="display-6 fw-thin">"{{ $lecturing->description }}" </p>
+            </div>
+            <div class="row pt-4 mt-4 border-top">
+                <div class="col">
+                    <h1 class="fs-3 bm-txt-primary fw-bold p-0 m-0">{{ $lecturing->lecturer_name }}</h1>
+                    <span class="fs-4 text-secondary">Khatib</span>
+                </div>
+                <div class="col">
+                    <h1 class="fs-3 bm-txt-primary fw-bold p-0 m-0">{{ $lecturing->imam_name }}</h1>
+                    <span class="fs-4 text-secondary">Imam</span>
+                </div>
+                <div class="col">
+                    <h1 class="fs-3 bm-txt-primary fw-bold p-0 m-0">{{ $lecturing->muadzin_name }}</h1>
+                    <span class="fs-4 text-secondary">Muadzin</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="card">
     <table class="table-sm mb-0">
         <tbody>
             <tr>
@@ -27,4 +58,4 @@
             @endif
         </tbody>
     </table>
-</div>
+</div> -->

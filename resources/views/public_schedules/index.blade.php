@@ -3,6 +3,24 @@
 @section('title', __('lecturing.list'))
 
 @section('content')
+
+<?php 
+/*
+@include('public_schedules._nav')
+
+@foreach ($audienceCodes as $audienceCode => $audience)
+    @if (isset($lecturings[$audienceCode]))
+        <div class="page-header my-4">
+            <h2 class="page-title">{{ __('lecturing.audience_'.$audienceCode) }}</h2>
+        </div>
+        @foreach($lecturings[$audienceCode] as $lecturing)
+            @include('public_schedules._single_'.$audienceCode)
+        @endforeach
+    @endif
+    
+@endforeach
+*/
+?>
 <style>
     .pattern { display: none !important;}
 </style>
@@ -10,6 +28,7 @@
     <div class="container-md">
         <div class="row masjid-info-top pb-0 d-lg-flex align-items-stretch">
             @include('layouts._public_infomasjid')
+            
             <div class="d-none d-lg-flex col-7 justify-content-end align-items-end">
                 <div>
                     <div class="d-flex align-items-end gap-2 align-items-end">
@@ -59,10 +78,22 @@
         </div>
     </div>
 </section>
+
 <section class="bg-white">
     <div class="container-md position-relative">
         <!-- FILTER -->
-        <div class="btn-toolbar d-flex justify-content-center row pt-4" style="position: relative; top: 20px" role="toolbar">
+           <div class="btn-toolbar d-flex justify-content-center row pt-4" style="position: relative; top: 20px" role="toolbar">
+            <div class="btn-group col-auto" role="group" aria-label="Third group">
+                <a href="{{ route('public_schedules.this_week', Request::all()) }}">
+                    <button type="button" class="btn btn-light border bm-btn py-2">{{ __('time.this_week') }}</button>
+                </a>
+            </div>
+            <div class="btn-group col-auto" role="group" aria-label="Third group">
+                <a href="{{ route('public_schedules.next_week', Request::all()) }}">
+                    <button type="button" class="btn btn-light border bm-btn py-2">{{ __('time.next_week') }}</button>
+                </a>
+            </div>
+            <!-- 
             <div class="btn-group col-auto" role="group" aria-label="Third group">
                 <button type="button" class="btn btn-light border bm-btn py-2"><i class="ti py-1">&#xea60;</i></button>
             </div>
@@ -99,7 +130,7 @@
                     <li class="d-grid"><a class="dropdown-item" href="#">2021</a></li>
                     <li class="d-grid"><a class="dropdown-item" href="#">2020</a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -107,37 +138,19 @@
     <div class="container-md p-3 py-lg-0">
         <div class="pt-4 pt-lg-5">
             <!-- JUMAT -->
-            <h2 class="fw-bolder mb-3 ">Jadwal Jum'at</h2>
-            <div class="row row-cols-lg-2">
+            <div class="row ">
                 <div class="col-lg ps-sm-0">
-                    <div class="card fw-bold p-3 mb-2 shadow-lg position-relative">
-                        <span class="badge rounded-pill bg-orange position-absolute end-0 top-0 mt-3 me-3">Pekan Ini</span>
-                        <div class="row">
-                            <div class="col-auto lh-1">
-                                <h3 class="p-0 m-0">Jumat 11 Okt 2024</h3>
-                                <span class="date">12:00 (waktu setempat)</span>
-                            </div>
-                        </div>
-                        <div class="pt-5 lh-1">
-                            <h1 class="bm-txt-primary fw-bold p-0 m-0">Ustadz Fulan, S. Ag, M. Ag</h1>
-                            <span class="date">Khatib</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg ps-sm-0">
-                    <div class="card fw-bold p-3 mb-2 shadow-lg position-relative">
-                        <span class="badge rounded-pill bg-grey position-absolute end-0 top-0 mt-3 me-3">Pekan Depan</span>
-                        <div class="row">
-                            <div class="col-auto lh-1">
-                                <h3 class="p-0 m-0">Jumat 11 Okt 2024</h3>
-                                <span class="date">12:00 (waktu setempat)</span>
-                            </div>
-                        </div>
-                        <div class="pt-5 lh-1">
-                            <h1 class="bm-txt-primary fw-bold p-0 m-0">Ustadz Fulan, S. Ag, M. Ag</h1>
-                            <span class="date">Khatib</span>
-                        </div>
-                    </div>
+                @foreach ($audienceCodes as $audienceCode => $audience)
+                    @if ($audience == 'Jumat')
+                        @if (isset($lecturings[$audienceCode]))
+                            @foreach($lecturings[$audienceCode] as $lecturing)
+                                @if ($lecturing->audience_code == 'friday' )
+                                    @include('public_schedules._single_'.$audienceCode)
+                                @endif
+                            @endforeach
+                        @endif
+                    @endif 
+                @endforeach
                 </div>
             </div>
         </div>
@@ -145,7 +158,7 @@
         <div class="timeline_area pt-4 pt-lg-5">
             <div class="d-lg-flex justify-content-between pb-3">
                 <h2 class="fw-bolder mb-3 ">Jadwal Kajian</h2>
-                <div class="btn-group col col-sm-auto px-0" role="group">
+                <!-- <div class="btn-group col col-sm-auto px-0" role="group">
                     <button id="year" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false">
                     Kajian Umum (Muslim & Muslimah)
                     </button>
@@ -154,7 +167,7 @@
                         <li class="d-grid"><a class="dropdown-item" href="#">Kajian Muslimah</a></li>
                         <li class="d-grid"><a class="dropdown-item" href="#">Kajian Muslim</a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -163,97 +176,27 @@
                     <div class="apland-timeline-area">
                         <!-- Single Timeline Content-->
                          <!-- WEEK -->
-                        <div class="single-timeline-area border-bottom py-4">
-                            <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s" >
-                                <p>Pekan 1</p>
-                            </div>
-                            <div class="row">
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon">
-                                                <img src="{{ asset('images/temp_foto.png') }}">
-                                            </div>
+                         @foreach ($audienceCodes as $audienceCode => $audience)
+                            @if ($audience != 'Jumat')
+                                @if (isset($lecturings[$audienceCode]))
+                                    <div class="single-timeline-area border-bottom py-4">
+                                        <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s" >
+                                            <p>{{ __('lecturing.audience_'.$audienceCode) }}</p>
                                         </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
+                                        <div class="row">
+                                            @foreach($lecturings[$audienceCode] as $lecturing)
+                                                @if ($lecturing->audience_code != 'friday' )
+                                                    @include('public_schedules._single_'.$audienceCode)
+                                                @endif
+                                            @endforeach
                                         </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    </div>    
+                                @endif 
+                            @endif 
+                        @endforeach
+                        
+                        <?php 
+                        /*
                         <!-- WEEK -->
                         <div class="single-timeline-area border-bottom py-4">
                             <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s">
@@ -426,6 +369,8 @@
 
                             </div>
                         </div>
+                        */
+                        ?>
                     </div>
                 </div>
             </div>
