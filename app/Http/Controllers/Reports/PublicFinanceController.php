@@ -47,9 +47,10 @@ class PublicFinanceController extends FinanceController
         $books = Book::where('status_id', Book::STATUS_ACTIVE)
             ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
             ->get();
+            $selectedMonth = $startDate->format('m');
 
         return view('public_reports.finance.'.$reportPeriode.'.summary', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories', 'books', 'selectedBook',
+            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories', 'books', 'selectedBook', 'selectedMonth',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
         ));

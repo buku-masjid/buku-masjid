@@ -1,39 +1,38 @@
+{{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
 <div class="btn-toolbar d-flex d-sm-block justify-content-between row" role="toolbar">
-    <div class="btn-group col-auto" role="group" aria-label="Third group">
-        <button type="button" class="btn btn-light border bm-btn py-2"><i class="ti py-1">&#xea60;</i></button>
-    </div>
-    <div class="btn-group col col-sm-auto px-0" role="group">
-        <button id="month" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false">
-        November
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="month" style="width: 100%">
-            <li class="d-grid"><a class="dropdown-item" href="#">Januari</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Februari</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Maret</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">April</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Mei</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Juni</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Juli</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Agustus</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">September</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Oktober</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">November</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">Desember</a></li>
-        </ul>
-    </div>
-    <div class="btn-group col-auto" role="group" aria-label="Third group">
-        <button type="button" class="btn btn-light border bm-btn"><i class="ti py-1">&#xea61;</i></button>
-    </div>
-    <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
-        <button id="year" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false">
-        2024
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="year" style="width: 100%">
-            <li class="d-grid"><a class="dropdown-item" href="#">2024</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">2023</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">2022</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">2021</a></li>
-            <li class="d-grid"><a class="dropdown-item" href="#">2020</a></li>
-        </ul>
-    </div>
+    @if ($selectedBook->report_periode_code == 'in_months')
+        <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
+            {{ link_to_route('public_reports.finance.summary', __('report.this_month'), Request::except(['year', 'month']), ['class' => 'btn btn-light border bm-btn mr-1']) }}
+        </div>
+        <div class="btn-group col col-sm-auto px-0" role="group">
+            @livewire('prev-month-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-light border bm-btn', 'buttonText' => '&#8249;'])
+            {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control text-center', 'onchange' => 'submit()', 'style' => 'border-radius:0']) }}
+            @livewire('next-month-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-light border bm-btn', 'buttonText' => '&#8250;'])
+        </div>
+        <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
+            {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1', 'onchange' => 'submit()']) }}
+        </div>
+    @endif
+    @if ($selectedBook->report_periode_code == 'in_weeks')
+        <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
+            {{ link_to_route('public_reports.finance.summary', __('report.this_week'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-light border bm-btn mr-1']) }}
+        </div>
+        <div class="btn-group col col-sm-auto px-0" role="group">
+            @livewire('prev-week-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-light border bm-btn', 'buttonText' => '&#8249;'])
+            {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control radius mr-1', 'style' => 'width:110px', 'onchange' => 'submit()']) }}
+            {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control radius mr-1', 'style' => 'width:110px', 'onchange' => 'submit()']) }}
+            @livewire('next-week-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-light border bm-btn', 'buttonText' => '&#8250;'])
+        </div>
+    @endif
+    @if ($selectedBook->report_periode_code == 'all_time')
+        <div class="input-group col col-sm-auto px-0 d-inline-flex" role="group">
+            <span class="input-group-text d-none d-sm-block">{{ __('report.view_date_range_label') }}</span>
+            {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control radius mr-1', 'style' => 'max-width: 110px;', 'onchange' => 'submit()']) }}
+            {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control radius mr-1', 'style' => 'max-width: 110px;', 'onchange' => 'submit()']) }}
+            {{ link_to_route('public_reports.finance.summary', __('app.reset'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-light border bm-btn mr-1']) }}
+        </div>
+    @endif
 </div>
+{{ Form::hidden('active_book_id', request('active_book_id')) }}
+{{ Form::hidden('nonce', request('nonce')) }}
+{{ Form::close() }}
