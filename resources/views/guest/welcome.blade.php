@@ -78,18 +78,8 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="text-center py-4 d-sm-none">
-            (c) 2024 Bukumasjid
-        </div>
-        <div class=" py-4 d-none d-sm-block position-relative">
-            (c) 2024 Bukumasjid. <i class="ti ps-4">&#xf7e6;</i> bukumasjid <i class="ti ps-2">&#xf7eb;</i> bukumasjid <i class="ti ps-2">&#xec26;</i> bukumasjid <i class="ti ps-2">&#xec20;</i> bukumasjid
-            <div class="p-10 cta-join position-absolute top-0 end-0 me-3">
-                Ingin kelola finansial masjid Anda ? <br>
-                <span>Gabung ke BukuMasjid</span>
-            </div>
         </div>
     </div>
 </div>
+
 @endsection

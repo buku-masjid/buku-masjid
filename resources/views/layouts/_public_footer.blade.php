@@ -1,11 +1,14 @@
-<div class="p-3 bg-white border-top position-fixed bottom-0" style="width: 100%; box-sizing: border-box; background-color: #fff; z-index: 10">
-    <div class="row text-secondary">
-      
-      <div class="text-start col d-none d-sm-block position-relative">
-          <i class="ti ps-3">&#xf7e6;</i> bukumasjid <i class="ti ps-4">&#xf7eb;</i> bukumasjid <i class="ti ps-4">&#xec26;</i> bukumasjid <i class="ti ps-4">&#xec20;</i> bukumasjid
-      </div>
-      <div class="text-center text-sm-end col">
-          (c) 2024 Bukumasjid
-      </div>
+<div class="section-bottom">
+    <div class="container-md">
+        <div class="text-center py-4 d-sm-none">
+            @include('layouts.public._copyright')
+        </div>
+        <div class="py-4 d-none d-sm-flex row justify-content-between align-items-center">
+            <div class="col-auto">
+                @include('layouts.public._copyright').
+                @include('layouts.public._footer_links')
+            </div>
+            @include('layouts.public._cta_join')
+        </div>
     </div>
 </div>

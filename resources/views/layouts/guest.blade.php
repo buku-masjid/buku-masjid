@@ -89,32 +89,14 @@
                 </div>
                 <div class="mt-auto bd-highlight">
                     <div>
-                        <div class="p-10 cta-join">
-                            Ingin kelola finansial masjid Anda ?
-                            <span>Gabung ke BukuMasjid</span>
-                        </div>
+                        @include('layouts.public._cta_join')
                     </div>
-                    <div class="mt-4">
-                        <div class="d-flex justify-content-center">
-                            <div class="pe-2">
-                                <i class="ti">&#xf7e6;</i> bukumasjid
-                            </div>
-                            <div class="ps-2">
-                                <i class="ti">&#xf7eb;</i> bukumasjid
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="pe-2">
-                                <i class="ti">&#xec26;</i> bukumasjid
-                            </div>
-                            <div class="ps-2">
-                                <i class="ti">&#xec20;</i> bukumasjid
-                            </div>
-                        </div>
+                    <div class="mt-4 text-center">
+                        @include('layouts.public._footer_links')
                     </div>
                     <div class="mt-4">
                         <div class="text-center">
-                            (c) {{ date('Y') }} Buku Masjid
+                            @include('layouts.public._copyright')
                         </div>
                     </div>
                 </div>

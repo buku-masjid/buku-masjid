@@ -377,5 +377,4 @@
         </div>
     </div>
 </div>
-@include('layouts._public_footer')
 @endsection

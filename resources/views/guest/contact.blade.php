@@ -45,20 +45,4 @@
         </div>
     </div>
 </section>
-<div class="section-bottom">
-    <div class="container-md">
-        <div class="text-center py-4 d-sm-none">
-            (c) 2024 Bukumasjid 
-        </div>
-        <div class="py-4 d-none d-sm-flex row justify-content-between align-items-center">
-            <div class="col-auto">
-              (c) 2024 Bukumasjid. <i class="ti ps-4">&#xf7e6;</i> bukumasjid <i class="ti ps-2">&#xf7eb;</i> bukumasjid <i class="ti ps-2">&#xec26;</i> bukumasjid <i class="ti ps-2">&#xec20;</i> bukumasjid
-            </div>
-            <div class="col-auto cta-join mt-sm-3">
-                Ingin kelola finansial masjid Anda ? <br>
-                <span>Gabung ke BukuMasjid</span>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
