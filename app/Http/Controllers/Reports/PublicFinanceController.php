@@ -24,7 +24,7 @@ class PublicFinanceController extends FinanceController
     {
         $book = auth()->activeBook();
         if ($book->report_visibility_code != 'public') {
-            return redirect()->route('public_reports.index');
+            return redirect()->to('/');
         }
 
         $startDate = $this->getStartDate($request);
@@ -42,10 +42,14 @@ class PublicFinanceController extends FinanceController
         $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
 
         $reportPeriode = $book->report_periode_code;
+        $selectedBook = $book;
         $showBudgetSummary = $this->determineBudgetSummaryVisibility($request, $book);
+        $books = Book::where('status_id', Book::STATUS_ACTIVE)
+            ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
+            ->get();
 
         return view('public_reports.finance.'.$reportPeriode.'.summary', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories',
+            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories', 'books', 'selectedBook',
             'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
         ));

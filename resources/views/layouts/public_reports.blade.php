@@ -15,7 +15,6 @@
 
             </div>
             <div class="col fs-2 fw-bold lh-sm text-dark">
-                Masjid<br>
                 {{ Setting::get('masjid_name', config('masjid.name')) }}
             </div>
         </div>
@@ -23,45 +22,10 @@
 </section>
 <div class="section-bottom pb-5">
     <div class="container-md">
-        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="books">
-            <div class="offcanvas-header pt-3 pb-1 border-0 justify-content-center">
-                <h2 class="offcanvas-title" id="offcanvasBottomLabel">Pilih Laporan</h2>
-            </div>
-            <div class="offcanvas-body">
-                <div class="d-sm-flex justify-content-center gap-2 book-list">
-                    <a href="">
-                        <div class="bm-btn book book-selected bm-txt-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book-2">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-                            <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-                            <path d="M9 8h6" />
-                            </svg>&nbsp;Kegiatan Rutin
-                            <span class="ti float-end">&#xea5e;</span>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="bm-btn book bm-txt-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book-2">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-                            <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-                            <path d="M9 8h6" />
-                            </svg>&nbsp;Pembangunan Masjid
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
         <div class="col">
             <div class="row px-3 pt-3 p-lg-0 pt-lg-3">
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">Laporan</div>
-                <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
-                    <button type="button" class="btn btn-teal bm-btn justify-content-between" data-bs-toggle="offcanvas" data-bs-target="#books" aria-controls="books">
-                        <div>Kegiatan Rutin</div>
-                        <div class="ms-2"><i class="ti">&#xea61;</i></div>
-                    </button>
-                </div>
+                @include('public_reports.finance._book_navigation')
                 <div class="col px-3 text-sm-end">
                     <div class="btn-toolbar d-flex d-sm-block justify-content-between row" role="toolbar">
                         <div class="btn-group col-auto" role="group" aria-label="Third group">
