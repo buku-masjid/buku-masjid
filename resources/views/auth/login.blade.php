@@ -3,11 +3,8 @@
 @section('title', __('Login'))
 
 @section('content')
-<style>
-    body {background-color: #fff}
-</style>
 <section class="bg-white">
-    <div class="container-md mt-lg-5 p-4 p-lg-0">
+    <div class="container-md py-5 px-4">
         <div class="row align-items-center justify-content-center">
             <div class="me-lg-3 d-sm-none d-flex justify-content-center">
               @if (Setting::get('masjid_logo_path'))
