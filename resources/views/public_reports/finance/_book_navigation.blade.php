@@ -1,9 +1,7 @@
-<div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
-    <button type="button" class="btn btn-teal bm-btn justify-content-between" data-bs-toggle="offcanvas" data-bs-target="#books" aria-controls="books">
-        <div>{{ $selectedBook->name }}</div>
-        <div class="ms-2"><i class="ti">&#xea61;</i></div>
-    </button>
-</div>
+<button type="button" class="btn btn-teal bm-btn justify-content-between" data-bs-toggle="offcanvas" data-bs-target="#books" aria-controls="books">
+    <div>{{ $selectedBook->name }}</div>
+    <div class="ms-2"><i class="ti">&#xea61;</i></div>
+</button>
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="books">
     <div class="offcanvas-header pt-3 pb-1 border-0 justify-content-center">
         <h2 class="offcanvas-title" id="offcanvasBottomLabel">Pilih Laporan</h2>

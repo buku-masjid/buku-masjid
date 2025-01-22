@@ -25,7 +25,17 @@
         <div class="col">
             <div class="row px-3 pt-3 p-lg-0 pt-lg-3">
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">{{ __('report.report') }}</div>
-                @include('public_reports.finance._book_navigation')
+                <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
+                    @include('public_reports.finance._book_navigation')
+                    <div class="text-center mt-3 mb-2 ms-sm-4">
+                        <span class="badge text-uppercase bg-primary mr-1" title="{{ __('report.periode') }}: {{ __('report.'.$selectedBook->report_periode_code) }}">
+                            {{ __('report.'.$selectedBook->report_periode_code) }}
+                        </span>
+                        <span class="badge text-uppercase bg-warning" title="{{ __('report.start_week_day') }}: {{ __('time.days.'.$selectedBook->start_week_day_code) }}">
+                            {{ __('time.days.'.$selectedBook->start_week_day_code) }}
+                        </span>
+                    </div>
+                </div>
                 <div class="col px-3 text-sm-end">
                     @include('public_reports.finance._time_range_navigation')
                 </div>
