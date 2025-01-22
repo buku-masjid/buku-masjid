@@ -12,13 +12,13 @@
 */
 
 Route::view('/', 'guest.welcome');
-Route::view('/kontak', 'guest.contact');
+Route::view('/kontak', 'guest.contact')->name('public.contact');
 Route::get('/infaq', 'PublicPagesController@donate')->name('public.donate');
 
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function () {
-    Route::get('/', 'Reports\PublicFinanceController@index')->name('index');
+    Route::get('/', 'Reports\PublicFinanceController@summary')->name('index');
     Route::get('/ringkasan', 'Reports\PublicFinanceController@summary')->name('finance.summary');
     Route::get('/per_kategori', 'Reports\PublicFinanceController@categorized')->name('finance.categorized');
     Route::get('/rincian', 'Reports\PublicFinanceController@detailed')->name('finance.detailed');

@@ -33,15 +33,21 @@
             <div class="position-relative text-center">
                 <div class="nav-desktop position-relative shadow-sm rounded">
                     <ul class="nav">
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_reports.index') }}">Laporan</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.donate') }}">Infaq</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="jadwal/pekan_ini">Kegiatan</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ url('/kontak') }}">Kontak</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ url('/') }}">{{ __('app.home') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.donate') }}">{{ __('app.donate') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="pe-3 pt-3 text-end" style="width: 150px"><a href="{{ route('login') }}" >Login</a></div>
+            <div class="text-end" style="width: 150px">
+                @if (auth()->check())
+                    <a href="{{ route('home') }}" >{{ auth()->user()->name }}</a>
+                @else
+                    <a href="{{ route('login') }}" >{{ __('auth.login') }}</a>
+                @endif
+            </div>
         </div>
     </div>
     <div class="container p-0 bg-white">
@@ -63,16 +69,22 @@
             </div>
             <div class="offcanvas-body pt-0 d-flex align-items-stretch flex-column bd-highlight">
                 <div class="text-center bd-highlight">
-                    <img src="{{ asset('images/logo_bm_shape.svg') }}" style="width: 100px">
+                    <img src="{{ asset('images/logo_bm_shape.svg') }}" style="width: 80px">
                 </div>
-                <div class="mt-5 fs-2 sidebar-menu bd-highlight">
+                <div class="mt-3 fs-2 sidebar-menu bd-highlight">
                     <ul>
-                        <a href="{{ url('/') }}"><li class="pb-3">Beranda</li></a>
-                        <a href="{{ route('public_reports.index') }}"><li class="pb-3">Laporan</li></a>
-                        <a href="{{ route('public.donate') }}"><li class="pb-3">Infaq</li></a>
-                        <a href="{{ route('public_schedules.index') }}"><li class="pb-3">Kegiatan</li></a>
-                        <a href="{{ url('/kontak') }}"><li class="pb-3">Kontak</li></a>
-                        <a href="{{ route('login') }}"><li class="py-3 border-top mt-5">Login</li></a>
+                        <li class="py-3 border-top mt-2"><a href="{{ url('/') }}">{{ __('app.home') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public.donate') }}">{{ __('app.donate') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
+                        <li class="py-3 border-top mt-2">
+                            @if (auth()->check())
+                                <a href="{{ route('home') }}" >{{ auth()->user()->name }}</a>
+                            @else
+                                <a href="{{ route('login') }}" >{{ __('auth.login') }}</a>
+                            @endif
+                        </li>
                     </ul>
                 </div>
                 <div class="mt-auto bd-highlight">
@@ -102,7 +114,7 @@
                     </div>
                     <div class="mt-4">
                         <div class="text-center">
-                            (c) 2024 Bukumasjid
+                            (c) {{ date('Y') }} Buku Masjid
                         </div>
                     </div>
                 </div>
@@ -110,6 +122,7 @@
         </div>
     </div>
     @yield('content')
+    @include('layouts._public_footer')
     <script src="{{ asset('js/app.js') }}" ></script>
     @stack('scripts')
 </body>
