@@ -14,8 +14,9 @@
                 @endif
 
             </div>
-            <div class="col fs-2 fw-bold lh-sm text-dark">
-                {{ Setting::get('masjid_name', config('masjid.name')) }}
+            <div class="col">
+                <p class="fs-2 fw-bold lh-sm text-dark mb-1">{{ Setting::get('masjid_name', config('masjid.name')) }}</p>
+                {{ Setting::get('masjid_address') }}
             </div>
         </div>
     </div>
