@@ -30,9 +30,8 @@ class PublicFinanceController extends FinanceController
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
 
-        $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
-        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
-        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+        $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))
+            ->sortKeysDesc();
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
         if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
@@ -43,15 +42,15 @@ class PublicFinanceController extends FinanceController
 
         $reportPeriode = $book->report_periode_code;
         $selectedBook = $book;
+        $selectedMonth = $startDate->format('m');
         $showBudgetSummary = $this->determineBudgetSummaryVisibility($request, $book);
         $books = Book::where('status_id', Book::STATUS_ACTIVE)
             ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
             ->get();
-            $selectedMonth = $startDate->format('m');
 
         return view('public_reports.finance.'.$reportPeriode.'.summary', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories', 'books', 'selectedBook', 'selectedMonth',
-            'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
+            'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth',
+            'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
         ));
     }
@@ -111,7 +110,7 @@ class PublicFinanceController extends FinanceController
                 return in_array($transaction->date, $weekDates);
             });
             if (!$weekTransactions->isEmpty()) {
-                $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('day_name'));
+                $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('category_id')->sortKeys());
                 $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
             }
         }
