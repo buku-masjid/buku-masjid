@@ -32,6 +32,10 @@ class PublicFinanceController extends FinanceController
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))
             ->sortKeysDesc();
+        $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
+        $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
+        $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
+        $currentMonthBalance = $currentMonthIncome - $currentMonthSpending;
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
         if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
@@ -49,8 +53,8 @@ class PublicFinanceController extends FinanceController
             ->get();
 
         return view('public_reports.finance.'.$reportPeriode.'.summary', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth',
-            'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
+            'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth', 'currentMonthIncome',
+            'lastBankAccountBalanceOfTheMonth', 'lastMonthDate', 'currentMonthSpending', 'currentMonthBalance',
             'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
         ));
     }
