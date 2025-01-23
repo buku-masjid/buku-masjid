@@ -9,7 +9,7 @@
     <div class="offcanvas-body">
         <div class="d-sm-flex justify-content-center gap-2 book-list">
             @forelse ($books as $bookItem)
-                <a href="{{ route('public_reports.finance.summary', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce]) }}">
+                <a href="{{ route('public_reports.index', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce]) }}">
                     <div class="bm-btn book {{ $bookItem->id == $selectedBook->id ? 'book-selected' : '' }} bm-txt-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book-2">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
