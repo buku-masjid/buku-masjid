@@ -12,6 +12,7 @@ return [
     'user_inactive' => 'User tidak aktif.',
     'remember_me' => 'Ingat Saya',
     'have_account' => 'Saya sudah mendaftar',
+    'api_token_expired' => 'API token kadaluarsa.',
 
     // Password
     'change_password' => 'Ganti Password',
