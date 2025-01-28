@@ -23,8 +23,7 @@ class PublicReportTest extends TestCase
         $book->save();
 
         $this->visitRoute('public_reports.index');
-        $this->seeRouteIs('public_reports.index');
-        $this->seeText(__('book.not_found'));
+        $this->seePageIs('/');
         $this->dontSeeElement('a', ['id' => 'show-book-1']);
     }
 
@@ -49,15 +48,12 @@ class PublicReportTest extends TestCase
         $book->save();
 
         $this->visitRoute('public_reports.finance.summary');
-        $this->seeRouteIs('public_reports.index');
-        $this->seeText(__('book.not_found'));
+        $this->seePageIs('/');
 
         $this->visitRoute('public_reports.finance.categorized');
-        $this->seeRouteIs('public_reports.index');
-        $this->seeText(__('book.not_found'));
+        $this->seePageIs('/');
 
         $this->visitRoute('public_reports.finance.detailed');
-        $this->seeRouteIs('public_reports.index');
-        $this->seeText(__('book.not_found'));
+        $this->seePageIs('/');
     }
 }

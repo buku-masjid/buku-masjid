@@ -21,11 +21,11 @@ class WeeklyFinancialSummaryTest extends TestCase
         $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMMM Y');
         $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_label">'.__('report.balance_per_date', ['date' => $startOfWeekDayDate]).'</span>')
-            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_balance_label">'.__('report.today_balance', ['date' => $todayDayDate]).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(0).'</span>');
+            ->assertSeeHtml('<span class="date" id="start_week_label">'.__('report.balance_per_date', ['date' => $startOfWeekDayDate]).'</span>')
+            ->assertSeeHtml('<span id="start_week_balance">'.config('money.currency_code').' '.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.config('money.currency_code').' '.format_number(0).'</span>')
+            ->assertSeeHtml('<span class="date" id="current_balance_label">'.__('report.today_balance', ['date' => $todayDayDate]).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.config('money.currency_code').' '.format_number(0).'</span>');
     }
 
     /** @test */
@@ -35,12 +35,12 @@ class WeeklyFinancialSummaryTest extends TestCase
         $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMMM Y');
         $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertDontSeeHtml('<a class="btn btn-sm btn-success" href="'.route('public_reports.finance.detailed').'" role="button">'.__('app.show').'</a>');
+            ->assertDontSeeHtml('<a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="'.route('public_reports.finance.detailed').'" role="button">'.__('app.show').'</a>');
 
         $book->report_visibility_code = 'public';
         $book->save();
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<a class="btn btn-sm btn-success" href="'.route('public_reports.finance.detailed').'" role="button">'.__('app.show').'</a>');
+            ->assertSeeHtml('<a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="'.route('public_reports.index').'" role="button">'.__('app.show').'</a>');
     }
 
     /** @test */
@@ -63,10 +63,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.config('money.currency_code').' '.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.config('money.currency_code').' '.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.config('money.currency_code').' '.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.config('money.currency_code').' '.format_number(90000).'</span>');
     }
 
     /** @test */
@@ -98,10 +98,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.config('money.currency_code').' '.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.config('money.currency_code').' '.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.config('money.currency_code').' '.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.config('money.currency_code').' '.format_number(90000).'</span>');
     }
 
     /** @test */
@@ -139,10 +139,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">'.format_number(89000).'</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(179000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.config('money.currency_code').' '.format_number(89000).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.config('money.currency_code').' '.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.config('money.currency_code').' '.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.config('money.currency_code').' '.format_number(179000).'</span>');
     }
 
     /** @test */
@@ -182,10 +182,10 @@ class WeeklyFinancialSummaryTest extends TestCase
         ]);
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">'.format_number(89000).'</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(179000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.config('money.currency_code').' '.format_number(89000).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.config('money.currency_code').' '.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.config('money.currency_code').' '.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.config('money.currency_code').' '.format_number(179000).'</span>');
 
         Carbon::setTestNow();
     }
@@ -219,9 +219,9 @@ class WeeklyFinancialSummaryTest extends TestCase
         $this->visit('/');
 
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<span id="start_week_balance">'.format_number(0).'</span>')
-            ->assertSeeHtml('<span id="current_week_income_total">'.format_number(100000).'</span>')
-            ->assertSeeHtml('<span id="current_week_spending_total">'.format_number(-10000).'</span>')
-            ->assertSeeHtml('<span id="current_balance">'.format_number(90000).'</span>');
+            ->assertSeeHtml('<span id="start_week_balance">'.config('money.currency_code').' '.format_number(0).'</span>')
+            ->assertSeeHtml('<span id="current_week_income_total">'.config('money.currency_code').' '.format_number(100000).'</span>')
+            ->assertSeeHtml('<span id="current_week_spending_total">'.config('money.currency_code').' '.format_number(-10000).'</span>')
+            ->assertSeeHtml('<span id="current_balance">'.config('money.currency_code').' '.format_number(90000).'</span>');
     }
 }

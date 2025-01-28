@@ -106,6 +106,7 @@
     @yield('content')
     @include('layouts._public_footer')
     <script src="{{ asset('js/app.js') }}" ></script>
+    @include('layouts.partials.noty')
     @stack('scripts')
 </body>
 </html>

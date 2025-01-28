@@ -57,26 +57,32 @@
     <div class="row align-items-end">
         <div class="col-lg ps-sm-0">
             <div class="card fw-bold p-3 mb-2 shadow-lg">
-                Pemasukan<br>
+                {{ __('transaction.income') }}<br>
                 <span class="date">{{ __('report.current_week_income_total') }}</span>
-                <h1 class="pt-4 bm-txt-primary fw-bolder">Rp {{ format_number($currentWeekIncomeTotal) }}</h1>
+                <h1 class="pt-4 bm-txt-primary fw-bolder">
+                    <span id="current_week_income_total">{{ config('money.currency_code') }} {{ format_number($currentWeekIncomeTotal) }}</span>
+                </h1>
             </div>
         </div>
         <div class="col-lg ps-sm-0">
             <div class="card fw-bold p-3 mb-2 shadow-lg">
                 Pengeluaran<br>
                 <span class="date">{{ __('report.current_week_spending_total') }}</span>
-                <h1 class="pt-4 bm-txt-out fw-bolder">Rp {{ format_number($currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0) }}</h1>
+                <h1 class="pt-4 bm-txt-out fw-bolder">
+                    <span id="current_week_spending_total">{{ config('money.currency_code') }} {{ format_number($currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0) }}</span>
+                </h1>
             </div>
         </div>
         <div class="col-lg ps-sm-0">
             <div class="card fs-3 fw-bold p-3 mb-2 position-relative shadow-lg">
-                <button type="button" class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1">
-                Lebih Detil
-                </button>
+                @if ($bookVisibility == 'public')
+                    <a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="{{ route('public_reports.finance.detailed') }}" role="button">{{ __('app.show') }}</a>
+                @endif
                 Saldo Terakhir<br>
-                <span class="date">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
-                <h1 class="pt-4 bm-txt-netral fw-bolder">{{ format_number($currentBalance) }}</h1>
+                <span class="date" id="current_balance_label">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
+                <h1 class="pt-4 bm-txt-netral fw-bolder">
+                    <span id="current_balance">{{ config('money.currency_code') }} {{ format_number($currentBalance) }}</span>
+                </h1>
             </div>
         </div>
     </div>
