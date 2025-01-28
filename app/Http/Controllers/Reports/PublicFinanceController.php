@@ -54,18 +54,15 @@ class PublicFinanceController extends FinanceController
     {
         $book = auth()->activeBook();
         if ($book->report_visibility_code != 'public') {
-            return redirect()->to('/');
+            return redirect()->route('public_reports.index');
         }
 
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
 
-        $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))
-            ->sortKeysDesc();
-        $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
-        $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
-        $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
-        $currentMonthBalance = $currentMonthIncome - $currentMonthSpending;
+        $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
+        $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
+        $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
         if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
@@ -75,16 +72,11 @@ class PublicFinanceController extends FinanceController
         $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
 
         $reportPeriode = $book->report_periode_code;
-        $selectedBook = $book;
-        $selectedMonth = $startDate->format('m');
         $showBudgetSummary = $this->determineBudgetSummaryVisibility($request, $book);
-        $books = Book::where('status_id', Book::STATUS_ACTIVE)
-            ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
-            ->get();
 
         return view('public_reports.finance.'.$reportPeriode.'.summary', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth', 'currentMonthIncome',
-            'lastBankAccountBalanceOfTheMonth', 'lastMonthDate', 'currentMonthSpending', 'currentMonthBalance',
+            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories',
+            'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
             'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
         ));
     }
