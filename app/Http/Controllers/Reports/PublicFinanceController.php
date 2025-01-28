@@ -105,10 +105,11 @@ class PublicFinanceController extends FinanceController
         $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
+        $isTransactionFilesVisible = Setting::for($book)->get('transaction_files_visibility_code') == Book::REPORT_VISIBILITY_PUBLIC;
 
         return view('public_reports.finance.'.$reportPeriode.'.categorized', compact(
-            'startDate', 'endDate', 'currentMonthEndDate', 'reportPeriode',
-            'groupedTransactions', 'incomeCategories', 'spendingCategories'
+            'startDate', 'endDate', 'currentMonthEndDate', 'reportPeriode', 'groupedTransactions', 'incomeCategories',
+            'spendingCategories', 'isTransactionFilesVisible'
         ));
     }
 
@@ -127,9 +128,11 @@ class PublicFinanceController extends FinanceController
 
         $reportPeriode = $book->report_periode_code;
         $lastMonthDate = Carbon::parse($startDate)->subDay();
+        $isTransactionFilesVisible = Setting::for($book)->get('transaction_files_visibility_code') == Book::REPORT_VISIBILITY_PUBLIC;
 
         return view('public_reports.finance.'.$reportPeriode.'.detailed', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode', 'lastMonthDate'
+            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode', 'lastMonthDate',
+            'isTransactionFilesVisible'
         ));
     }
 

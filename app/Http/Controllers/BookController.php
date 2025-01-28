@@ -91,6 +91,7 @@ class BookController extends Controller
             'status_id' => ['required', Rule::in(Book::getConstants('STATUS'))],
             'bank_account_id' => 'nullable|exists:bank_accounts,id',
             'report_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
+            'transaction_files_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
             'budget' => ['nullable', 'numeric'],
             'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
             'income_partner_codes' => ['nullable', 'array'],
@@ -125,16 +126,17 @@ class BookController extends Controller
 
     private function updateBookSettings(Book $book, array $bookData): void
     {
-        $bookData['management_title'] ? Setting::for($book)->set('management_title', $bookData['management_title']) : null;
-        $bookData['acknowledgment_text_left'] ? Setting::for($book)->set('acknowledgment_text_left', $bookData['acknowledgment_text_left']) : null;
-        $bookData['sign_position_left'] ? Setting::for($book)->set('sign_position_left', $bookData['sign_position_left']) : null;
-        $bookData['sign_name_left'] ? Setting::for($book)->set('sign_name_left', $bookData['sign_name_left']) : null;
-        $bookData['acknowledgment_text_mid'] ? Setting::for($book)->set('acknowledgment_text_mid', $bookData['acknowledgment_text_mid']) : null;
-        $bookData['sign_position_mid'] ? Setting::for($book)->set('sign_position_mid', $bookData['sign_position_mid']) : null;
-        $bookData['sign_name_mid'] ? Setting::for($book)->set('sign_name_mid', $bookData['sign_name_mid']) : null;
-        $bookData['acknowledgment_text_right'] ? Setting::for($book)->set('acknowledgment_text_right', $bookData['acknowledgment_text_right']) : null;
-        $bookData['sign_position_right'] ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
-        $bookData['sign_name_right'] ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
+        array_key_exists('management_title', $bookData) ? Setting::for($book)->set('management_title', $bookData['management_title']) : null;
+        array_key_exists('acknowledgment_text_left', $bookData) ? Setting::for($book)->set('acknowledgment_text_left', $bookData['acknowledgment_text_left']) : null;
+        array_key_exists('sign_position_left', $bookData) ? Setting::for($book)->set('sign_position_left', $bookData['sign_position_left']) : null;
+        array_key_exists('sign_name_left', $bookData) ? Setting::for($book)->set('sign_name_left', $bookData['sign_name_left']) : null;
+        array_key_exists('acknowledgment_text_mid', $bookData) ? Setting::for($book)->set('acknowledgment_text_mid', $bookData['acknowledgment_text_mid']) : null;
+        array_key_exists('sign_position_mid', $bookData) ? Setting::for($book)->set('sign_position_mid', $bookData['sign_position_mid']) : null;
+        array_key_exists('sign_name_mid', $bookData) ? Setting::for($book)->set('sign_name_mid', $bookData['sign_name_mid']) : null;
+        array_key_exists('acknowledgment_text_right', $bookData) ? Setting::for($book)->set('acknowledgment_text_right', $bookData['acknowledgment_text_right']) : null;
+        array_key_exists('sign_position_right', $bookData) ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
+        array_key_exists('sign_name_right', $bookData) ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
+        array_key_exists('transaction_files_visibility_code', $bookData) ? Setting::for($book)->set('transaction_files_visibility_code', $bookData['transaction_files_visibility_code']) : null;
         Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']);
         Setting::for($book)->set('income_partner_codes', json_encode(array_keys($bookData['income_partner_codes'] ?? [])));
         Setting::for($book)->set('income_partner_null', $bookData['income_partner_null']);
