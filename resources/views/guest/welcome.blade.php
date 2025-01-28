@@ -57,8 +57,8 @@
                     </a>
                 </div>-->
                 @livewire('public-home.weekly-financial-summary')
-                <div class="col ps-sm-0">
-                    <div class="fs-2 fw-bold pb-3">
+                <div class="col-lg-3 ps-sm-0">
+                    <div class="fs-2 fw-bold pb-3 pt-sm-3">
                         <br class="d-sm-none">
                         Infaq
                     </div>
