@@ -39,23 +39,24 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div id="week_category_{{ 1 + $weekNumber }}_{{ $categoryId }}" class="accordion-collapse collapse">
-                                    <div class="accordion-body transaction-list">
-                                        @foreach ($transactions as $transaction)
-                                            <div class="row py-2 py-lg-0">
-                                                <div class="col-auto py-lg-2 date align-items-center d-flex">{{ $transaction->date }}</div>
-                                                <div class="col-lg me-1 py-lg-2">{{ $transaction->description }}</div>
-                                                <div class="col-lg-2 py-lg-2 col-num">
-                                                    {{ ($transaction->in_out) ? format_number($transaction->amount) : '' }}
+                                @if (optional($category)->report_visibility_code == App\Models\Category::REPORT_VISIBILITY_PUBLIC)
+                                    <div id="week_category_{{ 1 + $weekNumber }}_{{ $categoryId }}" class="accordion-collapse collapse">
+                                        <div class="accordion-body transaction-list">
+                                            @foreach ($transactions as $transaction)
+                                                <div class="row py-2 py-lg-0">
+                                                    <div class="col-auto py-lg-2 date align-items-center d-flex">{{ $transaction->date }}</div>
+                                                    <div class="col-lg me-1 py-lg-2">{{ $transaction->description }}</div>
+                                                    <div class="col-lg-2 py-lg-2 col-num">
+                                                        {{ ($transaction->in_out) ? format_number($transaction->amount) : '' }}
+                                                    </div>
+                                                    <div class="col-lg-2 py-lg-2 col-num">
+                                                        {{ ($transaction->in_out) ? '' : format_number($transaction->amount) }}
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-2 py-lg-2 col-num">
-                                                    {{ ($transaction->in_out) ? '' : format_number($transaction->amount) }}
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>
