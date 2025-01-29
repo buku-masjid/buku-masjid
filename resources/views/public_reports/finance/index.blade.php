@@ -32,12 +32,12 @@
                         <span class="badge text-uppercase bg-primary mr-1" title="{{ __('report.periode') }}: {{ __('report.'.$selectedBook->report_periode_code) }}">
                             {{ __('report.'.$selectedBook->report_periode_code) }}
                         </span>
-                        <span class="badge text-uppercase bg-warning" title="{{ __('report.start_week_day') }}: {{ __('time.days.'.$selectedBook->start_week_day_code) }}">
-                            {{ __('time.days.'.$selectedBook->start_week_day_code) }}
-                        </span>
                     </div>
                 </div>
-                <div class="col px-3 text-sm-end">
+                <div class="col-sm text-center d-grid align-items-center text-sm-end pb-2 pb-sm-0">
+                    {{ $startDate->isoFormat('dddd, D MMM Y') }} - {{ $endDate->isoFormat('dddd, D MMM Y') }}
+                </div>
+                <div class="col-sm px-3 d-grid align-items-center text-sm-end">
                     @include('public_reports.finance._time_range_navigation')
                 </div>
             </div>
@@ -56,9 +56,20 @@
 @endsection
 
 @section('styles')
-<style>
-.list-group-transparent .list-group-item {
-    padding: 0.5rem 0.5rem;
-}
-</style>
+    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
 @endsection
+
+@push('scripts')
+    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
+<script>
+(function () {
+    $('.date-select').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false,
+        dayOfWeekStart: 1,
+    });
+})();
+</script>
+@endpush

@@ -29,7 +29,7 @@ class PublicFinanceController extends FinanceController
         $currentMonthBalance = $currentMonthIncome - $currentMonthSpending;
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
-        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
+        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m') && $book->report_periode_code == 'in_months') {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
