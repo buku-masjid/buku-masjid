@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (optional($category)->report_visibility_code == App\Models\Category::REPORT_VISIBILITY_PUBLIC)
+                                @if (optional($category)->report_visibility_code == App\Models\Category::REPORT_VISIBILITY_PUBLIC || is_null($category))
                                     <div id="week_category_{{ 1 + $weekNumber }}_{{ $categoryId }}" class="accordion-collapse collapse">
                                         <div class="accordion-body transaction-list">
                                             @foreach ($transactions as $transaction)
