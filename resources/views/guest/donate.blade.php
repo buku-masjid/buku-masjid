@@ -8,8 +8,10 @@
 </style>
 <section class="bg-white">
     <div class="container-md">
-        <div class="masjid-info-top row">
-            @include('layouts._public_infomasjid')
+        <div class="section-hero row">
+            <div class="col">
+                @include('layouts._public_masjid_info')
+            </div>
             <div class="d-none d-lg-flex align-items-center col-7 position-relative">
                 <img src="images/donate_infaq.png" style="width: 80%">
                 <img src="images/donate_pattern.svg" class="position-absolute" style="z-index: 0">

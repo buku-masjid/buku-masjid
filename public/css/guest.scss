@@ -1,17 +1,17 @@
 /* Space out content a bit */
 
-html        { background-color: #F8F8F8;} 
+html        { background-color: #F8F8F8;}
 body        { background-color: #F8F8F8;}
 div         { box-sizing: border-box !important;}
-body::-webkit-scrollbar { 
+body::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
 a { color: #20716B; text-decoration: none;}
 a:hover { color: #378E88; text-decoration: none;}
-.section-bottom 
+.section-bottom
             { background: transparent; border-top: 1px solid #E7E7E7;}
 .offcanvas  { width: 80% !important;}
-.cta-join   { font-size: 11px; padding: 14px 20px; border-radius: 11px; background: #CFEEEB; 
+.cta-join   { font-size: 11px; padding: 14px 20px; border-radius: 11px; background: #CFEEEB;
               box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20);
   span      { font-size: 18px; font-weight: bold;}
 }
@@ -26,7 +26,7 @@ a:hover { color: #378E88; text-decoration: none;}
 }
 .summary        { -ms-overflow-style: none; scrollbar-width: none;
 }
-.summary::-webkit-scrollbar { 
+.summary::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
 
@@ -53,12 +53,12 @@ a:hover { color: #378E88; text-decoration: none;}
   .icon           { font-size: 20px;}
 }
 
-.photo-profile { 
+.photo-profile {
   .photo { width: 150px; height: 150px; }
   .profile { width: 150px;}
   i { font-size: 80px !important;}
 }
-.photo-profile-small { 
+.photo-profile-small {
   .photo { width: 80px; height: 80px; }
   .profile { width: 80px;}
   i { font-size: 40px !important;}
@@ -98,7 +98,7 @@ $pattern-w: 500px;
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
-.masjid-info-top { padding: 20px; }
+.section-hero { padding: 20px; }
 
 /* TRANSACTION ******************************************/
 .accordion-item     { border-radius: 12px !important;}
@@ -107,7 +107,7 @@ $pattern-w: 500px;
     .col-cat        { border-top: 0px}
     .col-num        { text-align: left;}
   }
-  .accordion-item:first-child 
+  .accordion-item:first-child
                     { border: 0; border-top: 0px;
     .col-cat        { border-top: 0px }
     .row-parent     { border-top: 0px }
@@ -118,7 +118,7 @@ $pattern-w: 500px;
   .row              {  border-top: 1px solid #CEF1F1; }
   .row:first-child  {  border-top: 0px; }
 }
-.tl-out { border: 1px solid #F1CEDF; background: #FFF4F7; 
+.tl-out { border: 1px solid #F1CEDF; background: #FFF4F7;
   .row              {  border-top: 1px solid #F1CEDF; }
 }
 .book-list {
@@ -136,11 +136,11 @@ $pattern-w: 500px;
 .prayinfo { border-radius: 10px; box-sizing: border-box; padding: 15px; color: #fff; background: rgb(2,0,36);
   background: linear-gradient(180deg, rgba(2,0,36,0) 17%, rgba(16,17,33,0.6839110644257703) 65%, rgba(26,30,31,1) 100%); }
 /* SCHEDULE TIMELINE ******************************************/
-.timeline_area        
+.timeline_area
       { position: relative; z-index: 1; }
-.single-timeline-area 
+.single-timeline-area
       { position: relative; z-index: 1; padding-left: 0px;
-  .timeline-date      
+  .timeline-date
       { position: absolute; z-index: 1;
         width: 180px; height: 100%; top: 0; left: 0;
         display: -webkit-box; display: -ms-flexbox; display: flex;
@@ -153,23 +153,23 @@ $pattern-w: 500px;
           }
   }
 
-  .timeline-date::after 
+  .timeline-date::after
       { position: absolute;
         width: 3px; height: 100%; content: ""; background-color: #ebebeb;
         top: 0; right: 30px; z-index: 1;
       }
 
-  .timeline-date::before 
+  .timeline-date::before
       { position: absolute; width: 11px; height: 11px; border-radius: 50%; background-color: #20716B;
         content: ""; top: 50%; right: 26px; z-index: 5; margin-top: -5.5px;
       }
-  .single-timeline-content 
+  .single-timeline-content
       { position: relative; z-index: 1; padding: 30px 30px 25px; border-radius: 15px;
         margin-bottom: 15px; margin-top: 15px;
         -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
         box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
 
-        .timeline-icon  
+        .timeline-icon
                 { -webkit-transition-duration: 500ms; transition-duration: 500ms;
                   width: 80px; height: 80px; background-color: #eee; -webkit-box-flex: 0;
                   -ms-flex: 0 0 80px; flex: 0 0 80px; text-align: center; max-width: 80px;
@@ -178,7 +178,7 @@ $pattern-w: 500px;
           img   { border-radius: 10px;  }
         }
 
-        .timeline-text { 
+        .timeline-text {
           h6    { -webkit-transition-duration: 500ms; transition-duration: 500ms; }
           p     { font-size: 16px; margin-bottom: 0;
           }
@@ -212,7 +212,7 @@ $pattern-w: 500px;
     img { width: 480px; position: relative; display: inline-block; right:auto; top: -240px}
   }
   .home-bottom { position: relative; top: -120px}
-  .masjid-info-top { padding: 60px 0px 120px 0px;}
+  .section-hero { padding: 60px 0px 120px 0px;}
   .nav-public {
     background-color: #F8F8F8;
     padding: 10px 20px;
@@ -230,13 +230,13 @@ $pattern-w: 500px;
   }
   /* TRANSACTION ******************************************/
   .transaction        {
-    .accordion-item   { 
+    .accordion-item   {
       .col-num        { text-align: right;}
     }
   }
   .bm-btn-link        { color: #fff; text-align: left; text-decoration: none; }
   .bm-btn-link:hover  { color: #fff; text-align: left; text-decoration: none; }
-  .photo-profile { 
+  .photo-profile {
     .photo { width: 150px; height: 150px; }
     .profile { width: 150px;}
     i { font-size: 80px !important;}
@@ -274,4 +274,4 @@ $pattern-w: 500px;
 
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron  { border-bottom: 0; }
-} 
+}

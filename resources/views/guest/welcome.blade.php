@@ -6,9 +6,11 @@
 
 <section class="bg-white">
     <div class="container-md">
-        <div class="masjid-info-top row">
-            @include('layouts._public_infomasjid')
-            <div class="d-none d-lg-block col-7 position-relative">
+        <div class="section-hero row">
+            <div class="col">
+                @include('layouts._public_masjid_info')
+            </div>
+            <div class="d-none d-lg-block col-6 position-relative">
                 <img src="images/photo_masjid.png">
                 <img src="images/image_cover.svg" class="position-absolute top-0 start-0">
             </div>
@@ -18,7 +20,7 @@
 <div class="section-bottom">
     <div class="container-md home-bottom">
         <div>
-            <div class="row p-3 align-items-end">
+            <div class="row align-items-end">
                 @livewire('public-home.weekly-financial-summary')
                 {{--
                 <div class="col-lg-3 ps-sm-0">

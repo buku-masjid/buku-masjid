@@ -4,8 +4,8 @@
 
 @section('content')
 
-<?php 
-/*
+<?php
+    /*
 @include('public_schedules._nav')
 
 @foreach ($audienceCodes as $audienceCode => $audience)
@@ -17,7 +17,7 @@
             @include('public_schedules._single_'.$audienceCode)
         @endforeach
     @endif
-    
+
 @endforeach
 */
 ?>
@@ -26,9 +26,11 @@
 </style>
 <section class="bg-white">
     <div class="container-md">
-        <div class="row masjid-info-top pb-0 d-lg-flex align-items-stretch">
-            @include('layouts._public_infomasjid')
-            
+        <div class="row section-hero pb-0 d-lg-flex align-items-stretch">
+            <div class="col">
+                @include('layouts._public_masjid_info')
+            </div>
+
             <div class="d-none d-lg-flex col-7 justify-content-end align-items-end">
                 <div>
                     <div class="d-flex align-items-end gap-2 align-items-end">
@@ -93,7 +95,7 @@
                     <button type="button" class="btn btn-light border bm-btn py-2">{{ __('time.next_week') }}</button>
                 </a>
             </div>
-            <!-- 
+            <!--
             <div class="btn-group col-auto" role="group" aria-label="Third group">
                 <button type="button" class="btn btn-light border bm-btn py-2"><i class="ti py-1">&#xea60;</i></button>
             </div>
@@ -149,7 +151,7 @@
                                 @endif
                             @endforeach
                         @endif
-                    @endif 
+                    @endif
                 @endforeach
                 </div>
             </div>
@@ -190,13 +192,13 @@
                                                 @endif
                                             @endforeach
                                         </div>
-                                    </div>    
-                                @endif 
-                            @endif 
+                                    </div>
+                                @endif
+                            @endif
                         @endforeach
-                        
-                        <?php 
-                        /*
+
+                        <?php
+                            /*
                         <!-- WEEK -->
                         <div class="single-timeline-area border-bottom py-4">
                             <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s">

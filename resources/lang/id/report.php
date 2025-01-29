@@ -34,7 +34,7 @@ return [
     'next_week' => 'Pekan Brkt',
     'graph' => 'Grafik Summary',
     'detail' => 'Detail Laporan',
-    'summary_weekly' => 'Laporan KAS pekan ini',
+    'summary_weekly' => 'Laporan Pekan Ini',
     'balance_per_date' => 'Saldo per :date',
     'today_balance' => 'Saldo hari ini (:date)',
     'current_week_income_total' => 'Pemasukan hingga hari ini',
