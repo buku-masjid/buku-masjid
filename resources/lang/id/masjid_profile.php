@@ -4,6 +4,7 @@ return [
     // Labels
     'masjid_profile' => 'Profil Masjid',
     'masjid_logo' => 'Logo Masjid',
+    'maps' => 'Peta Lokasi',
 
     // Actions
     'edit' => 'Edit Profil Masjid',
@@ -14,6 +15,8 @@ return [
     'change_logo' => 'Ganti Logo',
     'logo_rule' => 'Logo berukuran 200x200px',
     'image_not_found' => 'Image tidak ditemukan',
+    'refresh_masjid_map' => 'Refresh Peta Lokasi',
+    'coordinate_updated' => 'Koordinat lokasi berhasil diupdate.',
 
     // Attributes
     'name' => 'Nama Masjid',

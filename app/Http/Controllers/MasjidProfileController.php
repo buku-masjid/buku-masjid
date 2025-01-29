@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MapHelper;
 use Facades\App\Helpers\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,6 +39,23 @@ class MasjidProfileController extends Controller
         Setting::set('masjid_google_maps_link', $validatedPayload['masjid_google_maps_link']);
 
         flash(__('masjid_profile.updated'), 'success');
+
+        return redirect()->route('masjid_profile.show');
+    }
+
+    public function coordinatesUpdate(Request $request): RedirectResponse
+    {
+        $this->authorize('edit_masjid_profile');
+
+        $validatedPayload = $request->validate([
+            'google_maps_link' => 'required|string|max:255',
+        ]);
+        $coordinates = MapHelper::getCoordinatesFromGoogleMapsLink($validatedPayload['google_maps_link']);
+
+        Setting::set('masjid_latitude', $coordinates['latitude']);
+        Setting::set('masjid_longitude', $coordinates['longitude']);
+
+        flash(__('masjid_profile.coordinate_updated'), 'success');
 
         return redirect()->route('masjid_profile.show');
     }

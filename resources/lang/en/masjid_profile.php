@@ -4,6 +4,7 @@ return [
     // Labels
     'masjid_profile' => 'Masjid Profile',
     'masjid_logo' => 'Masjid Logo',
+    'maps' => 'Maps',
 
     // Actions
     'edit' => 'Edit Masjid Profile',
@@ -14,6 +15,8 @@ return [
     'change_logo' => 'Change Logo',
     'logo_rule' => 'Image size 200x200px',
     'image_not_found' => 'Image not found',
+    'refresh_masjid_map' => 'Refresh Maps',
+    'coordinate_updated' => 'Coordinate has been updated.',
 
     // Attributes
     'name' => 'Masjid Name',

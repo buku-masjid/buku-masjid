@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use Facades\App\Helpers\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class MasjidProfileTest extends TestCase
@@ -54,11 +55,31 @@ class MasjidProfileTest extends TestCase
     }
 
     /** @test */
-    public function masjid_name_based_masjid_profile_data()
+    public function user_can_get_masjid_map_if_google_maps_link_exists()
     {
-        $masjidName = Setting::get('masjid_name', config('masjid.name'));
+        DB::table('settings')->insert([
+            'key' => 'masjid_google_maps_link',
+            'value' => 'https://maps.app.goo.gl/viUfQtHqjUXJHSLb8',
+        ]);
+        Http::fake([
+            'https://maps.app.goo.gl/viUfQtHqjUXJHSLb8' => Http::response('', 302, [
+                'Location' => 'https://www.google.com/maps/@-3.4331567,114.8409041,15z',
+            ]),
+        ]);
 
-        $this->visit('/');
-        $this->see($masjidName);
+        $user = $this->loginAsUser();
+        $this->visitRoute('masjid_profile.show');
+        $this->seeElement('button', ['type' => 'submit', 'id' => 'refresh_masjid_map']);
+        $this->press('refresh_masjid_map');
+
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_latitude',
+            'value' => '-3.4331567',
+        ]);
+
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_longitude',
+            'value' => '114.8409041',
+        ]);
     }
 }
