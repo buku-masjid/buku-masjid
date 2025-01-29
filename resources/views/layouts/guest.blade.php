@@ -52,13 +52,13 @@
     </div>
     <div class="container p-0 bg-white">
         <div class="d-sm-none">
-            <div class="row p-3">
+            <div class="row p-3 me-0">
                 <div class="col text-start">
                     <img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 100px">
                 </div>
                 <div class="col text-end">
                     <a class="btn position-relative z-2" data-bs-toggle="offcanvas" href="#offcanvasStart" role="button" aria-controls="offcanvasStart">
-                    <i class="ti ti-baseline-density-medium"></i>
+                        <i class="ti ti-baseline-density-medium"></i>
                     </a>
                 </div>
             </div>

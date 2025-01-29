@@ -6,7 +6,7 @@
 
 @section('content')
 <section class="bg-white">
-    <div class="container-md px-0">
+    <div class="container-md">
         <div class="row p-3 p-sm-0 py-sm-3 align-items-center">
             <div class="col-auto">
                 @if (Setting::get('masjid_logo_path'))
