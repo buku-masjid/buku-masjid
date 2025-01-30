@@ -30,13 +30,23 @@ class MasjidProfileController extends Controller
             'masjid_name' => 'required|string|max:255',
             'masjid_address' => 'required|string|max:255',
             'masjid_city_name' => 'required|string|max:255',
-            'masjid_google_maps_link' => 'nullable|string|max:255',
+            'masjid_google_maps_link' => ['nullable', 'url', 'max:255'],
+            'masjid_whatsapp_number' => ['nullable', 'alpha_num', 'max:255'],
+            'masjid_instagram_username' => ['nullable', 'alpha_num', 'max:255'],
+            'masjid_youtube_username' => ['nullable', 'alpha_num', 'max:255'],
+            'masjid_facebook_username' => ['nullable', 'alpha_num', 'max:255'],
+            'masjid_telegram_username' => ['nullable', 'alpha_num', 'max:255'],
         ]);
 
         Setting::set('masjid_name', $validatedPayload['masjid_name']);
         Setting::set('masjid_address', $validatedPayload['masjid_address']);
         Setting::set('masjid_city_name', $validatedPayload['masjid_city_name']);
         Setting::set('masjid_google_maps_link', $validatedPayload['masjid_google_maps_link']);
+        Setting::set('masjid_whatsapp_number', $validatedPayload['masjid_whatsapp_number']);
+        Setting::set('masjid_instagram_username', $validatedPayload['masjid_instagram_username']);
+        Setting::set('masjid_youtube_username', $validatedPayload['masjid_youtube_username']);
+        Setting::set('masjid_facebook_username', $validatedPayload['masjid_facebook_username']);
+        Setting::set('masjid_telegram_username', $validatedPayload['masjid_telegram_username']);
 
         flash(__('masjid_profile.updated'), 'success');
 

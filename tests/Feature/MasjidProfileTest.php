@@ -31,6 +31,11 @@ class MasjidProfileTest extends TestCase
             'masjid_address' => 'Jln. Kalimantan, No. 20, Kota Banjarmasin',
             'masjid_city_name' => 'Banjarmasin',
             'masjid_google_maps_link' => 'https://maps.app.goo.gl/abcd',
+            'masjid_whatsapp_number' => '6281234567890',
+            'masjid_instagram_username' => 'abcd',
+            'masjid_youtube_username' => 'abcd',
+            'masjid_facebook_username' => 'abcd',
+            'masjid_telegram_username' => 'abcd',
         ]);
 
         $this->see(__('masjid_profile.updated'));
@@ -51,6 +56,26 @@ class MasjidProfileTest extends TestCase
         $this->seeInDatabase('settings', [
             'key' => 'masjid_google_maps_link',
             'value' => 'https://maps.app.goo.gl/abcd',
+        ]);
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_whatsapp_number',
+            'value' => '6281234567890',
+        ]);
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_instagram_username',
+            'value' => 'abcd',
+        ]);
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_youtube_username',
+            'value' => 'abcd',
+        ]);
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_facebook_username',
+            'value' => 'abcd',
+        ]);
+        $this->seeInDatabase('settings', [
+            'key' => 'masjid_telegram_username',
+            'value' => 'abcd',
         ]);
     }
 

@@ -38,6 +38,54 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="card">
+            <div class="card-header">{{ __('app.social_media') }}</div>
+            <table class="table table-sm card-table">
+                <tbody>
+                    <tr>
+                        <td class="col-4">Whatsapp</td>
+                        <td>
+                            @if (Setting::get('masjid_whatsapp_number'))
+                                {{ link_to('https://wa.me/'.Setting::get('masjid_whatsapp_number'), null, ['target' => '__blank']) }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Instagram</td>
+                        <td>
+                            @if (Setting::get('masjid_instagram_username'))
+                                {{ link_to('https://instagram.com/'.Setting::get('masjid_instagram_username'), null, ['target' => '__blank']) }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Youtube</td>
+                        <td>
+                            @if (Setting::get('masjid_youtube_username'))
+                                {{ link_to('https://youtube.com/'.Setting::get('masjid_youtube_username'), null, ['target' => '__blank']) }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Facebook</td>
+                        <td>
+                            @if (Setting::get('masjid_facebook_username'))
+                                {{ link_to('https://facebook.com/'.Setting::get('masjid_facebook_username'), null, ['target' => '__blank']) }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Telegram</td>
+                        <td>
+                            @if (Setting::get('masjid_telegram_username'))
+                                {{ link_to('https://t.me/'.Setting::get('masjid_telegram_username'), null, ['target' => '__blank']) }}
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     @if (Setting::get('masjid_google_maps_link'))
         <div class="col-md-6">
