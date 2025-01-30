@@ -128,7 +128,9 @@
         var latitude = "{{ Setting::get('masjid_latitude') }}";
         var longitude = "{{ Setting::get('masjid_longitude') }}";
 
-        var map = L.map('masjid_map').setView([latitude, longitude], 16);
+        var map = L.map('masjid_map', {
+            scrollWheelZoom: false,
+        }).setView([latitude, longitude], 16);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
