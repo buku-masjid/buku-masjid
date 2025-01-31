@@ -87,8 +87,8 @@
             </table>
         </div>
     </div>
-    @if (Setting::get('masjid_google_maps_link'))
-        <div class="col-md-6">
+    <div class="col-md-6">
+        @if (Setting::get('masjid_google_maps_link'))
             <div class="card">
                 <div class="card-header">
                     {{ __('masjid_profile.maps') }}
@@ -105,8 +105,21 @@
                     <div class="card-body" id="masjid_map"></div>
                 @endif
             </div>
+        @endif
+        <div class="card">
+            <div class="card-header">
+                {{ __('masjid_profile.masjid_photo') }}
+                <div class="card-options"></div>
+            </div>
+            <div class="card-body">
+                @if (Setting::get('masjid_photo_path'))
+                    <img class="img-fluid" src="{{ Storage::url(Setting::get('masjid_photo_path'))}}" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
+                @else
+                    <div class="p-4">{{ __('masjid_profile.masjid_photo') }}</div>
+                @endif
+            </div>
         </div>
-    @endif
+    </div>
 </div>
 @endsection
 

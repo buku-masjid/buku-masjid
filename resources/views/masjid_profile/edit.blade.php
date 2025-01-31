@@ -57,6 +57,29 @@
                         ]) !!}
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <label>{{ __('masjid_profile.masjid_photo') }}</label>
+                        <div class="form-group" id="masjid-photo">
+                            @if (Setting::get('masjid_photo_path'))
+                                <img id="masjid_photo_image_show" class="img-fluid" src="{{ Storage::url(Setting::get('masjid_photo_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
+                            @endif
+                        </div>
+                        @php
+                            $labelText = __('masjid_profile.upload_photo');
+                            if (Setting::get('masjid_photo_path')) {
+                                $labelText = __('masjid_profile.change_photo');
+                            }
+                        @endphp
+                        <label for="masjid_photo_image" class="btn btn-secondary">{{ $labelText }}</label>
+                        {!! FormField::file('masjid_photo_image', [
+                            'label' => false,
+                            'id' => 'masjid_photo_image',
+                            'class' => 'd-none',
+                            'info' => ['text' => __('masjid_profile.photo_rule')]
+                        ]) !!}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -85,6 +108,34 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_logo">{{__('app.crop_and_save')}}</button>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-masjid-photo" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalMasjidLogo">{{ __('masjid_profile.masjid_photo') }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="img-container">
+              <div class="row justify-content-center text-center">
+                  <div class="col-md-8 justify-content-center text-center">
+                      <img id="photo-image" src="" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
+                  </div>
+                  <div class="col-md-4 justify-content-center text-center">
+                      <div class="preview"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn btn-primary" id="crop_photo">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
     </div>
@@ -176,6 +227,100 @@
                             });
 
                             $modalLogo.modal('hide');
+                        },
+                        error : function(data){
+                            var status = 'error';
+                            var errorMessage = data.responseJSON.message;
+                            noty({
+                                type: status,
+                                layout: 'bottomRight',
+                                text: errorMessage,
+                                timeout: false
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        var $modalPhoto = $('#modal-masjid-photo');
+        var imagePhoto = document.getElementById('photo-image');
+        var cropper;
+
+        $(document).on("change", "#masjid_photo_image", function(e){
+            var files = e.target.files;
+            var done = function (url) {
+                imagePhoto.src = url;
+                $modalPhoto.modal('show');
+            };
+            var reader;
+            var file;
+            var url;
+            if (files && files.length > 0) {
+                file = files[0];
+                if (URL) {
+                    done(URL.createObjectURL(file));
+                } else if (FileReader) {
+                    reader = new FileReader();
+                    reader.onload = function (e) {
+                        done(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+        $modalPhoto.on('shown.bs.modal', function () {
+            cropper = new Cropper(imagePhoto, {
+                aspectRatio: 2 / 1,
+                viewMode: 2,
+                preview: '.preview'
+            });
+        }).on('hidden.bs.modal', function () {
+            cropper.destroy();
+            cropper = null;
+        });
+        $("#crop_photo").click(function(){
+            canvas = cropper.getCroppedCanvas({
+                width: 960,
+                height: 480,
+            });
+            canvas.toBlob(function(blob) {
+                url = URL.createObjectURL(blob);
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function() {
+                    var base64data = reader.result;
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "{{ route('api.masjid_profile.upload_photo')}}",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_token': $('meta[name="_token"]').attr('content'),
+                            'image': base64data
+                        },
+                        success: function(data){
+                            var status = 'error';
+                            if (data.image) {
+                                if ($('#masjid_photo_image_show').length) {
+                                    $('#masjid_photo_image_show').attr('src', data.image);
+                                } else {
+                                    $('#masjid-photo').append(`<img id="masjid_photo_image_show" class="img-fluid mt-2" src="${data.image}">`);
+                                }
+                                status = 'success';
+                            }
+
+                            noty({
+                                type: status,
+                                layout: 'bottomRight',
+                                text: data.message,
+                                timeout: 3000
+                            });
+
+                            $modalPhoto.modal('hide');
                         },
                         error : function(data){
                             var status = 'error';
