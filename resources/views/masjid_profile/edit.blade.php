@@ -61,11 +61,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-masjid" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-masjid-logo" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">{{ __('masjid_profile.masjid_logo') }}</h5>
+          <h5 class="modal-title" id="modalMasjidLogo">{{ __('masjid_profile.masjid_logo') }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"></span>
           </button>
@@ -74,7 +74,7 @@
           <div class="img-container">
               <div class="row justify-content-center text-center">
                   <div class="col-md-8 justify-content-center text-center">
-                      <img id="image" src="" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
+                      <img id="logo-image" src="" alt="{{ Setting::get('masjid_name', config('masjid.name')) }}">
                   </div>
                   <div class="col-md-4 justify-content-center text-center">
                       <div class="preview"></div>
@@ -84,7 +84,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
-            <button type="button" class="btn btn-primary" id="crop">{{__('app.crop_and_save')}}</button>
+            <button type="button" class="btn btn-primary" id="crop_logo">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
     </div>
@@ -99,15 +99,15 @@
     {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}
     {{ Html::script(url('js/plugins/noty.js')) }}
     <script>
-        var $modal = $('#modal-masjid');
-        var image = document.getElementById('image');
+        var $modalLogo = $('#modal-masjid-logo');
+        var imageLogo = document.getElementById('logo-image');
         var cropper;
 
         $(document).on("change", "#masjid_logo_image", function(e){
             var files = e.target.files;
             var done = function (url) {
-                image.src = url;
-                $modal.modal('show');
+                imageLogo.src = url;
+                $modalLogo.modal('show');
             };
             var reader;
             var file;
@@ -125,8 +125,8 @@
                 }
             }
         });
-        $modal.on('shown.bs.modal', function () {
-            cropper = new Cropper(image, {
+        $modalLogo.on('shown.bs.modal', function () {
+            cropper = new Cropper(imageLogo, {
                 aspectRatio: 1,
                 viewMode: 2,
                 preview: '.preview'
@@ -135,7 +135,7 @@
             cropper.destroy();
             cropper = null;
         });
-        $("#crop").click(function(){
+        $("#crop_logo").click(function(){
             canvas = cropper.getCroppedCanvas({
                 width: 200,
                 height: 200,
@@ -149,7 +149,7 @@
                     $.ajax({
                         type: "POST",
                         dataType: "json",
-                        url: "{{ route('api.masjid_profile.image')}}",
+                        url: "{{ route('api.masjid_profile.upload_logo')}}",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
@@ -175,7 +175,7 @@
                                 timeout: 3000
                             });
 
-                            $modal.modal('hide');
+                            $modalLogo.modal('hide');
                         },
                         error : function(data){
                             var status = 'error';
