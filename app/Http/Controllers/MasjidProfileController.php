@@ -62,8 +62,8 @@ class MasjidProfileController extends Controller
         ]);
         $coordinates = MapHelper::getCoordinatesFromGoogleMapsLink($validatedPayload['google_maps_link']);
 
-        Setting::set('masjid_latitude', $coordinates['latitude']);
-        Setting::set('masjid_longitude', $coordinates['longitude']);
+        Setting::set('masjid_latitude', $coordinates['latitude'] ?? null);
+        Setting::set('masjid_longitude', $coordinates['longitude'] ?? null);
 
         flash(__('masjid_profile.coordinate_updated'), 'success');
 
