@@ -134,6 +134,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'show'])->name('masjid_profile.show');
     Route::get('masjid_profile/edit', [App\Http\Controllers\MasjidProfileController::class, 'edit'])->name('masjid_profile.edit');
     Route::patch('masjid_profile', [App\Http\Controllers\MasjidProfileController::class, 'update'])->name('masjid_profile.update');
+    Route::patch('masjid_profile/coordinates/update', [App\Http\Controllers\MasjidProfileController::class, 'coordinatesUpdate'])
+        ->name('masjid_profile.coordinates.update');
 
     /*
      * Backup Restore Database Routes

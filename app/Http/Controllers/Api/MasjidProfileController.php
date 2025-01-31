@@ -40,6 +40,37 @@ class MasjidProfileController extends Controller
         ]);
     }
 
+    public function updatePhoto(Request $request)
+    {
+        $this->authorize('edit_masjid_profile');
+
+        $validatedPayload = $request->validate([
+            'image' => 'required',
+        ]);
+
+        if (!base64_decode($validatedPayload['image'])) {
+            return response()->json([
+                'message' => __('masjid_profile.image_not_found'),
+            ]);
+        }
+
+        if ($masjidPhotoPath = Setting::get('masjid_photo_path')) {
+            Storage::delete($masjidPhotoPath);
+        }
+
+        $imageParts = explode(';base64,', $validatedPayload['image']);
+        $imageBase64 = base64_decode($imageParts[1]);
+        $imageName = uniqid().'.webp';
+
+        Storage::put($imageName, $imageBase64);
+        Setting::set('masjid_photo_path', $imageName);
+
+        return response()->json([
+            'message' => __('masjid_profile.photo_uploaded'),
+            'image' => Storage::url($imageName),
+        ]);
+    }
+
     public function show()
     {
         $masjidName = Setting::get('masjid_name', config('masjid.name'));
