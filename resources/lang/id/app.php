@@ -29,6 +29,7 @@ return [
     'contact' => 'Kontak',
     'printed_at' => 'Dicetak pada',
     'unknown' => 'Tidak diketahui',
+    'social_media' => 'Media Sosial',
 
     // Action
     'create' => 'Input',

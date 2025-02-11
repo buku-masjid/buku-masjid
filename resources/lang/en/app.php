@@ -29,6 +29,7 @@ return [
     'contact' => 'Contact',
     'printed_at' => 'Printed at',
     'unknown' => 'Unknown',
+    'social_media' => 'Social Media',
 
     // Action
     'add' => 'Add',

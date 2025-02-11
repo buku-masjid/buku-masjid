@@ -14,7 +14,9 @@
     </li>
     @if (Route::has('lecturings.index'))
         @can('view-any', new App\Models\Lecturing)
-            {!! link_to_route('lecturings.index', __('lecturing.lecturing'), [], ['class' => 'nav-link'.(in_array(Request::segment(1), ['lecturings', 'friday_lecturings']) ? ' active' : '')]) !!}
+            <li class="nav-item">
+                {!! link_to_route('lecturings.index', __('lecturing.lecturing'), [], ['class' => 'nav-link'.(in_array(Request::segment(1), ['lecturings', 'friday_lecturings']) ? ' active' : '')]) !!}
+            </li>
         @endcan
     @endif
     @can('view-any', new App\Models\BankAccount)
