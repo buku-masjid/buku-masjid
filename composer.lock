@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e958184a235bb25f784365306b41b0f",
+    "content-hash": "f4974cc9c6d9e1ad09493cfe67797f0b",
     "packages": [
         {
             "name": "backup-manager/backup-manager",
@@ -3190,24 +3190,24 @@
         },
         {
             "name": "luthfi/formfield",
-            "version": "3.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nafiesl/FormField.git",
-                "reference": "ff30de5f089f5f1866ed69d78387a7539cb3006d"
+                "reference": "379d33fefca21d4fb961fd523ceec78373033bc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nafiesl/FormField/zipball/ff30de5f089f5f1866ed69d78387a7539cb3006d",
-                "reference": "ff30de5f089f5f1866ed69d78387a7539cb3006d",
+                "url": "https://api.github.com/repos/nafiesl/FormField/zipball/379d33fefca21d4fb961fd523ceec78373033bc5",
+                "reference": "379d33fefca21d4fb961fd523ceec78373033bc5",
                 "shasum": ""
             },
             "require": {
-                "konekt/html": "^6.5",
-                "php": "^8.1"
+                "laravelcollective/html": ">=5.3",
+                "php": ">=7.2"
             },
             "require-dev": {
-                "orchestra/testbench": "^9.0"
+                "orchestra/testbench": ">=3.0 <3.8"
             },
             "type": "library",
             "extra": {
@@ -3240,9 +3240,9 @@
             "description": "Laravel Form Field the extension of Laravelcollective Form for Laravel 5.3 and newer with Twitter Bootstrap 4.",
             "support": {
                 "issues": "https://github.com/nafiesl/FormField/issues",
-                "source": "https://github.com/nafiesl/FormField/tree/3.1.0"
+                "source": "https://github.com/nafiesl/FormField/tree/2.2.0"
             },
-            "time": "2024-08-13T15:22:08+00:00"
+            "time": "2021-03-20T14:58:05+00:00"
         },
         {
             "name": "misterspelik/laravel-pdf",
