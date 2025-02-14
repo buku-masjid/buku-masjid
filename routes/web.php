@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -151,3 +153,39 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::resource('users', App\Http\Controllers\UserController::class);
 });
+
+// Jadwal Sholat
+Route::get('/prayer-times/{city}', function ($city) {
+    $cityName = "Kota " . request('city', 'Jakarta');
+    $date = Carbon::now()->format('Y-m-d');
+    $citiesApiUrl = "https://api.myquran.com/v2/sholat/kota/semua";
+
+    try {
+        $response = Http::get($citiesApiUrl);
+        if ($response->successful()) {
+            $cities = $response->json()['data'];
+            $cityId = null;
+            foreach ($cities as $city) {
+                if (strtolower($city['lokasi']) == strtolower($cityName)) { 
+                    $cityId = $city['id'];
+                    break;
+                }
+            }
+        } else {
+            Log::error('Error fetching cities: ' . $response->status() . ' ' . $response->body());
+            return response()->json(['error' => 'Failed to fetch cities.'], $response->status()); 
+        }
+
+    } catch (\Exception $e) {
+        Log::error('An exception occurred while fetching cities: ' . $e->getMessage());
+        return response()->json(['error' => 'An error occurred.'], 500);
+    }
+
+    $jadwalResponse = Http::get("https://api.myquran.com/v2/sholat/jadwal/{$cityId}/{$date}");
+    return $jadwalResponse->json();
+});
+
+
+
+
+

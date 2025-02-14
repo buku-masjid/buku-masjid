@@ -26,6 +26,7 @@ return [
     'mid_part' => 'Bagian Tengah',
     'right_part' => 'Bagian Kanan',
     'donate' => 'Infaq',
+    'program' => 'Program',
     'contact' => 'Kontak',
     'printed_at' => 'Dicetak pada',
     'unknown' => 'Tidak diketahui',

@@ -34,46 +34,46 @@
             <div class="d-none d-lg-flex col-7 justify-content-end align-items-end">
                 <div>
                     <div class="d-flex align-items-end gap-2 align-items-end">
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat; background-position: 0 -30px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat; background-position: 0 -30px">
                             <div class="prayinfo">
-                                <h4 class="m-0 d-flex">Fajr</h4>
-                                <h1 class="m-0 d-block">04.12</h3>
+                                <h4 class="m-0 d-flex">Imsak</h4>
+                                <h1 class="m-0 d-block" id="imsak">--.--</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -95px -70px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -95px -70px">
                             <div class="prayinfo">
-                                <h4 class="m-0 d-flex">Sunrise</h4>
-                                <h1 class="m-0 d-block">04.12</h3>
+                                <h4 class="m-0 d-flex">Subuh</h4>
+                                <h1 class="m-0 d-block" id="subuh">--.--</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 210px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -190px -60px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 210px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -190px -60px">
                             <div class="prayinfo">
-                                <h4 class="m-0 d-flex">Dhuhr</h4>
-                                <h1 class="m-0 d-block">04.12</h3>
+                                <h4 class="m-0 d-flex">Dzuhur</h4>
+                                <h1 class="m-0 d-block" id="dzuhur">--.--</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 270px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -285px 0px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 270px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -285px 0px">
                             <div class="prayinfo">
-                                <h4 class="m-0 d-flex">Asr</h4>
-                                <h1 class="m-0 d-block">04.12</h3>
+                                <h4 class="m-0 d-flex">Ashar</h4>
+                                <h1 class="m-0 d-block" id="ashar">--.--</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -380px -70px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -380px -70px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Maghrib</h4>
-                                <h1 class="m-0 d-block">04.12</h3>
+                                <h1 class="m-0 d-block" id="maghrib">--.--</h3>
                             </div>
                         </div>
-                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 230px; background-image: url('{{ url('images/photo_masjid.png') }}'); background-repeat: no-repeat;background-position: -475px -40px">
+                        <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 230px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -475px -40px">
                             <div class="prayinfo">
-                                <h4 class="m-0 d-flex">Isha</h4>
-                                <h1 class="m-0 d-block">04.12</h3>
+                                <h4 class="m-0 d-flex">Isya</h4>
+                                <h1 class="m-0 d-block" id="isya">--.--</h3>
                             </div>
                         </div>
                     </div>
                     <div class="text-end fs-6 text-secondary pt-3">
-                        Sumber: Kemenag Jakarta Pusat<br>
-                        GMT+07:00
+                        Sumber: myquran.com<br>
+                        Kota : {{ Setting::get('masjid_city_name') }} (berdasarkan lokasi masjid)
                     </div>
                 </div>
             </div>
@@ -379,4 +379,61 @@
         </div>
     </div>
 </div>
+<script>
+    fetch('/prayer-times/{{ Setting::get('masjid_city_name') }}')
+    .then(response => response.json())
+    .then(data => {
+    if (data.error) {
+      console.error("Error:", data.error); // Handle errors
+      // Display the error message to the user or take other actions
+    } else {
+      console.log("Prayer Times Data:", data); // Print the entire data object
+
+      // Example 1: Accessing individual properties (if 'data' is an object):
+      if (data.data) { // Check if 'data' exists (important!)
+        console.log("Imsak:", data.data.jadwal.imsak);
+        console.log("Subuh:", data.data.jadwal.subuh);
+        // ... access other prayer times
+      }
+
+
+      // Example 2: Looping through an array (if 'data' is an array):
+       if (Array.isArray(data.data)) { // Check if 'data' is an array
+        data.data.forEach(item => {
+          console.log("Date:", item.tanggal);
+          console.log("Imsak:", item.imsak);
+          // ... access other prayer times for each item
+        });
+      }
+
+
+      // Example 3: Update HTML (most common use case):
+      if (data.data) {
+        if (Array.isArray(data.data)){
+          data.data.forEach(item => {
+            document.getElementById('imsak').textContent = item.imsak;
+            document.getElementById('subuh').textContent = item.subuh;
+            document.getElementById('dzuhur').textContent = item.dzuhur;
+            document.getElementById('ashar').textContent = item.ashar;
+            document.getElementById('maghrib').textContent = item.maghrib;
+            document.getElementById('isya').textContent = item.isya;
+            // ... update other HTML elements
+          });
+        } else {
+          document.getElementById('imsak').textContent = data.data.jadwal.imsak;
+          document.getElementById('subuh').textContent = data.data.jadwal.subuh;
+          document.getElementById('dzuhur').textContent = data.data.jadwal.dzuhur;
+          document.getElementById('ashar').textContent = data.data.jadwal.ashar;
+          document.getElementById('maghrib').textContent = data.data.jadwal.maghrib;
+          document.getElementById('isya').textContent = data.data.jadwal.isya;
+          // ... update other HTML elements
+        }
+      }
+
+    }
+  })
+  .catch(error => {
+    console.error("Fetch Error:", error); // Handle fetch errors
+  });
+</script>
 @endsection

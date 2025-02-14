@@ -35,7 +35,7 @@
                     <ul class="nav">
                         <li class="nav-item px-2"><a class="nav-link" href="{{ url('/') }}">{{ __('app.home') }}</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.donate') }}">{{ __('app.donate') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.donate') }}">{{ __('app.program') }}</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
                     </ul>

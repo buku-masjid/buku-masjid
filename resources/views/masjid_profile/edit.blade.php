@@ -272,7 +272,7 @@
         });
         $modalPhoto.on('shown.bs.modal', function () {
             cropper = new Cropper(imagePhoto, {
-                aspectRatio: 2 / 1,
+                aspectRatio: 16 / 9,
                 viewMode: 2,
                 preview: '.preview'
             });
@@ -283,7 +283,7 @@
         $("#crop_photo").click(function(){
             canvas = cropper.getCroppedCanvas({
                 width: 960,
-                height: 480,
+                height: 640,
             });
             canvas.toBlob(function(blob) {
                 url = URL.createObjectURL(blob);

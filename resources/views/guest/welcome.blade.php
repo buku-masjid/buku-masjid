@@ -11,7 +11,11 @@
                 @include('layouts._public_masjid_info')
             </div>
             <div class="d-none d-lg-block col-6 position-relative">
-                <img src="images/photo_masjid.png">
+                @if (Setting::get('masjid_photo_path'))
+                    <img src="{{ Storage::url(Setting::get('masjid_photo_path'))}}">
+                @else
+                    <div style="background-color: #f8f8f8; height: 360px"></div>
+                @endif
                 <img src="images/image_cover.svg" class="position-absolute top-0 start-0">
             </div>
         </div>
