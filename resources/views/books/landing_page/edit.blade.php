@@ -7,7 +7,7 @@
     <h1 class="page-title">{{ $book->name }}</h1>
     <div class="page-subtitle">{{ __('book.landing_page') }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('books.landing_page.show', __('app.cancel'), [$book], ['class' => 'btn btn-secondary float-right']) }}
+        {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-secondary float-right']) }}
     </div>
 </div>
 <div class="row justify-content-center">

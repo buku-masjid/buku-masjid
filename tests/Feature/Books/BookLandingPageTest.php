@@ -21,9 +21,6 @@ class BookLandingPageTest extends TestCase
         ]);
 
         $this->visitRoute('books.show', [$book]);
-        $this->seeElement('a', ['id' => 'landing_page']);
-        $this->click('landing_page');
-        $this->seeRouteIs('books.landing_page.show', [$book]);
         $this->seeElement('a', ['id' => 'edit_landing_page-book-'.$book->id]);
         $this->click('edit_landing_page-book-'.$book->id);
         $this->seeRouteIs('books.landing_page.edit', [$book]);
@@ -33,7 +30,7 @@ class BookLandingPageTest extends TestCase
             'due_date' => '2024-05-01',
         ]);
 
-        $this->seeRouteIs('books.landing_page.show', [$book]);
+        $this->seeRouteIs('books.show', [$book]);
 
         $this->seeInDatabase('settings', [
             'model_type' => 'books',

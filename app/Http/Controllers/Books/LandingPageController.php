@@ -28,7 +28,7 @@ class LandingPageController extends Controller
         $this->updateBookSettings($book, $bookData);
         flash(__('book.updated'), 'success');
 
-        return redirect()->route('books.landing_page.show', $book);
+        return redirect()->route('books.show', $book);
     }
 
     private function updateBookSettings(Book $book, array $bookData): void

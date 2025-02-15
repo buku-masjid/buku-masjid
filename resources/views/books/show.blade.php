@@ -8,7 +8,6 @@
     <h1 class="page-title">{{ $book->name }}</h1>
     <div class="page-subtitle">{{ __('book.detail') }}</div>
     <div class="page-options d-flex">
-        {{ link_to_route('books.landing_page.show', __('book.landing_page'), [$book], ['class' => 'btn btn-warning text-dark mr-2', 'id' => 'landing_page']) }}
         {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
     </div>
 </div>
@@ -70,6 +69,11 @@
             </div>
             <div class="card-body">
                 {{ Setting::for($book)->get('landing_page_content') }}
+            </div>
+            <div class="card-body">
+                @can('update', $book)
+                    {{ link_to_route('books.landing_page.edit', __('app.edit'), [$book], ['class' => 'btn btn-warning text-dark mr-2', 'id' => 'edit_landing_page-book-'.$book->id]) }}
+                @endcan
             </div>
         </div>
     </div>
