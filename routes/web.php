@@ -155,7 +155,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Jadwal Sholat
-Route::get('/prayer-times/{city}', function ($city) {
+/*Route::get('/prayer-times/{city}', function ($city) {
     $cityName = "Kota " . request('city', 'Jakarta');
     $date = Carbon::now()->format('Y-m-d');
     $citiesApiUrl = "https://api.myquran.com/v2/sholat/kota/semua";
@@ -183,6 +183,41 @@ Route::get('/prayer-times/{city}', function ($city) {
 
     $jadwalResponse = Http::get("https://api.myquran.com/v2/sholat/jadwal/{$cityId}/{$date}");
     return $jadwalResponse->json();
+});*/
+
+Route::get('/prayer-times/{city}', function ($city) {
+    $cityName = "Kota " . request('city', 'Jakarta');
+    $date = Carbon::now()->format('Y-m-d');
+
+    $cities = Cache::remember('cities', now()->addDay(), function () {
+        $citiesApiUrl = "https://api.myquran.com/v2/sholat/kota/semua";
+        $response = Http::get($citiesApiUrl);
+        if ($response->successful()) {
+            return $response->json()['data'];
+        } else {
+            Log::error('Error fetching cities: ' . $response->status() . ' ' . $response->body());
+            return []; // Return empty array
+        }
+    });
+
+    $cityMap = [];
+    foreach ($cities as $city) {
+        $cityMap[strtolower($city['lokasi'])] = $city['id'];
+    }
+
+    $cityId = $cityMap[strtolower($cityName)] ?? null;
+
+    if ($cityId === null) {
+        return response()->json(['error' => 'City not found.'], 404);
+    }
+
+    try {
+        $jadwalResponse = Http::get("https://api.myquran.com/v2/sholat/jadwal/{$cityId}/{$date}");
+        return $jadwalResponse->json();
+    } catch (\Exception $e) {
+        Log::error('Error fetching prayer times: ' . $e->getMessage());
+        return response()->json(['error' => 'Failed to fetch prayer times.'], 500);
+    }
 });
 
 

@@ -150,6 +150,15 @@
                                     @include('public_schedules._single_'.$audienceCode)
                                 @endif
                             @endforeach
+                        @else
+                            <div class="container-xl my-auto card bg-light">
+                                <div class="empty">
+                                    <p class="empty-title">Belum ada jadwal</p>
+                                    <p class="empty-subtitle text-secondary">
+                                        Khutbah Ju'mat pada masjid belum tersedia.
+                                    </p>
+                                </div>
+                            </div>
                         @endif
                     @endif
                 @endforeach
@@ -177,8 +186,8 @@
                     <!-- Timeline Area-->
                     <div class="apland-timeline-area">
                         <!-- Single Timeline Content-->
-                         <!-- WEEK -->
-                         @foreach ($audienceCodes as $audienceCode => $audience)
+                        <!-- WEEK -->
+                        @foreach ($audienceCodes as $audienceCode => $audience)
                             @if ($audience != 'Jumat')
                                 @if (isset($lecturings[$audienceCode]))
                                     <div class="single-timeline-area border-bottom py-4">
@@ -193,10 +202,18 @@
                                             @endforeach
                                         </div>
                                     </div>
+                                @else
+                                    <div class="container-xl my-4 card bg-light">
+                                        <div class="empty">
+                                            <p class="empty-title">Kajian {{ __('lecturing.audience_'.$audienceCode) }}</p>
+                                            <p class="empty-subtitle text-secondary">
+                                                Jadwal Kajian untuk {{ __('lecturing.audience_'.$audienceCode) }} pada masjid ini belum tersedia.
+                                            </p>
+                                        </div>
+                                    </div>                                 
                                 @endif
                             @endif
                         @endforeach
-
                         <?php
                             /*
                         <!-- WEEK -->
@@ -380,34 +397,73 @@
     </div>
 </div>
 <script>
-    fetch('/prayer-times/{{ Setting::get('masjid_city_name') }}')
+    const cityName = "{{ Setting::get('masjid_city_name') }}";
+    const cacheKey = `prayer_times_${cityName}`; // Unique key
+
+    // Check if data is in localStorage
+    const cachedData = localStorage.getItem(cacheKey);
+
+    if (cachedData) {
+            const data = JSON.parse(cachedData);
+        // ... use the cached data ...
+        if (data.data) {
+            if (Array.isArray(data.data)){
+                data.data.forEach(item => {
+                    document.getElementById('imsak').textContent = item.imsak;
+                    document.getElementById('subuh').textContent = item.subuh;
+                    document.getElementById('dzuhur').textContent = item.dzuhur;
+                    document.getElementById('ashar').textContent = item.ashar;
+                    document.getElementById('maghrib').textContent = item.maghrib;
+                    document.getElementById('isya').textContent = item.isya;
+                });
+            } else {
+                document.getElementById('imsak').textContent = data.data.jadwal.imsak;
+                document.getElementById('subuh').textContent = data.data.jadwal.subuh;
+                document.getElementById('dzuhur').textContent = data.data.jadwal.dzuhur;
+                document.getElementById('ashar').textContent = data.data.jadwal.ashar;
+                document.getElementById('maghrib').textContent = data.data.jadwal.maghrib;
+                document.getElementById('isya').textContent = data.data.jadwal.isya;
+            }
+        }
+    } else {
+        fetch(`/prayer-times/${cityName}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error:", data.error);
+            } else {
+                if (data.data) {
+                    // ... use the fetched data ...
+                    localStorage.setItem(cacheKey, JSON.stringify(data)); // Store in localStorage
+
+                    if (Array.isArray(data.data)){
+                        data.data.forEach(item => {
+                            document.getElementById('imsak').textContent = item.imsak;
+                            document.getElementById('subuh').textContent = item.subuh;
+                            document.getElementById('dzuhur').textContent = item.dzuhur;
+                            document.getElementById('ashar').textContent = item.ashar;
+                            document.getElementById('maghrib').textContent = item.maghrib;
+                            document.getElementById('isya').textContent = item.isya;
+                        });
+                    } else {
+                        document.getElementById('imsak').textContent = data.data.jadwal.imsak;
+                        document.getElementById('subuh').textContent = data.data.jadwal.subuh;
+                        document.getElementById('dzuhur').textContent = data.data.jadwal.dzuhur;
+                        document.getElementById('ashar').textContent = data.data.jadwal.ashar;
+                        document.getElementById('maghrib').textContent = data.data.jadwal.maghrib;
+                        document.getElementById('isya').textContent = data.data.jadwal.isya;
+                    }
+                }
+            }
+        });
+    }
+    /*fetch('/prayer-times/{{ Setting::get('masjid_city_name') }}')
     .then(response => response.json())
     .then(data => {
     if (data.error) {
       console.error("Error:", data.error); // Handle errors
       // Display the error message to the user or take other actions
     } else {
-      console.log("Prayer Times Data:", data); // Print the entire data object
-
-      // Example 1: Accessing individual properties (if 'data' is an object):
-      if (data.data) { // Check if 'data' exists (important!)
-        console.log("Imsak:", data.data.jadwal.imsak);
-        console.log("Subuh:", data.data.jadwal.subuh);
-        // ... access other prayer times
-      }
-
-
-      // Example 2: Looping through an array (if 'data' is an array):
-       if (Array.isArray(data.data)) { // Check if 'data' is an array
-        data.data.forEach(item => {
-          console.log("Date:", item.tanggal);
-          console.log("Imsak:", item.imsak);
-          // ... access other prayer times for each item
-        });
-      }
-
-
-      // Example 3: Update HTML (most common use case):
       if (data.data) {
         if (Array.isArray(data.data)){
           data.data.forEach(item => {
@@ -434,6 +490,6 @@
   })
   .catch(error => {
     console.error("Fetch Error:", error); // Handle fetch errors
-  });
+  }); */
 </script>
 @endsection
