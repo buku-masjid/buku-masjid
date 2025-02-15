@@ -20,8 +20,8 @@
         <div class="card">
             <div class="card-header">{{ __('book.landing_page') }}</div>
             <div class="card-body">
-                @if (Setting::for($book)->get('poster_image'))
-                    <img class="img-fluid my-4" src="{{ Storage::url(Setting::for($book)->get('poster_image')) }}" alt="{{ $book->name }}">
+                @if (Setting::for($book)->get('poster_image_path'))
+                    <img class="img-fluid my-4" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}">
                 @else
                     <div class="p-4">{{ __('book.poster_image') }}</div>
                 @endif

@@ -14,6 +14,7 @@ class BookLandingPageTest extends TestCase
     public function user_can_add_book_landing_page_content()
     {
         $adminUser = $this->loginAsUser();
+
         $book = factory(Book::class)->create([
             'name' => 'Testing 123',
             'creator_id' => $adminUser->id,

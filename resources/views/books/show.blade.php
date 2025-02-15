@@ -55,6 +55,23 @@
                 {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-link']) }}
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-header">{{ __('book.landing_page') }}</div>
+            <div class="card-body">
+                @if (Setting::for($book)->get('poster_image_path'))
+                    <img class="img-fluid my-4" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}">
+                @else
+                    <div class="p-4">{{ __('book.poster_image') }}</div>
+                @endif
+            </div>
+            <div class="card-body">
+                {{ __('book.due_date') }}: {{ Setting::for($book)->get('due_date') }}
+            </div>
+            <div class="card-body">
+                {{ Setting::for($book)->get('landing_page_content') }}
+            </div>
+        </div>
     </div>
     <div class="col-md-5">
         <div class="card">

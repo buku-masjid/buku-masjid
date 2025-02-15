@@ -4,6 +4,9 @@ namespace Tests\Feature\Api;
 
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -92,4 +95,38 @@ class ManageBookTest extends TestCase
             'message' => __('book.deleted'),
         ]);
     }
+
+    /** @test */
+    public function update_poster_image_with_csrf_token()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create(['creator_id' => $user->id]);
+        $this->dontSeeInDatabase('settings', ['key' => 'poster_image_path']);
+
+        $this->get(route('home'));
+        $this->seeStatusCode(200);
+
+        $csrfToken = csrf_token();
+        Storage::fake(config('filesystem.default'));
+        $image = UploadedFile::fake()->image('poster.jpg');
+        $base64Image = 'data:image/png;base64,'.base64_encode(file_get_contents($image->getPathname()));
+
+        $this->post(route('api.books.upload_poster_image', $book), [
+            '_token' => $csrfToken,
+            'image' => $base64Image,
+        ]);
+
+        $this->seeStatusCode(200);
+        $this->seeInDatabase('settings', [
+            'key' => 'poster_image_path',
+        ]);
+
+        $settingRecord = DB::table('settings')->where('key', 'poster_image_path')->first();
+        Storage::assertExists($settingRecord->value);
+        $this->seeJson([
+            'message' => __('book.poster_image_updated'),
+            'image' => Storage::url($settingRecord->value),
+        ]);
+    }
+
 }
