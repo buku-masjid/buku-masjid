@@ -92,6 +92,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('books/{book}/export-csv', 'Transactions\ExportController@byBook')->name('transactions.exports.by_book');
     Route::patch('books_report_titles/{book}', 'Books\ReportTitleController@update')->name('books.report_titles.update');
     Route::resource('books', 'BookController');
+    Route::get('books/{book}/landing_page', 'Books\LandingPageController@show')->name('books.landing_page.show');
+    Route::get('books/{book}/landing_page_edit', 'Books\LandingPageController@edit')->name('books.landing_page.edit');
+    Route::patch('books/{book}/landing_page_update', 'Books\LandingPageController@update')->name('books.landing_page.update');
 
     /*
      * Lang switcher routes

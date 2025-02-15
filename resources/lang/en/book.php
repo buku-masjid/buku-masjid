@@ -53,6 +53,10 @@ return [
     'income_partner_null' => 'Income Partners Default Value',
     'spending_partners' => 'Spending Partners',
     'spending_partner_null' => 'Spending Partners Default Value',
+    'poster_image' => 'Poster Image',
+    'due_date' => 'Due Date',
+    'landing_page' => 'Landing Page',
+    'landing_page_content' => 'Landing Page Content',
 
     // Relations
     'transactions' => 'Cash Book / Program Transactions',

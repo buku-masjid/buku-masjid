@@ -53,6 +53,10 @@ return [
     'income_partner_null' => 'Partner Pemasukan Default',
     'spending_partners' => 'Partner utk Pengeluaran',
     'spending_partner_null' => 'Partner Pengeluaran Default',
+    'poster_image' => 'Gambar Poster',
+    'due_date' => 'Batas Waktu',
+    'landing_page' => 'Landing Page',
+    'landing_page_content' => 'Konten Landing Page',
 
     // Relations
     'transactions' => 'List Transaksi Buku Kas / Program',
