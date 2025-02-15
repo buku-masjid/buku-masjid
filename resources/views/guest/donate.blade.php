@@ -73,6 +73,9 @@
             @endforelse
         </div>
         <div class="pt-3 mt-4 border-top">
+            <h2 class="fw-bolder mb-3">Program</h2>
+        </div>
+        <!--<div class="pt-3 mt-4 border-top">
             <h2 class="fw-bolder mb-3">DKM Masjid</h2>
         </div>
         <div class="card p-4 fs-3 shadow-sm">
@@ -158,7 +161,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection
