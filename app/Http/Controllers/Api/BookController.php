@@ -92,4 +92,35 @@ class BookController extends Controller
             'image' => Storage::url($imageName),
         ]);
     }
+
+    public function updateThumbnailImage(Request $request, Book $book)
+    {
+        $this->authorize('update', $book);
+
+        $validatedPayload = $request->validate([
+            'image' => 'required',
+        ]);
+
+        if (!base64_decode($validatedPayload['image'])) {
+            return response()->json([
+                'message' => __('masjid_profile.image_not_found'),
+            ]);
+        }
+
+        if ($bookThumbnailPath = Setting::for($book)->get('thumbnail_image_path')) {
+            Storage::delete($bookThumbnailPath);
+        }
+
+        $imageParts = explode(';base64,', $validatedPayload['image']);
+        $imageBase64 = base64_decode($imageParts[1]);
+        $imageName = uniqid().'.webp';
+
+        Storage::put($imageName, $imageBase64);
+        Setting::for($book)->set('thumbnail_image_path', $imageName);
+
+        return response()->json([
+            'message' => __('book.thumbnail_image_updated'),
+            'image' => Storage::url($imageName),
+        ]);
+    }
 }

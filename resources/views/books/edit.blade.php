@@ -62,7 +62,7 @@
             <h1 class="page-title">{{ $book->name }}</h1>
             <div class="page-subtitle">{{ __('book.edit') }}</div>
             <div class="page-options d-flex">
-                {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-secondary']) }}
             </div>
         </div>
         <div class="row">
@@ -186,6 +186,100 @@
                         });
 
                         $modalPoster.modal('hide');
+                    },
+                    error : function(data){
+                        var status = 'error';
+                        var errorMessage = data.responseJSON.message;
+                        noty({
+                            type: status,
+                            layout: 'bottomRight',
+                            text: errorMessage,
+                            timeout: false
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+    var $modalThumbnail = $('#modal-book-thumbnail');
+    var imageThumbnail = document.getElementById('thumbnail-image');
+    var cropper;
+
+    $(document).on("change", "#book_thumbnail_image", function(e){
+        var files = e.target.files;
+        var done = function (url) {
+            imageThumbnail.src = url;
+            $modalThumbnail.modal('show');
+        };
+        var reader;
+        var file;
+        var url;
+        if (files && files.length > 0) {
+            file = files[0];
+            if (URL) {
+                done(URL.createObjectURL(file));
+            } else if (FileReader) {
+                reader = new FileReader();
+                reader.onload = function (e) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    $modalThumbnail.on('shown.bs.modal', function () {
+        cropper = new Cropper(imageThumbnail, {
+            aspectRatio: 1,
+            viewMode: 2,
+            preview: '.preview'
+        });
+    }).on('hidden.bs.modal', function () {
+        cropper.destroy();
+        cropper = null;
+    });
+    $("#crop_thumbnail").click(function(){
+        canvas = cropper.getCroppedCanvas({
+            width: 960,
+            height: 960,
+        });
+        canvas.toBlob(function(blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "{{ route('api.books.upload_thumbnail_image', $book)}}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        '_token': $('meta[name="_token"]').attr('content'),
+                        'image': base64data
+                    },
+                    success: function(data){
+                        var status = 'error';
+                        if (data.image) {
+                            if ($('#book_thumbnail_image_show').length) {
+                                $('#book_thumbnail_image_show').attr('src', data.image);
+                            } else {
+                                $('#book-thumbnail').append(`<img id="book_thumbnail_image_show" class="img-fluid mt-2" src="${data.image}">`);
+                            }
+                            status = 'success';
+                        }
+
+                        noty({
+                            type: status,
+                            layout: 'bottomRight',
+                            text: data.message,
+                            timeout: 3000
+                        });
+
+                        $modalThumbnail.modal('hide');
                     },
                     error : function(data){
                         var status = 'error';

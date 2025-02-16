@@ -61,4 +61,5 @@ Route::group(['middleware' => ['auth', 'web'], 'as' => 'api.'], function () {
     Route::post('bank_account/{bank_account}/qris_image', [App\Http\Controllers\Api\BankAccountController::class, 'updateQrisImage'])->name('bank_account.qris_image');
 
     Route::post('books/{book}/upload_poster_image', [App\Http\Controllers\Api\BookController::class, 'updatePosterImage'])->name('books.upload_poster_image');
+    Route::post('books/{book}/upload_thumbnail_image', [App\Http\Controllers\Api\BookController::class, 'updateThumbnailImage'])->name('books.upload_thumbnail_image');
 });
