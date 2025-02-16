@@ -57,26 +57,31 @@
         @endcan
     </div>
     @else
-    <div class="col-md-2">@include('books._edit_nav_tabs')</div>
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="page-header">
             <h1 class="page-title">{{ $book->name }}</h1>
             <div class="page-subtitle">{{ __('book.edit') }}</div>
             <div class="page-options d-flex">
-                {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-secondary float-right']) }}
+                {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-secondary']) }}
             </div>
         </div>
-        <div class="card">
-            {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
-            <div class="card-body">
-                @includeWhen(request('tab') == null, 'books._edit_book_settings')
-                @includeWhen(request('tab') == 'landing_page', 'books._edit_landing_page')
+        <div class="row">
+            <div class="col-md-2">@include('books._edit_nav_tabs')</div>
+            <div class="col-md-10">
+                <div class="card">
+                    {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
+                    <div class="card-body">
+                        @includeWhen(request('tab') == null, 'books._edit_book_settings')
+                        @includeWhen(request('tab') == 'signatures', 'books._edit_book_signatures')
+                        @includeWhen(request('tab') == 'landing_page', 'books._edit_book_landing_page')
+                    </div>
+                    <div class="card-footer">
+                        {{ Form::submit(__('book.update'), ['class' => 'btn btn-success']) }}
+                        {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
+                    </div>
+                    {{ Form::close() }}
+                </div>
             </div>
-            <div class="card-footer">
-                {{ Form::submit(__('book.update'), ['class' => 'btn btn-success']) }}
-                {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
-            </div>
-            {{ Form::close() }}
         </div>
     </div>
     @endif

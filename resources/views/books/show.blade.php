@@ -56,24 +56,30 @@
         </div>
 
         <div class="card">
-            <div class="card-header">{{ __('book.landing_page') }}</div>
+            <div class="card-header">
+                {{ __('book.landing_page') }}
+                <div class="card-options">
+                    @can('update', $book)
+                        {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'landing_page'], ['class' => 'btn btn-sm btn-warning text-dark mr-2', 'id' => 'edit_landing_page-book-'.$book->id]) }}
+                    @endcan
+                </div>
+            </div>
             <div class="card-body">
                 @if (Setting::for($book)->get('poster_image_path'))
                     <img class="img-fluid my-4" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}">
                 @else
-                    <div class="p-4">{{ __('book.poster_image') }}</div>
+                    {{ __('book.poster_image') }}
                 @endif
             </div>
             <div class="card-body">
                 {{ __('book.due_date') }}: {{ Setting::for($book)->get('due_date') }}
             </div>
             <div class="card-body">
-                {{ Setting::for($book)->get('landing_page_content') }}
-            </div>
-            <div class="card-body">
-                @can('update', $book)
-                    {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'landing_page'], ['class' => 'btn btn-warning text-dark mr-2', 'id' => 'edit_landing_page-book-'.$book->id]) }}
-                @endcan
+                @if (Setting::for($book)->get('landing_page_content'))
+                    {{ Setting::for($book)->get('landing_page_content') }}
+                @else
+                    {{ __('book.landing_page_content') }}
+                @endif
             </div>
         </div>
     </div>
@@ -99,7 +105,14 @@
             </table>
         </div>
         <div class="card">
-            <div class="card-header">{{ __('report.signatures') }}</div>
+            <div class="card-header">
+                {{ __('report.signatures') }}
+                <div class="card-options">
+                    @can('update', $book)
+                        {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'signatures'], ['class' => 'btn btn-sm btn-warning text-dark mr-2', 'id' => 'edit_signatures-book-'.$book->id]) }}
+                    @endcan
+                </div>
+            </div>
             <table class="table table-sm card-table">
                 <tbody>
                     <tr><th colspan="3">{{ __('app.left_part') }}</th></tr>
