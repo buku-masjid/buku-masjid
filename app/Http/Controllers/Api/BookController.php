@@ -76,8 +76,8 @@ class BookController extends Controller
             ]);
         }
 
-        if ($masjidLogoPath = Setting::for($book)->get('masjid_logo_path')) {
-            Storage::delete($masjidLogoPath);
+        if ($bookPosterPath = Setting::for($book)->get('poster_image_path')) {
+            Storage::delete($bookPosterPath);
         }
 
         $imageParts = explode(';base64,', $validatedPayload['image']);
