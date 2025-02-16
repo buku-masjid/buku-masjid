@@ -86,14 +86,14 @@ class BookController extends Controller
         $partnerTypes = collect((new Partner())->getAvailableTypes())->keys()->implode(',');
 
         $bookData = $request->validate([
-            'name' => 'required|max:60',
-            'description' => 'nullable|max:255',
-            'status_id' => ['required', Rule::in(Book::getConstants('STATUS'))],
-            'bank_account_id' => 'nullable|exists:bank_accounts,id',
-            'report_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
-            'transaction_files_visibility_code' => ['required', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
+            'name' => ['sometimes', 'max:60'],
+            'description' => ['nullable', 'max:255'],
+            'status_id' => ['sometimes', Rule::in(Book::getConstants('STATUS'))],
+            'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
+            'report_visibility_code' => ['sometimes', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
+            'transaction_files_visibility_code' => ['sometimes', Rule::in(Book::getConstants('REPORT_VISIBILITY'))],
             'budget' => ['nullable', 'numeric'],
-            'report_periode_code' => ['required', Rule::in(Book::getConstants('REPORT_PERIODE'))],
+            'report_periode_code' => ['sometimes', Rule::in(Book::getConstants('REPORT_PERIODE'))],
             'income_partner_codes' => ['nullable', 'array'],
             'income_partner_codes.*' => ['in:'.$partnerTypes],
             'income_partner_null' => ['nullable', 'string', 'max:20'],
@@ -101,7 +101,7 @@ class BookController extends Controller
             'spending_partner_codes.*' => ['in:'.$partnerTypes],
             'spending_partner_null' => ['nullable', 'string', 'max:20'],
             'has_pdf_page_number' => ['nullable', 'boolean'],
-            'start_week_day_code' => ['required', 'string'],
+            'start_week_day_code' => ['sometimes', 'string'],
             'manager_id' => ['nullable', 'exists:users,id'],
             'management_title' => ['nullable', 'string', 'max:60'],
             'acknowledgment_text_left' => ['nullable', 'string', 'max:20'],
@@ -113,6 +113,8 @@ class BookController extends Controller
             'acknowledgment_text_right' => ['nullable', 'string', 'max:20'],
             'sign_position_right' => ['nullable', 'string', 'max:20'],
             'sign_name_right' => ['nullable', 'string', 'max:60'],
+            'due_date' => ['nullable', 'date_format:Y-m-d'],
+            'landing_page_content' => ['nullable', 'max:3000'],
         ]);
         if ($request->user()->cannot('change-manager', $book)) {
             unset($bookData['manager_id']);
@@ -137,11 +139,13 @@ class BookController extends Controller
         array_key_exists('sign_position_right', $bookData) ? Setting::for($book)->set('sign_position_right', $bookData['sign_position_right']) : null;
         array_key_exists('sign_name_right', $bookData) ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
         array_key_exists('transaction_files_visibility_code', $bookData) ? Setting::for($book)->set('transaction_files_visibility_code', $bookData['transaction_files_visibility_code']) : null;
-        Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']);
-        Setting::for($book)->set('income_partner_codes', json_encode(array_keys($bookData['income_partner_codes'] ?? [])));
-        Setting::for($book)->set('income_partner_null', $bookData['income_partner_null']);
-        Setting::for($book)->set('spending_partner_codes', json_encode(array_keys($bookData['spending_partner_codes'] ?? [])));
-        Setting::for($book)->set('spending_partner_null', $bookData['spending_partner_null']);
+        array_key_exists('has_pdf_page_number', $bookData) ? Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']) : null;
+        array_key_exists('income_partner_codes', $bookData) ? Setting::for($book)->set('income_partner_codes', json_encode(array_keys($bookData['income_partner_codes'] ?? []))) : null;
+        array_key_exists('income_partner_null', $bookData) ? Setting::for($book)->set('income_partner_null', $bookData['income_partner_null']) : null;
+        array_key_exists('spending_partner_codes', $bookData) ? Setting::for($book)->set('spending_partner_codes', json_encode(array_keys($bookData['spending_partner_codes'] ?? []))) : null;
+        array_key_exists('spending_partner_null', $bookData) ? Setting::for($book)->set('spending_partner_null', $bookData['spending_partner_null']) : null;
+        array_key_exists('due_date', $bookData) ? Setting::for($book)->set('due_date', $bookData['due_date']) : null;
+        array_key_exists('landing_page_content', $bookData) ? Setting::for($book)->set('landing_page_content', $bookData['landing_page_content']) : null;
     }
 
     public function destroy(Book $book)

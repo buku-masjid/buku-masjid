@@ -23,9 +23,9 @@ class BookLandingPageTest extends TestCase
         $this->visitRoute('books.show', [$book]);
         $this->seeElement('a', ['id' => 'edit_landing_page-book-'.$book->id]);
         $this->click('edit_landing_page-book-'.$book->id);
-        $this->seeRouteIs('books.landing_page.edit', [$book]);
+        $this->seeRouteIs('books.edit', [$book, 'tab' => 'landing_page']);
 
-        $this->submitForm(__('app.save'), [
+        $this->submitForm(__('book.update'), [
             'landing_page_content' => 'Book 1 content',
             'due_date' => '2024-05-01',
         ]);

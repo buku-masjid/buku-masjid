@@ -54,6 +54,7 @@ return [
     'spending_partners' => 'Partner utk Pengeluaran',
     'spending_partner_null' => 'Partner Pengeluaran Default',
     'upload_poster' => 'Upload Poster',
+    'change_poster' => 'Ganti Poster',
     'poster_image' => 'Gambar Poster',
     'poster_rule' => 'Poster landscape dengan rasio 16:9',
     'poster_image_updated' => 'Gambar poster telah diupdate.',
