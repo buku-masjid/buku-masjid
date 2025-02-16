@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('model_id')->nullable();
             $table->string('model_type', 30)->nullable();
             $table->string('key', 60);
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
             $table->timestamps();
 
             $table->index(['key']);

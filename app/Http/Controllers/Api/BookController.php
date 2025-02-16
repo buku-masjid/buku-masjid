@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -58,5 +60,67 @@ class BookController extends Controller
         }
 
         return response()->json('Unprocessable Entity.', 422);
+    }
+
+    public function updatePosterImage(Request $request, Book $book)
+    {
+        $this->authorize('update', $book);
+
+        $validatedPayload = $request->validate([
+            'image' => 'required',
+        ]);
+
+        if (!base64_decode($validatedPayload['image'])) {
+            return response()->json([
+                'message' => __('masjid_profile.image_not_found'),
+            ]);
+        }
+
+        if ($bookPosterPath = Setting::for($book)->get('poster_image_path')) {
+            Storage::delete($bookPosterPath);
+        }
+
+        $imageParts = explode(';base64,', $validatedPayload['image']);
+        $imageBase64 = base64_decode($imageParts[1]);
+        $imageName = uniqid().'.webp';
+
+        Storage::put($imageName, $imageBase64);
+        Setting::for($book)->set('poster_image_path', $imageName);
+
+        return response()->json([
+            'message' => __('book.poster_image_updated'),
+            'image' => Storage::url($imageName),
+        ]);
+    }
+
+    public function updateThumbnailImage(Request $request, Book $book)
+    {
+        $this->authorize('update', $book);
+
+        $validatedPayload = $request->validate([
+            'image' => 'required',
+        ]);
+
+        if (!base64_decode($validatedPayload['image'])) {
+            return response()->json([
+                'message' => __('masjid_profile.image_not_found'),
+            ]);
+        }
+
+        if ($bookThumbnailPath = Setting::for($book)->get('thumbnail_image_path')) {
+            Storage::delete($bookThumbnailPath);
+        }
+
+        $imageParts = explode(';base64,', $validatedPayload['image']);
+        $imageBase64 = base64_decode($imageParts[1]);
+        $imageName = uniqid().'.webp';
+
+        Storage::put($imageName, $imageBase64);
+        Setting::for($book)->set('thumbnail_image_path', $imageName);
+
+        return response()->json([
+            'message' => __('book.thumbnail_image_updated'),
+            'image' => Storage::url($imageName),
+        ]);
     }
 }
