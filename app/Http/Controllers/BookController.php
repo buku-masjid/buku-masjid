@@ -123,7 +123,17 @@ class BookController extends Controller
         $this->updateBookSettings($book, $bookData);
         flash(__('book.updated'), 'success');
 
-        return redirect()->route('books.show', $book);
+        $routeParams = [$book];
+
+        if (array_key_exists('landing_page_content', $bookData)) {
+            $routeParams = [$book, 'tab' => 'landing_page'];
+        }
+
+        if (array_key_exists('acknowledgment_text_left', $bookData)) {
+            $routeParams = [$book, 'tab' => 'signatures'];
+        }
+
+        return redirect()->route('books.show', $routeParams);
     }
 
     private function updateBookSettings(Book $book, array $bookData): void

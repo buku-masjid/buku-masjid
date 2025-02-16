@@ -138,7 +138,7 @@ class EditBookTest extends TestCase
             'sign_name_right' => 'H. Dedy',
         ]);
 
-        $this->seeRouteIs('books.show', [$book]);
+        $this->seeRouteIs('books.show', [$book, 'tab' => 'signatures']);
 
         $this->seeInDatabase('settings', [
             'model_type' => 'books',
@@ -233,7 +233,7 @@ class EditBookTest extends TestCase
             'sign_name_right' => '',
         ]);
 
-        $this->seeRouteIs('books.show', [$book]);
+        $this->seeRouteIs('books.show', [$book, 'tab' => 'signatures']);
 
         $this->seeInDatabase('settings', [
             'model_type' => 'books',
@@ -280,7 +280,7 @@ class EditBookTest extends TestCase
             'due_date' => '2024-05-01',
         ]);
 
-        $this->seeRouteIs('books.show', [$book]);
+        $this->seeRouteIs('books.show', [$book, 'tab' => 'landing_page']);
 
         $this->seeInDatabase('settings', [
             'model_type' => 'books',
