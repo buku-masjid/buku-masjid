@@ -73,7 +73,30 @@
             @endforelse
         </div>
         <div class="pt-3 mt-4 border-top">
-            <h2 class="fw-bolder mb-3">Program</h2>
+            <h2 class="fw-bolder">Program</h2>
+        </div>
+        <div class="row">
+            @foreach ($publicBooks as $publicBook)
+            <div class="col-md-6 mt-3">
+                <a href="{{ route('public.books.show', $publicBook) }}" class="card">
+                    <div class="row row-0">
+                        <div class="col-3">
+                            @if (Setting::for($publicBook)->get('thumbnail_image_path'))
+                                <img src="{{ Storage::url(Setting::for($publicBook)->get('thumbnail_image_path')) }}" class="w-100 h-100 object-cover card-img-start" alt="{{ $publicBook->name }}">
+                            @else
+                                <div class="p-3" style="min-height: 11em">{{ $publicBook->name }}</div>
+                            @endif
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ $publicBook->name }}</h3>
+                                <p class="text-secondary">{{ $publicBook->description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
         </div>
         <!--<div class="pt-3 mt-4 border-top">
             <h2 class="fw-bolder mb-3">DKM Masjid</h2>

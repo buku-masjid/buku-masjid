@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 Route::view('/', 'guest.welcome');
 Route::view('/kontak', 'guest.contact')->name('public.contact');
 Route::get('/infaq', 'PublicPagesController@donate')->name('public.donate');
+Route::get('/program/{book}', 'PublicBookController@show')->name('public.books.show');
 
 Auth::routes(['register' => false, 'reset' => false]);
 
