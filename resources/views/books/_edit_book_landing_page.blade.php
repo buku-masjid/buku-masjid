@@ -1,6 +1,6 @@
 <h4 class="text-primary">{{ __('book.landing_page') }}</h4>
-{!! FormField::text('due_date', ['label' => __('book.due_date'), 'class' => 'date-select']) !!}
-{!! FormField::textarea('landing_page_content', ['label' => __('book.landing_page_content'), 'rows' => 20]) !!}
+{!! FormField::text('due_date', ['value' => Setting::for($book)->get('due_date'), 'label' => __('book.due_date'), 'class' => 'date-select']) !!}
+{!! FormField::textarea('landing_page_content', ['value' => Purify::clean(Setting::for($book)->get('landing_page_content')), 'label' => __('book.landing_page_content'), 'rows' => 20]) !!}
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="text-center">
