@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 @if (Setting::for($book)->get('landing_page_content'))
-                    {{ Setting::for($book)->get('landing_page_content') }}
+                    {!! Purify::clean(Setting::for($book)->get('landing_page_content')) !!}
                 @else
                     {{ __('book.landing_page_content') }}
                 @endif
