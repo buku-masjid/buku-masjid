@@ -114,7 +114,7 @@ class BookController extends Controller
             'sign_position_right' => ['nullable', 'string', 'max:20'],
             'sign_name_right' => ['nullable', 'string', 'max:60'],
             'due_date' => ['nullable', 'date_format:Y-m-d'],
-            'landing_page_content' => ['nullable', 'max:3000'],
+            'landing_page_content' => ['nullable', 'string', 'max:10000'],
         ]);
         if ($request->user()->cannot('change-manager', $book)) {
             unset($bookData['manager_id']);
