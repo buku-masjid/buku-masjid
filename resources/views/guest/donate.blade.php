@@ -75,29 +75,39 @@
         <div class="pt-3 mt-4 border-top">
             <h2 class="fw-bolder">Program</h2>
         </div>
-        <div class="row">
-            @foreach ($publicBooks as $publicBook)
-            <div class="col-md-6 mt-3">
-                <a href="{{ route('public.books.show', $publicBook) }}" class="card">
-                    <div class="row row-0">
-                        <div class="col-3">
-                            @if (Setting::for($publicBook)->get('thumbnail_image_path'))
-                                <img src="{{ Storage::url(Setting::for($publicBook)->get('thumbnail_image_path')) }}" class="w-100 h-100 object-cover card-img-start" alt="{{ $publicBook->name }}">
+        @if (isset($publicBooks))
+            <div class="row row-cols-lg-3">
+                @foreach ($publicBooks as $publicBook)
+                <div class="col-md-6 mt-3">
+                    <div class="card">
+                        <div>
+                            @if (Setting::for($publicBook)->get('poster_image_path'))
+                                <img src="{{ Storage::url(Setting::for($publicBook)->get('poster_image_path')) }}" class="w-100 h-100 object-cover" alt="{{ $publicBook->name }}" style="border-radius: 15px 15px 0px 0px;">
                             @else
                                 <div class="p-3" style="min-height: 11em">{{ $publicBook->name }}</div>
                             @endif
                         </div>
-                        <div class="col">
-                            <div class="card-body">
-                                <h3 class="card-title">{{ $publicBook->name }}</h3>
-                                <p class="text-secondary">{{ $publicBook->description }}</p>
+                        <div>
+                            <div class="p-4">
+                                <h3 class="fs-1">{{ $publicBook->name }}</h3>
+                                <div class="text-secondary py-3">{{ $publicBook->description }}</div>
+                                <a href="{{ route('public.books.show', $publicBook) }}" class="btn btn-primary" href="#" role="button" style="background-color: #2d6974 !important; border-radius: 9px !important;">Detil Program</a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
+        @else
+            <div class="container-xl my-auto card bg-light">
+                <div class="empty">
+                    <p class="empty-title">Belum ada jadwal</p>
+                    <p class="empty-subtitle text-secondary">
+                        Khutbah Ju'mat pada masjid belum tersedia.
+                    </p>
+                </div>
+            </div>
+        @endif
         <!--<div class="pt-3 mt-4 border-top">
             <h2 class="fw-bolder mb-3">DKM Masjid</h2>
         </div>

@@ -53,7 +53,6 @@
 </div>
 
 <script>
-
     function shortenNominalConcise(amount) {
         const formatter = new Intl.NumberFormat('id-ID', { 
             notation: 'compact', 
@@ -74,5 +73,4 @@
     const weekSpending = document.getElementById('current_week_spending_total');
     spending = shortenNominalConcise(parseInt({{$currentWeekSpendingTotal}}));
     weekSpending.textContent = (spending ? "- " + spending : 0);
-    
 </script>

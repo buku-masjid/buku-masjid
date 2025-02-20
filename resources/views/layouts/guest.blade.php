@@ -75,7 +75,7 @@
                     <ul>
                         <li class="py-3 border-top mt-2"><a href="{{ url('/') }}">{{ __('app.home') }}</a></li>
                         <li class="pb-3"><a href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
-                        <li class="pb-3"><a href="{{ route('public.donate') }}">{{ __('app.donate') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public.donate') }}">{{ __('app.program') }}</a></li>
                         <li class="pb-3"><a href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
                         <li class="pb-3"><a href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
                         <li class="py-3 border-top mt-2">

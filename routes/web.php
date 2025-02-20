@@ -188,7 +188,7 @@ Route::group(['middleware' => 'auth'], function () {
 });*/
 
 Route::get('/prayer-times/{city}', function ($city) {
-    $cityName = "Kota " . request('city', 'Jakarta');
+    $cityName = request('city', 'Jakarta');
     $date = Carbon::now()->format('Y-m-d');
 
     $cities = Cache::remember('cities', now()->addDay(), function () {
