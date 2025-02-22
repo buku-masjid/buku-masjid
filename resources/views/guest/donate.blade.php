@@ -22,7 +22,7 @@
 <div class="section-bottom">
     <div class="container-md p-3 home-bottom">
         <h2 class="fw-bolder mb-3">Infaq</h2>
-        <div class="row row-cols-lg-3">
+        <div class="row row-cols-lg-2 row-cols-xl-3">
             @forelse ($bankAccounts as $bankAccount)
                 <div class="col-lg ps-sm-0">
                     <div class="card fw-bold p-3 mb-2 shadow-lg">
