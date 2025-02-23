@@ -100,22 +100,13 @@
             <div class="row ">
                 <div class="col-lg ps-sm-0">
                 @foreach ($audienceCodes as $audienceCode => $audience)
-                    @if ($audience == 'Jumat')
-                        @if (isset($lecturings[$audienceCode]))
+                    @if ($audienceCode == App\Models\Lecturing::AUDIENCE_FRIDAY)
+                        @if (!isset($lecturings[$audienceCode]))
                             @foreach($lecturings[$audienceCode] as $lecturing)
-                                @if ($lecturing->audience_code == 'friday' )
+                                @if ($lecturing->audience_code == App\Models\Lecturing::AUDIENCE_FRIDAY )
                                     @include('public_schedules._single_'.$audienceCode)
                                 @endif
                             @endforeach
-                        @else
-                            <div class="container-xl my-auto card bg-light">
-                                <div class="empty">
-                                    <p class="empty-title">Belum ada jadwal</p>
-                                    <p class="empty-subtitle text-secondary">
-                                        Khutbah Ju'mat pada masjid belum tersedia.
-                                    </p>
-                                </div>
-                            </div>
                         @endif
                     @endif
                 @endforeach
@@ -125,7 +116,7 @@
 
         <div class="timeline_area pt-4 pt-lg-5">
             <div class="d-lg-flex justify-content-between pb-3">
-                <h2 class="fw-bolder mb-3 ">Jadwal Kajian</h2>
+                <h2 class="fw-bolder mb-3 ">{{ __('lecturing.lecturing') }}</h2>
                 <!-- <div class="btn-group col col-sm-auto px-0" role="group">
                     <button id="year" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false">
                     Kajian Umum (Muslim & Muslimah)
@@ -145,7 +136,7 @@
                         <!-- Single Timeline Content-->
                         <!-- WEEK -->
                         @foreach ($audienceCodes as $audienceCode => $audience)
-                            @if ($audience != 'Jumat')
+                            @if ($audienceCode != App\Models\Lecturing::AUDIENCE_FRIDAY)
                                 @if (isset($lecturings[$audienceCode]))
                                     <div class="single-timeline-area border-bottom py-4">
                                         <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s" >
@@ -153,7 +144,7 @@
                                         </div>
                                         <div class="row">
                                             @foreach($lecturings[$audienceCode] as $lecturing)
-                                                @if ($lecturing->audience_code != 'friday' )
+                                                @if ($lecturing->audience_code != App\Models\Lecturing::AUDIENCE_FRIDAY )
                                                     @include('public_schedules._single_'.$audienceCode)
                                                 @endif
                                             @endforeach
@@ -164,7 +155,7 @@
                                         <div class="empty">
                                             <p class="empty-title">Kajian {{ __('lecturing.audience_'.$audienceCode) }}</p>
                                             <p class="empty-subtitle text-secondary">
-                                                Jadwal Kajian untuk {{ __('lecturing.audience_'.$audienceCode) }} pada masjid ini belum tersedia.
+                                                {{ __('lecturing.not_found', ['audience' => __('lecturing.audience_'.$audienceCode)]) }}.
                                             </p>
                                         </div>
                                     </div>

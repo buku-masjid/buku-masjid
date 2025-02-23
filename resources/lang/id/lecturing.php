@@ -12,7 +12,7 @@ return [
     'select' => 'Pilih Jadwal Pengajian',
     'detail' => 'Detail Jadwal Pengajian',
     'detail_for_friday' => 'Detail Jadwal Khatib',
-    'not_found' => 'Jadwal Pengajian tidak ditemukan',
+    'not_found' => 'Jadwal :audience belum tersedia.',
     'empty' => 'Belum ada Jadwal Pengajian',
     'friday_empty' => 'Belum ada Jadwal Khatib',
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',

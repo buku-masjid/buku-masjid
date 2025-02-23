@@ -12,7 +12,7 @@ return [
     'select' => 'Select Lecturing Schedule',
     'detail' => 'Lecturing Schedule Detail',
     'detail_for_friday' => 'Khatib Schedule Detail',
-    'not_found' => 'Lecturing Schedule not found',
+    'not_found' => 'Schedule for :audience is not available.',
     'empty' => 'Lecturing Schedule is empty',
     'friday_empty' => 'Khatib Schedule is empty',
     'public_empty' => 'Public Lecturing Schedule is empty',
