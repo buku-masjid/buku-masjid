@@ -73,6 +73,9 @@
                                         </div>
                                     </div>
                                 @else
+                                    @if ($audienceCode == App\Models\Lecturing::AUDIENCE_TARAWIH)
+                                        @continue
+                                    @endif
                                     <div class="container-xl my-4 card bg-light">
                                         <div class="empty">
                                             <p class="empty-title">{{ __('lecturing.audience_'.$audienceCode) }}</p>
