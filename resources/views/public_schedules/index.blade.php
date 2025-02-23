@@ -19,7 +19,6 @@
 
 <section class="bg-white">
     <div class="container-md position-relative">
-        <!-- FILTER -->
            <div class="btn-toolbar d-flex justify-content-center row pt-4" style="position: relative; top: 20px" role="toolbar">
             <div class="btn-group col-auto" role="group" aria-label="Third group">
                 <a href="{{ route('public_schedules.this_week', Request::all()) }}">
@@ -36,30 +35,25 @@
 </section>
 <div class="section-bottom pb-5">
     <div class="container-md p-3 py-lg-0">
-        <div class="pt-4 pt-lg-5">
-            <!-- JUMAT -->
-            <div class="row ">
-                <div class="col-lg ps-sm-0">
-                @foreach ($audienceCodes as $audienceCode => $audience)
-                    @if ($audienceCode == App\Models\Lecturing::AUDIENCE_FRIDAY)
-                        @if (!isset($lecturings[$audienceCode]))
-                            @foreach($lecturings[$audienceCode] as $lecturing)
-                                @if ($lecturing->audience_code == App\Models\Lecturing::AUDIENCE_FRIDAY )
-                                    @include('public_schedules._single_'.$audienceCode)
-                                @endif
-                            @endforeach
-                        @endif
-                    @endif
-                @endforeach
+        @php
+            $fridayAudienceCode = App\Models\Lecturing::AUDIENCE_FRIDAY;
+        @endphp
+        @if (isset($lecturings[$fridayAudienceCode]))
+            <div class="pt-4 pt-lg-5">
+                <div class="row ">
+                    <div class="col-lg ps-sm-0">
+                        @foreach($lecturings[$fridayAudienceCode] as $lecturing)
+                            @include('public_schedules._single_'.$fridayAudienceCode)
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="timeline_area pt-4 pt-lg-5">
             <div class="d-lg-flex justify-content-between pb-3">
                 <h2 class="fw-bolder mb-3 ">{{ __('lecturing.lecturing') }}</h2>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="apland-timeline-area">
@@ -83,7 +77,7 @@
                                         <div class="empty">
                                             <p class="empty-title">Kajian {{ __('lecturing.audience_'.$audienceCode) }}</p>
                                             <p class="empty-subtitle text-secondary">
-                                                {{ __('lecturing.not_found', ['audience' => __('lecturing.audience_'.$audienceCode)]) }}.
+                                                {{ __('lecturing.not_found', ['audience' => __('lecturing.audience_'.$audienceCode)]) }}
                                             </p>
                                         </div>
                                     </div>
