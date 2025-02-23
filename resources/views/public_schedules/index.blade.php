@@ -37,43 +37,44 @@
                         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat; background-position: 0 -30px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Imsak</h4>
-                                <h1 class="m-0 d-block" id="imsak">--.--</h3>
+                                <h1 class="m-0 d-block" id="waktu-0">--.--</h3>
                             </div>
                         </div>
                         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -95px -70px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Subuh</h4>
-                                <h1 class="m-0 d-block" id="subuh">--.--</h3>
+                                <h1 class="m-0 d-block" id="waktu-1">--.--</h3>
                             </div>
                         </div>
                         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 210px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -190px -60px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Dzuhur</h4>
-                                <h1 class="m-0 d-block" id="dzuhur">--.--</h3>
+                                <h1 class="m-0 d-block" id="waktu-2">--.--</h3>
                             </div>
                         </div>
                         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 270px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -285px 0px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Ashar</h4>
-                                <h1 class="m-0 d-block" id="ashar">--.--</h3>
+                                <h1 class="m-0 d-block" id="waktu-3">--.--</h3>
                             </div>
                         </div>
                         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -380px -70px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Maghrib</h4>
-                                <h1 class="m-0 d-block" id="maghrib">--.--</h3>
+                                <h1 class="m-0 d-block" id="waktu-4">--.--</h3>
                             </div>
                         </div>
                         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 230px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -475px -40px">
                             <div class="prayinfo">
                                 <h4 class="m-0 d-flex">Isya</h4>
-                                <h1 class="m-0 d-block" id="isya">--.--</h3>
+                                <h1 class="m-0 d-block" id="waktu-5">--.--</h3>
                             </div>
                         </div>
                     </div>
                     <div class="text-end fs-6 text-secondary pt-3">
                         Sumber: myquran.com<br>
-                        Kota : {{ Setting::get('masjid_city_name') }} (berdasarkan lokasi masjid)
+                        Kota : {{ Setting::get('masjid_city_name') }} (berdasarkan lokasi masjid)<br>
+                        <span id="timeRemaining"></span> lagi menuju waktu <span id="timeID"></span>
                     </div>
                 </div>
             </div>
@@ -214,182 +215,6 @@
                                 @endif
                             @endif
                         @endforeach
-                        <?php
-                            /*
-                        <!-- WEEK -->
-                        <div class="single-timeline-area border-bottom py-4">
-                            <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s">
-                                <p>Pekan 2</p>
-                            </div>
-                            <div class="row">
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- WEEK -->
-                        <div class="single-timeline-area border-bottom py-4">
-                            <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s">
-                                <p>Pekan 3</p>
-                            </div>
-                            <div class="row">
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- WEEK -->
-                        <div class="single-timeline-area border-bottom py-4">
-                            <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s">
-                                <p>Pekan 4</p>
-                            </div>
-                            <div class="row">
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SCHEDULE ITEM -->
-                                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
-                                    <div class="text-secondary fs-5 row">
-                                        <div class="col-auto"><i class="ti">&#xea52;</i> 11 Nov 2024 </div>
-                                        <div class="col-auto"><i class="ti">&#xf319;</i> 10:00 - Selesai</div>
-                                    </div>
-                                    <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                                        <div>
-                                            <div class="timeline-icon"></div>
-
-                                        </div>
-                                        <div class="timeline-text">
-                                            <h5 class="text-secondary">Kajian Bada Subuh</h5>
-                                            <p>Tradisi Keagamaan Masyarakat (adat istiadat) dalam tinjauan Islam.</p>
-                                            <div class="lh-1 pt-3">
-                                                <h6 class="text-secondary m-0">PENCERAMAH</h6>
-                                                <p class="bm-txt-primary fw-bold">Ust Adi Hidayat</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        */
-                        ?>
                     </div>
                 </div>
             </div>
@@ -399,32 +224,21 @@
 <script>
     const cityName = "{{ Setting::get('masjid_city_name') }}";
     const cacheKey = `prayer_times_${cityName}`; // Unique key
+    labelSholat = ['Imsak', 'Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
+    jadwalSholat = [];
 
     // Check if data is in localStorage
     const cachedData = localStorage.getItem(cacheKey);
 
     if (cachedData) {
-            const data = JSON.parse(cachedData);
-        // ... use the cached data ...
-        if (data.data) {
-            if (Array.isArray(data.data)){
-                data.data.forEach(item => {
-                    document.getElementById('imsak').textContent = item.imsak;
-                    document.getElementById('subuh').textContent = item.subuh;
-                    document.getElementById('dzuhur').textContent = item.dzuhur;
-                    document.getElementById('ashar').textContent = item.ashar;
-                    document.getElementById('maghrib').textContent = item.maghrib;
-                    document.getElementById('isya').textContent = item.isya;
-                });
-            } else {
-                document.getElementById('imsak').textContent = data.data.jadwal.imsak;
-                document.getElementById('subuh').textContent = data.data.jadwal.subuh;
-                document.getElementById('dzuhur').textContent = data.data.jadwal.dzuhur;
-                document.getElementById('ashar').textContent = data.data.jadwal.ashar;
-                document.getElementById('maghrib').textContent = data.data.jadwal.maghrib;
-                document.getElementById('isya').textContent = data.data.jadwal.isya;
+        const data = JSON.parse(cachedData).data.jadwal;
+        jadwalSholat = [data.imsak, data.subuh, data.dzuhur, data.ashar, data.maghrib, data.isya];
+        jadwalSholat.forEach((waktu, index) => {
+            const element = document.getElementById(`waktu-${index}`);
+            if (element) {
+                element.textContent = waktu;
             }
-        }
+        });
     } else {
         fetch(`/prayer-times/${cityName}`)
         .then(response => response.json())
@@ -433,63 +247,49 @@
                 console.error("Error:", data.error);
             } else {
                 if (data.data) {
-                    // ... use the fetched data ...
                     localStorage.setItem(cacheKey, JSON.stringify(data)); // Store in localStorage
-
-                    if (Array.isArray(data.data)){
-                        data.data.forEach(item => {
-                            document.getElementById('imsak').textContent = item.imsak;
-                            document.getElementById('subuh').textContent = item.subuh;
-                            document.getElementById('dzuhur').textContent = item.dzuhur;
-                            document.getElementById('ashar').textContent = item.ashar;
-                            document.getElementById('maghrib').textContent = item.maghrib;
-                            document.getElementById('isya').textContent = item.isya;
-                        });
-                    } else {
-                        document.getElementById('imsak').textContent = data.data.jadwal.imsak;
-                        document.getElementById('subuh').textContent = data.data.jadwal.subuh;
-                        document.getElementById('dzuhur').textContent = data.data.jadwal.dzuhur;
-                        document.getElementById('ashar').textContent = data.data.jadwal.ashar;
-                        document.getElementById('maghrib').textContent = data.data.jadwal.maghrib;
-                        document.getElementById('isya').textContent = data.data.jadwal.isya;
-                    }
+                    jadwalSholat = [data.data.jadwal.imsak, data.data.jadwal.subuh, data.data.jadwal.dzuhur, data.data.jadwal.ashar, data.data.jadwal.maghrib, data.data.jadwal.isya];
+                    jadwalSholat.forEach((waktu, index) => {
+                        const element = document.getElementById(`waktu-${index}`);
+                        if (element) {
+                            element.textContent = waktu;
+                        }
+                    });
                 }
             }
         });
     }
-    /*fetch('/prayer-times/{{ Setting::get('masjid_city_name') }}')
-    .then(response => response.json())
-    .then(data => {
-    if (data.error) {
-      console.error("Error:", data.error); // Handle errors
-      // Display the error message to the user or take other actions
-    } else {
-      if (data.data) {
-        if (Array.isArray(data.data)){
-          data.data.forEach(item => {
-            document.getElementById('imsak').textContent = item.imsak;
-            document.getElementById('subuh').textContent = item.subuh;
-            document.getElementById('dzuhur').textContent = item.dzuhur;
-            document.getElementById('ashar').textContent = item.ashar;
-            document.getElementById('maghrib').textContent = item.maghrib;
-            document.getElementById('isya').textContent = item.isya;
-            // ... update other HTML elements
-          });
-        } else {
-          document.getElementById('imsak').textContent = data.data.jadwal.imsak;
-          document.getElementById('subuh').textContent = data.data.jadwal.subuh;
-          document.getElementById('dzuhur').textContent = data.data.jadwal.dzuhur;
-          document.getElementById('ashar').textContent = data.data.jadwal.ashar;
-          document.getElementById('maghrib').textContent = data.data.jadwal.maghrib;
-          document.getElementById('isya').textContent = data.data.jadwal.isya;
-          // ... update other HTML elements
-        }
-      }
 
+    function jadwalRemaining(timeid, labelid){
+        const now = new Date();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes(); 
+
+        // Jadwal sholat berikutnya
+        let nextIndex = jadwalSholat.findIndex(time => {
+            const [hour, minute] = time.split(":").map(Number);
+            return hour * 60 + minute > currentMinutes;
+        });
+
+        if (nextIndex === -1) {
+            nextIndex = 0;
+        }
+
+        const [nextHour, nextMinute] = jadwalSholat[nextIndex].split(":").map(Number);
+        const nextMinutes = nextHour * 60 + nextMinute;
+
+        // hitung sisa waktu
+        let remainingMinutes = nextMinutes - currentMinutes;
+        if (remainingMinutes < 0) {
+            remainingMinutes += 24 * 60;
+        }
+
+        const hoursLeft = Math.floor(remainingMinutes / 60);
+        const minutesLeft = remainingMinutes % 60;
+
+        document.getElementById(labelid).textContent = labelSholat[nextIndex];
+        document.getElementById(timeid).textContent = hoursLeft +" Jam : "+ minutesLeft +" Menit";
     }
-  })
-  .catch(error => {
-    console.error("Fetch Error:", error); // Handle fetch errors
-  }); */
+
+    jadwalRemaining('timeRemaining','timeID');
 </script>
 @endsection
