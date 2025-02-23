@@ -20,19 +20,18 @@
 <section class="bg-white">
     <div class="container-md position-relative">
            <div class="btn-toolbar d-flex justify-content-center row pt-4" style="position: relative; top: 20px" role="toolbar">
-            <div class="btn-group col-auto" role="group" aria-label="Third group">
-                <a href="{{ route('public_schedules.this_week', Request::all()) }}">
-                    <button type="button" class="btn btn-light border bm-btn py-2">{{ __('time.this_week') }}</button>
+            <div class="btn-group col-auto" role="group">
+                <a href="{{ route('public_schedules.this_week', Request::all()) }}" class="btn border bm-btn py-2 {{ Route::is('public_schedules.this_week') ? 'btn-success' : 'btn-light' }}">
+                    {{ __('time.this_week') }}
                 </a>
-            </div>
-            <div class="btn-group col-auto" role="group" aria-label="Third group">
-                <a href="{{ route('public_schedules.next_week', Request::all()) }}">
-                    <button type="button" class="btn btn-light border bm-btn py-2">{{ __('time.next_week') }}</button>
+                <a href="{{ route('public_schedules.next_week', Request::all()) }}" class="btn border bm-btn py-2 {{ Route::is('public_schedules.next_week') ? 'btn-success' : 'btn-light' }}">
+                    {{ __('time.next_week') }}
                 </a>
             </div>
         </div>
     </div>
 </section>
+
 <div class="section-bottom pb-5">
     <div class="container-md p-3 py-lg-0">
         @php
@@ -64,18 +63,19 @@
                                         <div class="d-none d-lg-flex timeline-date wow fadeInLeft" data-wow-delay="0.1s" >
                                             <p>{{ __('lecturing.audience_'.$audienceCode) }}</p>
                                         </div>
+                                        <div class="d-block d-lg-none h3">
+                                            <p>{{ __('lecturing.audience_'.$audienceCode) }}</p>
+                                        </div>
                                         <div class="row">
                                             @foreach($lecturings[$audienceCode] as $lecturing)
-                                                @if ($lecturing->audience_code != App\Models\Lecturing::AUDIENCE_FRIDAY )
-                                                    @include('public_schedules._single_'.$audienceCode)
-                                                @endif
+                                                @include('public_schedules._single_'.$audienceCode)
                                             @endforeach
                                         </div>
                                     </div>
                                 @else
                                     <div class="container-xl my-4 card bg-light">
                                         <div class="empty">
-                                            <p class="empty-title">Kajian {{ __('lecturing.audience_'.$audienceCode) }}</p>
+                                            <p class="empty-title">{{ __('lecturing.audience_'.$audienceCode) }}</p>
                                             <p class="empty-subtitle text-secondary">
                                                 {{ __('lecturing.not_found', ['audience' => __('lecturing.audience_'.$audienceCode)]) }}
                                             </p>
