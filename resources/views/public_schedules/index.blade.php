@@ -3,27 +3,6 @@
 @section('title', __('lecturing.list'))
 
 @section('content')
-
-<?php
-    /*
-@include('public_schedules._nav')
-
-@foreach ($audienceCodes as $audienceCode => $audience)
-    @if (isset($lecturings[$audienceCode]))
-        <div class="page-header my-4">
-            <h2 class="page-title">{{ __('lecturing.audience_'.$audienceCode) }}</h2>
-        </div>
-        @foreach($lecturings[$audienceCode] as $lecturing)
-            @include('public_schedules._single_'.$audienceCode)
-        @endforeach
-    @endif
-
-@endforeach
-*/
-?>
-<style>
-    .pattern { display: none !important;}
-</style>
 <section class="bg-white">
     <div class="container-md">
         <div class="row section-hero pb-0 d-lg-flex align-items-stretch">
@@ -52,44 +31,6 @@
                     <button type="button" class="btn btn-light border bm-btn py-2">{{ __('time.next_week') }}</button>
                 </a>
             </div>
-            <!--
-            <div class="btn-group col-auto" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-light border bm-btn py-2"><i class="ti py-1">&#xea60;</i></button>
-            </div>
-            <div class="btn-group col col-sm-auto px-0" role="group">
-                <button id="month" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false" >
-                November
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="month" style="width: 100%">
-                    <li class="d-grid"><a class="dropdown-item" href="#">Januari</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Februari</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Maret</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">April</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Mei</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Juni</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Juli</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Agustus</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">September</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Oktober</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">November</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">Desember</a></li>
-                </ul>
-            </div>
-            <div class="btn-group col-auto" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-light border bm-btn"><i class="ti py-1">&#xea61;</i></button>
-            </div>
-            <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
-                <button id="year" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false">
-                2024
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="year" style="width: 100%">
-                    <li class="d-grid"><a class="dropdown-item" href="#">2024</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">2023</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">2022</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">2021</a></li>
-                    <li class="d-grid"><a class="dropdown-item" href="#">2020</a></li>
-                </ul>
-            </div> -->
         </div>
     </div>
 </section>
@@ -117,24 +58,11 @@
         <div class="timeline_area pt-4 pt-lg-5">
             <div class="d-lg-flex justify-content-between pb-3">
                 <h2 class="fw-bolder mb-3 ">{{ __('lecturing.lecturing') }}</h2>
-                <!-- <div class="btn-group col col-sm-auto px-0" role="group">
-                    <button id="year" type="button" class="btn btn-light border bm-btn dropdown-toggle py-2" data-bs-toggle="dropdown" aria-expanded="false">
-                    Kajian Umum (Muslim & Muslimah)
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="year" style="width: 100%">
-                        <li class="d-grid"><a class="dropdown-item" href="#">Kajian Umum (Muslim & Muslimah)</a></li>
-                        <li class="d-grid"><a class="dropdown-item" href="#">Kajian Muslimah</a></li>
-                        <li class="d-grid"><a class="dropdown-item" href="#">Kajian Muslim</a></li>
-                    </ul>
-                </div> -->
             </div>
 
             <div class="row">
                 <div class="col-12">
-                    <!-- Timeline Area-->
                     <div class="apland-timeline-area">
-                        <!-- Single Timeline Content-->
-                        <!-- WEEK -->
                         @foreach ($audienceCodes as $audienceCode => $audience)
                             @if ($audienceCode != App\Models\Lecturing::AUDIENCE_FRIDAY)
                                 @if (isset($lecturings[$audienceCode]))
