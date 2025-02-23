@@ -32,9 +32,9 @@
             <div class="col-lg-12">
                 <div class="row align-items-start">
                     <div class="col-lg-6 mt-3">
-                        <div class="fs-4 pt-3 pb-3 d-flex align-items-center row">
+                        <div class="fs-4 pt-3 pb-3 row">
                             <div class="col"><span class="fs-2 fw-bold pe-2">Program</span></div>
-                            <div class="col"><a href="/infaq"><span class="pe-2 float-end">Detil Program <i class="ti">&#xea61;</i></span></a></div>
+                            <div class="col text-end"><a href="{{ route('public.donate') }}">Detil Program <i class="ti">&#xea61;</i></a></div>
                         </div>
                         <div class="card">
                             <div>

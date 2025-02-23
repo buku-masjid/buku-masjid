@@ -1,6 +1,6 @@
-<div class="fs-4 pt-3 pb-3 d-flex align-items-center row">
+<div class="fs-4 pt-3 pb-3 row">
     <div class="col"><span class="fs-2 fw-bold pe-2">{{ __('lecturing.public_schedule') }} {{ __('time.'.$this->dayTitle) }}</span></div>
-    <div class="col"><a href="{{ route('public_schedules.'.$this->dayTitle) }}"><span class="pe-2 float-end">Detil Kajian <i class="ti">&#xea61;</i></span></a></div>
+    <div class="col text-end"><a href="{{ route('public_schedules.'.$this->dayTitle) }}">Detil Kajian <i class="ti">&#xea61;</i></a></div>
 </div>
 <div class="row">
 @forelse($lecturings as $index => $lecturing)
