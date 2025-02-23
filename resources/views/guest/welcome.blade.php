@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-lg-6 px-3 mt-3">
                         @if (Route::has('lecturings.index'))
-                            @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
+                            @livewire('public-home.daily-lecturings', ['date' => today()->subDay(2), 'dayTitle' => 'today'])
                         @endif
                     </div>
                 </div>

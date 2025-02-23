@@ -18,6 +18,7 @@ return [
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',
     'muslimah_empty' => 'Belum ada Jadwal Pengajian Muslimah',
     'tarawih_empty' => 'Belum ada Jadwal Tarawih',
+    'adzan_time' => 'Waktu Adzan',
     'count' => 'Input Jadwal Pengajian',
     'back_to_show' => 'Kembali ke detail Jadwal Pengajian',
     'back_to_index' => 'Kembali ke daftar Jadwal Pengajian',
@@ -41,9 +42,9 @@ return [
 
     // Attributes
     'audience' => 'Untuk Jamaah',
-    'audience_friday' => 'Jumat',
-    'audience_public' => 'Umum (Muslim dan Muslimah)',
-    'audience_muslimah' => 'Khusus Muslimah',
+    'audience_friday' => 'Shalat Jumat',
+    'audience_public' => 'Kajian Umum (Muslim dan Muslimah)',
+    'audience_muslimah' => 'Kajian Khusus Muslimah',
     'audience_tarawih' => 'Shalat Isya dan Tarawih',
     'date' => 'Tanggal',
     'time' => 'Jam',
@@ -53,6 +54,7 @@ return [
     'time_text_placeholder' => 'Ba\'da Magrib',
     'lecturer_name' => 'Penceramah',
     'friday_lecturer_name' => 'Khatib',
+    'friday_lecturer_and_imam' => 'Khatib dan Imam',
     'book_title' => 'Judul Kitab',
     'book' => 'Kitab',
     'book_writer' => 'Penulis Kitab',
