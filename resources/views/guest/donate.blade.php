@@ -101,9 +101,9 @@
         @else
             <div class="container-xl my-auto card bg-light">
                 <div class="empty">
-                    <p class="empty-title">Belum ada jadwal</p>
+                    <p class="empty-title">Belum ada program</p>
                     <p class="empty-subtitle text-secondary">
-                        Khutbah Ju'mat pada masjid belum tersedia.
+                        Masjid ini belum memiliki program untuk umum.
                     </p>
                 </div>
             </div>

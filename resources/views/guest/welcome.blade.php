@@ -26,28 +26,27 @@
         <div>
             <div class="row align-items-end">
                 @livewire('public-home.weekly-financial-summary')
-                {{--
-                <div class="col-lg-3 ps-sm-0">
-                    <div class="fs-2 fw-bold pb-3 pt-sm-3">
-                        <br class="d-sm-none">
-                        Infaq
-                    </div>
-                    <div class="card fw-bold p-3 mb-2 bm-section-selected shadow-lg">
-                        <div class="d-flex flex-row">
-                            <div class="lh-1">
-                                <span class="date">Bank</span><br>
-                                Bank BSI
-                            </div>
-                            <div class="lh-1 ms-4">
-                                <span class="date">Atas Nama</span><br>
-                                Munawir
+            </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="row align-items-start">
+                    <div class="col-lg-6 mt-3">
+                        <div class="fs-4 pt-3 pb-3 d-flex align-items-center row">
+                            <div class="col"><span class="fs-2 fw-bold pe-2">Program</span></div>
+                            <div class="col"><a href="/infaq"><span class="pe-2 float-end">Detil Program <i class="ti">&#xea61;</i></span></a></div>
+                        </div>
+                        <div class="card">
+                            <div>
+                                <img src="storage/67b7372e49cb1.webp" class="w-100 h-100 object-cover" alt="Tabungan Quban 1446 H" style="border-radius: 15px 15px 0px 0px;">
                             </div>
                         </div>
-
-                        <h1 class="pt-4 fw-bolder">7199793588</h1>
+                    </div>
+                    <div class="col-lg-6 px-3 mt-3">
+                        @if (Route::has('lecturings.index'))
+                            @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
+                        @endif
                     </div>
                 </div>
-                --}}
             </div>
         </div>
     </div>
