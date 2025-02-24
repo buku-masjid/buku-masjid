@@ -19,12 +19,12 @@
 
 <section class="bg-white">
     <div class="container-md position-relative">
-           <div class="btn-toolbar d-flex justify-content-center row pt-4" style="position: relative; top: 20px" role="toolbar">
+           <div class="btn-toolbar d-flex justify-content-center row pt-4" style="position: relative; top: 20px; z-index: 10" role="toolbar">
             <div class="btn-group col-auto" role="group">
-                <a href="{{ route('public_schedules.this_week', Request::all()) }}" class="btn border bm-btn py-2 {{ Route::is('public_schedules.this_week') ? 'btn-success' : 'btn-light' }}">
+                <a href="{{ route('public_schedules.this_week', Request::all()) }}" class="btn bm-btn py-2 {{ Route::is('public_schedules.this_week') ? 'bm-btn-primary' : 'btn-light bm-bg-primary-soft' }}">
                     {{ __('time.this_week') }}
                 </a>
-                <a href="{{ route('public_schedules.next_week', Request::all()) }}" class="btn border bm-btn py-2 {{ Route::is('public_schedules.next_week') ? 'btn-success' : 'btn-light' }}">
+                <a href="{{ route('public_schedules.next_week', Request::all()) }}" class="btn border bm-btn py-2 {{ Route::is('public_schedules.next_week') ? 'bm-btn-primary' : 'btn-light bm-bg-primary-soft' }}">
                     {{ __('time.next_week') }}
                 </a>
             </div>

@@ -45,6 +45,20 @@ a:hover { color: #378E88; text-decoration: none;}
 .bm-bg-netral-soft { background-color: #CBE4F2;}
 .bm-section-selected { background-color: #F8FCFF !important;}
 .bm-fade { background-color: #f8f8f8 !important;}
+.bm-btn-primary { background-color: #2d6974; color: #fff;}
+.bm-btn-primary:hover { background-color: #387782; color: #fff;}
+
+/* OVERWRITE */
+.nav-link { color: #20716B}
+.nav-link:hover { color: #20716B}
+.nav-item { -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+  box-sizing:border-box;}
+.nav-item:hover { background-color: #f3fff9;}
+.nav-item:first-child:hover { background-color: #f3fff9; border-radius: 5px 0 0 5px;}
+.nav-item:last-child:hover { background-color: #f3fff9; border-radius: 0 5px 5px 0;}
+
 
 .card             { border-radius: 15px; border: 1px solid #EEE; background: #FFF; position: relative;
   .date           { color: #6A6A6A; font-size: 9px; font-weight: normal;}

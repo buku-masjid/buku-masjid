@@ -28,13 +28,8 @@
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">{{ __('report.report') }}</div>
                 <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
                     @include('public_reports.finance._book_navigation')
-                    <div class="text-center mt-3 mb-2 ms-sm-4">
-                        <span class="badge text-uppercase bg-primary mr-1" title="{{ __('report.periode') }}: {{ __('report.'.$selectedBook->report_periode_code) }}">
-                            {{ __('report.'.$selectedBook->report_periode_code) }}
-                        </span>
-                    </div>
                 </div>
-                <div class="col-sm text-center d-grid align-items-center text-sm-end pb-2 pb-sm-0">
+                <div class="d-none col-sm text-center d-grid align-items-center text-sm-end pb-2 pb-sm-0">
                     {{ $startDate->isoFormat('dddd, D MMM Y') }} - {{ $endDate->isoFormat('dddd, D MMM Y') }}
                 </div>
                 <div class="col-sm px-3 d-grid align-items-center text-sm-end">

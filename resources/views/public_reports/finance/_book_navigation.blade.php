@@ -1,6 +1,9 @@
 <button type="button" class="btn btn-teal bm-btn justify-content-between" data-bs-toggle="offcanvas" data-bs-target="#books" aria-controls="books">
     <div>{{ $selectedBook->name }}</div>
-    <div class="ms-2"><i class="ti">&#xea61;</i></div>
+    <div class="ms-2 d-flex align-items-center">
+        <span class="badge bg-light text-dark" style="letter-spacing: normal; font-size: 10px" title="{{ __('report.periode') }}: {{ __('report.'.$selectedBook->report_periode_code) }}">{{ __('report.'.$selectedBook->report_periode_code) }}
+        </span><i class="ti">&#xea61;</i>
+    </div>
 </button>
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="books">
     <div class="offcanvas-header pt-3 pb-1 border-0 justify-content-center">

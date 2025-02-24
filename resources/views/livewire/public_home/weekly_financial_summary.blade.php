@@ -52,25 +52,10 @@
     </a>
 </div>
 
+<script src="{{ asset('js/plugins/short-currency.js') }}"></script>
 <script>
-    function shortenNominalConcise(amount) {
-        const formatter = new Intl.NumberFormat('id-ID', { 
-            notation: 'compact', 
-            maximumFractionDigits: 2 // decimal places.
-        });
-        return `Rp ${formatter.format(amount)}`;
-    }
-
-    const weekBalance = document.getElementById('start_week_balance');
-    weekBalance.textContent = shortenNominalConcise(parseInt({{$startWeekBalance}}));
-    
-    const currentBalance = document.getElementById('current_balance');
-    currentBalance.textContent = shortenNominalConcise(parseInt({{$currentBalance}}));
-    
-    const weekIncome = document.getElementById('current_week_income_total');
-    weekIncome.textContent = shortenNominalConcise(parseInt({{$currentWeekIncomeTotal}}));
-    
-    const weekSpending = document.getElementById('current_week_spending_total');
-    spending = shortenNominalConcise(parseInt({{$currentWeekSpendingTotal}}));
-    weekSpending.textContent = (spending ? "- " + spending : 0);
+    updateNominal('start_week_balance', parseInt({{$startWeekBalance}}));
+    updateNominal('current_balance', parseInt({{$currentBalance}}));
+    updateNominal('current_week_income_total', parseInt({{$currentWeekIncomeTotal}}));
+    updateNominal('current_week_spending_total', parseInt({{$currentWeekSpendingTotal}}));
 </script>
