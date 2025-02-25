@@ -3,6 +3,7 @@
 return [
     // Labels
     'book' => 'Cash Book / Program',
+    'program' => 'Program',
     'list' => 'Cash Book / Program List',
     'search' => 'Search Cash Book / Program',
     'search_text' => 'Name ...',
@@ -13,6 +14,7 @@ return [
     'empty' => 'Cash Book / Program is empty.',
     'count' => 'Cash Book / Program entries',
     'no_book' => 'No Cash Book / Program',
+    'progress' => 'Program Progres',
     'back_to_show' => 'Back to Cash Book / Program Detail',
     'back_to_index' => 'Back to Cash Book / Program List',
     'management_title' => 'Management Title',

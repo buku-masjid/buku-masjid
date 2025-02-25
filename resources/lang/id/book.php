@@ -3,6 +3,7 @@
 return [
     // Labels
     'book' => 'Buku Kas / Program',
+    'program' => 'Program',
     'list' => 'Daftar Buku Kas / Program',
     'search' => 'Cari Buku Kas / Program',
     'search_text' => 'Nama ...',
@@ -11,8 +12,9 @@ return [
     'detail' => 'Detail Buku Kas / Program',
     'not_found' => 'Buku Kas / Program tidak ditemukan',
     'empty' => 'Belum ada Buku Kas / Program',
-    'count' => 'Input Buku Kas / Program',
-    'no_book' => 'Tanpa Buku Kas / Program',
+    'count' => 'Jumlah Buku Kas / Program',
+    'no_book' => 'Tidak ada Buku Kas / Program',
+    'progress' => 'Progres Program',
     'back_to_show' => 'Kembali ke detail Buku Kas / Program',
     'back_to_index' => 'Kembali ke daftar Buku Kas / Program',
     'management_title' => 'Kepengurusan/Kepanitiaan',

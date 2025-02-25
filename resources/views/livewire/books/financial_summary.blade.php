@@ -1,6 +1,6 @@
 @if ($currentBudget)
     <div class="mb-4">
-        <h3>Progres Program</h3>
+        <h3>{{ __('book.progress') }}</h3>
         <div class="progress progress-bar-striped rounded-pill" title="{{ __('report.current_periode_income_total') }}: {{ $progressPercent }}%" style="height: 20px;">
             <div class="progress-bar progress-bar-striped rounded-pill bg-{{ $progressPercentColor }}" style="width: {{ $progressPercent }}%"></div>
         </div>

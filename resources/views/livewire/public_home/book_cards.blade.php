@@ -1,7 +1,7 @@
 <div>
     <div class="fs-4 pt-3 pb-3 row">
-        <div class="col"><span class="fs-2 fw-bold pe-2">Program</span></div>
-        <div class="col text-end"><a href="{{ route('public.donate') }}">Detil Program <i class="ti">&#xea61;</i></a></div>
+        <div class="col"><span class="fs-2 fw-bold pe-2">{{ __('book.program') }}</span></div>
+        <div class="col text-end mt-1"><a href="{{ route('public.donate') }}">{{ __('app.show') }} <i class="ti">&#xea61;</i></a></div>
     </div>
     @foreach ($publicBooks as $publicBook)
         <div class="card {{ !$loop->first ? 'mt-3' : '' }} bg-info-lt">

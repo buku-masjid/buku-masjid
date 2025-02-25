@@ -3,9 +3,6 @@
 @section('title', __('app.donate'))
 
 @section('content')
-<style>
-    .pattern { display: none !important;}
-</style>
 <section class="bg-white">
     <div class="container-md">
         <div class="section-hero row">
@@ -73,7 +70,7 @@
             @endforelse
         </div>
         <div class="pt-3 mt-4 border-top">
-            <h2 class="fw-bolder">Program</h2>
+            <h2 class="fw-bolder">{{ __('book.program') }}</h2>
         </div>
         @if (isset($publicBooks))
             <div class="row row-cols-lg-3">
@@ -84,14 +81,14 @@
                             @if (Setting::for($publicBook)->get('poster_image_path'))
                                 <img src="{{ Storage::url(Setting::for($publicBook)->get('poster_image_path')) }}" class="w-100 h-100 object-cover" alt="{{ $publicBook->name }}" style="border-radius: 15px 15px 0px 0px;">
                             @else
-                                <div class="p-3" style="min-height: 11em">{{ $publicBook->name }}</div>
+                                <div class="p-3 fs-1 d-flex align-items-center justify-content-center bg-info-lt" style="min-height: 207px;border-radius: 15px 15px 0px 0px;">{{ $publicBook->name }}</div>
                             @endif
                         </div>
                         <div>
                             <div class="p-4">
                                 <h3 class="fs-1">{{ $publicBook->name }}</h3>
                                 <div class="text-secondary py-3">{{ $publicBook->description }}</div>
-                                <a href="{{ route('public.books.show', $publicBook) }}" class="btn btn-primary" href="#" role="button" style="background-color: #2d6974 !important; border-radius: 9px !important;">Detil Program</a>
+                                <a href="{{ route('public.books.show', $publicBook) }}" class="btn btn-primary" role="button" style="background-color: #2d6974 !important; border-radius: 9px !important;">{{ __('app.show') }}</a>
                             </div>
                         </div>
                     </div>
@@ -101,10 +98,7 @@
         @else
             <div class="container-xl my-auto card bg-light">
                 <div class="empty">
-                    <p class="empty-title">Belum ada program</p>
-                    <p class="empty-subtitle text-secondary">
-                        Masjid ini belum memiliki program untuk umum.
-                    </p>
+                    <p class="empty-subtitle text-secondary">{{ __('book.no_book') }}</p>
                 </div>
             </div>
         @endif

@@ -3,28 +3,35 @@
 @section('title', $book->name)
 
 @section('content')
-<style>
-    .pattern { display: none !important;}
-</style>
 <section class="bg-white d-none d-md-block">
     <div class="container-md">
         <div class="section-hero row">
-            <div class="mb-3"><a href="/infaq"><i class="ti">&#xea60;</i> Program {{ Setting::get('masjid_name', config('masjid.name')) }}</a></div>
+            <div class="mb-3">
+                <a href="{{ route('public.donate') }}">
+                    <i class="ti">&#xea60;</i>
+                    {{ __('book.program') }} {{ Setting::get('masjid_name', config('masjid.name')) }}
+                </a>
+            </div>
         </div>
     </div>
 </section>
+
 <div class="section-bottom">
-    <img class="w-full d-block d-md-none" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}">
+    @if (Setting::for($book)->get('poster_image_path'))
+        <img class="w-full d-block d-md-none" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}">
+    @else
+        <div class="w-full d-block d-md-none fs-1 d-flex align-items-center justify-content-center bg-info-lt" style="min-height: 8em">{{ $book->name }}</div>
+    @endif
     <div class="container-md gutter-0 home-bottom">
-        <!-- <h2 class="fw-bolder mb-3">{{ $book->name }}</h2>
-                <div class="fs-2 mb-3">{{ $book->description }}</div> -->
         <div class="card fw-bold p-3 mb-2 shadow-lg position-relative d-none d-md-block">
-            <img class="w-full" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}" style="border-radius: 15px">
+             @if (Setting::for($book)->get('poster_image_path'))
+                <img class="w-full" src="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}" alt="{{ $book->name }}" style="border-radius: 15px">
+            @else
+                <div class="w-full fs-1 d-flex align-items-center justify-content-center bg-info-lt" style="min-height: 8em">{{ $book->name }}</div>
+            @endif
         </div>
         <div>
         <div class="p-3">
-            <!-- <a href="/infaq">
-            <i class="ti">&#xea60;</i> Program {{ Setting::get('masjid_name', config('masjid.name')) }}</a -->
             <h2 class="fw-bolder">{{ $book->name }}</h2>
         </div>
         <div class="card">

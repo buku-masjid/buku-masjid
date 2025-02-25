@@ -8,6 +8,7 @@ return [
     'empty' => 'Bank Account list is empty',
     'back_to_index' => 'Back to Bank Account list',
     'qris' => 'QRIS',
+    'show_qris' => 'Show QRIS',
     'qris_upload_image' => 'Upload QRIS Image',
     'qris_change_image' => 'Change QRIS Image',
     'image_not_found' => 'Image not found.',
