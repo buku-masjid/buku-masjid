@@ -72,7 +72,7 @@
         <div class="pt-3 mt-4 border-top">
             <h2 class="fw-bolder">{{ __('book.program') }}</h2>
         </div>
-        @if (isset($publicBooks))
+        @if ($publicBooks->isEmpty() == false)
             <div class="row row-cols-lg-3">
                 @foreach ($publicBooks as $publicBook)
                 <div class="col-md-6 mt-3">
