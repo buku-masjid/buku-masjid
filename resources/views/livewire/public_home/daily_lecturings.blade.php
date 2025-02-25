@@ -59,6 +59,7 @@
         </div>
     </div>
 @empty
-    <p>{{ __('lecturing.empty') }} {{ __('time.'.$this->dayTitle) }}.</p>
+    <img src="{{ asset('images/default_kajian.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px">
+    {{-- <p>{{ __('lecturing.empty') }} {{ __('time.'.$this->dayTitle) }}.</p> --}}
 @endforelse
 </div>
