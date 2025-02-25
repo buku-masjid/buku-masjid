@@ -132,6 +132,10 @@ $pattern-w: 500px;
   .row              {  border-top: 1px solid #CEF1F1; }
   .row:first-child  {  border-top: 0px; }
 }
+.transaction-list-out   { padding: 0px 20px !important; border-radius: 10px; border: 1px solid #f1cede; background: #fff4f9; margin: 10px 0 20px 0;
+  .row              {  border-top: 1px solid #f1cede; }
+  .row:first-child  {  border-top: 0px; }
+}
 .tl-out { border: 1px solid #F1CEDF; background: #FFF4F7;
   .row              {  border-top: 1px solid #F1CEDF; }
 }
