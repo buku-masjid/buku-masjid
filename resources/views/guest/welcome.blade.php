@@ -32,15 +32,7 @@
             <div class="col-lg-12">
                 <div class="row align-items-start">
                     <div class="col-lg-6 mt-3">
-                        <div class="fs-4 pt-3 pb-3 row">
-                            <div class="col"><span class="fs-2 fw-bold pe-2">Program</span></div>
-                            <div class="col text-end"><a href="{{ route('public.donate') }}">Detil Program <i class="ti">&#xea61;</i></a></div>
-                        </div>
-                        <div class="card">
-                            <div>
-                                <img src="storage/67b72e40dbd5a.webp" class="w-100 h-100 object-cover" alt="Tabungan Quban 1446 H" style="border-radius: 15px 15px 0px 0px;">
-                            </div>
-                        </div>
+                        @livewire('public-home.book-cards')
                     </div>
                     <div class="col-lg-6 px-3 mt-3">
                         @if (Route::has('lecturings.index'))
