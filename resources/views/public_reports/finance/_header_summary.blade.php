@@ -36,10 +36,15 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
 <script src="{{ asset('js/plugins/short-currency.js') }}"></script>
 <script>
-    updateNominal('lastMonthBalance', parseInt({{$lastMonthBalance}}));
-    updateNominal('currentMonthIncome', parseInt({{$currentMonthIncome}}));
-    updateNominal('currentMonthSpending', parseInt({{$currentMonthSpending}}));
-    updateNominal('endBalance', parseInt({{$lastMonthBalance}} + {{$currentMonthBalance}}));
+    var currencyCode = '{{ config('money.currency_code') }}';
+    var localeCode = '{{ config('app.locale') }}';
+    shortenMoneyContent('lastMonthBalance', parseInt({{$lastMonthBalance}}), localeCode, currencyCode);
+    shortenMoneyContent('currentMonthIncome', parseInt({{$currentMonthIncome}}), localeCode, currencyCode);
+    shortenMoneyContent('currentMonthSpending', parseInt({{$currentMonthSpending}}), localeCode, currencyCode);
+    shortenMoneyContent('endBalance', parseInt({{$lastMonthBalance}} + {{$currentMonthBalance}}), localeCode, currencyCode);
 </script>
+@endpush

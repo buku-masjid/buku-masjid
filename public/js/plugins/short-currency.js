@@ -1,11 +1,11 @@
-function shortenNominalConcise(amount) {
-    const formatter = new Intl.NumberFormat('id-ID', { 
-        notation: 'compact', 
+function shortenMoney(amount, localeCode, currencyCode = '') {
+    const formatter = new Intl.NumberFormat(localeCode, {
+        notation: 'compact',
         maximumFractionDigits: 2 // decimal places.
     });
-    return `Rp${formatter.format(amount)}`;
+    return `${currencyCode} ${formatter.format(amount)}`;
 }
 
-function updateNominal(inputId, amount) {
-    document.getElementById(inputId).textContent = shortenNominalConcise(amount);
+function shortenMoneyContent(elementId, amount, localeCode, currencyCode) {
+    document.getElementById(elementId).textContent = shortenMoney(amount, localeCode, currencyCode);
 }

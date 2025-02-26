@@ -52,10 +52,14 @@
     </a>
 </div>
 
+@push('scripts')
 <script src="{{ asset('js/plugins/short-currency.js') }}"></script>
 <script>
-    updateNominal('start_week_balance', parseInt({{$startWeekBalance}}));
-    updateNominal('current_balance', parseInt({{$currentBalance}}));
-    updateNominal('current_week_income_total', parseInt({{$currentWeekIncomeTotal}}));
-    updateNominal('current_week_spending_total', parseInt({{$currentWeekSpendingTotal}}));
+    var currencyCode = '{{ config('money.currency_code') }}';
+    var localeCode = '{{ config('app.locale') }}';
+    shortenMoneyContent('start_week_balance', parseInt({{$startWeekBalance}}), localeCode, currencyCode);
+    shortenMoneyContent('current_balance', parseInt({{$currentBalance}}), localeCode, currencyCode);
+    shortenMoneyContent('current_week_income_total', parseInt({{$currentWeekIncomeTotal}}), localeCode, currencyCode);
+    shortenMoneyContent('current_week_spending_total', parseInt({{$currentWeekSpendingTotal}}), localeCode, currencyCode);
 </script>
+@endpush

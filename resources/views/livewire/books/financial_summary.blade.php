@@ -42,7 +42,7 @@
             <div class="card fw-bold p-3 mb-2 shadow-lg">
                 {{ __('report.current_periode_spending_total') }}
                 <h1 class="pt-4 bm-txt-out fw-bolder">
-                    <span id="current_income_total">{{ config('money.currency_code') }} {{ format_number($currentSpendingTotal ? -$currentSpendingTotal : 0) }}</span>
+                    <span id="current_spending_total">{{ config('money.currency_code') }} {{ format_number($currentSpendingTotal ? -$currentSpendingTotal : 0) }}</span>
                 </h1>
                 <span class="date">{{ config('money.currency_code') }} {{ format_number($currentSpendingTotal ? -$currentSpendingTotal : 0) }}</span>
             </div>
@@ -51,7 +51,7 @@
             <div class="card fw-bold p-3 mb-2 shadow-lg">
                 {{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMM Y')]) }}
                 <h1 class="pt-4 bm-txt-primary fw-bolder">
-                    <span id="current_income_total">{{ config('money.currency_code') }} {{ format_number($currentBalance) }}</span>
+                    <span id="current_balance">{{ config('money.currency_code') }} {{ format_number($currentBalance) }}</span>
                 </h1>
                 <span class="date">{{ config('money.currency_code') }} {{ format_number($currentBalance) }}</span>
             </div>
@@ -59,18 +59,25 @@
     @endif
 <div>
 
+@push('scripts')
+<script src="{{ asset('js/plugins/short-currency.js') }}"></script>
 <script>
-    function shortenNominalConcise(amount) {
-        const formatter = new Intl.NumberFormat('id-ID', {
-            notation: 'compact',
-            maximumFractionDigits: 2 // decimal places.
-        });
-        return `Rp ${formatter.format(amount)}`;
-    }
-
-    const currentBudget = document.getElementById('current_budget');
-    currentBudget.textContent = shortenNominalConcise(parseInt({{$currentBudget}}));
-
-    const currentIncomeTotal = document.getElementById('current_income_total');
-    currentIncomeTotal.textContent = shortenNominalConcise(parseInt({{$currentIncomeTotal}}));
+    var currencyCode = '{{ config('money.currency_code') }}';
+    var localeCode = '{{ config('app.locale') }}';
+    @if ($currentBudget)
+        shortenMoneyContent('current_budget', parseInt({{$currentBudget}}), localeCode, currencyCode);
+    @endif
+    @if ($currentIncomeTotal)
+        shortenMoneyContent('current_income_total', parseInt({{$currentIncomeTotal}}), localeCode, currencyCode);
+    @endif
+    @if ($budgetDifference)
+        shortenMoneyContent('current_diff', parseInt({{$budgetDifference}}), localeCode, currencyCode);
+    @endif
+    @if ($currentSpendingTotal)
+        shortenMoneyContent('current_spending_total', parseInt({{$currentSpendingTotal}}), localeCode, currencyCode);
+    @endif
+    @if ($currentBalance)
+        shortenMoneyContent('current_balance', parseInt({{$currentBalance}}), localeCode, currencyCode);
+    @endif
 </script>
+@endpush
