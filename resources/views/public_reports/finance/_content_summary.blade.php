@@ -26,7 +26,11 @@
                                 <div class="p-0 collapsed" data-bs-toggle="collapse" data-bs-target="#week_category_{{ 1 + $weekNumber }}_{{ $categoryId }}" aria-expanded="false">
                                     <div class="row">
                                         <div class="col-auto d-sm-none d-flex align-items-center">
-                                            <i class="ti icon fe-bold bm-txt-primary">&#xea13;</i>
+                                            @if ($firstTrasaction->in_out)
+                                                <i class="ti icon fe-bold bm-txt-primary">&#xea13;</i>
+                                            @else
+                                                <i class="ti icon fe-bold bm-txt-out">&#xea24;</i>
+                                            @endif
                                         </div>
                                         <div class="col">
                                             <div class="row">
