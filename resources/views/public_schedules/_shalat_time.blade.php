@@ -2,48 +2,87 @@
     <div class="d-flex align-items-end gap-2 align-items-end">
         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat; background-position: 0 -30px">
             <div class="prayinfo">
-                <h4 class="m-0 d-flex">Imsak</h4>
-                <h1 class="m-0 d-block" id="waktu-0">--.--</h1>
+                @if (config('features.shalat_time.is_active'))
+                    <h4 class="m-0 d-flex">
+                        Imsak
+                    </h4>
+                    <h1 class="m-0 d-block" id="waktu-0">--.--</h1>
+                @else
+                    <div style="min-width: 76px">&nbsp;</div>
+                @endif
             </div>
         </div>
         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -95px -70px">
             <div class="prayinfo">
-                <h4 class="m-0 d-flex">Subuh</h4>
-                <h1 class="m-0 d-block" id="waktu-1">--.--</h1>
+                @if (config('features.shalat_time.is_active'))
+                    <h4 class="m-0 d-flex">
+                        Subuh
+                    </h4>
+                    <h1 class="m-0 d-block" id="waktu-1">--.--</h1>
+                @else
+                    <div style="min-width: 76px">&nbsp;</div>
+                @endif
             </div>
         </div>
         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 210px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -190px -60px">
             <div class="prayinfo">
-                <h4 class="m-0 d-flex">Dzuhur</h4>
-                <h1 class="m-0 d-block" id="waktu-2">--.--</h1>
+                @if (config('features.shalat_time.is_active'))
+                    <h4 class="m-0 d-flex">
+                        Dzuhur
+                    </h4>
+                    <h1 class="m-0 d-block" id="waktu-2">--.--</h1>
+                @else
+                    <div style="min-width: 76px">&nbsp;</div>
+                @endif
             </div>
         </div>
         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 270px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -285px 0px">
             <div class="prayinfo">
-                <h4 class="m-0 d-flex">Ashar</h4>
-                <h1 class="m-0 d-block" id="waktu-3">--.--</h1>
+                @if (config('features.shalat_time.is_active'))
+                    <h4 class="m-0 d-flex">
+                        Ashar
+                    </h4>
+                    <h1 class="m-0 d-block" id="waktu-3">--.--</h1>
+                @else
+                    <div style="min-width: 76px">&nbsp;</div>
+                @endif
             </div>
         </div>
         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 200px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -380px -70px">
             <div class="prayinfo">
-                <h4 class="m-0 d-flex">Maghrib</h4>
-                <h1 class="m-0 d-block" id="waktu-4">--.--</h1>
+                @if (config('features.shalat_time.is_active'))
+                    <h4 class="m-0 d-flex">
+                        Maghrib
+                    </h4>
+                    <h1 class="m-0 d-block" id="waktu-4">--.--</h1>
+                @else
+                    <div style="min-width: 76px">&nbsp;</div>
+                @endif
             </div>
         </div>
         <div class="bg-secondary praytime-item d-flex align-items-end col" style="height: 230px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat;background-position: -475px -40px">
             <div class="prayinfo">
-                <h4 class="m-0 d-flex">Isya</h4>
-                <h1 class="m-0 d-block" id="waktu-5">--.--</h1>
+                @if (config('features.shalat_time.is_active'))
+                    <h4 class="m-0 d-flex">
+                        Isya
+                    </h4>
+                    <h1 class="m-0 d-block" id="waktu-5">--.--</h1>
+                @else
+                    <div style="min-width: 76px">&nbsp;</div>
+                @endif
             </div>
         </div>
     </div>
-    <div class="text-end fs-6 text-secondary pt-3">
-        Sumber: myquran.com<br>
-        Kota : {{ Setting::get('masjid_city_name') }} (berdasarkan lokasi masjid)<br>
-        <span id="timeRemaining"></span> lagi menuju waktu <span id="timeID"></span>
-    </div>
+    @if (config('features.shalat_time.is_active'))
+        <div class="text-end fs-6 text-secondary pt-3">
+            Sumber: myquran.com<br>
+            Kota : {{ Setting::get('masjid_city_name') }} (berdasarkan lokasi masjid)<br>
+            <span id="timeRemaining"></span> lagi menuju waktu <span id="timeID"></span>
+        </div>
+    @endif
 </div>
 
+@if (config('features.shalat_time.is_active'))
 @push('scripts')
 <script>
     const cityName = "{{ Setting::get('masjid_city_name') }}";
@@ -117,3 +156,4 @@
     jadwalRemaining('timeRemaining','timeID');
 </script>
 @endpush
+@endif

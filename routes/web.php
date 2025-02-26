@@ -156,6 +156,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', App\Http\Controllers\UserController::class);
 });
 
+if (config('features.lecturings.is_active')) {
 // Jadwal Sholat
 Route::get('/prayer-times/{city}', function ($city) {
     $cityName = request('city', 'Jakarta');
@@ -191,8 +192,4 @@ Route::get('/prayer-times/{city}', function ($city) {
         return response()->json(['error' => 'Failed to fetch prayer times.'], 500);
     }
 });
-
-
-
-
-
+}

@@ -6,8 +6,10 @@
 
 <section class="bg-white">
     <div class="container-md">
-        @include('guest._welcome_shalat_time_matrix')
-        <div class="section-hero row" style="padding-top:30px">
+        @if (config('features.shalat_time.is_active'))
+            @include('guest._welcome_shalat_time_matrix')
+        @endif
+        <div class="section-hero row" style="padding-top: 3em">
             <div class="col">
                 @include('layouts.public._masjid_info')
             </div>
