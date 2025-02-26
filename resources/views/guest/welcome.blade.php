@@ -9,7 +9,7 @@
         @include('guest._welcome_shalat_time_matrix')
         <div class="section-hero row" style="padding-top:30px">
             <div class="col">
-                @include('layouts._public_masjid_info')
+                @include('layouts.public._masjid_info')
             </div>
             <div class="d-none d-lg-block col-6 position-relative">
                 @if (Setting::get('masjid_photo_path'))

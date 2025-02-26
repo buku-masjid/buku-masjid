@@ -7,7 +7,7 @@
     <div class="container-md">
         <div class="section-hero row justify-content-center">
             <div class="col" style="max-width: 420px">
-                @include('layouts._public_masjid_info')
+                @include('layouts.public._masjid_info')
                 @include('layouts.public._masjid_social_media')
             </div>
             @if (Setting::get('masjid_photo_path') && Setting::get('masjid_latitude') && Setting::get('masjid_longitude'))

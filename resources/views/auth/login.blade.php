@@ -12,7 +12,7 @@
                 @endif
             </div>
             <div class="col-lg-3 me-lg-3 d-none d-sm-inline">
-                @include('layouts._public_masjid_info')
+                @include('layouts.public._masjid_info')
                 @include('layouts.public._masjid_social_media')
             </div>
             <div class="col-lg-4 mt-4 mt-lg-0 card p-4 shadow-lg">
