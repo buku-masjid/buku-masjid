@@ -22,7 +22,7 @@
                                 @if (Setting::for($publicBook)->get('poster_image_path'))
                                     <img src="{{ Storage::url(Setting::for($publicBook)->get('poster_image_path')) }}" class="w-100 h-100 object-cover" alt="{{ $publicBook->name }}" style="border-radius: 15px 15px;">
                                 @else
-                                    <div class="p-3 fs-1 d-flex align-items-center justify-content-center" style="min-height: 11.5em">{{ $publicBook->name }}</div>
+                                    <div class="p-3 fs-1 d-flex align-items-center justify-content-center" style="min-height: 320px">{{ $publicBook->name }}</div>
                                 @endif
                             </a>
                         </div>
