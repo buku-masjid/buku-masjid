@@ -1,6 +1,6 @@
 <div class="fs-4 pt-3 pb-3 row">
     <div class="col"><span class="fs-2 fw-bold pe-2">{{ __('lecturing.public_schedule') }} {{ __('time.'.$this->dayTitle) }}</span></div>
-    <div class="col text-end"><a href="{{ route('public_schedules.'.$this->dayTitle) }}">Detil Kajian <i class="ti">&#xea61;</i></a></div>
+    <div class="col text-end"><a href="{{ route('public_schedules.'.$this->dayTitle) }}">{{ __('app.show') }} <i class="ti">&#xea61;</i></a></div>
 </div>
 <div class="row">
 @forelse($lecturings as $index => $lecturing)
@@ -59,7 +59,6 @@
         </div>
     </div>
 @empty
-    <img src="{{ asset('images/default_kajian.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px">
-    {{-- <p>{{ __('lecturing.empty') }} {{ __('time.'.$this->dayTitle) }}.</p> --}}
+    <img src="{{ asset('images/default_kajian.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px" title="{{ __('lecturing.empty').' '.__('time.'.$this->dayTitle) }}">
 @endforelse
 </div>

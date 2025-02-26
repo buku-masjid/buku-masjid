@@ -10,7 +10,7 @@
             </tr>
             <tr>
                 <td class="col-4">
-                    <span id="current_periode_budget_label">asdasd{{ $currentPeriodeBudgetLabel }}</span>
+                    <span id="current_periode_budget_label">{{ $currentPeriodeBudgetLabel }}</span>
                 </td>
                 <td class="col-1 text-right">
                     <span id="current_periode_budget">{{ format_number($currentBudget) }}</span>

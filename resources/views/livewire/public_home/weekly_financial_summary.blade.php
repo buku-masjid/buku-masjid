@@ -8,8 +8,8 @@
             <div class="card fw-bold p-3 mb-2 shadow-lg">
                 {{ __('transaction.start_balance') }}<br>
                 <span class="date" id="start_week_label">{{ __('report.balance_per_date', ['date' => $startWeek->isoFormat('dddd, D MMMM Y')]) }}</span>
-                <h1 class="pt-4 bm-txt-primary fw-bolder"><span id="start_week_balance">--</span></h1>
-                <span class="date">{{ config('money.currency_code') }} {{ format_number($startWeekBalance) }}</span>
+                <h1 class="pt-4 bm-txt-primary fw-bolder"><span id="start_week_balance_display">--</span></h1>
+                <span class="date" id="start_week_balance">{{ config('money.currency_code') }} {{ format_number($startWeekBalance) }}</span>
             </div>
         </div>
         <div class="col-lg ps-sm-0">
@@ -17,9 +17,9 @@
                 {{ __('transaction.income') }}<br>
                 <span class="date">{{ __('report.current_week_income_total') }}</span>
                 <h1 class="pt-4 bm-txt-primary fw-bolder">
-                    <span id="current_week_income_total">{{ config('money.currency_code') }} {{ format_number($currentWeekIncomeTotal) }}</span>
+                    <span id="current_week_income_total_display">--</span>
                 </h1>
-                <span class="date">{{ config('money.currency_code') }} {{ format_number($currentWeekIncomeTotal) }}</span>
+                <span class="date" id="current_week_income_total">{{ config('money.currency_code') }} {{ format_number($currentWeekIncomeTotal) }}</span>
             </div>
         </div>
         <div class="col-lg ps-sm-0">
@@ -27,10 +27,9 @@
                 {{ __('transaction.spending') }}<br>
                 <span class="date">{{ __('report.current_week_spending_total') }}</span>
                 <h1 class="pt-4 bm-txt-out fw-bolder">
-                    <!-- <span id="current_week_spending_total">{{ config('money.currency_code') }} {{ format_number($currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0) }}</span> -->
-                     <span id="current_week_spending_total">{{ $currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0 }}</span>
+                     <span id="current_week_spending_total_display">{{ $currentWeekSpendingTotal ? -$currentWeekSpendingTotal : 0 }}</span>
                 </h1>
-                <span class="date">{{ config('money.currency_code') }} {{ format_number($currentWeekSpendingTotal) }}</span>
+                <span class="date" id="current_week_spending_total">{{ config('money.currency_code') }} {{ format_number($currentWeekSpendingTotal) }}</span>
             </div>
         </div>
         <div class="col-lg ps-sm-0">
@@ -41,9 +40,9 @@
                 {{ __('transaction.end_balance') }}<br>
                 <span class="date" id="current_balance_label">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
                 <h1 class="pt-4 bm-txt-netral fw-bolder">
-                    <span id="current_balance">--</span>
+                    <span id="current_balance_display">--</span>
                 </h1>
-                <span class="date">{{ config('money.currency_code') }} {{ format_number($currentBalance) }}</span>
+                <span class="date" id="current_balance">{{ config('money.currency_code') }} {{ format_number($currentBalance) }}</span>
             </div>
         </div>
     </div>
@@ -57,9 +56,9 @@
 <script>
     var currencyCode = '{{ config('money.currency_code') }}';
     var localeCode = '{{ config('app.locale') }}';
-    shortenMoneyContent('start_week_balance', parseInt({{$startWeekBalance}}), localeCode, currencyCode);
-    shortenMoneyContent('current_balance', parseInt({{$currentBalance}}), localeCode, currencyCode);
-    shortenMoneyContent('current_week_income_total', parseInt({{$currentWeekIncomeTotal}}), localeCode, currencyCode);
-    shortenMoneyContent('current_week_spending_total', parseInt({{$currentWeekSpendingTotal}}), localeCode, currencyCode);
+    shortenMoneyContent('start_week_balance_display', parseInt({{$startWeekBalance}}), localeCode, currencyCode);
+    shortenMoneyContent('current_balance_display', parseInt({{$currentBalance}}), localeCode, currencyCode);
+    shortenMoneyContent('current_week_income_total_display', parseInt({{$currentWeekIncomeTotal}}), localeCode, currencyCode);
+    shortenMoneyContent('current_week_spending_total_display', parseInt({{$currentWeekSpendingTotal}}), localeCode, currencyCode);
 </script>
 @endpush
