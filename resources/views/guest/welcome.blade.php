@@ -17,7 +17,7 @@
                 @else
                     <div style="background-color: #f8f8f8; height: 360px"></div>
                 @endif
-                <img src="images/image_cover.svg" class="position-absolute top-0 start-0">
+                <img src="{{ asset('images/image_cover.svg') }}" class="position-absolute top-0 start-0">
             </div>
         </div>
     </div>

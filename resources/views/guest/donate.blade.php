@@ -10,8 +10,8 @@
                 @include('layouts._public_masjid_info')
             </div>
             <div class="d-none d-lg-flex align-items-center col-7 position-relative">
-                <img src="images/donate_infaq.png" style="width: 80%">
-                <img src="images/donate_pattern.svg" class="position-absolute" style="z-index: 0">
+                <img src="{{ asset('images/donate_infaq.png') }}" style="width: 80%">
+                <img src="{{ asset('images/donate_pattern.svg') }}" class="position-absolute" style="z-index: 0">
             </div>
         </div>
     </div>
