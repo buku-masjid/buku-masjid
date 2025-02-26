@@ -8,8 +8,8 @@
             <div id="carousel-indicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     @foreach ($publicBooks as $publicBook)
-                        <button type="button" 
-                                data-bs-target="#carousel-indicators" 
+                        <button type="button"
+                                data-bs-target="#carousel-indicators"
                                 data-bs-slide-to="{{ $loop->index }}"  {{-- Use $loop->index --}}
                                 @if ($loop->first) class="active" aria-current="true" @endif>
                         </button>
@@ -31,6 +31,6 @@
             </div>
         </div>
     @else
-        <img src="{{ asset('images/default_program.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px">
+        <img src="{{ asset('images/empty_books.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px">
     @endif
 </div>
