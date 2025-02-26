@@ -8,31 +8,7 @@
         <div class="section-hero row justify-content-center">
             <div class="col" style="max-width: 420px">
                 @include('layouts._public_masjid_info')
-                @if (Setting::get('masjid_whatsapp_number'))
-                    <div class="mt-3 pt-3 border-top">
-                        <span class="text-secondary">Whatsapp</span>
-                        <a href="https://wa.me/{{ Setting::get('masjid_whatsapp_number') }}">
-                            <h2><i class="ti">&#xec74;</i> {{ Setting::get('masjid_whatsapp_number') }}</h2>
-                        </a>
-                    </div>
-                @endif
-                <div class="mt-3 pt-3 border-top">
-                    @if (Setting::get('masjid_instagram_username'))
-                        <div class="mb-2">
-                            <i class="ti">&#xf7e6;</i> <span class="fs-4"> {{ Setting::get('masjid_instagram_username') }}</span>
-                        </div>
-                    @endif
-                    @if (Setting::get('masjid_instagram_username'))
-                        <div class="mb-2">
-                            <i class="ti">&#xec20;</i> <span class="fs-4"> {{ Setting::get('masjid_instagram_username') }}</span>
-                        </div>
-                    @endif
-                    @if (Setting::get('masjid_youtube_username'))
-                        <div>
-                            <i class="ti">&#xfc22;</i> <span class="fs-4"> {{ Setting::get('masjid_youtube_username') }}</span>
-                        </div>
-                    @endif
-                </div>
+                @include('layouts.public._masjid_social_media')
             </div>
             @if (Setting::get('masjid_photo_path') && Setting::get('masjid_latitude') && Setting::get('masjid_longitude'))
                 <div class="col-sm-8 position-relative mt-4 mt-lg-0">
