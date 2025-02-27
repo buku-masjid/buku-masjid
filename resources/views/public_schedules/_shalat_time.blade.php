@@ -119,6 +119,7 @@
 
         const now = new Date();
         const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        nextShalatTime = 'imsak';
         // Ref: https://www.geeksforgeeks.org/how-to-get-a-key-in-a-javascript-object-by-its-value
         for (let prop in shalatTimeData.jadwal) {
             const value = shalatTimeData.jadwal[prop];
