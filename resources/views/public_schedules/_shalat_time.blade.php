@@ -1,4 +1,4 @@
-<div class="py-4 py-sm-0">
+<div class="pt-4 pt-sm-0">
     <div class="d-flex align-items-end gap-2 align-items-end overflow-scroll">
         <div id="Imsak" class="pray-off bg-secondary praytime-item d-flex align-items-end col" style="height: 240px; background-image: url('{{ Storage::url(Setting::get('masjid_photo_path'))}}'); background-repeat: no-repeat; background-position: 0 -30px">
             <div class="prayinfo">
@@ -67,20 +67,20 @@
             $shalatTimeProviderName = config('shalat_time.providers.'.$shalatTimeProviderKey.'.name');
             $shalatTimeProviderWebsiteUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.website_url');
         @endphp
-        <div class="fs-6 text-secondary pt-3">
+        <div class="pt-3">
             <div class="row">
-                <div class="col-sm-6">
-                    <span id="date_string"></span><br>  
-                    {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}<br>                  
+                <div class="col-sm-6 pb-3 pb-sm-0">
+                    <div class="collapse text-center text-sm-start text-secondary fs-5" id="shalatDetail">
+                        <i class="ti">&#xea52;</i> <span id="date_string"></span><br>
+                        <i class="ti">&#xeae8;</i> <span class="text-capitalize" id="region_name"></span><br>
+                        <i class="ti">&#xeade;</i> {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}
+                    </div>                   
                 </div>
-                <div class="col-sm-6 text-sm-end">
-                    <div id="timeRemaining" class="fs-2 fw-bold"></span></div>
-                    {{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>                   
-                    {{ __('shalat_time.for_region') }} <span id="region_name"></span>
+                <div class="col-sm-6 text-center text-sm-end lh-normal">
+                    <a data-bs-toggle="collapse" href="#shalatDetail" role="button" aria-expanded="false" aria-controls="shalatDetail">
+                        <div class="d-flex align-items-center justify-content-center justify-content-sm-end"><span id="timeRemaining" class="fs-2 fw-bold"></span>&nbsp;&nbsp;<i class="ti fs-2 fw-bold">&#xeac5;</i></div>
+                        <div><span class="fs-5 text-secondary">{{ __('shalat_time.time_before_text') }}</span> <span id="timeID" class="fw-bold"></span></div></a>
                 </div>  
-            </div>
-            <div class="text-end">
-                
             </div>
         </div>
     @endif
@@ -112,7 +112,7 @@
 
     function updateElementsContent(shalatTimeData) {
         document.getElementById('date_string').textContent = shalatTimeData.jadwal.date_string;
-        document.getElementById('region_name').textContent = shalatTimeData.lokasi + ', ' + shalatTimeData.daerah;
+        document.getElementById('region_name').textContent = shalatTimeData.lokasi.toLowerCase() + ', ' + shalatTimeData.daerah.toLowerCase();
         document.querySelectorAll("[data-time]").forEach((element) => {
             element.textContent = shalatTimeData.jadwal[element.dataset.time];
         });
