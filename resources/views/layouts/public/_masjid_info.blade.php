@@ -1,6 +1,10 @@
 <div>
     @if (Setting::get('masjid_logo_path'))
-        <div class="mb-3"><img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 150px"></div>
+        <div class="mb-3">
+            <a href="{{ url('/') }}">
+                <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 150px">
+            </a>
+        </div>
     @endif
     <div>
         <span class="fs-2">Assalamu'alaikum</span><br>

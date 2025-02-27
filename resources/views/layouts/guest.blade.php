@@ -29,7 +29,7 @@
 <body>
     <div class="d-none d-sm-block">
         <div class="nav-public d-flex align-items-center justify-content-between position-relative">
-            <img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 150px">
+            <a href="{{ url('/') }}"><img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 150px"></a>
             <div class="position-relative text-center">
                 <div class="nav-desktop position-relative shadow-sm rounded">
                     <ul class="nav">
@@ -54,7 +54,7 @@
         <div class="d-sm-none">
             <div class="row p-3 me-0">
                 <div class="col text-start">
-                    <img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 100px">
+                    <a href="{{ url('/') }}"><img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 100px"></a>
                 </div>
                 <div class="col text-end">
                     <a class="btn position-relative z-2" data-bs-toggle="offcanvas" href="#offcanvasStart" role="button" aria-controls="offcanvasStart">
@@ -69,7 +69,7 @@
             </div>
             <div class="offcanvas-body pt-0 d-flex align-items-stretch flex-column bd-highlight">
                 <div class="text-center bd-highlight">
-                    <img src="{{ asset('images/logo_bm_shape.svg') }}" style="width: 80px">
+                    <a href="{{ url('/') }}"><img src="{{ asset('images/logo_bm_shape.svg') }}" style="width: 80px"></a>
                 </div>
                 <div class="mt-3 fs-2 sidebar-menu bd-highlight">
                     <ul>
