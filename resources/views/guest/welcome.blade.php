@@ -34,7 +34,7 @@
                     <div class="col-lg-6 mt-3">
                         @livewire('public-home.book-cards')
                     </div>
-                    <div class="col-lg-6 px-3 mt-3">
+                    <div class="col-lg-6 mt-3">
                         @if (Route::has('lecturings.index'))
                             @livewire('public-home.daily-lecturings', ['date' => today(), 'dayTitle' => 'today'])
                         @endif

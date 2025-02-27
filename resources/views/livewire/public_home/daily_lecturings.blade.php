@@ -59,6 +59,8 @@
         </div>
     </div>
 @empty
-    <img src="{{ asset('images/empty_lecturings.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px" title="{{ __('lecturing.empty').' '.__('time.'.$this->dayTitle) }}">
+    <div class="col mb-4">
+        <img src="{{ asset('images/empty_lecturings.png') }}" style="border-radius: 15px; border: 1px solid #eee; padding-left: 0px; padding-right: 0px" title="{{ __('lecturing.empty').' '.__('time.'.$this->dayTitle) }}">
+    </div>
 @endforelse
 </div>

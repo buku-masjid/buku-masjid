@@ -6,11 +6,11 @@
 <section class="bg-white">
     <div class="container-md">
         <div class="row section-hero pb-0 d-lg-flex align-items-stretch">
-            <div class="col">
+            <div class="col-lg-6">
                 @include('layouts.public._masjid_info')
             </div>
 
-            <div class="d-none d-lg-flex col-7 justify-content-end align-items-end">
+            <div class="col-lg-6 d-lg-flex justify-content-end align-items-end">
                 @include('public_schedules._shalat_time')
             </div>
         </div>
