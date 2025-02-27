@@ -10,7 +10,11 @@
         <div class="row p-3 p-sm-0 py-sm-3 align-items-center">
             <div class="col-auto">
                 @if (Setting::get('masjid_logo_path'))
-                    <div class="mb-3"><img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 80px"></div>
+                    <div class="mb-3">
+                        <a href="{{ route('public_reports.index') }}">
+                            <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 80px">
+                        </a>
+                    </div>
                 @endif
 
             </div>

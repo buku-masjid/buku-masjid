@@ -92,7 +92,7 @@
     const cacheKey = `shalat_times_{{ now()->format('Ymd') }}`;
     const cachedData = localStorage.getItem(cacheKey);
     const shalatDailySchedule = {!! json_encode(__('shalat_time.daily_schedules')) !!};
-   
+
     if (cachedData) {
         const shalatTimeData = JSON.parse(cachedData);
         updateElementsContent(shalatTimeData);
@@ -132,7 +132,6 @@
             }
         }
 
-        console.log(nextShalatTime)
         document.getElementById('timeID').textContent = shalatDailySchedule[nextShalatTime];
 
         const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);

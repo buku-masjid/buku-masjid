@@ -8,6 +8,7 @@ return [
             'name' => 'MyQuran API',
             'website_url' => 'https://api.myquran.com',
             'api_base_url' => 'https://api.myquran.com/v2',
+            'service_class' => \App\Services\ShalatTimes\MyQuranShalatTimeService::class,
         ],
     ],
 ];
