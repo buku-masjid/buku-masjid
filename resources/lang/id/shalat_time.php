@@ -3,7 +3,6 @@
 return [
     'shalat_time' => 'Waktu Shalat',
     'source' => 'Sumber',
-    'for_region' => 'Untuk wilayah',
     'time_before_text' => 'menuju waktu',
     'daily_schedules' => [
         'imsak' => 'Imsak',
