@@ -2,11 +2,15 @@
 
 namespace Tests\Feature\Api;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class PublicShalatTimeTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function visitor_can_get_public_shalat_time()
     {
@@ -15,19 +19,19 @@ class PublicShalatTimeTest extends TestCase
                 ->push($this->getFakeCitiesResponse(), 200)
                 ->push($this->getFakeShalatTimeResponse(), 200),
         ]);
+        DB::table('settings')->insert([
+            'key' => 'masjid_city_name',
+            'value' => 'Kab. Belitung',
+        ]);
 
-        $this->getJson(route('api.public_shalat_time.show', 'Kab. Belitung'));
+        $this->getJson(route('api.public_shalat_time.show'));
 
         $this->seeJsonStructure([
-            'status',
-            'request',
-            'data' => [
-                'id',
-                'lokasi',
-                'daerah',
-                'jadwal' => [
-                    'tanggal', 'imsak', 'subuh', 'terbit', 'dhuha', 'dzuhur', 'ashar', 'maghrib', 'isya', 'date',
-                ],
+            'id',
+            'lokasi',
+            'daerah',
+            'jadwal' => [
+                'date_string', 'imsak', 'fajr', 'sunrise', 'dhuha', 'dzuhr', 'ashr', 'maghrib', 'isya', 'date',
             ],
         ]);
     }
@@ -42,10 +46,7 @@ class PublicShalatTimeTest extends TestCase
 
         $this->getJson(route('api.public_shalat_time.show', 'Missing city name'));
 
-        $this->seeJsonStructure([
-            'status',
-            'error',
-        ]);
+        $this->seeJsonStructure(['error']);
     }
 
     private function getFakeCitiesResponse()

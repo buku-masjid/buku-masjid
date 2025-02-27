@@ -9,7 +9,7 @@
     $width = '4';
     $height = '4';
 @endphp
-<div id="matrix-display2" style="width: 100%; text-align: center" class="pt-2 pt-md-5">
+<div id="matrix-display" style="width: 100%; text-align: center" class="pt-2 pt-md-5">
     <div class="shadow-sm" style="width: auto; display: inline; border-radius: 10px; padding: 16px 10px; background-color: white; border: 1px solid #eee">
         <svg class="matrix-svg" style="width: 299px; height: 38px">
             <g transform="translate(-5,0)">
@@ -27,96 +27,92 @@
             </g>
         </svg>
     </div>
-    <div class="text-black-50 fs-6 pt-2">Waktu bagian {{ Setting::get('masjid_city_name') }} dan sekitarnya</div>
+    <div class="text-black-50 fs-6 pt-2">{{ __('shalat_time.for_region') }} <span id="region_name"></span></div>
 </div>
 
 @push('scripts')
 <script src="{{ asset('js/plugins/matrix-display.js') }}"></script>
 <script type="text/javascript">
-    const cityName = "{{ Setting::get('masjid_city_name') }}";
-    const cacheKey = `prayer_times_${cityName}`; // Unique key
-    labelSholat = ['Imsak', 'Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
-    jadwalSholat = [];
+jQuery(document).ready(function() {
+    let matrixDisplay;
 
-    // Check if data is in localStorage
+    function updateMatrixDisplay(shalatTimeData) {
+        // Remove previous MatrixDisplay if exists
+        if (matrixDisplay) matrixDisplay.stop();
+
+        // Initialize new MatrixDisplay with updated text
+        matrixDisplay = new MatrixDisplay({
+            repeat: true,
+            containerEl: '#matrix-display',
+            compositions: [
+                {
+                    text: shalatTimeRemaining(shalatTimeData),
+                    fx: 'left',
+                    colors: ['#20716b', '#169a90'],
+                    background: '#EEE',
+                    invert: false,
+                    speed: 60
+                }
+            ]
+        });
+
+        matrixDisplay.run();
+    }
+
+    const cacheKey = `shalat_times_{{ now()->format('Ymd') }}`;
     const cachedData = localStorage.getItem(cacheKey);
+    const shalatDailySchedule = {!! json_encode(__('shalat_time.daily_schedules')) !!};
 
     if (cachedData) {
-        const data = JSON.parse(cachedData).data.jadwal;
-        jadwalSholat = [data.imsak, data.subuh, data.dzuhur, data.ashar, data.maghrib, data.isya];
+        const shalatTimeData = JSON.parse(cachedData);
+        document.getElementById('region_name').textContent = shalatTimeData.lokasi + ', ' + shalatTimeData.daerah;
+        updateMatrixDisplay(shalatTimeData);
+        setInterval(updateMatrixDisplay(shalatTimeData), 60000);
     } else {
-        fetch(`/prayer-times/${cityName}`)
+        fetch("{{ route('api.public_shalat_time.show') }}")
         .then(response => response.json())
         .then(data => {
             if (data.error) {
                 console.error("Error:", data.error);
             } else {
-                if (data.data) {
-                    localStorage.setItem(cacheKey, JSON.stringify(data)); // Store in localStorage
-                    jadwalSholat = [data.data.jadwal.imsak, data.data.jadwal.subuh, data.data.jadwal.dzuhur, data.data.jadwal.ashar, data.data.jadwal.maghrib, data.data.jadwal.isya];
-                }
+                const shalatTimeData = data;
+                localStorage.setItem(cacheKey, JSON.stringify(shalatTimeData));
+                document.getElementById('region_name').textContent = shalatTimeData.lokasi + ', ' + shalatTimeData.daerah;
+                updateMatrixDisplay(shalatTimeData);
+                setInterval(updateMatrixDisplay(shalatTimeData), 60000);
             }
         });
     }
 
-    jQuery(document).ready(function() {
-        function jadwalRemaining(){
-            const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-            // Jadwal sholat berikutnya
-            let nextIndex = jadwalSholat.findIndex(time => {
-                const [hour, minute] = time.split(":").map(Number);
-                return hour * 60 + minute > currentMinutes;
-            });
-
-            if (nextIndex === -1) {
-                nextIndex = 0;
+    function shalatTimeRemaining(shalatTimeData) {
+        const now = new Date();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        // Ref: https://www.geeksforgeeks.org/how-to-get-a-key-in-a-javascript-object-by-its-value
+        for (let prop in shalatTimeData.jadwal) {
+            const value = shalatTimeData.jadwal[prop];
+            if (value.match(/^\d{2,}:\d{2}$/)) {
+                const [hour, minute] = value.split(":").map(Number);
+                if (hour * 60 + minute > currentMinutes) {
+                    nextShalatTime = prop;
+                    break;
+                }
             }
-
-            const [nextHour, nextMinute] = jadwalSholat[nextIndex].split(":").map(Number);
-            const nextMinutes = nextHour * 60 + nextMinute;
-
-            // hitung sisa waktu
-            let remainingMinutes = nextMinutes - currentMinutes;
-            if (remainingMinutes < 0) {
-                remainingMinutes += 24 * 60;
-            }
-
-            const hoursLeft = Math.floor(remainingMinutes / 60);
-            const minutesLeft = remainingMinutes % 60;
-
-            return  hoursLeft +" Jam - "+ minutesLeft +" Menit  menuju  waktu  " + labelSholat[nextIndex];
         }
 
-        let dm2;
+        const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);
+        const nextMinutes = nextHour * 60 + nextMinute;
 
-        function updateMatrixDisplay() {
-            // Remove previous MatrixDisplay if exists
-            if (dm2) dm2.stop();
-
-            // Initialize new MatrixDisplay with updated text
-            dm2 = new MatrixDisplay({
-                repeat: true,
-                containerEl: '#matrix-display2 .matrix-svg',
-                compositions: [
-                    {
-                        text: jadwalRemaining(),
-                        fx: 'left',
-                        colors: ['#20716b', '#169a90'],
-                        background: '#EEE',
-                        invert: false,
-                        speed: 60
-                    }
-                ]
-            });
-
-            dm2.run();
+        // hitung sisa waktu
+        let remainingMinutes = nextMinutes - currentMinutes;
+        if (remainingMinutes < 0) {
+            remainingMinutes += 24 * 60;
         }
-        updateMatrixDisplay();
 
-        // Auto-update the display text every minute
-        setInterval(updateMatrixDisplay, 60000);
-    });
+        const hoursLeft = Math.floor(remainingMinutes / 60);
+        const minutesLeft = remainingMinutes % 60;
+
+        return  hoursLeft +" {{ __('time.hours') }} - "+ minutesLeft +" {{ __('time.minutes') }}  {{ __('shalat_time.time_before_text') }}  " + shalatDailySchedule[nextShalatTime];
+    }
+});
 </script>
 @endpush

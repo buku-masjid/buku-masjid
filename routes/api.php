@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth', 'web'], 'as' => 'api.'], function () {
 
 if (config('features.lecturings.is_active')) {
     Route::group(['as' => 'api.'], function () {
-        Route::get('prayer-times/{city}', [App\Http\Controllers\Api\PublicShalatTimeController::class, 'show'])
+        Route::get('prayer-times', [App\Http\Controllers\Api\PublicShalatTimeController::class, 'show'])
             ->name('public_shalat_time.show');
     });
 }
