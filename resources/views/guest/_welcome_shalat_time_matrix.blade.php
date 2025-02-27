@@ -27,7 +27,7 @@
             </g>
         </svg>
     </div>
-    <div class="text-black-50 fs-6 pt-2">{{ __('shalat_time.for_region') }} <span id="region_name"></span></div>
+    <div class="text-black-50 fs-6 pt-2 text-capitalize"><i class="ti">&#xeae8;</i> <span id="region_name"></span></div>
 </div>
 
 @push('scripts')
@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 
     if (cachedData) {
         const shalatTimeData = JSON.parse(cachedData);
-        document.getElementById('region_name').textContent = shalatTimeData.lokasi + ', ' + shalatTimeData.daerah;
+        document.getElementById('region_name').textContent = shalatTimeData.lokasi.toLowerCase() + ', ' + shalatTimeData.daerah.toLowerCase();
         updateMatrixDisplay(shalatTimeData);
         setInterval(updateMatrixDisplay(shalatTimeData), 60000);
     } else {

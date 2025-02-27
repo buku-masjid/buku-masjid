@@ -70,15 +70,14 @@
         <div class="pt-3">
             <div class="row">
                 <div class="col-sm-6 pb-3 pb-sm-0">
-                    <div class="collapse text-center text-sm-start text-secondary fs-5" id="shalatDetail">
+                    <div class="text-center text-sm-start text-secondary fs-5">
                         <i class="ti">&#xea52;</i> {{ now()->isoFormat('dddd, DD MMMM Y') }}<br>
                         <i class="ti">&#xeae8;</i> <span class="text-capitalize" id="region_name"></span><br>
                         <i class="ti">&#xeade;</i> {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}
                     </div>
                 </div>
-                <div class="col-sm-6 text-center text-sm-end lh-normal">
-                    <a data-bs-toggle="collapse" href="#shalatDetail" role="button" aria-expanded="false" aria-controls="shalatDetail">
-                    <div class="d-flex align-items-center justify-content-center justify-content-sm-end"><span id="timeRemaining" class="fs-2 fw-bold"></span>&nbsp;&nbsp;<i class="ti fs-2 fw-bold">&#xeac5;</i></div>
+                <div class="col-sm-6 text-center text-sm-end lh-normal bm-txt-primary">
+                    <div class="d-flex align-items-center justify-content-center justify-content-sm-end"><span id="timeRemaining" class="fs-2 fw-bold"></span></div>
                     <div><span class="fs-5 text-secondary">{{ __('shalat_time.time_before_text') }}</span> <span id="timeID" class="fw-bold"></span></div></a>
                 </div>
             </div>
