@@ -68,10 +68,10 @@
             $shalatTimeProviderWebsiteUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.website_url');
         @endphp
         <div class="text-end fs-6 text-secondary pt-3">
-            Hari / Tanggal: <span id="date_string"></span><br>
-            Sumber: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}<br>
-            Untuk wilayah <span id="region_name"></span><br>
-            <span id="timeRemaining"></span> lagi menuju waktu <span id="timeID"></span>
+            {{ __('time.day_name') }} / {{ __('time.date') }}: <span id="date_string"></span><br>
+            {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}<br>
+            {{ __('shalat_time.for_region') }} <span id="region_name"></span><br>
+            <span id="timeRemaining"></span> {{ __('shalat_time.time_before_text') }} <span id="timeID"></span>
         </div>
     @endif
 </div>
@@ -133,7 +133,7 @@
         const hoursLeft = Math.floor(remainingMinutes / 60);
         const minutesLeft = remainingMinutes % 60;
 
-        document.getElementById('timeRemaining').textContent = hoursLeft +" Jam : "+ minutesLeft +" Menit";
+        document.getElementById('timeRemaining').textContent = hoursLeft +" {{ __('time.hours') }} : "+ minutesLeft +" {{ __('time.minutes') }}";
     }
 </script>
 @endpush
