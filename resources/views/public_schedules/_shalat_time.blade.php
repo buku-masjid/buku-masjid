@@ -67,18 +67,20 @@
             $shalatTimeProviderName = config('shalat_time.providers.'.$shalatTimeProviderKey.'.name');
             $shalatTimeProviderWebsiteUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.website_url');
         @endphp
-
-        <div class="text-end fs-6 text-secondary pt-3">
+        <div class="fs-6 text-secondary pt-3">
             <div class="row">
-                <div class="col text-start">
+                <div class="col-sm-6">
+                    <span id="date_string"></span><br>  
+                    {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}<br>                  
+                </div>
+                <div class="col-sm-6 text-sm-end">
                     <div id="timeRemaining" class="fs-2 fw-bold"></span></div>
-                    {{ __('shalat_time.time_before_text') }} <span id="timeID"></span>
-                </div>
-                <div class="col text-end">
-                    <span id="date_string"></span><br>
-                    {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}<br>
-                    {{ __('shalat_time.for_region') }} <span id="region_name"></span><br>
-                </div>
+                    {{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>                   
+                    {{ __('shalat_time.for_region') }} <span id="region_name"></span>
+                </div>  
+            </div>
+            <div class="text-end">
+                
             </div>
         </div>
     @endif
@@ -129,6 +131,7 @@
             }
         }
 
+        console.log(nextShalatTime)
         document.getElementById('timeID').textContent = shalatDailySchedule[nextShalatTime];
 
         const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);
