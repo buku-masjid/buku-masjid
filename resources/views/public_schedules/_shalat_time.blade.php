@@ -70,17 +70,14 @@
         <div class="fs-6 text-secondary pt-3">
             <div class="row">
                 <div class="col-sm-6">
-                    <span id="date_string"></span><br>  
-                    {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}<br>                  
+                    <span id="date_string"></span><br>
+                    {{ __('shalat_time.source') }}: {{ link_to($shalatTimeProviderWebsiteUrl, $shalatTimeProviderName, ['target' => '_blank']) }}
                 </div>
                 <div class="col-sm-6 text-sm-end">
-                    <div id="timeRemaining" class="fs-2 fw-bold"></span></div>
-                    {{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>                   
+                    <div id="timeRemaining" class="fs-2 fw-bold"></div>
+                    {{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>
                     {{ __('shalat_time.for_region') }} <span id="region_name"></span>
-                </div>  
-            </div>
-            <div class="text-end">
-                
+                </div>
             </div>
         </div>
     @endif
@@ -92,7 +89,7 @@
     const cacheKey = `shalat_times_{{ now()->format('Ymd') }}`;
     const cachedData = localStorage.getItem(cacheKey);
     const shalatDailySchedule = {!! json_encode(__('shalat_time.daily_schedules')) !!};
-   
+
     if (cachedData) {
         const shalatTimeData = JSON.parse(cachedData);
         updateElementsContent(shalatTimeData);
@@ -132,7 +129,6 @@
             }
         }
 
-        console.log(nextShalatTime)
         document.getElementById('timeID').textContent = shalatDailySchedule[nextShalatTime];
 
         const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);
