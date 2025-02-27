@@ -7,4 +7,7 @@ return [
     'donors' => [
         'is_active' => env('FEATURES_DONORS_IS_ACTIVE', false),
     ],
+    'shalat_time' => [
+        'is_active' => env('FEATURES_SHALAT_TIME_IS_ACTIVE', false),
+    ],
 ];

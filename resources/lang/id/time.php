@@ -12,6 +12,8 @@ return [
     'all_months' => 'Semua Bulan',
     'time' => 'Waktu',
     'year' => 'Tahun',
+    'hours' => 'Jam',
+    'minutes' => 'Menit',
 
     'months' => [
         '01' => 'Januari',
