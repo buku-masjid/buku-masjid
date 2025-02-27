@@ -24,7 +24,9 @@ class PublicShalatTimeController extends Controller
 
         try {
             $date = Carbon::now()->format('Y-m-d');
-            $jadwalResponse = Http::get("https://api.myquran.com/v2/sholat/jadwal/{$cityId}/{$date}");
+            $shalatTimeProviderKey = config('shalat_time.default_provider');
+            $baseUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.api_base_url');
+            $jadwalResponse = Http::get($baseUrl."/sholat/jadwal/{$cityId}/{$date}");
             $responseData = $this->parseResponseData($jadwalResponse->json());
 
             return $responseData;
@@ -41,9 +43,8 @@ class PublicShalatTimeController extends Controller
             return Cache::get($cacheKey);
         }
         $shalatTimeProviderKey = config('shalat_time.default_provider');
-        $baseUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.api.base_url');
-        $citiesEndpoint = config('shalat_time.providers.'.$shalatTimeProviderKey.'.api.cities_endpoint');
-        $response = Http::get($baseUrl.$citiesEndpoint);
+        $baseUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.api_base_url');
+        $response = Http::get($baseUrl.'/sholat/kota/semua');
         if ($response->successful()) {
             $responseData = $response->json()['data'];
 

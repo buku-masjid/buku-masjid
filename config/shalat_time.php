@@ -7,10 +7,7 @@ return [
         'myquran_api' => [
             'name' => 'MyQuran API',
             'website_url' => 'https://api.myquran.com',
-            'api' => [
-                'base_url' => 'https://api.myquran.com/v2',
-                'cities_endpoint' => '/sholat/kota/semua',
-            ],
+            'api_base_url' => 'https://api.myquran.com/v2',
         ],
     ],
 ];
