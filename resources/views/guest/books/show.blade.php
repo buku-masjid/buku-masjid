@@ -2,6 +2,22 @@
 
 @section('title', $book->name)
 
+@section('head_tags')
+<meta name="description" content="{{ $book->description }}" />
+<link rel="canonical" href="{{ route('public.books.show', $book) }}" />
+<meta property="og:url" content="{{ route('public.books.show', $book) }}" />
+<meta property="og:description" content="{{ $book->description }}" />
+
+@if (Setting::for($book)->get('thumbnail_image_path'))
+    <meta property="og:image" content="{{ Storage::url(Setting::for($book)->get('thumbnail_image_path')) }}"/>
+@elseif (Setting::for($book)->get('poster_image_path'))
+    <meta property="og:image" content="{{ Storage::url(Setting::for($book)->get('poster_image_path')) }}"/>
+@else
+    <div class="p-3 fs-1 d-flex align-items-center justify-content-center bg-info-lt" style="min-height: 207px;border-radius: 15px 15px 0px 0px;">{{ $book->name }}</div>
+@endif
+
+@endsection
+
 @section('content')
 <section class="bg-white d-none d-md-block">
     <div class="container-md">
