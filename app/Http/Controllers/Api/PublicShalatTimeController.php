@@ -7,7 +7,6 @@ use App\Services\ShalatTimes\ShalatTimeService;
 use Carbon\Carbon;
 use Exception;
 use Facades\App\Helpers\Setting;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class PublicShalatTimeController extends Controller

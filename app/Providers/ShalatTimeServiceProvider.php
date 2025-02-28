@@ -16,6 +16,7 @@ class ShalatTimeServiceProvider extends ServiceProvider
             $this->app->bind(ShalatTimeService::class, function () {
                 return null;
             });
+
             return;
         }
 
