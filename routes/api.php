@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth', 'web'], 'as' => 'api.'], function () {
     Route::post('books/{book}/upload_thumbnail_image', [App\Http\Controllers\Api\BookController::class, 'updateThumbnailImage'])->name('books.upload_thumbnail_image');
 });
 
-if (config('features.lecturings.is_active')) {
+if (config('features.shalat_time.is_active')) {
     Route::group(['as' => 'api.'], function () {
         Route::get('prayer-times', [App\Http\Controllers\Api\PublicShalatTimeController::class, 'show'])
             ->name('public_shalat_time.show');
