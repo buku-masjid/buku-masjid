@@ -247,8 +247,8 @@
     });
     $("#crop_thumbnail").click(function(){
         canvas = cropper.getCroppedCanvas({
-            width: 960,
-            height: 960,
+            width: 320,
+            height: 320,
         });
         canvas.toBlob(function(blob) {
             url = URL.createObjectURL(blob);
