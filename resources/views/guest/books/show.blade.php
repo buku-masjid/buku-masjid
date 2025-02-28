@@ -7,7 +7,7 @@
     <div class="container-md">
         <div class="section-hero row">
             <div class="mb-3">
-                <a href="{{ route('public.donate') }}">
+                <a href="{{ route('public.books.index') }}">
                     <i class="ti">&#xea60;</i>
                     {{ __('book.program') }} {{ Setting::get('masjid_name', config('masjid.name')) }}
                 </a>

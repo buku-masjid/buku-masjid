@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', __('app.donate'))
+@section('title', __('book.program'))
 
 @section('content')
 <section class="bg-white">
