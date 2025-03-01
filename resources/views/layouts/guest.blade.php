@@ -38,7 +38,9 @@
                         <li class="nav-item px-2"><a class="nav-link" href="{{ url('/') }}">{{ __('app.home') }}</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.books.index') }}">{{ __('app.program') }}</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        @if (Route::has('public_schedules.index'))
+                            <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        @endif
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
                     </ul>
                 </div>
@@ -78,7 +80,9 @@
                         <li class="py-3 border-top mt-2"><a href="{{ url('/') }}">{{ __('app.home') }}</a></li>
                         <li class="pb-3"><a href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
                         <li class="pb-3"><a href="{{ route('public.books.index') }}">{{ __('app.program') }}</a></li>
-                        <li class="pb-3"><a href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        @if (Route::has('public_schedules.index'))
+                            <li class="pb-3"><a href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        @endif
                         <li class="pb-3"><a href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
                         <li class="py-3 border-top mt-2">
                             @if (auth()->check())
