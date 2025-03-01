@@ -36,10 +36,10 @@
                                             <div class="row">
                                                 <div class="col col-cat">{{ $category ? $category->name : __('category.uncategorized') }}</div>
                                                 <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold">
-                                                {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '' }}{{ ($firstTrasaction->in_out) ? format_number($transactions->sum('amount')) : '' }}
+                                                    {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '' }} {{ ($firstTrasaction->in_out) ? format_number($transactions->sum('amount')) : '' }}
                                                 </div>
                                                 <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold">
-                                                {{ ($firstTrasaction->in_out) ? '' : config('money.currency_code') }}{{ ($firstTrasaction->in_out) ? '' : format_number($transactions->sum('amount')) }}
+                                                    {{ ($firstTrasaction->in_out) ? '' : config('money.currency_code') }} {{ ($firstTrasaction->in_out) ? '' : format_number($transactions->sum('amount')) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +51,14 @@
                                             @foreach ($transactions as $transaction)
                                                 <div class="row py-2 py-lg-0">
                                                     <div class="col-auto py-lg-2 date align-items-center d-flex">{{ $transaction->date }}</div>
-                                                    <div class="col-lg me-1 py-lg-2">{{ $transaction->description }}</div>
+                                                    <div class="col-lg me-1 py-lg-2">
+                                                        @if ($isTransactionFilesVisible)
+                                                            <span class="float-end">
+                                                                @livewire('public-books.files-indicator', ['transaction' => $transaction])
+                                                            </span>
+                                                        @endif
+                                                        {{ $transaction->description }}
+                                                    </div>
                                                     <div class="col-lg-2 py-lg-2 px-lg-0 bm-txt-primary col-num">
                                                     {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '' }}{{ ($transaction->in_out) ? format_number($transaction->amount) : '' }}
                                                     </div>

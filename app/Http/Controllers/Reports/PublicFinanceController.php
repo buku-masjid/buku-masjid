@@ -42,11 +42,12 @@ class PublicFinanceController extends FinanceController
         $books = Book::where('status_id', Book::STATUS_ACTIVE)
             ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
             ->get();
+        $isTransactionFilesVisible = Setting::for($book)->get('transaction_files_visibility_code') == Book::REPORT_VISIBILITY_PUBLIC;
 
         return view('public_reports.finance.index', compact(
             'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth', 'currentMonthIncome',
             'lastBankAccountBalanceOfTheMonth', 'lastMonthDate', 'currentMonthSpending', 'currentMonthBalance',
-            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
+            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary', 'isTransactionFilesVisible'
         ));
     }
 
