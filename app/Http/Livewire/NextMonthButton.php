@@ -25,7 +25,7 @@ class NextMonthButton extends Component
 
         $this->month = $nextMonthDate->format('m');
         $this->year = $nextMonthDate->format('Y');
-        $this->buttonText = __('report.next_month');
+        $this->buttonText = $this->buttonText ?: __('report.next_month');
     }
 
     public function render()

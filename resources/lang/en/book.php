@@ -3,6 +3,7 @@
 return [
     // Labels
     'book' => 'Cash Book / Program',
+    'program' => 'Program',
     'list' => 'Cash Book / Program List',
     'search' => 'Search Cash Book / Program',
     'search_text' => 'Name ...',
@@ -13,6 +14,7 @@ return [
     'empty' => 'Cash Book / Program is empty.',
     'count' => 'Cash Book / Program entries',
     'no_book' => 'No Cash Book / Program',
+    'progress' => 'Program Progres',
     'back_to_show' => 'Back to Cash Book / Program Detail',
     'back_to_index' => 'Back to Cash Book / Program List',
     'management_title' => 'Management Title',
@@ -53,6 +55,19 @@ return [
     'income_partner_null' => 'Income Partners Default Value',
     'spending_partners' => 'Spending Partners',
     'spending_partner_null' => 'Spending Partners Default Value',
+    'upload_poster' => 'Upload Poster',
+    'change_poster' => 'Change Poster',
+    'poster_image' => 'Poster Image',
+    'poster_rule' => 'Poster landscape with ratio 16:9',
+    'poster_image_updated' => 'Poster image has been updated.',
+    'upload_thumbnail' => 'Upload Thumbnail',
+    'change_thumbnail' => 'Change Thumbnail',
+    'thumbnail_image' => 'Thumbnail Image',
+    'thumbnail_rule' => 'Thumbnail image with ratio 1:1',
+    'thumbnail_image_updated' => 'Thumbnail image has been updated.',
+    'due_date' => 'Due Date',
+    'landing_page' => 'Landing Page',
+    'landing_page_content' => 'Landing Page Content',
 
     // Relations
     'transactions' => 'Cash Book / Program Transactions',

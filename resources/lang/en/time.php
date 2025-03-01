@@ -12,6 +12,8 @@ return [
     'all_months' => 'All Months',
     'time' => 'Time',
     'year' => 'Year',
+    'hours' => 'Hour(s)',
+    'minutes' => 'Minute(s)',
 
     'months' => [
         '01' => 'January',

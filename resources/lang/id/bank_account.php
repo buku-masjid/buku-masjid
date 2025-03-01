@@ -8,6 +8,7 @@ return [
     'empty' => 'Belum ada Rekening Bank',
     'back_to_index' => 'Kembali ke daftar Rek. Bank',
     'qris' => 'QRIS',
+    'show_qris' => 'Lihat QRIS',
     'qris_upload_image' => 'Upload Gambar QRIS',
     'qris_change_image' => 'Ganti Gambar QRIS',
     'image_not_found' => 'Gambar tidak ditemukan.',

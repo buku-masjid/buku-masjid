@@ -12,7 +12,9 @@
 */
 
 Route::view('/', 'guest.welcome');
-Route::get('/infaq', 'PublicPagesController@donate')->name('public.donate');
+Route::view('/kontak', 'guest.contact')->name('public.contact');
+Route::get('/programs', 'PublicBookController@index')->name('public.books.index');
+Route::get('/programs/{book}', 'PublicBookController@show')->name('public.books.show');
 
 Auth::routes(['register' => false, 'reset' => false]);
 

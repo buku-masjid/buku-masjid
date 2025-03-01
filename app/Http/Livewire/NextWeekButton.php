@@ -37,7 +37,7 @@ class NextWeekButton extends Component
 
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->buttonText = __('report.next_week');
+        $this->buttonText = $this->buttonText ?: __('report.next_week');
     }
 
     public function render()

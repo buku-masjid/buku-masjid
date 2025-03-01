@@ -37,7 +37,7 @@ class PrevWeekButton extends Component
 
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->buttonText = __('report.prev_week');
+        $this->buttonText = $this->buttonText ?: __('report.prev_week');
     }
 
     public function render()

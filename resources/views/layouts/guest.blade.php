@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Language" content="en" />
@@ -16,63 +16,101 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') - {{ Setting::get('masjid_name', config('masjid.name')) }}</title>
+    <meta property="og:title" content="@yield('title') - {{ Setting::get('masjid_name', config('masjid.name')) }}" />
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    @yield('head_tags')
     @yield('styles')
 </head>
 <body>
-    <div class="container-fluid">
-        <header class="py-5 text-center">
-            @if (Setting::get('masjid_logo_path'))
-                <div class="mb-4"><img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 150px"></div>
-            @endif
-            <a class="h1 text-dark" href="{{ url('/') }}">{{ Setting::get('masjid_name', config('masjid.name')) }}</a>
-            @if (Setting::get('masjid_address'))
-            <div class="mt-4">{!! nl2br(htmlentities(Setting::get('masjid_address'))) !!}</div>
-            @endif
-        </header>
+    <div class="d-none d-sm-block">
+        <div class="nav-public d-flex align-items-center justify-content-between position-relative">
+            <a href="{{ url('/') }}"><img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 150px"></a>
+            <div class="position-relative text-center">
+                <div class="nav-desktop position-relative shadow-sm rounded">
+                    <ul class="nav">
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ url('/') }}">{{ __('app.home') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.books.index') }}">{{ __('app.program') }}</a></li>
+                        @if (Route::has('public_schedules.index'))
+                            <li class="nav-item px-2"><a class="nav-link" href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        @endif
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-end" style="width: 150px">
+                @if (auth()->check())
+                    <a href="{{ route('home') }}" >{{ auth()->user()->name }}</a>
+                @else
+                    <a href="{{ route('login') }}" >{{ __('auth.login') }}</a>
+                @endif
+            </div>
+        </div>
     </div>
-    <div class="navbar-light bg-white shadow-sm mb-4">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
-                    <div class="py-1">
-                        <nav class="nav d-flex justify-content-between">
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), [null]) ? 'text-primary strong' : 'text-dark' }}" href="{{ url('/') }}">
-                                <i class="fe fe-home"></i> {{ __('app.home') }}
-                            </a>
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['laporan-kas']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_reports.index') }}">
-                                <i class="fe fe-layout"></i> {{ __('report.report') }}
-                            </a>
-                            <a class="py-2 px-1 {{ in_array(Request::segment(1), ['donasi']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public.donate') }}">
-                                <i class="fe fe-pocket"></i> {{ __('app.donate') }}
-                            </a>
-                            @if (Route::has('public_schedules.index'))
-                                <a class="py-2 px-1 {{ in_array(Request::segment(1), ['jadwal']) ? 'text-primary strong' : 'text-dark' }}" href="{{ route('public_schedules.index') }}">
-                                    <i class="fe fe-calendar"></i> {{ __('lecturing.public_schedule') }}
-                                </a>
-                            @endif
-                            @auth
-                            <a class="py-2 px-1 text-dark" href="{{ route('home') }}"><i class="fe fe-user"></i> {{ auth()->user()->name }}</a>
+    <div class="container p-0 bg-white">
+        <div class="d-sm-none">
+            <div class="row p-3 me-0">
+                <div class="col text-start">
+                    <a href="{{ url('/') }}"><img src="{{ asset('images/logo_bukumasjid.svg') }}" style="width: 100px"></a>
+                </div>
+                <div class="col text-end">
+                    <a class="btn position-relative z-2" data-bs-toggle="offcanvas" href="#offcanvasStart" role="button" aria-controls="offcanvasStart">
+                        <i class="ti ti-baseline-density-medium"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel" aria-modal="true" role="dialog">
+            <div class="text-end p-3">
+                <button type="button" class="btn-close text-reset float-end" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body pt-0 d-flex align-items-stretch flex-column bd-highlight">
+                <div class="text-center bd-highlight">
+                    <a href="{{ url('/') }}"><img src="{{ asset('images/logo_bm_shape.svg') }}" style="width: 80px"></a>
+                </div>
+                <div class="mt-3 fs-2 sidebar-menu bd-highlight">
+                    <ul>
+                        <li class="py-3 border-top mt-2"><a href="{{ url('/') }}">{{ __('app.home') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public_reports.index') }}">{{ __('report.report') }}</a></li>
+                        <li class="pb-3"><a href="{{ route('public.books.index') }}">{{ __('app.program') }}</a></li>
+                        @if (Route::has('public_schedules.index'))
+                            <li class="pb-3"><a href="{{ route('public_schedules.this_week') }}">{{ __('lecturing.public_schedule') }}</a></li>
+                        @endif
+                        <li class="pb-3"><a href="{{ route('public.contact') }}">{{ __('app.contact') }}</a></li>
+                        <li class="py-3 border-top mt-2">
+                            @if (auth()->check())
+                                <a href="{{ route('home') }}" >{{ auth()->user()->name }}</a>
                             @else
-                            <a class="py-2 px-1 text-dark" href="{{ route('login') }}"><i class="fe fe-user"></i> {{ __('auth.login') }}</a>
-                            @endauth
-                        </nav>
+                                <a href="{{ route('login') }}" >{{ __('auth.login') }}</a>
+                            @endif
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-auto bd-highlight">
+                    <div>
+                        @include('layouts.public._cta_join')
+                    </div>
+                    <div class="mt-4 text-center">
+                        @include('layouts.public._footer_links')
+                    </div>
+                    <div class="mt-4">
+                        <div class="text-center">
+                            @include('layouts.public._copyright')
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <main role="main" class="container-fluid">
-        <div class="row">
-            <div class="offset-0 offset-lg-1 offset-xl-2 col-12 col-lg-10 col-xl-8">
-                @yield('content')
-            </div>
-        </div>
-    </main>
+    @yield('content')
+    @include('layouts._public_footer')
     <script src="{{ asset('js/app.js') }}" ></script>
     @include('layouts.partials.noty')
     @stack('scripts')

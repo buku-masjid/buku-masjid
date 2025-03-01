@@ -25,7 +25,7 @@ class PrevMonthButton extends Component
 
         $this->month = $prevMonthDate->format('m');
         $this->year = $prevMonthDate->format('Y');
-        $this->buttonText = __('report.prev_month');
+        $this->buttonText = $this->buttonText ?: __('report.prev_month');
     }
 
     public function render()

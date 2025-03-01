@@ -26,6 +26,8 @@ return [
     'mid_part' => 'Mid Part',
     'right_part' => 'Right Part',
     'donate' => 'Donate',
+    'program' => 'Program',
+    'contact' => 'Contact',
     'printed_at' => 'Printed at',
     'unknown' => 'Unknown',
     'social_media' => 'Social Media',

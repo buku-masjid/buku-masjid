@@ -13,7 +13,12 @@
                         <div class="card-body">
                             {!! FormField::text('masjid_name', ['required' => true, 'value' => old('masjid_name', Setting::get('masjid_name', config('masjid.name'))), 'label' => __('masjid_profile.name')]) !!}
                             {!! FormField::textarea('masjid_address', ['required' => true, 'value' => old('masjid_address', Setting::get('masjid_address')), 'label' => __('masjid_profile.address')]) !!}
-                            {!! FormField::text('masjid_city_name', ['required' => true, 'value' => old('masjid_city_name', Setting::get('masjid_city_name')), 'label' => __('masjid_profile.city_name')]) !!}
+                            {!! FormField::text('masjid_city_name', [
+                                'required' => true,
+                                'value' => old('masjid_city_name', Setting::get('masjid_city_name')),
+                                'label' => __('masjid_profile.city_name'),
+                                'info' => ['text' => __('masjid_profile.city_name_help')],
+                            ]) !!}
                             {!! FormField::text('masjid_google_maps_link', ['value' => old('masjid_google_maps_link', Setting::get('masjid_google_maps_link')), 'label' => __('masjid_profile.google_maps_link')]) !!}
                         </div>
                     </div>
@@ -272,7 +277,7 @@
         });
         $modalPhoto.on('shown.bs.modal', function () {
             cropper = new Cropper(imagePhoto, {
-                aspectRatio: 2 / 1,
+                aspectRatio: 16 / 9,
                 viewMode: 2,
                 preview: '.preview'
             });
@@ -283,7 +288,7 @@
         $("#crop_photo").click(function(){
             canvas = cropper.getCroppedCanvas({
                 width: 960,
-                height: 480,
+                height: 640,
             });
             canvas.toBlob(function(blob) {
                 url = URL.createObjectURL(blob);
