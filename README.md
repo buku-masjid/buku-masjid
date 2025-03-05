@@ -21,7 +21,6 @@ Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berba
 
 Kami ingin berterima kasih kepada sponsor yang mendukung development Buku Masjid.
 
-1. [Raizora Indonesia](https://www.instagram.com/raizora_indonesia)
 1. [Pondok Teknologi](https://pondokteknologi.com)
 1. [Pondok IT](https://pondokit.com)
 1. [Mushaira](https://mushaira.id)
