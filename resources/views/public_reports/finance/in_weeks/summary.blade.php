@@ -3,27 +3,6 @@
 @section('subtitle', __('report.in_weeks'))
 
 @section('content-report')
-
-<div class="page-header mt-0">
-    <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
-        {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::hidden('active_book_id', request('active_book_id')) }}
-            {{ Form::hidden('nonce', request('nonce')) }}
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('public_reports.finance.summary', __('report.this_week'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-secondary mr-1']) }}
-        </div>
-        <div class="form-group mt-4 mt-sm-0">
-            @livewire('prev-week-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-secondary mr-1'])
-            @livewire('next-week-button', ['routeName' => 'public_reports.finance.summary', 'buttonClass' => 'btn btn-secondary'])
-        </div>
-        {{ Form::close() }}
-    </div>
-</div>
-
 @if ($showBudgetSummary)
     @include('reports.finance._internal_periode_summary')
 @endif

@@ -6,25 +6,28 @@
     </div>
 </button>
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="books">
-    <div class="offcanvas-header pt-3 pb-1 border-0 justify-content-center">
-        <h2 class="offcanvas-title" id="offcanvasBottomLabel">Pilih Laporan</h2>
+    <div class="offcanvas-header pt-2 pb-0 border-0 justify-content-center">
+        <h2 class="offcanvas-title" id="offcanvasBottomLabel">{{ __('report.select_report') }}</h2>
     </div>
     <div class="offcanvas-body">
-        <div class="d-sm-flex justify-content-center gap-2 book-list">
+        <div class="row justify-content-center gap-2">
             @forelse ($books as $bookItem)
-                <a href="{{ route('public_reports.index', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce]) }}" id="show-book-{{ $bookItem->id }}">
-                    <div class="bm-btn book {{ $bookItem->id == $selectedBook->id ? 'book-selected' : '' }} bm-txt-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book-2">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-                        <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-                        <path d="M9 8h6" />
-                        </svg>&nbsp;{{ $bookItem->name }}
+                <div class="col-md-3 btn-group">
+                    <a href="{{ route('public_reports.index', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce]) }}" id="show-book-{{ $bookItem->id }}" class="btn {{ $bookItem->id == $selectedBook->id ? 'bm-bg-primary text-light' : 'bm-txt-primary' }}" style="border-top-left-radius: 9px;border-bottom-left-radius: 9px">
+                        <i class="ti ti-book-2 fs-2"></i>&nbsp;{{ $bookItem->name }}
                         @if ($bookItem->id == $selectedBook->id)
-                            <span class="ti float-end">&#xea5e;</span>
+                            &nbsp;<span class="ti float-end">&#xea5e;</span>
                         @endif
-                    </div>
-                </a>
+                    </a>
+                    <button type="button" class="btn {{ $bookItem->id == $selectedBook->id ? 'bm-bg-primary text-light' : 'bm-txt-primary' }} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="max-width: 2.5em;border-top-right-radius: 9px;border-bottom-right-radius: 9px">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('public_reports.finance.summary', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce] + Request::all()) }}"><i class="ti ti-home"></i>&nbsp;{{ __('report.'.$bookItem->report_periode_code) }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('public_reports.finance.categorized', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce] + Request::all()) }}"><i class="ti ti-package"></i>&nbsp;{{ __('report.finance_categorized') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('public_reports.finance.detailed', ['active_book_id' => $bookItem->id, 'nonce' => $bookItem->nonce] + Request::all()) }}"> <i class="ti ti-alert-circle"></i>&nbsp;{{ __('report.finance_detailed') }}</a></li>
+                    </ul>
+                </div>
             @empty
                 {{ __('book.not_found') }}
             @endforelse
