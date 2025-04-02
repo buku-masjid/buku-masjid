@@ -23,6 +23,9 @@ class PublicFinanceController extends FinanceController
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))
             ->sortKeysDesc();
+        $weekLabels = $this->getWeekLabelsByDateRange(
+            $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $book->start_week_day_code
+        );
         $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
         $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
         $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
@@ -47,7 +50,8 @@ class PublicFinanceController extends FinanceController
         return view('public_reports.finance.index', compact(
             'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth', 'currentMonthIncome',
             'lastBankAccountBalanceOfTheMonth', 'lastMonthDate', 'currentMonthSpending', 'currentMonthBalance',
-            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary', 'isTransactionFilesVisible'
+            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary', 'isTransactionFilesVisible',
+            'weekLabels'
         ));
     }
 
@@ -126,6 +130,9 @@ class PublicFinanceController extends FinanceController
 
         $groupedTransactions = $this->getWeeklyGroupedTransactionsForDetail($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
         $currentMonthEndDate = $endDate->clone();
+        $weekLabels = $this->getWeekLabelsByDateRange(
+            $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $book->start_week_day_code
+        );
 
         $reportPeriode = $book->report_periode_code;
         $lastMonthDate = Carbon::parse($startDate)->subDay();
@@ -137,7 +144,7 @@ class PublicFinanceController extends FinanceController
 
         return view('public_reports.finance.'.$reportPeriode.'.detailed', compact(
             'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode', 'lastMonthDate',
-            'isTransactionFilesVisible', 'selectedBook', 'books'
+            'isTransactionFilesVisible', 'selectedBook', 'books', 'weekLabels'
         ));
     }
 

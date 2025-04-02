@@ -130,4 +130,17 @@ class FinanceController extends Controller
 
         return Carbon::parse($yearMonth.'-01')->endOfMonth();
     }
+
+    protected function getWeekLabelsByDateRange(string $startDate, string $endDate, string $startWeekDay)
+    {
+        $dateRangePerWeek = get_date_range_per_week($startDate, $endDate, $startWeekDay);
+
+        $dateRanges = [];
+        foreach ($dateRangePerWeek as $weekNumber => $weekDateRanges) {
+            $dateRangeText = get_date_range_text($weekDateRanges[0], end($weekDateRanges));
+            $dateRanges[$weekNumber] = $dateRangeText;
+        }
+
+        return $dateRanges;
+    }
 }
