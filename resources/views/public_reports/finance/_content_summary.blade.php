@@ -11,7 +11,7 @@
         <div class="accordion-item card mb-2">
             <div class="accordion-header">
                 <button class="accordion-button collapsed fs-2 fw-bold bm-txt-primary" type="button" data-bs-toggle="collapse" data-bs-target="#week_number_{{ 1 + $weekNumber }}" aria-expanded="false">
-                    Pekan {{ 1 + $weekNumber }}
+                    {{ __('time.week') }} {{ $weekNumber + 1 }} &nbsp;<span class="text-dark small">({{ $weekLabels[$weekNumber] }})</span>
                 </button>
             </div>
             <div id="week_number_{{ 1 + $weekNumber }}" class="pe-lg-4 accordion-collapse collapse {{ $weekNumber == $groupedTransactions->keys()->first() ? 'show' : '' }}">

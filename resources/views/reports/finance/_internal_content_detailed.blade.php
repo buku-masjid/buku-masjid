@@ -35,7 +35,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2" class="text-right strong">{{ __('app.total') }} {{ __('time.week') }} {{ $weekNumber }}</td>
+            <td colspan="2" class="text-right strong">{{ __('app.total') }} {{ __('time.week') }} {{ $weekNumber + 1 }}</td>
             <td class="text-right strong">
                 @php
                     $incomeAmount = $weekTransactions->flatten()->sum(function ($transaction) {
@@ -55,7 +55,7 @@
             <td class="text-right strong text-nowrap">{{ format_number($incomeAmount - $spendingAmount) }}</td>
         </tr>
         <tr>
-            <td colspan="2" class="text-right strong">{{ __('transaction.end_balance') }} {{ __('time.week') }} {{ $weekNumber }}</td>
+            <td colspan="2" class="text-right strong">{{ __('transaction.end_balance') }} {{ __('time.week') }} {{ $weekNumber + 1 }}</td>
             <td class="text-right strong">&nbsp;</td>
             <td class="text-right strong">&nbsp;</td>
             <td class="text-right strong text-nowrap">{{ format_number($currentWeekBalance + $incomeAmount - $spendingAmount) }}</td>

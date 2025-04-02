@@ -23,7 +23,7 @@
         $lastWeekDate = $lastWeekDate ?: $lastMonthDate;
     @endphp
     <div class="card-header">
-        <h3 class="card-title">{{ __('time.week') }} {{ ++$weekNumber }}</h3>
+        <h3 class="card-title">{{ __('time.week') }} {{ $weekNumber + 1 }} ({{ $weekLabels[$weekNumber] }})</h3>
     </div>
     @include('reports.finance._internal_content_detailed')
     @php
