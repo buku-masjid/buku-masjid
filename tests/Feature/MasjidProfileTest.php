@@ -33,7 +33,7 @@ class MasjidProfileTest extends TestCase
             'masjid_google_maps_link' => 'https://maps.app.goo.gl/abcd',
             'masjid_whatsapp_number' => '6281234567890',
             'masjid_instagram_username' => 'abcda.123',
-            'masjid_youtube_username' => 'abcd-111',
+            'masjid_youtube_username' => '@abcd-111',
             'masjid_facebook_username' => 'abcd_123',
             'masjid_telegram_username' => 'abcdaaa',
         ]);
@@ -67,7 +67,7 @@ class MasjidProfileTest extends TestCase
         ]);
         $this->seeInDatabase('settings', [
             'key' => 'masjid_youtube_username',
-            'value' => 'abcd-111',
+            'value' => '@abcd-111',
         ]);
         $this->seeInDatabase('settings', [
             'key' => 'masjid_facebook_username',
