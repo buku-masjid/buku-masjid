@@ -27,7 +27,7 @@ class DiskUsage extends Component
 
     private function loadUsage(): void
     {
-        $this->diskService = new DiskUsageService;
+        $this->diskService = app(DiskUsageService::class);
 
         $this->diskUsage      = $this->diskService->getUsedHuman();
         $this->diskQuota     = $this->diskService->getQuotaHuman();
