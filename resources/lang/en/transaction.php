@@ -15,6 +15,7 @@ return [
     'forward_date_alert' => 'This transaction date is greater than today!',
     'back_to_show' => 'Back to Transaction detail',
     'back_to_index' => 'Back to Transaction list',
+    'disk_is_full' => 'Storage full',
 
     'total' => 'Transction Total',
     'income_total' => 'Income Total',

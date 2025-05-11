@@ -22,4 +22,9 @@ class FakeDiskUsageService extends DiskUsageService
     {
         return 50.0;
     }
+
+    public function getIsFull(): bool
+    {
+        return true;
+    }
 }
