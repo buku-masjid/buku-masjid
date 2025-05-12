@@ -1,6 +1,6 @@
 /* Space out content a bit */
 
-html        { background-color: #F8F8F8;}
+html        { background-color: #F8F8F8;font-family:"Trebuchet MS",sans-serif}
 body        { background-color: #F8F8F8;}
 div         { box-sizing: border-box !important;}
 body::-webkit-scrollbar {
@@ -36,6 +36,7 @@ a:hover { color: #378E88; text-decoration: none;}
 .bm-txt-primary { color: #20716B;}
 .bm-bg-primary { background-color: #20716B;}
 .bm-bg-primary:hover { background-color: #378E88;}
+.bm-bg-primary.show { background-color: #378E88;}
 .bm-bg-primary-soft { background-color: #D5EEE2; }
 .bm-txt-out { color: #CC4746;}
 .bm-bg-out { background-color: #CC4746;}

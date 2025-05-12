@@ -34,15 +34,15 @@ class PublicReportTest extends TestCase
 
         $this->visitRoute('public_reports.finance.summary');
         $this->seeRouteIs('public_reports.finance.summary');
-        $this->seeElement('select', ['id' => 'month']);
+        $this->seeElement('select', ['name' => 'month']);
 
         $this->visitRoute('public_reports.finance.categorized');
         $this->seeRouteIs('public_reports.finance.categorized');
-        $this->seeElement('select', ['id' => 'month']);
+        $this->seeElement('select', ['name' => 'month']);
 
         $this->visitRoute('public_reports.finance.detailed');
         $this->seeRouteIs('public_reports.finance.detailed');
-        $this->seeElement('select', ['id' => 'month']);
+        $this->seeElement('select', ['name' => 'month']);
 
         $book->report_visibility_code = 'internal';
         $book->save();

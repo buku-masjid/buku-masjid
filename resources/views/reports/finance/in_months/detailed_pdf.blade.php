@@ -27,13 +27,13 @@
         $lastWeekDate = $lastWeekDate ?: $lastMonthDate;
     @endphp
     <div class="card-header">
-        <h3 class="card-title">{{ __('time.week') }} {{ ++$weekNumber }}</h3>
+        <h3 class="card-title">{{ __('time.week') }} {{ $weekNumber + 1 }} ({{ $weekLabels[$weekNumber] }})</h3>
     </div>
     @include('reports.finance._internal_content_detailed')
     @php
         $lastWeekDate = Carbon\Carbon::parse($weekTransactions->last()->last()->date);
     @endphp
-    @if ($weekNumber != $groupedTransactions->keys()->last() + 1)
+    @if ($weekNumber != $groupedTransactions->keys()->last())
         <pagebreak />
     @endif
 @endforeach

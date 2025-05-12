@@ -23,6 +23,9 @@ class PublicFinanceController extends FinanceController
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))
             ->sortKeysDesc();
+        $weekLabels = $this->getWeekLabelsByDateRange(
+            $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $book->start_week_day_code
+        );
         $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
         $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
         $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
@@ -47,7 +50,8 @@ class PublicFinanceController extends FinanceController
         return view('public_reports.finance.index', compact(
             'startDate', 'endDate', 'groupedTransactions', 'books', 'selectedBook', 'selectedMonth', 'currentMonthIncome',
             'lastBankAccountBalanceOfTheMonth', 'lastMonthDate', 'currentMonthSpending', 'currentMonthBalance',
-            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary', 'isTransactionFilesVisible'
+            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary', 'isTransactionFilesVisible',
+            'weekLabels'
         ));
     }
 
@@ -64,6 +68,12 @@ class PublicFinanceController extends FinanceController
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+
+        $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
+        $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
+        $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
+        $currentMonthBalance = $currentMonthIncome - $currentMonthSpending;
+
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
         if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
@@ -74,11 +84,15 @@ class PublicFinanceController extends FinanceController
 
         $reportPeriode = $book->report_periode_code;
         $showBudgetSummary = $this->determineBudgetSummaryVisibility($request, $book);
+        $selectedBook = $book;
+        $books = Book::where('status_id', Book::STATUS_ACTIVE)
+            ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
+            ->get();
 
         return view('public_reports.finance.'.$reportPeriode.'.summary', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories',
-            'spendingCategories', 'lastBankAccountBalanceOfTheMonth', 'lastMonthDate',
-            'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode', 'showBudgetSummary'
+            'startDate', 'endDate', 'groupedTransactions', 'incomeCategories', 'selectedBook', 'books', 'spendingCategories',
+            'lastBankAccountBalanceOfTheMonth', 'lastMonthDate', 'lastMonthBalance', 'currentMonthEndDate', 'reportPeriode',
+            'showBudgetSummary', 'currentMonthIncome', 'currentMonthSpending', 'currentMonthBalance'
         ));
     }
 
@@ -95,14 +109,27 @@ class PublicFinanceController extends FinanceController
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
+
+        $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
+        $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
+        $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
+        $currentMonthBalance = $currentMonthIncome - $currentMonthSpending;
+        $lastMonthDate = $startDate->clone()->subDay();
+        $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
+
         $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
         $isTransactionFilesVisible = Setting::for($book)->get('transaction_files_visibility_code') == Book::REPORT_VISIBILITY_PUBLIC;
+        $selectedBook = $book;
+        $books = Book::where('status_id', Book::STATUS_ACTIVE)
+            ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
+            ->get();
 
         return view('public_reports.finance.'.$reportPeriode.'.categorized', compact(
             'startDate', 'endDate', 'currentMonthEndDate', 'reportPeriode', 'groupedTransactions', 'incomeCategories',
-            'spendingCategories', 'isTransactionFilesVisible'
+            'spendingCategories', 'isTransactionFilesVisible', 'selectedBook', 'books', 'currentMonthIncome',
+            'currentMonthSpending', 'currentMonthBalance', 'lastMonthBalance'
         ));
     }
 
@@ -116,16 +143,30 @@ class PublicFinanceController extends FinanceController
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
 
-        $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+        $groupedTransactions = $this->getWeeklyGroupedTransactionsForDetail($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+        $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');
+        $currentMonthIncome = $transactionsByInOut->has(1) ? $transactionsByInOut[1]->sum('amount') : 0;
+        $currentMonthSpending = $transactionsByInOut->has(0) ? $transactionsByInOut[0]->sum('amount') : 0;
+        $currentMonthBalance = $currentMonthIncome - $currentMonthSpending;
+        $lastMonthDate = $startDate->clone()->subDay();
+        $lastMonthBalance = auth()->activeBook()->getBalance($lastMonthDate->format('Y-m-d'));
         $currentMonthEndDate = $endDate->clone();
+        $weekLabels = $this->getWeekLabelsByDateRange(
+            $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $book->start_week_day_code
+        );
 
         $reportPeriode = $book->report_periode_code;
         $lastMonthDate = Carbon::parse($startDate)->subDay();
         $isTransactionFilesVisible = Setting::for($book)->get('transaction_files_visibility_code') == Book::REPORT_VISIBILITY_PUBLIC;
+        $selectedBook = $book;
+        $books = Book::where('status_id', Book::STATUS_ACTIVE)
+            ->where('report_visibility_code', Book::REPORT_VISIBILITY_PUBLIC)
+            ->get();
 
         return view('public_reports.finance.'.$reportPeriode.'.detailed', compact(
             'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode', 'lastMonthDate',
-            'isTransactionFilesVisible'
+            'isTransactionFilesVisible', 'selectedBook', 'books', 'weekLabels', 'currentMonthIncome', 'currentMonthSpending',
+            'currentMonthBalance', 'lastMonthBalance'
         ));
     }
 
@@ -142,6 +183,23 @@ class PublicFinanceController extends FinanceController
             if (!$weekTransactions->isEmpty()) {
                 $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('category_id')->sortKeys());
                 $lastWeekDate = Carbon::parse($weekTransactions->last()->date);
+            }
+        }
+
+        return collect($groupedTransactions);
+    }
+
+    private function getWeeklyGroupedTransactionsForDetail(string $startDate, string $endDate): Collection
+    {
+        $transactions = $this->getTansactionsByDateRange($startDate, $endDate);
+        $groupedTransactions = collect([]);
+        $dateRangePerWeek = get_date_range_per_week($startDate, $endDate, auth()->activeBook()->start_week_day_code);
+        foreach ($dateRangePerWeek as $weekNumber => $weekDates) {
+            $weekTransactions = $transactions->filter(function ($transaction) use ($weekDates) {
+                return in_array($transaction->date, $weekDates);
+            });
+            if (!$weekTransactions->isEmpty()) {
+                $groupedTransactions->put($weekNumber, $weekTransactions->groupBy('day_name'));
             }
         }
 
