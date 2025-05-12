@@ -43,6 +43,9 @@
             <div class="summary px-3 px-lg-0 py-2 pt-lg-0">
                 @include('public_reports.finance._header_summary')
             </div>
+            <div class="px-3 p-lg-0">
+                @include('public_reports.finance._report_navigation')
+            </div>
             @yield('content-report')
         </div>
     </div>
