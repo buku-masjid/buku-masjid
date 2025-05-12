@@ -46,7 +46,9 @@
             <div class="px-3 p-lg-0">
                 @include('public_reports.finance._report_navigation')
             </div>
-            @yield('content-report')
+            <div class="px-3 p-lg-0">
+                @yield('content-report')
+            </div>
         </div>
     </div>
 </div>

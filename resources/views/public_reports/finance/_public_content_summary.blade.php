@@ -1,8 +1,8 @@
 <table class="table table-sm table-hover table-bordered">
     <thead>
         <tr>
-            <th class="text-center">{{ __('app.table_no') }}</th>
-            <th style="min-width: 20em">{{ __('transaction.transaction') }}</th>
+            <th style="min-width: 3em" class="text-center">{{ __('app.table_no') }}</th>
+            <th style="min-width: 25em">{{ __('transaction.transaction') }}</th>
             <th class="text-end">{{ __('transaction.income') }}</th>
             <th class="text-end">{{ __('transaction.spending') }}</th>
             <th class="text-end">{{ __('transaction.balance') }}</th>
