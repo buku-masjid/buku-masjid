@@ -6,7 +6,9 @@ use App\Services\SystemInfo\DiskUsageService;
 
 class FakeDiskUsageService extends DiskUsageService
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     public function getUsedHuman(): string
     {
