@@ -47,12 +47,12 @@ class DiskUsageTest extends TestCase
 
     public function test_percent_color_logic()
     {
-        $component = new DiskUsage();
+        $component = new DiskUsage;
 
         $this->assertEquals('success', $this->invokeMethod($component, 'getPercentColor', [10]));
-        $this->assertEquals('info',    $this->invokeMethod($component, 'getPercentColor', [30]));
+        $this->assertEquals('info', $this->invokeMethod($component, 'getPercentColor', [30]));
         $this->assertEquals('warning', $this->invokeMethod($component, 'getPercentColor', [60]));
-        $this->assertEquals('danger',  $this->invokeMethod($component, 'getPercentColor', [90]));
+        $this->assertEquals('danger', $this->invokeMethod($component, 'getPercentColor', [90]));
     }
 
     // Helper to access protected methods

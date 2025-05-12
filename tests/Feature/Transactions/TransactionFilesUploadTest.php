@@ -87,7 +87,7 @@ class TransactionFilesUploadTest extends TestCase
 
         $this->see(__('transaction.disk_is_full'));
         $this->seeElement('a', [
-            'id' => 'upload_files-transaction-' . $transaction->id,
+            'id' => 'upload_files-transaction-'.$transaction->id,
             'class' => 'btn btn-success mr-2 disabled',
         ]);
     }

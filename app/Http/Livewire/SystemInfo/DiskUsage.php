@@ -29,10 +29,10 @@ class DiskUsage extends Component
     {
         $this->diskService = app(DiskUsageService::class);
 
-        $this->diskUsage      = $this->diskService->getUsedHuman();
-        $this->diskQuota     = $this->diskService->getQuotaHuman();
-        $this->diskUsageInPercent   = $this->diskService->getPercentUsed();
-        $this->percentColor    = $this->getPercentColor($this->diskService->getPercentUsed());
+        $this->diskUsage = $this->diskService->getUsedHuman();
+        $this->diskQuota = $this->diskService->getQuotaHuman();
+        $this->diskUsageInPercent = $this->diskService->getPercentUsed();
+        $this->percentColor = $this->getPercentColor($this->diskService->getPercentUsed());
         $this->isLoading = false;
     }
 

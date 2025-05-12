@@ -93,7 +93,9 @@ function calculate_folder_size(string $absolutePath)
 
     $output = trim(shell_exec($cmd));
 
-    if (!is_numeric($output)) return false;
+    if (!is_numeric($output)) {
+        return false;
+    }
 
     if (!$isWindows) {
         $output = (int) $output * 1024;

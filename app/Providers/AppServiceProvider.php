@@ -75,15 +75,15 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(
             [
-              'transactions.*',
+                'transactions.*',
             ],
             function ($view) {
-              $disk = app('App\Services\SystemInfo\DiskUsageService'::class);
-              $view->with([
-                'isDiskFull'    => $disk->getIsFull(),
-              ]);
+                $disk = app('App\Services\SystemInfo\DiskUsageService'::class);
+                $view->with([
+                    'isDiskFull' => $disk->getIsFull(),
+                ]);
             }
-          );
+        );
     }
 
     /**

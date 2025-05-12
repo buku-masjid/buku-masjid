@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\SystemInfo;
 
 use Illuminate\Support\Facades\Storage;
@@ -11,9 +12,9 @@ class DiskUsageService
 
     public function __construct(int $minRequiredMB = 5)
     {
-        $this->usedBytes         = $this->calculateUsedBytes();
-        $this->quotaBytes        = $this->convertToBytes(config('filesystems.disk_quota'));
-        $this->minRequiredBytes  = $minRequiredMB * 1024 * 1024;
+        $this->usedBytes = $this->calculateUsedBytes();
+        $this->quotaBytes = $this->convertToBytes(config('filesystems.disk_quota'));
+        $this->minRequiredBytes = $minRequiredMB * 1024 * 1024;
     }
 
     protected function calculateUsedBytes(): int
