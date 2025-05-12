@@ -28,7 +28,7 @@
 <div class="section-bottom pb-5">
     <div class="container-md">
         <div class="col">
-            <div class="row px-3 py-3 p-lg-0 py-lg-3">
+            <div class="row px-3 pt-3 p-lg-0 pt-lg-3">
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">{{ __('report.report') }}</div>
                 <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
                     @include('public_reports.finance._book_navigation')
@@ -39,6 +39,9 @@
                 <div class="col-sm px-3 d-grid align-items-center text-sm-end">
                     @include('public_reports.finance._time_range_navigation')
                 </div>
+            </div>
+            <div class="summary px-3 px-lg-0 py-2 pt-lg-0">
+                @include('public_reports.finance._header_summary')
             </div>
             @yield('content-report')
         </div>
