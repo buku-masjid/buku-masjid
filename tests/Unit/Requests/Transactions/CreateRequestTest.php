@@ -18,14 +18,14 @@ class CreateRequestTest extends TestCase
     {
         $book = factory(Book::class)->create();
         $this->assertValidationPasses(
-            new TransactionCreateRequest(), $this->getCreateAttributes(['book_id' => $book->id])
+            new TransactionCreateRequest, $this->getCreateAttributes(['book_id' => $book->id])
         );
     }
 
     /** @test */
     public function it_fails_for_empty_attributes()
     {
-        $this->assertValidationFails(new TransactionCreateRequest(), [], function ($errors) {
+        $this->assertValidationFails(new TransactionCreateRequest, [], function ($errors) {
             $this->assertCount(5, $errors);
             $this->assertEquals(__('validation.required'), $errors->first('book_id'));
             $this->assertEquals(__('validation.required'), $errors->first('date'));
@@ -42,7 +42,7 @@ class CreateRequestTest extends TestCase
             'description' => str_repeat('Transaction description.', 11),
         ]);
 
-        $this->assertValidationFails(new TransactionCreateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new TransactionCreateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.max.string', ['attribute' => 'description', 'max' => 255]),
                 $errors->first('description')
@@ -55,7 +55,7 @@ class CreateRequestTest extends TestCase
     {
         $attributes = $this->getCreateAttributes(['in_out' => '2']);
 
-        $this->assertValidationFails(new TransactionCreateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new TransactionCreateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.boolean', ['attribute' => 'in out']),
                 $errors->first('in_out')
@@ -63,7 +63,7 @@ class CreateRequestTest extends TestCase
         });
 
         $attributes = $this->getCreateAttributes(['in_out' => 'text']);
-        $this->assertValidationFails(new TransactionCreateRequest(), $attributes);
+        $this->assertValidationFails(new TransactionCreateRequest, $attributes);
     }
 
     /** @test */
@@ -77,7 +77,7 @@ class CreateRequestTest extends TestCase
             'category_id' => $category->id,
         ]);
 
-        $this->assertValidationPasses(new TransactionCreateRequest(), $attributes);
+        $this->assertValidationPasses(new TransactionCreateRequest, $attributes);
     }
 
     /** @test */
@@ -85,7 +85,7 @@ class CreateRequestTest extends TestCase
     {
         $attributes = $this->getCreateAttributes(['category_id' => 999]);
 
-        $this->assertValidationFails(new TransactionCreateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new TransactionCreateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.exists', ['attribute' => 'category id']),
                 $errors->first('category_id')
@@ -103,7 +103,7 @@ class CreateRequestTest extends TestCase
             'category_id' => $category->id,
         ]);
 
-        $this->assertValidationPasses(new TransactionCreateRequest(), $attributes);
+        $this->assertValidationPasses(new TransactionCreateRequest, $attributes);
     }
 
     private function getCreateAttributes($overrides = [])

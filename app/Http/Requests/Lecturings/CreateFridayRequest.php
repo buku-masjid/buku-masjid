@@ -21,7 +21,7 @@ class CreateFridayRequest extends FormRequest
             'date' => [
                 'required',
                 'date_format:Y-m-d',
-                new FridayDate(),
+                new FridayDate,
                 Rule::unique('lecturings', 'date')->where(function (Builder $query) {
                     $query->where('audience_code', 'friday');
                 }),

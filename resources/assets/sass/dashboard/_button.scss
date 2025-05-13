@@ -11,6 +11,10 @@
 	}
 }
 
+.btn:disabled {
+	cursor: not-allowed;
+}
+
 .btn-icon {
 	padding-left: .5rem;
 	padding-right: .5rem;
@@ -104,7 +108,7 @@
 		position: absolute !important;
 	}
 
-	&.btn-sm:after{
+	&.btn-sm:after {
 		height: 1em;
 		width: 1em;
 		left: calc(50% - (1em / 2));

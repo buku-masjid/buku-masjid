@@ -9,6 +9,11 @@ textarea {
 	display: block;
 }
 
+.form-group.required>label::after {
+	content: ' *';
+	color: red;
+}
+
 .form-label {
 	display: block;
 	margin-bottom: .375rem;
@@ -33,6 +38,7 @@ textarea {
 }
 
 .custom-control {
+	-webkit-user-select: none;
 	user-select: none;
 }
 
@@ -67,11 +73,11 @@ textarea {
 	}
 }
 
-.input-group-prepend > .input-group-text {
+.input-group-prepend>.input-group-text {
 	border-right: 0;
 }
 
-.input-group-append > .input-group-text {
+.input-group-append>.input-group-text {
 	border-left: 0;
 }
 
@@ -148,6 +154,7 @@ Icon input
 	transition: .3s background-color, .3s color;
 	text-decoration: none;
 	cursor: pointer;
+	-webkit-user-select: none;
 	user-select: none;
 
 	&:hover,

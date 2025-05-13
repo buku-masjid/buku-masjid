@@ -17,13 +17,13 @@ class UpdateRequestTest extends TestCase
     public function it_pass_for_required_attributes()
     {
         $book = factory(Book::class)->create();
-        $this->assertValidationPasses(new CategoryUpdateRequest(), $this->getUpdateAttributes(['book_id' => $book->id]));
+        $this->assertValidationPasses(new CategoryUpdateRequest, $this->getUpdateAttributes(['book_id' => $book->id]));
     }
 
     /** @test */
     public function it_fails_for_empty_attributes()
     {
-        $this->assertValidationFails(new CategoryUpdateRequest(), [], function ($errors) {
+        $this->assertValidationFails(new CategoryUpdateRequest, [], function ($errors) {
             $this->assertCount(5, $errors);
             $this->assertEquals(__('validation.required'), $errors->first('report_visibility_code'));
             $this->assertEquals(__('validation.required'), $errors->first('book_id'));
@@ -40,7 +40,7 @@ class UpdateRequestTest extends TestCase
             'name' => str_repeat('Category description.', 3),
         ]);
 
-        $this->assertValidationFails(new CategoryUpdateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new CategoryUpdateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.max.string', ['attribute' => 'name', 'max' => 60]),
                 $errors->first('name')
@@ -55,7 +55,7 @@ class UpdateRequestTest extends TestCase
             'color' => '#aabbccdd',
         ]);
 
-        $this->assertValidationFails(new CategoryUpdateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new CategoryUpdateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.max.string', ['attribute' => 'color', 'max' => 7]),
                 $errors->first('color')
@@ -70,7 +70,7 @@ class UpdateRequestTest extends TestCase
             'description' => str_repeat('Category description.', 13),
         ]);
 
-        $this->assertValidationFails(new CategoryUpdateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new CategoryUpdateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.max.string', ['attribute' => 'description', 'max' => 255]),
                 $errors->first('description')
@@ -85,7 +85,7 @@ class UpdateRequestTest extends TestCase
             'status_id' => 2,
         ]);
 
-        $this->assertValidationFails(new CategoryUpdateRequest(), $attributes, function ($errors) {
+        $this->assertValidationFails(new CategoryUpdateRequest, $attributes, function ($errors) {
             $this->assertEquals(
                 __('validation.in', ['attribute' => 'status id']),
                 $errors->first('status_id')

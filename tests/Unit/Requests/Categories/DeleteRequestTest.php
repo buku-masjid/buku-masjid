@@ -14,13 +14,13 @@ class DeleteRequestTest extends TestCase
     /** @test */
     public function it_pass_for_required_attributes()
     {
-        $this->assertValidationPasses(new CategoryDeleteRequest(), $this->getDeleteAttributes());
+        $this->assertValidationPasses(new CategoryDeleteRequest, $this->getDeleteAttributes());
     }
 
     /** @test */
     public function it_fails_for_empty_attributes()
     {
-        $this->assertValidationFails(new CategoryDeleteRequest(), [], function ($errors) {
+        $this->assertValidationFails(new CategoryDeleteRequest, [], function ($errors) {
             $this->assertCount(1, $errors);
             $this->assertEquals(__('validation.required'), $errors->first('category_id'));
         });

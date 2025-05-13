@@ -65,7 +65,7 @@ class PartnerController extends Controller
             'name' => ['required', 'max:60'],
             'type_code' => ['required', 'array'],
             'gender_code' => ['nullable', 'in:m,f'],
-            'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
+            'phone' => ['nullable', 'max:60', new PhoneNumberRule],
             'pob' => ['nullable', 'max:255'],
             'dob' => ['nullable', 'date_format:Y-m-d'],
             'address' => ['nullable', 'max:255'],
@@ -95,7 +95,7 @@ class PartnerController extends Controller
         $this->authorize('view', $partner);
 
         $partnerTypes = $this->getPartnerTypes($partner->type_code);
-        $availableLevels = (new Partner())->getAvailableLevels($partner->type_code);
+        $availableLevels = (new Partner)->getAvailableLevels($partner->type_code);
         $defaultStartDate = date('Y').'-01-01';
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
@@ -146,7 +146,7 @@ class PartnerController extends Controller
             'name' => ['required', 'max:60'],
             'type_code' => ['required', 'max:30'],
             'gender_code' => ['nullable', 'in:m,f'],
-            'phone' => ['nullable', 'max:60', new PhoneNumberRule()],
+            'phone' => ['nullable', 'max:60', new PhoneNumberRule],
             'pob' => ['nullable', 'max:255'],
             'dob' => ['nullable', 'date_format:Y-m-d'],
             'address' => ['nullable', 'max:255'],

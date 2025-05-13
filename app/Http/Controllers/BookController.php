@@ -73,7 +73,7 @@ class BookController extends Controller
     {
         $this->authorize('update', $book);
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
-        $partnerTypes = (new Partner())->getAvailableTypes();
+        $partnerTypes = (new Partner)->getAvailableTypes();
         $financeUsers = User::where('role_id', User::ROLE_FINANCE)->pluck('name', 'id');
 
         return view('books.edit', compact('book', 'bankAccounts', 'financeUsers', 'partnerTypes'));
@@ -83,7 +83,7 @@ class BookController extends Controller
     {
         $this->authorize('update', $book);
 
-        $partnerTypes = collect((new Partner())->getAvailableTypes())->keys()->implode(',');
+        $partnerTypes = collect((new Partner)->getAvailableTypes())->keys()->implode(',');
 
         $bookData = $request->validate([
             'name' => ['sometimes', 'max:60'],

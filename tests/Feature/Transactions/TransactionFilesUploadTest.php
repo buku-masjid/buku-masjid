@@ -4,10 +4,12 @@ namespace Tests\Feature\Transactions;
 
 use App\Jobs\Files\OptimizeImage;
 use App\Models\Book;
+use App\Services\SystemInfo\DiskUsageService;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
+use Tests\Fakes\FakeDiskUsageService;
 use Tests\TestCase;
 
 class TransactionFilesUploadTest extends TestCase
@@ -60,6 +62,34 @@ class TransactionFilesUploadTest extends TestCase
         Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
             return $job->file->id = $file->id;
         });
+    }
+
+    /** @test */
+    public function user_cannot_upload_transaction_files_when_disk_is_full()
+    {
+        Bus::fake();
+        Storage::fake(config('filesystem.default'));
+
+        $this->app->instance(DiskUsageService::class, new FakeDiskUsageService);
+
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => 0,
+            'amount' => 99.99,
+            'creator_id' => $user->id,
+            'book_id' => $book->id,
+        ]);
+
+        view()->share('isDiskFull', true);
+
+        $this->visitRoute('transactions.show', $transaction);
+
+        $this->see(__('transaction.disk_is_full'));
+        $this->seeElement('a', [
+            'id' => 'upload_files-transaction-'.$transaction->id,
+            'class' => 'btn btn-success mr-2 disabled',
+        ]);
     }
 
     /** @test */
