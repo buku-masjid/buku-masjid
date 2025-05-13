@@ -18,7 +18,7 @@
 </section>
 <div class="section-bottom">
     <div class="container-md p-3 home-bottom">
-        <h2 class="fw-bolder mb-3">Infaq</h2>
+        <h2 class="fw-bolder mb-3">infak</h2>
         <div class="row row-cols-lg-2 row-cols-xl-3">
             @forelse ($bankAccounts as $bankAccount)
                 <div class="col-lg ps-sm-0">

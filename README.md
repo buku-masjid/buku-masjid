@@ -12,8 +12,8 @@ Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berba
 
 ## Manfaat
 
-- Meningkatkan kepercayaan jamaah/masyarakat terhadap pengelolaan dana infaq masjid/mushalla.
-- Memudahkan masyarakat dalam memutuskan untuk berinfaq ke masjid tertentu.
+- Meningkatkan kepercayaan jamaah/masyarakat terhadap pengelolaan dana infak masjid/mushalla.
+- Memudahkan masyarakat dalam memutuskan untuk berinfak ke masjid tertentu.
 - Mengurangi beban tugas bendahara dalam pembuatan laporan kas masjid/mushalla.
 - Memungkinkan masyarakat/jamaah untuk memantau jadwal pengajian secara online.
 
