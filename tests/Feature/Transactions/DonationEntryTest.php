@@ -42,7 +42,7 @@ class DonationEntryTest extends TestCase
             'in_out' => Transaction::TYPE_INCOME,
             'amount' => 99.99,
             'date' => '2024-11-26',
-            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'|Doa donatur.',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]) . '|Doa donatur.',
             'category_id' => null,
             'bank_account_id' => null,
             'book_id' => $book->id,
@@ -51,7 +51,8 @@ class DonationEntryTest extends TestCase
     }
 
     /** @test */
-    public function user_can_entry_transction_from_donors_index_page_with_uploaded_files(){
+    public function user_can_entry_transction_from_donors_index_page_with_uploaded_files()
+    {
         Bus::fake();
         Storage::fake(config('filesystem.default'));
 
@@ -84,7 +85,7 @@ class DonationEntryTest extends TestCase
             'in_out' => Transaction::TYPE_INCOME,
             'amount' => 99.99,
             'date' => '2024-11-26',
-            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'|Doa donatur.',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]) . '|Doa donatur.',
             'category_id' => null,
             'bank_account_id' => null,
             'book_id' => $book->id,
@@ -148,7 +149,7 @@ class DonationEntryTest extends TestCase
             'in_out' => Transaction::TYPE_INCOME,
             'amount' => 99.99,
             'date' => '2024-11-26',
-            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'|Doa donatur.',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]) . '|Doa donatur.',
             'category_id' => null,
             'bank_account_id' => null,
             'book_id' => $book->id,
@@ -157,7 +158,8 @@ class DonationEntryTest extends TestCase
     }
 
     /** @test */
-    public function user_can_entry_transction_from_new_donor_with_uploaded_files(){
+    public function user_can_entry_transction_from_new_donor_with_uploaded_files()
+    {
         Bus::fake();
         Storage::fake(config('filesystem.default'));
 
@@ -188,7 +190,7 @@ class DonationEntryTest extends TestCase
 
         $this->seeRouteIs('donors.index');
         $this->see(__('transaction.income_added'));
-        
+
         $this->seeInDatabase('partners', [
             'name' => 'Abdullah',
             'phone' => '081234567890',
@@ -204,7 +206,7 @@ class DonationEntryTest extends TestCase
             'in_out' => Transaction::TYPE_INCOME,
             'amount' => 99.99,
             'date' => '2024-11-26',
-            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'|Doa donatur.',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]) . '|Doa donatur.',
             'category_id' => null,
             'bank_account_id' => null,
             'book_id' => $book->id,
@@ -255,7 +257,7 @@ class DonationEntryTest extends TestCase
             'in_out' => Transaction::TYPE_INCOME,
             'amount' => 99.99,
             'date' => '2024-11-26',
-            'description' => __('donor.donation_from', ['donor_name' => $partner->name]).'',
+            'description' => __('donor.donation_from', ['donor_name' => $partner->name]) . '',
             'category_id' => null,
             'bank_account_id' => null,
             'book_id' => $book->id,
