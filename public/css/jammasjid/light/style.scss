@@ -1,0 +1,66 @@
+/* JAMMASJID */
+.bm-bg-jammasjid  { background-color: #efefef;}
+.big-time         { font-size:7vw; font-weight: bold;}
+.jm-timeremaining { font-size: 3vw; font-weight: bold;}
+.jm-card          { background-color: #c9dee0; border-radius: 20px}
+.jm-card-active   { background-color: #20616a; color: white !important;
+  .timeSholat       {
+    h1              { font-size: 2.5vw; color: #fff;}
+  };
+}
+.timeSholat       {
+  h1              { font-size: 2.5vw; color: #2d6974; font-weight: bold;}
+  h4              { font-size: 2rem; margin-bottom: 20px}
+}
+.jm-section       { display: flex; flex-direction: row; box-sizing: border-box; width: 100%;
+                    align-items: stretch; }
+.jm-left-column   { flex: 1; display: flex;  box-sizing: border-box; }
+.jm-left-column.split { display: flex; flex-direction: column; }
+.jm-left-top, .jm-left-bottom 
+                  { flex: 1; display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 100%; }
+.jm-right-column  { width: 75%; display: flex; box-sizing: border-box; }
+.jm-section:nth-child(1) { height: 10vh; }
+.jm-section:nth-child(2) { height: 70vh; }
+.jm-section:nth-child(3) { height: 20vh; }
+.jm-header        { margin:0;  }
+.jm-right-column img { width: 100%; object-fit: cover; height: auto; aspect-ratio: 16/9;}
+.carousel-inner { border-radius: 20px;}
+.carousel-item img { width: 100%; object-fit: contain; height: auto; aspect-ratio: 16/9;}
+
+/* SLIDER FINANCIAL */
+@mixin white-gradient {
+	background: linear-gradient(to right,  rgba(201, 222, 224,1) 0%,rgba(201, 222, 224,0) 100%);
+}
+$animationSpeed: 40s;
+@keyframes scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-35vw * 4))}
+}
+.slider {
+	background: #c9dee0; overflow:hidden; position: relative; border-radius: 20px;
+	
+	&::before,
+	&::after {
+		@include white-gradient;
+		content: ""; height: 100%; position: absolute; width: 200px; z-index: 2;
+	}
+	
+	&::after { right: 0; top: 0; transform: rotateZ(180deg); }
+	&::before { left: 0; top: 0; }
+	
+	.slide-track {
+		animation: scroll $animationSpeed linear infinite; flex-shrink: 0;
+		display: flex; align-items: center; justify-content: space-around; min-width: 100%;
+	}
+	
+	.slide {
+		flex: 0 0 auto; box-sizing: border-box; padding: 0px 50px; width: 35vw;
+		h1 			{ font-size: 1.7vw;}
+		.sum-info 	{ font-size: 1vw;}
+	}
+}
+
+@media (max-width: 600px) {
+    .jm-section { flex-direction: column; }
+    .jm-left-column, .jm-right-column { width: 100%; height: auto;}
+}
