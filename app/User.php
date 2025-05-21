@@ -51,6 +51,6 @@ class User extends Authenticatable
 
     public function getStatusAttribute()
     {
-        return $this->is_active ? __('app.active') : __('app.in_active');
+        return $this->is_active ? __('app.active') : __('app.inactive');
     }
 }
