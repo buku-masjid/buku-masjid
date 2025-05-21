@@ -26,7 +26,7 @@ class DonationCreateRequest extends FormRequest
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
             'files' => ['nullable', 'array'],
-            'files.*' => ['file', 'max:5120'],
+            'files.*' => ['file', 'mimes:jpg,bmp,png,avif,webp', 'max:5120'],
         ];
         if ($this->get('partner_id')) {
             $rules['partner_id'] = 'required_without:partner_name|exists:partners,id';
