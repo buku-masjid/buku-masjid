@@ -29,7 +29,6 @@ return [
     'undeleted' => 'Data Donatur gagal dihapus.',
     'undeleteable' => 'Data Donatur tidak dapat dihapus.',
     'upload_files' => 'Upload Bukti Transaksi',
-    'upload_file_placeholder' => 'Dokumentasi serah terima / pembayaran',
 
     // Attributes
     'name' => 'Nama Donatur',
