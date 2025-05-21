@@ -30,11 +30,28 @@
     @yield('head_tags')
     @yield('styles')
 </head>
-<body class="bm-bg-jammasjid p-4">
-    
+<body class="bm-bg-jammasjid p-4 relative">
+    <!-- Prayer Interlude Modal -->
+    <div id="prayerInterludeModal" class="prayer-modal">
+        <div class="prayer-message">
+            <h2>Menuju Iqomah</h2>
+            <div id="interludeCountdown" class="countdown-timer">00:00</div>
+            <img src="{{ asset('images/bm_logo_white.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
+        </div>
+    </div>
+    <div id="prayerModal" class="prayer-modal">
+        <div class="prayer-message">
+            <h1>Sholat Sedang Berlangsung</h1>
+        </div>
+    </div>
     @yield('content')
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/js/tabler.min.js"></script>
     @stack('scripts')
-</body>
-</html> 
+     <script>
+         window.prayerStartIn = {{ env('PRAYER_START_IN', 5) }}; // Default 5 minutes
+         window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
+     </script>
+     <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
+ </body>
+</html>

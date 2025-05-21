@@ -1,6 +1,60 @@
 /* JAMMASJID */
+/* Prayer Modal */
+.prayer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 111, 106, 0.75);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+  display: flex;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.prayer-modal.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s ease, visibility 0.1s ease;
+}
+
+.prayer-message {
+  color: white;
+  text-align: center;
+}
+.prayer-message h2 {
+  font-size: 6vw;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+.prayer-message .countdown-timer {
+  font-size: 25vw;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 1rem;
+  letter-spacing: -1vw;
+  line-height: 1;
+}
+.prayer-message h1 {
+  font-size: 10vw;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.jm-masjid-name {
+  font-size: 1.5vw;
+  font-weight: bold;
+  line-height: 1;
+}
+
 .bm-bg-jammasjid {
-  background-color: #20716B;
+  background-color: rgb(31, 111, 106);
 }
 
 .big-time {
@@ -66,20 +120,17 @@
   box-sizing: border-box;
 }
 
-.jm-section:nth-child(1) {
+.jm-header {
+  margin: 0;
   height: 10vh;
 }
 
-.jm-section:nth-child(2) {
+.jm-main-content {
   height: 70vh;
 }
 
-.jm-section:nth-child(3) {
+.jm-footer {
   height: 20vh;
-}
-
-.jm-header {
-  margin: 0;
 }
 
 .jm-right-column img {
@@ -96,10 +147,10 @@
 
 .carousel-item img {
   width: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-  height: auto;
-  aspect-ratio: 16/9;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  aspect-ratio: 16/8;
 }
 
 .report-header h1 {

@@ -1,31 +1,82 @@
 /* JAMMASJID */
-.bm-bg-jammasjid  { background-color: #efefef;}
-.big-time         { font-size:7vw; font-weight: bold;}
-.jm-timeremaining { font-size: 3vw; font-weight: bold;}
-.jm-card          { background-color: #c9dee0; border-radius: 20px}
-.jm-card-active   { background-color: #20616a; color: white !important;
+/* Prayer Modal */
+.prayer-modal { 
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(255, 255, 255, 0.75);
+    z-index: 9999; 
+    justify-content: center; 
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    display: flex;
+	-webkit-backdrop-filter: blur(20px);
+  	backdrop-filter: blur(20px);
+}
+
+.prayer-modal.show { 
+    opacity: 1;
+    visibility: visible;
+	transition: opacity 0.1s ease, visibility 0.1s ease;
+}
+
+.prayer-message {
+    color: #2d6974;
+    text-align: center;
+
+    h2 {
+        font-size: 6vw;
+        margin-bottom: 2rem;
+        color: #2d6974;
+    }
+
+    .countdown-timer {
+        font-size: 25vw;
+        font-weight: bold;
+        color: #2d6974;
+        margin-top: 1rem;
+		letter-spacing: -1vw;
+		line-height: 1;
+    }
+	h1 {
+        font-size: 10vw;
+        color: #2d6974;
+		line-height: 1;
+    }
+}
+
+.jm-masjid-name     {font-size: 1.5vw; font-weight: bold; line-height: 1;}
+.bm-bg-jammasjid  	{ background-color: #efefef;}
+.big-time         	{ font-size:7vw; font-weight: bold;}
+.jm-timeremaining 	{ font-size: 3vw; font-weight: bold;}
+.jm-card          	{ background-color: #c9dee0; border-radius: 20px}
+.jm-card-active   	{ background-color: #20616a; color: white !important;
   .timeSholat       {
     h1              { font-size: 2.5vw; color: #fff;}
   };
 }
-.timeSholat       {
-  h1              { font-size: 2.5vw; color: #2d6974; font-weight: bold;}
-  h4              { font-size: 2rem; margin-bottom: 20px}
+.timeSholat       	{
+  h1              	{ font-size: 2.5vw; color: #2d6974; font-weight: bold;}
+  h4              	{ font-size: 2rem; margin-bottom: 20px}
 }
-.jm-section       { display: flex; flex-direction: row; box-sizing: border-box; width: 100%;
+.jm-section       	{ display: flex; flex-direction: row; box-sizing: border-box; width: 100%;
                     align-items: stretch; }
-.jm-left-column   { flex: 1; display: flex;  box-sizing: border-box; }
+.jm-left-column   	{ flex: 1; display: flex;  box-sizing: border-box; }
 .jm-left-column.split { display: flex; flex-direction: column; }
 .jm-left-top, .jm-left-bottom 
-                  { flex: 1; display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 100%; }
-.jm-right-column  { width: 75%; display: flex; box-sizing: border-box; }
-.jm-section:nth-child(1) { height: 10vh; }
-.jm-section:nth-child(2) { height: 70vh; }
-.jm-section:nth-child(3) { height: 20vh; }
-.jm-header        { margin:0;  }
-.jm-right-column img { width: 100%; object-fit: cover; height: auto; aspect-ratio: 16/9;}
-.carousel-inner { border-radius: 20px;}
-.carousel-item img { width: 100%; object-fit: contain; height: auto; aspect-ratio: 16/9;}
+                  	{ flex: 1; display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 100%; }
+.jm-right-column  	{ width: 75%; display: flex; box-sizing: border-box; }
+.jm-header        	{ margin:0;  height: 10vh; }
+.jm-main-content 	{ height: 70vh; }
+.jm-footer 			{ height: 20vh; }
+.jm-right-column img 
+					{ width: 100%; object-fit: cover; height: auto; aspect-ratio: 16/9;}
+.carousel-inner 	{ border-radius: 20px;}
+.carousel-item img 	{ width: 100%; object-fit: cover; height: auto; aspect-ratio: 16/8;}
 
 /* SLIDER FINANCIAL */
 @mixin white-gradient {

@@ -3,6 +3,9 @@
 @extends('jammasjid.themes.default.layout')
 
 @section('content')
+    <div id="prayerModal" class="prayer-modal">
+        <div class="prayer-message">Sholat Sedang Berlangsung</div>
+    </div>
     <div class="jm-section jm-header">
         <div class="jm-left-column pe-3 align-items-center justify-content-start jm-card me-4 text-start">
             @include('jammasjid.themes.default._masjid_info')
@@ -137,6 +140,22 @@
     }
     updateTimeInfo();
     setInterval(updateTimeInfo, 1000);
+
+    // Calculate the total width of all child elements
+    const myDiv = document.getElementById("slide-track");
+    const childElements = myDiv.children;
+    const numberOfChildren = childElements.length;
+    let totalWidth = 0; 
+    //console.log("Number of children:", numberOfChildren);
+
+    for (let i = 0; i < numberOfChildren; i++) {
+        const child = childElements[i];
+        const width = child.offsetWidth;
+        //console.log(`Element ${i + 1} width: ${width}px`);
+        totalWidth += width;
+    }
+
+    myDiv.style.width = totalWidth + 'px'; 
 </script>
 @endsection
 

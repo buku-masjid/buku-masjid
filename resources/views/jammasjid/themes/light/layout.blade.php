@@ -19,8 +19,8 @@
     <meta property="og:title" content="@yield('title') - {{ Setting::get('masjid_name', config('masjid.name')) }}" />
 
     <!-- Styles -->
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/css/tabler.min.css" />
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
     @php $theme = env('JAMMASJID_THEME', 'default'); @endphp
@@ -30,9 +30,28 @@
     @yield('head_tags')
     @yield('styles')
 </head>
-<body class="bm-bg-jammasjid p-4">
+<body class="bm-bg-jammasjid p-4 relative">
+    <!-- Prayer Interlude Modal -->
+    <div id="prayerInterludeModal" class="prayer-modal">
+        <div class="prayer-message">
+            <h2>Menuju Iqomah</h2>
+            <div id="interludeCountdown" class="countdown-timer">00:00</div>
+            <img src="{{ asset('images/logo_bukumasjid.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
+        </div>
+    </div>
+    <div id="prayerModal" class="prayer-modal">
+        <div class="prayer-message">
+            <h1>Sholat Sedang Berlangsung</h1>
+        </div>
+    </div>
     @yield('content')
     <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/js/tabler.min.js"></script>
     @stack('scripts')
-</body>
-</html> 
+     <script>
+          window.prayerStartIn = {{ env('PRAYER_START_IN', 5) }}; // Default 5 minutes
+          window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
+     </script>
+     <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
+ </body>
+</html>
