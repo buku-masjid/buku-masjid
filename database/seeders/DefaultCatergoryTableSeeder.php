@@ -9,10 +9,10 @@ class DefaultCatergoryTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Category::create(['name' => 'Kotak Infaq Hari Jumat', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
-        Category::create(['name' => 'Kotak Infaq Kajian', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
-        Category::create(['name' => 'Kotak Infaq Harian', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
-        Category::create(['name' => 'Pemasukan Infaq Lain-lain', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
+        Category::create(['name' => 'Kotak infak Hari Jumat', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
+        Category::create(['name' => 'Kotak infak Kajian', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
+        Category::create(['name' => 'Kotak infak Harian', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
+        Category::create(['name' => 'Pemasukan infak Lain-lain', 'color' => '#00AABB', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
         Category::create(['name' => 'Gaji Karyawan', 'color' => '#F16867', 'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL, 'creator_id' => 1, 'book_id' => 1]);
         Category::create(['name' => 'Insentif Hari Jumat', 'color' => '#F16867', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);
         Category::create(['name' => 'Insentif Kajian', 'color' => '#F16867', 'report_visibility_code' => Category::REPORT_VISIBILITY_PUBLIC, 'creator_id' => 1, 'book_id' => 1]);

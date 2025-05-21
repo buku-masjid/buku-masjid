@@ -25,7 +25,7 @@ return [
     'left_part' => 'Bagian Kiri',
     'mid_part' => 'Bagian Tengah',
     'right_part' => 'Bagian Kanan',
-    'donate' => 'Infaq',
+    'donate' => 'infak',
     'program' => 'Program',
     'contact' => 'Kontak',
     'printed_at' => 'Dicetak pada',
