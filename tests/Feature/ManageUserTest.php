@@ -99,6 +99,28 @@ class ManageUserTest extends TestCase
         ]));
     }
 
+     /** @test */
+     public function user_can_inactive_a_user()
+     {
+         $this->loginAsUser();
+         $user = $this->createUser('finance', ['name' => 'Testing Inactive User']);
+
+         $this->visitRoute('users.show', $user);
+         $this->click('edit-user-'.$user->id);
+         $this->seeRouteIs('users.edit', $user);
+
+         $this->submitForm(__('user.update'), $this->getEditFields([
+             'is_active' => 0,
+         ]));
+
+         $this->seeRouteIs('users.show', $user);
+
+         $this->seeInDatabase('users', $this->getEditFields([
+             'id' => $user->id,
+             'is_active' => 0,
+         ]));
+     }
+
     /** @test */
     public function validate_user_name_update_is_required()
     {
