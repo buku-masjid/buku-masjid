@@ -6,6 +6,7 @@
 /.idea
 /.vscode
 /.vagrant
+/.yarn
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -14,3 +15,4 @@ yarn-error.log
 .env.backup
 .phpunit.result.cache
 .phpunit.cache/
+.yarnrc.yml

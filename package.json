@@ -20,5 +20,6 @@
         "postcss": "^8.1",
         "sass": "^1.32.8",
         "sass-loader": "8.*"
-    }
+    },
+    "packageManager": "yarn@1.22.22"
 }
