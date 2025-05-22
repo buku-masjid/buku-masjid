@@ -1,4 +1,4 @@
-@if (request('action') == 'upload_files' && $transaction)
+@if (request('action') == 'upload_files' && $transaction && !$isDiskFull)
     @can('update', $transaction)
     <div id="transactionModal" class="modal" role="dialog">
         <div class="modal-dialog">
