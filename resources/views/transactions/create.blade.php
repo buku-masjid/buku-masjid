@@ -60,13 +60,14 @@
                     <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
                         @if($isDiskFull)
-                            <div class="alert alert-danger my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
-                        @endif
-                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
-                        @if ($errors->has('files.*'))
-                            @foreach ($errors->get('files.*') as $key => $errorMessages)
-                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                            @endforeach
+                            <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+                        @else
+                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
+                            @if ($errors->has('files.*'))
+                                @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                    {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                                @endforeach
+                            @endif
                         @endif
                     </div>
                 </div>
