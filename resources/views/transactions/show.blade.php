@@ -111,7 +111,7 @@
     <div class="col-md-6">
         <div class="card">
             @if ($isDiskFull)
-                <div class="alert alert-danger m-0 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+                <div class="alert alert-warning m-0 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
             @endif
             <div class="card-header">
                 <h3 class="card-title">
