@@ -63,11 +63,15 @@
                 {!! FormField::textarea('notes', ['label' => __('donor.notes'), 'placeholder' => __('donor.notes_placeholder')]) !!}
                 <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
                     <label for="files" class="form-label fw-bold">{{ __('donor.upload_files') }}</label>
-                    {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
-                    @if ($errors->has('files.*'))
-                        @foreach ($errors->get('files.*') as $key => $errorMessages)
-                            {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                        @endforeach
+                    @if($isDiskFull)
+                        <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+                    @else
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
                     @endif
                 </div>
             </div>
@@ -75,7 +79,6 @@
                 {!! Form::submit(__('donor.add_donation'), ['class' => 'btn btn-success']) !!}
                 {{ Form::hidden('reference_page', request('reference_page')) }}
                 @if (request('partner_id') && isset($partners[request('partner_id')]))
-                    {{-- expr --}}
                     {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn btn-secondary']) }}
                 @else
                     {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}

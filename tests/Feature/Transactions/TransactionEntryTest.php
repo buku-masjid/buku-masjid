@@ -7,10 +7,12 @@ use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Partner;
+use App\Services\SystemInfo\DiskUsageService;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
+use Tests\Fakes\FakeDiskUsageService;
 use Tests\TestCase;
 
 class TransactionEntryTest extends TestCase
@@ -233,6 +235,28 @@ class TransactionEntryTest extends TestCase
         Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
             return $job->file->id = $file->id;
         });
+    }
+
+    /** @test */
+    public function user_cannot_create_a_transaction_with_uploaded_files_when_disk_is_full()
+    {
+        $month = '01';
+        $year = '2017';
+        $this->app->instance(DiskUsageService::class, new FakeDiskUsageService());
+
+        $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $bankAccount = factory(BankAccount::class)->create();
+        $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
+
+        $this->click(__('transaction.add_spending'));
+        $this->seeRouteIs('transactions.create', ['action' => 'add-spending', 'month' => $month, 'year' => $year]);
+
+        $this->see(__('transaction.disk_is_full'));
+        $this->dontSeeElement('input', [
+            'type' => 'file',
+            'name' => 'files[]',
+        ]);
     }
 
     /** @test */

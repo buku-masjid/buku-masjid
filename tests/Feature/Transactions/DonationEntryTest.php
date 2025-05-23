@@ -5,10 +5,12 @@ namespace Tests\Feature\Transactions;
 use App\Jobs\Files\OptimizeImage;
 use App\Models\Book;
 use App\Models\Partner;
+use App\Services\SystemInfo\DiskUsageService;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
+use Tests\Fakes\FakeDiskUsageService;
 use Tests\TestCase;
 
 class DonationEntryTest extends TestCase
@@ -106,6 +108,26 @@ class DonationEntryTest extends TestCase
         Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
             return $job->file->id = $file->id;
         });
+    }
+
+    /** @test */
+    public function user_can_entry_transction_from_donors_with_uploaded_files_if_disk_is_full()
+    {
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $partner = factory(Partner::class)->create(['type_code' => ['donatur']]);
+        $this->app->instance(DiskUsageService::class, new FakeDiskUsageService);
+
+        $this->visitRoute('donors.index');
+
+        $this->click(__('donor.add_donation'));
+        $this->seeRouteIs('donor_transactions.create');
+
+        $this->see(__('transaction.disk_is_full'));
+        $this->dontSeeElement('input', [
+            'type' => 'file',
+            'name' => 'files[]',
+        ]);
     }
 
     /** @test */

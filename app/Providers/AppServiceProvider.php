@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(
             [
-                'transactions.create', 'transactions.show',
+                'donors.transactions.create', 'transactions.create', 'transactions.show',
             ],
             function ($view) {
                 $disk = app('App\Services\SystemInfo\DiskUsageService'::class);
