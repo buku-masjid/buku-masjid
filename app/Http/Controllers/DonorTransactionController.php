@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Transactions\DonationCreateRequest;
+use App\Jobs\Files\OptimizeImage;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Partner;
@@ -56,6 +57,18 @@ class DonorTransactionController extends Controller
             'creator_id' => auth()->id(),
         ];
         $transaction = Transaction::create($newTransaction);
+
+        if (isset($payload['files'])) {
+            $filePath = 'files/'.now()->format('Y/m/d');
+            foreach ($payload['files'] as $uploadedFile) {
+                $fileName = $uploadedFile->store($filePath);
+                $file = $transaction->files()->create([
+                    'type_code' => 'raw_image',
+                    'file_path' => $fileName,
+                ]);
+                dispatch(new OptimizeImage($file));
+            }
+        }
 
         flash(__('transaction.income_added'), 'success');
 
