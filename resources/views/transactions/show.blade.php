@@ -110,6 +110,9 @@
     </div>
     <div class="col-md-6">
         <div class="card">
+            @if ($isDiskFull)
+                <div class="alert alert-warning m-0 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+            @endif
             <div class="card-header">
                 <h3 class="card-title">
                     {{ __('transaction.files') }}
@@ -124,7 +127,12 @@
                                 'transactions.show',
                                 __('transaction.upload_files'),
                                 [$transaction, 'action' => 'upload_files'],
-                                ['id' => 'upload_files-transaction-'.$transaction->id, 'class' => 'btn btn-success mr-2']
+                                [
+                                    'id' => 'upload_files-transaction-'.$transaction->id,
+                                    'class' => 'btn btn-success mr-2'. ($isDiskFull ? ' disabled' : ''),
+                                    'aria-disabled' => $isDiskFull ? 'true' : null,
+                                    'onclick' => $isDiskFull ? 'return false;' : null,
+                                ]
                             ) !!}
                         @endcan
                     @endcan

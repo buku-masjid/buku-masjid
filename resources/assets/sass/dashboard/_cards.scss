@@ -20,7 +20,7 @@
 	padding: $card-spacer-y $card-spacer-x;
 	position: relative;
 
-	& + & {
+	&+& {
 		border-top: 1px solid $border-color;
 	}
 
@@ -59,7 +59,7 @@
 		margin-bottom: 0;
 	}
 
-	&.border-0 + .card-body {
+	&.border-0+.card-body {
 		padding-top: 0;
 	}
 
@@ -110,6 +110,7 @@
 
 	tr {
 		&:first-child {
+
 			td,
 			th {
 				border-top: 0;
@@ -128,7 +129,7 @@
 		}
 	}
 
-	.card-body + & {
+	.card-body+& {
 		border-top: 1px solid $border-color;
 	}
 }
@@ -150,13 +151,13 @@
 }
 
 .card-link {
-	+ .card-link {
+	+.card-link {
 		margin-left: 1rem;
 	}
 }
 
 .card-list-group {
-	.card-body + & {
+	.card-body+& {
 		border-top: 1px solid $border-color;
 	}
 
@@ -218,8 +219,7 @@
 	}
 }
 
-.card-text {
-}
+.card-text {}
 
 .card-chart-bg {
 	height: 4rem;
@@ -252,6 +252,11 @@
 			font-size: 1rem;
 			vertical-align: middle;
 		}
+	}
+
+	a.btn.disabled {
+		pointer-events: auto;
+		cursor: not-allowed;
 	}
 
 	.dropdown-toggle {
@@ -348,7 +353,7 @@ Card tabs
 		}
 	}
 
-	& + & {
+	&+& {
 		border-left: 1px solid $border-color;
 	}
 }

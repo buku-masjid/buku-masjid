@@ -72,6 +72,18 @@ class AppServiceProvider extends ServiceProvider
 
             return $view->with('activeBooks', $activeBooks);
         });
+
+        View::composer(
+            [
+                'transactions.create', 'transactions.show',
+            ],
+            function ($view) {
+                $disk = app('App\Services\SystemInfo\DiskUsageService'::class);
+                $view->with([
+                    'isDiskFull' => $disk->getIsFull(),
+                ]);
+            }
+        );
     }
 
     /**

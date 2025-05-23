@@ -1,4 +1,4 @@
-@if (request('action') == 'upload_files' && $transaction)
+@if (request('action') == 'upload_files' && $transaction && !$isDiskFull)
     @can('update', $transaction)
     <div id="transactionModal" class="modal" role="dialog">
         <div class="modal-dialog">
@@ -11,7 +11,7 @@
                 <div class="modal-body">
                     <div class="form-group mb-3 {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('file.select') }} <span class="text-danger">*</span></label>
-                        {{ Form::file('files[]', ['required' => true, 'multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        {{ Form::file('files[]', ['required' => true, 'multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
                         @if ($errors->has('files.*'))
                             @foreach ($errors->get('files.*') as $key => $errorMessages)
                                 {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
