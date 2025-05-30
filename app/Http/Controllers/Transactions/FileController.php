@@ -16,7 +16,7 @@ class FileController extends Controller
 
         $payload = $request->validate([
             'files' => ['required', 'array'],
-            'files.*' => ['file', 'mimes:jpg,bmp,png', 'max:5120'],
+            'files.*' => ['file', 'mimes:jpg,bmp,png,avif,webp', 'max:5120'],
             'title' => ['nullable', 'max:255'],
             'description' => ['nullable', 'max:255'],
         ]);
