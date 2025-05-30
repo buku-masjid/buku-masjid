@@ -1,5 +1,3 @@
-
-
 @extends('jammasjid.themes.default.layout')
 
 @section('content')
