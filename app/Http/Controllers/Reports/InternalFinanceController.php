@@ -170,6 +170,9 @@ class InternalFinanceController extends FinanceController
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
         $currentMonthEndDate = $endDate->clone();
+        $weekLabels = $this->getWeekLabelsByDateRange(
+            $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $book->start_week_day_code
+        );
 
         $reportPeriode = $book->report_periode_code;
         $lastMonthDate = Carbon::parse($startDate)->subDay();
@@ -177,8 +180,8 @@ class InternalFinanceController extends FinanceController
             ->prepend(__('transaction.cash'), 'null');
 
         return view('reports.finance.'.$reportPeriode.'.detailed', compact(
-            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate',
-            'reportPeriode', 'lastMonthDate', 'bankAccounts'
+            'startDate', 'endDate', 'groupedTransactions', 'currentMonthEndDate', 'reportPeriode', 'lastMonthDate',
+            'bankAccounts', 'weekLabels'
         ));
     }
 
@@ -190,12 +193,15 @@ class InternalFinanceController extends FinanceController
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
         $currentMonthEndDate = $endDate->clone();
+        $weekLabels = $this->getWeekLabelsByDateRange(
+            $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $book->start_week_day_code
+        );
         $showLetterhead = $this->showLetterhead();
         $reportPeriode = $book->report_periode_code;
         $lastMonthDate = Carbon::parse($startDate)->subDay();
         $passedVariables = compact(
-            'startDate', 'endDate', 'groupedTransactions', 'lastMonthDate',
-            'currentMonthEndDate', 'showLetterhead', 'reportPeriode'
+            'startDate', 'endDate', 'groupedTransactions', 'lastMonthDate', 'currentMonthEndDate', 'showLetterhead',
+            'reportPeriode', 'weekLabels'
         );
 
         // return view('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables);

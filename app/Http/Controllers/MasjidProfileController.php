@@ -32,10 +32,10 @@ class MasjidProfileController extends Controller
             'masjid_city_name' => 'required|string|max:255',
             'masjid_google_maps_link' => ['nullable', 'url', 'max:255'],
             'masjid_whatsapp_number' => ['nullable', 'alpha_num', 'max:255'],
-            'masjid_instagram_username' => ['nullable', 'alpha_num', 'max:255'],
-            'masjid_youtube_username' => ['nullable', 'alpha_num', 'max:255'],
-            'masjid_facebook_username' => ['nullable', 'alpha_num', 'max:255'],
-            'masjid_telegram_username' => ['nullable', 'alpha_num', 'max:255'],
+            'masjid_instagram_username' => ['nullable', 'regex:/^@?(?!.*\.\.)(?!.*--)[a-zA-Z][a-zA-Z0-9._-]{4,31}$/', 'max:255'],
+            'masjid_youtube_username' => ['nullable', 'regex:/^@?(?!.*\.\.)(?!.*--)[a-zA-Z][a-zA-Z0-9._-]{4,31}$/', 'max:255'],
+            'masjid_facebook_username' => ['nullable', 'regex:/^@?(?!.*\.\.)(?!.*--)[a-zA-Z][a-zA-Z0-9._-]{4,31}$/', 'max:255'],
+            'masjid_telegram_username' => ['nullable', 'regex:/^@?(?!.*\.\.)(?!.*--)[a-zA-Z][a-zA-Z0-9._-]{4,31}$/', 'max:255'],
         ]);
 
         Setting::set('masjid_name', $validatedPayload['masjid_name']);
