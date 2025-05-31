@@ -1,4 +1,4 @@
-// Prayer Modal Logic
+// Prayer Modal Iqumah Logic
 document.addEventListener('DOMContentLoaded', function() {
     const prayerModal = document.getElementById('prayerModal');
     const prayerInterludeModal = document.getElementById('prayerInterludeModal');
