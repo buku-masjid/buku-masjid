@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
+    <meta http-equiv="refresh" content="600"> <!-- Refresh every 10 minutes -->
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -27,6 +28,13 @@
     <link href="{{ asset('css/jammasjid/' . $theme . '/style.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     @yield('head_tags')
     @yield('styles')
 </head>
@@ -53,5 +61,6 @@
           window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
      </script>
      <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
+     <script src="{{ asset('js/jammasjid/kiosk-mode.js') }}"></script>
  </body>
 </html>
