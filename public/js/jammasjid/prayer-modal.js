@@ -1,7 +1,9 @@
+
 // Prayer Modal Iqumah Logic
 document.addEventListener('DOMContentLoaded', function() {
     const prayerModal = document.getElementById('prayerModal');
     const prayerInterludeModal = document.getElementById('prayerInterludeModal');
+    const fridayPrayerModal = document.getElementById('fridayPrayerModal');
     const interludeCountdown = document.getElementById('interludeCountdown');
     const timeRemainingElement = document.getElementById('timeRemaining');
     let startTimeout, endTimeout, countdownInterval;
@@ -13,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle modal visibility
     function toggleModal() {
-        if (prayerInterludeModal) {
-            prayerInterludeModal.classList.toggle('show');
+        if (prayerModal) {
+            prayerModal.classList.toggle('show');
         }
     }
 
@@ -37,6 +39,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Clear any existing timeouts
                 if (startTimeout) clearTimeout(startTimeout);
                 if (endTimeout) clearTimeout(endTimeout);
+
+                // --- SPECIAL CASE: Friday Ashar ---
+                const today = new Date();
+                const isFriday = today.getDay() === 1;
+                const nextPrayer = (window.nextPrayerName || '').toLowerCase();
+
+                console.log('isFriday:', isFriday);
+                console.log('nextPrayer:', nextPrayer);
+
+                if (isFriday && nextPrayer === 'ashar') {
+                    // Show Friday modal directly, skip interlude
+                    if (fridayPrayerModal) {
+                        fridayPrayerModal.classList.add('show');
+                        endTimeout = setTimeout(() => {
+                            fridayPrayerModal.classList.remove('show');
+                        }, (window.fridayPrayerEndIn || 10) * 60 * 1000); // default 10 min if not set
+                    }
+                    return; // Stop further execution
+                }
 
                 // Show interlude modal with countdown
                 if (prayerInterludeModal) {

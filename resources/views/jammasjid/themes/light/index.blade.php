@@ -1,6 +1,6 @@
 
 
-@extends('jammasjid.themes.default.layout')
+@extends('jammasjid.themes.light.layout')
 
 @section('content')
     <div id="prayerModal" class="prayer-modal">

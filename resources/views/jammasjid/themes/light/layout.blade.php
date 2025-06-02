@@ -24,7 +24,7 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
-    @php $theme = env('JAMMASJID_THEME', 'default'); @endphp
+    @php $theme = env('JAMMASJID_THEME', 'light'); @endphp
     <link href="{{ asset('css/jammasjid/' . $theme . '/style.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
@@ -44,12 +44,21 @@
         <div class="prayer-message">
             <h2>Menuju Iqomah</h2>
             <div id="interludeCountdown" class="countdown-timer">00:00</div>
-            <img src="{{ asset('images/logo_bukumasjid.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
+            <img src="{{ asset('images/bm_logo_teal.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
         </div>
     </div>
     <div id="prayerModal" class="prayer-modal">
         <div class="prayer-message">
+            <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="margin-bottom: 100px;">
             <h1>Sholat Sedang Berlangsung</h1>
+            <img src="{{ asset('images/bm_logo_teal.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
+        </div>
+    </div>
+    <div id="fridayPrayerModal" class="prayer-modal">
+        <div class="prayer-message">
+            <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="margin-bottom: 100px;">
+            <h2 style="line-height: 1;">Ibadah<br>Sholat Jumat<br>Sedang Berlangsung</h2>
+            <img src="{{ asset('images/bm_logo_teal.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
         </div>
     </div>
     @yield('content')
@@ -59,6 +68,7 @@
      <script>
           window.prayerStartIn = {{ env('PRAYER_START_IN', 5) }}; // Default 5 minutes
           window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
+          window.fridayPrayerEndIn = {{ env('FRIDAY_END_IN', 40) }}; // Default 40 minutes
      </script>
      <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
      <script src="{{ asset('js/jammasjid/kiosk-mode.js') }}"></script>

@@ -49,7 +49,16 @@
     </div>
     <div id="prayerModal" class="prayer-modal">
         <div class="prayer-message">
+            <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="margin-bottom: 100px;">
             <h1>Sholat Sedang Berlangsung</h1>
+            <img src="{{ asset('images/bm_logo_white.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
+        </div>
+    </div>
+    <div id="fridayPrayerModal" class="prayer-modal">
+        <div class="prayer-message">
+            <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="margin-bottom: 100px;">
+            <h2 style="line-height: 1;">Ibadah<br>Sholat Jumat<br>Sedang Berlangsung</h2>
+            <img src="{{ asset('images/bm_logo_white.svg') }}" alt="Prayer Image" class="position-absolute top-0 end-0 me-5 mt-4">
         </div>
     </div>
     @yield('content')
@@ -59,6 +68,9 @@
      <script>
          window.prayerStartIn = {{ env('PRAYER_START_IN', 5) }}; // Default 5 minutes
          window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
+         window.nextPrayerName = nextShalatTime;
+         console.log(nextShalatTime);
+         window.fridayPrayerEndIn = {{ env('FRIDAY_END_IN', 40) }}; // Default 40 minutes
      </script>
      <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
      <script src="{{ asset('js/jammasjid/kiosk-mode.js') }}"></script>
