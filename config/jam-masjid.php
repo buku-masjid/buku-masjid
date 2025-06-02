@@ -12,4 +12,4 @@ return [
         ],
         // Add more quotes as needed
     ],
-]; 
+];
