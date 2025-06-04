@@ -66,11 +66,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/js/tabler.min.js"></script>
     @stack('scripts')
      <script>
-         window.prayerStartIn = {{ env('PRAYER_START_IN', 5) }}; // Default 5 minutes
-         window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
+         window.prayerStartIn = {{ config('jam-masjid.prayer_start_in') }};
+         window.prayerEndIn = {{ config('jam-masjid.prayer_end_in') }};
          window.nextPrayerName = nextShalatTime;
          console.log(nextShalatTime);
-         window.fridayPrayerEndIn = {{ env('FRIDAY_END_IN', 40) }}; // Default 40 minutes
+         window.fridayPrayerEndIn = {{ config('jam-masjid.friday_end_in') }};
      </script>
      <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
      <script src="{{ asset('js/jammasjid/kiosk-mode.js') }}"></script>

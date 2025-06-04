@@ -6,7 +6,7 @@ class JamMasjidController extends Controller
 {
     public function index()
     {
-        $theme = env('JAMMASJID_THEME', '');
+        $theme = config('jam-masjid.theme');
 
         return view("jammasjid.themes.$theme.index");
     }
