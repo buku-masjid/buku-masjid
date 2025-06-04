@@ -1,4 +1,4 @@
-
+<script>
 let currentSeconds = new Date().getSeconds();
 let nextShalatTime = 'imsak';
 
@@ -29,7 +29,7 @@ function updateElementsContent(shalatTimeData) {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const currentSeconds = 60 - now.getSeconds() ;
-    
+
     for (let prop in shalatTimeData.jadwal) {
         const value = shalatTimeData.jadwal[prop];
         if (value.match(/^\d{2,}:\d{2}$/)) {
@@ -42,12 +42,12 @@ function updateElementsContent(shalatTimeData) {
     }
 
     document.getElementById('timeID').textContent = shalatDailySchedule[nextShalatTime];
-    
+
     const elements = document.getElementsByClassName("jm-card");
     for (let i = 0; i < elements.length; i++) {
         elements[i].classList.remove("jm-card-active");
     }
-    
+
     const element = document.getElementById(nextShalatTime);
     element.classList.add("jm-card-active");
 
@@ -66,9 +66,10 @@ function updateElementsContent(shalatTimeData) {
         return (number < 10 ? '0' : '') + number;
     }
     //let currentSeconds = new Date().getSeconds();
-    
+
     document.getElementById('timeRemaining').textContent = addLeadingZero(hoursLeft) + " : " + addLeadingZero(minutesLeft) + " : " + addLeadingZero(currentSeconds); // Get seconds here!
 }
 
 updateTimeInfoNextShalat();
 setInterval(updateTimeInfoNextShalat, 1000);
+</script>
