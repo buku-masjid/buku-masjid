@@ -108,6 +108,6 @@
     const shalatDailySchedule = JSON.parse('{!! json_encode(__("shalat_time.daily_schedules")) !!}')
     const shalatTimeData = "";
 </script>
-<script src="{{ asset('js/jammasjid/shalat-info.js') }}"></script>
+@include('jammasjid._shalat_info_js')
 @endpush
-@endif 
+@endif

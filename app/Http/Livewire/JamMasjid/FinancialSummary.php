@@ -18,7 +18,7 @@ class FinancialSummary extends Component
 
     public function render()
     {
-        $theme = env('JAMMASJID_THEME', 'default');
+        $theme = config('jam-masjid.theme');
 
         return view("jammasjid.themes.$theme.livewire.financial_summary");
     }
