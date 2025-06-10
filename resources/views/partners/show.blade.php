@@ -117,7 +117,7 @@
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
-                            <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {{ $transaction->description }}</div>
+                            <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                         </td>
                         <td class="text-right">{{ $transaction->amount_string }}</td>
                         <td>{{ $transaction->book->name }}</td>

@@ -106,7 +106,7 @@
                                 <label class="control-label">{{ __('transaction.amount') }}</label>
                                 <p>{{ $transaction->amount_string }}</p>
                                 <label class="control-label">{{ __('transaction.description') }}</label>
-                                <p>{!! $transaction->date_alert !!} {{ $transaction->description }}</p>
+                                <p>{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</p>
                             </div>
                             <div class="col-md-6">
                                 <label class="control-label">{{ __('category.category') }}</label>

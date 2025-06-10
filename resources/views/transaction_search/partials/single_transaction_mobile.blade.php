@@ -8,7 +8,7 @@
     'year' => $transaction->year,
 ]) }}
 <div>
-    {{ $transaction->description }}
+    {!! nl2br(htmlentities($transaction->description)) !!}
 </div>
 <div style="margin-bottom: 6px;">
     @if ($transaction->partner)

@@ -100,7 +100,7 @@
                         <td>{{ __('transaction.amount') }}</td>
                         <td class="lead text-right">{{ config('money.currency_code') }} {{ $transaction->amount_string }}</td>
                     </tr>
-                    <tr><td>{{ __('app.description') }}</td><td>{{ $transaction->description }}</td></tr>
+                    <tr><td>{{ __('app.description') }}</td><td>{!! nl2br(htmlentities($transaction->description)) !!}</td></tr>
                     <tr><td>{{ __('app.created_by') }}</td><td>{{ $transaction->creator->name }}</td></tr>
                     <tr><td>{{ __('app.created_at') }}</td><td>{{ $transaction->created_at }}</td></tr>
                     <tr><td>{{ __('app.updated_at') }}</td><td>{{ $transaction->updated_at }}</td></tr>

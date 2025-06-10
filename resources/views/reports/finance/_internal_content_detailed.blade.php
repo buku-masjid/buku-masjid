@@ -24,7 +24,7 @@
             <tr class="{{ $transaction->is_strong ? 'strong' : '' }}">
                 <td class="text-center text-nowrap">{{ Carbon\Carbon::parse($transaction->date)->isoFormat('DD MMM YYYY') }}</td>
                 <td {{ $transaction->is_strong ? 'style=text-decoration:underline' : '' }} class="{{ $transaction->is_strong ? 'strong' : '' }}">
-                    {!! $transaction->date_alert !!} {{ $transaction->description }}
+                    {!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}
                 </td>
                 <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
                 <td class="text-right {{ $transaction->is_strong ? 'strong' : '' }}">{{ !$transaction->in_out ? format_number($transaction->amount) : '' }}</td>

@@ -57,7 +57,7 @@
                                                                 @livewire('public-books.files-indicator', ['transaction' => $transaction])
                                                             </span>
                                                         @endif
-                                                        {{ $transaction->description }}
+                                                        {!! nl2br(htmlentities($transaction->description)) !!}
                                                     </div>
                                                     <div class="col-lg-2 py-lg-2 px-lg-0 bm-txt-primary col-num">
                                                     {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '' }}{{ ($transaction->in_out) ? format_number($transaction->amount) : '' }}

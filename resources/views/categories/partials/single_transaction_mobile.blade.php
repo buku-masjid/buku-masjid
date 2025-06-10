@@ -2,7 +2,7 @@
 {{ $transaction->date }}
 {!! $transaction->date_alert !!}
 <div>
-    {{ $transaction->description }}
+    {!! nl2br(htmlentities($transaction->description)) !!}
     <span class="float-right">
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())

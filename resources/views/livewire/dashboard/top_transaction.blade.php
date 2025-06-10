@@ -18,7 +18,7 @@
                         <td class="text-center">{{ ++$key }}</td>
                         <td>
                             @if ($isForPrint)
-                                {{ $transaction->description }}
+                                {!! nl2br(htmlentities($transaction->description)) !!}
                             @else
                                 {!! $transaction->date_alert !!}
                                 {{ link_to_route('transactions.show', Illuminate\Support\Str::limit($transaction->description, 35, ''), $transaction) }}</td>

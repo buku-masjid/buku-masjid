@@ -76,7 +76,7 @@
             <tr style="vertical-align: top;">
                 <td>{{ __('app.description') }} :</td>
                 <td colspan="2" style="border-bottom: 1px solid #ccc;height: 35px">
-                    {!! $transaction->date_alert !!} {{ $transaction->description }}
+                    {!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}
                 </td>
             </tr>
             <tr>
