@@ -22,8 +22,12 @@ class DiskUsageService
         return calculate_folder_size(Storage::path('/'));
     }
 
-    protected function convertToBytes(string $value): int
+    protected function convertToBytes(?string $value): int
     {
+        if (is_null($value)) {
+            return 0;
+        }
+
         return convert_to_bytes($value);
     }
 

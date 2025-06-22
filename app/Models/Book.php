@@ -86,6 +86,46 @@ class Book extends Model
         });
     }
 
+    public function getIncomeTotalAttribute()
+    {
+        $transactionQuery = $this->transactions();
+        $transactionQuery->withoutGlobalScope('forActiveBook');
+        $transactionQuery->where('in_out', 1);
+        $transactionQuery->where('book_id', $this->id);
+        $transactions = $transactionQuery->get();
+
+        return $transactions->sum('amount');
+    }
+
+    public function getProgressPercentAttribute()
+    {
+        if (is_null($this->budget)) {
+            return 0;
+        }
+
+        if ($this->budget == 0) {
+            return 100;
+        }
+
+        return $this->income_total / $this->budget * 100;
+    }
+
+    public function getProgressPercentColorAttribute()
+    {
+        $progressPercent = $this->progress_percent;
+        if ($progressPercent > 75) {
+            return 'success';
+        }
+        if ($progressPercent > 50) {
+            return 'info';
+        }
+        if ($progressPercent > 25) {
+            return 'warning';
+        }
+
+        return 'danger';
+    }
+
     public function getNonceAttribute()
     {
         return sha1($this->id.config('app.key'));
