@@ -46,34 +46,18 @@
                 <div class="w-full fs-1 d-flex align-items-center justify-content-center bg-info-lt" style="min-height: 8em">{{ $book->name }}</div>
             @endif
         </div>
-        <div>
         <div class="p-3">
             <h2 class="fw-bolder">{{ $book->name }}</h2>
         </div>
-        <div class="card">
-            <div class="card-header" >
-                <ul class="nav nav-tabs card-header-tabs" style="border-radius: 15px 15px 0 0" data-bs-toggle="tabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('public.books.show', $book) }}" class="nav-link {{ request('tab') == null ? 'active' : '' }}" role="tab">
-                            {{ __('app.description') }}
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('public.books.show', [$book, 'tab' => 'report']) }}" class="nav-link {{ request('tab') == 'report' ? 'active' : '' }}" role="tab" >
-                            {{ __('report.report') }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="p-3 p-lg-4">
-                <div class="tab-content">
-                    <div class="tab-pane active show" role="tabpanel">
-                        @includeWhen(request('tab') == null, 'guest.books._show_book_landing_page')
-                        @includeWhen(request('tab') == 'report', 'guest.books._show_book_report')
-                    </div>
-                </div>
-            </div>
+        <div class="p-3">
+            @include('guest.books._show_book_report')
         </div>
+        <div class="pt-3 mt-4 border-top">
+            <h2 class="fw-bolder">Deskripsi</h2>
+        </div>
+        <div class="p-3">
+            @include('guest.books._show_book_landing_page')
+        </div> 
     </div>
 </div>
 @endsection

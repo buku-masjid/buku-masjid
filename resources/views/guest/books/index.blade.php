@@ -18,7 +18,7 @@
 </section>
 <div class="section-bottom">
     <div class="container-md p-3 home-bottom">
-        <h2 class="fw-bolder mb-3">Infaq</h2>
+        <h2 class="fw-bolder mb-3">infak</h2>
         <div class="row row-cols-lg-2 row-cols-xl-3">
             @forelse ($bankAccounts as $bankAccount)
                 <div class="col-lg ps-sm-0">
@@ -87,8 +87,24 @@
                         <div>
                             <div class="p-4">
                                 <h3 class="fs-1">{{ $publicBook->name }}</h3>
-                                <div class="text-secondary py-3">{{ $publicBook->description }}</div>
-                                <a href="{{ route('public.books.show', $publicBook) }}" class="btn btn-primary" role="button" style="background-color: #2d6974 !important; border-radius: 9px !important;">{{ __('app.show') }}</a>
+                                @if ($publicBook->budget)
+                                    
+                                    <div class="progress progress-bar-striped rounded-pill mt-4" style="height: 10px;">
+                                        <div class="progress-bar progress-bar-striped rounded-pill bg-{{ $publicBook->progress_percent_color }}" style="width: {{ $publicBook->progress_percent }}%"></div>
+                                    </div>
+                                    <div class="d-flex grid-cols-2 mt-3 ">
+                                        <div class="col-6 text-srart">
+                                            <span>Terkumpul</span><br>
+                                            <strong class="bm-txt-primary fw-bolder">{{ config('money.currency_code') }} {{ format_number($publicBook->income_total) }}</strong>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <span>Target</span><br>
+                                            <strong class="bm-txt-primary fw-bolder">{{ config('money.currency_code') }} {{ format_number($publicBook->budget) }}</strong>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="text-secondary py-3 mt-3">{{ $publicBook->description }}</div>
+                                <a href="{{ route('public.books.show', $publicBook) }}" class="btn btn-primary mt-3" role="button" style="background-color: #2d6974 !important; border-radius: 9px !important;">{{ __('app.show') }}</a>
                             </div>
                         </div>
                     </div>
