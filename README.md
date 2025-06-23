@@ -1,6 +1,6 @@
 # Buku Masjid
 
-Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berbasis web yang dibuat dengan framework Laravel.
+Buku Masjid adalah sistem pengelolaan finansial dan jadwal pengajian masjid berbasis web yang dibuat dengan framework Laravel.
 
 ## Tujuan
 
