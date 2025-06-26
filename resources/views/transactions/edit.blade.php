@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-md-10 col-sm-5">
         @if (is_null(request('action')))
             @can('update', $transaction)
                 @section('title', __('transaction.edit').' #'.$transaction->id)
