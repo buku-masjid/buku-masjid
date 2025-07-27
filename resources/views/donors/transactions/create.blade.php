@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @section('title', __('donor.add_donation'))
         <div class="card">
             <div class="card-header">

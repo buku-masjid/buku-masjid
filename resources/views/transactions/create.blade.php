@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @can('create', new App\Transaction)
         @if (request('action') == 'add-income')
             @section('title', __('transaction.income'))

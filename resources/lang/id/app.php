@@ -66,7 +66,7 @@ return [
     'time' => 'Jam',
     'created_at' => 'Dibuat pada',
     'created_by' => 'Diinput oleh',
-    'updated_at' => 'Updated pada',
+    'updated_at' => 'Diupdate pada',
     'start_date' => 'Tanggal Mulai',
     'end_date' => 'Tanggal Selesai',
     'gender' => 'Jenis Kelamin',
