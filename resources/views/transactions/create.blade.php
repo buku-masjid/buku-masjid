@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $amount = null;
+    if ($originalTransaction) {
+        $amount = format_number($originalTransaction->amount);
+    }
+@endphp
 <div class="row justify-content-center">
     <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @can('create', new App\Transaction)
@@ -47,7 +53,7 @@
                                 'label' => __('transaction.amount'),
                                 'addon' => ['before' => config('money.currency_code')],
                                 'step' => number_step(),
-                                'value' => old('amount', optional($originalTransaction)->amount),
+                                'value' => old('amount', $amount),
                             ]) !!}
                         </div>
                         <div class="col-md-6">
@@ -138,7 +144,7 @@
                                 'label' => __('transaction.amount'),
                                 'addon' => ['before' => config('money.currency_code')],
                                 'step' => number_step(),
-                                'value' => old('amount', optional($originalTransaction)->amount),
+                                'value' => old('amount', $amount),
                             ]) !!}
                         </div>
                         <div class="col-md-6">

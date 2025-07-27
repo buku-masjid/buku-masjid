@@ -205,7 +205,7 @@ class TransactionEntryTest extends TestCase
             'year' => $year,
         ]);
 
-        $this->seeElement('input', ['type' => 'text', 'name' => 'amount', 'value' => 99.99]);
+        $this->seeElement('input', ['type' => 'text', 'name' => 'amount', 'value' => '99,99']);
         $this->seeInElement('textarea#description', $transaction->description);
     }
 
