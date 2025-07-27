@@ -6,7 +6,7 @@
 
 @if (request('action') == 'delete' && $partner)
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @can('delete', $partner)
             <div class="card">
                 <div class="card-header"><h5 class="card-title">{{ __('donor.delete') }}</h5></div>
@@ -65,7 +65,7 @@
 </div>
 @else
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         <div class="card">
             <div class="card-header"><h5 class="card-title">{{ __('donor.edit') }}</h5></div>
             {!! Form::model($partner, ['route' => ['donors.update', $partner], 'method' => 'patch']) !!}
