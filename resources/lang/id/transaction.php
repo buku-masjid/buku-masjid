@@ -38,6 +38,7 @@ return [
 
     // Actions
     'add_income' => 'Input Pemasukan',
+    'duplicate' => 'Duplikat Transaksi',
     'income_added' => 'Pemasukan berhasil diinput.',
     'add_spending' => 'Input Pengeluaran',
     'spending_added' => 'Pengeluaran berhasil diinput.',

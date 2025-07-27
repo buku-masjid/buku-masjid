@@ -48,6 +48,10 @@ class TransactionsController extends Controller
         $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerDefaultValue = __('partner.partner');
         $partnerSelectionLabel = __('partner.partner');
+        $originalTransaction = null;
+        if ($request->has('original_transaction_id')) {
+            $originalTransaction = Transaction::find($request->get('original_transaction_id'));
+        }
 
         if (in_array(request('action'), ['add-income'])) {
             $partnerTypeCodes = Setting::for(auth()->activeBook())->get('income_partner_codes');
@@ -108,7 +112,7 @@ class TransactionsController extends Controller
 
         return view('transactions.create', compact(
             'categories', 'bankAccounts', 'partners', 'partnerTypeCodes', 'partnerTypes', 'partnerDefaultValue',
-            'partnerSelectionLabel', 'partnerSettingLink', 'categorySettingLink', 'selectedDate'
+            'partnerSelectionLabel', 'partnerSettingLink', 'categorySettingLink', 'selectedDate', 'originalTransaction'
         ));
     }
 

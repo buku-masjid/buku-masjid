@@ -8,6 +8,19 @@
     <h1 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h1>
     <div class="page-subtitle">{{ __('transaction.detail') }}</div>
     <div class="page-options d-flex">
+        @can('create', new App\Transaction)
+            {{ link_to_route(
+                'transactions.create',
+                __('transaction.duplicate'),
+                [
+                    'action' => $transaction->in_out ? 'add-income' : 'add-spending',
+                    'month' => $transaction->month,
+                    'original_transaction_id' => $transaction->id,
+                    'year' => $transaction->year,
+                ],
+                ['class' => 'btn btn-success mr-2', 'id' => 'duplicate-transaction-'.$transaction->id]
+            ) }}
+        @endcan
         @if ($transaction->in_out == 0)
             {{ link_to_route(
                 'transactions.print_spending_request',
