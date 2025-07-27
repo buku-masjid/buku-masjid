@@ -7,7 +7,7 @@
 <div class="page-header">
     <h1 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h1>
     <div class="page-subtitle">{{ __('transaction.detail') }}</div>
-    <div class="page-options d-flex">
+    <div class="page-options">
         @can('create', new App\Transaction)
             {{ link_to_route(
                 'transactions.create',
@@ -18,7 +18,7 @@
                     'original_transaction_id' => $transaction->id,
                     'year' => $transaction->year,
                 ],
-                ['class' => 'btn btn-success mr-2', 'id' => 'duplicate-transaction-'.$transaction->id]
+                ['class' => 'btn btn-success mr-2 mt-2 mt-lg-0', 'id' => 'duplicate-transaction-'.$transaction->id]
             ) }}
         @endcan
         @if ($transaction->in_out == 0)
@@ -26,14 +26,14 @@
                 'transactions.print_spending_request',
                 __('transaction.print_spending_request'),
                 $transaction,
-                ['class' => 'btn btn-secondary mr-2']
+                ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
             ) }}
         @endif
         {{ link_to_route(
             'transactions.print_receipt',
             __('transaction.print_receipt'),
             $transaction,
-            ['class' => 'btn btn-secondary mr-2']
+            ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
         ) }}
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())
@@ -41,7 +41,7 @@
                     'transactions.edit',
                     __('transaction.edit'),
                     $transaction,
-                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2']
+                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2 mt-2 mt-lg-0']
                 ) !!}
             @endcan
         @endcan
@@ -52,7 +52,7 @@
                 'year' => $transaction->year,
                 'month' => $transaction->month,
             ],
-            ['class' => 'btn btn-secondary']
+            ['class' => 'btn btn-secondary mt-2 mt-lg-0']
         ) }}
     </div>
 </div>
