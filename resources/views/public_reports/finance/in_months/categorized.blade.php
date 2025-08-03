@@ -9,6 +9,7 @@
 
 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
 <h4 class="mt-2">{{ $incomeCategory->name }}</h4>
+@include('public_reports.finance._modal_preview_file_transactions')
 <div class="card table-responsive">
     @include('public_reports.finance._public_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(1),

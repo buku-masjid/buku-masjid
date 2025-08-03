@@ -29,6 +29,7 @@ return [
     'title' => 'File Title',
     'path' => 'File Path',
     'description' => 'File Description',
+    'preview' => 'Preview File',
     'size' => 'File Size',
     'updated_at' => 'Udpated at',
 ];

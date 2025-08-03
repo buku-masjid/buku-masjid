@@ -37,6 +37,7 @@
 
 @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
 <h4 class="mt-2">{{ $spendingCategory->name }}</h4>
+@include('public_reports.finance._modal_preview_file_transactions')
 <div class="card table-responsive">
     @include('public_reports.finance._public_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(0),
