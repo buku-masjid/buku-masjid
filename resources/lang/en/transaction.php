@@ -38,6 +38,7 @@ return [
 
     // Actions
     'add_income' => 'Add Income',
+    'duplicate' => 'Duplicate Transaction',
     'income_added' => 'Income has been added.',
     'add_spending' => 'Add Spending',
     'spending_added' => 'Spending has been added.',

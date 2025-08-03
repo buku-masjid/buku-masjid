@@ -33,7 +33,9 @@ return [
     'social_media' => 'Social Media',
 
     // Action
+    'create' => 'Create',
     'add' => 'Add',
+    'duplicate' => 'Duplicate',
     'submit' => 'Submit',
     'update' => 'Update',
     'delete' => 'Delete',

@@ -181,6 +181,35 @@ class TransactionEntryTest extends TestCase
     }
 
     /** @test */
+    public function user_can_duplicate_a_transaction()
+    {
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => Transaction::TYPE_SPENDING,
+            'amount' => 99.99,
+            'date' => $date,
+            'creator_id' => $user->id,
+            'book_id' => $book->id,
+        ]);
+
+        $this->visitRoute('transactions.show', $transaction);
+        $this->click('duplicate-transaction-'.$transaction->id);
+        $this->seeRouteIs('transactions.create', [
+            'action' => 'add-spending',
+            'month' => $month,
+            'original_transaction_id' => $transaction->id,
+            'year' => $year,
+        ]);
+
+        $this->seeElement('input', ['type' => 'text', 'name' => 'amount', 'value' => '99,99']);
+        $this->seeInElement('textarea#description', $transaction->description);
+    }
+
+    /** @test */
     public function user_can_create_a_spending_transaction_with_uploaded_files()
     {
         Bus::fake();
