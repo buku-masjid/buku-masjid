@@ -1,8 +1,13 @@
 <span style="font-size: 90%;">
 @if ($files->count())
     @if ($files->count() == 1)
-        <a onclick="showPreviewFile('{{ asset('storage/'.$files->first()->file_path) }}')" href="#" class="badge bg-light text-bg-light">
+        <a onclick="showPreviewFile('{{ asset('storage/'.$files->first()->file_path) }}', this)" href="#" class="badge bg-light text-bg-light">
             1 <i class="ti ti-photo fs-3"></i>
+            @if ($files->first()->title)
+                <div class="d-none">{{ $files->first()->title }}</div>
+            @else
+                <div class="d-none">{{ __('transaction.files') }} 1</div>
+            @endif
         </a>
     @else
         <div class="btn-group dropstart">
@@ -12,7 +17,7 @@
             <ul class="dropdown-menu">
                 @foreach ($files as $key => $file)
                     <div class="dropdown-item">
-                        <a class="w-full" onclick="showPreviewFile('{{ asset('storage/'.$file->file_path) }}')" href="#">
+                        <a class="w-full" onclick="showPreviewFile('{{ asset('storage/'.$file->file_path) }}', this)" href="#">
                             @if ($file->title)
                                 <div>{{ $file->title }}</div>
                             @else
@@ -27,10 +32,12 @@
 @endif
 </span>
 <script>
-    function showPreviewFile(url) {
+    function showPreviewFile(url, linkEl) {
         const $modalPreview = $("#transaction-file-preview")
         const $img = $modalPreview.find('.img-container img')
         const $downloadButton = $modalPreview.find("#download")
+        const headerTitle = $(linkEl).find("div").text()
+        $modalPreview.find("#modalTransactionFilePreview").text(headerTitle)
         $downloadButton.attr("href", url)
             .attr("download", url.split("/").pop())
         const modalWidthVar = "--tblr-modal-width"
