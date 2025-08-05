@@ -6,7 +6,6 @@
 @php
     $lastWeekDate = null;
 @endphp
-@include('public_reports.finance._modal_preview_file_transactions')
 @foreach($groupedTransactions as $weekNumber => $weekTransactions)
 <div class="card table-responsive">
     @php

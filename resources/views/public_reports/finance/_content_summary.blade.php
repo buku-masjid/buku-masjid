@@ -75,7 +75,6 @@
                     </div>
                 </div>
             </div>
-            @include('public_reports.finance._modal_preview_file_transactions')
         </div>
     @endforeach
 </div>
