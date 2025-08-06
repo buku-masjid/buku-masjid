@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\JamMasjid;
+namespace App\Http\Livewire\PublicDisplay;
 
 use App\Models\Book;
 use Livewire\Component;
@@ -18,9 +18,9 @@ class FinancialSummary extends Component
 
     public function render()
     {
-        $theme = config('jam-masjid.theme');
+        $theme = config('public_display.theme');
 
-        return view("jammasjid.themes.$theme.livewire.financial_summary");
+        return view("livewire.public_display.themes.$theme.financial_summary");
     }
 
     public function mount()

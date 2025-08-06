@@ -1,6 +1,5 @@
 
 <div class="jm-left-column pe-3 align-items-center justify-content-center jm-card me-4 text-center" >
-        
     @if (config('features.shalat_time.is_active'))
         @php
             $shalatTimeProviderKey = config('shalat_time.default_provider');
@@ -10,7 +9,6 @@
             <span class="display-6 fw-bold">Menuju waktu <span id="timeID"></span><br>
             <span id="timeRemaining" class="fw-bolder jm-timeremaining bm-txt-primary"></span>
     @endif
-            
 </div>
 <div class="jm-right-column">
     <div class="jm-card w-full p-3 me-3" id="imsak">
@@ -108,6 +106,6 @@
     const shalatDailySchedule = JSON.parse('{!! json_encode(__("shalat_time.daily_schedules")) !!}')
     const shalatTimeData = "";
 </script>
-@include('jammasjid._shalat_info_js')
+@include('public_display._shalat_info_js')
 @endpush
 @endif

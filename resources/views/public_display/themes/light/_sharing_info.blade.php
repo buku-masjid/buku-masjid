@@ -1,5 +1,5 @@
 @php
-    $quotes = config('jam-masjid.sharing_info');
+    $quotes = config('public_display.sharing_info');
 @endphp
 
 <div class="swiper myVerticalSwiper jm-left-bottom jm-card overflow-hidden" style="height: 180px;">

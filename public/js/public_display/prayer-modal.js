@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle spacebar press
     document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space' && window.location.pathname === '/jam-masjid') {
+        if (event.code === 'Space' && window.location.pathname === '/display') {
             event.preventDefault();
             toggleModal();
         }
@@ -63,17 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (prayerInterludeModal) {
                     prayerInterludeModal.classList.add('show');
                     let countdown = window.prayerStartIn * 60; // Convert to seconds
-                    
+
                     // Update countdown every second
                     countdownInterval = setInterval(() => {
                         const minutes = Math.floor(countdown / 60);
                         const seconds = countdown % 60;
                         interludeCountdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                        
+
                         if (countdown <= 0) {
                             clearInterval(countdownInterval);
                             prayerInterludeModal.classList.remove('show');
-                            
+
                             // Wait for fade-out animation to complete before showing next modal
                             setTimeout(() => {
                                 // Show prayer modal

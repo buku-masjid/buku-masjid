@@ -15,7 +15,7 @@ Route::view('/', 'guest.welcome');
 Route::view('/kontak', 'guest.contact')->name('public.contact');
 Route::get('/programs', 'PublicBookController@index')->name('public.books.index');
 Route::get('/programs/{book}', 'PublicBookController@show')->name('public.books.show');
-Route::get('/jam-masjid', 'JamMasjidController@index')->name('jammasjid.index');
+Route::get('/display', 'PublicDisplayController@index')->name('public.display.index');
 
 Auth::routes(['register' => false, 'reset' => false]);
 

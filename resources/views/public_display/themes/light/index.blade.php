@@ -1,6 +1,6 @@
 
 
-@extends('jammasjid.themes.light.layout')
+@extends('public_display.themes.light.layout')
 
 @section('content')
     <div id="prayerModal" class="prayer-modal">
@@ -8,23 +8,23 @@
     </div>
     <div class="jm-section jm-header">
         <div class="jm-left-column pe-3 align-items-center justify-content-start jm-card me-4 text-start">
-            @include('jammasjid.themes.default._masjid_info')
+            @include('public_display.themes.default._masjid_info')
         </div>
         <div class="jm-right-column jm-card justify-content-center align-items-center overflow-hidden">
-            @livewire('jam-masjid.financial-summary')
+            @livewire('public-display.financial-summary')
         </div>
     </div>
     <div class="jm-section jm-main-content">
         <div class="jm-left-column col-6 split py-4 pe-4">
-            @include('jammasjid.themes.light._date_time')
-            @include('jammasjid.themes.light._sharing_info')
+            @include('public_display.themes.light._date_time')
+            @include('public_display.themes.light._sharing_info')
         </div>
         <div class="jm-right-column col-6 py-4">
-            @include('jammasjid.themes.light._carousel')
+            @include('public_display.themes.light._carousel')
         </div>
     </div>
     <div class="jm-section jm-footer">
-    @include('jammasjid.themes.default._shalat_time')
+    @include('public_display.themes.default._shalat_time')
     </div>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/build/moment-hijri.min.js"></script>
@@ -145,7 +145,7 @@
     const myDiv = document.getElementById("slide-track");
     const childElements = myDiv.children;
     const numberOfChildren = childElements.length;
-    let totalWidth = 0; 
+    let totalWidth = 0;
     //console.log("Number of children:", numberOfChildren);
 
     for (let i = 0; i < numberOfChildren; i++) {
@@ -155,7 +155,7 @@
         totalWidth += width;
     }
 
-    myDiv.style.width = totalWidth + 'px'; 
+    myDiv.style.width = totalWidth + 'px';
 </script>
 @endsection
 
@@ -168,6 +168,6 @@
         flex-direction: column; /* Stack children vertically */
         margin-bottom:0 !important;
     }
-   
+
 </style>
-@endsection 
+@endsection

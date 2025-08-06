@@ -21,11 +21,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/css/tabler.min.css" />
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
-    @php $theme = env('JAMMASJID_THEME', 'light'); @endphp
-    <link href="{{ asset('css/jammasjid/' . $theme . '/style.css') }}" rel="stylesheet">
+    @php $theme = config('public_display.theme', 'light'); @endphp
+    <link href="{{ asset('css/public_display/'.$theme.'/style.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 
@@ -70,7 +70,7 @@
           window.prayerEndIn = {{ env('PRAYER_END_IN', 10) }}; // Default 10 minutes
           window.fridayPrayerEndIn = {{ env('FRIDAY_END_IN', 40) }}; // Default 40 minutes
      </script>
-     <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
-     <script src="{{ asset('js/jammasjid/kiosk-mode.js') }}"></script>
+     <script src="{{ asset('js/public_display/prayer-modal.js') }}"></script>
+     <script src="{{ asset('js/public_display/kiosk-mode.js') }}"></script>
  </body>
 </html>

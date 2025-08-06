@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\JamMasjid;
+namespace App\Http\Livewire\PublicDisplay;
 
 use App\Models\Book;
 use Livewire\Component;
@@ -18,8 +18,8 @@ class BookCards extends Component
 
     public function render()
     {
-        $theme = config('jam-masjid.theme');
+        $theme = config('public_display.theme');
 
-        return view("jammasjid.themes.$theme.livewire.book_cards");
+        return view("livewire.public_display.themes.$theme.book_cards");
     }
 }

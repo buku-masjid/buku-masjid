@@ -21,11 +21,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/css/tabler.min.css" />
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
-    @php $theme = env('JAMMASJID_THEME', 'default'); @endphp
-    <link href="{{ asset('css/jammasjid/' . $theme . '/style.css') }}" rel="stylesheet">
+    @php $theme = config('public_display.theme', 'default'); @endphp
+    <link href="{{ asset('css/public_display/'.$theme.'/style.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 
@@ -34,7 +34,7 @@
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
+
     @yield('head_tags')
     @yield('styles')
 </head>
@@ -66,13 +66,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/js/tabler.min.js"></script>
     @stack('scripts')
      <script>
-         window.prayerStartIn = {{ config('jam-masjid.prayer_start_in') }};
-         window.prayerEndIn = {{ config('jam-masjid.prayer_end_in') }};
+         window.prayerStartIn = {{ config('public_display.prayer_start_in') }};
+         window.prayerEndIn = {{ config('public_display.prayer_end_in') }};
          window.nextPrayerName = nextShalatTime;
          console.log(nextShalatTime);
-         window.fridayPrayerEndIn = {{ config('jam-masjid.friday_end_in') }};
+         window.fridayPrayerEndIn = {{ config('public_display.friday_end_in') }};
      </script>
-     <script src="{{ asset('js/jammasjid/prayer-modal.js') }}"></script>
-     <script src="{{ asset('js/jammasjid/kiosk-mode.js') }}"></script>
+     <script src="{{ asset('js/public_display/prayer-modal.js') }}"></script>
+     <script src="{{ asset('js/public_display/kiosk-mode.js') }}"></script>
  </body>
 </html>
