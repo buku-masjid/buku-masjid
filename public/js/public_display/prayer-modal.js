@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check countdown timer
     function checkCountdown() {
-        console.log('start');
+        // console.log('start');
         if (timeRemainingElement) {
-            console.log('Current time:', timeRemainingElement.textContent);
+            // console.log('Current time:', timeRemainingElement.textContent);
             // Remove spaces and check both formats
             const timeText = timeRemainingElement.textContent.replace(/\s+/g, '');
             if (timeText === '00:00:00' || timeText === '00:00') {
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const isFriday = today.getDay() === 1;
                 const nextPrayer = (window.nextPrayerName || '').toLowerCase();
 
-                console.log('isFriday:', isFriday);
-                console.log('nextPrayer:', nextPrayer);
+                // console.log('isFriday:', isFriday);
+                // console.log('nextPrayer:', nextPrayer);
 
                 if (isFriday && nextPrayer === 'ashar') {
                     // Show Friday modal directly, skip interlude
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         countdown--;
                     }, 1000);
-                    console.log('Timer reached zero, scheduling modal');
+                    // console.log('Timer reached zero, scheduling modal');
                 }
             }
         }
