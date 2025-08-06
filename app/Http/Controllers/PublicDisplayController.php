@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class PublicDisplayController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $theme = config('public_display.theme');
+        $theme = $request->get('theme');
+        if (!in_array($theme, config('public_display.available_themes'))) {
+            $theme = config('public_display.theme');
+        }
 
-        return view("public_display.themes.$theme.index");
+        return view("public_display.themes.$theme.index", compact('theme'));
     }
 }

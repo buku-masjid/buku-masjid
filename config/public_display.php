@@ -2,6 +2,10 @@
 
 return [
     'theme' => env('PUBLIC_DISPLAY_THEME', 'default'),
+    'available_themes' => [
+        'default',
+        'light',
+    ],
     'prayer_start_in' => env('PRAYER_START_IN', 5), // Default 5 minutes
     'prayer_end_in' => env('PRAYER_END_IN', 10), // Default 10 minutes
     'friday_end_in' => env('FRIDAY_END_IN', 40), // Default 40 minutes

@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center p-2 overflow-hidden">
     @if (Setting::get('masjid_logo_path'))
         <div class="col-3 p-2 me-2">
-            <img src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" style="width: 100%">
+            <img src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="width: 100%">
         </div>
     @endif
     <div class="overflow-hidden">
