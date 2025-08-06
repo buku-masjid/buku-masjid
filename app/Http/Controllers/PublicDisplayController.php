@@ -13,6 +13,6 @@ class PublicDisplayController extends Controller
             $theme = config('public_display.theme');
         }
 
-        return view("public_display.themes.$theme.index", compact('theme'));
+        return view('public_display.index', compact('theme'));
     }
 }
