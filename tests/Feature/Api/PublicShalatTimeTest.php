@@ -28,9 +28,9 @@ class PublicShalatTimeTest extends TestCase
 
         $this->seeJsonStructure([
             'id',
-            'lokasi',
-            'daerah',
-            'jadwal' => [
+            'location',
+            'region',
+            'schedules' => [
                 'date_string', 'imsak', 'fajr', 'sunrise', 'dhuha', 'dzuhr', 'ashr', 'maghrib', 'isya', 'date',
             ],
         ]);

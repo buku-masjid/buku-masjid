@@ -23,15 +23,15 @@ function updateTimeInfoNextShalat() {
 
 function updateElementsContent(shalatTimeData) {
     document.querySelectorAll("[data-time]").forEach((element) => {
-        element.textContent = shalatTimeData.jadwal[element.dataset.time];
+        element.textContent = shalatTimeData.schedules[element.dataset.time];
     });
 
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const currentSeconds = 60 - now.getSeconds() ;
 
-    for (let prop in shalatTimeData.jadwal) {
-        const value = shalatTimeData.jadwal[prop];
+    for (let prop in shalatTimeData.schedules) {
+        const value = shalatTimeData.schedules[prop];
         if (value.match(/^\d{2,}:\d{2}$/)) {
             const [hour, minute] = value.split(":").map(Number);
             if (hour * 60 + minute > currentMinutes) {
@@ -51,7 +51,7 @@ function updateElementsContent(shalatTimeData) {
     const element = document.getElementById(nextShalatTime);
     element.classList.add("jm-card-active");
 
-    const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);
+    const [nextHour, nextMinute] = shalatTimeData.schedules[nextShalatTime].split(":").map(Number);
     const nextMinutes = nextHour * 60 + nextMinute;
 
     let remainingMinutes = nextMinutes - currentMinutes;

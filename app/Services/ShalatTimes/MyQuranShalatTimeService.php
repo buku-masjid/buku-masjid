@@ -72,7 +72,12 @@ class MyQuranShalatTimeService implements ShalatTimeService
             unset($schedules['tanggal']);
         }
         asort($schedules);
-        $responseData['data']['jadwal'] = $schedules;
+        $responseData['data']['schedules'] = $schedules;
+        unset($responseData['data']['jadwal']);
+        $responseData['data']['location'] = $responseData['data']['lokasi'];
+        unset($responseData['data']['lokasi']);
+        $responseData['data']['region'] = $responseData['data']['daerah'];
+        unset($responseData['data']['daerah']);
 
         return $responseData['data'];
     }

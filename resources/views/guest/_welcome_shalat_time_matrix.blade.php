@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 
     if (cachedData) {
         const shalatTimeData = JSON.parse(cachedData);
-        document.getElementById('region_name').textContent = shalatTimeData.lokasi.toLowerCase() + ', ' + shalatTimeData.daerah.toLowerCase();
+        document.getElementById('region_name').textContent = shalatTimeData.location.toLowerCase() + ', ' + shalatTimeData.region.toLowerCase();
         updateMatrixDisplay(shalatTimeData);
         setInterval(updateMatrixDisplay(shalatTimeData), 60000);
     } else {
@@ -77,7 +77,7 @@ jQuery(document).ready(function() {
             } else {
                 const shalatTimeData = data;
                 localStorage.setItem(cacheKey, JSON.stringify(shalatTimeData));
-                document.getElementById('region_name').textContent = shalatTimeData.lokasi + ', ' + shalatTimeData.daerah;
+                document.getElementById('region_name').textContent = shalatTimeData.location + ', ' + shalatTimeData.region;
                 updateMatrixDisplay(shalatTimeData);
                 setInterval(updateMatrixDisplay(shalatTimeData), 60000);
             }
@@ -89,8 +89,8 @@ jQuery(document).ready(function() {
         const currentMinutes = now.getHours() * 60 + now.getMinutes();
         nextShalatTime = 'imsak';
         // Ref: https://www.geeksforgeeks.org/how-to-get-a-key-in-a-javascript-object-by-its-value
-        for (let prop in shalatTimeData.jadwal) {
-            const value = shalatTimeData.jadwal[prop];
+        for (let prop in shalatTimeData.schedules) {
+            const value = shalatTimeData.schedules[prop];
             if (value.match(/^\d{2,}:\d{2}$/)) {
                 const [hour, minute] = value.split(":").map(Number);
                 if (hour * 60 + minute > currentMinutes) {
@@ -100,7 +100,7 @@ jQuery(document).ready(function() {
             }
         }
 
-        const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);
+        const [nextHour, nextMinute] = shalatTimeData.schedules[nextShalatTime].split(":").map(Number);
         const nextMinutes = nextHour * 60 + nextMinute;
 
         // hitung sisa waktu
