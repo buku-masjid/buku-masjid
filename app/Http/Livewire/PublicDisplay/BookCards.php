@@ -19,7 +19,11 @@ class BookCards extends Component
     public function render()
     {
         $theme = config('public_display.theme');
+        $view = 'livewire.public_display.themes.default.book_cards';
+        if (view()->exists("livewire.public_display.themes.$theme.book_cards")) {
+            $view = "livewire.public_display.themes.$theme.book_cards";
+        }
 
-        return view("livewire.public_display.themes.$theme.book_cards");
+        return view($view);
     }
 }

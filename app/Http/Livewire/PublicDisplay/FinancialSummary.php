@@ -19,8 +19,12 @@ class FinancialSummary extends Component
     public function render()
     {
         $theme = config('public_display.theme');
+        $view = 'livewire.public_display.themes.default.financial_summary';
+        if (view()->exists("livewire.public_display.themes.$theme.financial_summary")) {
+            $view = "livewire.public_display.themes.$theme.financial_summary";
+        }
 
-        return view("livewire.public_display.themes.$theme.financial_summary");
+        return view($view);
     }
 
     public function mount()
