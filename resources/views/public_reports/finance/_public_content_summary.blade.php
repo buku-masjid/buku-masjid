@@ -1,5 +1,5 @@
 <div class="accordion accordion-flush">
-    <div class="d-none d-sm-block">
+    <div class="d-none d-sm-block sticky-top border-bottom border-1" style="background-color: #f8f8f8;">
         <div class="row py-3 fs-2" style="padding-left: 1.25rem; padding-right: 48px">
             <div class="col-auto d-none"></div>
             <div class="col bm-fade fs-3 fw-bold rounded">{{ __('transaction.transaction') }}</div>
@@ -17,7 +17,7 @@
             <div class="accordion-body transaction-list mb-0">
                 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
                     <div class="row py-2 fs-4">
-                        <div class="col-auto d-flex align-items-center">
+                        <div class="col-auto d-flex align-items-center border-end border-1 border-info-subtle">
                             <i class="d-sm-none ti icon fe-bold bm-txt-primary">&#xea13;</i>
                             <span class="d-none d-sm-block">{{ ++$key }} </span>
                         </div>
@@ -43,9 +43,9 @@
                 @if ($groupedTransactions->has(1))
                     @foreach($groupedTransactions[1]->where('category_id', null) as $transaction)
                         <div class="row py-2 fs-3">
-                            <div class="col-auto d-flex align-items-center">
+                            <div class="col-auto d-flex align-items-center border-end border-1 border-info-subtle">
                                 <i class="d-sm-none ti icon fe-bold bm-txt-primary">&#xea13;</i>
-                                <span class="d-none d-sm-block">{{ ++$key }} </span>
+                                <span class="d-none d-sm-block ">{{ ++$key }} </span>
                             </div>
                             <div class="col">
                                 <div class="row">
@@ -76,7 +76,7 @@
             <div class="accordion-body transaction-list-out mb-0">
                 @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
                     <div class="row py-2 fs-4">
-                        <div class="col-auto d-flex align-items-center">
+                        <div class="col-auto d-flex align-items-center border-end border-1 border-danger-subtle">
                             <i class="d-sm-none ti icon fe-bold bm-txt-out">&#xea24;</i>
                             <span class="d-none d-sm-block">{{ ++$key }} </span>
                         </div>
@@ -102,7 +102,7 @@
                 @if ($groupedTransactions->has(0))
                     @foreach($groupedTransactions[0]->where('category_id', null) as $transaction)
                         <div class="row py-2 fs-3">
-                            <div class="col-auto d-flex align-items-center">
+                            <div class="col-auto d-flex align-items-center border-end border-1 border-danger-subtle">
                                 <i class="d-sm-none ti icon fe-bold bm-txt-out">&#xea24;</i>
                                 <span class="d-none d-sm-block">{{ ++$key }} </span>
                             </div>

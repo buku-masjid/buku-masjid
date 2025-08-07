@@ -7,7 +7,7 @@
         @endphp
         @foreach ($transactions as $transaction)
             <div class="row py-2 fs-4 p-2">
-                <div class="col-auto d-flex align-items-center">
+                <div class="col-auto d-sm-none d-flex align-items-center">
                     
                     @if ($typeTransactions == 1)
                         <i class="d-sm-none ti icon fe-bold bm-txt-primary">&#xea13;</i>
@@ -25,7 +25,7 @@
                                     @livewire('public-books.files-indicator', ['transaction' => $transaction])
                                 </span>
                             @endif
-                            {!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}
+                            <span class="fw-bold">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</span>
                         </div>
                         @if ($typeTransactions == 1)
                             <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold text-start text-sm-end">

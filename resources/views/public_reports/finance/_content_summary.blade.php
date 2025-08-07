@@ -1,5 +1,5 @@
 <div class="accordion accordion-flush">
-    <div class="d-none d-sm-block">
+    <div class="d-none d-sm-block sticky-top border-bottom border-1" style="background-color: #f8f8f8;">
         <div class="row pe-5 py-3" style="padding-left: 1.25rem">
             <div class="col-auto d-none"></div>
             <div class="col bm-fade fs-3 fw-bold rounded">{{ __('transaction.transaction') }}</div>
@@ -10,8 +10,8 @@
     @foreach ($groupedTransactions as $weekNumber => $transactionsByCategoryId)
         <div class="accordion-item card mb-2">
             <div class="accordion-header">
-                <button class="accordion-button collapsed fs-2 fw-bold bm-txt-primary" type="button" data-bs-toggle="collapse" data-bs-target="#week_number_{{ 1 + $weekNumber }}" aria-expanded="false">
-                    {{ __('time.week') }} {{ $weekNumber + 1 }} &nbsp;<span class="text-dark small">({{ $weekLabels[$weekNumber] }})</span>
+                <button class="accordion-button collapsed fs-2 bm-txt-primary" type="button" data-bs-toggle="collapse" data-bs-target="#week_number_{{ 1 + $weekNumber }}" aria-expanded="false">
+                    <span class="fw-bold">{{ __('time.week') }} {{ $weekNumber + 1 }}</span> &nbsp;&nbsp;<span class="text-dark fs-5">{{ $weekLabels[$weekNumber] }}</span>
                 </button>
             </div>
             <div id="week_number_{{ 1 + $weekNumber }}" class="pe-lg-4 accordion-collapse collapse {{ $weekNumber == $groupedTransactions->keys()->first() ? 'show' : '' }}">
@@ -36,10 +36,10 @@
                                             <div class="row">
                                                 <div class="col col-cat">{{ $category ? $category->name : __('category.uncategorized') }}</div>
                                                 <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold">
-                                                    {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '' }} {{ ($firstTrasaction->in_out) ? format_number($transactions->sum('amount')) : '' }}
+                                                    {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '-' }} {{ ($firstTrasaction->in_out) ? format_number($transactions->sum('amount')) : '' }}
                                                 </div>
                                                 <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold">
-                                                    {{ ($firstTrasaction->in_out) ? '' : config('money.currency_code') }} {{ ($firstTrasaction->in_out) ? '' : format_number($transactions->sum('amount')) }}
+                                                    {{ ($firstTrasaction->in_out) ? '-' : config('money.currency_code') }} {{ ($firstTrasaction->in_out) ? '' : format_number($transactions->sum('amount')) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -60,10 +60,10 @@
                                                         {!! nl2br(htmlentities($transaction->description)) !!}
                                                     </div>
                                                     <div class="col-lg-2 py-lg-2 px-lg-0 bm-txt-primary col-num">
-                                                    {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '' }}{{ ($transaction->in_out) ? format_number($transaction->amount) : '' }}
+                                                    {{ ($firstTrasaction->in_out) ? config('money.currency_code') : '-' }}{{ ($transaction->in_out) ? format_number($transaction->amount) : '' }}
                                                     </div>
                                                     <div class="col-lg-2 py-lg-2 px-lg-0 bm-txt-out col-num">
-                                                    {{ ($firstTrasaction->in_out) ? '' : config('money.currency_code') }}{{ ($transaction->in_out) ? '' : format_number($transaction->amount) }}
+                                                    {{ ($firstTrasaction->in_out) ? '' : config('money.currency_code') }}{{ ($transaction->in_out) ? '-' : format_number($transaction->amount) }}
                                                     </div>
                                                 </div>
                                             @endforeach

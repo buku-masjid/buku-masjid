@@ -8,7 +8,7 @@
 </div>  -->
 
 <div class="accordion accordion-flush">
-    <div class="d-none d-sm-block">
+    <div class="d-none d-sm-block sticky-top border-bottom border-1" style="background-color: #f8f8f8;">
         <div class="row py-3 fs-2" style="padding-left: 1.25rem; padding-right: 48px">
             <div class="col-auto d-none"></div>
             <div class="col bm-fade fs-3 fw-bold rounded">{{ __('transaction.transaction') }}</div>
