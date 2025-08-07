@@ -8,9 +8,9 @@
     @include('reports.finance._internal_periode_summary')
 @endif
 
-<div class="card">
-    <div class="table-responsive">
+<div>
+    <!-- <div class="table-responsive"> -->
         @include('public_reports.finance._public_content_summary')
-    </div>
+    <!-- </div> -->
 </div>
 @endsection
