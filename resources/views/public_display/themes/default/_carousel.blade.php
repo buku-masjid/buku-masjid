@@ -7,6 +7,6 @@
                 <div style="background-color: #f8f8f8; height: 360px"></div>
             @endif
         </div>
-        @livewire('public-display.book-cards')
+        @livewire('public-display.book-cards', ['theme' => $theme])
     </div>
 </div>

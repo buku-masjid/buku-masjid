@@ -15,13 +15,13 @@ class FinancialSummary extends Component
     public $startWeekBalance = 0;
     public $currentWeekIncomeTotal = 0;
     public $currentWeekSpendingTotal = 0;
+    public $theme;
 
     public function render()
     {
-        $theme = config('public_display.theme');
         $view = 'livewire.public_display.themes.default.financial_summary';
-        if (view()->exists("livewire.public_display.themes.$theme.financial_summary")) {
-            $view = "livewire.public_display.themes.$theme.financial_summary";
+        if (view()->exists("livewire.public_display.themes.$this->theme.financial_summary")) {
+            $view = "livewire.public_display.themes.$this->theme.financial_summary";
         }
 
         return view($view);

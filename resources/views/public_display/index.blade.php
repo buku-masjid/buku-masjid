@@ -10,7 +10,7 @@
             @includeFirst(["public_display.themes.$theme._masjid_info", 'public_display.themes.default._masjid_info'])
         </div>
         <div class="jm-right-column jm-card justify-content-center align-items-center overflow-hidden">
-            @livewire('public-display.financial-summary')
+            @livewire('public-display.financial-summary', ['theme' => $theme])
         </div>
     </div>
     <div class="jm-section jm-main-content">
