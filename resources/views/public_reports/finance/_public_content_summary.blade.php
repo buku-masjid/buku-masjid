@@ -13,9 +13,6 @@
                {{ __('transaction.income') }}
             </button>
         </div>
-        @php
-            $key = 0;
-        @endphp
         <div id="income" class="px-3 pb-3 accordion-collapse ">
             <div class="accordion-body transaction-list mb-0">
                 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
@@ -36,7 +33,7 @@
                                         0
                                     @endif
                                 </div>
-                                <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold d-none d-sm-block text-start text-sm-end">
+                                <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold d-none d-sm-block text-start text-sm-end">
                                     -
                                 </div>
                             </div>
@@ -58,7 +55,7 @@
                                     <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold text-start text-sm-end">
                                         {{ format_number($transaction->amount) }}
                                     </div>
-                                    <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold d-none d-sm-block text-start text-sm-end">
+                                    <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold d-none d-sm-block text-start text-sm-end">
                                         -
                                     </div>
                                 </div>
@@ -71,13 +68,10 @@
     </div>
     <div class="accordion-item card mb-2">
         <div class="accordion-header">
-            <button class="accordion-button collapsed fs-2 fw-bold bm-txt-primary" type="button" data-bs-toggle="collapse" data-bs-target="#outcome" aria-expanded="false">
+            <button class="accordion-button collapsed fs-2 fw-bold bm-txt-out" type="button" data-bs-toggle="collapse" data-bs-target="#outcome" aria-expanded="false">
                {{ __('transaction.spending') }}
             </button>
         </div>
-        @php
-            $key = 0;
-        @endphp
         <div id="outcome" class="px-3 pb-3 accordion-collapse collapse">
             <div class="accordion-body transaction-list-out mb-0">
                 @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
@@ -91,7 +85,7 @@
                                 <div class="col col-cat">
                                     {{ $spendingCategory->name }}
                                 </div>
-                                <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold d-none d-sm-block text-start text-sm-end">
+                                <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold d-none d-sm-block text-start text-sm-end">
                                     -
                                 </div>
                                 <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold text-start text-sm-end">
@@ -117,7 +111,7 @@
                                     <div class="col col-cat">
                                         {!! $transaction->date_alert !!} {{ $transaction->description }}
                                     </div>
-                                    <div class="col-lg-2 col-cat col-num bm-txt-primary fw-bold d-none d-sm-block text-start text-sm-end">
+                                    <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold d-none d-sm-block text-start text-sm-end">
                                         -
                                     </div>
                                     <div class="col-lg-2 col-cat col-num bm-txt-out fw-bold text-start text-sm-end">
