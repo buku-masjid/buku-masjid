@@ -13,7 +13,7 @@
                {{ __('transaction.income') }}
             </button>
         </div>
-        <div id="income" class="px-3 pb-3 accordion-collapse ">
+        <div id="income" class="px-3 pb-3 accordion-collapse collapse show">
             <div class="accordion-body transaction-list mb-0">
                 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
                     <div class="row py-2 fs-4">

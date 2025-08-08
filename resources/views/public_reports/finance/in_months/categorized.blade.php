@@ -25,7 +25,7 @@
          @php
             $key = 0;
         @endphp
-        <div id="income" class="px-3 pb-3 accordion-collapse ">
+        <div id="income" class="px-3 pb-3 accordion-collapse collapse show">
              @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
                 <div class="accordion-body transaction-list mb-0">
                     <h4 class="my-2">{{ $incomeCategory->name }}</h4>
@@ -66,7 +66,7 @@
          @php
             $key = 0;
         @endphp
-        <div id="outcome" class="px-3 pb-3 accordion-collapse ">
+        <div id="outcome" class="px-3 pb-3 accordion-collapse collapse">
             @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
                 <div class="accordion-body transaction-list-out mb-0">
                     <h4 class="my-2">{{ $spendingCategory->name }}</h4>
