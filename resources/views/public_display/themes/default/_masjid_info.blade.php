@@ -1,15 +1,15 @@
-<div class="d-flex align-items-center p-2 overflow-hidden">
+<div class="flex items-center p-2 overflow-hidden lg:h-full">
     @if (Setting::get('masjid_logo_path'))
-        <div class="col-3 p-2 me-2">
-            <img src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="width: 100%">
+        <div class="w-1/3 md:w-1/4 p-5">
+            <img src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" class="w-full">
         </div>
     @endif
     <div class="overflow-hidden">
-        <div class="mb-2 jm-masjid-name">
+        <div class="mb-2 text-2xl 2xl:text-[1.5vw] font-bold p-2">
             {{ Setting::get('masjid_name', config('masjid.name')) }}
         </div>
         @if (Setting::get('masjid_address'))
-        <div class="pe-5 fs-6 text-black-50">{!! nl2br(htmlentities(Setting::get('masjid_address'))) !!}<br>{{Setting::get('masjid_city_name')}}</div>
+        <div class="text-sm hidden text-gray-500">{!! nl2br(htmlentities(Setting::get('masjid_address'))) !!}, {{Setting::get('masjid_city_name')}}</div>
         @endif
     </div>
 </div>

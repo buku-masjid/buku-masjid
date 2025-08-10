@@ -86,10 +86,10 @@ body.kiosk-mode {
 @mixin white-gradient {
 	background: linear-gradient(to right,  rgba(201, 222, 224,1) 0%,rgba(201, 222, 224,0) 100%);
 }
-$animationSpeed: 40s;
+$animationSpeed: 30s;
 @keyframes scroll {
 	0% { transform: translateX(0); }
-	100% { transform: translateX(calc(-35vw * 4))}
+	100% { transform: translateX(calc(-80.5vw))}
 }
 .slider {
 	background: #c9dee0; overflow:hidden; position: relative; border-radius: 20px;
@@ -97,7 +97,7 @@ $animationSpeed: 40s;
 	&::before,
 	&::after {
 		@include white-gradient;
-		content: ""; height: 100%; position: absolute; width: 200px; z-index: 2;
+		content: ""; height: 100%; position: absolute; width: 100px; z-index: 2;
 	}
 
 	&::after { right: 0; top: 0; transform: rotateZ(180deg); }
@@ -109,9 +109,7 @@ $animationSpeed: 40s;
 	}
 
 	.slide {
-		flex: 0 0 auto; box-sizing: border-box; padding: 0px 50px; width: 35vw;
-		h1 			{ font-size: 1.7vw;}
-		.sum-info 	{ font-size: 1vw;}
+		flex: 0 0 auto; box-sizing: border-box; padding: 0px 50px;
 	}
 }
 

@@ -53,7 +53,7 @@ body.kiosk-mode {
 .big-time         	{ font-size:7vw; font-weight: bold;}
 .jm-timeremaining 	{ font-size: 3vw; font-weight: bold;}
 .jm-card          	{ background-color: #D9DAD4; border-radius: 20px}
-.jm-card-active   	{ background-color: #b2f6ff;}
+.jm-card-active   	{ background-color: #b2f6ff; color: #2d6974;}
 .timeSholat       	{
   h1              	{ font-size: 2.5vw; color: #2d6974; font-weight: bold;}
   h4              	{ font-size: 2rem; margin-bottom:20px}
@@ -84,10 +84,10 @@ body.kiosk-mode {
 @mixin white-gradient {
 	background: linear-gradient(to right,  rgba(218,217,212,1) 0%,rgba(218,217,212,0) 100%);
 }
-$animationSpeed: 40s;
+$animationSpeed: 40s; 
 @keyframes scroll {
 	0% { transform: translateX(0); }
-	100% { transform: translateX(calc(-35vw * 4))}
+	100% { transform: translateX(calc(-80.5vw))}
 }
 .slider {
 	background: #D9DAD4; overflow:hidden; position: relative; border-radius: 20px;

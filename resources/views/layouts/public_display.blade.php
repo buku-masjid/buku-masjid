@@ -18,11 +18,16 @@
 
     <title>{{ Setting::get('masjid_name', config('masjid.name')) }}</title>
     <meta property="og:title" content="{{ Setting::get('masjid_name', config('masjid.name')) }}" />
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/css/tabler.min.css" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
     <link href="{{ asset("css/public_display/$theme/style.css") }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
@@ -46,7 +51,7 @@
         }
     </style>
 </head>
-<body class="bm-bg-jammasjid p-4 relative">
+<body class="bm-bg-jammasjid p-3 2xl:p-4 relative">
     <!-- Prayer Interlude Modal -->
     <div id="prayerInterludeModal" class="prayer-modal">
         <div class="prayer-message">

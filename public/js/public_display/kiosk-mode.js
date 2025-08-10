@@ -11,7 +11,7 @@ function launchFullscreen(element) {
 }
 document.addEventListener('click', function once() {
     launchFullscreen(document.documentElement);
-    document.removeEventListener('click', once); // Only run once
+    //document.removeEventListener('click', once); // Only run once
 });
 
 // Hide mouse cursor after 3 seconds of inactivity
