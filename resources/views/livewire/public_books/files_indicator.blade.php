@@ -32,47 +32,54 @@
 @endif
 </span>
 <script>
+    function setResponsiveImage($modalPreview, $img, $downloadButton) {
+        const imgEl = $img.get(0)
+        const modalWidthVar = "--tblr-modal-width"
+
+        const windowWidth = window.document.body.clientWidth;
+        const windowHeight = window.document.body.clientHeight - 230;
+
+        let actualWidth = imgEl.naturalWidth;
+        let actualHeight = imgEl.naturalHeight;
+
+        const isLandscape = actualWidth >= actualHeight;
+
+        if(actualWidth > windowWidth) {
+            actualWidth = windowWidth
+            actualHeight = (actualWidth * imgEl.naturalHeight) / imgEl.naturalWidth;
+        }
+        if(actualHeight > windowHeight) {
+            actualHeight = windowHeight
+            actualWidth = (actualHeight * imgEl.naturalWidth) / imgEl.naturalHeight;
+        }
+
+        $modalPreview.find(".modal-dialog.modal-lg").css(
+            modalWidthVar, `${actualWidth <= 300 ? actualWidth + 300 : actualWidth}px`);
+
+        $img.css('height', actualHeight)
+            .css('width', actualWidth)
+
+        $modalPreview.modal('show')
+        $modalPreview.on('hide.bs.modal', function () {
+            $img.removeAttr('src height width')
+            $downloadButton.removeAttr('href download')
+        });
+    }
+
     function showPreviewFile(url, linkEl) {
         const $modalPreview = $("#transaction-file-preview")
         const $img = $modalPreview.find('.img-container img')
         const $downloadButton = $modalPreview.find("#download")
         const headerTitle = $(linkEl).find("div").text()
         $modalPreview.find("#modalTransactionFilePreview").text(headerTitle)
+        $modalPreview.find(".modal-body").css('padding', 0)
+        $modalPreview.find(".modal-footer").css('padding-top', '0.75rem')
+
         $downloadButton.attr("href", url)
-            .attr("download", url.split("/").pop())
-        const modalWidthVar = "--tblr-modal-width"
-        $img.attr('src', url).on("load", function () {
-            const imgEl = $img.get(0)
-            let ratioPercentageScale = 0.28
-
-            const windowWidth = window.document.body.clientWidth;
-            const windowHeight = window.document.body.clientHeight;
-
-            const isTablet = window.matchMedia("(max-width: 769px)").matches;
-
-            let actualWidth = imgEl.naturalWidth;
-            let actualHeight = imgEl.naturalHeight;
-            const isLandscape = actualWidth >= actualHeight;
-
-            if(actualWidth > windowWidth) {
-                actualWidth = windowWidth
-            }
-            if(actualHeight > windowHeight) {
-                actualHeight = windowHeight - (ratioPercentageScale * windowHeight)
-                actualWidth = actualWidth <= 100 ? actualWidth : actualWidth - (ratioPercentageScale * actualWidth)
-            }
-
-            $modalPreview.find(".modal-dialog.modal-lg").css(
-                modalWidthVar, `${actualWidth <= 300 ? actualWidth + 300 : actualWidth}px`);
-
-            $img.css('height', isLandscape && isTablet ? 'auto' : actualHeight)
-                .css('width', actualWidth)
-
-            $modalPreview.modal('show')
-            $modalPreview.on('hide.bs.modal', function () {
-                $img.removeAttr('src height width')
-                $downloadButton.removeAttr('href download')
-            });
+            .attr("download", url.split("/").pop()
+        )
+        $img.attr('src', url).on("load", function() {
+            setResponsiveImage($modalPreview, $img, $downloadButton)
         })
 
     }
