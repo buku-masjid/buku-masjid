@@ -27,6 +27,5 @@ return [
     'name' => 'Nama Masjid',
     'address' => 'Alamat',
     'city_name' => 'Kota / Kab.',
-    'city_name_help' => 'Nama kota / kabupaten ini digunakan untuk mencari jadwal shalat, wajib diawali dengan "<strong>Kota</strong>" atau "<strong>Kab.</strong>". Contoh: <strong>Kota Banjarmasin</strong> / <strong>Kab. Bogor</strong>',
     'google_maps_link' => 'Link Google Maps',
 ];
