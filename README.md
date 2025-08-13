@@ -1,6 +1,6 @@
 # Buku Masjid
 
-Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berbasis web yang dibuat dengan framework Laravel.
+Buku Masjid adalah sistem pengelolaan finansial dan jadwal pengajian masjid berbasis web yang dibuat dengan framework Laravel.
 
 ## Tujuan
 
@@ -12,8 +12,8 @@ Buku Masjid adalah sistem pengelolaan keuangan dan jadwal pengajian masjid berba
 
 ## Manfaat
 
-- Meningkatkan kepercayaan jamaah/masyarakat terhadap pengelolaan dana infaq masjid/mushalla.
-- Memudahkan masyarakat dalam memutuskan untuk berinfaq ke masjid tertentu.
+- Meningkatkan kepercayaan jamaah/masyarakat terhadap pengelolaan dana infak masjid/mushalla.
+- Memudahkan masyarakat dalam memutuskan untuk berinfak ke masjid tertentu.
 - Mengurangi beban tugas bendahara dalam pembuatan laporan kas masjid/mushalla.
 - Memungkinkan masyarakat/jamaah untuk memantau jadwal pengajian secara online.
 
@@ -24,7 +24,6 @@ Kami ingin berterima kasih kepada sponsor yang mendukung development Buku Masjid
 1. [Pondok Teknologi](https://pondokteknologi.com)
 1. [Pondok IT](https://pondokit.com)
 1. [Mushaira](https://mushaira.id)
-1. [Pyramidsoft Indonesia Group](https://ptpsig.com)
 1. [LKSA Al Ma'un Center](https://lynk.id/almauncenter)
 1. [STIMI Banjarmasin](https://stimi-bjm.ac.id)
 1. [Jetorbit](https://www.jetorbit.com)

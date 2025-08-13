@@ -28,6 +28,7 @@ return [
     'deleted' => 'Donor has been deleted.',
     'undeleted' => 'Donor not deleted.',
     'undeleteable' => 'Donor data cannot be deleted.',
+    'upload_files' => 'Upload Transaction Receipt',
 
     // Attributes
     'name' => 'Donor Name',

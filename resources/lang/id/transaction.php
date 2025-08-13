@@ -15,6 +15,7 @@ return [
     'forward_date_alert' => 'Tanggal transaksi lewat dari tanggal hari ini!',
     'back_to_show' => 'Kembali ke detail Transaksi',
     'back_to_index' => 'Kembali ke daftar Transaksi',
+    'disk_is_full' => 'Penyimpanan penuh, tidak dapat upload bukti transaksi.',
 
     'total' => 'Total Transaksi',
     'income_total' => 'Total Pemasukan',
@@ -37,6 +38,7 @@ return [
 
     // Actions
     'add_income' => 'Input Pemasukan',
+    'duplicate' => 'Duplikat Transaksi',
     'income_added' => 'Pemasukan berhasil diinput.',
     'add_spending' => 'Input Pengeluaran',
     'spending_added' => 'Pengeluaran berhasil diinput.',

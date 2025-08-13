@@ -23,6 +23,6 @@ $factory->define(User::class, function (Faker $faker) {
         'role_id' => User::ROLE_ADMIN,
         'api_token' => Str::random(24),
         'remember_token' => Str::random(10),
-        'is_active' => 1, // 1: active, 2: in_active
+        'is_active' => 1, // 1: active, 2: inactive
     ];
 });

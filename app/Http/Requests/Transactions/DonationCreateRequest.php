@@ -21,10 +21,12 @@ class DonationCreateRequest extends FormRequest
             'notes' => 'nullable|max:255',
             'partner_id' => 'required_without:partner_name',
             'partner_name' => 'required_without:partner_id|max:60',
-            'partner_phone' => ['nullable', 'max:60', new PhoneNumberRule()],
+            'partner_phone' => ['nullable', 'max:60', new PhoneNumberRule],
             'partner_gender_code' => 'required_without:partner_id|in:m,f',
             'book_id' => ['required', 'exists:books,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
+            'files' => ['nullable', 'array'],
+            'files.*' => ['file', 'mimes:jpg,bmp,png,avif,webp', 'max:5120'],
         ];
         if ($this->get('partner_id')) {
             $rules['partner_id'] = 'required_without:partner_name|exists:partners,id';

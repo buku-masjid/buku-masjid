@@ -16,7 +16,7 @@
         <tr>
             <td class="text-center ">{{ ++$key }}</td>
             <td class="text-center text-nowrap">{{ Carbon\Carbon::parse($transaction->date)->isoFormat('DD MMM YYYY') }}</td>
-            <td>{!! $transaction->date_alert !!} {{ $transaction->description }}</td>
+            <td>{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</td>
             <td class="text-right ">{{ format_number($transaction->amount) }}</td>
         </tr>
         @endforeach

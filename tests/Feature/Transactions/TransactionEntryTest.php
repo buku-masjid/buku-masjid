@@ -7,10 +7,12 @@ use App\Models\BankAccount;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Partner;
+use App\Services\SystemInfo\DiskUsageService;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
+use Tests\Fakes\FakeDiskUsageService;
 use Tests\TestCase;
 
 class TransactionEntryTest extends TestCase
@@ -179,6 +181,35 @@ class TransactionEntryTest extends TestCase
     }
 
     /** @test */
+    public function user_can_duplicate_a_transaction()
+    {
+        $month = '01';
+        $year = '2017';
+        $date = '2017-01-01';
+        $user = $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $transaction = factory(Transaction::class)->create([
+            'in_out' => Transaction::TYPE_SPENDING,
+            'amount' => 99.99,
+            'date' => $date,
+            'creator_id' => $user->id,
+            'book_id' => $book->id,
+        ]);
+
+        $this->visitRoute('transactions.show', $transaction);
+        $this->click('duplicate-transaction-'.$transaction->id);
+        $this->seeRouteIs('transactions.create', [
+            'action' => 'add-spending',
+            'month' => $month,
+            'original_transaction_id' => $transaction->id,
+            'year' => $year,
+        ]);
+
+        $this->seeElement('input', ['type' => 'text', 'name' => 'amount', 'value' => '99,99']);
+        $this->seeInElement('textarea#description', $transaction->description);
+    }
+
+    /** @test */
     public function user_can_create_a_spending_transaction_with_uploaded_files()
     {
         Bus::fake();
@@ -233,6 +264,28 @@ class TransactionEntryTest extends TestCase
         Bus::assertDispatched(OptimizeImage::class, function ($job) use ($file) {
             return $job->file->id = $file->id;
         });
+    }
+
+    /** @test */
+    public function user_cannot_create_a_transaction_with_uploaded_files_when_disk_is_full()
+    {
+        $month = '01';
+        $year = '2017';
+        $this->app->instance(DiskUsageService::class, new FakeDiskUsageService());
+
+        $this->loginAsUser();
+        $book = factory(Book::class)->create();
+        $bankAccount = factory(BankAccount::class)->create();
+        $this->visit(route('transactions.index', ['month' => $month, 'year' => $year]));
+
+        $this->click(__('transaction.add_spending'));
+        $this->seeRouteIs('transactions.create', ['action' => 'add-spending', 'month' => $month, 'year' => $year]);
+
+        $this->see(__('transaction.disk_is_full'));
+        $this->dontSeeElement('input', [
+            'type' => 'file',
+            'name' => 'files[]',
+        ]);
     }
 
     /** @test */

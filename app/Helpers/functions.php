@@ -83,18 +83,25 @@ function get_week_numbers(string $year): array
 
 function calculate_folder_size(string $absolutePath)
 {
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+
+    if ($isWindows) {
         $cmd = sprintf('powershell -Command "(Get-ChildItem -Path %s -Recurse | Measure-Object -Property Length -Sum).Sum"', escapeshellarg($absolutePath));
     } else {
-        $cmd = sprintf('du -sb %s', escapeshellarg($absolutePath));
+        $cmd = sprintf('du -sk %s | cut -f1', escapeshellarg($absolutePath));
     }
 
     $output = trim(shell_exec($cmd));
-    if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-        $output = trim(preg_replace('/\s.*$/', '', $output));
+
+    if (!is_numeric($output)) {
+        return false;
     }
 
-    return is_numeric($output) ? (int) $output : false;
+    if (!$isWindows) {
+        $output = (int) $output * 1024;
+    }
+
+    return (int) $output;
 }
 
 function format_size_units($bytes)

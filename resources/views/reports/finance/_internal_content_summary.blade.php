@@ -55,7 +55,7 @@
             @foreach($groupedTransactions[1]->where('category_id', null) as $transaction)
             <tr>
                 <td class="text-center">{{ ++$key }}</td>
-                <td>{!! $transaction->date_alert !!} {{ $transaction->description }}</td>
+                <td>{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</td>
                 <td class="text-right text-nowrap">{{ format_number($transaction->amount) }}</td>
                 <td class="text-right text-nowrap">-</td>
                 <td class="text-center text-nowrap">&nbsp;</td>
@@ -83,7 +83,7 @@
             @foreach($groupedTransactions[0]->where('category_id', null) as $transaction)
             <tr>
                 <td class="text-center">{{ ++$key }}</td>
-                <td>{!! $transaction->date_alert !!} {{ $transaction->description }}</td>
+                <td>{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</td>
                 <td class="text-right text-nowrap">-</td>
                 <td class="text-right text-nowrap">{{ format_number($transaction->amount) }}</td>
                 <td class="text-center text-nowrap">&nbsp;</td>

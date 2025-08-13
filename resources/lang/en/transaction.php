@@ -15,6 +15,7 @@ return [
     'forward_date_alert' => 'This transaction date is greater than today!',
     'back_to_show' => 'Back to Transaction detail',
     'back_to_index' => 'Back to Transaction list',
+    'disk_is_full' => 'Disk space is full, cannot upload more files.',
 
     'total' => 'Transction Total',
     'income_total' => 'Income Total',
@@ -37,6 +38,7 @@ return [
 
     // Actions
     'add_income' => 'Add Income',
+    'duplicate' => 'Duplicate Transaction',
     'income_added' => 'Income has been added.',
     'add_spending' => 'Add Spending',
     'spending_added' => 'Spending has been added.',

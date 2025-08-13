@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\SystemInfo;
 
-use Illuminate\Support\Facades\Storage;
+use App\Services\SystemInfo\DiskUsageService;
 use Livewire\Component;
 
 class DiskUsage extends Component
@@ -11,7 +11,6 @@ class DiskUsage extends Component
     public $diskQuota;
     public $diskUsageInPercent;
     public $percentColor;
-    private $diskUsageInBytes;
     public $isLoading = true;
 
     public function render()
@@ -19,22 +18,22 @@ class DiskUsage extends Component
         return view('livewire.system_info.disk_usage');
     }
 
-    public function getDiskUsage()
+    protected DiskUsageService $diskService;
+
+    public function getDiskUsage(): void
     {
-        $this->diskUsage = $this->calculateDiskUsage();
-        if (config('filesystems.disk_quota')) {
-            $this->diskQuota = config('filesystems.disk_quota');
-            $this->diskUsageInPercent = get_percent($this->diskUsageInBytes, convert_to_bytes($this->diskQuota));
-        }
-        $this->percentColor = $this->getPercentColor((float) $this->diskUsageInPercent);
-        $this->isLoading = false;
+        $this->loadUsage();
     }
 
-    private function calculateDiskUsage()
+    private function loadUsage(): void
     {
-        $this->diskUsageInBytes = calculate_folder_size(Storage::path('/'));
+        $this->diskService = app(DiskUsageService::class);
 
-        return format_size_units($this->diskUsageInBytes);
+        $this->diskUsage = $this->diskService->getUsedHuman();
+        $this->diskQuota = $this->diskService->getQuotaHuman();
+        $this->diskUsageInPercent = $this->diskService->getPercentUsed();
+        $this->percentColor = $this->getPercentColor($this->diskService->getPercentUsed());
+        $this->isLoading = false;
     }
 
     private function getPercentColor(float $progressPercent): string

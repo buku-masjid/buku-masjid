@@ -54,7 +54,7 @@
                                         @livewire('public-books.files-indicator', ['transaction' => $transaction])
                                     </span>
                                 @endif
-                                {!! $transaction->date_alert !!} {{ $transaction->description }}
+                                {!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}
                             </td>
                             <td class="text-end text-nowrap">{{ $transaction->in_out ? format_number($transaction->amount) : '' }}</td>
                             <td class="text-end text-nowrap">{{ !$transaction->in_out ? format_number($transaction->amount) : '' }}</td>

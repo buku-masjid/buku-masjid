@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @if (is_null(request('action')))
             @can('update', $transaction)
                 @section('title', __('transaction.edit').' #'.$transaction->id)
@@ -106,7 +106,7 @@
                                 <label class="control-label">{{ __('transaction.amount') }}</label>
                                 <p>{{ $transaction->amount_string }}</p>
                                 <label class="control-label">{{ __('transaction.description') }}</label>
-                                <p>{!! $transaction->date_alert !!} {{ $transaction->description }}</p>
+                                <p>{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</p>
                             </div>
                             <div class="col-md-6">
                                 <label class="control-label">{{ __('category.category') }}</label>

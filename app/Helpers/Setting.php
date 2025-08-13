@@ -49,7 +49,7 @@ class Setting
             $setting->value = $value;
             $setting->save();
         } else {
-            $setting = new SettingModel();
+            $setting = new SettingModel;
             $setting->model_id = $this->modelId;
             $setting->model_type = $this->modelType;
             $setting->key = $key;

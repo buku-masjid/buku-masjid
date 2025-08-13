@@ -7,20 +7,33 @@
 <div class="page-header">
     <h1 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h1>
     <div class="page-subtitle">{{ __('transaction.detail') }}</div>
-    <div class="page-options d-flex">
+    <div class="page-options">
+        @can('create', new App\Transaction)
+            {{ link_to_route(
+                'transactions.create',
+                __('transaction.duplicate'),
+                [
+                    'action' => $transaction->in_out ? 'add-income' : 'add-spending',
+                    'month' => $transaction->month,
+                    'original_transaction_id' => $transaction->id,
+                    'year' => $transaction->year,
+                ],
+                ['class' => 'btn btn-success mr-2 mt-2 mt-lg-0', 'id' => 'duplicate-transaction-'.$transaction->id]
+            ) }}
+        @endcan
         @if ($transaction->in_out == 0)
             {{ link_to_route(
                 'transactions.print_spending_request',
                 __('transaction.print_spending_request'),
                 $transaction,
-                ['class' => 'btn btn-secondary mr-2']
+                ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
             ) }}
         @endif
         {{ link_to_route(
             'transactions.print_receipt',
             __('transaction.print_receipt'),
             $transaction,
-            ['class' => 'btn btn-secondary mr-2']
+            ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
         ) }}
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())
@@ -28,7 +41,7 @@
                     'transactions.edit',
                     __('transaction.edit'),
                     $transaction,
-                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2']
+                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2 mt-2 mt-lg-0']
                 ) !!}
             @endcan
         @endcan
@@ -39,7 +52,7 @@
                 'year' => $transaction->year,
                 'month' => $transaction->month,
             ],
-            ['class' => 'btn btn-secondary']
+            ['class' => 'btn btn-secondary mt-2 mt-lg-0']
         ) }}
     </div>
 </div>
@@ -100,7 +113,7 @@
                         <td>{{ __('transaction.amount') }}</td>
                         <td class="lead text-right">{{ config('money.currency_code') }} {{ $transaction->amount_string }}</td>
                     </tr>
-                    <tr><td>{{ __('app.description') }}</td><td>{{ $transaction->description }}</td></tr>
+                    <tr><td>{{ __('app.description') }}</td><td>{!! nl2br(htmlentities($transaction->description)) !!}</td></tr>
                     <tr><td>{{ __('app.created_by') }}</td><td>{{ $transaction->creator->name }}</td></tr>
                     <tr><td>{{ __('app.created_at') }}</td><td>{{ $transaction->created_at }}</td></tr>
                     <tr><td>{{ __('app.updated_at') }}</td><td>{{ $transaction->updated_at }}</td></tr>
@@ -110,6 +123,9 @@
     </div>
     <div class="col-md-6">
         <div class="card">
+            @if ($isDiskFull)
+                <div class="alert alert-warning m-0 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+            @endif
             <div class="card-header">
                 <h3 class="card-title">
                     {{ __('transaction.files') }}
@@ -124,7 +140,12 @@
                                 'transactions.show',
                                 __('transaction.upload_files'),
                                 [$transaction, 'action' => 'upload_files'],
-                                ['id' => 'upload_files-transaction-'.$transaction->id, 'class' => 'btn btn-success mr-2']
+                                [
+                                    'id' => 'upload_files-transaction-'.$transaction->id,
+                                    'class' => 'btn btn-success mr-2'. ($isDiskFull ? ' disabled' : ''),
+                                    'aria-disabled' => $isDiskFull ? 'true' : null,
+                                    'onclick' => $isDiskFull ? 'return false;' : null,
+                                ]
                             ) !!}
                         @endcan
                     @endcan

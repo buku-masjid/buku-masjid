@@ -33,6 +33,6 @@ class UserTest extends TestCase
         $this->assertEquals(__('app.active'), $user->status);
 
         $user = factory(User::class)->make(['is_active' => 0]);
-        $this->assertEquals(__('app.in_active'), $user->status);
+        $this->assertEquals(__('app.inactive'), $user->status);
     }
 }

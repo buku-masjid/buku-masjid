@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @section('title', __('donor.add_donation'))
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">{{ __('donor.add_donation') }}</h5>
             </div>
-            {!! Form::open(['route' => 'donor_transactions.store', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => 'donor_transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
             <div class="card-body">
                 @unless (request('partner_id') && isset($partners[request('partner_id')]))
                     <div class="btn-group btn-block mb-4">
@@ -61,12 +61,24 @@
                     <div class="col-md-6">{!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}</div>
                 </div>
                 {!! FormField::textarea('notes', ['label' => __('donor.notes'), 'placeholder' => __('donor.notes_placeholder')]) !!}
+                <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                    <label for="files" class="form-label fw-bold">{{ __('donor.upload_files') }}</label>
+                    @if($isDiskFull)
+                        <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+                    @else
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        @if ($errors->has('files.*'))
+                            @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            @endforeach
+                        @endif
+                    @endif
+                </div>
             </div>
             <div class="card-footer">
                 {!! Form::submit(__('donor.add_donation'), ['class' => 'btn btn-success']) !!}
                 {{ Form::hidden('reference_page', request('reference_page')) }}
                 @if (request('partner_id') && isset($partners[request('partner_id')]))
-                    {{-- expr --}}
                     {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn btn-secondary']) }}
                 @else
                     {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}

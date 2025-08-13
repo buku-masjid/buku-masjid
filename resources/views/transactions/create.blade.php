@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $amount = null;
+    if ($originalTransaction) {
+        $amount = format_number($originalTransaction->amount);
+    }
+@endphp
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
         @can('create', new App\Transaction)
         @if (request('action') == 'add-income')
             @section('title', __('transaction.income'))
@@ -30,11 +36,16 @@
                             {!! FormField::select('category_id', $categories, [
                                 'label' => __('category.category'),
                                 'placeholder' => __('category.uncategorized'),
+                                'value' => old('category_id', optional($originalTransaction)->category_id),
                                 'info' => ['text' => __('transaction.category_help_text', ['link' => $categorySettingLink])],
                             ]) !!}
                         </div>
                     </div>
-                    {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
+                    {!! FormField::textarea('description', [
+                        'required' => true,
+                        'label' => __('transaction.description'),
+                        'value' => old('description', optional($originalTransaction)->description),
+                    ]) !!}
                     <div class="row">
                         <div class="col-md-6">
                             {!! FormField::text('amount', [
@@ -42,6 +53,7 @@
                                 'label' => __('transaction.amount'),
                                 'addon' => ['before' => config('money.currency_code')],
                                 'step' => number_step(),
+                                'value' => old('amount', $amount),
                             ]) !!}
                         </div>
                         <div class="col-md-6">
@@ -49,6 +61,7 @@
                                 {!! FormField::select('partner_id', $partners, [
                                     'label' => $partnerSelectionLabel,
                                     'placeholder' => $partnerDefaultValue,
+                                    'value' => old('partner_id', optional($originalTransaction)->partner_id),
                                     'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
                                 ]) !!}
                             @else
@@ -56,14 +69,22 @@
                             @endif
                         </div>
                     </div>
-                    {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}
+                    {!! FormField::select('bank_account_id', $bankAccounts, [
+                        'label' => __('transaction.destination'),
+                        'placeholder' => __('transaction.cash'),
+                        'value' => old('bank_account_id', optional($originalTransaction)->bank_account_id),
+                    ]) !!}
                     <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
-                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
-                        @if ($errors->has('files.*'))
-                            @foreach ($errors->get('files.*') as $key => $errorMessages)
-                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                            @endforeach
+                        @if($isDiskFull)
+                            <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+                        @else
+                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
+                            @if ($errors->has('files.*'))
+                                @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                    {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                                @endforeach
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -88,7 +109,11 @@
                 {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
                 {{ Form::hidden('in_out', 0) }}
                 <div class="card-body">
-                    {!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.origin'), 'placeholder' => __('transaction.cash')]) !!}
+                    {!! FormField::select('bank_account_id', $bankAccounts, [
+                        'label' => __('transaction.origin'),
+                        'placeholder' => __('transaction.cash'),
+                        'value' => old('bank_account_id', optional($originalTransaction)->bank_account_id),
+                    ]) !!}
                     <div class="row">
                         <div class="col-md-6">
                             {!! FormField::text('date', [
@@ -102,11 +127,16 @@
                             {!! FormField::select('category_id', $categories, [
                                 'label' => __('category.category'),
                                 'placeholder' => __('category.uncategorized'),
+                                'value' => old('category_id', optional($originalTransaction)->category_id),
                                 'info' => ['text' => __('transaction.category_help_text', ['link' => $categorySettingLink])],
                             ]) !!}
                         </div>
                     </div>
-                    {!! FormField::textarea('description', ['required' => true, 'label' => __('transaction.description')]) !!}
+                    {!! FormField::textarea('description', [
+                        'required' => true,
+                        'label' => __('transaction.description'),
+                        'value' => old('description', optional($originalTransaction)->description),
+                    ]) !!}
                     <div class="row">
                         <div class="col-md-6">
                             {!! FormField::text('amount', [
@@ -114,6 +144,7 @@
                                 'label' => __('transaction.amount'),
                                 'addon' => ['before' => config('money.currency_code')],
                                 'step' => number_step(),
+                                'value' => old('amount', $amount),
                             ]) !!}
                         </div>
                         <div class="col-md-6">
@@ -121,6 +152,7 @@
                                 {!! FormField::select('partner_id', $partners, [
                                     'label' => $partnerSelectionLabel,
                                     'placeholder' => $partnerDefaultValue,
+                                    'value' => old('partner_id', optional($originalTransaction)->partner_id),
                                     'info' => ['text' => __('transaction.partner_help_text', ['partner' => $partnerSelectionLabel, 'link' => $partnerSettingLink])],
                                 ]) !!}
                             @else
@@ -130,11 +162,15 @@
                     </div>
                     <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
-                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
-                        @if ($errors->has('files.*'))
-                            @foreach ($errors->get('files.*') as $key => $errorMessages)
-                                {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                            @endforeach
+                        @if($isDiskFull)
+                            <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
+                        @else
+                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
+                            @if ($errors->has('files.*'))
+                                @foreach ($errors->get('files.*') as $key => $errorMessages)
+                                    {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                                @endforeach
+                            @endif
                         @endif
                     </div>
                 </div>
