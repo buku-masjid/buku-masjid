@@ -102,8 +102,6 @@
     </div>
 </div>
 
-
-
 @push('scripts')
 <script src="{{ asset('js/plugins/short-currency.js') }}"></script>
 <script>
