@@ -10,4 +10,7 @@ return [
     'shalat_time' => [
         'is_active' => env('FEATURES_SHALAT_TIME_IS_ACTIVE', false),
     ],
+    'public_display' => [
+        'is_active' => env('FEATURES_PUBLIC_DISPLAY_IS_ACTIVE', false),
+    ],
 ];
