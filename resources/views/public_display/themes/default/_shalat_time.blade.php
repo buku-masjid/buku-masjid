@@ -6,7 +6,7 @@
             $shalatTimeProviderName = config('shalat_time.providers.'.$shalatTimeProviderKey.'.name');
             $shalatTimeProviderWebsiteUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.website_url');
         @endphp
-            <span class="text-xl xl:text-3xl font-bold">Menuju waktu <span id="timeID"></span><br>
+            <span class="text-xl xl:text-3xl font-bold">{{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>
             <span id="timeRemaining" class="font-extrabold text-4xl xl:text-7xl bm-txt-primary"></span>
     @endif
 </div>

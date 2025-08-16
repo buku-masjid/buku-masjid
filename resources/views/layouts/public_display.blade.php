@@ -18,7 +18,7 @@
 
     <title>{{ Setting::get('masjid_name', config('masjid.name')) }}</title>
     <meta property="og:title" content="{{ Setting::get('masjid_name', config('masjid.name')) }}" />
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -55,22 +55,22 @@
     <!-- Prayer Interlude Modal -->
     <div id="prayerInterludeModal" class="prayer-modal">
         <div class="prayer-message">
-            <h2>Menuju Iqomah</h2>
+            <h2>{{ __('shalat_time.iqamah_interval_text') }}</h2>
             <div id="interludeCountdown" class="countdown-timer">00:00</div>
             @yield('bukumasjid_logo_image')
         </div>
     </div>
     <div id="prayerModal" class="prayer-modal">
         <div class="prayer-message">
-            <img src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="margin-bottom: 100px;">
-            <h1>Sholat Sedang Berlangsung</h1>
+            <img class="d-inline" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="margin-bottom: 100px;">
+            <h2 style="line-height: 1;">{!! __('shalat_time.shalat_interval_text') !!}</h2>
             @yield('bukumasjid_logo_image')
         </div>
     </div>
     <div id="fridayPrayerModal" class="prayer-modal">
         <div class="prayer-message">
-            <img src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="margin-bottom: 100px;">
-            <h2 style="line-height: 1;">Ibadah<br>Sholat Jumat<br>Sedang Berlangsung</h2>
+            <img class="d-inline" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="margin-bottom: 100px;">
+            <h2 style="line-height: 1;">{!! __('shalat_time.friday_interval_text') !!}</h2>
             @yield('bukumasjid_logo_image')
         </div>
     </div>
@@ -88,5 +88,5 @@
     <script src="{{ asset('js/public_display/time-calculator.js') }}"></script>
     <script src="{{ asset('js/public_display/prayer-modal.js') }}"></script>
     <script src="{{ asset('js/public_display/kiosk-mode.js') }}"></script>
- </body>
+</body>
 </html>
