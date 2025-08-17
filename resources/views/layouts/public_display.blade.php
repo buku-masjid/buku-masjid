@@ -89,11 +89,9 @@
             const shalatDailySchedule = JSON.parse('{!! json_encode(__("shalat_time.daily_schedules")) !!}')
             let shalatTimeData = "";
             let nextShalatTime = 'imsak';
-            window.prayerStartIn = {{ config('public_display.prayer_start_in') }};
-            {{-- window.prayerStartIn = {!! json_encode(config('public_display.iqamah_interval_in_minutes')) !!}; --}}
-            window.prayerEndIn = {{ config('public_display.prayer_end_in') }};
+            window.iqamahIntervalInMinutes = {!! json_encode(config('public_display.iqamah_interval_in_minutes')) !!};
+            window.shalatIntervalInMinutes = {!! json_encode(config('public_display.shalat_interval_in_minutes')) !!};
             window.nextPrayerName = nextShalatTime;
-            window.fridayPrayerEndIn = {{ config('public_display.friday_end_in') }};
             const audio = new Audio("{{ asset('audio/beep.mp3') }}");
 
             if (cachedData) {
@@ -110,7 +108,6 @@
                     }
                 });
             }
-            shalatTimeData.schedules.ashr = '15:03';
 
             function updateTimeInfoNextShalat() {
                 updateElementsContent(shalatTimeData);
@@ -227,26 +224,22 @@
                         // --- SPECIAL CASE: Friday Ashar ---
                         const today = new Date();
                         const isFriday = today.getDay() === 1;
-                        const nextPrayer = (window.nextPrayerName || '').toLowerCase();
 
-                        // console.log('isFriday:', isFriday);
-                        // console.log('nextPrayer:', nextPrayer);
-
-                        if (isFriday && nextPrayer === 'ashar') {
+                        if (isFriday && nextShalatTime === 'dzuhr') {
                             // Show Friday modal directly, skip interlude
                             if (fridayPrayerModal) {
                                 fridayPrayerModal.classList.add('show');
                                 endTimeout = setTimeout(() => {
                                     fridayPrayerModal.classList.remove('show');
-                                }, (window.fridayPrayerEndIn || 10) * 60 * 1000); // default 10 min if not set
+                                }, (window.shalatIntervalInMinutes.friday || 10) * 60 * 1000); // default 10 min if not set
                             }
                             return; // Stop further execution
                         }
 
                         // Show interlude modal with countdown
-                        if (prayerInterludeModal) {
+                        if (prayerInterludeModal && window.iqamahIntervalInMinutes[nextShalatTime]) {
                             prayerInterludeModal.classList.add('show');
-                            let countdown = window.prayerStartIn * 60; // Convert to seconds
+                            let countdown = window.iqamahIntervalInMinutes[nextShalatTime] * 60; // Convert to seconds
 
                             // Update countdown every second
                             countdownInterval = setInterval(() => {
@@ -266,11 +259,11 @@
                                         // Show prayer modal
                                         if (prayerModal) {
                                             prayerModal.classList.add('show');
-                                            // Schedule modal to hide after prayerEndIn minutes
+                                            // Schedule modal to hide after shalatIntervalInMinutes minutes
                                             endTimeout = setTimeout(() => {
                                                 // Add fade-out effect
                                                 prayerModal.classList.remove('show');
-                                            }, window.prayerEndIn * 60 * 1000);
+                                            }, window.shalatIntervalInMinutes[nextShalatTime] * 60 * 1000);
                                         }
                                     }, 500);
                                 }
