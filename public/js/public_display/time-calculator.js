@@ -86,7 +86,6 @@ function kuwaiticalendar(date, adjust) {
 }
 
 function writeIslamicDate(date, adjustment) {
-var wdNames = ["Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt"];
 var iMonthNames = ["Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir", "Jumadal Ula", "Jumadal Akhira",
                     "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja"];
 var iDate = kuwaiticalendar(date, adjustment);
@@ -109,19 +108,3 @@ function updateTimeInfo() {
 }
 updateTimeInfo();
 setInterval(updateTimeInfo, 1000);
-
-// Calculate the total width of all child elements
-const myDiv = document.getElementById("slide-track");
-const childElements = myDiv.children;
-const numberOfChildren = childElements.length;
-let totalWidth = 0;
-//console.log("Number of children:", numberOfChildren);
-
-for (let i = 0; i < numberOfChildren; i++) {
-    const child = childElements[i];
-    const width = child.offsetWidth;
-    //console.log(`Element ${i + 1} width: ${width}px`);
-    totalWidth += width;
-}
-
-myDiv.style.width = totalWidth + 'px';

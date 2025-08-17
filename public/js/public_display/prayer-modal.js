@@ -13,21 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (startTimeout) clearTimeout(startTimeout);
     if (endTimeout) clearTimeout(endTimeout);
 
-    // Toggle modal visibility
-    function toggleModal() {
-        if (prayerModal) {
-            prayerModal.classList.toggle('show');
-        }
-    }
-
-    // Handle spacebar press
-    document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space' && window.location.pathname === '/display') {
-            event.preventDefault();
-            toggleModal();
-        }
-    });
-
     // Check countdown timer
     function checkCountdown() {
         // console.log('start');
