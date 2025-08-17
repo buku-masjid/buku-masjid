@@ -1,13 +1,8 @@
 
 <div class="md:w-1/3 lg:w-1/4 px-3 py-5 flex items-center justify-center jm-card text-center mb-2 lg:h-full" >
     @if (config('features.shalat_time.is_active'))
-        @php
-            $shalatTimeProviderKey = config('shalat_time.default_provider');
-            $shalatTimeProviderName = config('shalat_time.providers.'.$shalatTimeProviderKey.'.name');
-            $shalatTimeProviderWebsiteUrl = config('shalat_time.providers.'.$shalatTimeProviderKey.'.website_url');
-        @endphp
-            <span class="text-xl xl:text-3xl font-bold">{{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>
-            <span id="timeRemaining" class="font-extrabold text-4xl xl:text-7xl bm-txt-primary"></span>
+        <span class="text-xl xl:text-3xl font-bold">{{ __('shalat_time.time_before_text') }} <span id="timeID"></span><br>
+        <span id="timeRemaining" class="font-extrabold text-4xl xl:text-7xl bm-txt-primary"></span>
     @endif
 </div>
 <div class="md:w-2/3 lg:w-3/4 lg:ps-2 grid grid-cols-2 lg:grid-cols-7 gap-2 text-gray-500">
@@ -96,16 +91,3 @@
         </div>
     </div>
 </div>
-
-
-@if (config('features.shalat_time.is_active'))
-@push('scripts')
-<script>
-    const cacheKey = `shalat_times_{{ now()->format('Ymd') }}`;
-    const cachedData = localStorage.getItem(cacheKey);
-    const shalatDailySchedule = JSON.parse('{!! json_encode(__("shalat_time.daily_schedules")) !!}')
-    const shalatTimeData = "";
-</script>
-@include('public_display._shalat_info_js')
-@endpush
-@endif
