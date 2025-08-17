@@ -94,6 +94,7 @@
             window.prayerEndIn = {{ config('public_display.prayer_end_in') }};
             window.nextPrayerName = nextShalatTime;
             window.fridayPrayerEndIn = {{ config('public_display.friday_end_in') }};
+            const audio = new Audio("{{ asset('audio/beep.mp3') }}");
 
             if (cachedData) {
                 shalatTimeData = JSON.parse(cachedData);
@@ -214,6 +215,9 @@
                 if (timeRemainingElement) {
                     // Remove spaces and check both formats
                     const timeText = timeRemainingElement.textContent.replace(/\s+/g, '');
+                    if (timeText === '00:00:03' || timeText === '00:03') {
+                        audio.play();
+                    }
 
                     if (timeText === '00:00:00' || timeText === '00:00') {
                         // Clear any existing timeouts
@@ -249,6 +253,9 @@
                                 const minutes = Math.floor(countdown / 60);
                                 const seconds = countdown % 60;
                                 interludeCountdown.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                                if (countdown == 3) {
+                                    audio.play();
+                                }
 
                                 if (countdown <= 0) {
                                     clearInterval(countdownInterval);
