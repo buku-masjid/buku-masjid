@@ -3,7 +3,7 @@ function gmod(n, m){
 }
 
 /* @param {Date}   date   - optional, default is today
-** @param {number} adjust - optiona, days to adjust date by
+** @param {number} adjust - optional, days to adjust date by
 */
 function kuwaiticalendar(date, adjust) {
     var today = date? new Date(+date) : new Date();
@@ -86,12 +86,13 @@ function kuwaiticalendar(date, adjust) {
 }
 
 function writeIslamicDate(date, adjustment) {
-var iMonthNames = ["Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir", "Jumadal Ula", "Jumadal Akhira",
-                    "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja"];
-var iDate = kuwaiticalendar(date, adjustment);
-var outputIslamicDate = iDate[5] + " " +
-                        iMonthNames[iDate[6]] + " " + iDate[7] + " AH";
-return outputIslamicDate;
+    var iMonthNames = [
+        "Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir", "Jumadal Awwal", "Jumadal Akhir", "Rajab", "Sya'ban",
+        "Ramadhan", "Shawwal", "Dzulqadah", "Dhulhijjah"
+    ];
+    var iDate = kuwaiticalendar(date, adjustment);
+    var outputIslamicDate = iDate[5] + " " + iMonthNames[iDate[6]] + " " + iDate[7] + " AH";
+    return outputIslamicDate;
 }
 
 function updateTimeInfo() {
@@ -106,5 +107,5 @@ function updateTimeInfo() {
     // Remove the 'i' prefix and add 'H' for the year
     document.querySelector('.text-islamic-date').textContent = hijriDate;
 }
-updateTimeInfo();
+
 setInterval(updateTimeInfo, 1000);
