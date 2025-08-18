@@ -18,7 +18,6 @@
 
     <title>{{ Setting::get('masjid_name', config('masjid.name')) }}</title>
     <meta property="og:title" content="{{ Setting::get('masjid_name', config('masjid.name')) }}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,14 +62,14 @@
     </div>
     <div id="shalatModal" class="prayer-modal">
         <div class="prayer-message">
-            <img class="d-inline" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="margin-bottom: 100px;">
+            <img class="mx-auto my-10" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}">
             <h2 style="line-height: 1;">{!! __('shalat_time.shalat_interval_text') !!}</h2>
             @yield('bukumasjid_logo_image')
         </div>
     </div>
     <div id="fridayModal" class="prayer-modal">
         <div class="prayer-message">
-            <img class="d-inline" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" style="margin-bottom: 100px;">
+            <img class="mx-auto my-10" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}">
             <h2 style="line-height: 1;">{!! __('shalat_time.friday_interval_text') !!}</h2>
             @yield('bukumasjid_logo_image')
         </div>

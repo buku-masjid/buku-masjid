@@ -14,11 +14,11 @@
         </div>
     </div>
     <div class="lg:flex w-full md:h-[65vh] 2xl:h-[70vh]">
-        <div class="col-12 md:w-1/3 lg:w-1/4 split py-4 md:py-2 2xl:py-4 lg:h-full">
+        <div class="col-6 md:w-1/3 lg:w-1/4 split py-4 md:py-2 2xl:py-4 lg:h-full">
             @includeFirst(["public_display.themes.$theme._date_time", 'public_display.themes.default._date_time'])
             @includeFirst(["public_display.themes.$theme._sharing_info", 'public_display.themes.default._sharing_info'])
         </div>
-        <div class="lg:ms-3 col-12 md:w-2/3 lg:w-3/4 py-4 md:py-2 2xl:py-4 lg:h-full">
+        <div class="lg:ms-3 col-6 md:w-2/3 lg:w-3/4 py-4 md:py-2 2xl:py-4 lg:h-full">
             @includeFirst(["public_display.themes.$theme._carousel", 'public_display.themes.default._carousel'])
         </div>
     </div>
