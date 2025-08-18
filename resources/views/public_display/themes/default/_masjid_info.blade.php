@@ -1,6 +1,6 @@
 <div class="flex items-center p-2 overflow-hidden lg:h-full">
     @if (Setting::get('masjid_logo_path'))
-        <div class="w-1/3 md:w-1/4 p-5">
+        <div class="w-1/3 md:w-1/4 p-3">
             <img src="{{ Storage::url(Setting::get('masjid_logo_path')) }}" class="w-full">
         </div>
     @endif
