@@ -110,17 +110,17 @@
     }
 
     function updateElementsContent(shalatTimeData) {
-        document.getElementById('region_name').textContent = shalatTimeData.lokasi.toLowerCase() + ', ' + shalatTimeData.daerah.toLowerCase();
+        document.getElementById('region_name').textContent = shalatTimeData.location.toLowerCase() + ', ' + shalatTimeData.region.toLowerCase();
         document.querySelectorAll("[data-time]").forEach((element) => {
-            element.textContent = shalatTimeData.jadwal[element.dataset.time];
+            element.textContent = shalatTimeData.schedules[element.dataset.time];
         });
 
         const now = new Date();
         const currentMinutes = now.getHours() * 60 + now.getMinutes();
         nextShalatTime = 'imsak';
         // Ref: https://www.geeksforgeeks.org/how-to-get-a-key-in-a-javascript-object-by-its-value
-        for (let prop in shalatTimeData.jadwal) {
-            const value = shalatTimeData.jadwal[prop];
+        for (let prop in shalatTimeData.schedules) {
+            const value = shalatTimeData.schedules[prop];
             if (value.match(/^\d{2,}:\d{2}$/)) {
                 const [hour, minute] = value.split(":").map(Number);
                 if (hour * 60 + minute > currentMinutes) {
@@ -132,7 +132,7 @@
 
         document.getElementById('timeID').textContent = shalatDailySchedule[nextShalatTime];
 
-        const [nextHour, nextMinute] = shalatTimeData.jadwal[nextShalatTime].split(":").map(Number);
+        const [nextHour, nextMinute] = shalatTimeData.schedules[nextShalatTime].split(":").map(Number);
         const nextMinutes = nextHour * 60 + nextMinute;
 
         // hitung sisa waktu

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -19,18 +18,16 @@ class PublicShalatTimeTest extends TestCase
                 ->push($this->getFakeCitiesResponse(), 200)
                 ->push($this->getFakeShalatTimeResponse(), 200),
         ]);
-        DB::table('settings')->insert([
-            'key' => 'masjid_city_name',
-            'value' => 'Kab. Belitung',
-        ]);
+
+        config(['shalat_time.providers.myquran_api.city_name' => 'Kab. Belitung']);
 
         $this->getJson(route('api.public_shalat_time.show'));
 
         $this->seeJsonStructure([
             'id',
-            'lokasi',
-            'daerah',
-            'jadwal' => [
+            'location',
+            'region',
+            'schedules' => [
                 'date_string', 'imsak', 'fajr', 'sunrise', 'dhuha', 'dzuhr', 'ashr', 'maghrib', 'isya', 'date',
             ],
         ]);

@@ -185,3 +185,7 @@ Untuk pengumuman dan update:
 ## Lisensi
 
 Proyek Buku Masjid merupakan perangkat lunak open-source yang dilisensikan di bawah [Lisensi MIT](LICENSE).
+
+### Credits
+
+Proyek ini menggunakan bunyi bip dari [Pixabay](https://pixabay.com/sound-effects/race-start-beeps-125125) oleh [transcendedlifting](https://pixabay.com/users/transcendedlifting-30596364) (Pixabay License)

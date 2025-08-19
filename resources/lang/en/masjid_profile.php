@@ -27,6 +27,5 @@ return [
     'name' => 'Masjid Name',
     'address' => 'Address',
     'city_name' => 'City Name',
-    'city_name_help' => 'This city name will be used for querying shalat schedule, must use "<strong>Kota</strong>" or "<strong>Kab.</strong>" prefix. Eg: <strong>Kota Banjarmasin</strong> / <strong>Kab. Bogor</strong>',
     'google_maps_link' => 'Google Maps Link',
 ];

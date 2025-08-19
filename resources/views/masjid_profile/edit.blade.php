@@ -17,7 +17,6 @@
                                 'required' => true,
                                 'value' => old('masjid_city_name', Setting::get('masjid_city_name')),
                                 'label' => __('masjid_profile.city_name'),
-                                'info' => ['text' => __('masjid_profile.city_name_help')],
                             ]) !!}
                             {!! FormField::text('masjid_google_maps_link', ['value' => old('masjid_google_maps_link', Setting::get('masjid_google_maps_link')), 'label' => __('masjid_profile.google_maps_link')]) !!}
                         </div>

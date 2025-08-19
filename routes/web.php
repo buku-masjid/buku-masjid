@@ -16,6 +16,10 @@ Route::view('/kontak', 'guest.contact')->name('public.contact');
 Route::get('/programs', 'PublicBookController@index')->name('public.books.index');
 Route::get('/programs/{book}', 'PublicBookController@show')->name('public.books.show');
 
+if (config('features.public_display.is_active')) {
+    Route::get('/display', 'PublicDisplayController@index')->name('public.display.index');
+}
+
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['prefix' => 'laporan-kas', 'as' => 'public_reports.'], function () {
