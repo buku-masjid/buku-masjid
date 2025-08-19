@@ -107,9 +107,9 @@
 <script>
     var currencyCode = '{{ config('money.currency_code') }}';
     var localeCode = '{{ config('app.locale') }}';
-    shortenMoneyContent('start_week_balance_display', parseInt({{$startWeekBalance}}), localeCode, currencyCode);
-    shortenMoneyContent('current_balance_display', parseInt({{$currentBalance}}), localeCode, currencyCode);
-    shortenMoneyContent('current_week_income_total_display', parseInt({{$currentWeekIncomeTotal}}), localeCode, currencyCode);
-    shortenMoneyContent('current_week_spending_total_display', parseInt({{$currentWeekSpendingTotal}}), localeCode, currencyCode);
+    shortenMoneyContentByClassName('start_week_balance_display', parseInt({{$startWeekBalance}}), localeCode, currencyCode);
+    shortenMoneyContentByClassName('current_balance_display', parseInt({{$currentBalance}}), localeCode, currencyCode);
+    shortenMoneyContentByClassName('current_week_income_total_display', parseInt({{$currentWeekIncomeTotal}}), localeCode, currencyCode);
+    shortenMoneyContentByClassName('current_week_spending_total_display', parseInt({{$currentWeekSpendingTotal}}), localeCode, currencyCode);
 </script>
 @endpush

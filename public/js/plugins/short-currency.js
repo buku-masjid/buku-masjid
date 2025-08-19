@@ -7,5 +7,9 @@ function shortenMoney(amount, localeCode, currencyCode = '') {
 }
 
 function shortenMoneyContent(elementId, amount, localeCode, currencyCode) {
-    document.getElementsByClassName(elementId)[0].textContent = shortenMoney(amount, localeCode, currencyCode);
+    document.getElementById(elementId).textContent = shortenMoney(amount, localeCode, currencyCode);
+}
+
+function shortenMoneyContentByClassName(className, amount, localeCode, currencyCode) {
+    document.getElementsByClassName(className)[0].textContent = shortenMoney(amount, localeCode, currencyCode);
 }
