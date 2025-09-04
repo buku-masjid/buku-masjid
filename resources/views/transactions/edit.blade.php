@@ -151,6 +151,7 @@
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
     {{ Html::script(url('js/plugins/select2.min.js')) }}
     {{ Html::script(url('js/plugins/number-format.js')) }}
+    {{ Html::script(url('js/plugins/noty.js')) }}
 <script>
 (function () {
     $('.date-select').datetimepicker({
@@ -165,6 +166,53 @@
         thousandSeparator: '{{ config('money.thousands_separator') }}',
         decimalSeparator: '{{ config('money.decimal_separator') }}'
     });
+
+    // load categories based on transaction type
+    function loadCategories(inOut, selectedCategoryId) {
+        var bookId = {{ auth()->activeBookId() }};
+
+        // Clear category selection
+        $('#category_id').empty().append('<option value="">{{ __('category.uncategorized') }}</option>');
+
+        // fetch categories
+        $.get('{{ route('api.transaction_categories') }}', {
+            in_out: inOut,
+            book_id: bookId
+        })
+        .done(function(response) {
+            if (response.data && response.data.length > 0) {
+                $.each(response.data, function(index, category) {
+                    var selected = selectedCategoryId == category.id ? ' selected' : '';
+                    $('#category_id').append(
+                        '<option value="' + category.id + '"' + selected + '>' + category.name + '</option>'
+                    );
+                });
+            }
+        })
+        .fail(function(data) {
+            var status = 'error';
+            var errorMessage = data.responseJSON.message;
+            noty({
+                type: status,
+                layout: 'bottomRight',
+                text: errorMessage,
+                timeout: false
+            });
+        });
+    }
+
+    // Handle change to update categories
+    $('input[name="in_out"]').change(function() {
+        var inOut = $(this).val();
+        loadCategories(inOut, null);
+    });
+
+    // Load categories on load
+    var currentInOut = $('input[name="in_out"]:checked').val();
+    var currentCategoryId = '{{ $transaction->category_id }}';
+    if (currentInOut !== undefined) {
+        loadCategories(currentInOut, currentCategoryId);
+    }
 })();
 </script>
 @endpush

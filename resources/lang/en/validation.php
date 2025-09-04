@@ -128,6 +128,8 @@ return [
         ],
     ],
 
+    'category_type_mismatch' => 'Category ":category" does not match with :type transaction type.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

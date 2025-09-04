@@ -128,6 +128,8 @@ return [
         ],
     ],
 
+    'category_type_mismatch' => 'Kategori ":category" tidak sesuai dengan jenis transaksi :type.',
+
     /*
     |---------------------------------------------------------------------------------------
     | Kustom Validasi Atribut
