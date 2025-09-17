@@ -29,6 +29,7 @@ return [
     'title' => 'Judul File',
     'path' => 'Lokasi File',
     'description' => 'Deskripsi File',
+    'preview' => 'Pratinjau File',
     'size' => 'Ukuran File',
     'updated_at' => 'Tanggal',
 ];
