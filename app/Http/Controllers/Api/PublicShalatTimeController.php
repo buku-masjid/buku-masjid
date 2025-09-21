@@ -19,12 +19,32 @@ class PublicShalatTimeController extends Controller
             return response()->json(['error' => 'No Shalat Time provider configured.'], 400);
         }
 
+        $schedule = $shalatTimeService->getSchedule(Carbon::now()->format('Y-m-d'));
+        $schedule = $this->adjustShalatTimeSchedule($schedule);
         try {
-            return $shalatTimeService->getSchedule(Carbon::now()->format('Y-m-d'));
+
+            return $schedule;
         } catch (Exception $e) {
             Log::error('Error fetching prayer times: '.$e->getMessage());
 
             return response()->json(['error' => 'Failed to fetch prayer times.'], 500);
         }
+    }
+
+    private function adjustShalatTimeSchedule(array $schedule): array
+    {
+        $shalatTimeAdjustmentConfig = config('shalat_time.adjustment_in_minutes');
+        foreach ($shalatTimeAdjustmentConfig as $shalatTimeCode => $shalatTimeAdjustmentInMinutes) {
+            if (is_null($shalatTimeAdjustmentInMinutes)) {
+                continue;
+            }
+            $newSchedule = Carbon::parse($schedule['schedules'][$shalatTimeCode])->addMinutes($shalatTimeAdjustmentInMinutes);
+            $schedule['schedules'][$shalatTimeCode] = $newSchedule->format('H:i');
+            if ($shalatTimeCode == 'fajr' && is_null($shalatTimeAdjustmentConfig['imsak'])) {
+                $schedule['schedules']['imsak'] = $newSchedule->subMinutes(10)->format('H:i');
+            }
+        }
+
+        return $schedule;
     }
 }

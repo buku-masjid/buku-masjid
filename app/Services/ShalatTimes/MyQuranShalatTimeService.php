@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class MyQuranShalatTimeService implements ShalatTimeService
 {
-    public function getSchedule(string $date)
+    public function getSchedule(string $date): array
     {
         $cities = $this->getAvailableCities();
         $cityName = config('shalat_time.providers.myquran_api.city_name');
