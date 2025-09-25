@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Transactions;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -29,7 +30,24 @@ class UpdateRequest extends FormRequest
             'date' => 'required|date|date_format:Y-m-d',
             'amount' => 'required|max:60',
             'description' => 'required|max:255',
-            'category_id' => 'nullable|exists:categories,id',
+            'category_id' => ['nullable', 'exists:categories,id',
+                function ($attribute, $value, $fail) {
+                    if ($value) {
+                        $category = Category::find($value);
+                        if ($category) {
+                            $inOut = $this->input('in_out');
+                            $expectedColor = $inOut ? config('masjid.income_color') : config('masjid.spending_color');
+                            if ($category->color !== $expectedColor) {
+                                $transactionType = $inOut ? __('transaction.income') : __('transaction.spending');
+                                $fail(__('validation.category_type_mismatch', [
+                                    'category' => $category->name,
+                                    'type' => $transactionType
+                                ]));
+                            }
+                        }
+                    }
+                },
+            ],
             'partner_id' => ['nullable', 'exists:partners,id'],
             'bank_account_id' => ['nullable', 'exists:bank_accounts,id'],
         ];
