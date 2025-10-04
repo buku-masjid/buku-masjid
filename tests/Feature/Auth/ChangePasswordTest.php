@@ -14,7 +14,7 @@ class ChangePasswordTest extends TestCase
     {
         $user = $this->loginAsUser();
 
-        $this->visitRoute('home');
+        $this->visitRoute('profile.show');
         $this->click(__('settings.settings'));
         $this->click(__('auth.change_password'));
 
@@ -37,7 +37,7 @@ class ChangePasswordTest extends TestCase
     {
         $user = $this->loginAsUser();
 
-        $this->visitRoute('home');
+        $this->visitRoute('profile.show');
         $this->click(__('settings.settings'));
         $this->click(__('auth.change_password'));
 

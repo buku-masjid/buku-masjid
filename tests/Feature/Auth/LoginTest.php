@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\Book;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -14,6 +15,7 @@ class LoginTest extends TestCase
     public function user_can_login_and_logout()
     {
         $user = factory(User::class)->create(['name' => 'Nama Member', 'email' => 'email@mail.com']);
+        $book = factory(Book::class)->create();
 
         $this->visit(route('login'));
 

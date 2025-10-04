@@ -42,7 +42,7 @@ class MasjidProfileTest extends TestCase
         $this->loginAsUser();
         $this->dontSeeInDatabase('settings', ['key' => 'masjid_logo_path']);
 
-        $this->get(route('home'));
+        $this->get(route('masjid_profile.show'));
         $this->seeStatusCode(200);
 
         $csrfToken = csrf_token();
@@ -74,7 +74,7 @@ class MasjidProfileTest extends TestCase
         $this->loginAsUser();
         $this->dontSeeInDatabase('settings', ['key' => 'masjid_photo_path']);
 
-        $this->get(route('home'));
+        $this->get(route('masjid_profile.show'));
         $this->seeStatusCode(200);
 
         $csrfToken = csrf_token();
