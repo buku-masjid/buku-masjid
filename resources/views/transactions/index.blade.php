@@ -145,14 +145,7 @@
                         <tr class="strong">
                             <td colspan="3" class="text-right">{{ __('transaction.start_balance') }}</td>
                             <td class="text-right">
-                                @php
-                                    $balance = 0;
-                                @endphp
-                                @if ($transactions->first())
-                                    {{ format_number($balance = auth()->activeBook()->getBalance(Carbon\Carbon::parse($transactions->first()->date)->subDay()->format('Y-m-d'))) }}
-                                @else
-                                    0
-                                @endif
+                                {{ format_number($balance = auth()->activeBook()->getBalance(Carbon\Carbon::parse($startDate)->subDay()->format('Y-m-d'))) }}
                             </td>
                             <td>&nbsp;</td>
                         </tr>
@@ -169,11 +162,7 @@
                         <tr class="strong">
                             <td colspan="3" class="text-right">{{ __('transaction.end_balance') }}</td>
                             <td class="text-right">
-                                @if ($transactions->first())
-                                    {{ format_number($balance + $incomeTotal - $spendingTotal) }}
-                                @else
-                                    0
-                                @endif
+                                {{ format_number($balance + $incomeTotal - $spendingTotal) }}
                             </td>
                             <td>&nbsp;</td>
                         </tr>
