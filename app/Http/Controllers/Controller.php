@@ -69,7 +69,7 @@ class Controller extends BaseController
             }
         });
 
-        return $transactionQuery->orderBy('date', 'asc')
+        return $transactionQuery->orderBy('date', 'desc')->orderBy('created_at', 'desc')
             ->with('category', 'bankAccount', 'book')
             ->withCount('files')
             ->get();
