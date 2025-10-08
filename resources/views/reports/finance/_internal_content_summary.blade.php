@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         @if ($lastMonthBalance || auth()->activeBook()->bank_account_id)
-            <tr><td colspan="5">{{ __('transaction.balance') }}</td></tr>
+            <tr><th colspan="5" class="text-left">{{ __('transaction.balance') }}</th></tr>
         @endif
         @if (auth()->activeBook()->bank_account_id)
             <tr>
@@ -32,7 +32,8 @@
                 <td class="text-right text-nowrap">{{ format_number($lastMonthBalance) }}</td>
             </tr>
         @endif
-        <tr><td colspan="5">{{ __('transaction.income') }}</td></tr>
+        <tr><td colspan="5">&nbsp;</td></tr>
+        <tr><th colspan="5" class="text-left">{{ __('transaction.income') }}</th></tr>
         @php
             $key = 0;
         @endphp
@@ -63,7 +64,7 @@
             @endforeach
         @endif
         <tr><td colspan="5">&nbsp;</td></tr>
-        <tr><td colspan="5">{{ __('transaction.spending') }}</td></tr>
+        <tr><th colspan="5" class="text-left">{{ __('transaction.spending') }}</th></tr>
         @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
         <tr>
             <td class="text-center">{{ ++$key }}</td>
@@ -94,9 +95,9 @@
     </tbody>
     @if (!$groupedTransactions->isEmpty())
     <tfoot>
-        <tr class="strong">
+        <tr>
             <td>&nbsp;</td>
-            <td class="text-right">
+            <td class="text-center">
                 {{ __('transaction.in_out') }} hingga {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}
             </td>
             <td class="text-right">
@@ -119,11 +120,11 @@
             </td>
         </tr>
         @if (auth()->activeBook()->bank_account_id)
-        <tr class="strong">
+        <tr>
             <td>&nbsp;</td>
-            <td class="text-right">Saldo Kas hingga {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
-            <td class="text-right">&nbsp;</td>
-            <td class="text-right">&nbsp;</td>
+            <td class="text-center">Saldo Kas hingga {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td class="text-right text-nowrap">
                 @php
                     $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
@@ -131,22 +132,22 @@
                 {{ format_number($currentMonthBalance) }}
             </td>
         </tr>
-        <tr class="strong">
+        <tr>
             <td>&nbsp;</td>
-            <td class="text-right">Saldo Kas + Saldo Bank per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
-            <td class="text-right">&nbsp;</td>
-            <td class="text-right">&nbsp;</td>
-            <td class="text-right text-nowrap">
+            <td class="text-center strong">Saldo Kas + Saldo Bank per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="text-right strong text-nowrap">
                 {{ format_number($currentMonthBalance + $lastBankAccountBalanceOfTheMonth->amount) }}
             </td>
         </tr>
         @else
-        <tr class="strong">
+        <tr>
             <td>&nbsp;</td>
-            <td class="text-center">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
-            <td class="text-right">&nbsp;</td>
-            <td class="text-right">&nbsp;</td>
-            <td class="text-right text-nowrap">
+            <td class="text-center strong">Total saldo akhir per {{ $currentMonthEndDate->isoFormat('D MMMM Y') }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="text-right strong text-nowrap">
                 @php
                     $currentMonthBalance = $lastMonthBalance + $currentMonthIncome - $currentMonthSpending;
                 @endphp
