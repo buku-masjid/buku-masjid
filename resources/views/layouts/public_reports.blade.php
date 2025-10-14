@@ -49,6 +49,7 @@
             <div class="px-3 p-lg-0">
                 @yield('content-report')
             </div>
+            @include('public_reports.finance._modal_preview_file_transactions')
         </div>
     </div>
 </div>
