@@ -36,7 +36,7 @@ class CategoriesController extends Controller
         ]);
 
         $categoryColor = $request->in_out ? config('masjid.income_color') : config('masjid.spending_color');
-        
+
         $categories = Category::where('status_id', Category::STATUS_ACTIVE)
             ->where('book_id', $request->book_id)
             ->where('color', $categoryColor)

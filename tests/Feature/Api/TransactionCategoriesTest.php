@@ -17,7 +17,7 @@ class TransactionCategoriesTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        
+
         // incomeCategory1
         factory(Category::class)->create([
             'name' => 'Donasi Masjid',
@@ -33,7 +33,7 @@ class TransactionCategoriesTest extends TestCase
             'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
-        
+
         factory(Category::class)->create([
             'name' => 'Biaya Listrik',
             'color' => config('masjid.spending_color'),
@@ -49,14 +49,14 @@ class TransactionCategoriesTest extends TestCase
         $this->assertResponseOk();
         $this->seeJsonStructure([
             'data' => [
-                '*' => ['id', 'name', 'color']
-            ]
+                '*' => ['id', 'name', 'color'],
+            ],
         ]);
 
         $this->seeJson(['name' => 'Donasi Masjid']);
         $this->seeJson(['name' => 'Infaq Jumat']);
         $this->seeJson(['color' => config('masjid.income_color')]);
-        
+
         $this->dontSeeJson(['name' => 'Biaya Listrik']);
     }
 
@@ -65,7 +65,7 @@ class TransactionCategoriesTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        
+
         // spendingCategory1
         factory(Category::class)->create([
             'name' => 'Biaya Listrik',
@@ -80,7 +80,7 @@ class TransactionCategoriesTest extends TestCase
             'book_id' => $book->id,
             'creator_id' => $user->id,
         ]);
-        
+
         factory(Category::class)->create([
             'name' => 'Donasi Masjid',
             'color' => config('masjid.income_color'),
@@ -96,14 +96,14 @@ class TransactionCategoriesTest extends TestCase
         $this->assertResponseOk();
         $this->seeJsonStructure([
             'data' => [
-                '*' => ['id', 'name', 'color']
-            ]
+                '*' => ['id', 'name', 'color'],
+            ],
         ]);
 
         $this->seeJson(['name' => 'Biaya Listrik']);
         $this->seeJson(['name' => 'Biaya Air']);
         $this->seeJson(['color' => config('masjid.spending_color')]);
-        
+
         $this->dontSeeJson(['name' => 'Donasi Masjid']);
     }
 
@@ -112,7 +112,7 @@ class TransactionCategoriesTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        
+
         factory(Category::class)->create([
             'name' => 'Donasi Masjid',
             'color' => config('masjid.income_color'),
@@ -135,7 +135,7 @@ class TransactionCategoriesTest extends TestCase
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
         $otherBook = factory(Book::class)->create();
-        
+
         factory(Category::class)->create([
             'name' => 'Other Book Category',
             'color' => config('masjid.income_color'),
@@ -223,7 +223,7 @@ class TransactionCategoriesTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        
+
         // activeCategoryy
         factory(Category::class)->create([
             'name' => 'Active Income Category',
@@ -232,7 +232,7 @@ class TransactionCategoriesTest extends TestCase
             'creator_id' => $user->id,
             'status_id' => Category::STATUS_ACTIVE,
         ]);
-        
+
         // inactiveCategory
         factory(Category::class)->create([
             'name' => 'Inactive Income Category',
@@ -248,7 +248,7 @@ class TransactionCategoriesTest extends TestCase
         ]));
 
         $this->assertResponseOk();
-        
+
         $this->seeJson(['name' => 'Active Income Category']);
         $this->dontSeeJson(['name' => 'Inactive Income Category']);
     }
@@ -258,7 +258,7 @@ class TransactionCategoriesTest extends TestCase
     {
         $user = $this->loginAsUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
-        
+
         factory(Category::class)->create([
             'name' => 'Zakat',
             'color' => config('masjid.income_color'),
@@ -284,7 +284,7 @@ class TransactionCategoriesTest extends TestCase
         ]));
 
         $this->assertResponseOk();
-        
+
         $this->seeJson(['name' => 'Donasi']);
         $this->seeJson(['name' => 'Infaq']);
         $this->seeJson(['name' => 'Zakat']);

@@ -41,7 +41,7 @@ class UpdateRequest extends FormRequest
                                 $transactionType = $inOut ? __('transaction.income') : __('transaction.spending');
                                 $fail(__('validation.category_type_mismatch', [
                                     'category' => $category->name,
-                                    'type' => $transactionType
+                                    'type' => $transactionType,
                                 ]));
                             }
                         }
