@@ -8,7 +8,7 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
 
     <style>
-        body { font-family: 'Arial', sans-serif; font-size: 12px; }
+        body { font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; }
         table.table { margin-left: 0; margin-bottom: 10px; width: 100%; }
         table.table, table.table td, table.table th { border: 1px solid #000; border-collapse: collapse; padding: 4px; }
         .text-left { text-align: left; }
