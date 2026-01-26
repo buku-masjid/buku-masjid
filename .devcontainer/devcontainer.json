@@ -1,0 +1,42 @@
+{
+  "name": "Buku Masjid",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/git-lfs:1": {}
+  },
+  
+  "forwardPorts": [8000, 3306],
+
+  "portsAttributes": {
+    "8000": {
+      "label": "Buku Masjid App",
+      "onAutoForward": "notify",
+      "visibility": "public" 
+    },
+    "3306": {
+      "label": "MySQL Database",
+      "onAutoForward": "ignore"
+    }
+  },
+
+  "postCreateCommand": "cp .env.example .env && composer install && npm install && php artisan key:generate",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "onecentlin.laravel-blade",
+        "amiralizadeh9480.laravel-extra-intellisense",
+        "shufo.vscode-blade-formatter",
+        "dbaeumer.vscode-eslint",
+        "cweijan.vscode-mysql-client2"
+      ]
+    }
+  }
+}

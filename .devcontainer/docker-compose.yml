@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces/${localWorkspaceFolderBasename:-buku-masjid}:cached
+    command: sleep infinity
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: buku_masjid
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      APP_URL: https://${CODESPACE_NAME}-8000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: buku_masjid
+      MYSQL_ROOT_PASSWORD: root
+
+volumes:
+  db_data:
