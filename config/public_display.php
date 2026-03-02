@@ -6,6 +6,7 @@ return [
         'default',
         'light',
     ],
+    'book_carousel_slide_interval_in_seconds' => env('PUBLIC_DISPLAY_BOOK_CAROUSEL_SLIDE_INTERVAL_IN_SECONDS', 10),
     'iqamah_interval_in_minutes' => [
         'fajr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_FAJR', 25),
         'dzuhr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_DZUHR', 15),
