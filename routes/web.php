@@ -154,6 +154,7 @@ Route::group(['middleware' => 'auth'], function () {
     /*
      * File Backup Routes
      */
+    Route::post('file_backups/upload', ['as' => 'file_backups.upload', 'uses' => 'FileBackupController@upload']);
     Route::post('file_backups/{fileName}/restore', ['as' => 'file_backups.restore', 'uses' => 'FileBackupController@restore']);
     Route::get('file_backups/{fileName}/dl', ['as' => 'file_backups.download', 'uses' => 'FileBackupController@download']);
     Route::resource('file_backups', 'FileBackupController', ['except' => ['create', 'show', 'edit']]);

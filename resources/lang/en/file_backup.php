@@ -36,4 +36,7 @@ return [
     'restore_confirm' => 'Click OK to Restore.',
     'restored' => 'Files restored from backup file :filename',
     'restore_failed' => 'Failed to restore backup file :filename',
+    // Upload backup file
+    'upload' => 'Upload Backup File',
+    'uploaded' => 'Backup file :filename uploaded.',
 ];

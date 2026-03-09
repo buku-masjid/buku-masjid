@@ -36,4 +36,7 @@ return [
     'restore_confirm' => 'Klik OK untuk me-Restore.',
     'restored' => 'File berhasil di-restore dari backup :filename',
     'restore_failed' => 'Gagal me-restore file backup :filename',
+    // Upload backup file
+    'upload' => 'Upload File Backup',
+    'uploaded' => 'Backup file :filename berhasil diupload.',
 ];

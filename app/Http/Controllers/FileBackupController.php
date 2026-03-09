@@ -118,4 +118,27 @@ class FileBackupController extends Controller
 
         return redirect()->route('file_backups.index');
     }
+
+    public function upload(Request $request): RedirectResponse
+    {
+        $this->authorize('manage_file_backup');
+
+        $validatedPayload = $request->validate([
+            'backup_file' => 'required|file|mimes:zip',
+        ]);
+
+        $file = $validatedPayload['backup_file'];
+        $fileName = $file->getClientOriginalName();
+        $backupDir = storage_path('app/' . self::BACKUP_PATH);
+
+        if (!File::exists($backupDir)) {
+            File::makeDirectory($backupDir, 0755, true);
+        }
+
+        $file->move($backupDir, $fileName);
+
+        flash(__('file_backup.uploaded', ['filename' => $fileName]), 'success');
+
+        return redirect()->route('file_backups.index');
+    }
 }
