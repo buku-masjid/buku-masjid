@@ -20,23 +20,25 @@ class FileBackupController extends Controller
     {
         $this->authorize('manage_file_backup');
 
-        $backupDir = storage_path('app/'.self::BACKUP_PATH);
+        $backupFiles = Storage::disk('local')->files(self::BACKUP_PATH);
+        $backupFiles = array_filter($backupFiles, function ($file) {
+            return pathinfo($file, PATHINFO_EXTENSION) === 'zip';
+        });
 
-        if (!File::exists($backupDir)) {
-            $backups = [];
-        } else {
-            $backups = File::allFiles($backupDir);
-            $this->sortFilesByModifiedTimeDesc($backups);
+        $backups = [];
+        foreach ($backupFiles as $file) {
+            $backups[] = [
+                'filename' => basename($file),
+                'size' => Storage::disk('local')->size($file),
+                'modified' => Storage::disk('local')->lastModified($file),
+            ];
         }
 
-        return view('file_backups.index', compact('backups'));
-    }
-
-    private function sortFilesByModifiedTimeDesc(array &$backups): void
-    {
         usort($backups, function ($a, $b) {
-            return -1 * strcmp($a->getMTime(), $b->getMTime());
+            return -1 * strcmp($a['modified'], $b['modified']);
         });
+
+        return view('file_backups.index', compact('backups'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -49,27 +51,24 @@ class FileBackupController extends Controller
 
         $fileName = $validatedPayload['file_name'] ?: date('Y-m-d_Hi');
         $zipFileName = $fileName.'.zip';
-        $backupDir = storage_path('app/'.self::BACKUP_PATH);
-        $publicDir = storage_path('app/'.self::PUBLIC_PATH);
-        $zipPath = $backupDir.'/'.$zipFileName;
 
-        if (!File::exists($backupDir)) {
-            File::makeDirectory($backupDir, 0755, true);
-        }
+        $tempDir = sys_get_temp_dir();
+        $tempZip = $tempDir.'/'.$zipFileName;
 
-        $publicFiles = File::allFiles($publicDir);
+        $publicFiles = Storage::disk('local')->allFiles(self::PUBLIC_PATH);
         $fileChecksums = [];
 
         $zip = new ZipArchive();
-        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+        if ($zip->open($tempZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
             foreach ($publicFiles as $file) {
-                $relativePath = $file->getRelativePathname();
-                $fileChecksums[$relativePath] = hash_file('sha256', $file->getPathname());
-                $zip->addFile($file->getPathname(), $relativePath);
+                $relativePath = str_replace(self::PUBLIC_PATH.'/', '', $file);
+                $content = Storage::disk('local')->get($file);
+                $fileChecksums[$relativePath] = hash('sha256', $content);
+                $zip->addFromString($relativePath, $content);
             }
             $zip->close();
 
-            $zip->open($zipPath);
+            $zip->open($tempZip);
             $manifest = [
                 'created_at' => date('Y-m-d H:i:s'),
                 'files' => $fileChecksums,
@@ -77,6 +76,9 @@ class FileBackupController extends Controller
             $zip->addFromString('manifest.json', json_encode($manifest, JSON_PRETTY_PRINT));
             $zip->close();
         }
+
+        Storage::disk('local')->put(self::BACKUP_PATH.'/'.$zipFileName, file_get_contents($tempZip));
+        unlink($tempZip);
 
         flash(__('file_backup.created', ['filename' => $zipFileName]), 'success');
 
@@ -87,12 +89,7 @@ class FileBackupController extends Controller
     {
         $this->authorize('manage_file_backup');
 
-        $backupDir = storage_path('app/'.self::BACKUP_PATH);
-        $filePath = $backupDir.'/'.$fileName;
-
-        if (File::exists($filePath)) {
-            File::delete($filePath);
-        }
+        Storage::disk('local')->delete(self::BACKUP_PATH.'/'.$fileName);
 
         flash(__('file_backup.deleted', ['filename' => $fileName]), 'warning');
 
@@ -110,29 +107,80 @@ class FileBackupController extends Controller
     {
         $this->authorize('manage_file_backup');
 
-        $backupDir = storage_path('app/'.self::BACKUP_PATH);
-        $zipPath = $backupDir.'/'.$fileName;
-        $publicDir = storage_path('app/'.self::PUBLIC_PATH);
+        $zipPath = self::BACKUP_PATH.'/'.$fileName;
 
-        if (!File::exists($zipPath)) {
+        if (!Storage::disk('local')->exists($zipPath)) {
             flash(__('file_backup.restore_failed', ['filename' => $fileName]), 'danger');
             return redirect()->route('file_backups.index');
         }
 
-        $validationResult = $this->validateBackupChecksum($zipPath);
+        $tempDir = sys_get_temp_dir();
+        $tempZip = $tempDir.'/'.$fileName;
+
+        file_put_contents($tempZip, Storage::disk('local')->get($zipPath));
+
+        $validationResult = $this->validateBackupChecksum($tempZip);
         if (!$validationResult['valid']) {
+            unlink($tempZip);
             flash(__('file_backup.restore_failed_invalid'), 'danger');
             return redirect()->route('file_backups.index');
         }
 
-        if (!$this->safeExtract($zipPath, $publicDir)) {
+        if (!$this->extractToPublic($tempZip)) {
+            unlink($tempZip);
             flash(__('file_backup.restore_failed_traversal'), 'danger');
             return redirect()->route('file_backups.index');
         }
 
+        unlink($tempZip);
+
         flash(__('file_backup.restored', ['filename' => $fileName]), 'success');
 
         return redirect()->route('file_backups.index');
+    }
+
+    private function extractToPublic(string $tempZip): bool
+    {
+        $zip = new ZipArchive();
+        if ($zip->open($tempZip) !== true) {
+            return false;
+        }
+
+        $publicDir = Storage::disk('local')->path(self::PUBLIC_PATH);
+
+        $baseDir = realpath($publicDir);
+        if ($baseDir === false) {
+            $baseDir = $publicDir;
+        }
+
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $entryName = $zip->getNameIndex($i);
+            if ($entryName === 'manifest.json') {
+                continue;
+            }
+
+            $fullPath = $publicDir.'/'.$entryName;
+            $resolvedPath = realpath($fullPath);
+
+            if ($resolvedPath !== false && !str_starts_with($resolvedPath, $baseDir)) {
+                $zip->close();
+                return false;
+            }
+        }
+
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $entryName = $zip->getNameIndex($i);
+            if ($entryName === 'manifest.json') {
+                continue;
+            }
+
+            $content = $zip->getFromName($entryName);
+            Storage::disk('local')->put(self::PUBLIC_PATH.'/'.$entryName, $content);
+        }
+
+        $zip->close();
+
+        return true;
     }
 
     private function validateBackupChecksum(string $zipPath): array
@@ -190,59 +238,6 @@ class FileBackupController extends Controller
         }
     }
 
-    private function safeExtract(string $zipPath, string $extractPath): bool
-    {
-        $zip = new ZipArchive();
-        if ($zip->open($zipPath) !== true) {
-            return false;
-        }
-
-        $baseDir = realpath($extractPath);
-        if ($baseDir === false) {
-            if (!File::makeDirectory($extractPath, 0755, true)) {
-                $zip->close();
-                return false;
-            }
-            $baseDir = realpath($extractPath);
-        }
-
-        for ($i = 0; $i < $zip->numFiles; $i++) {
-            $entryName = $zip->getNameIndex($i);
-            if ($entryName === 'manifest.json') {
-                continue;
-            }
-
-            $entryDir = dirname($entryName);
-            if ($entryDir === '.') {
-                $entryDir = '';
-            }
-
-            $fullPath = $extractPath.'/'.$entryName;
-            $resolvedPath = realpath($fullPath);
-
-            if ($resolvedPath !== false && !str_starts_with($resolvedPath, $baseDir)) {
-                $zip->close();
-                return false;
-            }
-
-            if ($entryDir !== '' && !is_dir($extractPath.'/'.$entryDir)) {
-                continue;
-            }
-
-            $checkPath = $entryDir === '' ? $fullPath : $extractPath.'/'.$entryDir;
-            $realCheckPath = realpath($checkPath);
-            if ($realCheckPath !== false && !str_starts_with($realCheckPath, $baseDir)) {
-                $zip->close();
-                return false;
-            }
-        }
-
-        $zip->extractTo($extractPath);
-        $zip->close();
-
-        return true;
-    }
-
     public function upload(Request $request): RedirectResponse
     {
         $this->authorize('manage_file_backup');
@@ -253,7 +248,6 @@ class FileBackupController extends Controller
 
         $file = $validatedPayload['backup_file'];
         $fileName = $file->getClientOriginalName();
-        $backupDir = storage_path('app/'.self::BACKUP_PATH);
         $tempPath = $file->getPathname();
 
         $validationResult = $this->validateBackupChecksum($tempPath);
@@ -262,11 +256,7 @@ class FileBackupController extends Controller
             return redirect()->route('file_backups.index');
         }
 
-        if (!File::exists($backupDir)) {
-            File::makeDirectory($backupDir, 0755, true);
-        }
-
-        $file->move($backupDir, $fileName);
+        Storage::disk('local')->put(self::BACKUP_PATH.'/'.$fileName, file_get_contents($tempPath));
 
         flash(__('file_backup.uploaded', ['filename' => $fileName]), 'success');
 
