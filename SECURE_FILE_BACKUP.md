@@ -30,7 +30,7 @@ Gate::define('manage_file_backup', function (User $user) {
 
 ### 1. Manifest-Based Validation
 
-Each backup ZIP contains a `manifest.json` file with checksums for all files:
+Each backup ZIP contains a `manifest.json` file with SHA256 checksums for all files:
 
 ```json
 {
@@ -42,40 +42,44 @@ Each backup ZIP contains a `manifest.json` file with checksums for all files:
 }
 ```
 
-### 2. File Checksum Validation
+### 2. Per-File Checksum Validation
 
-When validating a backup:
+Instead of validating the ZIP file structure, we validate each file's content:
 
-1. Extract each file from ZIP
-2. Calculate SHA256 checksum for each file
-3. Compare with checksums stored in manifest
+1. For each file in the ZIP, calculate SHA256 hash
+2. Compare with the checksum stored in manifest.json
+3. If any file fails validation, reject the backup
 
-This validates file contents, not ZIP structure, making it reliable.
+This approach is:
+- **Reliable**: ZIP creation order/compression doesn't affect validation
+- **Secure**: Detects any modification to files inside the ZIP
+- **Efficient**: Can validate without full extraction
 
 ### 3. Upload Security
 
 When uploading a backup:
 
-1. Validate manifest.json exists
-2. Validate each file's checksum matches manifest
-3. If valid, accept the upload
+1. Open the ZIP and read manifest.json
+2. For each file entry, calculate SHA256 and compare with manifest
+3. If all checksums match, accept the upload
 
 This ensures:
-
-- Only backups created by the system can be uploaded
+- Only backups created by the system can be uploaded (has valid manifest)
 - Modified or corrupted backups are rejected
+- Extra files added to ZIP are rejected
 
 ### 4. Restore Security
 
 When restoring a backup:
 
-1. Validate file checksums against manifest
-2. Apply Zip Slip protection (path traversal prevention)
-3. Extract files to public directory
+1. Copy ZIP from storage to temp directory
+2. Validate file checksums against manifest
+3. Apply Zip Slip protection (path traversal prevention)
+4. Extract files to public directory using Storage facade
 
 ### 5. Zip Slip Protection
 
-The `safeExtract()` method prevents path traversal attacks by:
+The `extractToPublic()` method prevents path traversal attacks by:
 
 - Getting the real path of the target directory
 - For each entry in ZIP, verifying the resolved path stays within the target directory
@@ -84,6 +88,53 @@ The `safeExtract()` method prevents path traversal attacks by:
 ### 6. Size Limit
 
 Maximum upload size: 50MB (configurable via `MAX_FILE_SIZE` constant)
+
+## Storage Implementation
+
+The controller uses Laravel's `Storage::disk('local')` facade for all file operations. This allows easy migration to S3 or other storage drivers in the future.
+
+### Key Methods
+
+```php
+// List backups
+Storage::disk('local')->files(self::BACKUP_PATH);
+
+// Get file size
+Storage::disk('local')->size($file);
+
+// Get last modified
+Storage::disk('local')->lastModified($file);
+
+// Read file content
+Storage::disk('local')->get($file);
+
+// Get all files recursively
+Storage::disk('local')->allFiles(self::PUBLIC_PATH);
+
+// Save file
+Storage::disk('local')->put($path, $content);
+
+// Delete file
+Storage::disk('local')->delete($path);
+
+// Download file
+Storage::disk('local')->download($path);
+
+// Get absolute path
+Storage::disk('local')->path($path);
+```
+
+### To Migrate to S3
+
+Simply change `'local'` to `'s3'` in all Storage::disk() calls:
+
+```php
+// Before
+Storage::disk('local')->files(self::BACKUP_PATH);
+
+// After (when using S3)
+Storage::disk('s3')->files(self::BACKUP_PATH);
+```
 
 ## File Structure
 
@@ -102,12 +153,44 @@ storage/
 
 | Method | Description |
 |--------|-------------|
-| `index()` | List all backups |
-| `store()` | Create new backup ZIP |
+| `index()` | List all backups (returns array with filename, size, modified) |
+| `store()` | Create new backup ZIP with manifest |
 | `destroy()` | Delete backup |
 | `download()` | Download backup ZIP |
-| `restore()` | Restore files from backup |
-| `upload()` | Upload backup ZIP |
+| `restore()` | Validate and restore files from backup |
+| `upload()` | Upload and validate backup ZIP |
+
+### Private Methods
+
+| Method | Description |
+|--------|-------------|
+| `extractToPublic()` | Extract ZIP to public directory with Zip Slip protection |
+| `validateBackupChecksum()` | Validate each file's checksum against manifest |
+
+## View Integration
+
+The view receives an array of backups:
+
+```php
+$backups = [
+    [
+        'filename' => '2026-03-10_1200.zip',
+        'size' => 1024000,
+        'modified' => 1678444800,
+    ],
+    // ...
+];
+```
+
+Usage in Blade template:
+
+```blade
+@foreach($backups as $backup)
+    {{ $backup['filename'] }}
+    {{ format_size_units($backup['size']) }}
+    {{ date('Y-m-d H:i:s', $backup['modified']) }}
+@endforeach
+```
 
 ## Performance
 
@@ -119,5 +202,23 @@ This is acceptable for backup operations which happen infrequently.
 ## Dependencies
 
 - `ZipArchive` class for ZIP handling
-- Laravel's `File` and `Storage` facades
-- `hash_file()` for SHA256 checksums
+- Laravel's `Storage` facade
+- `hash()` for SHA256 checksums
+
+## Menu Integration
+
+The file backup feature is accessible from the Settings menu. Add to `resources/views/layouts/settings.blade.php`:
+
+```blade
+@can('manage_file_backup')
+    <li class="nav-item">
+        {!! link_to_route('file_backups.index', __('file_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'file_backups' ? ' active' : '')]) !!}
+    </li>
+@endcan
+```
+
+## Language Files
+
+Translation files are located in:
+- `resources/lang/en/file_backup.php`
+- `resources/lang/id/file_backup.php`
