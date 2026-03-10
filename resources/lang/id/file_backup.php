@@ -36,7 +36,12 @@ return [
     'restore_confirm' => 'Klik OK untuk me-Restore.',
     'restored' => 'File berhasil di-restore dari backup :filename',
     'restore_failed' => 'Gagal me-restore file backup :filename',
+    'restore_failed_invalid' => 'File backup tidak valid. Tidak dapat me-restore.',
+    'restore_failed_traversal' => 'Restore gagal: jalur file mencurigakan terdeteksi.',
+
     // Upload backup file
     'upload' => 'Upload File Backup',
     'uploaded' => 'Backup file :filename berhasil diupload.',
+    'upload_invalid' => 'File backup tidak valid. Manifest tidak ditemukan atau rusak.',
+    'upload_not_found' => 'File backup tidak ditemukan di sistem. Hanya backup yang dibuat oleh sistem yang dapat diupload.',
 ];

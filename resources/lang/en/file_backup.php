@@ -36,7 +36,12 @@ return [
     'restore_confirm' => 'Click OK to Restore.',
     'restored' => 'Files restored from backup file :filename',
     'restore_failed' => 'Failed to restore backup file :filename',
+    'restore_failed_invalid' => 'Invalid backup file. Cannot restore.',
+    'restore_failed_traversal' => 'Restore failed: suspicious file path detected.',
+
     // Upload backup file
     'upload' => 'Upload Backup File',
     'uploaded' => 'Backup file :filename uploaded.',
+    'upload_invalid' => 'Invalid backup file. Manifest not found or corrupted.',
+    'upload_not_found' => 'Backup file not found in system. Only system-generated backups can be uploaded.',
 ];
