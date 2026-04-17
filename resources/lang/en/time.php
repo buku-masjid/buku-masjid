@@ -14,6 +14,7 @@ return [
     'year' => 'Year',
     'hours' => 'Hour(s)',
     'minutes' => 'Minute(s)',
+    'period' => 'Period',
 
     'months' => [
         '01' => 'January',
