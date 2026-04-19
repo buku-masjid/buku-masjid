@@ -15,12 +15,12 @@ return [
         'isya' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_ISYA', 15),
     ],
     'shalat_interval_in_minutes' => [
-        'fajr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_FAJR', 15),
-        'dzuhr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_DZUHR', 15),
-        'ashr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_ASHR', 15),
-        'maghrib' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_MAGHRIB', 15),
-        'isya' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_ISYA', 15),
-        'friday' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_FRIDAY', 40),
+        'fajr' => env('PUBLIC_DISPLAY_SHALAT_INTERVAL_IN_MINUTES_FAJR', 15),
+        'dzuhr' => env('PUBLIC_DISPLAY_SHALAT_INTERVAL_IN_MINUTES_DZUHR', 15),
+        'ashr' => env('PUBLIC_DISPLAY_SHALAT_INTERVAL_IN_MINUTES_ASHR', 15),
+        'maghrib' => env('PUBLIC_DISPLAY_SHALAT_INTERVAL_IN_MINUTES_MAGHRIB', 15),
+        'isya' => env('PUBLIC_DISPLAY_SHALAT_INTERVAL_IN_MINUTES_ISYA', 15),
+        'friday' => env('PUBLIC_DISPLAY_SHALAT_INTERVAL_IN_MINUTES_FRIDAY', 40),
     ],
     'sharing_info' => [
         [
