@@ -12,6 +12,9 @@
 */
 
 // Public Routes
+
+use Illuminate\Support\Facades\Route;
+
 Route::get('schedules', 'Api\PublicScheduleController@index')->name('api.schedules.index');
 Route::get('masjid_profile', [App\Http\Controllers\Api\MasjidProfileController::class, 'show'])->name('api.masjid_profile.show');
 
@@ -62,6 +65,11 @@ Route::group(['middleware' => ['auth', 'web'], 'as' => 'api.'], function () {
 
     Route::post('books/{book}/upload_poster_image', [App\Http\Controllers\Api\BookController::class, 'updatePosterImage'])->name('books.upload_poster_image');
     Route::post('books/{book}/upload_thumbnail_image', [App\Http\Controllers\Api\BookController::class, 'updateThumbnailImage'])->name('books.upload_thumbnail_image');
+
+    /*
+     * Transaction Categories Endpoint for AJAX
+     */
+    Route::get('transaction_categories', [App\Http\Controllers\Api\CategoriesController::class, 'getTransactionCategories'])->name('transaction_categories');
 });
 
 if (config('features.shalat_time.is_active')) {
