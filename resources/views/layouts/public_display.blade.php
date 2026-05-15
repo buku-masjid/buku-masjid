@@ -61,6 +61,7 @@
         </div>
     </div>
     <div id="shalatModal" class="prayer-modal">
+        <div id="shalatModalCountdown" class="countdown-timer countdown-timer-corner">00:00</div>
         <div class="prayer-message">
             <img class="mx-auto my-10" src="{{ Storage::url(Setting::get('masjid_logo_path')) }}">
             <h2 style="line-height: 1;">{!! __('shalat_time.shalat_interval_text') !!}</h2>
