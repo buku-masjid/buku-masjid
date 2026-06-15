@@ -16,3 +16,4 @@ yarn-error.log
 .phpunit.result.cache
 .phpunit.cache/
 .yarnrc.yml
+/docs
