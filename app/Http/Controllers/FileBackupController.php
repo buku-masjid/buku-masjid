@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -111,6 +110,7 @@ class FileBackupController extends Controller
 
         if (!Storage::disk('local')->exists($zipPath)) {
             flash(__('file_backup.restore_failed', ['filename' => $fileName]), 'danger');
+
             return redirect()->route('file_backups.index');
         }
 
@@ -123,12 +123,14 @@ class FileBackupController extends Controller
         if (!$validationResult['valid']) {
             unlink($tempZip);
             flash(__('file_backup.restore_failed_invalid'), 'danger');
+
             return redirect()->route('file_backups.index');
         }
 
         if (!$this->extractToPublic($tempZip)) {
             unlink($tempZip);
             flash(__('file_backup.restore_failed_traversal'), 'danger');
+
             return redirect()->route('file_backups.index');
         }
 
@@ -164,6 +166,7 @@ class FileBackupController extends Controller
 
             if ($resolvedPath !== false && !str_starts_with($resolvedPath, $baseDir)) {
                 $zip->close();
+
                 return false;
             }
         }
@@ -221,11 +224,13 @@ class FileBackupController extends Controller
 
                 if (!isset($storedChecksums[$entryName])) {
                     $zip->close();
+
                     return ['valid' => false, 'checksum' => ''];
                 }
 
                 if ($actualChecksum !== $storedChecksums[$entryName]) {
                     $zip->close();
+
                     return ['valid' => false, 'checksum' => ''];
                 }
             }
@@ -253,6 +258,7 @@ class FileBackupController extends Controller
         $validationResult = $this->validateBackupChecksum($tempPath);
         if (!$validationResult['valid']) {
             flash(__('file_backup.upload_invalid'), 'danger');
+
             return redirect()->route('file_backups.index');
         }
 
