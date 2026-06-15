@@ -19,9 +19,9 @@ class PublicShalatTimeController extends Controller
             return response()->json(['error' => 'No Shalat Time provider configured.'], 400);
         }
 
-        $schedule = $shalatTimeService->getSchedule(Carbon::now()->format('Y-m-d'));
-        $schedule = $this->adjustShalatTimeSchedule($schedule);
         try {
+            $schedule = $shalatTimeService->getSchedule(Carbon::now()->format('Y-m-d'));
+            $schedule = $this->adjustShalatTimeSchedule($schedule);
 
             return $schedule;
         } catch (Exception $e) {

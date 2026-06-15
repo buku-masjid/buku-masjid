@@ -14,6 +14,7 @@ return [
     'year' => 'Tahun',
     'hours' => 'Jam',
     'minutes' => 'Menit',
+    'period' => 'Periode',
 
     'months' => [
         '01' => 'Januari',

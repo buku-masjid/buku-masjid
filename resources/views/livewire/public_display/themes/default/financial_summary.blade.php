@@ -1,8 +1,8 @@
 <div class="w-full p-3 lg:p-0">
     <div class="lg:flex items-center">
         <div class="lg:w-1/5 font-bold text-center mb-3 lg:mb-0 border-r border-1 border-[#c0c4c5]">
-            <span class="font-normal text-gray-600 text-2xl">Laporan</span><br>
-            <h1 class="text-3xl bm-txt-primary">{{ $bookName }}</h1>
+            <span class="font-normal text-gray-600 text-[1vw]">Laporan</span><br>
+            <h1 class="text-[1.5vw] leading-none font-semibold bm-txt-primary">{{ $bookName }}</h1>
         </div>
         <div class="slider lg:w-4/5">
             <div class="slide-track">

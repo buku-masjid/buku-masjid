@@ -64,7 +64,7 @@ class InternalFinanceController extends FinanceController
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
-        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
+        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m') && $startDate->format('Y-m-d') >= Carbon::now()->format('Y-m-d')) {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);
@@ -93,7 +93,7 @@ class InternalFinanceController extends FinanceController
         $spendingCategories = isset($groupedTransactions[0]) ? $groupedTransactions[0]->pluck('category')->unique()->filter() : collect([]);
         $lastMonthDate = $startDate->clone()->subDay();
         $currentMonthEndDate = $endDate->clone();
-        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m')) {
+        if ($startDate->format('Y-m') == Carbon::now()->format('Y-m') && $startDate->format('Y-m-d') >= Carbon::now()->format('Y-m-d')) {
             $currentMonthEndDate = Carbon::now();
         }
         $lastBankAccountBalanceOfTheMonth = $this->getLastBankAccountBalance($currentMonthEndDate);

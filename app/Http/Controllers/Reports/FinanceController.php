@@ -94,7 +94,7 @@ class FinanceController extends Controller
             } else {
                 $endDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
 
-                return Carbon::now()->endOfWeek($endDayInteger)->subDay();
+                return Carbon::now()->addDay()->endOfWeek($endDayInteger)->subDay();
             }
         }
         if ($request->has('end_date')) {

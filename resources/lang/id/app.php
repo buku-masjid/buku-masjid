@@ -57,6 +57,7 @@ return [
     'switch_lang' => 'Ganti Bahasa',
     'switch_en_lang' => 'Gunakan Bahasa Inggris',
     'switch_id_lang' => 'Gunakan Bahasa Indonesia',
+    'public_display' => 'Display TV',
 
     // Attributes
     'name' => 'Nama',

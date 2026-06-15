@@ -44,7 +44,7 @@
         <div class="col-lg ps-sm-0 el">
             <div class="card fs-3 fw-bold p-3 mb-2 position-relative shadow-lg">
                 @if ($bookVisibility == 'public')
-                    <a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="{{ route('public_reports.index') }}" role="button">{{ __('app.show') }}</a>
+                    <a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="{{ route('public_reports.index', ['start_date' => $startWeek->format('Y-m-d'), 'end_date' => $today->format('Y-m-d')]) }}" role="button">{{ __('app.show') }}</a>
                 @endif
                 {{ __('transaction.end_balance') }}<br>
                 <span class="date" id="current_balance_label">{{ __('report.today_balance', ['date' => $today->isoFormat('dddd, D MMMM Y')]) }}</span>
@@ -71,5 +71,3 @@
     shortenMoneyContent('current_week_spending_total_display', parseInt({{$currentWeekSpendingTotal}}), localeCode, currencyCode);
 </script>
 @endpush
-
-

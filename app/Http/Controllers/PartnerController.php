@@ -204,7 +204,7 @@ class PartnerController extends Controller
             $queryBuilder->where('book_id', $bookId);
         });
 
-        return $transactionQuery->orderBy('date', 'desc')->with('book')->get();
+        return $transactionQuery->orderBy('date', 'desc')->with('book')->withCount('files')->get();
     }
 
     private function getDateRangeByAgeGroupCode(string $ageGroupCode): array

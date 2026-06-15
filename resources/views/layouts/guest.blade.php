@@ -45,7 +45,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="text-end" style="width: 150px">
+            <div class="text-end" style="width: 180px">
+                @if (Route::has('public.display.index'))
+                    <a href="{{ route('public.display.index') }}" class="pe-3"><i class="ti ti-screen-share"></i> {{ __('app.public_display') }}</a>
+                @endif
                 @if (auth()->check())
                     <a href="{{ route('home') }}" >{{ auth()->user()->name }}</a>
                 @else

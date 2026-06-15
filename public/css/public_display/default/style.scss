@@ -41,6 +41,12 @@ body.kiosk-mode {
 		letter-spacing: -1vw;
 		line-height: 1;
     }
+
+    .countdown-timer-sm {
+        font-size: 8vw;
+        margin-top: 0.5rem;
+        letter-spacing: -0.2vw;
+    }
 	h1 {
         font-size: 10vw;
         color: #ffffff;
@@ -48,12 +54,29 @@ body.kiosk-mode {
     }
 }
 
+.countdown-timer-corner {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 5.6vw;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 0;
+    letter-spacing: -0.15vw;
+    line-height: 1;
+    z-index: 1;
+}
+
 .jm-masjid-name     {font-size: 1.5vw; font-weight: bold; line-height: 1;}
-.bm-bg-jammasjid  	{ background-color: rgb(31, 111, 106);}
-.big-time         	{ font-size:7vw; font-weight: bold;}
+.bm-bg-jammasjid  	{ background-color: #1f6f6a;}
+.big-time         	{ font-weight: bold;}
 .jm-timeremaining 	{ font-size: 3vw; font-weight: bold;}
-.jm-card          	{ background-color: #D9DAD4; border-radius: 20px}
-.jm-card-active   	{ background-color: #b2f6ff; color: #2d6974;}
+.jm-card          	{ background-color: #D9DAD4; border-radius: 20px;}
+.jm-card-masjid-info{ background-color: #D9DAD4; border-radius: 20px;}
+.jm-card-remaining  { background-color: #D9DAD4; border-radius: 20px;}
+.jm-card-sharing    { background-color: #1f6f6a; border-radius: 20px; color: #bce1de;}
+.jm-card-financial  { background-color: #D9DAD4; border-radius: 20px;}
+.jm-card-active   	{ background-color: #00373f; color: #ffffff;}
 .timeSholat       	{
   h1              	{ font-size: 2.5vw; color: #2d6974; font-weight: bold;}
   h4              	{ font-size: 2rem; margin-bottom:20px}

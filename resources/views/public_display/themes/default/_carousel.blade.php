@@ -87,7 +87,7 @@ function goToSlide(index) {
 }
 
 function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 5000); // Auto-advance every 5 seconds
+    autoSlideInterval = setInterval(nextSlide, {{ config('public_display.book_carousel_slide_interval_in_seconds') * 1000 }});
 }
 
 function resetAutoSlide() {

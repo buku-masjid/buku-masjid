@@ -18,6 +18,7 @@
         @else
             {{ __('report.in_weeks') }}
         @endif
+        {{ __('time.period') }} {{ get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d')) }}
 
         @can('update', auth()->activeBook())
             {{ link_to_route(
