@@ -44,6 +44,11 @@
             {!! link_to_route('database_backups.index', __('database_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'database_backups' ? ' active' : '')]) !!}
         </li>
     @endcan
+    @can('manage_file_backup')
+        <li class="nav-item">
+            {!! link_to_route('file_backups.index', __('file_backup.list'), [], ['class' => 'nav-link'.(Request::segment(1) == 'file_backups' ? ' active' : '')]) !!}
+        </li>
+    @endcan
     <li class="nav-item">
         {!! link_to_route('system_info.index', __('settings.system_info'), [], ['class' => 'nav-link'.(Request::segment(1) == 'system_info' ? ' active' : '')]) !!}
     </li>

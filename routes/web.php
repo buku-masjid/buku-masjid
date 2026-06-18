@@ -152,6 +152,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('database_backups', 'DatabaseBackupController', ['except' => ['create', 'show', 'edit']]);
 
     /*
+     * File Backup Routes
+     */
+    Route::post('file_backups/upload', ['as' => 'file_backups.upload', 'uses' => 'FileBackupController@upload']);
+    Route::post('file_backups/{fileName}/restore', ['as' => 'file_backups.restore', 'uses' => 'FileBackupController@restore']);
+    Route::get('file_backups/{fileName}/dl', ['as' => 'file_backups.download', 'uses' => 'FileBackupController@download']);
+    Route::resource('file_backups', 'FileBackupController', ['except' => ['create', 'show', 'edit']]);
+
+    /*
      * Users Routes
      */
     Route::resource('users', App\Http\Controllers\UserController::class);

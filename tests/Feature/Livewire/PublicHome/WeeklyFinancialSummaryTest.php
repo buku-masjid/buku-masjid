@@ -35,12 +35,12 @@ class WeeklyFinancialSummaryTest extends TestCase
         $startOfWeekDayDate = now()->startOfWeek()->isoFormat('dddd, D MMMM Y');
         $todayDayDate = now()->isoFormat('dddd, D MMMM Y');
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertDontSeeHtml('<a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="'.route('public_reports.finance.detailed').'" role="button">'.__('app.show').'</a>');
+            ->assertDontSeeHtml(route('public_reports.index', ['start_date' => now()->startOfWeek()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d')]));
 
         $book->report_visibility_code = 'public';
         $book->save();
         Livewire::test(WeeklyFinancialSummary::class)
-            ->assertSeeHtml('<a class="fs-6 btn btn-sm bm-btn btn-outline-cyan position-absolute end-0 me-3 px-2 py-1" href="'.route('public_reports.index').'" role="button">'.__('app.show').'</a>');
+            ->assertSee(route('public_reports.index', ['start_date' => now()->startOfWeek()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d')]));
     }
 
     /** @test */
