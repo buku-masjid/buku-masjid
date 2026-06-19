@@ -17,7 +17,7 @@ class DonorTransactionController extends Controller
         $this->authorize('create', new Transaction);
 
         $partners = $this->getAvailablePartners(['donatur']);
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id');
         $genders = [
             'm' => __('app.gender_male'),
             'f' => __('app.gender_female'),
