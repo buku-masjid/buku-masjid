@@ -54,7 +54,7 @@ class CategoriesController extends Controller
         ]);
         $incomeTotal = $this->getIncomeTotal($transactions);
         $spendingTotal = $this->getSpendingTotal($transactions);
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $categories = $this->getCategoryList();

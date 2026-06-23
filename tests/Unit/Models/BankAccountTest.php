@@ -41,4 +41,15 @@ class BankAccountTest extends TestCase
 
         $this->assertInstanceOf(BankAccountBalance::class, $bankAccount->lastBalance);
     }
+
+    /** @test */
+    public function a_bank_account_has_name_number_and_account_attribute()
+    {
+        $bankAccount = factory(BankAccount::class)->make([
+            'name' => 'BSI',
+            'number' => '123456789',
+            'account_name' => 'Pembangunan Masjid',
+        ]);
+        $this->assertEquals('BSI - Pembangunan Masjid (123456789)', $bankAccount->name_number_and_account);
+    }
 }
