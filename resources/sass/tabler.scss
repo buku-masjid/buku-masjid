@@ -1,0 +1,32 @@
+// ---------------------------------------
+// Tablar styles and configuration
+// Ref: (and thanks to) https://github.com/takielias/tablar
+// ---------------------------------------
+
+// Default (LTR) Tabler Styles.
+// DISABLE this line if you want to enable Right-to-Left (RTL) support.
+@import "../../node_modules/@tabler/core/src/scss/tabler";
+
+// ENABLE the following line for Right-to-Left (RTL) support.
+// @import "../../node_modules/@tabler/core/dist/css/tabler.rtl.css";
+
+// Tabler Vendor Styles.
+// @import "../../node_modules/@tabler/core/src/scss/tabler-vendors";
+
+// Tabler Flags Styles.
+// ENABLE the following line for Flags Icon style support.
+// @import "../../node_modules/@tabler/core/src/scss/tabler-flags";
+
+// Tabler Payment Styles.
+// ENABLE the following line for Payment Icon style support.
+// @import "../../node_modules/@tabler/core/src/scss/tabler-payments";
+
+// Tabler Social Styles.
+// ENABLE the following line for Social Icon style support.
+// @import "../../node_modules/@tabler/core/src/scss/tabler-social";
+
+// Tabler Webfont Icons
+@import "../../node_modules/@tabler/icons-webfont/tabler-icons.css";
+
+// Custom Icon Sizes and Styles
+@import "../css/icon-style.css";
