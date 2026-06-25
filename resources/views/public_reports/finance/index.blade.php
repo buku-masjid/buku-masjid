@@ -52,6 +52,7 @@
             <div class="px-4 px-sm-0">
                 @include('public_reports.finance._footer_summary')
             </div>
+            @include('public_reports.finance._modal_preview_file_transactions')
         </div>
     </div>
 </div>
