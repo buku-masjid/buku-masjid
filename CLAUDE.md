@@ -67,6 +67,7 @@ php artisan buku-masjid:remove-demo-data             # Remove dummy data (where 
 php artisan partner:generate {type_code} {--count=} {--reset}  # Generate fake partner records
 php artisan partner:upgrade-type-levels              # One-time migration for partner type/level format
 ```
+> **Note:** Custom commands can be found in `app/Console/Commands` or as closures in `routes/console.php`.
 
 ### Frontend Assets
 
@@ -127,6 +128,7 @@ AUTH_DEFAULT_PASSWORD=password   # Default password used by seeder
 ### Money Formatting
 ```dotenv
 MONEY_CURRENCY_CODE="Rp"
+MONEY_CURRENCY_TEXT="Rupiah"
 MONEY_PRECISION=2
 MONEY_DECIMAL_SEPARATOR=","
 MONEY_THOUSANDS_SEPARATOR="."
@@ -135,7 +137,7 @@ MONEY_THOUSANDS_SEPARATOR="."
 ### Partners (Congregation Members/Donors)
 ```dotenv
 PARTNER_TYPES="donatur|Donatur"                            # Pipe-delimited: code|label
-PARTNER_LEVELS="donatur:silver|Silver|gold|Gold"           # typeCode:levelCode|label,...
+PARTNER_LEVELS="donatur:silver|Silver|gold|Gold|platinum|Platinum"           # typeCode:levelCode|label,...
 PARTNER_INCOME_DEFAULT_VALUE="Hamba Allah"
 PARTNER_SPENDING_DEFAULT_VALUE="Tanpa Nama"
 ```
