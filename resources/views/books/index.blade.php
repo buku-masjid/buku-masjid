@@ -4,15 +4,20 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('book.list') }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $books->total() }} {{ __('book.book') }}</div>
-    <div class="page-options d-flex">
-        @can('create', new App\Models\Book)
-            {{ link_to_route('books.index', __('book.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-        @endcan
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('book.list') }}</h2>
+            <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $books->total() }} {{ __('book.book') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\Models\Book)
+                {{ link_to_route('books.index', __('book.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-12">
         <div class="card table-responsive">
@@ -96,6 +101,7 @@
         @include('books.forms')
         @endif
     </div>
+</div>
 </div>
 @endsection
 

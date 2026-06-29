@@ -4,14 +4,19 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">@yield('title')</h1>
-    <div class="page-options">
-        @can('edit_masjid_profile')
-            {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-warning text-dark']) }}
-        @endcan
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">@yield('title')</h2>
+        </div>
+        <div class="col-auto text-end">
+            @can('edit_masjid_profile')
+                {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-warning text-dark']) }}
+            @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -120,6 +125,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
 

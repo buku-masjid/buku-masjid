@@ -5,13 +5,18 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ __('transaction.search') }}</h1>
-    <div class="page-subtitle">{{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
-    <div class="page-options d-flex">
-        {{ link_to_route('transactions.index', __('transaction.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('transaction.search') }}</h2>
+            <div class="text-secondary mt-1">{{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            {{ link_to_route('transactions.index', __('transaction.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-12">
         <div class="card table-responsive">
@@ -99,6 +104,7 @@
             @endif
         </div>
     </div>
+</div>
 </div>
 @endsection
 

@@ -5,34 +5,39 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ $partner->type }}</div>
-    <div class="page-options d-flex">
-        @can('update', $partner)
-            @if ($availableLevels)
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $partner->name }}</h2>
+            <div class="text-secondary mt-1">{{ $partner->type }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('update', $partner)
+                @if ($availableLevels)
+                    {{ link_to_route(
+                        'partners.show',
+                        __('partner.change_levels'),
+                        [$partner, 'action' => 'change_levels'],
+                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary']
+                    ) }}
+                @endif
                 {{ link_to_route(
-                    'partners.show',
-                    __('partner.change_levels'),
-                    [$partner, 'action' => 'change_levels'],
-                    ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary mr-2']
+                    'partners.edit',
+                    __('app.edit'),
+                    $partner,
+                    ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning']
                 ) }}
-            @endif
+            @endcan
             {{ link_to_route(
-                'partners.edit',
-                __('app.edit'),
-                $partner,
-                ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning mr-2']
+                'partners.search',
+                __('partner.back_to_index'),
+                [],
+                ['class' => 'btn btn-secondary']
             ) }}
-        @endcan
-        {{ link_to_route(
-            'partners.search',
-            __('partner.back_to_index'),
-            [],
-            ['class' => 'btn btn-secondary']
-        ) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-4">@include('partners._profile_card')</div>
     <div class="col-md-4">@include('partners._largest_transaction')</div>
@@ -166,6 +171,7 @@
 @if(Request::has('action'))
     @include('partners._show_forms')
 @endif
+</div>
 @endsection
 
 @section('styles')

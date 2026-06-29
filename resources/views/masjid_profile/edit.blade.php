@@ -5,7 +5,14 @@
 @section('content_settings')
 <div class="row">
     <div class="col-md-10 offset-md-1">
-        <div class="page-header"><h1 class="page-title">@yield('title')</h1></div>
+        <div class="page-header">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">@yield('title')</h2>
+                </div>
+            </div>
+        </div>
+        <div class="page-body">
         <div class="row">
             <div class="col-md-6">
                 {{ Form::open(['route' => 'masjid_profile.update', 'method' => 'patch']) }}
@@ -87,6 +94,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="modal fade" id="modal-masjid-logo" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

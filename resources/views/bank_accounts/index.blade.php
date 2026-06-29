@@ -4,17 +4,22 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('bank_account.list') }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $bankAccounts->total() }} {{ __('bank_account.bank_account') }}</div>
-    <div class="page-options d-flex">
-        @if (Request::has('action') == false)
-            @can('create', new App\Models\BankAccount)
-            {{ link_to_route('bank_accounts.index', __('bank_account.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-            @endcan
-        @endif
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('bank_account.list') }}</h2>
+            <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $bankAccounts->total() }} {{ __('bank_account.bank_account') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @if (Request::has('action') == false)
+                @can('create', new App\Models\BankAccount)
+                {{ link_to_route('bank_accounts.index', __('bank_account.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+                @endcan
+            @endif
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     @forelse ($bankAccounts as $bankAccount)
         <div class="col-sm-6 col-md-4">
@@ -65,6 +70,7 @@
 
 {{ $bankAccounts->links() }}
 @includeWhen(Request::has('action'), 'bank_accounts.forms')
+</div>
 @endsection
 
 @push('scripts')

@@ -8,10 +8,14 @@
     <div class="col-md-6">
         @can('delete', $book)
             <div class="page-header">
-                <h1 class="page-title">{{ $book->name }}</h1>
-                <div class="page-subtitle">{{ __('book.delete') }}</div>
-                <div class="page-options d-flex"></div>
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <h2 class="page-title">{{ $book->name }}</h2>
+                        <div class="text-secondary mt-1">{{ __('book.delete') }}</div>
+                    </div>
+                </div>
             </div>
+            <div class="page-body">
             <div class="card">
                 <div class="card-header">{{ __('book.delete') }}</div>
                 <div class="card-body">
@@ -54,17 +58,23 @@
                     {{ link_to_route('books.edit', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
                 </div>
             </div>
+        </div>
         @endcan
     </div>
     @else
     <div class="col-md-12">
         <div class="page-header">
-            <h1 class="page-title">{{ $book->name }}</h1>
-            <div class="page-subtitle">{{ __('book.edit') }}</div>
-            <div class="page-options d-flex">
-                {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-secondary']) }}
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">{{ $book->name }}</h2>
+                    <div class="text-secondary mt-1">{{ __('book.edit') }}</div>
+                </div>
+                <div class="col-auto text-end">
+                    {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-secondary']) }}
+                </div>
             </div>
         </div>
+        <div class="page-body">
         <div class="row">
             <div class="col-md-2">@include('books._edit_nav_tabs')</div>
             <div class="col-md-10">
@@ -84,6 +94,7 @@
             </div>
         </div>
     </div>
+</div>
     @endif
 </div>
 @endsection

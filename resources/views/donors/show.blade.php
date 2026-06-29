@@ -5,24 +5,29 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ $partner->level ?: __('donor.donor') }}</div>
-    <div class="page-options d-flex">
-        @can('create', new App\Transaction)
-            {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success mr-2']) }}
-        @endcan
-        @can('update', $partner)
-            {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark mr-2', 'id' => 'edit-partner-'.$partner->id]) }}
-        @endcan
-        {{ link_to_route(
-            'donors.search',
-            __('donor.back_to_index'),
-            [],
-            ['class' => 'btn btn-secondary']
-        ) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $partner->name }}</h2>
+            <div class="text-secondary mt-1">{{ $partner->level ?: __('donor.donor') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\Transaction)
+                {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success']) }}
+            @endcan
+            @can('update', $partner)
+                {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark', 'id' => 'edit-partner-'.$partner->id]) }}
+            @endcan
+            {{ link_to_route(
+                'donors.search',
+                __('donor.back_to_index'),
+                [],
+                ['class' => 'btn btn-secondary']
+            ) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-4">@include('donors._profile_card')</div>
     <div class="col-md-4">@include('donors._largest_transaction')</div>
@@ -110,6 +115,7 @@
             @enddesktop
         </div>
     </div>
+</div>
 </div>
 @endsection
 

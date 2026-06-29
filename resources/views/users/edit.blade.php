@@ -8,8 +8,13 @@
         @if (request('action') == 'delete' && $user)
         @can('delete', $user)
             <div class="page-header">
-                <h1 class="page-title">{{ __('user.delete') }}</h1>
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <h2 class="page-title">{{ __('user.delete') }}</h2>
+                    </div>
+                </div>
             </div>
+            <div class="page-body">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -63,11 +68,17 @@
                     @endif
                 </div>
             </div>
+        </div>
         @endcan
         @else
         <div class="page-header">
-            <h1 class="page-title">{{ __('user.edit') }}</h1>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">{{ __('user.edit') }}</h2>
+                </div>
+            </div>
         </div>
+        <div class="page-body">
         <div class="card">
             {{ Form::model($user, ['route' => ['users.update', $user], 'method' => 'patch']) }}
             <div class="card-body">
@@ -91,6 +102,7 @@
             {{ Form::close() }}
         </div>
     </div>
+</div>
 </div>
 @endif
 @endsection

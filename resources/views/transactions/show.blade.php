@@ -5,57 +5,63 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h1>
-    <div class="page-subtitle">{{ __('transaction.detail') }}</div>
-    <div class="page-options">
-        @can('create', new App\Transaction)
-            {{ link_to_route(
-                'transactions.create',
-                __('transaction.duplicate'),
-                [
-                    'action' => $transaction->in_out ? 'add-income' : 'add-spending',
-                    'month' => $transaction->month,
-                    'original_transaction_id' => $transaction->id,
-                    'year' => $transaction->year,
-                ],
-                ['class' => 'btn btn-success mr-2 mt-2 mt-lg-0', 'id' => 'duplicate-transaction-'.$transaction->id]
-            ) }}
-        @endcan
-        @if ($transaction->in_out == 0)
-            {{ link_to_route(
-                'transactions.print_spending_request',
-                __('transaction.print_spending_request'),
-                $transaction,
-                ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
-            ) }}
-        @endif
-        {{ link_to_route(
-            'transactions.print_receipt',
-            __('transaction.print_receipt'),
-            $transaction,
-            ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
-        ) }}
-        @can('update', $transaction)
-            @can('manage-transactions', auth()->activeBook())
-                {!! link_to_route(
-                    'transactions.edit',
-                    __('transaction.edit'),
-                    $transaction,
-                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2 mt-2 mt-lg-0']
-                ) !!}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h2>
+            <div class="text-secondary mt-1">{{ __('transaction.detail') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\Transaction)
+                {{ link_to_route(
+                    'transactions.create',
+                    __('transaction.duplicate'),
+                    [
+                        'action' => $transaction->in_out ? 'add-income' : 'add-spending',
+                        'month' => $transaction->month,
+                        'original_transaction_id' => $transaction->id,
+                        'year' => $transaction->year,
+                    ],
+                    ['class' => 'btn btn-success', 'id' => 'duplicate-transaction-'.$transaction->id]
+                ) }}
             @endcan
-        @endcan
-        {{ link_to_route(
-            'transactions.index',
-            __('transaction.back_to_index'),
-            [
-                'year' => $transaction->year,
-                'month' => $transaction->month,
-            ],
-            ['class' => 'btn btn-secondary mt-2 mt-lg-0']
-        ) }}
+            @if ($transaction->in_out == 0)
+                {{ link_to_route(
+                    'transactions.print_spending_request',
+                    __('transaction.print_spending_request'),
+                    $transaction,
+                    ['class' => 'btn btn-secondary']
+                ) }}
+            @endif
+            {{ link_to_route(
+                'transactions.print_receipt',
+                __('transaction.print_receipt'),
+                $transaction,
+                ['class' => 'btn btn-secondary']
+            ) }}
+            @can('update', $transaction)
+                @can('manage-transactions', auth()->activeBook())
+                    {!! link_to_route(
+                        'transactions.edit',
+                        __('transaction.edit'),
+                        $transaction,
+                        ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark']
+                    ) !!}
+                @endcan
+            @endcan
+            {{ link_to_route(
+                'transactions.index',
+                __('transaction.back_to_index'),
+                [
+                    'year' => $transaction->year,
+                    'month' => $transaction->month,
+                ],
+                ['class' => 'btn btn-secondary']
+            ) }}
+        </div>
     </div>
 </div>
+
+<div class="page-body">
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card card-default">
@@ -201,6 +207,7 @@
 @if(Request::has('action'))
     @include('transactions._show_forms')
 @endif
+</div>
 @endsection
 
 @push('scripts')

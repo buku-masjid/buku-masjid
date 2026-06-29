@@ -5,13 +5,18 @@
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $category->name }}</h1>
-    <div class="page-subtitle">{{ __('category.transactions') }}</div>
-    <div class="page-options d-flex">
-        {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $category->name }}</h2>
+            <div class="text-secondary mt-1">{{ __('category.transactions') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 @include('transactions.partials.stats')
 
 @if ($category->description)
@@ -99,7 +104,7 @@
         </div>
     </div>
 </div>
-
+</div>
 @endsection
 
 @section('styles')

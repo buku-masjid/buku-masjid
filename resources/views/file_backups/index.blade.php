@@ -4,9 +4,14 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('file_backup.index_title') }}</h1>
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('file_backup.index_title') }}</h2>
+        </div>
+    </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-8">
         <div class="card">
@@ -54,5 +59,6 @@
     <div class="col-md-4">
         @include('file_backups.forms')
     </div>
+</div>
 </div>
 @endsection

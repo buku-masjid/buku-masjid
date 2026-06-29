@@ -7,8 +7,13 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="page-header">
-            <h1 class="page-title">@yield('title')</h1>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">@yield('title')</h2>
+                </div>
+            </div>
         </div>
+        <div class="page-body">
         <div class="card">
             <table class="table table-sm card-table">
                 <tbody>
@@ -26,6 +31,7 @@
                     {{ csrf_field() }}
                 </form>
             </div>
+        </div>
         </div>
     </div>
 </div>
