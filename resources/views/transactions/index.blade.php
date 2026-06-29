@@ -4,19 +4,24 @@
 
 @section('content')
 <div class="page-header">
-    <h1 class="page-title"><div class="d-none d-sm-inline">{{ __('transaction.list') }}</div> {{ get_months()[$month] }} {{ $year }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
-    <div class="page-options d-flex">
-        {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary mr-2']) }}
-        @can('create', new App\Transaction)
-            @can('manage-transactions', auth()->activeBook())
-                {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success mr-2']) }}
-                {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title"><div class="d-none d-sm-inline">{{ __('transaction.list') }}</div> {{ get_months()[$month] }} {{ $year }}</h2>
+            <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary mr-2']) }}
+            @can('create', new App\Transaction)
+                @can('manage-transactions', auth()->activeBook())
+                    {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success mr-2']) }}
+                    {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
+                @endcan
             @endcan
-        @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-12">
         @include('transactions.partials.stats')
@@ -184,5 +189,6 @@
             @enddesktop
         </div>
     </div>
+</div>
 </div>
 @endsection
