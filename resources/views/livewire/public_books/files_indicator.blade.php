@@ -1,12 +1,12 @@
 <span style="font-size: 90%;">
 @if ($files->count())
     @if ($files->count() == 1)
-        <a href="{{ asset('storage/'.$files->first()->file_path) }}" class="badge bg-light text-bg-light">
+        <a href="{{ asset('storage/'.$files->first()->file_path) }}" class="badge bg-light text-light-fg">
             1 <i class="ti ti-photo fs-3"></i>
         </a>
     @else
         <div class="btn-group dropstart">
-            <button type="button" class="badge bg-light text-bg-light" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="badge bg-light text-light-fg" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ $files->count() }} <i class="ti ti-photo fs-3"></i>
             </button>
             <ul class="dropdown-menu">

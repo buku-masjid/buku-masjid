@@ -87,7 +87,7 @@
                                         'end_date' => $transaction->date,
                                     ]);
                                 @endphp
-                                <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+                                <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
                             @endif
                         </td>
                     </tr>

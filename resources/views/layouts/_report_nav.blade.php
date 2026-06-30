@@ -20,10 +20,10 @@
 <div class="list-group list-group-transparent mb-0 text-uppercase">
     <div class="list-group-item d-flex align-items-center">
         <span class="icon me-2"><i class="fe fe-settings"></i></span>{{ __('report.periode') }}
-        <span class="ms-auto badge badge-primary">{{ __('report.'.auth()->activeBook()->report_periode_code) }}</span>
+        <span class="ms-auto badge bg-primary text-primary-fg">{{ __('report.'.auth()->activeBook()->report_periode_code) }}</span>
     </div>
     <div class="list-group-item d-flex align-items-center">
         <span class="icon me-2"><i class="fe fe-settings"></i></span>{{ __('report.start_week_day') }}
-        <span class="ms-auto badge badge-warning text-dark">{{ __('time.days.'.auth()->activeBook()->start_week_day_code) }}</span>
+        <span class="ms-auto badge bg-warning text-warning-fg">{{ __('time.days.'.auth()->activeBook()->start_week_day_code) }}</span>
     </div>
 </div>
