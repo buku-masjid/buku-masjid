@@ -88,7 +88,7 @@
                             'categories.index',
                             __('app.delete'),
                             ['action' => 'delete', 'id' => $editableCategory->id],
-                            ['id' => 'del-category-'.$editableCategory->id, 'class' => 'btn btn-danger float-left']
+                            ['id' => 'del-category-'.$editableCategory->id, 'class' => 'btn btn-danger float-start']
                         ) !!}
                     @endcan
                 </div>

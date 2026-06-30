@@ -52,7 +52,7 @@
                             'bank_accounts.index',
                             __('app.delete'),
                             ['action' => 'delete', 'id' => $editableBankAccount->id],
-                            ['id' => 'del-bank_account-'.$editableBankAccount->id, 'class' => 'btn btn-danger float-left']
+                            ['id' => 'del-bank_account-'.$editableBankAccount->id, 'class' => 'btn btn-danger float-start']
                         ) !!}
                     @endcan
                 </div>

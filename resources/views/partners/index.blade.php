@@ -14,7 +14,7 @@
 </ul>
 
 <div class="row my-4 mt-sm-0">
-    <div class="col-md-4 text-center text-sm-left">
+    <div class="col-md-4 text-center text-sm-start">
         <h1 class="page-title">
             {{ __('dashboard.dashboard') }}
         </h1>

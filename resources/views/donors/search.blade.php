@@ -13,7 +13,7 @@
 </ul>
 
 <div class="row mt-4 mt-sm-0">
-    <div class="col-md-4 text-center text-sm-left">
+    <div class="col-md-4 text-center text-sm-start">
         <h1 class="page-title">{{ __('partner.partner_type_donor') }}</h1>
         <div class="page-subtitle ms-0">
             {{ __('donor.donor') }} {{ Setting::get('masjid_name') }}.

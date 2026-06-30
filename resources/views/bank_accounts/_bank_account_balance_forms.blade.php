@@ -67,7 +67,7 @@
                         'bank_accounts.show',
                         __('app.delete'),
                         [$bankAccount, 'action' => 'delete_bank_account_balance', 'bank_account_balance_id' => $editableBankAccountBalance->id],
-                        ['id' => 'delete-bank_account_balance-'.$editableBankAccountBalance->id, 'class' => 'btn btn-danger float-left']
+                        ['id' => 'delete-bank_account_balance-'.$editableBankAccountBalance->id, 'class' => 'btn btn-danger float-start']
                     ) !!}
                 </div>
                 {{ Form::close() }}

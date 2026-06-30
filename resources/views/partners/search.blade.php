@@ -14,7 +14,7 @@
 </ul>
 
 <div class="row mt-4 mt-sm-0">
-    <div class="col-md-4 text-center text-sm-left">
+    <div class="col-md-4 text-center text-sm-start">
         <h1 class="page-title">
             {{ __('partner.list') }}
         </h1>
