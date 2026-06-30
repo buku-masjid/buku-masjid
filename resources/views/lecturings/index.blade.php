@@ -18,9 +18,9 @@
             </div>
             <div class="col-auto">
                 {{ Form::submit(__('app.submit'), ['class' => 'btn btn-primary me-0 me-sm-2']) }}
-                {{ link_to_route('lecturings.index', __('app.reset'), [], ['class' => 'btn btn-sm me-0 me-sm-2']) }}
-                @livewire('prev-month-button', ['routeName' => 'lecturings.index', 'buttonClass' => 'btn btn-sm me-0 me-sm-2'])
-                @livewire('next-month-button', ['routeName' => 'lecturings.index', 'buttonClass' => 'btn btn-sm me-0 me-sm-2'])
+                {{ link_to_route('lecturings.index', __('app.reset'), [], ['class' => 'btn me-0 me-sm-2']) }}
+                @livewire('prev-month-button', ['routeName' => 'lecturings.index', 'buttonClass' => 'btn me-0 me-sm-2'])
+                @livewire('next-month-button', ['routeName' => 'lecturings.index', 'buttonClass' => 'btn me-0 me-sm-2'])
             </div>
             <div class="col-auto">
                 @can('create', new App\Models\Lecturing)

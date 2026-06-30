@@ -44,7 +44,7 @@
             {{ Form::hidden('type_code', request('type_code')) }}
             {{ Form::hidden('gender_code', request('gender_code')) }}
             {{ Form::submit(__('app.search'), ['class' => 'btn btn-info me-1']) }}
-            {{ link_to_route('donors.search', __('app.reset'), [], ['class' => 'btn btn-sm me-1']) }}
+            {{ link_to_route('donors.search', __('app.reset'), [], ['class' => 'btn me-1']) }}
         </div>
     </div>
     {{ Form::close() }}

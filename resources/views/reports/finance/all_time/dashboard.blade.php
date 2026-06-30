@@ -23,8 +23,8 @@
             </div>
             <div class="col-auto">
                 {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
-                {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-sm me-1']) }}
-                {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn btn-sm me-1']) }}
+                {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn me-1']) }}
+                {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn me-1']) }}
             </div>
         </div>
         {{ Form::close() }}

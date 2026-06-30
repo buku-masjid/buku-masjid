@@ -22,11 +22,11 @@
                     {{ link_to_route('donors.index', __('report.prev_year'), ['year' => $selectedYear - 1, 'month' => '00'], ['class' => 'btn btn-gray mt-2 me-1']) }}
                     {{ link_to_route('donors.index', __('report.this_year'), ['year' => today()->format('Y'), 'month' => '00'], ['class' => 'btn btn-gray mt-2 me-1']) }}
                     {{ link_to_route('donors.index', __('report.next_year'), ['year' => $selectedYear + 1, 'month' => '00'], ['class' => 'btn btn-gray mt-2 me-1']) }}
-                    {{ link_to_route('donors.index', __('report.this_month'), [], ['class' => 'btn btn-sm mt-2 me-1']) }}
+                    {{ link_to_route('donors.index', __('report.this_month'), [], ['class' => 'btn mt-2 me-1']) }}
                 @else
-                    @livewire('prev-month-button', ['routeName' => 'donors.index', 'buttonClass' => 'btn btn-sm mt-2 me-1'])
-                    {{ link_to_route('donors.index', __('report.this_month'), [], ['class' => 'btn btn-sm mt-2 me-1']) }}
-                    @livewire('next-month-button', ['routeName' => 'donors.index', 'buttonClass' => 'btn btn-sm mt-2 me-1'])
+                    @livewire('prev-month-button', ['routeName' => 'donors.index', 'buttonClass' => 'btn mt-2 me-1'])
+                    {{ link_to_route('donors.index', __('report.this_month'), [], ['class' => 'btn mt-2 me-1']) }}
+                    @livewire('next-month-button', ['routeName' => 'donors.index', 'buttonClass' => 'btn mt-2 me-1'])
                     {{ link_to_route('donors.index', __('report.this_year'), ['year' => today()->format('Y'), 'month' => '00'], ['class' => 'btn btn-gray mt-2 me-1']) }}
                 @endif
                 @can('create', new App\Transaction)

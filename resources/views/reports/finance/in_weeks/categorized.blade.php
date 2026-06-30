@@ -47,12 +47,12 @@
             </div>
             <div class="col-auto">
                 {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
-                {{ link_to_route('reports.finance.categorized', __('app.reset'), [], ['class' => 'btn btn-sm me-1']) }}
-                {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn btn-sm me-1']) }}
+                {{ link_to_route('reports.finance.categorized', __('app.reset'), [], ['class' => 'btn me-1']) }}
+                {{ link_to_route('reports.finance.categorized_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn me-1']) }}
             </div>
             <div class="col-auto">
-                @livewire('prev-week-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-sm me-1'])
-                @livewire('next-week-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-sm'])
+                @livewire('prev-week-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn me-1'])
+                @livewire('next-week-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn'])
             </div>
         </div>
         {{ Form::close() }}
