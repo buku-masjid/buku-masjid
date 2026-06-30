@@ -22,13 +22,13 @@
         <div class="card table-responsive">
             <div class="card-header">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                    {{ Form::text('search_query', request('search_query'), ['class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0', 'placeholder' => __('transaction.search_text')]) }}
-                    {{ Form::text('start_date', $startDate, ['class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0 date-select', 'style' => 'width:100px', 'placeholder' => __('time.start_date')]) }}
-                    {{ Form::text('end_date', $endDate, ['class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0 date-select', 'style' => 'width:100px', 'placeholder' => __('time.end_date')]) }}
-                    {{ Form::select('category_id', $categories, request('category_id'), ['placeholder' => __('category.all'), 'class' => 'form-control form-control-sm mr-2 mt-4 mt-sm-0', ]) }}
-                    {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => '-- '.__('transaction.origin_destination').' --', 'class' => 'form-control form-control-sm mr-2']) }}
+                    {{ Form::text('search_query', request('search_query'), ['class' => 'form-control form-control-sm me-2 mt-4 mt-sm-0', 'placeholder' => __('transaction.search_text')]) }}
+                    {{ Form::text('start_date', $startDate, ['class' => 'form-control form-control-sm me-2 mt-4 mt-sm-0 date-select', 'style' => 'width:100px', 'placeholder' => __('time.start_date')]) }}
+                    {{ Form::text('end_date', $endDate, ['class' => 'form-control form-control-sm me-2 mt-4 mt-sm-0 date-select', 'style' => 'width:100px', 'placeholder' => __('time.end_date')]) }}
+                    {{ Form::select('category_id', $categories, request('category_id'), ['placeholder' => __('category.all'), 'class' => 'form-control form-control-sm me-2 mt-4 mt-sm-0', ]) }}
+                    {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => '-- '.__('transaction.origin_destination').' --', 'class' => 'form-control form-control-sm me-2']) }}
                     <div class="form-group mt-4 mt-sm-0">
-                        {{ Form::submit(__('app.search'), ['class' => 'btn btn-primary btn-sm mr-2']) }}
+                        {{ Form::submit(__('app.search'), ['class' => 'btn btn-primary btn-sm me-2']) }}
                         {{ link_to_route('transaction_search.index', __('app.reset'), [], ['class' => 'btn btn-secondary btn-sm']) }}
                     </div>
                 {{ Form::close() }}
@@ -76,7 +76,7 @@
                                         <a href="{{ $categoryRoute }}">{!! $transaction->category->name_label !!}</a>
                                     @endif
                                 </div>
-                                <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
+                                <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                             </td>
                             <td class="text-right">{{ $transaction->amount_string }}</td>
                             <td class="text-center text-nowrap">

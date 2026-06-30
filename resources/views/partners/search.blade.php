@@ -18,7 +18,7 @@
         <h1 class="page-title">
             {{ __('partner.list') }}
         </h1>
-        <div class="page-subtitle ml-0">
+        <div class="page-subtitle ms-0">
             {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}
             {{ Setting::get('masjid_name') }}.
         </div>
@@ -34,22 +34,22 @@
 
 <div class="row">
     {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mx-3 justify-content-center']) }}
-    {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1 mt-2']) }}
-    {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('type_code', $partnerTypes, request('type_code'), ['placeholder' => __('partner.all_type'), 'class' => 'form-control mr-1 mt-2']) }}
+    {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control me-1 mt-2']) }}
+    {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('type_code', $partnerTypes, request('type_code'), ['placeholder' => __('partner.all_type'), 'class' => 'form-control me-1 mt-2']) }}
     @if ($partnerLevels)
-        {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1 mt-2']) }}
+        {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control me-1 mt-2']) }}
     @endif
-    {{ Form::select('age_group_code', __('partner.age_groups') + ['null' => __('app.unknown')], request('age_group_code'), ['placeholder' => __('partner.age_group'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('work_type_id', __('partner.work_types') + ['null' => __('app.unknown')], request('work_type_id'), ['placeholder' => __('partner.work'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('marital_status_id', __('partner.marital_statuses') + ['null' => __('app.unknown')], request('marital_status_id'), ['placeholder' => __('partner.marital_status'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('financial_status_id', __('partner.financial_statuses') + ['null' => __('app.unknown')], request('financial_status_id'), ['placeholder' => __('partner.financial_status'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('activity_status_id', __('partner.activity_statuses') + ['null' => __('app.unknown')], request('activity_status_id'), ['placeholder' => __('partner.activity_status'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('religion_id', __('partner.religions') + ['null' => __('app.unknown')], request('religion_id'), ['placeholder' => __('partner.religion'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1 mt-2']) }}
+    {{ Form::select('age_group_code', __('partner.age_groups') + ['null' => __('app.unknown')], request('age_group_code'), ['placeholder' => __('partner.age_group'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('work_type_id', __('partner.work_types') + ['null' => __('app.unknown')], request('work_type_id'), ['placeholder' => __('partner.work'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('marital_status_id', __('partner.marital_statuses') + ['null' => __('app.unknown')], request('marital_status_id'), ['placeholder' => __('partner.marital_status'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('financial_status_id', __('partner.financial_statuses') + ['null' => __('app.unknown')], request('financial_status_id'), ['placeholder' => __('partner.financial_status'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('activity_status_id', __('partner.activity_statuses') + ['null' => __('app.unknown')], request('activity_status_id'), ['placeholder' => __('partner.activity_status'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('religion_id', __('partner.religions') + ['null' => __('app.unknown')], request('religion_id'), ['placeholder' => __('partner.religion'), 'class' => 'form-control me-1 mt-2']) }}
+    {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control me-1 mt-2']) }}
     <div class="form-group mt-4 mt-sm-2">
-        {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
-        {{ link_to_route('partners.search', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
+        {{ Form::submit(__('app.search'), ['class' => 'btn btn-info me-1']) }}
+        {{ link_to_route('partners.search', __('app.reset'), [], ['class' => 'btn btn-secondary me-1']) }}
     </div>
     {{ Form::close() }}
 </div>

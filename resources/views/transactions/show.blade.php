@@ -148,7 +148,7 @@
                                 [$transaction, 'action' => 'upload_files'],
                                 [
                                     'id' => 'upload_files-transaction-'.$transaction->id,
-                                    'class' => 'btn btn-success mr-2'. ($isDiskFull ? ' disabled' : ''),
+                                    'class' => 'btn btn-success me-2'. ($isDiskFull ? ' disabled' : ''),
                                     'aria-disabled' => $isDiskFull ? 'true' : null,
                                     'onclick' => $isDiskFull ? 'return false;' : null,
                                 ]
@@ -185,7 +185,7 @@
                                                 ) !!}
                                             </div>
 
-                                            <div class="ml-auto">
+                                            <div class="ms-auto">
                                                 <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
                                                     id="edit-file-{{ $file->id }}"
                                                     class="btn btn-warning btn-sm text-dark">

@@ -20,19 +20,19 @@
         @endauth
 
         <!-- Right Side Of Navbar -->
-        <div class="nav navbar-nav ml-auto d-none d-sm-block">
-            <a class="xs-navbar mr-4" href="{{ url('/') }}">
+        <div class="nav navbar-nav ms-auto d-none d-sm-block">
+            <a class="xs-navbar me-4" href="{{ url('/') }}">
                 <i class="fe fe-home h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-home"></i> {{ __('app.public_home') }}</span>
             </a>
             <!-- Authentication Links -->
-            <a class="xs-navbar mr-4" href="{{ route('transactions.index') }}" title="{{ __('transaction.transaction') }}">
+            <a class="xs-navbar me-4" href="{{ route('transactions.index') }}" title="{{ __('transaction.transaction') }}">
                 <i class="fe fe-repeat h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-repeat"></i> {{ __('transaction.transaction') }}</span>
             </a>
             @if (Route::has('donors.index'))
                 @can('view-any', new App\Models\Partner)
-                    <a class="xs-navbar mr-4" href="{{ route('donors.index') }}" title="{{ __('partner.partner_type_donor') }}">
+                    <a class="xs-navbar me-4" href="{{ route('donors.index') }}" title="{{ __('partner.partner_type_donor') }}">
                         <i class="fe fe-pocket h3 d-inline d-lg-none"></i>
                         <span class="d-none d-lg-inline"><i class="fe fe-pocket"></i> {{ __('partner.partner_type_donor') }}</span>
                     </a>
@@ -40,21 +40,21 @@
             @endif
             @if (Route::has('partners.index'))
                 @can('view-any', new App\Models\Partner)
-                    <a class="xs-navbar mr-4" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
+                    <a class="xs-navbar me-4" href="{{ route('partners.index') }}" title="{{ __('partner.partner') }}">
                         <i class="fe fe-users h3 d-inline d-lg-none"></i>
                         <span class="d-none d-lg-inline"><i class="fe fe-users"></i> {{ __('partner.partner') }}</span>
                     </a>
                 @endcan
             @endif
-            <a class="xs-navbar mr-4" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
+            <a class="xs-navbar me-4" href="{{ route('reports.index') }}" title="{{ __('report.report') }}">
                 <i class="fe fe-bar-chart-2 h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-bar-chart-2"></i> {{ __('report.report') }}</span>
             </a>
-            <a class="xs-navbar mr-4" href="{{ route('profile.show') }}" title="{{ __('settings.settings') }}">
+            <a class="xs-navbar me-4" href="{{ route('profile.show') }}" title="{{ __('settings.settings') }}">
                 <i class="fe fe-settings h3 d-inline d-lg-none"></i>
                 <span class="d-none d-lg-inline"><i class="fe fe-settings"></i> {{ __('settings.settings') }}</span>
             </a>
-            <a class="xs-navbar mr-4" href="{{ route('logout') }}"
+            <a class="xs-navbar me-4" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
                  <i class="fe fe-log-out h3 d-inline d-lg-none"></i>

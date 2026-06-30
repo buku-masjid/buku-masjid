@@ -11,16 +11,16 @@
     <div class="page-subtitle"></div>
     <div class="page-options d-flex">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
-        {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
+        {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label me-1']) }}
+        {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
+        {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
         <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn btn-secondary mr-1']) }}
+            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
+            {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-secondary me-1']) }}
+            {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn btn-secondary me-1']) }}
         </div>
         <div class="form-group mt-4 mt-sm-0">
-            @livewire('prev-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary mr-1'])
+            @livewire('prev-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary me-1'])
             @livewire('next-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary'])
         </div>
         {{ Form::close() }}

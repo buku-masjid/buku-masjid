@@ -1,7 +1,7 @@
 <ul class="navbar-nav ms-auto">
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="true">
-            <span class="ml-2 d-lg-block">
+            <span class="ms-2 d-lg-block">
                 <span class="text-default">{{ auth()->activeBook()->name }}</span>
                 <small class="text-muted d-block">
                     {{ config('money.currency_code') }} {{ format_number(auth()->activeBook()->getBalance(date('Y-m-d'))) }}

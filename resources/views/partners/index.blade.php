@@ -18,7 +18,7 @@
         <h1 class="page-title">
             {{ __('dashboard.dashboard') }}
         </h1>
-        <div class="page-subtitle ml-0">
+        <div class="page-subtitle ms-0">
             {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}
             {{ Setting::get('masjid_name') }}.
         </div>
@@ -27,7 +27,7 @@
         {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center']) }}
         {{ Form::select('type_code', $partnerTypes, request('type_code'), [
             'placeholder' => '-- '.__('partner.all').' --',
-            'class' => 'form-control mr-1 mt-2',
+            'class' => 'form-control me-1 mt-2',
             'onchange' => 'submit()',
         ]) }}
         {{ Form::close() }}

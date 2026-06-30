@@ -2,7 +2,7 @@
 <div class="btn-toolbar d-flex d-sm-block justify-content-center row" role="toolbar">
     @if ($selectedBook->report_periode_code == 'in_months')
         <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
-            {{ link_to_route(Route::currentRouteName(), __('report.this_month'), Request::except(['year', 'month']), ['class' => 'btn btn-light border bm-btn mr-1']) }}
+            {{ link_to_route(Route::currentRouteName(), __('report.this_month'), Request::except(['year', 'month']), ['class' => 'btn btn-light border bm-btn me-1']) }}
         </div>
         <div class="btn-group col col-sm-auto px-0" role="group">
             @livewire('prev-month-button', ['routeName' => Route::currentRouteName(), 'buttonClass' => 'btn btn-light border bm-btn', 'buttonText' => '&#8249;'])
@@ -10,7 +10,7 @@
             @livewire('next-month-button', ['routeName' => Route::currentRouteName(), 'buttonClass' => 'btn btn-light border bm-btn', 'buttonText' => '&#8250;'])
         </div>
         <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">
-            {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1', 'onchange' => 'submit()']) }}
+            {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control me-1', 'onchange' => 'submit()']) }}
         </div>
     @endif
     @if ($selectedBook->report_periode_code == 'in_weeks')
@@ -27,9 +27,9 @@
     @if ($selectedBook->report_periode_code == 'all_time')
         <div class="input-group col-auto px-0 d-inline-flex" role="group">
             <span class="input-group-text d-none d-sm-block">{{ __('time.date') }}</span>
-            {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control radius mr-1 px-2', 'style' => 'max-width: 100px;', 'onchange' => 'submit()']) }}
-            {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control radius mr-1 px-2', 'style' => 'max-width: 100px;', 'onchange' => 'submit()']) }}
-            {{ link_to_route(Route::currentRouteName(), __('app.reset'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-light border bm-btn mr-1']) }}
+            {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control radius me-1 px-2', 'style' => 'max-width: 100px;', 'onchange' => 'submit()']) }}
+            {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control radius me-1 px-2', 'style' => 'max-width: 100px;', 'onchange' => 'submit()']) }}
+            {{ link_to_route(Route::currentRouteName(), __('app.reset'), Request::except(['start_date', 'end_date']), ['class' => 'btn btn-light border bm-btn me-1']) }}
         </div>
     @endif
 </div>

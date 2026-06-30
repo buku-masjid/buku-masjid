@@ -10,10 +10,10 @@
             <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
         </div>
         <div class="col-auto text-end">
-            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary mr-2']) }}
+            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary me-2']) }}
             @can('create', new App\Transaction)
                 @can('manage-transactions', auth()->activeBook())
-                    {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success mr-2']) }}
+                    {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success me-2']) }}
                     {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
                 @endcan
             @endcan
@@ -92,7 +92,7 @@
                                         <a href="{{ $categoryRoute }}">{!! optional($transaction->category)->name_label !!}</a>
                                     @endif
                                 </span>
-                                <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
+                                <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                             </td>
                             <td class="text-right">{{ $transaction->amount_string }}</td>
                             <td class="text-center">
