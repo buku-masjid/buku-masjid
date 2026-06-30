@@ -24,12 +24,16 @@
         </div>
     </div>
     <div class="col-md-4 text-center">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center']) }}
-        {{ Form::select('type_code', $partnerTypes, request('type_code'), [
-            'placeholder' => '-- '.__('partner.all').' --',
-            'class' => 'form-control me-1 mt-2',
-            'onchange' => 'submit()',
-        ]) }}
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2 justify-content-center">
+            <div class="col-auto">
+                {{ Form::select('type_code', $partnerTypes, request('type_code'), [
+                    'placeholder' => '-- '.__('partner.all').' --',
+                    'class' => 'form-control me-1',
+                    'onchange' => 'submit()',
+                ]) }}
+            </div>
+        </div>
         {{ Form::close() }}
     </div>
     <div class="col-md-4 mt-3 text-center text-sm-end">

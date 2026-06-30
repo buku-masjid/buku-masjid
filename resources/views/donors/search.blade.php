@@ -29,15 +29,23 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mt-sm-0 mx-3']) }}
-    {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control me-1']) }}
-    {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control me-1']) }}
-    {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control me-1']) }}
-    <div class="form-group mt-4 mt-sm-0">
-        {{ Form::hidden('type_code', request('type_code')) }}
-        {{ Form::hidden('gender_code', request('gender_code')) }}
-        {{ Form::submit(__('app.search'), ['class' => 'btn btn-info me-1']) }}
-        {{ link_to_route('donors.search', __('app.reset'), [], ['class' => 'btn btn-secondary me-1']) }}
+    {{ Form::open(['method' => 'get']) }}
+    <div class="row g-2 mt-3 mt-sm-0 mx-3">
+        <div class="col-auto">
+            {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::hidden('type_code', request('type_code')) }}
+            {{ Form::hidden('gender_code', request('gender_code')) }}
+            {{ Form::submit(__('app.search'), ['class' => 'btn btn-info me-1']) }}
+            {{ link_to_route('donors.search', __('app.reset'), [], ['class' => 'btn btn-sm me-1']) }}
+        </div>
     </div>
     {{ Form::close() }}
 </div>

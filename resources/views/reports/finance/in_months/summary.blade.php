@@ -34,22 +34,32 @@
         @endcan
     </h1>
     <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('month', __('time.month'), ['class' => 'control-label me-1']) }}
-        {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control me-1']) }}
-        {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control me-1']) }}
-        {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control me-1']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
-            {{ link_to_route('reports.finance.summary', __('report.this_month'), [], ['class' => 'btn btn-secondary me-1']) }}
-            {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn btn-secondary me-1']) }}
-        </div>
-        @if (request('month') != '00')
-            <div class="form-group">
-                @livewire('prev-month-button', ['routeName' => 'reports.finance.summary', 'buttonClass' => 'btn btn-secondary me-1'])
-                @livewire('next-month-button', ['routeName' => 'reports.finance.summary', 'buttonClass' => 'btn btn-secondary'])
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2">
+            <div class="col-auto">
+                {{ Form::label('month', __('time.month'), ['class' => 'control-label me-1']) }}
             </div>
-        @endif
+            <div class="col-auto">
+                {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control me-1']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control me-1']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control me-1']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
+                {{ link_to_route('reports.finance.summary', __('report.this_month'), [], ['class' => 'btn btn-sm me-1']) }}
+                {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn btn-sm me-1']) }}
+            </div>
+            @if (request('month') != '00')
+                <div class="col-auto">
+                    @livewire('prev-month-button', ['routeName' => 'reports.finance.summary', 'buttonClass' => 'btn btn-sm me-1'])
+                    @livewire('next-month-button', ['routeName' => 'reports.finance.summary', 'buttonClass' => 'btn btn-sm'])
+                </div>
+            @endif
+        </div>
         {{ Form::close() }}
     </div>
 </div>

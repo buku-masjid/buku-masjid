@@ -1,4 +1,4 @@
-{{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
+{{ Form::open(['method' => 'get']) }}
 <div class="btn-toolbar d-flex d-sm-block justify-content-center row" role="toolbar">
     @if ($selectedBook->report_periode_code == 'in_months')
         <div class="btn-group col col-sm-auto px-0 d-none d-sm-inline-flex" role="group">

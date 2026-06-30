@@ -10,18 +10,26 @@
     </h1>
     <div class="page-subtitle"></div>
     <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label me-1']) }}
-        {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
-        {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-secondary me-1']) }}
-            {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn btn-secondary me-1']) }}
-        </div>
-        <div class="form-group mt-4 mt-sm-0">
-            @livewire('prev-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary me-1'])
-            @livewire('next-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary'])
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2">
+            <div class="col-auto">
+                {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label me-1']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
+                {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-sm me-1']) }}
+                {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn btn-sm me-1']) }}
+            </div>
+            <div class="col-auto">
+                @livewire('prev-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-sm me-1'])
+                @livewire('next-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-sm'])
+            </div>
         </div>
         {{ Form::close() }}
     </div>
