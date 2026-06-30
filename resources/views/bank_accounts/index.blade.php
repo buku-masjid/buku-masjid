@@ -28,7 +28,7 @@
                     <h3 class="card-title">{{ $bankAccount->name }}</h3>
                 </div>
                 <div class="card-body">
-                    <span class="float-right">{{ $bankAccount->status }}</span>
+                    <span class="float-end">{{ $bankAccount->status }}</span>
                     <p><span class="text-primary">{{ __('bank_account.number') }}</span>:<br><strong>{{ $bankAccount->number }}</strong></p>
                     <p><span class="text-primary">{{ __('bank_account.account_name') }}</span>:<br><strong>{{ $bankAccount->account_name }}</strong></p>
                     @if ($bankAccount->description)

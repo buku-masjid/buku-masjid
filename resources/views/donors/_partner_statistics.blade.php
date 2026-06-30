@@ -28,7 +28,7 @@
         </div>
         {{ Form::close() }}
     </div>
-    <div class="col-md-3 mt-3 mt-sm-0 text-center text-md-right">
+    <div class="col-md-3 mt-3 mt-sm-0 text-center text-md-end">
         @livewire('donors.total-income-from-partner', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 </div>

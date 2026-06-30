@@ -70,7 +70,7 @@
                 {{ Form::submit(__('app.save'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('lecturings.show', __('app.cancel'), [$lecturing], ['class' => 'btn btn-link']) }}
                 @can('delete', $lecturing)
-                    {{ link_to_route('lecturings.edit', __('app.delete'), [$lecturing, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-lecturing-'.$lecturing->id]) }}
+                    {{ link_to_route('lecturings.edit', __('app.delete'), [$lecturing, 'action' => 'delete'], ['class' => 'btn btn-danger float-end', 'id' => 'del-lecturing-'.$lecturing->id]) }}
                 @endcan
             </div>
             {{ Form::close() }}

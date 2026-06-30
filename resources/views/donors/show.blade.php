@@ -55,7 +55,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-center col-md-1">{{ __('app.date') }}</th>
                         <th class="col-md-4">{{ __('transaction.description') }}</th>
-                        <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                        <th class="text-end col-md-2">{{ __('transaction.amount') }}</th>
                         <th class="col-md-3">{{ __('book.book') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
@@ -66,14 +66,14 @@
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td class="text-center">{{ $transaction->date }}</td>
                         <td>
-                            <span class="float-right">
+                            <span class="float-end">
                                 <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
                             <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                         </td>
-                        <td class="text-right">{{ $transaction->amount_string }}</td>
+                        <td class="text-end">{{ $transaction->amount_string }}</td>
                         <td>{{ $transaction->book->name }}</td>
                         <td class="text-center text-nowrap">
                             @can('update', $transaction)
@@ -95,8 +95,8 @@
                 </tbody>
                 <tfoot>
                     <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }}</td>
-                        <td class="text-right">
+                        <td colspan="3" class="text-end">{{ __('app.total') }}</td>
+                        <td class="text-end">
                             {{ format_number($transactions->sum(function ($transaction) {
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}

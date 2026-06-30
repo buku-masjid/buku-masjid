@@ -82,7 +82,7 @@
                                 'transactions.edit',
                                 __('app.delete'),
                                 [$transaction, 'action' => 'delete'] + Request::only('reference_page', 'month', 'year', 'start_date', 'end_date', 'category_id', 'partner_id'),
-                                ['id' => 'del-transaction-'.$transaction->id, 'class' => 'btn btn-danger float-right']
+                                ['id' => 'del-transaction-'.$transaction->id, 'class' => 'btn btn-danger float-end']
                             ) !!}
                         @endcan
                     </div>

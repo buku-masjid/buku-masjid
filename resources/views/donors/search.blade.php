@@ -22,7 +22,7 @@
     <div class="col-md-4 mt-3 text-center">
         @include('donors._partner_gender_selector')
     </div>
-    <div class="col-md-4 mt-3 text-center text-sm-right">
+    <div class="col-md-4 mt-3 text-center text-sm-end">
         @can('create', new App\Models\Partner)
             {{ link_to_route('donors.create', __('donor.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
@@ -49,7 +49,7 @@
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('partner.name') }}</th>
-                        <th class="text-right">{{ __('transaction.transaction') }}</th>
+                        <th class="text-end">{{ __('transaction.transaction') }}</th>
                         <th class="text-nowrap">{{ __('partner.phone') }}</th>
                         <th class="text-center">{{ __('partner.level') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
@@ -71,7 +71,7 @@
                                 {{ $partner->name }}
                             @endcan
                         </td>
-                        <td class="text-nowrap text-right">{{ format_number($partner->transactions_sum_amount ?: 0) }}</td>
+                        <td class="text-nowrap text-end">{{ format_number($partner->transactions_sum_amount ?: 0) }}</td>
                         <td class="text-nowrap">
                             {{ $partner->phone ? link_to('https://wa.me/'.str_replace([' ', '+', '(', ')'], '', $partner->phone), $partner->phone) : '' }}
                         </td>

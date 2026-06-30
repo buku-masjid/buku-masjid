@@ -119,7 +119,7 @@
                         'partners.edit',
                         __('app.delete'),
                         [$partner->id, 'action' => 'delete'],
-                        ['id' => 'del-partner-'.$partner->id, 'class' => 'btn btn-danger float-right']
+                        ['id' => 'del-partner-'.$partner->id, 'class' => 'btn btn-danger float-end']
                     ) !!}
                 @endcan
             </div>

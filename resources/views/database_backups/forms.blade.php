@@ -8,7 +8,7 @@
             <a href="{{ route('database_backups.index') }}" class="btn btn-secondary">{{ __('database_backup.cancel_delete') }}</a>
             <form action="{{ route('database_backups.destroy', request('file_name')) }}"
                 method="post"
-                class="float-right"
+                class="float-end"
                 onsubmit="return confirm('{{ __('database_backup.delete_confirm') }}')">
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
@@ -28,7 +28,7 @@
             <a href="{{ route('database_backups.index') }}" class="btn btn-secondary">{{ __('database_backup.cancel_restore') }}</a>
             <form action="{{ route('database_backups.restore', request('file_name')) }}"
                 method="post"
-                class="float-right"
+                class="float-end"
                 onsubmit="return confirm('Click OK to Restore.')">
                 {{ csrf_field() }}
                 <input type="hidden" name="file_name" value="{{ request('file_name') }}">
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label for="file_name" class="control-label">{{ __('database_backup.create') }}</label>
                 <input type="text" name="file_name" class="form-control" placeholder="{{ date('Y-m-d_Hi') }}">
-                {!! $errors->first('file_name', '<div class="text-danger text-right">:message</div>') !!}
+                {!! $errors->first('file_name', '<div class="text-danger text-end">:message</div>') !!}
             </div>
             <div class="form-group">
                 <input type="submit" value="{{ __('database_backup.create') }}" class="btn btn-success">
@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label for="backup_file" class="control-label">{{ __('database_backup.upload') }}</label>
                 <input type="file" name="backup_file" class="form-control">
-                {!! $errors->first('backup_file', '<div class="text-danger text-right">:message</div>') !!}
+                {!! $errors->first('backup_file', '<div class="text-danger text-end">:message</div>') !!}
             </div>
             <div class="form-group">
                 <input type="submit" value="{{ __('database_backup.upload') }}" class="btn btn-primary">

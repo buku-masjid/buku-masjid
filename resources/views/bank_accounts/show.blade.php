@@ -53,7 +53,7 @@
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('bank_account_balance.date') }}</th>
-                        <th class="text-nowrap text-right">{{ __('transaction.amount') }}</th>
+                        <th class="text-nowrap text-end">{{ __('transaction.amount') }}</th>
                         <th class="">{{ __('app.description') }}</th>
                         <th class="">{{ __('app.created_by') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
@@ -64,7 +64,7 @@
                     <tr>
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td class="text-nowrap">{{ $bankAccountBalance->date }}</td>
-                        <td class="text-nowrap text-right">{{ $bankAccountBalance->amount_string }}</td>
+                        <td class="text-nowrap text-end">{{ $bankAccountBalance->amount_string }}</td>
                         <td class="">{{ $bankAccountBalance->description }}</td>
                         <td class="">{{ $bankAccountBalance->creator->name }}</td>
                         <td class="text-center text-nowrap">

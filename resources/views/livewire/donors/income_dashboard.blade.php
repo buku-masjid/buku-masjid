@@ -15,7 +15,7 @@
                             {{ $trYear }}
                         </div>
                     </div>
-                    <div class="col-12 col-sm-4 text-right mb-2">
+                    <div class="col-12 col-sm-4 text-end mb-2">
                         <span class="text-muted">({{ __('report.in_thousand') }} {{ config('money.currency_text') }})</span>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                                     <td style="min-width: 14em">
                                         {{ link_to_route('donors.show', $partner->name, $partner->id) }}
                                         @if ($partner->phone)
-                                            <a href="https://wa.me/{{ str_replace([' ', '+', '(', ')'], '', $partner->phone) }}" target="_blank" class="float-right">
+                                            <a href="https://wa.me/{{ str_replace([' ', '+', '(', ')'], '', $partner->phone) }}" target="_blank" class="float-end">
                                                 <img src="{{ asset('images/whatsapp.svg') }}" style="width: 18px;vertical-align: text-bottom;">
                                             </a>
                                         @endif
@@ -56,7 +56,7 @@
                                                     return $income->tr_year_month == $trYear.'-'.$monthNumber && $income->partner_id == $partner->id;
                                                 })->first();
                                             @endphp
-                                            <td class="text-right">{{ $incomeEntry ? format_number($incomeEntry->total_amount / 1000) : '' }}</td>
+                                            <td class="text-end">{{ $incomeEntry ? format_number($incomeEntry->total_amount / 1000) : '' }}</td>
                                         @endforeach
                                     @endunless
 
@@ -65,13 +65,13 @@
                                             return $income->partner_id == $partner->id;
                                         })->sum('total_amount');
                                     @endphp
-                                    <td class="text-right">{{ format_number($incomeTotal / 1000) }}</td>
+                                    <td class="text-end">{{ format_number($incomeTotal / 1000) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr class="strong">
-                                <td colspan="2" class="text-right">{{ __('app.total') }}</td>
+                                <td colspan="2" class="text-end">{{ __('app.total') }}</td>
                                 @unless (isset(get_months()[$month]))
                                     @foreach (get_months() as $monthNumber => $monthName)
                                         @php
@@ -79,10 +79,10 @@
                                                 return $income->tr_year_month == $trYear.'-'.$monthNumber;
                                             })->sum('total_amount');
                                         @endphp
-                                        <td class="text-right">{{ format_number($monthTotal / 1000) }}</td>
+                                        <td class="text-end">{{ format_number($monthTotal / 1000) }}</td>
                                     @endforeach
                                 @endunless
-                                <td class="text-right">{{ format_number($incomeDashboardEntriesPerYear->sum('total_amount') / 1000) }}</td>
+                                <td class="text-end">{{ format_number($incomeDashboardEntriesPerYear->sum('total_amount') / 1000) }}</td>
                             </tr>
                         </tfoot>
                     </table>

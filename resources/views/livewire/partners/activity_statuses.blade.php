@@ -8,7 +8,7 @@
             <div class="col-12 col-sm-8">
                 <div class="h3">{{ __('partner.activity_status') }}</div>
             </div>
-            <div class="col-12 col-sm-4 text-right mb-2"></div>
+            <div class="col-12 col-sm-4 text-end mb-2"></div>
         </div>
 
         <div class="card table-responsive-sm">
@@ -78,7 +78,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="strong">
-                        <td colspan="2" class="text-right">{{ __('app.total') }}</td>
+                        <td colspan="2" class="text-end">{{ __('app.total') }}</td>
                         @foreach ($genders as $genderCode => $genderName)
                             @php
                                 $activityStatusCount = $activityStatuses->filter(function ($activityStatus) use ($genderCode) {

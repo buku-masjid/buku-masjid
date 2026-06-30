@@ -27,7 +27,7 @@
                 @foreach ($bankAccounts as $bankAccountId => $bankAccountName)
                     <tr>
                         <td class="col-6">{{ $bankAccountName }}</td>
-                        <td class="text-right">
+                        <td class="text-end">
                             {{ format_number($transactions->filter(function ($transaction) use ($bankAccountId) {
                                 if ($bankAccountId == 'null') {
                                     return is_null($transaction->bank_account_id);

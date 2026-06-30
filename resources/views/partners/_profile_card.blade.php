@@ -4,7 +4,7 @@
             <img src="{{ asset('images/'.$partner->gender_code.'-icon.svg') }}">
         </div>
         <div class="col-8">
-            <span class="badge p-2 bg-blue-lighter text-dark float-right">{{ $partner->status }}</span>
+            <span class="badge p-2 bg-blue-lighter text-dark float-end">{{ $partner->status }}</span>
             <div>
                 <div class="text-muted small">{{ __('partner.phone') }}</div>
                 <strong>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</strong>

@@ -41,7 +41,7 @@
                             <th class="text-center col-md-1">{{ __('app.table_no') }}</th>
                             <th class="col-md-2">{{ __('app.date') }}</th>
                             <th class="col-md-7">{{ __('transaction.description') }}</th>
-                            <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                            <th class="text-end col-md-2">{{ __('transaction.amount') }}</th>
                             <th class="text-center">{{ __('app.action') }}</th>
                         </tr>
                     </thead>
@@ -51,7 +51,7 @@
                             <td class="text-center">{{ 1 + $key }}</td>
                             <td>{{ $transaction->date }} ({{ $transaction->day_name }})</td>
                             <td>
-                                <div class="float-right">
+                                <div class="float-end">
                                     @if ($transaction->partner)
                                         @php
                                             $partnerRoute = route('partners.show', [
@@ -78,7 +78,7 @@
                                 </div>
                                 <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                             </td>
-                            <td class="text-right">{{ $transaction->amount_string }}</td>
+                            <td class="text-end">{{ $transaction->amount_string }}</td>
                             <td class="text-center text-nowrap">
                                 {{ link_to_route('transactions.show', __('app.show'), [
                                     $transaction,

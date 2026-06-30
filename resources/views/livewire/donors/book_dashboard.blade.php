@@ -15,7 +15,7 @@
                             {{ $trYear }}
                         </div>
                     </div>
-                    <div class="col-12 col-sm-4 text-right mb-2">
+                    <div class="col-12 col-sm-4 text-end mb-2">
                         <span class="text-muted">({{ __('report.in_thousand') }} {{ config('money.currency_text') }})</span>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                                                     return $bookEntry->tr_year_month == $trYear.'-'.$monthNumber && $bookEntry->book_id == $availableBook->id;
                                                 })->first();
                                             @endphp
-                                            <td class="text-right">{{ $bookEntry ? format_number($bookEntry->total_amount / 1000) : '' }}</td>
+                                            <td class="text-end">{{ $bookEntry ? format_number($bookEntry->total_amount / 1000) : '' }}</td>
                                         @endforeach
                                     @endunless
 
@@ -60,13 +60,13 @@
                                             return $bookEntry->book_id == $availableBook->id;
                                         })->sum('total_amount');
                                     @endphp
-                                    <td class="text-right">{{ format_number($bookTotal / 1000) }}</td>
+                                    <td class="text-end">{{ format_number($bookTotal / 1000) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr class="strong">
-                                <td colspan="2" class="text-right">{{ __('app.total') }}</td>
+                                <td colspan="2" class="text-end">{{ __('app.total') }}</td>
                                 @if (isset(get_months()[$month]))
                                 @else
                                     @foreach (get_months() as $monthNumber => $monthName)
@@ -75,10 +75,10 @@
                                                 return $bookEntry->tr_year_month == $trYear.'-'.$monthNumber;
                                             })->sum('total_amount');
                                         @endphp
-                                        <td class="text-right">{{ format_number($monthTotal / 1000) }}</td>
+                                        <td class="text-end">{{ format_number($monthTotal / 1000) }}</td>
                                     @endforeach
                                 @endif
-                                <td class="text-right">{{ format_number($bookDashboardEntriesPerYear->sum('total_amount') / 1000) }}</td>
+                                <td class="text-end">{{ format_number($bookDashboardEntriesPerYear->sum('total_amount') / 1000) }}</td>
                             </tr>
                         </tfoot>
                     </table>

@@ -25,7 +25,7 @@
     </div>
     <div class="col-md-4 mt-3 text-center">
     </div>
-    <div class="col-md-4 mt-3 text-center text-sm-right">
+    <div class="col-md-4 mt-3 text-center text-sm-end">
         @can('create', new App\Models\Partner)
             {{ link_to_route('partners.create', __('partner.create'), [], ['class' => 'btn btn-success']) }}
         @endcan

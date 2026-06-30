@@ -9,7 +9,7 @@
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
                     <th style="width: 70%" class="text-start">{{ __('transaction.transaction') }}</th>
-                    <th style="width: 25%" class="text-right">{{ __('transaction.amount') }}</th>
+                    <th style="width: 25%" class="text-end">{{ __('transaction.amount') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                                 {!! $transaction->date_alert !!}
                                 {{ link_to_route('transactions.show', Illuminate\Support\Str::limit($transaction->description, 35, ''), $transaction) }}</td>
                             @endif
-                        <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
+                        <td class="text-end" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             {{ format_number($transaction->amount) }}
                         </td>
                     </tr>

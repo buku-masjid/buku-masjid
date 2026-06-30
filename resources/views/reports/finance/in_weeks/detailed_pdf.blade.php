@@ -38,7 +38,7 @@
 
 <htmlpagefooter name="wpFooter">
     @if (Setting::for(auth()->activeBook())->get('has_pdf_page_number') != '0')
-        <div class="text-right">{{ __('report.page') }} {PAGENO}/{nb}</div>
+        <div class="text-end">{{ __('report.page') }} {PAGENO}/{nb}</div>
     @endif
 </htmlpagefooter>
 @endsection

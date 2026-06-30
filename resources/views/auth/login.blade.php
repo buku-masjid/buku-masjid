@@ -35,7 +35,7 @@
                         <div class="form-group mt-2">
                             <label for="password" class="form-label">
                                 @if (Route::has('password.request'))
-                                    <a class="float-right small" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                    <a class="float-end small" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
                                 @endif
                                 {{ __('auth.password') }}
                             </label>

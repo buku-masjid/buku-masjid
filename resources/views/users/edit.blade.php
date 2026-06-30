@@ -57,7 +57,7 @@
                 </div>
                 <div class="card-footer">
                     @if ($isDeleteable)
-                        <form method="POST" action="{{ route('users.destroy', $user) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                        <form method="POST" action="{{ route('users.destroy', $user) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-end" style="display: inline;">
                             {{ csrf_field() }} {{ method_field('delete') }}
                             <input name="user_id" type="hidden" value="{{ $user->id }}">
                             <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
@@ -96,7 +96,7 @@
                 {{ Form::submit(__('user.update'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('users.show', __('app.cancel'), [$user], ['class' => 'btn btn-link']) }}
                 @can('delete', $user)
-                    {{ link_to_route('users.edit', __('app.delete'), [$user, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-user-'.$user->id]) }}
+                    {{ link_to_route('users.edit', __('app.delete'), [$user, 'action' => 'delete'], ['class' => 'btn btn-danger float-end', 'id' => 'del-user-'.$user->id]) }}
                 @endcan
             </div>
             {{ Form::close() }}

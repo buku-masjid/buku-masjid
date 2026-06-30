@@ -13,9 +13,9 @@
         table.table, table.table td, table.table th { border: 1px solid #000; border-collapse: collapse; padding: 4px; }
         .text-start { text-align: left; }
         .text-center { text-align: center; }
-        .text-right { text-align: right; }
+        .text-end { text-align: right; }
         .text-danger { color: red; }
-        .pull-right { float: right; }
+        .pull-end { float: right; }
         .strong { font-weight: bold; }
         .page-break { page-break-after: always; }
         .hidden-print { display: none; }
