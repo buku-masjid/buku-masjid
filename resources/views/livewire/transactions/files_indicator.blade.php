@@ -2,12 +2,12 @@
 @if ($files->count())
     @if ($files->count() == 1)
         <a href="{{ asset('storage/'.$files->first()->file_path) }}" class="badge bg-light text-light-fg">
-            1 <i class="fe fe-image"></i>
+            1 <i class="ti ti-photo"></i>
         </a>
     @else
         <div class="dropdown">
             <a class="badge bg-light text-light-fg" data-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
-                {{ $files->count() }} <i class="fe fe-image"></i>
+                {{ $files->count() }} <i class="ti ti-photo"></i>
             </a>
             <div class="dropdown-menu">
                 @foreach ($files as $key => $file)

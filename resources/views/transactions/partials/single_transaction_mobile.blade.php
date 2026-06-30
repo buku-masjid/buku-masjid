@@ -36,8 +36,8 @@
 </div>
 <div style="margin-bottom: 6px;">
     @if ($transaction->files_count)
-        <a href="{{ route('transactions.show', $transaction) }}" class="badge text-dark px-1" style="font-size: 90%;">
-            {{ $transaction->files_count }} <i class="fe fe-image"></i>
+        <a href="{{ route('transactions.show', $transaction) }}" class="badge bg-gray text-dark px-1" style="font-size: 90%;">
+            {{ $transaction->files_count }} <i class="ti ti-photo fs-4"></i>
         </a>
     @endif
     @if ($transaction->partner)
@@ -50,7 +50,7 @@
         @endphp
         <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
     @endif
-    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-gray text-gray-fg'}}">
         {{ $transaction->bankAccount->name }}
     </span>
     @if ($transaction->category)
