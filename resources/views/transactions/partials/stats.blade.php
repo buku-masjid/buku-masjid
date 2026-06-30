@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-lg-6">
         <div class="card table-responsive">
             <div class="card-header d-block text-center py-3" style="min-height: 1rem">
