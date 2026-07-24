@@ -21,7 +21,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('app.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('partners.show', __('app.cancel'), [$partner], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('partners.show', __('app.cancel'), [$partner], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>

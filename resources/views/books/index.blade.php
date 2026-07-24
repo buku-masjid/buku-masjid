@@ -62,7 +62,7 @@
                                     ['switch_book' => $book->id]
                                 ) !!}
                             @else
-                                <span class="btn btn-secondary btn-sm disabled">{{ __('app.active') }}</span>
+                                <span class="btn btn-default btn-sm disabled">{{ __('app.active') }}</span>
                             @endif
                             @can('view', $book)
                                 {{ link_to_route(
@@ -71,7 +71,7 @@
                                     [$book],
                                     [
                                         'id' => 'show-book-'.$book->id,
-                                        'class' => 'btn btn-sm btn-secondary',
+                                        'class' => 'btn btn-sm btn-default',
                                     ]
                                 ) }}
                             @endcan

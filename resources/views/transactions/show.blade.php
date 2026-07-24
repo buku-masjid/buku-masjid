@@ -29,14 +29,14 @@
                     'transactions.print_spending_request',
                     __('transaction.print_spending_request'),
                     $transaction,
-                    ['class' => 'btn btn-secondary']
+                    ['class' => 'btn btn-default']
                 ) }}
             @endif
             {{ link_to_route(
                 'transactions.print_receipt',
                 __('transaction.print_receipt'),
                 $transaction,
-                ['class' => 'btn btn-secondary']
+                ['class' => 'btn btn-default']
             ) }}
             @can('update', $transaction)
                 @can('manage-transactions', auth()->activeBook())
@@ -55,7 +55,7 @@
                     'year' => $transaction->year,
                     'month' => $transaction->month,
                 ],
-                ['class' => 'btn btn-secondary']
+                ['class' => 'btn btn-default']
             ) }}
         </div>
     </div>

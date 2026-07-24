@@ -11,7 +11,7 @@
             <div class="text-secondary mt-1">{{ __('book.detail') }}</div>
         </div>
         <div class="col-auto text-end">
-            {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+            {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
 </div>

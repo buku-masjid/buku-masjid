@@ -17,7 +17,7 @@
                         'partners.show',
                         __('partner.change_levels'),
                         [$partner, 'action' => 'change_levels'],
-                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary']
+                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-default']
                     ) }}
                 @endif
                 {{ link_to_route(
@@ -31,7 +31,7 @@
                 'partners.search',
                 __('partner.back_to_index'),
                 [],
-                ['class' => 'btn btn-secondary']
+                ['class' => 'btn btn-default']
             ) }}
         </div>
     </div>

@@ -56,7 +56,7 @@
                             ['partner_id' => $partner->id]
                         ) !!}
                     @endif
-                    {{ link_to_route('donors.edit', __('app.cancel'), [$partner], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('donors.edit', __('app.cancel'), [$partner], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         @endcan
@@ -97,7 +97,7 @@
             </div>
             <div class="card-footer">
                 {!! Form::submit(__('donor.update'), ['class' => 'btn btn-warning text-dark']) !!}
-                {{ link_to_route('donors.show', __('app.cancel'), $partner, ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('donors.show', __('app.cancel'), $partner, ['class' => 'btn btn-default']) }}
                 @can('delete', $partner)
                     {!! link_to_route(
                         'donors.edit',

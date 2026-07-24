@@ -5,7 +5,7 @@
             <p>{!! __('database_backup.sure_to_delete_file', ['filename' => request('file_name')]) !!}</p>
         </div>
         <div class="card-footer">
-            <a href="{{ route('database_backups.index') }}" class="btn btn-secondary">{{ __('database_backup.cancel_delete') }}</a>
+            <a href="{{ route('database_backups.index') }}" class="btn btn-default">{{ __('database_backup.cancel_delete') }}</a>
             <form action="{{ route('database_backups.destroy', request('file_name')) }}"
                 method="post"
                 class="float-end"
@@ -25,7 +25,7 @@
             <p>{!! __('database_backup.sure_to_restore', ['filename' => request('file_name')]) !!}</p>
         </div>
         <div class="card-footer">
-            <a href="{{ route('database_backups.index') }}" class="btn btn-secondary">{{ __('database_backup.cancel_restore') }}</a>
+            <a href="{{ route('database_backups.index') }}" class="btn btn-default">{{ __('database_backup.cancel_restore') }}</a>
             <form action="{{ route('database_backups.restore', request('file_name')) }}"
                 method="post"
                 class="float-end"

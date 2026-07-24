@@ -17,7 +17,7 @@
                     <h5 class="card-title">{{ __('transaction.add_income') }}</h5>
                     <div class="card-options btn-group">
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-gray btn-sm">{{ __('transaction.income') }}</a>
-                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-secondary btn-sm">{{ __('transaction.spending') }}</a>
+                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-default btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
                 {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
@@ -91,7 +91,7 @@
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_income'), ['class' => 'btn btn-success']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -102,7 +102,7 @@
                 <div class="card-header">
                     <h5 class="card-title">{{ __('transaction.add_spending') }}</h5>
                     <div class="card-options btn-group">
-                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-secondary btn-sm">{{ __('transaction.income') }}</a>
+                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-default btn-sm">{{ __('transaction.income') }}</a>
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-gray btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_spending'), ['class' => 'btn btn-danger']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>

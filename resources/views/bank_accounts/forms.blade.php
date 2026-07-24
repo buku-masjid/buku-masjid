@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('bank_account.create'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('bank_account.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                     @can('delete', $editableBankAccount)
                         {!! link_to_route(
                             'bank_accounts.index',
@@ -93,7 +93,7 @@
                         ['class'=>'btn btn-danger'],
                         ['bank_account_id' => $editableBankAccount->id]
                     ) !!}
-                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         </div>

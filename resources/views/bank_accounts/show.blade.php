@@ -14,7 +14,7 @@
             @can('update', $bankAccount)
                 {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success']) }}
             @endcan
-            {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+            {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
 </div>
@@ -103,7 +103,7 @@
                             $labelText = __('bank_account.qris_change_image');
                         }
                     @endphp
-                    <label for="bank_account_qris_image" class="btn btn-secondary">{{ $labelText }}</label>
+                    <label for="bank_account_qris_image" class="btn btn-default">{{ $labelText }}</label>
                     {!! FormField::file('bank_account_qris_image', [
                         'label' => false,
                         'id' => 'bank_account_qris_image',
@@ -137,7 +137,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop">{{__('app.crop_and_save')}}</button>
         </div>
       </div>

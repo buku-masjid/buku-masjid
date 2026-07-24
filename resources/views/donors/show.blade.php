@@ -21,7 +21,7 @@
                 'donors.search',
                 __('donor.back_to_index'),
                 [],
-                ['class' => 'btn btn-secondary']
+                ['class' => 'btn btn-default']
             ) }}
         </div>
     </div>

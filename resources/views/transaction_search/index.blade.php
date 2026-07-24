@@ -11,7 +11,7 @@
             <div class="text-secondary mt-1">{{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
         </div>
         <div class="col-auto text-end">
-            {{ link_to_route('transactions.index', __('transaction.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+            {{ link_to_route('transactions.index', __('transaction.back_to_index'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
 </div>
@@ -98,7 +98,7 @@
                                     'start_date' => $startDate,
                                     'end_date' => $endDate,
                                     'reference_page' => 'transaction_search',
-                                ], ['class' => 'btn btn-secondary btn-sm']) }}
+                                ], ['class' => 'btn btn-default btn-sm']) }}
                             </td>
                         </tr>
                         @empty

@@ -11,7 +11,7 @@
             <div class="text-secondary mt-1">{{ __('category.transactions') }}</div>
         </div>
         <div class="col-auto text-end">
-            {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+            {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn btn-default']) }}
         </div>
     </div>
 </div>

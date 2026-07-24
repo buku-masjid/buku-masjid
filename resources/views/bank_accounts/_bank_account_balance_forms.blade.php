@@ -25,7 +25,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('bank_account_balance.create'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('bank_account_balance.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
                     {!! link_to_route(
                         'bank_accounts.show',
                         __('app.delete'),
@@ -111,7 +111,7 @@
                             'bank_account_balance_id' => $editableBankAccountBalance->id
                         ]
                     ) !!}
-                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         </div>

@@ -70,7 +70,7 @@
                     <div class="text-secondary mt-1">{{ __('book.edit') }}</div>
                 </div>
                 <div class="col-auto text-end">
-                    {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-default']) }}
                 </div>
             </div>
         </div>

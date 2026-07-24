@@ -76,7 +76,7 @@
                                 }
                             }
                         @endphp
-                        {{ link_to_route($routeName, __('app.cancel'), $queryStrings, ['class' => 'btn btn-secondary']) }}
+                        {{ link_to_route($routeName, __('app.cancel'), $queryStrings, ['class' => 'btn btn-default']) }}
                         @can('delete', $transaction)
                             {!! link_to_route(
                                 'transactions.edit',
@@ -132,7 +132,7 @@
                                 'partner_id' => $transaction->partner_id,
                             ] + request(['reference_page', 'end_date', 'start_date'])
                         ) !!}
-                        {{ link_to_route('transactions.edit', __('app.cancel'), [$transaction, 'month' => $transaction->month, 'year' => $transaction->year], ['class' => 'btn btn-secondary']) }}
+                        {{ link_to_route('transactions.edit', __('app.cancel'), [$transaction, 'month' => $transaction->month, 'year' => $transaction->year], ['class' => 'btn btn-default']) }}
                     </div>
                 </div>
             @endcan

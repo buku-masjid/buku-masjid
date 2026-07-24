@@ -56,7 +56,7 @@
             </div>
             <div class="card-footer">
                 {!! Form::submit(__('partner.create'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
             </div>
             {{ Form::close() }}
         </div>

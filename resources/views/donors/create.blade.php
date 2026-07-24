@@ -43,7 +43,7 @@
             </div>
             <div class="card-footer">
                 {!! Form::submit(__('donor.create'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
             </div>
             {{ Form::close() }}
         </div>

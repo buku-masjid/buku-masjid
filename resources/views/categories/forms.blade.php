@@ -30,7 +30,7 @@
                 <div class="modal-footer">
                     {!! Form::submit(__('category.create'), ['class' => 'btn btn-success']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -82,7 +82,7 @@
                 <div class="modal-footer">
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                     @can('delete', $editableCategory)
                         {!! link_to_route(
                             'categories.index',
@@ -129,7 +129,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('app.delete_confirm_button'), ['class' => 'btn btn-danger']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 </div>
                 {!! Form::close() !!}
             </div>

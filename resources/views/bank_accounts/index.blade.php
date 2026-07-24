@@ -45,7 +45,7 @@
                             $bankAccount,
                             [
                                 'id' => 'show-bank_account-'.$bankAccount->id,
-                                'class' => 'btn btn-secondary',
+                                'class' => 'btn btn-default',
                             ]
                         ) }}
                     @endcan

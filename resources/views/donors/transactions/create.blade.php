@@ -12,8 +12,8 @@
             <div class="card-body">
                 @unless (request('partner_id') && isset($partners[request('partner_id')]))
                     <div class="btn-group btn-block mb-4">
-                        <a href="{{ route('donor_transactions.create') }}" class="btn {{ in_array(request('action'), [null]) ? 'btn-primary' : 'btn-secondary' }}">{{ __('donor.search') }}</a>
-                        <a href="{{ route('donor_transactions.create', ['action' => 'new_donor']) }}" class="btn {{ in_array(request('action'), ['new_donor']) ? 'btn-primary' : 'btn-secondary' }}">{{ __('donor.new') }}</a>
+                        <a href="{{ route('donor_transactions.create') }}" class="btn {{ in_array(request('action'), [null]) ? 'btn-primary' : 'btn-default' }}">{{ __('donor.search') }}</a>
+                        <a href="{{ route('donor_transactions.create', ['action' => 'new_donor']) }}" class="btn {{ in_array(request('action'), ['new_donor']) ? 'btn-primary' : 'btn-default' }}">{{ __('donor.new') }}</a>
                     </div>
                 @endunless
                 @if (request('action') == 'new_donor')
@@ -79,9 +79,9 @@
                 {!! Form::submit(__('donor.add_donation'), ['class' => 'btn btn-success']) !!}
                 {{ Form::hidden('reference_page', request('reference_page')) }}
                 @if (request('partner_id') && isset($partners[request('partner_id')]))
-                    {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn btn-default']) }}
                 @else
-                    {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
                 @endif
             </div>
             {{ Form::close() }}

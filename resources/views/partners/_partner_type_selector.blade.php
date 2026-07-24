@@ -6,7 +6,7 @@
                     'partners.index',
                     $partnerTypeName,
                     ['type_code' => $partnerTypeCode] + request()->all(),
-                    ['class' => 'btn btn-pill '.($selectedTypeCode == $partnerTypeCode ? 'btn-primary' : 'btn-secondary')]
+                    ['class' => 'btn btn-pill '.($selectedTypeCode == $partnerTypeCode ? 'btn-primary' : 'btn-default')]
                 ) !!}
             @endforeach
         </div>
