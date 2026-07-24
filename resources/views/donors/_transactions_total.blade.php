@@ -1,5 +1,5 @@
 <div class="card shadow-lg" style="border-radius:1em;height: 10em">
-    <div class="card-body p-3 pl-5">
+    <div class="card-body p-3 ps-5">
         <div>
             <div class="strong pt-3">{{ __('transaction.total') }}</div>
             <div class="text-muted small">

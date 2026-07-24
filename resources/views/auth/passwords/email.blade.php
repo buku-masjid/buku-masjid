@@ -19,7 +19,7 @@
                         @csrf
                         {!! FormField::email('email', ['label' => __('auth.email')]) !!}
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             {{ Form::submit(__('auth.send_reset_password_link'), ['class' => 'btn btn-primary']) }}
                         </div>
                     </form>

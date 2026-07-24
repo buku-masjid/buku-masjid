@@ -61,7 +61,7 @@
                     <div class="col-md-6">{!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}</div>
                 </div>
                 {!! FormField::textarea('notes', ['label' => __('donor.notes'), 'placeholder' => __('donor.notes_placeholder')]) !!}
-                <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                <div class="mb-3 {{ $errors->has('files.*') ? 'is-invalid' : '' }}">
                     <label for="files" class="form-label fw-bold">{{ __('donor.upload_files') }}</label>
                     @if($isDiskFull)
                         <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>

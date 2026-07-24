@@ -1,5 +1,5 @@
 <div class="card shadow-lg" style="border-radius:1em;height: 10em">
-    <div class="card-body p-3 pl-5">
+    <div class="card-body p-3 ps-5">
         @if ($largestTransaction)
             <span class="badge p-2 bg-blue-lighter text-dark float-end">
                 {{ __('book.book') }}: {{ $largestTransaction->book->name }}
