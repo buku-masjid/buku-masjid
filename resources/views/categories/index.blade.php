@@ -83,14 +83,3 @@
 </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-(function () {
-    $('#categoryModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush
