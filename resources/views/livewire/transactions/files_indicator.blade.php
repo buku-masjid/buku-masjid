@@ -6,7 +6,7 @@
         </a>
     @else
         <div class="dropdown">
-            <a class="badge bg-light text-light-fg" data-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
+            <a class="badge bg-light text-light-fg" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
                 {{ $files->count() }} <i class="ti ti-photo"></i>
             </a>
             <div class="dropdown-menu">

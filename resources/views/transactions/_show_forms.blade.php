@@ -5,11 +5,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('transaction.upload_files') }}</h5>
-                    {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'close']) }}
+                    {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'btn-close']) }}
                 </div>
                 {!! Form::open(['route' => ['transactions.files.store', $transaction], 'files' => true]) !!}
                 <div class="modal-body">
-                    <div class="form-group mb-3 {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                    <div class="mb-3 {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('file.select') }} <span class="text-danger">*</span></label>
                         {{ Form::file('files[]', ['required' => true, 'multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
                         @if ($errors->has('files.*'))
@@ -38,7 +38,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('file.edit') }}</h5>
-                    {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'close']) }}
+                    {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'btn-close']) }}
                 </div>
                 {!! Form::model($editableFile, ['route' => ['transactions.files.update', [$transaction, $editableFile]], 'method' => 'patch']) !!}
                 <div class="modal-body">
