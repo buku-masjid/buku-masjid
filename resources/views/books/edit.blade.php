@@ -102,14 +102,14 @@
 @section('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
-    {{ Html::style(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.css')) }}
+    {{ Html::style(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css')) }}
 @endsection
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
     {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}
     {{ Html::script(url('js/plugins/noty.js')) }}
-    {{ Html::script(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js')) }}
+    {{ Html::script(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js')) }}
 <script>
 (function () {
     $('#landing_page_content').summernote({
