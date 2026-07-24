@@ -74,7 +74,7 @@
                         'placeholder' => __('transaction.cash'),
                         'value' => old('bank_account_id', optional($originalTransaction)->bank_account_id),
                     ]) !!}
-                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                    <div class="mb-3 {{ $errors->has('files.*') ? 'is-invalid' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
                         @if($isDiskFull)
                             <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
@@ -160,7 +160,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                    <div class="mb-3 {{ $errors->has('files.*') ? 'is-invalid' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
                         @if($isDiskFull)
                             <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
