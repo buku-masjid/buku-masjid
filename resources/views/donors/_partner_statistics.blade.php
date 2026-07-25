@@ -1,4 +1,4 @@
-<div class="row" style="min-height: 8em;">
+<div class="row mb-3" style="min-height: 8em;">
     <div class="col-md-3 text-center text-md-start">
         <h1 class="page-title">{{ __('partner.partner_type_donor') }}</h1>
         <div class="page-subtitle ms-0">
@@ -41,13 +41,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 mb-2 mb-sm-0">
         @livewire('donors.donors-count', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 mb-2 mb-sm-0">
         @livewire('donors.level-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 mb-2 mb-sm-0">
         @livewire('donors.income-stats', ['book' => $selectedBook, 'year' => $selectedYear, 'month' => $selectedMonth])
     </div>
 </div>

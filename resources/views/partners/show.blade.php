@@ -39,12 +39,12 @@
 
 <div class="page-body">
 <div class="row">
-    <div class="col-md-4">@include('partners._profile_card')</div>
-    <div class="col-md-4">@include('partners._largest_transaction')</div>
-    <div class="col-md-4">@include('partners._transactions_total')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('partners._profile_card')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('partners._largest_transaction')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('partners._transactions_total')</div>
 </div>
 
-<div class="card">
+<div class="card mb-2 mb-sm-3">
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
@@ -95,9 +95,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="mb-2">
-            @include('partners.partials.show_filter')
-        </div>
+        @include('partners.partials.show_filter')
         <div class="card table-responsive">
             @desktop
             <table class="table table-sm table-responsive-sm table-striped mb-0">
