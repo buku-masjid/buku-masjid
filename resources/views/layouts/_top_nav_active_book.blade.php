@@ -14,7 +14,7 @@
                     {{ Form::open(['route' => 'book_switcher.store']) }}
                     @foreach ($activeBooks as $bookId => $bookName)
                         <button type="submit" class="dropdown-item" name="switch_book" value="{{ $bookId }}" id="switch_book_{{ $bookId }}">
-                            <i class="dropdown-icon fe {{ auth()->activeBookId() == $bookId ? 'fe-book-open' : 'fe-book' }}"></i>
+                            <i class="dropdown-icon ti {{ auth()->activeBookId() == $bookId ? 'ti-book' : 'ti-book-2' }}"></i>&nbsp;
                             {{ $bookName }}
                         </button>
                     @endforeach
@@ -23,7 +23,7 @@
                     @can('view-any', new App\Models\Book)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('books.index') }}">
-                            <i class="dropdown-icon fe fe-book"></i> {{ __('book.all') }}
+                            <i class="dropdown-icon ti ti-book-2"></i> &nbsp;{{ __('book.all') }}
                         </a>
                     @endcan
                 </div>

@@ -100,7 +100,7 @@
                     <div class="card-options">
                         {!! FormField::formButton(
                             ['route' => 'masjid_profile.coordinates.update', 'method' => 'patch'],
-                            '<i class="fe fe-map"></i> '.__('masjid_profile.refresh_masjid_map'),
+                            '<i class="ti ti-map"></i> '.__('masjid_profile.refresh_masjid_map'),
                             ['id' => 'refresh_masjid_map', 'class' => 'btn btn-info btn-sm'],
                             ['google_maps_link' => Setting::get('masjid_google_maps_link')]
                         ) !!}

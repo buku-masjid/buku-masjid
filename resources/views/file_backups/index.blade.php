@@ -35,15 +35,15 @@
                                 <a href="{{ route('file_backups.index', ['action' => 'restore', 'file_name' => $backup['filename']]) }}"
                                     id="restore_{{ str_replace('.zip', '', $backup['filename']) }}"
                                     class="btn btn-warning btn-sm"
-                                    title="{{ __('file_backup.restore') }}"><i class="fe fe-refresh-cw"></i></a>
+                                    title="{{ __('file_backup.restore') }}"><i class="ti ti-refresh"></i></a>
                                 <a href="{{ route('file_backups.download', [$backup['filename']]) }}"
                                     id="download_{{ str_replace('.zip', '', $backup['filename']) }}"
                                     class="btn btn-success btn-sm"
-                                    title="{{ __('file_backup.download') }}"><i class="fe fe-download"></i></a>
+                                    title="{{ __('file_backup.download') }}"><i class="ti ti-download"></i></a>
                                 <a href="{{ route('file_backups.index', ['action' => 'delete', 'file_name' => $backup['filename']]) }}"
                                     id="del_{{ str_replace('.zip', '', $backup['filename']) }}"
                                     class="btn btn-danger btn-sm"
-                                    title="{{ __('file_backup.delete') }}"><i class="fe fe-x"></i></a>
+                                    title="{{ __('file_backup.delete') }}"><i class="ti ti-x"></i></a>
                             </div>
                         </td>
                     </tr>

@@ -179,7 +179,7 @@
                                             <div>
                                                 {!! FormField::delete(
                                                     ['route' => ['transactions.files.destroy', [$transaction, $file->id]], 'onsubmit' => __('app.delete_confirm')],
-                                                    '<i class="fe fe-trash-2"></i> '.__('app.delete'),
+                                                    '<i class="ti ti-trash-2"></i> '.__('app.delete'),
                                                     ['class' => 'btn btn-danger btn-sm', 'id' => 'delete-file-'.$file->id],
                                                     ['file_id' => $file->id]
                                                 ) !!}
@@ -189,7 +189,7 @@
                                                 <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
                                                     id="edit-file-{{ $file->id }}"
                                                     class="btn btn-warning btn-sm text-dark">
-                                                    <i class="fe fe-edit"></i> {{ __('app.edit') }}
+                                                    <i class="ti ti-edit"></i> {{ __('app.edit') }}
                                                 </a>
                                             </div>
                                         </div>
@@ -209,4 +209,3 @@
 @endif
 </div>
 @endsection
-

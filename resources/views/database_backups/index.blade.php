@@ -35,15 +35,15 @@
                                 <a href="{{ route('database_backups.index', ['action' => 'restore', 'file_name' => $backup->getFilename()]) }}"
                                     id="restore_{{ str_replace('.gz', '', $backup->getFilename()) }}"
                                     class="btn btn-warning btn-sm"
-                                    title="{{ __('database_backup.restore') }}"><i class="fe fe-refresh-cw"></i></a>
+                                    title="{{ __('database_backup.restore') }}"><i class="ti ti-refresh"></i></a>
                                 <a href="{{ route('database_backups.download', [$backup->getFilename()]) }}"
                                     id="download_{{ str_replace('.gz', '', $backup->getFilename()) }}"
                                     class="btn btn-success btn-sm"
-                                    title="{{ __('database_backup.download') }}"><i class="fe fe-download"></i></a>
+                                    title="{{ __('database_backup.download') }}"><i class="ti ti-download"></i></a>
                                 <a href="{{ route('database_backups.index', ['action' => 'delete', 'file_name' => $backup->getFilename()]) }}"
                                     id="del_{{ str_replace('.gz', '', $backup->getFilename()) }}"
                                     class="btn btn-danger btn-sm"
-                                    title="{{ __('database_backup.delete') }}"><i class="fe fe-x"></i></a>
+                                    title="{{ __('database_backup.delete') }}"><i class="ti ti-x"></i></a>
                             </div>
                         </td>
                     </tr>

@@ -44,7 +44,7 @@
                 <hr style="margin:0">
                 <div class="card-body bg-warning">
                     <div class="row">
-                        <div class="col-1"><i class="fe fe-alert-circle"></i></div>
+                        <div class="col-1"><i class="ti ti-alert-circle"></i></div>
                         <div class="col-11">{!! __('book.delete_confirm') !!}</div>
                     </div>
                 </div>
