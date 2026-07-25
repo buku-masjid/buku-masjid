@@ -17,6 +17,7 @@
     {{ Html::style(Vite::asset('resources/js/app.css')) }}
     {{ Html::style(url('css/plugins/select2.min.css')) }}
     {!! Html::style(url('css/plugins/select2-bootstrap.min.css')) !!}
+    @livewireStyles
     @stack('styles')
 </head>
 <body>
@@ -35,6 +36,7 @@
         $('.select2').select2({theme: "bootstrap"});
     })();
     </script>
+    @livewireScripts
     @stack('scripts')
 </body>
 </html>
