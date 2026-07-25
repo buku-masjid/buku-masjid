@@ -28,25 +28,25 @@
             ) }}
         @endcan
     </h1>
-    <div class="page-options d-flex">
+    <div class="page-options d-flex mb-3">
         {{ Form::open(['method' => 'get']) }}
         <div class="row g-2">
             <div class="col-auto">
-                {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label me-1']) }}
+                {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mt-2']) }}
             </div>
             <div class="col-auto">
-                {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
+                {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control', 'style' => 'width:100px']) }}
             </div>
             <div class="col-auto">
-                {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control me-1', 'style' => 'width:100px']) }}
+                {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control', 'style' => 'width:100px']) }}
             </div>
             <div class="col-auto">
-                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control me-1']) }}
+                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control']) }}
             </div>
             <div class="col-auto">
-                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
-                {{ link_to_route('reports.finance.summary', __('app.reset'), [], ['class' => 'btn me-1']) }}
-                {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn me-1']) }}
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
+                {{ link_to_route('reports.finance.summary', __('app.reset'), [], ['class' => 'btn']) }}
+                {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn']) }}
             </div>
         </div>
         {{ Form::close() }}

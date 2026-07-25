@@ -33,29 +33,29 @@
             ) }}
         @endcan
     </h1>
-    <div class="page-options d-flex">
+    <div class="page-options d-flex mb-3">
         {{ Form::open(['method' => 'get']) }}
         <div class="row g-2">
             <div class="col-auto">
-                {{ Form::label('month', __('time.month'), ['class' => 'control-label me-1']) }}
+                {{ Form::label('month', __('time.month'), ['class' => 'control-label mt-2']) }}
             </div>
             <div class="col-auto">
-                {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control me-1']) }}
+                {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control']) }}
             </div>
             <div class="col-auto">
-                {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control me-1']) }}
+                {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control']) }}
             </div>
             <div class="col-auto">
-                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control me-1']) }}
+                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control']) }}
             </div>
             <div class="col-auto">
-                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info me-1']) }}
-                {{ link_to_route('reports.finance.detailed', __('report.this_month'), [], ['class' => 'btn me-1']) }}
-                {{ link_to_route('reports.finance.detailed_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn me-1']) }}
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
+                {{ link_to_route('reports.finance.detailed', __('report.this_month'), [], ['class' => 'btn']) }}
+                {{ link_to_route('reports.finance.detailed_pdf', __('report.export_pdf'), ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn']) }}
             </div>
             @if (request('month') != '00')
                 <div class="col-auto">
-                    @livewire('prev-month-button', ['routeName' => 'reports.finance.detailed', 'buttonClass' => 'btn me-1'])
+                    @livewire('prev-month-button', ['routeName' => 'reports.finance.detailed', 'buttonClass' => 'btn'])
                     @livewire('next-month-button', ['routeName' => 'reports.finance.detailed', 'buttonClass' => 'btn'])
                 </div>
             @endif
