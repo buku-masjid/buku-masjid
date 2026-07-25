@@ -99,11 +99,11 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
     {{ Html::style(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

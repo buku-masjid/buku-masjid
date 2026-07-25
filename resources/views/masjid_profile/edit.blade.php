@@ -150,9 +150,9 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}

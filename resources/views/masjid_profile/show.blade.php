@@ -130,14 +130,14 @@
 @endsection
 
 @if (Setting::get('masjid_latitude') && Setting::get('masjid_longitude'))
-    @section('styles')
+    @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
         integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
         crossorigin=""/>
     <style>
         #masjid_map { min-height: 500px; }
     </style>
-    @endsection
+    @endpush
 
     @push('scripts')
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"

@@ -18,10 +18,10 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
 <style>
 .list-group-transparent .list-group-item {
     padding: 0.5rem 0.5rem;
 }
 </style>
-@endsection
+@endpush

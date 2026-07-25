@@ -141,11 +141,11 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('css/plugins/select2.min.css')) }}
     {{ Html::style(url('css/plugins/select2-bootstrap.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
