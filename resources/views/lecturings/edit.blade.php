@@ -95,26 +95,6 @@
         scrollInput: false,
         dayOfWeekStart: 1,
         inline: true,
-    });
-})();
-</script>
-@endpush
-
-@push('styles')
-    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endpush
-
-@push('scripts')
-    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
-<script>
-(function () {
-    $('.date-select').datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-        closeOnDateSelect: true,
-        scrollInput: false,
-        dayOfWeekStart: 1,
-        inline: true,
         scrollMonth: false,
     });
 })();
