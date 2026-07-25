@@ -91,6 +91,7 @@
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <input type="submit" value="{{ __('auth.logout') }}" style="display: none;">
                             @csrf
                         </form>
                     </li>
