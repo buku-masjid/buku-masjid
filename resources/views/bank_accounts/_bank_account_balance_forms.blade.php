@@ -1,14 +1,13 @@
 @if (request('action') == 'create_bank_account_balance')
 @can('update', $bankAccount)
-    <div id="bankAccountBalanceModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div class="modal modal-blur show" id="bank_account_balance_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('bank_account_balance.create') }}</h5>
-                    {{ link_to_route('bank_accounts.show', '', [$bankAccount], ['class' => 'close']) }}
+                    {{ link_to_route('bank_accounts.show', '', [$bankAccount], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::open(['route' => ['bank_accounts.balances.store', $bankAccount], 'autocomplete' => 'off']) !!}
+                {{ Form::open(['route' => ['bank_accounts.balances.store', $bankAccount], 'autocomplete' => 'off']) }}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('bank_account_balance.date'), 'value' => old('date', date('Y-m-d')), 'class' => 'date-select']) !!}</div>
@@ -24,27 +23,27 @@
                     {!! FormField::textarea('description', ['label' => __('app.description')]) !!}
                 </div>
                 <div class="modal-footer">
-                    {!! Form::submit(__('bank_account_balance.create'), ['class' => 'btn btn-success']) !!}
+                    {{ Form::submit(__('bank_account_balance.create'), ['class' => 'btn btn-success']) }}
                     {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
 @endcan
 @endif
 
 @if (request('action') == 'edit_bank_account_balance' && $editableBankAccountBalance)
 @can('update', $bankAccount)
-    <div id="bankAccountBalanceModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div class="modal modal-blur show" id="bank_account_balance_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('bank_account_balance.edit') }}</h5>
-                    {{ link_to_route('bank_accounts.show', '', [$bankAccount], ['class' => 'close']) }}
+                    {{ link_to_route('bank_accounts.show', '', [$bankAccount], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::model($editableBankAccountBalance, ['route' => ['bank_accounts.balances.update', $bankAccount, $editableBankAccountBalance], 'method' => 'patch', 'autocomplete' => 'off']) !!}
+                {{ Form::model($editableBankAccountBalance, ['route' => ['bank_accounts.balances.update', $bankAccount, $editableBankAccountBalance], 'method' => 'patch', 'autocomplete' => 'off']) }}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">{!! FormField::text('date', ['required' => true, 'label' => __('bank_account_balance.date'), 'class' => 'date-select']) !!}</div>
@@ -61,7 +60,7 @@
                     {!! FormField::textarea('description', ['label' => __('app.description')]) !!}
                 </div>
                 <div class="modal-footer">
-                    {!! Form::submit(__('bank_account_balance.update'), ['class' => 'btn btn-success']) !!}
+                    {{ Form::submit(__('bank_account_balance.update'), ['class' => 'btn btn-success']) }}
                     {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
                     {!! link_to_route(
                         'bank_accounts.show',
@@ -74,18 +73,18 @@
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
 @endcan
 @endif
 
 @if (request('action') == 'delete_bank_account_balance' && $editableBankAccountBalance)
 @can('update', $bankAccount)
-    <div id="bankAccountBalanceModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div class="modal modal-blur show" id="bank_account_balance_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('bank_account_balance.delete') }}</h5>
-                    {{ link_to_route('bank_accounts.show', '', [$bankAccount], ['class' => 'close']) }}
+                    {{ link_to_route('bank_accounts.show', '', [$bankAccount], ['class' => 'btn-close']) }}
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -116,5 +115,6 @@
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
 @endcan
 @endif

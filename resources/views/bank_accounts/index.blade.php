@@ -73,13 +73,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-(function () {
-    $('#bankAccountModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

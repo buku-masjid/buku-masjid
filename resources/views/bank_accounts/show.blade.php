@@ -246,10 +246,6 @@
             }
         });
     });
-    $('#bankAccountBalanceModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
     $('.date-select').datetimepicker({
         timepicker:false,
         format:'Y-m-d',
