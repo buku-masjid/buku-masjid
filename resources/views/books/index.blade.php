@@ -105,13 +105,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-(function () {
-    $('#bookModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

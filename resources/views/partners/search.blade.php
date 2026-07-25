@@ -130,13 +130,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-(function () {
-    $('#partnerModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

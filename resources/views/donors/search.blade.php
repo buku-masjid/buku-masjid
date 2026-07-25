@@ -102,13 +102,3 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 @endprepend
 
-@push('scripts')
-<script>
-(function () {
-    $('#partnerModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

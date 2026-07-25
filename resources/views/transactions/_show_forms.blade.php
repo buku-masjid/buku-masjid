@@ -1,13 +1,13 @@
 @if (request('action') == 'upload_files' && $transaction && !$isDiskFull)
     @can('update', $transaction)
-    <div id="transactionModal" class="modal" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal modal-blur show" id="transaction_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('transaction.upload_files') }}</h5>
                     {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::open(['route' => ['transactions.files.store', $transaction], 'files' => true]) !!}
+                {{ Form::open(['route' => ['transactions.files.store', $transaction], 'files' => true]) }}
                 <div class="modal-body">
                     <div class="mb-3 {{ $errors->has('files.*') ? 'has-error' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('file.select') }} <span class="text-danger">*</span></label>
@@ -22,25 +22,26 @@
                     {!! FormField::textarea('description', ['label' => __('app.notes')]) !!}
                 </div>
                 <div class="modal-footer">
-                    {!! Form::submit(__('file.upload'), ['class' => 'btn btn-success']) !!}
+                    {{ Form::submit(__('file.upload'), ['class' => 'btn btn-success']) }}
                     {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
     @endcan
 @endif
 @if (request('action') == 'edit_file' && $editableFile)
     @can('update', $transaction)
-    <div id="transactionModal" class="modal" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal modal-blur show" id="transaction_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('file.edit') }}</h5>
                     {{ link_to_route('transactions.show', '', [$transaction], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::model($editableFile, ['route' => ['transactions.files.update', [$transaction, $editableFile]], 'method' => 'patch']) !!}
+                {{ Form::model($editableFile, ['route' => ['transactions.files.update', [$transaction, $editableFile]], 'method' => 'patch']) }}
                 <div class="modal-body">
                     @if (in_array($editableFile->type_code, ['raw_image', 'image']))
                         <a href="{{ asset('storage/'.$editableFile->file_path) }}" class="d-block mb-4">
@@ -51,12 +52,13 @@
                     {!! FormField::textarea('description', ['label' => __('app.notes')]) !!}
                 </div>
                 <div class="modal-footer">
-                    {!! Form::submit(__('file.update'), ['class' => 'btn btn-success']) !!}
+                    {{ Form::submit(__('file.update'), ['class' => 'btn btn-success']) }}
                     {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn btn-default']) }}
                 </div>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
     @endcan
 @endif

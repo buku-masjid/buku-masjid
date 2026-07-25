@@ -73,13 +73,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-(function () {
-    $('#reportModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush
