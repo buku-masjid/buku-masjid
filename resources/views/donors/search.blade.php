@@ -3,7 +3,7 @@
 @section('title', __('partner.partner_type_donor'))
 
 @section('content')
-<ul class="nav nav-tabs mb-4">
+<ul class="nav nav-bordered mb-4">
     <li class="nav-item">
         {!! link_to_route('donors.index', __('dashboard.dashboard'), [], ['class' => 'nav-link'.(in_array(Request::segment(2), ['dashboard', null]) ? ' active' : '')]) !!}
     </li>
