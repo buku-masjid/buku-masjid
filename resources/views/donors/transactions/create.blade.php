@@ -66,7 +66,7 @@
                     @if($isDiskFull)
                         <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
                     @else
-                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
                         @if ($errors->has('files.*'))
                             @foreach ($errors->get('files.*') as $key => $errorMessages)
                                 {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}

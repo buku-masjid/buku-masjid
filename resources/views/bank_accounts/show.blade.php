@@ -91,7 +91,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body text-center">
-                <div class="form-group" id="bank_account_qris">
+                <div class="mb-3" id="bank_account_qris">
                     @if (Setting::for($bankAccount)->get('qris_image_path'))
                         <img id="bank_account_qris_image_show" class="img-fluid" src="{{ Storage::url(Setting::for($bankAccount)->get('qris_image_path'))}}" alt="QRIS">
                     @endif
