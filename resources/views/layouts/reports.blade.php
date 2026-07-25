@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-</div>
-<div class="container">
 <div class="row">
     <div class="col-lg-3">
         @include('layouts._report_nav')
