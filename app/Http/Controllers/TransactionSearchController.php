@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\BankAccount;
 use App\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransactionSearchController extends Controller
 {
     public function index(Request $request)
     {
-        $defaultStartDate = date('Y-m').'-01';
+        $defaultStartDate = date('Y').'-01-01';
+        $firstTransaction = Transaction::orderBy('date')->first();
+        if ($firstTransaction) {
+            $defaultStartDate = Carbon::parse($firstTransaction->date)->format('Y-m').'-01';
+        }
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-t'));
 
@@ -34,7 +39,7 @@ class TransactionSearchController extends Controller
                     $transactionQuery->where('bank_account_id', $bankAccountId);
                 }
             }
-            $transactions = $transactionQuery->with('category', 'bankAccount', 'book')->limit(100)->get();
+            $transactions = $transactionQuery->with('category', 'partner', 'bankAccount', 'book')->limit(100)->get();
         }
         $categories = $this->getCategoryList();
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
