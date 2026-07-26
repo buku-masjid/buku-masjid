@@ -17,7 +17,9 @@
 .table .form-group.mb-3 .input-group-text, .table .form-group.mb-3 .form-control {
     padding: .3rem .6rem;
 }
-
 .badge {
     padding: 0.3em 0.8em;
+}
+.form-control-sm, .btn-sm, .btn-group-sm > .btn {
+    font-size: inherit;
 }
