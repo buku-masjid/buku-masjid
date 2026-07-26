@@ -1,6 +1,6 @@
-<div class="row mb-3">
+<div class="row">
     <div class="col-lg-6">
-        <div class="card table-responsive">
+        <div class="card table-responsive mb-2 mb-lg-3">
             <div class="card-header d-block text-center py-3" style="min-height: 1rem">
                 <h5 class="mb-0">{{ __('report.finance_summary') }}</h5>
             </div>
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="card table-responsive">
+        <div class="card table-responsive mb-2 mb-lg-3">
             <div class="card-header d-block text-center py-3" style="min-height: 1rem">
                 <h5 class="mb-0">{{ __('transaction.origin_destination') }}</h5>
             </div>

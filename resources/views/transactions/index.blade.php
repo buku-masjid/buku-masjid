@@ -6,15 +6,15 @@
 <div class="page-header">
     <div class="row g-2 align-items-center">
         <div class="col">
-            <h2 class="page-title"><div class="d-none d-sm-inline">{{ __('transaction.list') }}</div> {{ get_months()[$month] }} {{ $year }}</h2>
+            <h2 class="page-title"><div class="d-inline">{{ __('transaction.list') }}&nbsp;</div>{{ get_months()[$month] }} {{ $year }}</h2>
             <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
         </div>
-        <div class="col-auto text-end">
-            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-default me-2']) }}
+        <div class="col-sm-auto mt-3 mt-sm-2 ms-auto">
+            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-default px-3']) }}
             @can('create', new App\Transaction)
                 @can('manage-transactions', auth()->activeBook())
-                    {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success me-2']) }}
-                    {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
+                    {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success px-2']) }}
+                    {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger px-2']) }}
                 @endcan
             @endcan
         </div>
@@ -25,10 +25,8 @@
 <div class="row">
     <div class="col-md-12">
         @include('transactions.partials.stats')
+        @include('transactions.partials.index_filters')
         <div class="card table-responsive">
-            <div class="card-header">
-                @include('transactions.partials.index_filters')
-            </div>
             @desktop
             <div class="table-responsive-sm">
                 <table class="table table-sm table-hover table-bordered mb-0">
