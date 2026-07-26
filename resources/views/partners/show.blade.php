@@ -17,14 +17,14 @@
                         'partners.show',
                         __('partner.change_levels'),
                         [$partner, 'action' => 'change_levels'],
-                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-default']
+                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn btn-default']
                     ) }}
                 @endif
                 {{ link_to_route(
                     'partners.edit',
                     __('app.edit'),
                     $partner,
-                    ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning']
+                    ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn btn-warning']
                 ) }}
             @endcan
             {{ link_to_route(
