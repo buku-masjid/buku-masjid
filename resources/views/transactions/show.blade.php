@@ -110,7 +110,7 @@
                     <tr>
                         <td>{{ __('transaction.origin_destination') }}</td>
                         <td>
-                            <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                            <span class="badge {{ $transaction->bankAccount->exists ? ' text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                 {{ $transaction->bankAccount->name }}
                             </span>
                         </td>

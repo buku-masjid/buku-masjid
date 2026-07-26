@@ -73,7 +73,7 @@
                                         @endphp
                                         <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
                                     @endif
-                                    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                         {{ $transaction->bankAccount->name }}
                                     </span>
                                     @if ($transaction->category)

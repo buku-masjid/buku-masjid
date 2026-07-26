@@ -116,7 +116,7 @@
                         <td class="text-center">{{ $transaction->date }}</td>
                         <td>
                             <span class="float-end">
-                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
