@@ -19,33 +19,32 @@
 <div class="page-body">
 <div class="row">
     <div class="col-md-12">
-        <div class="card table-responsive">
-            <div class="card-header">
-                {{ Form::open(['method' => 'get']) }}
-                <div class="row g-2">
-                    <div class="col-auto">
-                        {{ Form::text('search_query', request('search_query'), ['class' => 'form-control form-control-sm me-2', 'placeholder' => __('transaction.search_text')]) }}
-                    </div>
-                    <div class="col-auto">
-                        {{ Form::text('start_date', $startDate, ['class' => 'form-control form-control-sm me-2 date-select', 'style' => 'width:100px', 'placeholder' => __('time.start_date')]) }}
-                    </div>
-                    <div class="col-auto">
-                        {{ Form::text('end_date', $endDate, ['class' => 'form-control form-control-sm me-2 date-select', 'style' => 'width:100px', 'placeholder' => __('time.end_date')]) }}
-                    </div>
-                    <div class="col-auto">
-                        {{ Form::select('category_id', $categories, request('category_id'), ['placeholder' => __('category.all'), 'class' => 'form-control form-control-sm me-2']) }}
-                    </div>
-                    <div class="col-auto">
-                        {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => '-- '.__('transaction.origin_destination').' --', 'class' => 'form-control form-control-sm me-2']) }}
-                    </div>
-                    <div class="col-auto">
-                        {{ Form::submit(__('app.search'), ['class' => 'btn btn-primary btn-sm me-2']) }}
-                        {{ link_to_route('transaction_search.index', __('app.reset'), [], ['class' => 'btn btn-sm']) }}
-                    </div>
-                </div>
-                {{ Form::close() }}
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2 mb-3">
+            <div class="col-auto">
+                {{ Form::text('search_query', request('search_query'), ['class' => 'form-control', 'placeholder' => __('transaction.search_text'), 'style' => 'width:300px']) }}
             </div>
-            @if ($searchQuery)
+            <div class="col-auto">
+                {{ Form::text('start_date', $startDate, ['class' => 'form-control date-select', 'style' => 'width:100px', 'placeholder' => __('time.start_date')]) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::text('end_date', $endDate, ['class' => 'form-control date-select', 'style' => 'width:100px', 'placeholder' => __('time.end_date')]) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('category_id', $categories, request('category_id'), ['placeholder' => __('category.all'), 'class' => 'form-control', 'style' => 'width:200px']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => '-- '.__('transaction.origin_destination').' --', 'class' => 'form-control']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::submit(__('app.search'), ['class' => 'btn btn-primary']) }}
+                {{ link_to_route('transaction_search.index', __('app.reset'), [], ['class' => 'btn']) }}
+            </div>
+        </div>
+        {{ Form::close() }}
+
+        @if ($searchQuery)
+            <div class="card table-responsive">
                 @desktop
                 <table class="table table-sm table-responsive-sm table-hover table-bordered mb-0">
                     <thead>
@@ -113,8 +112,8 @@
                     @endforeach
                 </div>
                 @enddesktop
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
 </div>
 </div>
