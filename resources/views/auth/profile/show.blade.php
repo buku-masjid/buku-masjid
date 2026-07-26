@@ -24,7 +24,7 @@
                 </tbody>
             </table>
             <div class="card-footer">
-                <a href="{{ route('profile.edit') }}" class="btn btn-success">{{ __('user.profile_edit') }}</a>
+                <a href="{{ route('profile.edit') }}" class="btn btn-warning">{{ __('user.profile_edit') }}</a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="float-end">
                     <button type="submit" class="btn btn-danger"><i class="ti ti-logout"></i> &nbsp;{{ __('auth.logout') }}</button>

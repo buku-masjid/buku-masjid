@@ -44,7 +44,7 @@
                         'transactions.edit',
                         __('transaction.edit'),
                         $transaction,
-                        ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark']
+                        ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning']
                     ) !!}
                 @endcan
             @endcan
@@ -188,7 +188,7 @@
                                             <div class="ms-auto">
                                                 <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
                                                     id="edit-file-{{ $file->id }}"
-                                                    class="btn btn-warning btn-sm text-dark">
+                                                    class="btn btn-warning btn-sm">
                                                     <i class="ti ti-edit"></i> {{ __('app.edit') }}
                                                 </a>
                                             </div>

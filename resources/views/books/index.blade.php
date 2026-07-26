@@ -82,7 +82,7 @@
                                     [$book],
                                     [
                                         'id' => 'edit-book-'.$book->id,
-                                        'class' => 'btn btn-sm text-dark btn-warning',
+                                        'class' => 'btn btn-sm btn-warning',
                                     ]
                                 ) }}
                             @endcan
@@ -104,4 +104,3 @@
 </div>
 </div>
 @endsection
-

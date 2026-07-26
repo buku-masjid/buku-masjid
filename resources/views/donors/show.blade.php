@@ -15,7 +15,7 @@
                 {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success']) }}
             @endcan
             @can('update', $partner)
-                {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark', 'id' => 'edit-partner-'.$partner->id]) }}
+                {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning', 'id' => 'edit-partner-'.$partner->id]) }}
             @endcan
             {{ link_to_route(
                 'donors.search',

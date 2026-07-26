@@ -96,7 +96,7 @@
                 {!! FormField::radios('is_active', [__('app.inactive'), __('app.active')], ['label' => __('app.status')]) !!}
             </div>
             <div class="card-footer">
-                {!! Form::submit(__('donor.update'), ['class' => 'btn btn-warning text-dark']) !!}
+                {!! Form::submit(__('donor.update'), ['class' => 'btn btn-warning']) !!}
                 {{ link_to_route('donors.show', __('app.cancel'), $partner, ['class' => 'btn btn-default']) }}
                 @can('delete', $partner)
                     {!! link_to_route(

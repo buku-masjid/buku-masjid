@@ -5,7 +5,7 @@
                 {{ __('report.signatures') }}
                 <div class="card-options">
                     @can('update', $book)
-                        {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'signatures'], ['class' => 'btn btn-sm btn-warning text-dark me-2', 'id' => 'edit_signatures-book-'.$book->id]) }}
+                        {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'signatures'], ['class' => 'btn btn-sm btn-warning me-2', 'id' => 'edit_signatures-book-'.$book->id]) }}
                     @endcan
                 </div>
             </div>

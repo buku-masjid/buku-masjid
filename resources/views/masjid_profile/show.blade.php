@@ -10,7 +10,7 @@
         </div>
         <div class="col-auto text-end">
             @can('edit_masjid_profile')
-                {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-warning text-dark']) }}
+                {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-warning']) }}
             @endcan
         </div>
     </div>
