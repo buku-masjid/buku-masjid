@@ -25,10 +25,8 @@
 
 <div class="row">
     <div class="col-md-12">
+        @include('categories.partials.show_filter')
         <div class="card table-responsive">
-            <div class="card-header">
-                @include('categories.partials.show_filter')
-            </div>
             @desktop
             <table class="table table-sm table-responsive-sm table-hover table-bordered mb-0">
                 <thead>

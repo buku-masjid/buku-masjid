@@ -1,21 +1,24 @@
 {{ Form::open(['method' => 'get']) }}
 <div class="row g-2">
     <div class="col-auto">
-        {!! FormField::text('query', [
-            'value' => request('query'), 'label' => false,
+        {!! Form::text('query', request('query'), [
+            'class' => 'form-control',
             'placeholder' => __('transaction.search_text'),
+            'style' => 'width:300px',
         ]) !!}
     </div>
     <div class="col-auto">
-        {!! FormField::text('start_date', [
-            'value' => request('start_date'), 'label' => false, 'value' => $startDate,
-            'class' => 'date-select', 'placeholder' => __('time.start_date'),
+        {!! Form::text('start_date', $startDate, [
+            'class' => 'form-control date-select',
+            'placeholder' => __('time.start_date'),
+            'style' => 'width:100px',
         ]) !!}
     </div>
     <div class="col-auto">
-        {!! FormField::text('end_date', [
-            'value' => request('end_date'), 'label' => false, 'value' => $endDate,
-            'class' => 'date-select', 'placeholder' => __('time.end_date'),
+        {!! Form::text('end_date', $endDate, [
+            'class' => 'form-control date-select',
+            'placeholder' => __('time.end_date'),
+            'style' => 'width:100px',
         ]) !!}
     </div>
     <div class="col-auto">

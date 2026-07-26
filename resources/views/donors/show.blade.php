@@ -29,9 +29,9 @@
 
 <div class="page-body">
 <div class="row">
-    <div class="col-md-4">@include('donors._profile_card')</div>
-    <div class="col-md-4">@include('donors._largest_transaction')</div>
-    <div class="col-md-4">@include('donors._transactions_total')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('donors._profile_card')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('donors._largest_transaction')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('donors._transactions_total')</div>
 </div>
 
 @if ($partner->address)
@@ -44,9 +44,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="mb-2">
-            @include('donors.partials.show_filter')
-        </div>
+        @include('donors.partials.show_filter')
         <div class="card table-responsive">
             @desktop
             <table class="table table-sm table-responsive-sm table-striped mb-0">
