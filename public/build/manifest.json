@@ -16,7 +16,7 @@
     "src": "node_modules/@tabler/icons-webfont/fonts/tabler-icons.woff2"
   },
   "resources/js/app.css": {
-    "file": "assets/app-970f94a2.css",
+    "file": "assets/app-85d9b745.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -27,9 +27,9 @@
       "assets/tabler-icons-fa92836a.ttf"
     ],
     "css": [
-      "assets/app-970f94a2.css"
+      "assets/app-85d9b745.css"
     ],
-    "file": "assets/app-f485e591.js",
+    "file": "assets/app-7cf34703.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
