@@ -5,10 +5,22 @@ namespace App\Http\Controllers\Reports;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Carbon\Carbon;
+use Facades\App\Helpers\Setting;
 use Illuminate\Http\Request;
 
 class FinanceController extends Controller
 {
+    protected function resolveReportPaperFormat(Request $request): string
+    {
+        $requestedFormat = $request->get('paper_format');
+
+        if (in_array($requestedFormat, ['A4', 'Legal'])) {
+            return $requestedFormat;
+        }
+
+        return Setting::for(auth()->activeBook())->get('report_paper_format', config('pdf.format')) ?: 'A4';
+    }
+
     protected function determineBudgetSummaryVisibility(Request $request, Book $book): bool
     {
         if (!$book->budget) {

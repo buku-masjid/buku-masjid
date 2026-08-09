@@ -51,6 +51,7 @@ return [
     'transaction_files_visibility' => 'Transaction Files Visibility',
     'manager' => 'Finance User',
     'manager_info_text' => 'Finance user will have write access to this book.',
+    'partner_settings' => 'Partner Settings',
     'income_partners' => 'Income Partners',
     'income_partner_null' => 'Income Partners Default Value',
     'spending_partners' => 'Spending Partners',

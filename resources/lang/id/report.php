@@ -2,6 +2,7 @@
 
 return [
     'report' => 'Laporan',
+    'settings' => 'Pengaturan Laporan',
     'periode' => 'Periode Laporan',
     'page' => 'Hal.',
     'start_week_day' => 'Hari Awal Pekan',
@@ -54,6 +55,9 @@ return [
     'categorized_transactions' => 'Laporan Pemasukan dan Pengeluaran KAS',
     'export_pdf' => 'Export PDF',
     'has_pdf_page_number' => 'Pakai Nomor Halaman PDF',
+    'paper_format' => 'Format Kertas PDF',
+    'paper_format_a4' => 'Format A4',
+    'paper_format_legal' => 'Format Legal',
     'title_updated' => 'Judul laporan telah diupdate.',
     'management' => 'Pengurus',
 
