@@ -4,7 +4,6 @@ namespace Tests\Feature\Reports;
 
 use App\Models\Book;
 use App\Models\Setting as SettingModel;
-use Facades\App\Helpers\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -65,10 +64,13 @@ class ReportPaperFormatTest extends TestCase
             'report_paper_format' => 'Legal',
         ]);
 
-        $this->assertEquals('Legal', SettingModel::where('model_id', $book->id)
-            ->where('model_type', $book->getMorphClass())
-            ->where('key', 'report_paper_format')
-            ->value('value'));
+        $this->assertEquals(
+            'Legal',
+            SettingModel::where('model_id', $book->id)
+                ->where('model_type', $book->getMorphClass())
+                ->where('key', 'report_paper_format')
+                ->value('value')
+        );
     }
 
     /** @test */
@@ -108,7 +110,8 @@ class ReportPaperFormatTest extends TestCase
     {
         $capturedFormat = null;
 
-        $fakeWrapper = new class($expectedFormat) {
+        $fakeWrapper = new class($expectedFormat)
+        {
             public $expectedFormat;
             public $capturedFormat;
 
