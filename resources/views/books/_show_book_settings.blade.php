@@ -18,6 +18,10 @@
                     <tr><td>{{ __('report.start_week_day') }}</td><td>{{ __('time.days.'.$book->start_week_day_code) }}</td></tr>
                     <tr><td>{{ __('report.has_pdf_page_number') }}</td><td>{{ $book->start_week_day_code == '0' ? __('app.no') : __('app.yes') }}</td></tr>
                     <tr>
+                        <td>{{ __('report.paper_format') }}</td>
+                        <td>{{ Setting::for($book)->get('report_paper_format', config('pdf.format')) }}</td>
+                    </tr>
+                    <tr>
                         <td>{{ __('book.income_partners') }}</td>
                         <td>
                             {{ Setting::for($book)->get('income_partner_codes') }}

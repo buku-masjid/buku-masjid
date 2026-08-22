@@ -54,6 +54,9 @@ return [
     'categorized_transactions' => 'Categorized Transactions Report',
     'export_pdf' => 'Export PDF',
     'has_pdf_page_number' => 'Use PDF Page Number',
+    'paper_format' => 'PDF Paper Format',
+    'paper_format_a4' => 'Format A4',
+    'paper_format_legal' => 'Format Legal',
     'title_updated' => 'Report title updated.',
     'management' => 'Management',
 

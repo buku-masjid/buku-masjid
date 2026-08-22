@@ -29,7 +29,10 @@
                 {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
                 {{ link_to_route('reports.finance.dashboard', __('report.this_month'), [], ['class' => 'btn']) }}
                 {{ link_to_route('reports.finance.dashboard', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn']) }}
-                {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['year', 'month']), ['class' => 'btn']) }}
+                @include('reports.finance._export_pdf_split_button', [
+                'pdfRoute' => 'reports.finance.dashboard_pdf',
+                'pdfParams' => request()->only(['year', 'month']),
+            ])
             </div>
             <div class="col-auto">
                 @if ($month == '00')

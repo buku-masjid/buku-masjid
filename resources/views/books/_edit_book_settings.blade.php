@@ -86,6 +86,14 @@
             'label' => __('report.has_pdf_page_number'),
             'placeholder' => false,
         ]) !!}
+        {!! FormField::radios('report_paper_format', [
+            'A4' => 'A4',
+            'Legal' => 'Legal',
+        ], [
+            'value' => Setting::for($book)->get('report_paper_format', config('pdf.format')),
+            'label' => __('report.paper_format'),
+            'placeholder' => false,
+        ]) !!}
         <div class="row">
             <div class="col-md-6">
                 {!! FormField::checkboxes('income_partner_codes', $partnerTypes, [

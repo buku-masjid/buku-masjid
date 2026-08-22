@@ -24,7 +24,10 @@
             <div class="col-auto">
                 {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
                 {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn']) }}
-                {{ link_to_route('reports.finance.dashboard_pdf', __('report.export_pdf'), request()->only(['start_date', 'end_date']), ['class' => 'btn']) }}
+                @include('reports.finance._export_pdf_split_button', [
+                'pdfRoute' => 'reports.finance.dashboard_pdf',
+                'pdfParams' => request()->only(['start_date', 'end_date']),
+            ])
             </div>
             <div class="col-auto">
                 @livewire('prev-week-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn'])

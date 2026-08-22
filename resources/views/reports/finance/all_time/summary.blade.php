@@ -46,7 +46,10 @@
             <div class="col-auto">
                 {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
                 {{ link_to_route('reports.finance.summary', __('app.reset'), [], ['class' => 'btn']) }}
-                {{ link_to_route('reports.finance.summary_pdf', __('report.export_pdf'), ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')], ['class' => 'btn']) }}
+                @include('reports.finance._export_pdf_split_button', [
+                'pdfRoute' => 'reports.finance.summary_pdf',
+                'pdfParams' => ['start_date' => $startDate->format('Y-m-d'), 'end_date' => $endDate->format('Y-m-d'), 'bank_account_id' => request('bank_account_id')],
+            ])
             </div>
         </div>
         {{ Form::close() }}

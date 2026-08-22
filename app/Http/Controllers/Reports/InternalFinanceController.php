@@ -48,7 +48,8 @@ class InternalFinanceController extends FinanceController
         );
 
         // return view('reports.finance.'.$reportPeriode.'.dashboard_pdf', $passedVariables);
-        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.dashboard_pdf', $passedVariables);
+        $paperFormat = $this->resolveReportPaperFormat($request);
+        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.dashboard_pdf', $passedVariables, [], ['format' => $paperFormat]);
 
         return $pdf->stream(__('dashboard.dashboard').'.pdf');
     }
@@ -110,7 +111,8 @@ class InternalFinanceController extends FinanceController
         );
 
         // return view('reports.finance.'.$reportPeriode.'.summary_pdf', $passedVariables);
-        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.summary_pdf', $passedVariables);
+        $paperFormat = $this->resolveReportPaperFormat($request);
+        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.summary_pdf', $passedVariables, [], ['format' => $paperFormat]);
 
         return $pdf->stream(__('report.monthly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
@@ -157,7 +159,8 @@ class InternalFinanceController extends FinanceController
         );
 
         // return view('reports.finance.'.$reportPeriode.'.categorized_pdf', $passedVariables);
-        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.categorized_pdf', $passedVariables);
+        $paperFormat = $this->resolveReportPaperFormat($request);
+        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.categorized_pdf', $passedVariables, [], ['format' => $paperFormat]);
 
         return $pdf->stream(__('report.categorized_transactions', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
@@ -205,7 +208,8 @@ class InternalFinanceController extends FinanceController
         );
 
         // return view('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables);
-        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables);
+        $paperFormat = $this->resolveReportPaperFormat($request);
+        $pdf = \PDF::loadView('reports.finance.'.$reportPeriode.'.detailed_pdf', $passedVariables, [], ['format' => $paperFormat]);
 
         return $pdf->stream(__('report.weekly', ['year_month' => $currentMonthEndDate->isoFormat('MMMM Y')]).'.pdf');
     }
