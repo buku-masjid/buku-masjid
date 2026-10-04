@@ -81,7 +81,7 @@ class ReportPaperFormatTest extends TestCase
         $this->setBookSetting($book, 'report_paper_format', 'Legal');
 
         $this->visitRoute('books.edit', $book);
-        $this->seeElement('select', ['name' => 'report_paper_format']);
+        $this->seeElement('input', ['name' => 'report_paper_format', 'type' => 'radio']);
         $this->seeIsSelected('report_paper_format', 'Legal');
     }
 
