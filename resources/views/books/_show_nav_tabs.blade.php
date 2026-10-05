@@ -1,7 +1,3 @@
-<h4 class="subheader mt-3">
-    <i class="ti ti-book"></i>
-    &nbsp;{{ __('book.detail') }}
-</h4>
 <div class="list-group list-group-transparent">
     <a href="{{ route('books.show', [$book->id]) }}" class="list-group-item py-2 list-group-item-action d-flex align-items-center {{ request('tab') == null ? 'active' : '' }}" @if (request('tab') == null) aria-current="page" @endif>
         {{ __('book.detail') }}
