@@ -32,6 +32,30 @@
             App\Models\Book::STATUS_INACTIVE => __('book.status_inactive'),
             App\Models\Book::STATUS_ACTIVE => __('app.active')
         ], ['label' => __('app.status')]) !!}
+
+        <h4 class="text-primary">{{ __('report.settings') }}</h4>
+        <div class="row">
+            <div class="col-md-6">
+                {!! FormField::radios('report_paper_format', [
+                    'A4' => 'A4',
+                    'Legal' => 'Legal',
+                ], [
+                    'value' => Setting::for($book)->get('report_paper_format', config('pdf.format')),
+                    'label' => __('report.paper_format'),
+                    'placeholder' => false,
+                ]) !!}
+            </div>
+            <div class="col-md-6">
+                {!! FormField::radios('has_pdf_page_number', [
+                    '1' => __('app.yes'),
+                    '0' => __('app.no'),
+                ], [
+                    'value' => Setting::for($book)->get('has_pdf_page_number') == '0' ? '0': '1',
+                    'label' => __('report.has_pdf_page_number'),
+                    'placeholder' => false,
+                ]) !!}
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         <h4 class="text-primary">{{ __('settings.settings') }}</h4>
@@ -78,14 +102,8 @@
             'placeholder' => __('report.management'),
             'info' => ['text' => __('book.management_title_info_text')],
         ]) !!}
-        {!! FormField::radios('has_pdf_page_number', [
-            '1' => __('app.yes'),
-            '0' => __('app.no'),
-        ], [
-            'value' => Setting::for($book)->get('has_pdf_page_number') == '0' ? '0': '1',
-            'label' => __('report.has_pdf_page_number'),
-            'placeholder' => false,
-        ]) !!}
+
+        <h4 class="text-primary">{{ __('book.partner_settings') }}</h4>
         <div class="row">
             <div class="col-md-6">
                 {!! FormField::checkboxes('income_partner_codes', $partnerTypes, [

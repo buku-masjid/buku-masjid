@@ -101,6 +101,7 @@ class BookController extends Controller
             'spending_partner_codes.*' => ['in:'.$partnerTypes],
             'spending_partner_null' => ['nullable', 'string', 'max:20'],
             'has_pdf_page_number' => ['nullable', 'boolean'],
+            'report_paper_format' => ['sometimes', Rule::in(['A4', 'Legal'])],
             'start_week_day_code' => ['sometimes', 'string'],
             'manager_id' => ['nullable', 'exists:users,id'],
             'management_title' => ['nullable', 'string', 'max:60'],
@@ -150,6 +151,7 @@ class BookController extends Controller
         array_key_exists('sign_name_right', $bookData) ? Setting::for($book)->set('sign_name_right', $bookData['sign_name_right']) : null;
         array_key_exists('transaction_files_visibility_code', $bookData) ? Setting::for($book)->set('transaction_files_visibility_code', $bookData['transaction_files_visibility_code']) : null;
         array_key_exists('has_pdf_page_number', $bookData) ? Setting::for($book)->set('has_pdf_page_number', $bookData['has_pdf_page_number']) : null;
+        array_key_exists('report_paper_format', $bookData) ? Setting::for($book)->set('report_paper_format', $bookData['report_paper_format']) : null;
         array_key_exists('income_partner_codes', $bookData) ? Setting::for($book)->set('income_partner_codes', json_encode(array_keys($bookData['income_partner_codes'] ?? []))) : null;
         array_key_exists('income_partner_null', $bookData) ? Setting::for($book)->set('income_partner_null', $bookData['income_partner_null']) : null;
         array_key_exists('spending_partner_codes', $bookData) ? Setting::for($book)->set('spending_partner_codes', json_encode(array_keys($bookData['spending_partner_codes'] ?? []))) : null;
