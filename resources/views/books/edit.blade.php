@@ -75,28 +75,26 @@
             </div>
         </div>
         <div class="page-body">
-        <div class="card">
-        <div class="row g-0">
-            <div class="col-12 col-md-3 col-lg-2 border-end"><div class="card-body py-0">@include('books._edit_nav_tabs')</div></div>
-            <div class="col-12 col-md-9 col-lg-10">
-                <div class="card">
-                    {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
-                    <div class="card-body">
-                        @includeWhen(request('tab') == null, 'books._edit_book_settings')
-                        @includeWhen(request('tab') == 'signatures', 'books._edit_book_signatures')
-                        @includeWhen(request('tab') == 'landing_page', 'books._edit_book_landing_page')
+            <div class="row g-0">
+                <div class="col-12 col-md-3 col-lg-2">@include('books._edit_nav_tabs')</div>
+                <div class="col-12 col-md-9 col-lg-10">
+                    <div class="card">
+                        {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
+                        <div class="card-body">
+                            @includeWhen(request('tab') == null, 'books._edit_book_settings')
+                            @includeWhen(request('tab') == 'signatures', 'books._edit_book_signatures')
+                            @includeWhen(request('tab') == 'landing_page', 'books._edit_book_landing_page')
+                        </div>
+                        <div class="card-footer">
+                            {{ Form::submit(__('book.update'), ['class' => 'btn btn-success']) }}
+                            {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
+                        </div>
+                        {{ Form::close() }}
                     </div>
-                    <div class="card-footer">
-                        {{ Form::submit(__('book.update'), ['class' => 'btn btn-success']) }}
-                        {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
-                    </div>
-                    {{ Form::close() }}
                 </div>
             </div>
         </div>
-        </div>
     </div>
-</div>
     @endif
 </div>
 @endsection
