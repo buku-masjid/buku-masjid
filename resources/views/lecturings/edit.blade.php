@@ -32,7 +32,7 @@
         @else
         <div class="card">
             <div class="card-header">
-                <span class="card-options">{{ $lecturing->audience }}</span>
+                <span class="card-actions">{{ $lecturing->audience }}</span>
                 {{ __('lecturing.edit') }}
             </div>
             {{ Form::model($lecturing, ['route' => ['lecturings.update', $lecturing], 'method' => 'patch']) }}

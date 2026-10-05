@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         {{ __('book.landing_page') }}
-        <div class="card-options">
+        <div class="card-actions">
             @can('update', $book)
                 {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'landing_page'], ['class' => 'btn btn-sm btn-warning me-2', 'id' => 'edit_landing_page-book-'.$book->id]) }}
             @endcan

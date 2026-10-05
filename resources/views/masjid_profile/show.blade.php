@@ -97,7 +97,7 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('masjid_profile.maps') }}
-                    <div class="card-options">
+                    <div class="card-actions">
                         {!! FormField::formButton(
                             ['route' => 'masjid_profile.coordinates.update', 'method' => 'patch'],
                             '<i class="ti ti-map"></i> '.__('masjid_profile.refresh_masjid_map'),
@@ -114,7 +114,7 @@
         <div class="card">
             <div class="card-header">
                 {{ __('masjid_profile.masjid_photo') }}
-                <div class="card-options"></div>
+                <div class="card-actions"></div>
             </div>
             <div class="card-body">
                 @if (Setting::get('masjid_photo_path'))

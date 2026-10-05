@@ -139,7 +139,7 @@
                         ({{ $transaction->files->count() }})
                     @endif
                 </h3>
-                <div class="card-options">
+                <div class="card-actions">
                     @can('update', $transaction)
                         @can('manage-transactions', auth()->activeBook())
                             {!! link_to_route(

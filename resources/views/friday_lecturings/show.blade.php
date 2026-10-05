@@ -7,7 +7,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <span class="card-options">{{ $lecturing->audience }}</span>
+                <span class="card-actions">{{ $lecturing->audience }}</span>
                 {{ __('lecturing.detail_for_friday') }}
             </div>
             <table class="table card-table table-sm">

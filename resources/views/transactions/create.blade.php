@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">{{ __('transaction.add_income') }}</h5>
-                    <div class="card-options btn-group">
+                    <div class="card-actions btn-group">
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-secondary btn-sm" aria-current="page">{{ __('transaction.income') }}</a>
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
@@ -101,7 +101,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">{{ __('transaction.add_spending') }}</h5>
-                    <div class="card-options btn-group">
+                    <div class="card-actions btn-group">
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-sm">{{ __('transaction.income') }}</a>
                         <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-secondary btn-sm" aria-current="page">{{ __('transaction.spending') }}</a>
                     </div>

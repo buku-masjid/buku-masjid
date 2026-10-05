@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 {{ __('report.signatures') }}
-                <div class="card-options">
+                <div class="card-actions">
                     @can('update', $book)
                         {{ link_to_route('books.edit', __('app.edit'), [$book, 'tab' => 'signatures'], ['class' => 'btn btn-sm btn-warning me-2', 'id' => 'edit_signatures-book-'.$book->id]) }}
                     @endcan

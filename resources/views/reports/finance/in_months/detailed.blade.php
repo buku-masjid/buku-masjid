@@ -80,7 +80,7 @@
             {{ __('time.week') }} {{ $weekNumber + 1 }}
             <span class="small">({{ $weekLabels[$weekNumber] }})</span>
         </h3>
-        <div class="card-options"></div>
+        <div class="card-actions"></div>
     </div>
     @include('reports.finance._internal_content_detailed')
     @php
@@ -89,4 +89,3 @@
 </div>
 @endforeach
 @endsection
-
