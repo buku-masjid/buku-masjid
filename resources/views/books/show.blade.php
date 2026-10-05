@@ -17,13 +17,15 @@
 </div>
 
 <div class="page-body">
-<div class="row">
-    <div class="col-md-2">@include('books._show_nav_tabs')</div>
-    <div class="col-md-10">
+<div class="card">
+<div class="row g-0">
+    <div class="col-12 col-md-3 col-lg-2 border-end"><div class="card-body py-0">@include('books._show_nav_tabs')</div></div>
+    <div class="col-12 col-md-9 col-lg-10">
         @includeWhen(request('tab') == null, 'books._show_book_settings')
         @includeWhen(request('tab') == 'signatures', 'books._show_book_signatures')
         @includeWhen(request('tab') == 'landing_page', 'books._show_book_landing_page')
     </div>
+</div>
 </div>
 </div>
 @endsection

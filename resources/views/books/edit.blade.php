@@ -75,9 +75,10 @@
             </div>
         </div>
         <div class="page-body">
-        <div class="row">
-            <div class="col-md-2">@include('books._edit_nav_tabs')</div>
-            <div class="col-md-10">
+        <div class="card">
+        <div class="row g-0">
+            <div class="col-12 col-md-3 col-lg-2 border-end"><div class="card-body py-0">@include('books._edit_nav_tabs')</div></div>
+            <div class="col-12 col-md-9 col-lg-10">
                 <div class="card">
                     {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
                     <div class="card-body">
@@ -92,6 +93,7 @@
                     {{ Form::close() }}
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>
