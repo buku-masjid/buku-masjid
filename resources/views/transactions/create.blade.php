@@ -91,7 +91,7 @@
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_income'), ['class' => 'btn btn-success']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -177,7 +177,7 @@
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_spending'), ['class' => 'btn btn-danger']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>

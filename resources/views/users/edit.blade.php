@@ -19,29 +19,29 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('user.name') }}</label>
+                            <label class="form-label text-primary">{{ __('user.name') }}</label>
                             <p>{{ $user->name }}</p>
-                            <label class="control-label text-primary">{{ __('user.email') }}</label>
+                            <label class="form-label text-primary">{{ __('user.email') }}</label>
                             <p>{{ $user->email }}</p>
-                            <label class="control-label text-primary">{{ __('user.role') }}</label>
+                            <label class="form-label text-primary">{{ __('user.role') }}</label>
                             <p>{{ $user->role }}</p>
                             {!! $errors->first('user_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
                         <div class="col-md-6">
                             <p>
-                                <label class="control-label text-primary">{{ __('transaction.count') }}</label>:
+                                <label class="form-label text-primary">{{ __('transaction.count') }}</label>:
                                 <span>{{ $transactionsCount }}</span>
                             </p>
                             <p>
-                                <label class="control-label text-primary">{{ __('category.count') }}</label>:
+                                <label class="form-label text-primary">{{ __('category.count') }}</label>:
                                 <span>{{ $categoriesCount }}</span>
                             </p>
                             <p>
-                                <label class="control-label text-primary">{{ __('book.count') }}</label>:
+                                <label class="form-label text-primary">{{ __('book.count') }}</label>:
                                 <span>{{ $booksCount }}</span>
                             </p>
                             <p>
-                                <label class="control-label text-primary">{{ __('lecturing.count') }}</label>:
+                                <label class="form-label text-primary">{{ __('lecturing.count') }}</label>:
                                 <span>{{ $lecturingsCount }}</span>
                             </p>
                         </div>

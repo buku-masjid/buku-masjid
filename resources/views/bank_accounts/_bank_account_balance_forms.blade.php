@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('bank_account_balance.create'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('bank_account_balance.update'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn']) }}
                     {!! link_to_route(
                         'bank_accounts.show',
                         __('app.delete'),
@@ -89,11 +89,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="control-label">{{ __('bank_account_balance.date') }}</label>
+                            <label class="form-label">{{ __('bank_account_balance.date') }}</label>
                             <p>{{ $editableBankAccountBalance->date }}</p>
-                            <label class="control-label">{{ __('bank_account_balance.amount') }}</label>
+                            <label class="form-label">{{ __('bank_account_balance.amount') }}</label>
                             <p>{{ $editableBankAccountBalance->amount_string }}</p>
-                            <label class="control-label">{{ __('app.description') }}</label>
+                            <label class="form-label">{{ __('app.description') }}</label>
                             <p>{{ $editableBankAccountBalance->description }}</p>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                             'bank_account_balance_id' => $editableBankAccountBalance->id
                         ]
                     ) !!}
-                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('bank_accounts.show', __('app.cancel'), [$bankAccount], ['class' => 'btn']) }}
                 </div>
             </div>
         </div>

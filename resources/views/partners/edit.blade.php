@@ -13,20 +13,20 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('partner.name') }}</label>
+                            <label class="form-label text-primary">{{ __('partner.name') }}</label>
                             <p>{{ $partner->name }}</p>
-                            <label class="control-label text-primary">{{ __('partner.phone') }}</label>
+                            <label class="form-label text-primary">{{ __('partner.phone') }}</label>
                             <p>{{ $partner->phone }}</p>
-                            <label class="control-label text-primary">{{ __('partner.work') }}</label>
+                            <label class="form-label text-primary">{{ __('partner.work') }}</label>
                             <p>{{ $partner->work ?: '-' }}</p>
-                            <label class="control-label text-primary">{{ __('partner.type') }} / {{ __('partner.level') }}</label>
+                            <label class="form-label text-primary">{{ __('partner.type') }} / {{ __('partner.level') }}</label>
                             <p>{{ $partner->type ?: '-' }} / {{ $partner->level ?: '-' }}</p>
-                            <label class="control-label text-primary">{{ __('address.address') }}</label>
+                            <label class="form-label text-primary">{{ __('address.address') }}</label>
                             <p>{{ $partner->address ?: '-' }}</p>
                             {!! $errors->first('partner_id', '<span class="form-error small">:message</span>') !!}
                         </div>
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('partner.transaction_total') }}</label>
+                            <label class="form-label text-primary">{{ __('partner.transaction_total') }}</label>
                             <p>{{ format_number($partner->transactions_sum_amount ?: 0) }}</p>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                             ['partner_id' => $partner->id]
                         ) !!}
                     @endif
-                    {{ link_to_route('partners.edit', __('app.cancel'), [$partner], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('partners.edit', __('app.cancel'), [$partner], ['class' => 'btn']) }}
                 </div>
             </div>
         @endcan
@@ -113,7 +113,7 @@
             </div>
             <div class="card-footer">
                 {!! Form::submit(__('partner.update', ['type' => $partner->type]), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('partners.show', __('app.cancel'), $partner, ['class' => 'btn btn-default']) }}
+                {{ link_to_route('partners.show', __('app.cancel'), $partner, ['class' => 'btn']) }}
                 @can('delete', $partner)
                     {!! link_to_route(
                         'partners.edit',

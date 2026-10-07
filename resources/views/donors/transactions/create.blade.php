@@ -11,9 +11,9 @@
             {!! Form::open(['route' => 'donor_transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
             <div class="card-body">
                 @unless (request('partner_id') && isset($partners[request('partner_id')]))
-                    <div class="btn-group btn-block mb-4">
-                        <a href="{{ route('donor_transactions.create') }}" class="btn {{ in_array(request('action'), [null]) ? 'btn-primary' : 'btn-default' }}">{{ __('donor.search') }}</a>
-                        <a href="{{ route('donor_transactions.create', ['action' => 'new_donor']) }}" class="btn {{ in_array(request('action'), ['new_donor']) ? 'btn-primary' : 'btn-default' }}">{{ __('donor.new') }}</a>
+                    <div class="btn-group w-100 mb-4">
+                        <a href="{{ route('donor_transactions.create') }}" class="btn flex-fill {{ in_array(request('action'), [null]) ? 'btn-primary' : '' }}">{{ __('donor.search') }}</a>
+                        <a href="{{ route('donor_transactions.create', ['action' => 'new_donor']) }}" class="btn flex-fill {{ in_array(request('action'), ['new_donor']) ? 'btn-primary' : '' }}">{{ __('donor.new') }}</a>
                     </div>
                 @endunless
                 @if (request('action') == 'new_donor')
@@ -79,9 +79,9 @@
                 {!! Form::submit(__('donor.add_donation'), ['class' => 'btn btn-success']) !!}
                 {{ Form::hidden('reference_page', request('reference_page')) }}
                 @if (request('partner_id') && isset($partners[request('partner_id')]))
-                    {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn']) }}
                 @else
-                    {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 @endif
             </div>
             {{ Form::close() }}

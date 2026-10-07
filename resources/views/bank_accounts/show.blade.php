@@ -14,7 +14,7 @@
             @can('update', $bankAccount)
                 {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success']) }}
             @endcan
-            {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-default']) }}
+            {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn']) }}
         </div>
     </div>
 </div>
@@ -25,10 +25,10 @@
         <div class="card mb-3 table-responsive">
             <table class="table table-sm table-bordered mb-0">
                 <tr>
-                    <td class="col-xs-2 text-center">{{ __('bank_account.name') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('bank_account.number') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('bank_account.account_name') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('app.status') }}</td>
+                    <td class="col-2 text-center">{{ __('bank_account.name') }}</td>
+                    <td class="col-2 text-center">{{ __('bank_account.number') }}</td>
+                    <td class="col-2 text-center">{{ __('bank_account.account_name') }}</td>
+                    <td class="col-2 text-center">{{ __('app.status') }}</td>
                 </tr>
                 <tr>
                     <td class="text-center lead" style="border-top: none;">{{ $bankAccount->name }}</td>
@@ -103,7 +103,7 @@
                             $labelText = __('bank_account.qris_change_image');
                         }
                     @endphp
-                    <label for="bank_account_qris_image" class="btn btn-default">{{ $labelText }}</label>
+                    <label for="bank_account_qris_image" class="btn">{{ $labelText }}</label>
                     {!! FormField::file('bank_account_qris_image', [
                         'label' => false,
                         'id' => 'bank_account_qris_image',
@@ -137,7 +137,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop">{{__('app.crop_and_save')}}</button>
         </div>
       </div>

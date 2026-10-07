@@ -6,15 +6,15 @@
         <div class="col-8">
             <span class="badge p-2 bg-blue-lighter text-dark float-end">{{ $partner->status }}</span>
             <div>
-                <div class="text-muted small">{{ __('partner.phone') }}</div>
+                <div class="text-body-secondary small">{{ __('partner.phone') }}</div>
                 <strong>{{ $partner->phone ? link_to('tel:'.$partner->phone, $partner->phone) : '' }}</strong>
             </div>
             <div>
-                <div class="text-muted small">{{ __('partner.work') }}</div>
+                <div class="text-body-secondary small">{{ __('partner.work') }}</div>
                 <strong>{{ $partner->work_type }}</strong>
             </div>
             <div>
-                <div class="text-muted small">{{ __('app.gender') }}</div>
+                <div class="text-body-secondary small">{{ __('app.gender') }}</div>
                 <strong>{{ $partner->gender }}</strong>
             </div>
         </div>

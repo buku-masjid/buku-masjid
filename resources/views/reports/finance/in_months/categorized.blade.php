@@ -39,7 +39,7 @@
         {{ Form::open(['method' => 'get']) }}
         <div class="row g-2">
             <div class="col-auto">
-                {{ Form::label('month', __('time.month'), ['class' => 'control-label mt-2']) }}
+                {{ Form::label('month', __('time.month'), ['class' => 'form-label mt-2']) }}
             </div>
             <div class="col-auto">
                 {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control']) }}

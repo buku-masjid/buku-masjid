@@ -2,7 +2,7 @@
     <div class="card-body p-3 ps-5">
         <div>
             <div class="strong pt-3">{{ __('transaction.total') }}</div>
-            <div class="text-muted small">
+            <div class="text-body-secondary small">
                 {{ __('app.update') }}:
                 @if (!$partner->transactions->isEmpty())
                     @php

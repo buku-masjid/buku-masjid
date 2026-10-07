@@ -21,21 +21,21 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('book.name') }}</label>
+                            <label class="form-label text-primary">{{ __('book.name') }}</label>
                             <p>{{ $book->name }}</p>
-                            <label class="control-label text-primary">{{ __('book.description') }}</label>
+                            <label class="form-label text-primary">{{ __('book.description') }}</label>
                             <p>{{ $book->description }}</p>
-                            <label class="control-label text-primary">{{ __('bank_account.bank_account') }}</label>
+                            <label class="form-label text-primary">{{ __('bank_account.bank_account') }}</label>
                             <p>{{ optional($book->bankAccount)->name }}</p>
-                            <label class="control-label text-primary">{{ __('book.budget') }}</label>
+                            <label class="form-label text-primary">{{ __('book.budget') }}</label>
                             <p>{{ $book->budget }}</p>
                         </div>
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('book.report_visibility') }}</label>
+                            <label class="form-label text-primary">{{ __('book.report_visibility') }}</label>
                             <p>{{ __('book.report_visibility_'.$book->report_visibility_code) }}</p>
-                            <label class="control-label text-primary">{{ __('report.periode') }}</label>
+                            <label class="form-label text-primary">{{ __('report.periode') }}</label>
                             <p>{{ __('report.'.$book->report_periode_code) }}</p>
-                            <label class="control-label text-primary">{{ __('report.start_week_day') }}</label>
+                            <label class="form-label text-primary">{{ __('report.start_week_day') }}</label>
                             <p>{{ __('time.days.'.$book->start_week_day_code) }}</p>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="text-secondary mt-1">{{ __('book.edit') }}</div>
                 </div>
                 <div class="col-auto text-end">
-                    {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn']) }}
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
                 <div class="progress progress-sm">
                     <div class="progress-bar bg-{{ $percentColor }}" style="width: {{ $diskUsageInPercent }}%"></div>
                 </div>
-                <div class="text-muted">{{ $diskUsage }} of {{ $diskQuota }}</div>
+                <div class="text-body-secondary">{{ $diskUsage }} of {{ $diskQuota }}</div>
             @else
                 <div class="h2 fw-bold text-info">{{ $diskUsage }}</div>
             @endif

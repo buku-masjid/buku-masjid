@@ -17,7 +17,7 @@
                         'partners.show',
                         __('partner.change_levels'),
                         [$partner, 'action' => 'change_levels'],
-                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn btn-default']
+                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn']
                     ) }}
                 @endif
                 {{ link_to_route(
@@ -31,7 +31,7 @@
                 'partners.search',
                 __('partner.back_to_index'),
                 [],
-                ['class' => 'btn btn-default']
+                ['class' => 'btn']
             ) }}
         </div>
     </div>
@@ -48,7 +48,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                <label class="control-label text-primary">{{ __('partner.pdob') }}</label>
+                <label class="form-label text-primary">{{ __('partner.pdob') }}</label>
                 <p>
                     @if ($partner->pob)
                         {{ $partner->pob }},
@@ -60,9 +60,9 @@
                         {{ __('app.unknown') }}
                     @endif
                 </p>
-                <label class="control-label text-primary">{{ __('address.address') }}</label>
+                <label class="form-label text-primary">{{ __('address.address') }}</label>
                 <p>{{ $partner->address ?: __('app.unknown') }}</p>
-                <label class="control-label text-primary">{{ __('address.rt') }} / {{ __('address.rw') }}</label>
+                <label class="form-label text-primary">{{ __('address.rt') }} / {{ __('address.rw') }}</label>
                 <p>
                     @if (!$partner->rt && !$partner->rw)
                         {{ __('app.unknown') }}
@@ -72,17 +72,17 @@
                 </p>
             </div>
             <div class="col-md-4">
-                <label class="control-label text-primary">{{ __('partner.religion') }}</label>
+                <label class="form-label text-primary">{{ __('partner.religion') }}</label>
                 <p>{{ $partner->religion }}</p>
-                <label class="control-label text-primary">{{ __('partner.work_detail') }}</label>
+                <label class="form-label text-primary">{{ __('partner.work_detail') }}</label>
                 <p>{{ $partner->work_type }} {{ $partner->work ? '('.$partner->work.')' : '' }}</p>
             </div>
             <div class="col-md-4">
-                <label class="control-label text-primary">{{ __('partner.marital_status') }}</label>
+                <label class="form-label text-primary">{{ __('partner.marital_status') }}</label>
                 <p>{{ $partner->marital_status }}</p>
-                <label class="control-label text-primary">{{ __('partner.financial_status') }}</label>
+                <label class="form-label text-primary">{{ __('partner.financial_status') }}</label>
                 <p>{{ $partner->financial_status }}</p>
-                <label class="control-label text-primary">{{ __('partner.activity_status') }}</label>
+                <label class="form-label text-primary">{{ __('partner.activity_status') }}</label>
                 <p>{{ $partner->activity_status }}</p>
             </div>
         </div>

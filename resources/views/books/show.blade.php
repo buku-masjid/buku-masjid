@@ -15,7 +15,7 @@
                 {{ link_to_route('books.edit', __('app.edit'), [$book], ['class' => 'btn btn-warning me-0 me-sm-2', 'id' => 'edit-book-'.$book->id]) }}
             @endcan
 
-            {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-default']) }}
+            {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn']) }}
         </div>
     </div>
 </div>

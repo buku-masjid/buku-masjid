@@ -10,9 +10,9 @@
             <div class="card">
                 <div class="card-header">{{ __('lecturing.delete') }}</div>
                 <div class="card-body">
-                    <label class="control-label text-primary">{{ __('lecturing.title') }}</label>
+                    <label class="form-label text-primary">{{ __('lecturing.title') }}</label>
                     <p>{{ $lecturing->title }}</p>
-                    <label class="control-label text-primary">{{ __('lecturing.description') }}</label>
+                    <label class="form-label text-primary">{{ __('lecturing.description') }}</label>
                     <p>{{ $lecturing->description }}</p>
                     {!! $errors->first('lecturing_id', '<span class="form-error small">:message</span>') !!}
                 </div>

@@ -10,7 +10,7 @@
             <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
         </div>
         <div class="col-sm-auto mt-3 mt-sm-2 ms-auto">
-            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-default px-3']) }}
+            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn px-3']) }}
             @can('create', new App\Transaction)
                 @can('manage-transactions', auth()->activeBook())
                     {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success px-2']) }}

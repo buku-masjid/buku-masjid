@@ -9,7 +9,7 @@
                 <tr>
                     <td>
                         {{ __('transaction.income') }} {{ $month == '00' ? __('report.last_year') : __('report.last_month') }}
-                        <div class="text-muted">({{ $partnerIncomeStats['last_month_name'] }})</div>
+                        <div class="text-body-secondary">({{ $partnerIncomeStats['last_month_name'] }})</div>
                     </td>
                     <td class="text-end h4 align-top" style="color: {{ config('masjid.income_color') }}">
                         {{ config('money.currency_code') }} {{ format_number($partnerIncomeStats['last_month_total']) }}
@@ -19,7 +19,7 @@
                     <tr>
                         <td>
                             {{ __('transaction.income') }} {{ __('report.this_year') }}
-                            <div class="text-muted">({{ $partnerIncomeStats['current_year_name'] }})</div>
+                            <div class="text-body-secondary">({{ $partnerIncomeStats['current_year_name'] }})</div>
                         </td>
                         <td class="text-end h4 align-top" style="color: {{ config('masjid.income_color') }}">
                             {{ config('money.currency_code') }} {{ format_number($partnerIncomeStats['current_year_total']) }}

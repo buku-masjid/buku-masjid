@@ -23,7 +23,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('file.upload'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('file.update'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('transactions.show', __('app.cancel'), [$transaction], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>

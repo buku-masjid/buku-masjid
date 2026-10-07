@@ -30,7 +30,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('book.create'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('books.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('books.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>

@@ -13,7 +13,7 @@
         {{ Form::open(['method' => 'get']) }}
         <div class="row g-2">
             <div class="col-auto">
-                {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mt-2']) }}
+                {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'form-label mt-2']) }}
             </div>
             <div class="col-auto">
                 {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control', 'style' => 'width:100px']) }}

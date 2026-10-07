@@ -1,6 +1,6 @@
 <div class="card mb-2 mb-lg-3">
     <div class="card-body p-3">
-        <div class="text-muted mb-2 text-center">{{ __('transaction.balance') }}</div>
+        <div class="text-body-secondary mb-2 text-center">{{ __('transaction.balance') }}</div>
         <div class="table-responsive">
             @livewire('dashboard.balance-'.Illuminate\Support\Str::slug($book->report_periode_code), [
                 'book' => $book,
@@ -17,7 +17,7 @@
     <div class="col-md-6">
         <div class="card mb-2 mb-lg-3">
             <div class="card-body p-3">
-                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_spending_category') }}</div>
+                <div class="text-body-secondary mb-2 text-center">{{ __('dashboard.top_spending_category') }}</div>
                 @livewire('dashboard.top-category', [
                     'book' => $book,
                     'startDate' => $startDate,
@@ -31,7 +31,7 @@
     <div class="col-md-6">
         <div class="card mb-2 mb-lg-3">
             <div class="card-body p-3">
-                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_income_category') }}</div>
+                <div class="text-body-secondary mb-2 text-center">{{ __('dashboard.top_income_category') }}</div>
                 @livewire('dashboard.top-category', [
                     'book' => $book,
                     'startDate' => $startDate,
@@ -48,7 +48,7 @@
     <div class="col-md-6">
         <div class="card mb-2 mb-lg-3">
             <div class="card-body p-3">
-                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_spending') }}</div>
+                <div class="text-body-secondary mb-2 text-center">{{ __('dashboard.top_spending') }}</div>
                 @livewire('dashboard.top-transaction', [
                     'book' => $book,
                     'startDate' => $startDate,
@@ -62,7 +62,7 @@
     <div class="col-md-6">
         <div class="card mb-2 mb-lg-3">
             <div class="card-body p-3">
-                <div class="text-muted mb-2 text-center">{{ __('dashboard.top_income') }}</div>
+                <div class="text-body-secondary mb-2 text-center">{{ __('dashboard.top_income') }}</div>
                 @livewire('dashboard.top-transaction', [
                     'book' => $book,
                     'startDate' => $startDate,
@@ -76,7 +76,7 @@
     <div class="col-md-6">
         <div class="card mb-2 mb-lg-3">
             <div class="card-body p-3">
-                <div class="text-muted mb-2 text-center">{{ __('dashboard.daily_averages') }}</div>
+                <div class="text-body-secondary mb-2 text-center">{{ __('dashboard.daily_averages') }}</div>
                 @livewire('dashboard.daily-averages', [
                     'startDate' => $startDate,
                     'endDate' => $endDate,

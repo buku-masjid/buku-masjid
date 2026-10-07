@@ -16,7 +16,7 @@
                     $labelText = __('book.change_poster');
                 }
             @endphp
-            <label for="book_poster_image" class="btn btn-default">{{ $labelText }}</label>
+            <label for="book_poster_image" class="btn">{{ $labelText }}</label>
             {!! FormField::file('book_poster_image', [
                 'label' => false,
                 'id' => 'book_poster_image',
@@ -38,7 +38,7 @@
                 $labelText = __('book.change_thumbnail');
             }
         @endphp
-        <label for="book_thumbnail_image" class="btn btn-default">{{ $labelText }}</label>
+        <label for="book_thumbnail_image" class="btn">{{ $labelText }}</label>
         {!! FormField::file('book_thumbnail_image', [
             'label' => false,
             'id' => 'book_thumbnail_image',
@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_poster">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
@@ -95,7 +95,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_thumbnail">{{__('app.crop_and_save')}}</button>
         </div>
       </div>

@@ -22,8 +22,8 @@
             </div>
             <div class="modal-footer">
                 {{ Form::submit(__('book.change_report_title'), ['class' => 'btn btn-success']) }}
-                {{ link_to_route('reports.finance.'.$reportType, __('app.cancel'), [], ['class' => 'btn btn-default']) }}
-                {{ Form::submit(__('book.reset_report_title'), ['class' => 'btn btn-default', 'name' => 'reset_report_title[finance_'.$reportType.']']) }}
+                {{ link_to_route('reports.finance.'.$reportType, __('app.cancel'), [], ['class' => 'btn']) }}
+                {{ Form::submit(__('book.reset_report_title'), ['class' => 'btn', 'name' => 'reset_report_title[finance_'.$reportType.']']) }}
             </div>
             {{ Form::close() }}
         </div>

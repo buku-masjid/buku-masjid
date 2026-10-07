@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('bank_account.create'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-footer">
                     {{ Form::submit(__('bank_account.update'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn']) }}
                     @can('delete', $editableBankAccount)
                         {!! link_to_route(
                             'bank_accounts.index',
@@ -73,13 +73,13 @@
                     {{ link_to_route('bank_accounts.index', '', [], ['class' => 'btn-close']) }}
                 </div>
                 <div class="modal-body">
-                    <label class="control-label">{{ __('bank_account.name') }}</label>
+                    <label class="form-label">{{ __('bank_account.name') }}</label>
                     <p>{{ $editableBankAccount->name }}</p>
-                    <label class="control-label">{{ __('bank_account.number') }}</label>
+                    <label class="form-label">{{ __('bank_account.number') }}</label>
                     <p>{{ $editableBankAccount->number }}</p>
-                    <label class="control-label">{{ __('bank_account.account_name') }}</label>
+                    <label class="form-label">{{ __('bank_account.account_name') }}</label>
                     <p>{{ $editableBankAccount->account_name }}</p>
-                    <label class="control-label">{{ __('bank_account.description') }}</label>
+                    <label class="form-label">{{ __('bank_account.description') }}</label>
                     <p>{{ $editableBankAccount->description }}</p>
                     {!! $errors->first('bank_account_id', '<span class="form-error small">:message</span>') !!}
                 </div>
@@ -92,7 +92,7 @@
                         ['class'=>'btn btn-danger'],
                         ['bank_account_id' => $editableBankAccount->id]
                     ) !!}
-                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('bank_accounts.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
             </div>
         </div>

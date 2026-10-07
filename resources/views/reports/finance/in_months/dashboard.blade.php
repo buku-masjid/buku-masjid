@@ -17,7 +17,7 @@
         {{ Form::open(['method' => 'get']) }}
         <div class="row g-2">
             <div class="col-auto">
-                {{ Form::label('year', __('time.year'), ['class' => 'control-label mt-2']) }}
+                {{ Form::label('year', __('time.year'), ['class' => 'form-label mt-2']) }}
             </div>
             <div class="col-auto">
                 {{ Form::select('year', get_years(), $year, ['class' => 'form-control']) }}

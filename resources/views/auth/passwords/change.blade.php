@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-footer">
                     {!! Form::submit(__('auth.change_password'), ['class' => 'btn btn-info']) !!}
-                    {!! link_to_route('home', __('app.cancel'), [], ['class' => 'btn btn-default']) !!}
+                    {!! link_to_route('home', __('app.cancel'), [], ['class' => 'btn']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

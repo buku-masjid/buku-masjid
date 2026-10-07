@@ -48,7 +48,7 @@
                                     'categories.show',
                                     __('category.view_transactions'),
                                     $category,
-                                    ['class' => 'btn btn-sm btn-default']
+                                    ['class' => 'btn btn-sm']
                                 ) }}
                             @endcan
                             @can('update', $category)

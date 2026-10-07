@@ -76,7 +76,7 @@
                                 }
                             }
                         @endphp
-                        {{ link_to_route($routeName, __('app.cancel'), $queryStrings, ['class' => 'btn btn-default']) }}
+                        {{ link_to_route($routeName, __('app.cancel'), $queryStrings, ['class' => 'btn']) }}
                         @can('delete', $transaction)
                             {!! link_to_route(
                                 'transactions.edit',
@@ -101,19 +101,19 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="control-label">{{ __('app.date') }}</label>
+                                <label class="form-label">{{ __('app.date') }}</label>
                                 <p>{{ $transaction->date }}</p>
-                                <label class="control-label">{{ __('transaction.amount') }}</label>
+                                <label class="form-label">{{ __('transaction.amount') }}</label>
                                 <p>{{ $transaction->amount_string }}</p>
-                                <label class="control-label">{{ __('transaction.description') }}</label>
+                                <label class="form-label">{{ __('transaction.description') }}</label>
                                 <p>{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</p>
                             </div>
                             <div class="col-md-6">
-                                <label class="control-label">{{ __('category.category') }}</label>
+                                <label class="form-label">{{ __('category.category') }}</label>
                                 <p>{{ optional($transaction->category)->name }}</p>
-                                <label class="control-label">{{ __('partner.partner') }}</label>
+                                <label class="form-label">{{ __('partner.partner') }}</label>
                                 <p>{{ optional($transaction->partner)->name }}</p>
-                                <label class="control-label">{{ __('transaction.origin_destination') }}</label>
+                                <label class="form-label">{{ __('transaction.origin_destination') }}</label>
                                 <p>{{ $transaction->bankAccount->name }}</p>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                                 'partner_id' => $transaction->partner_id,
                             ] + request(['reference_page', 'end_date', 'start_date'])
                         ) !!}
-                        {{ link_to_route('transactions.edit', __('app.cancel'), [$transaction, 'month' => $transaction->month, 'year' => $transaction->year], ['class' => 'btn btn-default']) }}
+                        {{ link_to_route('transactions.edit', __('app.cancel'), [$transaction, 'month' => $transaction->month, 'year' => $transaction->year], ['class' => 'btn']) }}
                     </div>
                 </div>
             @endcan

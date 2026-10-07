@@ -29,7 +29,7 @@
                 <div class="modal-footer">
                     {!! Form::submit(__('category.create'), ['class' => 'btn btn-success']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -81,7 +81,7 @@
                 <div class="modal-footer">
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
                     @can('delete', $editableCategory)
                         {!! link_to_route(
                             'categories.index',
@@ -110,11 +110,11 @@
                 </div>
                 {{ Form::open(['url' => route('categories.destroy', $editableCategory), 'method' => 'DELETE']) }}
                 <div class="modal-body">
-                    <label class="control-label">{{ __('category.name') }}</label>
+                    <label class="form-label">{{ __('category.name') }}</label>
                     <p>{!! $editableCategory->name_label !!}</p>
-                    <label class="control-label">{{ __('category.description') }}</label>
+                    <label class="form-label">{{ __('category.description') }}</label>
                     <p>{{ $editableCategory->description }}</p>
-                    <label class="control-label">{{ __('book.book') }}</label>
+                    <label class="form-label">{{ __('book.book') }}</label>
                     <p>{{ optional($editableCategory->book)->name }}</p>
                     {!! $errors->first('category_id', '<span class="form-error small">:message</span>') !!}
                 </div>
@@ -128,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('app.delete_confirm_button'), ['class' => 'btn btn-danger']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>

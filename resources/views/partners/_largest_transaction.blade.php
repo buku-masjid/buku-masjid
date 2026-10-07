@@ -7,7 +7,7 @@
         @endif
         <div>
             <div class="strong pt-3">{{ __('partner.largest_transaction') }}</div>
-            <div class="text-muted small">
+            <div class="text-body-secondary small">
                 @if ($largestTransaction)
                     {{ $largestTransaction->day_name }},
                     {{ Carbon\Carbon::parse($largestTransaction->date)->isoFormat('DD MMM YYYY') }}
