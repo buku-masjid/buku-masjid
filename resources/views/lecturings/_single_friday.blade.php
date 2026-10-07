@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-2">
     <table class="table-sm mb-0">
         <tbody>
             <tr>

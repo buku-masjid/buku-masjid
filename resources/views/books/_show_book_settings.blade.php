@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="col-md-5">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">{{ __('report.finance_summary') }}</div>
             <div class="page-options d-flex"></div>
             @livewire('books.financial-summary', ['bookId' => $book->id])

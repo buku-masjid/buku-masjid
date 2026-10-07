@@ -34,7 +34,7 @@
 </div>
 
 @foreach ($regularScheduleAudiences as $audienceCode => $audience)
-    <div class="page-header mb-4">
+    <div class="page-header mt-3">
         <h2 class="page-title">{{ __('lecturing.audience_'.$audienceCode) }}</h2>
     </div>
 

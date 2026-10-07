@@ -23,7 +23,7 @@
 <div class="row">
     @forelse ($bankAccounts as $bankAccount)
         <div class="col-sm-6 col-md-4">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
                     <h3 class="card-title">{{ $bankAccount->name }}</h3>
                 </div>
@@ -72,4 +72,3 @@
 @includeWhen(Request::has('action'), 'bank_accounts.forms')
 </div>
 @endsection
-

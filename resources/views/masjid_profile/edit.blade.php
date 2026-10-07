@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-6">
                 {{ Form::open(['route' => 'masjid_profile.update', 'method' => 'patch']) }}
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-body">
                             {!! FormField::text('masjid_name', ['required' => true, 'value' => old('masjid_name', Setting::get('masjid_name', config('masjid.name'))), 'label' => __('masjid_profile.name')]) !!}
                             {!! FormField::textarea('masjid_address', ['required' => true, 'value' => old('masjid_address', Setting::get('masjid_address')), 'label' => __('masjid_profile.address')]) !!}
@@ -28,7 +28,7 @@
                             {!! FormField::text('masjid_google_maps_link', ['value' => old('masjid_google_maps_link', Setting::get('masjid_google_maps_link')), 'label' => __('masjid_profile.google_maps_link')]) !!}
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">{{ __('app.social_media') }}</div>
                         <div class="card-body">
                             {!! FormField::text('masjid_whatsapp_number', ['value' => old('masjid_whatsapp_number', Setting::get('masjid_whatsapp_number')), 'label' => 'Whatsapp', 'addon' => ['before' => 'https://wa.me/']]) !!}
@@ -45,7 +45,7 @@
                 {{ Form::close() }}
             </div>
             <div class="col-md-6">
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-body text-center">
                         <label>{{ __('masjid_profile.masjid_logo') }}</label>
                         <div class="mb-3" id="masjid-logo">

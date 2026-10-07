@@ -19,7 +19,7 @@
 <div class="page-body">
 <div class="row">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card mb-3">
             <table class="table table-sm card-table">
                 <tbody>
                     <tr>
@@ -44,7 +44,7 @@
             </table>
         </div>
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">{{ __('app.social_media') }}</div>
             <table class="table table-sm card-table">
                 <tbody>
@@ -94,7 +94,7 @@
     </div>
     <div class="col-md-6">
         @if (Setting::get('masjid_google_maps_link'))
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
                     {{ __('masjid_profile.maps') }}
                     <div class="card-actions">

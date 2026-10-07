@@ -22,7 +22,7 @@
 <div class="page-body">
 <div class="row">
     <div class="col-md-8">
-        <div class="card table-responsive">
+        <div class="card mb-3 table-responsive">
             <table class="table table-sm table-bordered mb-0">
                 <tr>
                     <td class="col-xs-2 text-center">{{ __('bank_account.name') }}</td>
@@ -47,7 +47,7 @@
             <h2 class="page-title">{{ __('bank_account_balance.bank_account_balance') }}</h2>
         </div>
 
-        <div class="card table-responsive">
+        <div class="card mb-3 table-responsive">
             <table class="table table-sm table-hover mb-0">
                 <thead>
                     <tr>
