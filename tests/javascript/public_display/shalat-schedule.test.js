@@ -48,6 +48,14 @@ test('getRemainingTimeParts calculates remaining time parts with next-day wrappi
     });
 });
 
+test('getRemainingTimeParts never returns negative minutes on an exact hour boundary', () => {
+    assert.deepEqual(getRemainingTimeParts('12:00', new Date('2026-07-19T11:00:00')), {
+        hours: 0,
+        minutes: 59,
+        seconds: 59,
+    });
+});
+
 test('formatTimeParts formats time parts in the existing display format', () => {
     assert.equal(formatTimeParts({ hours: 1, minutes: 2, seconds: 3 }), '01 : 02 : 03');
 });

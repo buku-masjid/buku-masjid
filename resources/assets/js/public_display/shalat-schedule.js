@@ -44,9 +44,21 @@
             remainingMinutes += 24 * 60;
         }
 
+        let hours = Math.floor(remainingMinutes / 60);
+        let minutes = (remainingMinutes % 60) - 1;
+
+        if (minutes < 0) {
+            if (hours > 0) {
+                hours -= 1;
+                minutes += 60;
+            } else {
+                minutes = 0;
+            }
+        }
+
         return {
-            hours: Math.floor(remainingMinutes / 60),
-            minutes: (remainingMinutes % 60) - 1,
+            hours,
+            minutes,
             seconds: currentSeconds,
         };
     }

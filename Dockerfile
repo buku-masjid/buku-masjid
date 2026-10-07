@@ -55,7 +55,10 @@ RUN php ./artisan key:generate && \
     php ./artisan view:cache && \
     php ./artisan storage:link
 
+# Laravel writes logs, cached views, and framework cache files at runtime.
+# Keep ownership aligned with the unprivileged runtime user (PUID:PGID).
 USER root:root
-# Laravel writes logs, cached views, and framework cache files at runtime as www-data.
-RUN chown -R www-data:www-data storage bootstrap/cache && \
+RUN chown -R $PUID:$PGID storage bootstrap/cache && \
     chmod -R ug+rwX storage bootstrap/cache
+
+USER $PUID:$PGID

@@ -424,6 +424,8 @@ Three workflows in `.github/workflows/`:
 
 Docker images build frontend assets during the image build. Do not run `php artisan config:cache` or `php artisan route:cache` in the Dockerfile unless runtime feature flags are handled first; routes such as `/display` depend on environment values.
 
+Non-Docker deployments via Deployer (`deploy.php`) compile assets on the machine running the deployment through the `deploy:build_assets` task (`yarn install` + `yarn run prod`). The deployer host therefore needs Node.js and Yarn available locally. Generated assets in `public/js` and `public/css` are gitignored and never synced from the repository.
+
 ---
 
 ## 10. Coding Guidelines & Best Practices

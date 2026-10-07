@@ -7,15 +7,12 @@
 /public/js/public_display/*.js
 /public/js/plugins/jquery.datetimepicker.js
 /public/js/plugins/matrix-display.js
-/public/js/plugins/morris.min.js
 /public/js/plugins/noty.js
 /public/js/plugins/number-format.js
-/public/js/plugins/raphael.min.js
 /public/js/plugins/select2.min.js
 /public/js/plugins/short-currency.js
 /public/css/app.css
 /public/css/plugins/jquery.datetimepicker.css
-/public/css/plugins/morris.css
 /public/css/plugins/select2-bootstrap.min.css
 /public/css/plugins/select2.min.css
 /storage/*.key
