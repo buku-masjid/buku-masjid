@@ -2,6 +2,7 @@
 
 return [
     'report' => 'Report',
+    'settings' => 'Report Settings',
     'periode' => 'Report Periode',
     'page' => 'Page',
     'start_week_day' => 'Start Week Day',

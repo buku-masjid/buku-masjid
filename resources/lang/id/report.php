@@ -2,6 +2,7 @@
 
 return [
     'report' => 'Laporan',
+    'settings' => 'Pengaturan Laporan',
     'periode' => 'Periode Laporan',
     'page' => 'Hal.',
     'start_week_day' => 'Hari Awal Pekan',

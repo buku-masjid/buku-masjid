@@ -28,10 +28,26 @@
 <div class="section-bottom pb-5">
     <div class="container-md">
         <div class="col">
-            <div class="row px-3 pt-3 p-lg-0 pt-lg-3">
+            <?php 
+            /*<div class="row px-3 pt-3 p-lg-0 pt-lg-3">
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">{{ __('report.report') }}</div>
                 <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
                     @include('public_reports.finance._book_navigation')
+                </div>
+                <div class="d-none col-sm text-center d-grid align-items-center text-sm-end pb-2 pb-sm-0">
+                    {{ $startDate->isoFormat('dddd, D MMM Y') }} - {{ $endDate->isoFormat('dddd, D MMM Y') }}
+                </div>
+                <div class="col-sm px-3 d-grid align-items-center text-sm-end">
+                    @include('public_reports.finance._time_range_navigation')
+                </div>
+            </div> */ ?>
+            <div class="d-block fs-3 py-3 border-bottom border-gray">
+                @include('public_reports.finance._book_navigation')
+            </div>
+            <div class="row px-3 py-2 p-lg-0 py-lg-2 mt-3">
+                <div class="col-sm d-flex flex-column">
+                   <span class="fs-5">{{ __('report.report') }} {{ __('report.'.$selectedBook->report_periode_code) }} :</span>
+                   <span class="fs-2 fw-bold bm-txt-primary">{{ $selectedBook->name }}</span>
                 </div>
                 <div class="d-none col-sm text-center d-grid align-items-center text-sm-end pb-2 pb-sm-0">
                     {{ $startDate->isoFormat('dddd, D MMM Y') }} - {{ $endDate->isoFormat('dddd, D MMM Y') }}
