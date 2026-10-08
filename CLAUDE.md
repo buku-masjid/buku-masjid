@@ -22,14 +22,14 @@ This document contains essential information for understanding the architecture,
 |---|---|
 | Backend | PHP `^8.1`, Laravel `10.x` |
 | Database | MySQL / MariaDB (production), SQLite in-memory (tests) |
-| Frontend | Bootstrap `4.0.0`, SCSS/Sass, Vanilla JS |
-| Asset Bundler | Laravel Mix `6.x` (Webpack) |
+| Frontend | Bootstrap `5.x` (Tabler template), SCSS/Sass, Vanilla JS + jQuery bridge |
+| Asset Bundler | Vite `4.x` (`laravel-vite-plugin`) |
 | Reactive UI | Livewire `2.x` |
 | API Auth | Laravel Passport `11.x` (OAuth2) |
 | Testing | PHPUnit `10.x`, Laravel BrowserKit Testing |
 | Code Style | Laravel Pint (Laravel preset) |
 | Deployment | Deployer (`deploy.php`) |
-| Package Manager | Yarn (see `.nvmrc` for Node version) |
+| Package Manager | npm (see `.nvmrc` for Node version; use Node 18) |
 
 ---
 
@@ -72,11 +72,13 @@ php artisan partner:upgrade-type-levels              # One-time migration for pa
 ### Frontend Assets
 
 ```bash
-yarn                   # Install JS dependencies (use yarn, not npm)
-npm run dev            # Development build (one-time)
-npm run watch          # Watch mode for development
-npm run prod           # Production build
+npm install            # Install JS dependencies (use npm, not yarn)
+npm run dev            # Development build (Vite dev server)
+npm run build          # Production build (Vite → public/build)
+npm run test:js        # Run JavaScript unit tests
 ```
+
+First-party JavaScript lives in `resources/js` (compiled by Vite); vendored standalone assets live in `resources/vendor`. The Vite plugin in `vite.config.js` also copies the hand-maintained public-display and plugin scripts from `resources/assets/js` and `resources/vendor` into `public/js` and `public/css`, which should be treated as generated build output rather than edited source. All generated assets (`public/build`, `public/js`, `public/css`) are committed to git so deployments do not require Node.
 
 ### Testing
 
@@ -256,6 +258,8 @@ Transactions can have photo attachments (receipts). File workflow:
 
 A feature for displaying mosque info on a TV screen at `/display`. Controlled by `FEATURES_PUBLIC_DISPLAY_IS_ACTIVE`. Includes real-time shalat time with iqamah countdown, financial summary carousel, and ayat/hadith quotes (configured in `config/public_display.php`).
 
+Public display browser scripts are sourced from `resources/assets/js/public_display` and emitted to `public/js/public_display` by the Vite config (`vite.config.js`). The Blade layout passes server-rendered values through one `window.PublicDisplayConfig` object; display scripts should initialize from that explicit config instead of adding new implicit globals.
+
 ### I. Automated Database Backup
 
 Scheduled in [Console/Kernel.php](file:///c:/xampp/htdocs/buku-masjid/app/Console/Kernel.php) to run daily at 03:00:
@@ -335,9 +339,17 @@ routes/
 └── console.php         # Artisan closure commands
 
 resources/
+├── js/
+│   ├── app.js          # Vite entry (Bootstrap 5, jQuery, Axios, Tabler)
+│   ├── bootstrap.js     # Axios/CSRF setup
+│   └── tabler-init.js   # jQuery → Bootstrap 5 plugin bridge
+├── sass/
+│   ├── tabler.scss      # Tabler framework styles
+│   └── app.scss         # App custom styles
 ├── assets/
-│   ├── js/app.js       # JS entry (Bootstrap, jQuery, Axios)
-│   └── sass/app.scss   # SCSS entry; compiled to public/css/app.css
+│   ├── js/plugins/      # App-owned plugin scripts copied to public by Vite
+│   └── js/public_display/ # Public display scripts copied to public by Vite
+├── vendor/             # Vendored frontend assets copied to public by Vite
 ├── lang/
 │   ├── en/             # English translations
 │   └── id/             # Indonesian translations (default)
@@ -407,11 +419,15 @@ Three workflows in `.github/workflows/`:
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `deploy.yml` | Every push | Compiles assets (yarn prod) + runs PHPUnit tests |
+| `deploy.yml` | Every push | Runs JS tests, compiles assets (Vite), and runs PHPUnit tests |
 | `pint.yml` | Push to `master` or any PR | Checks code style with Laravel Pint (`--test` mode) |
 | `docker.yml` | (see file) | Builds Docker image |
 
 > **Note**: The `pint.yml` runs in **test mode** (no auto-fix). PRs with style violations will fail CI.
+
+Docker images build frontend assets during the image build. Do not run `php artisan config:cache` or `php artisan route:cache` in the Dockerfile unless runtime feature flags are handled first; routes such as `/display` depend on environment values.
+
+Non-Docker deployments via Deployer (`deploy.php`) sync the committed generated assets (`public/build`, `public/js`, `public/css`), so the deployer host does not need Node.js. Run `npm run build` and commit the output whenever frontend sources change.
 
 ---
 

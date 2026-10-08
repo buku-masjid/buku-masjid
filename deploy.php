@@ -32,6 +32,10 @@ task('deploy:secrets', function () {
     run('cp $HOME/env/dompet/production/.env {{deploy_path}}/shared');
 });
 
+// Built frontend assets (public/build, public/js, public/css) are tracked in
+// git, so deployments do not need Node.js. Run `npm run build` and commit the
+// output before deploying when frontend sources change.
+
 // Hosts
 host('dompetku') // Name of the server
     ->hostname('178.128.104.220') // Hostname or IP address

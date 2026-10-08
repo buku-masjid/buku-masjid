@@ -79,16 +79,28 @@
     @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script>
-        const cacheKey = `shalat_times_{{ now()->format('Ymd') }}`;
-        const cachedData = localStorage.getItem(cacheKey);
-        const shalatDailySchedule = JSON.parse('{!! json_encode(__("shalat_time.daily_schedules")) !!}')
-        let shalatTimeData = "";
-        let nextShalatTime = 'imsak';
-        window.iqamahIntervalInMinutes = {!! json_encode(config('public_display.iqamah_interval_in_minutes')) !!};
-        window.shalatIntervalInMinutes = {!! json_encode(config('public_display.shalat_interval_in_minutes')) !!};
-        const audio = new Audio("{{ asset('audio/beep.mp3') }}");
+        window.PublicDisplayConfig = {
+            cacheKey: `shalat_times_{{ now()->format('Ymd') }}`,
+            shalatDailySchedule: JSON.parse('{!! json_encode(__("shalat_time.daily_schedules")) !!}'),
+            shalatTimeData: null,
+            nextShalatTime: 'imsak',
+            iqamahIntervalInMinutes: {!! json_encode(config('public_display.iqamah_interval_in_minutes')) !!},
+            shalatIntervalInMinutes: {!! json_encode(config('public_display.shalat_interval_in_minutes')) !!},
+            audio: new Audio("{{ asset('audio/beep.mp3') }}"),
+        };
+
+        const cachedData = localStorage.getItem(window.PublicDisplayConfig.cacheKey);
+
+        function setPublicDisplayShalatTimeData(data, shouldCache) {
+            window.PublicDisplayConfig.shalatTimeData = data;
+            if (shouldCache) {
+                localStorage.setItem(window.PublicDisplayConfig.cacheKey, JSON.stringify(data));
+            }
+            window.dispatchEvent(new CustomEvent('PublicDisplayShalatTimeDataReady'));
+        }
+
         if (cachedData) {
-            shalatTimeData = JSON.parse(cachedData);
+            setPublicDisplayShalatTimeData(JSON.parse(cachedData), false);
         } else {
             fetch("{{ route('api.public_shalat_time.show') }}")
             .then(response => response.json())
@@ -96,14 +108,14 @@
                 if (data.error) {
                     console.error("Error:", data.error);
                 } else {
-                    shalatTimeData = data;
-                    localStorage.setItem(cacheKey, JSON.stringify(shalatTimeData));
+                    setPublicDisplayShalatTimeData(data, true);
                 }
             });
         }
-        // shalatTimeData.schedules.dzuhr = '11:56';
     </script>
+    <script src="{{ asset('js/public_display/shalat-schedule.js') }}"></script>
     <script src="{{ asset('js/public_display/next-shalat-counter.js') }}"></script>
+    <script src="{{ asset('js/public_display/modal-state.js') }}"></script>
     <script src="{{ asset('js/public_display/iqamah-shalat-modal.js') }}"></script>
     <script src="{{ asset('js/public_display/time-calculator.js') }}"></script>
     <script src="{{ asset('js/public_display/kiosk-mode.js') }}"></script>

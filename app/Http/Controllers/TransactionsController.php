@@ -29,7 +29,7 @@ class TransactionsController extends Controller
         $transactions = $this->getTansactions($yearMonth);
 
         $categories = $this->getCategoryList()->prepend('-- '.__('transaction.no_category').' --', 'null');
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id')
             ->prepend(__('transaction.cash'), 'null');
 
         $incomeTotal = $this->getIncomeTotal($transactions);
@@ -102,7 +102,7 @@ class TransactionsController extends Controller
                 ->where('status_id', Category::STATUS_ACTIVE)
                 ->pluck('name', 'id');
         }
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id');
         $partnerSettingLink = link_to_route('partners.search', __('settings.settings'), [], ['target' => '_blank']);
         $categorySettingLink = link_to_route('categories.index', __('settings.settings'), [], ['target' => '_blank']);
         $selectedDate = now()->format('Y-m-d');
@@ -174,7 +174,7 @@ class TransactionsController extends Controller
         $this->authorize('update', $transaction);
 
         $categories = $this->getCategoryList();
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerDefaultValue = __('partner.partner');
         $partnerSelectionLabel = __('partner.partner');

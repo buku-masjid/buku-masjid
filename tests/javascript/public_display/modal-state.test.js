@@ -12,7 +12,7 @@ const {
     hasModalExpired,
     parseModalState,
     isActiveModalState,
-} = require('../../../public/js/public_display/modal-state');
+} = require('../../../resources/assets/js/public_display/modal-state');
 
 test('createIqamahState stores countdown end timestamps and shalat key', () => {
     const now = 1_700_000_000_000;

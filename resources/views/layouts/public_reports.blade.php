@@ -28,7 +28,7 @@
 <div class="section-bottom pb-5">
     <div class="container-md">
         <div class="col">
-            <?php 
+            <?php
             /*<div class="row px-3 pt-3 p-lg-0 pt-lg-3">
                 <div class="col-sm-auto fs-2 fw-bold pb-3 pb-sm-0 d-sm-flex align-items-center">{{ __('report.report') }}</div>
                 <div class="col-sm d-grid d-sm-flex align-items-center pb-2 pb-sm-0">
@@ -65,6 +65,7 @@
             <div class="px-3 p-lg-0">
                 @yield('content-report')
             </div>
+            @include('public_reports.finance._modal_preview_file_transactions')
         </div>
     </div>
 </div>

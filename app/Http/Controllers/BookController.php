@@ -20,7 +20,7 @@ class BookController extends Controller
         $editableBook = null;
         $bookQuery = Book::orderBy('name');
         $books = $bookQuery->with('creator', 'bankAccount')->paginate(25);
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id');
 
         if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
             $editableBook = Book::find(request('id'));
@@ -72,7 +72,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $this->authorize('update', $book);
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
         $financeUsers = User::where('role_id', User::ROLE_FINANCE)->pluck('name', 'id');
 

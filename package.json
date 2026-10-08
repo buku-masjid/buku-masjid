@@ -1,8 +1,9 @@
 {
     "private": true,
-    "type": "module",
     "scripts": {
-        "build": "vite build"
+        "dev": "vite",
+        "build": "vite build",
+        "test:js": "node tests/javascript/run.js"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.8",

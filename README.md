@@ -81,12 +81,17 @@ Aplikasi ini dapat diinstal pada server lokal maupun online dengan spesifikasi b
 8. Jalankan migrasi database: `$ php artisan migrate --seed`
 9. Buat kunci passport: `$ php artisan passport:keys`
 10. Buat tautan penyimpanan: `$ php artisan storage:link`
-11. Mulai server: `$ php artisan serve`
-12. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
+11. Instal dependensi frontend: `$ yarn install --frozen-lockfile`
+12. Compile asset frontend: `$ npm run dev`
+13. Mulai server: `$ php artisan serve`
+14. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
     ```
     email: admin@example.net
     password: password
     ```
+
+> Catatan: sumber JavaScript/CSS aplikasi berada di `resources/assets` dan `resources/vendor`.
+> Berkas hasil build di `public/js` dan `public/css` dibuat oleh Laravel Mix, tidak diedit langsung.
 
 ### Langkah Install dengan Docker
 
