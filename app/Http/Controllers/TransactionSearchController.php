@@ -37,7 +37,7 @@ class TransactionSearchController extends Controller
             $transactions = $transactionQuery->with('category', 'bankAccount', 'book')->limit(100)->get();
         }
         $categories = $this->getCategoryList();
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id')
             ->prepend(__('transaction.cash'), 'null');
 
         return view('transaction_search.index', compact(

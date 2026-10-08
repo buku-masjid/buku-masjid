@@ -73,7 +73,7 @@ class InternalFinanceController extends FinanceController
 
         $reportPeriode = $book->report_periode_code;
         $showBudgetSummary = $this->determineBudgetSummaryVisibility($request, $book);
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id')
             ->prepend(__('transaction.cash'), 'null');
 
         return view('reports.finance.'.$reportPeriode.'.summary', compact(
@@ -129,7 +129,7 @@ class InternalFinanceController extends FinanceController
         $currentMonthEndDate = $endDate->clone();
 
         $reportPeriode = $book->report_periode_code;
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id')
             ->prepend(__('transaction.cash'), 'null');
 
         return view('reports.finance.'.$reportPeriode.'.categorized', compact(
@@ -179,7 +179,7 @@ class InternalFinanceController extends FinanceController
 
         $reportPeriode = $book->report_periode_code;
         $lastMonthDate = Carbon::parse($startDate)->subDay();
-        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id')
+        $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->get()->pluck('name_number_and_account', 'id')
             ->prepend(__('transaction.cash'), 'null');
 
         return view('reports.finance.'.$reportPeriode.'.detailed', compact(
