@@ -173,7 +173,12 @@ class TransactionsController extends Controller
         $this->authorize('manage-transactions', $transaction->book);
         $this->authorize('update', $transaction);
 
-        $categories = $this->getCategoryList();
+        $categoryColor = $transaction->in_out ? config('masjid.income_color') : config('masjid.spending_color');
+        $categories = Category::where('status_id', Category::STATUS_ACTIVE)
+            ->where('color', $categoryColor)
+            ->orderBy('name')
+            ->pluck('name', 'id');
+
         $bankAccounts = BankAccount::where('is_active', BankAccount::STATUS_ACTIVE)->pluck('name', 'id');
         $partnerTypes = (new Partner)->getAvailableTypes();
         $partnerDefaultValue = __('partner.partner');
