@@ -76,7 +76,11 @@ yarn                   # Install JS dependencies (use yarn, not npm)
 npm run dev            # Development build (one-time)
 npm run watch          # Watch mode for development
 npm run prod           # Production build
+npm run test:js        # Run JavaScript unit tests
 ```
+
+First-party JavaScript lives in `resources/assets/js`; vendored standalone assets live in `resources/vendor`.
+Laravel Mix emits browser-facing output into `public/js` and `public/css`, which should be treated as generated build output rather than edited source.
 
 ### Testing
 
@@ -256,6 +260,8 @@ Transactions can have photo attachments (receipts). File workflow:
 
 A feature for displaying mosque info on a TV screen at `/display`. Controlled by `FEATURES_PUBLIC_DISPLAY_IS_ACTIVE`. Includes real-time shalat time with iqamah countdown, financial summary carousel, and ayat/hadith quotes (configured in `config/public_display.php`).
 
+Public display browser scripts are sourced from `resources/assets/js/public_display` and emitted to `public/js/public_display` by `webpack.mix.js`. The Blade layout passes server-rendered values through one `window.PublicDisplayConfig` object; display scripts should initialize from that explicit config instead of adding new implicit globals.
+
 ### I. Automated Database Backup
 
 Scheduled in [Console/Kernel.php](file:///c:/xampp/htdocs/buku-masjid/app/Console/Kernel.php) to run daily at 03:00:
@@ -337,7 +343,10 @@ routes/
 resources/
 ├── assets/
 │   ├── js/app.js       # JS entry (Bootstrap, jQuery, Axios)
+│   ├── js/plugins/     # App-owned standalone plugin scripts emitted by Mix
+│   ├── js/public_display/ # Public display source scripts emitted by Mix
 │   └── sass/app.scss   # SCSS entry; compiled to public/css/app.css
+├── vendor/             # Explicit vendored frontend assets copied by Mix
 ├── lang/
 │   ├── en/             # English translations
 │   └── id/             # Indonesian translations (default)
@@ -407,11 +416,15 @@ Three workflows in `.github/workflows/`:
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `deploy.yml` | Every push | Compiles assets (yarn prod) + runs PHPUnit tests |
+| `deploy.yml` | Every push | Runs JS tests, compiles assets (yarn prod), and runs PHPUnit tests |
 | `pint.yml` | Push to `master` or any PR | Checks code style with Laravel Pint (`--test` mode) |
 | `docker.yml` | (see file) | Builds Docker image |
 
 > **Note**: The `pint.yml` runs in **test mode** (no auto-fix). PRs with style violations will fail CI.
+
+Docker images build frontend assets during the image build. Do not run `php artisan config:cache` or `php artisan route:cache` in the Dockerfile unless runtime feature flags are handled first; routes such as `/display` depend on environment values.
+
+Non-Docker deployments via Deployer (`deploy.php`) compile assets on the machine running the deployment through the `deploy:build_assets` task (`yarn install` + `yarn run prod`). The deployer host therefore needs Node.js and Yarn available locally. Generated assets in `public/js` and `public/css` are gitignored and never synced from the repository.
 
 ---
 
