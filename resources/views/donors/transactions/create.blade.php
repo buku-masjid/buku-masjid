@@ -11,9 +11,9 @@
             {!! Form::open(['route' => 'donor_transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
             <div class="card-body">
                 @unless (request('partner_id') && isset($partners[request('partner_id')]))
-                    <div class="btn-group btn-block mb-4">
-                        <a href="{{ route('donor_transactions.create') }}" class="btn {{ in_array(request('action'), [null]) ? 'btn-primary' : 'btn-secondary' }}">{{ __('donor.search') }}</a>
-                        <a href="{{ route('donor_transactions.create', ['action' => 'new_donor']) }}" class="btn {{ in_array(request('action'), ['new_donor']) ? 'btn-primary' : 'btn-secondary' }}">{{ __('donor.new') }}</a>
+                    <div class="btn-group w-100 mb-4">
+                        <a href="{{ route('donor_transactions.create') }}" class="btn flex-fill {{ in_array(request('action'), [null]) ? 'btn-primary' : '' }}">{{ __('donor.search') }}</a>
+                        <a href="{{ route('donor_transactions.create', ['action' => 'new_donor']) }}" class="btn flex-fill {{ in_array(request('action'), ['new_donor']) ? 'btn-primary' : '' }}">{{ __('donor.new') }}</a>
                     </div>
                 @endunless
                 @if (request('action') == 'new_donor')
@@ -61,12 +61,12 @@
                     <div class="col-md-6">{!! FormField::select('bank_account_id', $bankAccounts, ['label' => __('transaction.destination'), 'placeholder' => __('transaction.cash')]) !!}</div>
                 </div>
                 {!! FormField::textarea('notes', ['label' => __('donor.notes'), 'placeholder' => __('donor.notes_placeholder')]) !!}
-                <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                <div class="mb-3 {{ $errors->has('files.*') ? 'is-invalid' : '' }}">
                     <label for="files" class="form-label fw-bold">{{ __('donor.upload_files') }}</label>
                     @if($isDiskFull)
                         <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
                     @else
-                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
+                        {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*']) }}
                         @if ($errors->has('files.*'))
                             @foreach ($errors->get('files.*') as $key => $errorMessages)
                                 {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
@@ -79,9 +79,9 @@
                 {!! Form::submit(__('donor.add_donation'), ['class' => 'btn btn-success']) !!}
                 {{ Form::hidden('reference_page', request('reference_page')) }}
                 @if (request('partner_id') && isset($partners[request('partner_id')]))
-                    {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('donors.show', __('app.cancel'), [request('partner_id')], ['class' => 'btn']) }}
                 @else
-                    {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('donors.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 @endif
             </div>
             {{ Form::close() }}
@@ -90,11 +90,11 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('css/plugins/select2.min.css')) }}
     {{ Html::style(url('css/plugins/select2-bootstrap.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

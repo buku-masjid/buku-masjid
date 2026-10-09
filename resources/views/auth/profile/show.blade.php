@@ -7,8 +7,13 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="page-header">
-            <h1 class="page-title">@yield('title')</h1>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">@yield('title')</h2>
+                </div>
+            </div>
         </div>
+        <div class="page-body">
         <div class="card">
             <table class="table table-sm card-table">
                 <tbody>
@@ -19,13 +24,14 @@
                 </tbody>
             </table>
             <div class="card-footer">
-                <a href="{{ route('profile.edit') }}" class="btn btn-success">{{ __('user.profile_edit') }}</a>
+                <a href="{{ route('profile.edit') }}" class="btn btn-warning">{{ __('user.profile_edit') }}</a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="float-right">
-                    <button type="submit" class="btn btn-danger"><i class="fe fe-log-out"></i> {{ __('auth.logout') }}</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="float-end">
+                    <button type="submit" class="btn btn-danger"><i class="ti ti-logout"></i> &nbsp;{{ __('auth.logout') }}</button>
                     {{ csrf_field() }}
                 </form>
             </div>
+        </div>
         </div>
     </div>
 </div>

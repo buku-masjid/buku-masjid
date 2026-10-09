@@ -1,4 +1,4 @@
-<span class="float-right">{{ $transaction->amount_string }}</span>
+<span class="float-end">{{ $transaction->amount_string }}</span>
 {{ link_to_route('transactions.index', $transaction->date, [
     'date' => $transaction->date_only,
     'month' => $month,
@@ -8,7 +8,7 @@
 {!! $transaction->date_alert !!}
 <div>
     {!! nl2br(htmlentities($transaction->description)) !!}
-    <span class="float-right">
+    <span class="float-end">
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())
                 {!! link_to_route(
@@ -36,8 +36,8 @@
 </div>
 <div style="margin-bottom: 6px;">
     @if ($transaction->files_count)
-        <a href="{{ route('transactions.show', $transaction) }}" class="badge text-dark px-1" style="font-size: 90%;">
-            {{ $transaction->files_count }} <i class="fe fe-image"></i>
+        <a href="{{ route('transactions.show', $transaction) }}" class="badge bg-gray text-dark px-1" style="font-size: 90%;">
+            {{ $transaction->files_count }} <i class="ti ti-photo fs-4"></i>
         </a>
     @endif
     @if ($transaction->partner)
@@ -48,9 +48,9 @@
                 'end_date' => $year.'-'.$month.'-'.date('t'),
             ]);
         @endphp
-        <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+        <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
     @endif
-    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
         {{ $transaction->bankAccount->name }}
     </span>
     @if ($transaction->category)

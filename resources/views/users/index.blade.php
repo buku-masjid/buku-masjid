@@ -5,24 +5,33 @@
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ __('user.list') }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $users->count() }} {{ __('user.user') }}</div>
-    <div class="page-options d-flex">
-        @can('create', new App\User)
-            {{ link_to_route('users.create', __('user.create'), [], ['class' => 'btn btn-success']) }}
-        @endcan
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('user.list') }}</h2>
+            <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $users->count() }} {{ __('user.user') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\User)
+                {{ link_to_route('users.create', __('user.create'), [], ['class' => 'btn btn-success']) }}
+            @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-                {!! FormField::text('q', ['label' => __('user.search'), 'placeholder' => __('user.search_text'), 'class' => 'mx-sm-2', 'style' => 'width: 250px', 'value' => request('q')]) !!}
-                <div class="form-group">
-                    {{ Form::submit(__('user.search'), ['class' => 'btn btn-secondary']) }}
-                    {{ link_to_route('users.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                {{ Form::open(['method' => 'get']) }}
+                <div class="row g-2">
+                    <div class="col-auto">
+                        {!! FormField::text('q', ['label' => __('user.search'), 'placeholder' => __('user.search_text'), 'class' => 'mx-sm-2', 'style' => 'width: 250px', 'value' => request('q')]) !!}
+                    </div>
+                    <div class="col-auto">
+                        {{ Form::submit(__('user.search'), ['class' => 'btn']) }}
+                        {{ link_to_route('users.index', __('app.reset'), [], ['class' => 'btn btn-link']) }}
+                    </div>
                 </div>
                 {{ Form::close() }}
             </div>
@@ -55,5 +64,6 @@
             <div class="card-body">{{ $users->appends(Request::except('page'))->render() }}</div>
         </div>
     </div>
+</div>
 </div>
 @endsection

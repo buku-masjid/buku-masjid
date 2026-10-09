@@ -5,11 +5,18 @@
 @section('content_settings')
 <div class="row">
     <div class="col-md-10 offset-md-1">
-        <div class="page-header"><h1 class="page-title">@yield('title')</h1></div>
+        <div class="page-header">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">@yield('title')</h2>
+                </div>
+            </div>
+        </div>
+        <div class="page-body">
         <div class="row">
             <div class="col-md-6">
                 {{ Form::open(['route' => 'masjid_profile.update', 'method' => 'patch']) }}
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-body">
                             {!! FormField::text('masjid_name', ['required' => true, 'value' => old('masjid_name', Setting::get('masjid_name', config('masjid.name'))), 'label' => __('masjid_profile.name')]) !!}
                             {!! FormField::textarea('masjid_address', ['required' => true, 'value' => old('masjid_address', Setting::get('masjid_address')), 'label' => __('masjid_profile.address')]) !!}
@@ -21,7 +28,7 @@
                             {!! FormField::text('masjid_google_maps_link', ['value' => old('masjid_google_maps_link', Setting::get('masjid_google_maps_link')), 'label' => __('masjid_profile.google_maps_link')]) !!}
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">{{ __('app.social_media') }}</div>
                         <div class="card-body">
                             {!! FormField::text('masjid_whatsapp_number', ['value' => old('masjid_whatsapp_number', Setting::get('masjid_whatsapp_number')), 'label' => 'Whatsapp', 'addon' => ['before' => 'https://wa.me/']]) !!}
@@ -38,10 +45,10 @@
                 {{ Form::close() }}
             </div>
             <div class="col-md-6">
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-body text-center">
                         <label>{{ __('masjid_profile.masjid_logo') }}</label>
-                        <div class="form-group" id="masjid-logo">
+                        <div class="mb-3" id="masjid-logo">
                             @if (Setting::get('masjid_logo_path'))
                                 <img id="masjid_logo_image_show" class="img-fluid" src="{{ Storage::url(Setting::get('masjid_logo_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
                             @endif
@@ -52,7 +59,7 @@
                                 $labelText = __('masjid_profile.change_logo');
                             }
                         @endphp
-                        <label for="masjid_logo_image" class="btn btn-secondary">{{ $labelText }}</label>
+                        <label for="masjid_logo_image" class="btn">{{ $labelText }}</label>
                         {!! FormField::file('masjid_logo_image', [
                             'label' => false,
                             'id' => 'masjid_logo_image',
@@ -64,7 +71,7 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <label>{{ __('masjid_profile.masjid_photo') }}</label>
-                        <div class="form-group" id="masjid-photo">
+                        <div class="mb-3" id="masjid-photo">
                             @if (Setting::get('masjid_photo_path'))
                                 <img id="masjid_photo_image_show" class="img-fluid" src="{{ Storage::url(Setting::get('masjid_photo_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
                             @endif
@@ -75,7 +82,7 @@
                                 $labelText = __('masjid_profile.change_photo');
                             }
                         @endphp
-                        <label for="masjid_photo_image" class="btn btn-secondary">{{ $labelText }}</label>
+                        <label for="masjid_photo_image" class="btn">{{ $labelText }}</label>
                         {!! FormField::file('masjid_photo_image', [
                             'label' => false,
                             'id' => 'masjid_photo_image',
@@ -88,14 +95,13 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-masjid-logo" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+</div>
+<div class="modal fade" id="modal-masjid-logo" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalMasjidLogo">{{ __('masjid_profile.masjid_logo') }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="img-container">
@@ -110,20 +116,18 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_logo">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
     </div>
 </div>
-<div class="modal fade" id="modal-masjid-photo" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="modal-masjid-photo" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-labelledby="modalMasjidLogo" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalMasjidLogo">{{ __('masjid_profile.masjid_photo') }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="img-container">
@@ -138,7 +142,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_photo">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
@@ -146,9 +150,9 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}

@@ -5,28 +5,33 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ $partner->level ?: __('donor.donor') }}</div>
-    <div class="page-options d-flex">
-        @can('create', new App\Transaction)
-            {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success mr-2']) }}
-        @endcan
-        @can('update', $partner)
-            {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning text-dark mr-2', 'id' => 'edit-partner-'.$partner->id]) }}
-        @endcan
-        {{ link_to_route(
-            'donors.search',
-            __('donor.back_to_index'),
-            [],
-            ['class' => 'btn btn-secondary']
-        ) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $partner->name }}</h2>
+            <div class="text-secondary mt-1">{{ $partner->level ?: __('donor.donor') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\Transaction)
+                {{ link_to_route('donor_transactions.create', __('donor.add_donation'), ['partner_id' => $partner->id, 'reference_page' => 'donor'], ['class' => 'btn btn-success']) }}
+            @endcan
+            @can('update', $partner)
+                {{ link_to_route('donors.edit', __('donor.edit'), $partner, ['class' => 'btn btn-warning', 'id' => 'edit-partner-'.$partner->id]) }}
+            @endcan
+            {{ link_to_route(
+                'donors.search',
+                __('donor.back_to_index'),
+                [],
+                ['class' => 'btn']
+            ) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
-    <div class="col-md-4">@include('donors._profile_card')</div>
-    <div class="col-md-4">@include('donors._largest_transaction')</div>
-    <div class="col-md-4">@include('donors._transactions_total')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('donors._profile_card')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('donors._largest_transaction')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('donors._transactions_total')</div>
 </div>
 
 @if ($partner->address)
@@ -39,9 +44,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="mb-2">
-            @include('donors.partials.show_filter')
-        </div>
+        @include('donors.partials.show_filter')
         <div class="card table-responsive">
             @desktop
             <table class="table table-sm table-responsive-sm table-striped mb-0">
@@ -50,7 +53,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-center col-md-1">{{ __('app.date') }}</th>
                         <th class="col-md-4">{{ __('transaction.description') }}</th>
-                        <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                        <th class="text-end col-md-2">{{ __('transaction.amount') }}</th>
                         <th class="col-md-3">{{ __('book.book') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
@@ -61,14 +64,14 @@
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td class="text-center">{{ $transaction->date }}</td>
                         <td>
-                            <span class="float-right">
-                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                            <span class="float-end">
+                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
-                            <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
+                            <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                         </td>
-                        <td class="text-right">{{ $transaction->amount_string }}</td>
+                        <td class="text-end">{{ $transaction->amount_string }}</td>
                         <td>{{ $transaction->book->name }}</td>
                         <td class="text-center text-nowrap">
                             @can('update', $transaction)
@@ -90,8 +93,8 @@
                 </tbody>
                 <tfoot>
                     <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }}</td>
-                        <td class="text-right">
+                        <td colspan="3" class="text-end">{{ __('app.total') }}</td>
+                        <td class="text-end">
                             {{ format_number($transactions->sum(function ($transaction) {
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}
@@ -111,11 +114,12 @@
         </div>
     </div>
 </div>
+</div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

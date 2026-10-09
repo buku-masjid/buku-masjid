@@ -20,7 +20,7 @@
                 <div class="my-3">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="email" class="form-label">{{ __('auth.email') }}</label>
 
                             <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
@@ -32,10 +32,10 @@
                             @endif
                         </div>
 
-                        <div class="form-group mt-2">
+                        <div class="mb-3 mt-2">
                             <label for="password" class="form-label">
                                 @if (Route::has('password.request'))
-                                    <a class="float-right small" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                    <a class="float-end small" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
                                 @endif
                                 {{ __('auth.password') }}
                             </label>
@@ -49,18 +49,18 @@
                             @endif
                         </div>
 
-                        <div class="form-group pt-2">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <div class="mb-3 pt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                <label class="custom-control-label" for="remember">
+                                <label class="form-check-label" for="remember">
                                     {{ __('auth.remember_me') }}
                                 </label>
                             </div>
                         </div>
 
-                        <div class="form-group mt-4">
-                            <button type="submit" class="btn btn-primary bm-btn bm-bg-primary btn-block">
+                        <div class="mb-3 mt-4">
+                            <button type="submit" class="btn btn-primary bm-btn bm-bg-primary w-100">
                                 {{ __('Login') }}
                             </button>
                         </div>

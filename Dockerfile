@@ -8,17 +8,15 @@ ENV SSL_MODE=off
 # ================
 # Frontend Stage
 # ================
-FROM node:16.20-bullseye-slim AS frontend
+FROM node:18-bullseye-slim AS frontend
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --non-interactive
+COPY package.json package-lock.json vite.config.js ./
+RUN npm ci
 
-COPY webpack.mix.js ./
-COPY resources/assets resources/assets
-COPY resources/vendor resources/vendor
-RUN yarn run prod
+COPY resources resources
+RUN npm run build
 
 # ================
 # Production Stage

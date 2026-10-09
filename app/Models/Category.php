@@ -55,7 +55,7 @@ class Category extends Model
      */
     public function getNameLabelAttribute()
     {
-        return '<span class="badge" style="background-color: '.$this->color.'">'.$this->name.'</span>';
+        return '<span class="badge text-light" style="background-color: '.$this->color.'">'.$this->name.'</span>';
     }
 
     public function getStatusAttribute()

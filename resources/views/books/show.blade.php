@@ -5,20 +5,29 @@
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $book->name }}</h1>
-    <div class="page-subtitle">{{ __('book.detail') }}</div>
-    <div class="page-options d-flex">
-        {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $book->name }}</h2>
+            <div class="text-secondary mt-1">{{ __('book.detail') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('update', $book)
+                {{ link_to_route('books.edit', __('app.edit'), [$book], ['class' => 'btn btn-warning me-0 me-sm-2', 'id' => 'edit-book-'.$book->id]) }}
+            @endcan
+
+            {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn']) }}
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-2">@include('books._show_nav_tabs')</div>
-    <div class="col-md-10">
+<div class="page-body">
+<div class="row g-0">
+    <div class="col-12 col-md-3 col-lg-2">@include('books._show_nav_tabs')</div>
+    <div class="col-12 col-md-9 col-lg-10">
         @includeWhen(request('tab') == null, 'books._show_book_settings')
         @includeWhen(request('tab') == 'signatures', 'books._show_book_signatures')
         @includeWhen(request('tab') == 'landing_page', 'books._show_book_landing_page')
     </div>
 </div>
-
+</div>
 @endsection

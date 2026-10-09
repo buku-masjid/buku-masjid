@@ -4,7 +4,7 @@
 
 @section('content')
 
-<ul class="nav nav-tabs mb-4">
+<ul class="nav nav-bordered mb-4">
     <li class="nav-item">
         {!! link_to_route('partners.index', __('dashboard.dashboard'), [], ['class' => 'nav-link'.(in_array(Request::segment(2), ['dashboard', null]) ? ' active' : '')]) !!}
     </li>
@@ -14,25 +14,29 @@
 </ul>
 
 <div class="row my-4 mt-sm-0">
-    <div class="col-md-4 text-center text-sm-left">
+    <div class="col-md-4 text-center text-sm-start">
         <h1 class="page-title">
             {{ __('dashboard.dashboard') }}
         </h1>
-        <div class="page-subtitle ml-0">
+        <div class="page-subtitle ms-0">
             {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}
             {{ Setting::get('masjid_name') }}.
         </div>
     </div>
     <div class="col-md-4 text-center">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline justify-content-center']) }}
-        {{ Form::select('type_code', $partnerTypes, request('type_code'), [
-            'placeholder' => '-- '.__('partner.all').' --',
-            'class' => 'form-control mr-1 mt-2',
-            'onchange' => 'submit()',
-        ]) }}
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2 justify-content-center">
+            <div class="col-auto">
+                {{ Form::select('type_code', $partnerTypes, request('type_code'), [
+                    'placeholder' => '-- '.__('partner.all').' --',
+                    'class' => 'form-control me-1',
+                    'onchange' => 'submit()',
+                ]) }}
+            </div>
+        </div>
         {{ Form::close() }}
     </div>
-    <div class="col-md-4 mt-3 text-center text-sm-right">
+    <div class="col-md-4 mt-3 text-center text-sm-end">
         @can('create', new App\Models\Partner)
             {{ link_to_route('partners.create', __('partner.create'), [], ['class' => 'btn btn-success']) }}
         @endcan

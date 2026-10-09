@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-lg-6">
-        <div class="card table-responsive">
+        <div class="card table-responsive mb-2 mb-lg-3">
             <div class="card-header d-block text-center py-3" style="min-height: 1rem">
                 <h5 class="mb-0">{{ __('report.finance_summary') }}</h5>
             </div>
             <table class="table table-sm table-bordered mb-0">
                 <tr>
-                    <td class="col-xs-2 text-center">{{ __('transaction.income') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('transaction.spending') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('transaction.difference') }}</td>
+                    <td class="col-2 text-center">{{ __('transaction.income') }}</td>
+                    <td class="col-2 text-center">{{ __('transaction.spending') }}</td>
+                    <td class="col-2 text-center">{{ __('transaction.difference') }}</td>
                 </tr>
                 <tr>
                     <td class="text-center strong" style="border-top: none;">{{ format_number($incomeTotal) }}</td>
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="card table-responsive">
+        <div class="card table-responsive mb-2 mb-lg-3">
             <div class="card-header d-block text-center py-3" style="min-height: 1rem">
                 <h5 class="mb-0">{{ __('transaction.origin_destination') }}</h5>
             </div>
@@ -27,7 +27,7 @@
                 @foreach ($bankAccounts as $bankAccountId => $bankAccountName)
                     <tr>
                         <td class="col-6">{{ $bankAccountName }}</td>
-                        <td class="text-right">
+                        <td class="text-end">
                             {{ format_number($transactions->filter(function ($transaction) use ($bankAccountId) {
                                 if ($bankAccountId == 'null') {
                                     return is_null($transaction->bank_account_id);

@@ -5,45 +5,50 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $partner->name }}</h1>
-    <div class="page-subtitle">{{ $partner->type }}</div>
-    <div class="page-options d-flex">
-        @can('update', $partner)
-            @if ($availableLevels)
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $partner->name }}</h2>
+            <div class="text-secondary mt-1">{{ $partner->type }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('update', $partner)
+                @if ($availableLevels)
+                    {{ link_to_route(
+                        'partners.show',
+                        __('partner.change_levels'),
+                        [$partner, 'action' => 'change_levels'],
+                        ['id' => 'change_levels-'.$partner->id, 'class' => 'btn']
+                    ) }}
+                @endif
                 {{ link_to_route(
-                    'partners.show',
-                    __('partner.change_levels'),
-                    [$partner, 'action' => 'change_levels'],
-                    ['id' => 'change_levels-'.$partner->id, 'class' => 'btn text-dark btn-secondary mr-2']
+                    'partners.edit',
+                    __('app.edit'),
+                    $partner,
+                    ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn btn-warning']
                 ) }}
-            @endif
+            @endcan
             {{ link_to_route(
-                'partners.edit',
-                __('app.edit'),
-                $partner,
-                ['id' => 'edit-partner-'.$partner->id, 'class' => 'btn text-dark btn-warning mr-2']
+                'partners.search',
+                __('partner.back_to_index'),
+                [],
+                ['class' => 'btn']
             ) }}
-        @endcan
-        {{ link_to_route(
-            'partners.search',
-            __('partner.back_to_index'),
-            [],
-            ['class' => 'btn btn-secondary']
-        ) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
-    <div class="col-md-4">@include('partners._profile_card')</div>
-    <div class="col-md-4">@include('partners._largest_transaction')</div>
-    <div class="col-md-4">@include('partners._transactions_total')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('partners._profile_card')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('partners._largest_transaction')</div>
+    <div class="col-md-4 mb-2 mb-sm-3">@include('partners._transactions_total')</div>
 </div>
 
-<div class="card">
+<div class="card mb-2 mb-sm-3">
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                <label class="control-label text-primary">{{ __('partner.pdob') }}</label>
+                <label class="form-label text-primary">{{ __('partner.pdob') }}</label>
                 <p>
                     @if ($partner->pob)
                         {{ $partner->pob }},
@@ -55,9 +60,9 @@
                         {{ __('app.unknown') }}
                     @endif
                 </p>
-                <label class="control-label text-primary">{{ __('address.address') }}</label>
+                <label class="form-label text-primary">{{ __('address.address') }}</label>
                 <p>{{ $partner->address ?: __('app.unknown') }}</p>
-                <label class="control-label text-primary">{{ __('address.rt') }} / {{ __('address.rw') }}</label>
+                <label class="form-label text-primary">{{ __('address.rt') }} / {{ __('address.rw') }}</label>
                 <p>
                     @if (!$partner->rt && !$partner->rw)
                         {{ __('app.unknown') }}
@@ -67,17 +72,17 @@
                 </p>
             </div>
             <div class="col-md-4">
-                <label class="control-label text-primary">{{ __('partner.religion') }}</label>
+                <label class="form-label text-primary">{{ __('partner.religion') }}</label>
                 <p>{{ $partner->religion }}</p>
-                <label class="control-label text-primary">{{ __('partner.work_detail') }}</label>
+                <label class="form-label text-primary">{{ __('partner.work_detail') }}</label>
                 <p>{{ $partner->work_type }} {{ $partner->work ? '('.$partner->work.')' : '' }}</p>
             </div>
             <div class="col-md-4">
-                <label class="control-label text-primary">{{ __('partner.marital_status') }}</label>
+                <label class="form-label text-primary">{{ __('partner.marital_status') }}</label>
                 <p>{{ $partner->marital_status }}</p>
-                <label class="control-label text-primary">{{ __('partner.financial_status') }}</label>
+                <label class="form-label text-primary">{{ __('partner.financial_status') }}</label>
                 <p>{{ $partner->financial_status }}</p>
-                <label class="control-label text-primary">{{ __('partner.activity_status') }}</label>
+                <label class="form-label text-primary">{{ __('partner.activity_status') }}</label>
                 <p>{{ $partner->activity_status }}</p>
             </div>
         </div>
@@ -90,9 +95,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="mb-2">
-            @include('partners.partials.show_filter')
-        </div>
+        @include('partners.partials.show_filter')
         <div class="card table-responsive">
             @desktop
             <table class="table table-sm table-responsive-sm table-striped mb-0">
@@ -101,7 +104,7 @@
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-center col-md-1">{{ __('app.date') }}</th>
                         <th class="col-md-4">{{ __('transaction.description') }}</th>
-                        <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                        <th class="text-end col-md-2">{{ __('transaction.amount') }}</th>
                         <th class="col-md-3">{{ __('book.book') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
@@ -112,14 +115,14 @@
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td class="text-center">{{ $transaction->date }}</td>
                         <td>
-                            <span class="float-right">
-                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                            <span class="float-end">
+                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
-                            <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
+                            <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                         </td>
-                        <td class="text-right">{{ $transaction->amount_string }}</td>
+                        <td class="text-end">{{ $transaction->amount_string }}</td>
                         <td>{{ $transaction->book->name }}</td>
                         <td class="text-center text-nowrap">
                             @can('update', $transaction)
@@ -141,8 +144,8 @@
                 </tbody>
                 <tfoot>
                     <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }}</td>
-                        <td class="text-right">
+                        <td colspan="3" class="text-end">{{ __('app.total') }}</td>
+                        <td class="text-end">
                             {{ format_number($transactions->sum(function ($transaction) {
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}
@@ -166,20 +169,17 @@
 @if(Request::has('action'))
     @include('partners._show_forms')
 @endif
+</div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {
-    $('#partnerModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
     $('.date-select').datetimepicker({
         timepicker: false,
         format: 'Y-m-d',

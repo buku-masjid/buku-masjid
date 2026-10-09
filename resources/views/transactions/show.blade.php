@@ -5,60 +5,66 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h1>
-    <div class="page-subtitle">{{ __('transaction.detail') }}</div>
-    <div class="page-options">
-        @can('create', new App\Transaction)
-            {{ link_to_route(
-                'transactions.create',
-                __('transaction.duplicate'),
-                [
-                    'action' => $transaction->in_out ? 'add-income' : 'add-spending',
-                    'month' => $transaction->month,
-                    'original_transaction_id' => $transaction->id,
-                    'year' => $transaction->year,
-                ],
-                ['class' => 'btn btn-success mr-2 mt-2 mt-lg-0', 'id' => 'duplicate-transaction-'.$transaction->id]
-            ) }}
-        @endcan
-        @if ($transaction->in_out == 0)
-            {{ link_to_route(
-                'transactions.print_spending_request',
-                __('transaction.print_spending_request'),
-                $transaction,
-                ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
-            ) }}
-        @endif
-        {{ link_to_route(
-            'transactions.print_receipt',
-            __('transaction.print_receipt'),
-            $transaction,
-            ['class' => 'btn btn-secondary mr-2 mt-2 mt-lg-0']
-        ) }}
-        @can('update', $transaction)
-            @can('manage-transactions', auth()->activeBook())
-                {!! link_to_route(
-                    'transactions.edit',
-                    __('transaction.edit'),
-                    $transaction,
-                    ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning text-dark mr-2 mt-2 mt-lg-0']
-                ) !!}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('transaction.transaction') }} #{{ $transaction->id }}</h2>
+            <div class="text-secondary mt-1">{{ __('transaction.detail') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\Transaction)
+                {{ link_to_route(
+                    'transactions.create',
+                    __('transaction.duplicate'),
+                    [
+                        'action' => $transaction->in_out ? 'add-income' : 'add-spending',
+                        'month' => $transaction->month,
+                        'original_transaction_id' => $transaction->id,
+                        'year' => $transaction->year,
+                    ],
+                    ['class' => 'btn btn-success', 'id' => 'duplicate-transaction-'.$transaction->id]
+                ) }}
             @endcan
-        @endcan
-        {{ link_to_route(
-            'transactions.index',
-            __('transaction.back_to_index'),
-            [
-                'year' => $transaction->year,
-                'month' => $transaction->month,
-            ],
-            ['class' => 'btn btn-secondary mt-2 mt-lg-0']
-        ) }}
+            @if ($transaction->in_out == 0)
+                {{ link_to_route(
+                    'transactions.print_spending_request',
+                    __('transaction.print_spending_request'),
+                    $transaction,
+                    ['class' => 'btn']
+                ) }}
+            @endif
+            {{ link_to_route(
+                'transactions.print_receipt',
+                __('transaction.print_receipt'),
+                $transaction,
+                ['class' => 'btn']
+            ) }}
+            @can('update', $transaction)
+                @can('manage-transactions', auth()->activeBook())
+                    {!! link_to_route(
+                        'transactions.edit',
+                        __('transaction.edit'),
+                        $transaction,
+                        ['id' => 'edit-transaction-'.$transaction->id, 'class' => 'btn btn-warning']
+                    ) !!}
+                @endcan
+            @endcan
+            {{ link_to_route(
+                'transactions.index',
+                __('transaction.back_to_index'),
+                [
+                    'year' => $transaction->year,
+                    'month' => $transaction->month,
+                ],
+                ['class' => 'btn']
+            ) }}
+        </div>
     </div>
 </div>
+
+<div class="page-body">
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card card-default">
+        <div class="card">
             <table class="table card-table table-sm">
                 <tbody>
                     <tr><td class="col-5">{{ __('transaction.id') }}</td><td>#{{ $transaction->id }}</td></tr>
@@ -81,7 +87,7 @@
                                         'end_date' => $transaction->date,
                                     ]);
                                 @endphp
-                                <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+                                <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
                             @endif
                         </td>
                     </tr>
@@ -104,14 +110,14 @@
                     <tr>
                         <td>{{ __('transaction.origin_destination') }}</td>
                         <td>
-                            <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                            <span class="badge {{ $transaction->bankAccount->exists ? ' text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                 {{ $transaction->bankAccount->name }}
                             </span>
                         </td>
                     </tr>
                     <tr>
                         <td>{{ __('transaction.amount') }}</td>
-                        <td class="lead text-right">{{ config('money.currency_code') }} {{ $transaction->amount_string }}</td>
+                        <td class="lead text-end">{{ config('money.currency_code') }} {{ $transaction->amount_string }}</td>
                     </tr>
                     <tr><td>{{ __('app.description') }}</td><td>{!! nl2br(htmlentities($transaction->description)) !!}</td></tr>
                     <tr><td>{{ __('app.created_by') }}</td><td>{{ $transaction->creator->name }}</td></tr>
@@ -133,7 +139,7 @@
                         ({{ $transaction->files->count() }})
                     @endif
                 </h3>
-                <div class="card-options">
+                <div class="card-actions">
                     @can('update', $transaction)
                         @can('manage-transactions', auth()->activeBook())
                             {!! link_to_route(
@@ -142,7 +148,7 @@
                                 [$transaction, 'action' => 'upload_files'],
                                 [
                                     'id' => 'upload_files-transaction-'.$transaction->id,
-                                    'class' => 'btn btn-success mr-2'. ($isDiskFull ? ' disabled' : ''),
+                                    'class' => 'btn btn-success me-2'. ($isDiskFull ? ' disabled' : ''),
                                     'aria-disabled' => $isDiskFull ? 'true' : null,
                                     'onclick' => $isDiskFull ? 'return false;' : null,
                                 ]
@@ -173,17 +179,17 @@
                                             <div>
                                                 {!! FormField::delete(
                                                     ['route' => ['transactions.files.destroy', [$transaction, $file->id]], 'onsubmit' => __('app.delete_confirm')],
-                                                    '<i class="fe fe-trash-2"></i> '.__('app.delete'),
+                                                    '<i class="ti ti-trash-2"></i> '.__('app.delete'),
                                                     ['class' => 'btn btn-danger btn-sm', 'id' => 'delete-file-'.$file->id],
                                                     ['file_id' => $file->id]
                                                 ) !!}
                                             </div>
 
-                                            <div class="ml-auto">
+                                            <div class="ms-auto">
                                                 <a href="{{ route('transactions.show', [$transaction, 'action' => 'edit_file','file_id' => $file->id]) }}"
                                                     id="edit-file-{{ $file->id }}"
-                                                    class="btn btn-warning btn-sm text-dark">
-                                                    <i class="fe fe-edit"></i> {{ __('app.edit') }}
+                                                    class="btn btn-warning btn-sm">
+                                                    <i class="ti ti-edit"></i> {{ __('app.edit') }}
                                                 </a>
                                             </div>
                                         </div>
@@ -201,15 +207,5 @@
 @if(Request::has('action'))
     @include('transactions._show_forms')
 @endif
+</div>
 @endsection
-
-@push('scripts')
-<script>
-(function () {
-    $('#transactionModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

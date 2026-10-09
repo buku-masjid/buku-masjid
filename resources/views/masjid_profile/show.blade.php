@@ -4,17 +4,22 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">@yield('title')</h1>
-    <div class="page-options">
-        @can('edit_masjid_profile')
-            {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-warning text-dark']) }}
-        @endcan
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">@yield('title')</h2>
+        </div>
+        <div class="col-auto text-end">
+            @can('edit_masjid_profile')
+                {{ link_to_route('masjid_profile.edit', __('masjid_profile.edit'), [], ['class' => 'btn btn-warning']) }}
+            @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card mb-3">
             <table class="table table-sm card-table">
                 <tbody>
                     <tr>
@@ -39,7 +44,7 @@
             </table>
         </div>
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">{{ __('app.social_media') }}</div>
             <table class="table table-sm card-table">
                 <tbody>
@@ -89,13 +94,13 @@
     </div>
     <div class="col-md-6">
         @if (Setting::get('masjid_google_maps_link'))
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
                     {{ __('masjid_profile.maps') }}
-                    <div class="card-options">
+                    <div class="card-actions">
                         {!! FormField::formButton(
                             ['route' => 'masjid_profile.coordinates.update', 'method' => 'patch'],
-                            '<i class="fe fe-map"></i> '.__('masjid_profile.refresh_masjid_map'),
+                            '<i class="ti ti-map"></i> '.__('masjid_profile.refresh_masjid_map'),
                             ['id' => 'refresh_masjid_map', 'class' => 'btn btn-info btn-sm'],
                             ['google_maps_link' => Setting::get('masjid_google_maps_link')]
                         ) !!}
@@ -109,7 +114,7 @@
         <div class="card">
             <div class="card-header">
                 {{ __('masjid_profile.masjid_photo') }}
-                <div class="card-options"></div>
+                <div class="card-actions"></div>
             </div>
             <div class="card-body">
                 @if (Setting::get('masjid_photo_path'))
@@ -121,17 +126,18 @@
         </div>
     </div>
 </div>
+</div>
 @endsection
 
 @if (Setting::get('masjid_latitude') && Setting::get('masjid_longitude'))
-    @section('styles')
+    @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
         integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
         crossorigin=""/>
     <style>
         #masjid_map { min-height: 500px; }
     </style>
-    @endsection
+    @endpush
 
     @push('scripts')
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"

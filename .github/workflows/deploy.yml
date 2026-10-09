@@ -11,10 +11,10 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '16.20'
-          cache: yarn
+          node-version: '18'
+          cache: 'npm'
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive
+        run: npm ci
       - name: Run JavaScript tests
         run: npm run test:js
 
@@ -22,29 +22,29 @@ jobs:
     name: Compile assets
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         # Build jS
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '16.20'
-          cache: yarn
+          node-version: '18'
+          cache: 'npm'
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive
-      - name: YARN Build
+        run: npm ci
+      - name: NPM Build
         run: |
-          yarn run prod
-          cat public/mix-manifest.json # see version in log
+          npm run build
+          cat public/build/manifest.json # see version in log
       - name: Upload compile assets
         uses: actions/upload-artifact@v4
         with:
           name: assets
-          path: public
+          path: public/build
   test-php:
     name: Test/Lint PHP
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:

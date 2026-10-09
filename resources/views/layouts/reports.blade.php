@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-</div>
-<div class="container">
 <div class="row">
     <div class="col-lg-3">
         @include('layouts._report_nav')
@@ -18,10 +16,10 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
 <style>
 .list-group-transparent .list-group-item {
     padding: 0.5rem 0.5rem;
 }
 </style>
-@endsection
+@endpush

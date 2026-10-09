@@ -5,13 +5,18 @@
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $category->name }}</h1>
-    <div class="page-subtitle">{{ __('category.transactions') }}</div>
-    <div class="page-options d-flex">
-        {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn btn-secondary float-right']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $category->name }}</h2>
+            <div class="text-secondary mt-1">{{ __('category.transactions') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn']) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 @include('transactions.partials.stats')
 
 @if ($category->description)
@@ -20,10 +25,8 @@
 
 <div class="row">
     <div class="col-md-12">
+        @include('categories.partials.show_filter')
         <div class="card table-responsive">
-            <div class="card-header">
-                @include('categories.partials.show_filter')
-            </div>
             @desktop
             <table class="table table-sm table-responsive-sm table-hover table-bordered mb-0">
                 <thead>
@@ -31,7 +34,7 @@
                         <th class="text-center col-md-1">{{ __('app.table_no') }}</th>
                         <th class="text-center col-md-1">{{ __('app.date') }}</th>
                         <th class="col-md-6">{{ __('transaction.description') }}</th>
-                        <th class="text-right col-md-2">{{ __('transaction.amount') }}</th>
+                        <th class="text-end col-md-2">{{ __('transaction.amount') }}</th>
                         <th class="text-center col-md-2">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -41,7 +44,7 @@
                         <td class="text-center">{{ 1 + $key }}</td>
                         <td class="text-center">{{ $transaction->date }}</td>
                         <td>
-                            <span class="float-right">
+                            <span class="float-end">
                                 @if ($transaction->partner)
                                     @php
                                         $partnerRoute = route('partners.show', [
@@ -50,15 +53,15 @@
                                             'end_date' => $transaction->date,
                                         ]);
                                     @endphp
-                                    <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+                                    <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
                                 @endif
-                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                     {{ $transaction->bankAccount->name }}
                                 </span>
                             </span>
-                            <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
+                            <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                         </td>
-                        <td class="text-right">{{ $transaction->amount_string }}</td>
+                        <td class="text-end">{{ $transaction->amount_string }}</td>
                         <td class="text-center">
                             @can('update', $transaction)
                                 @can('manage-transactions', auth()->activeBook())
@@ -79,8 +82,8 @@
                 </tbody>
                 <tfoot>
                     <tr class="strong">
-                        <td colspan="3" class="text-right">{{ __('app.total') }}</td>
-                        <td class="text-right">
+                        <td colspan="3" class="text-end">{{ __('app.total') }}</td>
+                        <td class="text-end">
                             {{ format_number($transactions->sum(function ($transaction) {
                                 return $transaction->in_out ? $transaction->amount : -$transaction->amount;
                             })) }}
@@ -99,12 +102,12 @@
         </div>
     </div>
 </div>
-
+</div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

@@ -8,30 +8,34 @@
     <div class="col-md-6">
         @can('delete', $book)
             <div class="page-header">
-                <h1 class="page-title">{{ $book->name }}</h1>
-                <div class="page-subtitle">{{ __('book.delete') }}</div>
-                <div class="page-options d-flex"></div>
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <h2 class="page-title">{{ $book->name }}</h2>
+                        <div class="text-secondary mt-1">{{ __('book.delete') }}</div>
+                    </div>
+                </div>
             </div>
+            <div class="page-body">
             <div class="card">
                 <div class="card-header">{{ __('book.delete') }}</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('book.name') }}</label>
+                            <label class="form-label text-primary">{{ __('book.name') }}</label>
                             <p>{{ $book->name }}</p>
-                            <label class="control-label text-primary">{{ __('book.description') }}</label>
+                            <label class="form-label text-primary">{{ __('book.description') }}</label>
                             <p>{{ $book->description }}</p>
-                            <label class="control-label text-primary">{{ __('bank_account.bank_account') }}</label>
+                            <label class="form-label text-primary">{{ __('bank_account.bank_account') }}</label>
                             <p>{{ optional($book->bankAccount)->name }}</p>
-                            <label class="control-label text-primary">{{ __('book.budget') }}</label>
+                            <label class="form-label text-primary">{{ __('book.budget') }}</label>
                             <p>{{ $book->budget }}</p>
                         </div>
                         <div class="col-md-6">
-                            <label class="control-label text-primary">{{ __('book.report_visibility') }}</label>
+                            <label class="form-label text-primary">{{ __('book.report_visibility') }}</label>
                             <p>{{ __('book.report_visibility_'.$book->report_visibility_code) }}</p>
-                            <label class="control-label text-primary">{{ __('report.periode') }}</label>
+                            <label class="form-label text-primary">{{ __('report.periode') }}</label>
                             <p>{{ __('report.'.$book->report_periode_code) }}</p>
-                            <label class="control-label text-primary">{{ __('report.start_week_day') }}</label>
+                            <label class="form-label text-primary">{{ __('report.start_week_day') }}</label>
                             <p>{{ __('time.days.'.$book->start_week_day_code) }}</p>
                         </div>
                     </div>
@@ -40,7 +44,7 @@
                 <hr style="margin:0">
                 <div class="card-body bg-warning">
                     <div class="row">
-                        <div class="col-1"><i class="fe fe-alert-circle"></i></div>
+                        <div class="col-1"><i class="ti ti-alert-circle"></i></div>
                         <div class="col-11">{!! __('book.delete_confirm') !!}</div>
                     </div>
                 </div>
@@ -54,32 +58,39 @@
                     {{ link_to_route('books.edit', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
                 </div>
             </div>
+        </div>
         @endcan
     </div>
     @else
     <div class="col-md-12">
         <div class="page-header">
-            <h1 class="page-title">{{ $book->name }}</h1>
-            <div class="page-subtitle">{{ __('book.edit') }}</div>
-            <div class="page-options d-flex">
-                {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn btn-secondary']) }}
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">{{ $book->name }}</h2>
+                    <div class="text-secondary mt-1">{{ __('book.edit') }}</div>
+                </div>
+                <div class="col-auto text-end">
+                    {{ link_to_route('books.show', __('book.back_to_show'), [$book], ['class' => 'btn']) }}
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-2">@include('books._edit_nav_tabs')</div>
-            <div class="col-md-10">
-                <div class="card">
-                    {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
-                    <div class="card-body">
-                        @includeWhen(request('tab') == null, 'books._edit_book_settings')
-                        @includeWhen(request('tab') == 'signatures', 'books._edit_book_signatures')
-                        @includeWhen(request('tab') == 'landing_page', 'books._edit_book_landing_page')
+        <div class="page-body">
+            <div class="row g-0">
+                <div class="col-12 col-md-3 col-lg-2">@include('books._edit_nav_tabs')</div>
+                <div class="col-12 col-md-9 col-lg-10">
+                    <div class="card">
+                        {{ Form::model($book, ['route' => ['books.update', $book], 'method' => 'patch']) }}
+                        <div class="card-body">
+                            @includeWhen(request('tab') == null, 'books._edit_book_settings')
+                            @includeWhen(request('tab') == 'signatures', 'books._edit_book_signatures')
+                            @includeWhen(request('tab') == 'landing_page', 'books._edit_book_landing_page')
+                        </div>
+                        <div class="card-footer">
+                            {{ Form::submit(__('book.update'), ['class' => 'btn btn-success']) }}
+                            {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
+                        </div>
+                        {{ Form::close() }}
                     </div>
-                    <div class="card-footer">
-                        {{ Form::submit(__('book.update'), ['class' => 'btn btn-success']) }}
-                        {{ link_to_route('books.show', __('app.cancel'), [$book], ['class' => 'btn btn-link']) }}
-                    </div>
-                    {{ Form::close() }}
                 </div>
             </div>
         </div>
@@ -88,23 +99,32 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
-    {{ Html::style(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.css')) }}
-@endsection
+    {{ Html::style('https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/summernote-bs5.min.css', [
+        'integrity' => 'sha384-NCIOkH1RWTLh0uk0cWmHMJbcBZE8aFTbBNELvTaRgLwGsGIgaacBRlWynjlAt69p',
+        'crossorigin' => 'anonymous',
+    ]) }}
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
     {{ Html::script(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js')) }}
     {{ Html::script(url('js/plugins/noty.js')) }}
-    {{ Html::script(url('https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js')) }}
+    {{ Html::script('https://cdn.jsdelivr.net/npm/summernote@0.9.1/dist/summernote-bs5.min.js', [
+        'integrity' => 'sha384-FycAzMryzUZA6EwTBPuugMzUKzpNjcXJhQvibi8ej/+2/imEZ6kTAsxHGtrNn8Py',
+        'crossorigin' => 'anonymous',
+    ]) }}
 <script>
 (function () {
-    $('#landing_page_content').summernote({
-        tabsize: 2,
-        height: 300
-    });
+    var $summernoteTarget = $('#landing_page_content');
+    if ($summernoteTarget.length) {
+        $summernoteTarget.summernote({
+            tabsize: 2,
+            height: 300
+        });
+    }
     $('.date-select').datetimepicker({
         timepicker: false,
         format: 'Y-m-d',

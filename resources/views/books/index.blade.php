@@ -4,15 +4,20 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('book.list') }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $books->total() }} {{ __('book.book') }}</div>
-    <div class="page-options d-flex">
-        @can('create', new App\Models\Book)
-            {{ link_to_route('books.index', __('book.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
-        @endcan
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('book.list') }}</h2>
+            <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $books->total() }} {{ __('book.book') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('create', new App\Models\Book)
+                {{ link_to_route('books.index', __('book.create'), ['action' => 'create'], ['class' => 'btn btn-success']) }}
+            @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-12">
         <div class="card table-responsive">
@@ -21,7 +26,7 @@
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('book.name') }}</th>
-                        <th class="text-right text-nowrap">{{ __('book.budget') }}</th>
+                        <th class="text-end text-nowrap">{{ __('book.budget') }}</th>
                         <th class="text-nowrap">{{ __('report.periode') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
                         <th class="text-center">{{ __('book.visibility') }}</th>
@@ -43,7 +48,7 @@
                                 {{ $book->name }}
                             @endcan
                         </td>
-                        <td class="text-nowrap text-right">{{ $book->budget ? format_number($book->budget) : '' }}</td>
+                        <td class="text-nowrap text-end">{{ $book->budget ? format_number($book->budget) : '' }}</td>
                         <td class="text-nowrap">{{ __('report.'.$book->report_periode_code) }}</td>
                         <td class="text-nowrap text-center">{{ $book->status }}</td>
                         <td class="text-center">{{ __('book.report_visibility_'.$book->report_visibility_code) }}</td>
@@ -57,7 +62,7 @@
                                     ['switch_book' => $book->id]
                                 ) !!}
                             @else
-                                <span class="btn btn-secondary btn-sm disabled">{{ __('app.active') }}</span>
+                                <span class="btn btn-sm disabled">{{ __('app.active') }}</span>
                             @endif
                             @can('view', $book)
                                 {{ link_to_route(
@@ -66,7 +71,7 @@
                                     [$book],
                                     [
                                         'id' => 'show-book-'.$book->id,
-                                        'class' => 'btn btn-sm btn-secondary',
+                                        'class' => 'btn btn-sm',
                                     ]
                                 ) }}
                             @endcan
@@ -77,7 +82,7 @@
                                     [$book],
                                     [
                                         'id' => 'edit-book-'.$book->id,
-                                        'class' => 'btn btn-sm text-dark btn-warning',
+                                        'class' => 'btn btn-sm btn-warning',
                                     ]
                                 ) }}
                             @endcan
@@ -97,15 +102,5 @@
         @endif
     </div>
 </div>
+</div>
 @endsection
-
-@push('scripts')
-<script>
-(function () {
-    $('#bookModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

@@ -53,7 +53,7 @@ class CategoryTest extends TestCase
     {
         $category = factory(Category::class)->make();
 
-        $nameLabel = '<span class="badge" style="background-color: '.$category->color.'">'.$category->name.'</span>';
+        $nameLabel = '<span class="badge text-light" style="background-color: '.$category->color.'">'.$category->name.'</span>';
         $this->assertEquals($nameLabel, $category->name_label);
     }
 

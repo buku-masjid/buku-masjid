@@ -5,10 +5,10 @@
             <p>{!! __('file_backup.sure_to_delete_file', ['filename' => request('file_name')]) !!}</p>
         </div>
         <div class="card-footer">
-            <a href="{{ route('file_backups.index') }}" class="btn btn-secondary">{{ __('file_backup.cancel_delete') }}</a>
+            <a href="{{ route('file_backups.index') }}" class="btn">{{ __('file_backup.cancel_delete') }}</a>
             <form action="{{ route('file_backups.destroy', request('file_name')) }}"
                 method="post"
-                class="float-right"
+                class="float-end"
                 onsubmit="return confirm('{{ __('file_backup.delete_confirm') }}')">
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
@@ -25,10 +25,10 @@
             <p>{!! __('file_backup.sure_to_restore', ['filename' => request('file_name')]) !!}</p>
         </div>
         <div class="card-footer">
-            <a href="{{ route('file_backups.index') }}" class="btn btn-secondary">{{ __('file_backup.cancel_restore') }}</a>
+            <a href="{{ route('file_backups.index') }}" class="btn">{{ __('file_backup.cancel_restore') }}</a>
             <form action="{{ route('file_backups.restore', request('file_name')) }}"
                 method="post"
-                class="float-right"
+                class="float-end"
                 onsubmit="return confirm('Click OK to Restore.')">
                 {{ csrf_field() }}
                 <input type="hidden" name="file_name" value="{{ request('file_name') }}">
@@ -42,24 +42,24 @@
     <div class="card-body">
         <form action="{{ route('file_backups.store') }}" method="post">
             {{ csrf_field() }}
-            <div class="form-group">
-                <label for="file_name" class="control-label">{{ __('file_backup.create') }}</label>
+            <div class="mb-3">
+                <label for="file_name" class="form-label">{{ __('file_backup.create') }}</label>
                 <input type="text" name="file_name" class="form-control" placeholder="{{ date('Y-m-d_Hi') }}">
-                {!! $errors->first('file_name', '<div class="text-danger text-right">:message</div>') !!}
+                {!! $errors->first('file_name', '<div class="text-danger text-end">:message</div>') !!}
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="{{ __('file_backup.create') }}" class="btn btn-success">
             </div>
         </form>
         <hr>
         <form action="{{ route('file_backups.upload') }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <div class="form-group">
-                <label for="backup_file" class="control-label">{{ __('file_backup.upload') }}</label>
+            <div class="mb-3">
+                <label for="backup_file" class="form-label">{{ __('file_backup.upload') }}</label>
                 <input type="file" name="backup_file" class="form-control">
-                {!! $errors->first('backup_file', '<div class="text-danger text-right">:message</div>') !!}
+                {!! $errors->first('backup_file', '<div class="text-danger text-end">:message</div>') !!}
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="{{ __('file_backup.upload') }}" class="btn btn-primary">
             </div>
         </form>
