@@ -92,5 +92,17 @@ export default defineConfig({
         }),
         copyStaticAssets(),
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                // Vite 4 only calls Sass through its legacy JS API, so Dart
+                // Sass logs a `legacy-js-api` deprecation on every build. It
+                // is a Vite-side limitation that cannot be fixed here; it
+                // disappears once the project moves to Vite 5+ (which uses
+                // the modern Sass API). Silence it so real warnings stand out.
+                silenceDeprecations: ['legacy-js-api'],
+            },
+        },
+    },
     base: './',
 });

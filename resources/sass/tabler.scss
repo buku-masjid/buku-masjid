@@ -1,31 +1,32 @@
 // ---------------------------------------
-// Tablar styles and configuration
+// Tabler styles and configuration
 // Ref: (and thanks to) https://github.com/takielias/tablar
 // ---------------------------------------
 
 // Default (LTR) Tabler Styles.
 // DISABLE this line if you want to enable Right-to-Left (RTL) support.
-@import "../../node_modules/@tabler/core/scss/tabler";
+@use "../../node_modules/@tabler/core/scss/tabler";
 
 // ENABLE the following line for Right-to-Left (RTL) support.
-// @import "../../node_modules/@tabler/core/dist/css/tabler.rtl.css";
+// @use "../../node_modules/@tabler/core/dist/css/tabler.rtl.css";
 
 // Tabler Vendor Styles.
-// @import "../../node_modules/@tabler/core/scss/tabler-vendors";
+// @use "../../node_modules/@tabler/core/scss/tabler-vendors";
 
 // Tabler Flags Styles.
 // ENABLE the following line for Flags Icon style support.
-// @import "../../node_modules/@tabler/core/scss/tabler-flags";
+// @use "../../node_modules/@tabler/core/scss/tabler-flags";
 
 // Tabler Payment Styles.
 // ENABLE the following line for Payment Icon style support.
-// @import "../../node_modules/@tabler/core/scss/tabler-payments";
+// @use "../../node_modules/@tabler/core/scss/tabler-payments";
 
 // Tabler Social Styles.
 // ENABLE the following line for Social Icon style support.
-// @import "../../node_modules/@tabler/core/scss/tabler-social";
+// @use "../../node_modules/@tabler/core/scss/tabler-social";
 
-// Tabler Webfont Icons
+// Tabler Webfont Icons.
+// Plain CSS imports are not affected by the Sass `@import` deprecation.
 @import "../../node_modules/@tabler/icons-webfont/dist/tabler-icons.css";
 
 // Custom Icon Sizes and Styles
