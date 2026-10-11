@@ -78,7 +78,7 @@ npm run build          # Production build (Vite → public/build)
 npm run test:js        # Run JavaScript unit tests
 ```
 
-First-party JavaScript lives in `resources/js` (compiled by Vite); vendored standalone assets live in `resources/vendor`. The Vite plugin in `vite.config.js` also copies the hand-maintained public-display and plugin scripts from `resources/assets/js` and `resources/vendor` into `public/js` and `public/css`, which should be treated as generated build output rather than edited source. All generated assets (`public/build`, `public/js`, `public/css`) are committed to git so deployments do not require Node.
+First-party JavaScript lives in `resources/js` (compiled by Vite); vendored standalone assets live in `resources/vendor`. The Vite plugin in `vite.config.mjs` also copies the hand-maintained public-display and plugin scripts from `resources/assets/js` and `resources/vendor` into `public/js` and `public/css`, which should be treated as generated build output rather than edited source. All generated assets (`public/build`, `public/js`, `public/css`) are committed to git so deployments do not require Node.
 
 ### Testing
 
@@ -258,7 +258,7 @@ Transactions can have photo attachments (receipts). File workflow:
 
 A feature for displaying mosque info on a TV screen at `/display`. Controlled by `FEATURES_PUBLIC_DISPLAY_IS_ACTIVE`. Includes real-time shalat time with iqamah countdown, financial summary carousel, and ayat/hadith quotes (configured in `config/public_display.php`).
 
-Public display browser scripts are sourced from `resources/assets/js/public_display` and emitted to `public/js/public_display` by the Vite config (`vite.config.js`). The Blade layout passes server-rendered values through one `window.PublicDisplayConfig` object; display scripts should initialize from that explicit config instead of adding new implicit globals.
+Public display browser scripts are sourced from `resources/assets/js/public_display` and emitted to `public/js/public_display` by the Vite config (`vite.config.mjs`). The Blade layout passes server-rendered values through one `window.PublicDisplayConfig` object; display scripts should initialize from that explicit config instead of adding new implicit globals.
 
 ### I. Automated Database Backup
 

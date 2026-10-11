@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    {{ Html::style(Vite::asset('resources/js/app.css')) }}
+    {{ Html::style(Vite::asset('resources/sass/app.scss')) }}
     {{ Html::style(url('css/plugins/select2.min.css')) }}
     {!! Html::style(url('css/plugins/select2-bootstrap.min.css')) !!}
     @livewireStyles

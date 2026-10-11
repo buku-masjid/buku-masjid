@@ -12,7 +12,7 @@ FROM node:20-bullseye-slim AS frontend
 
 WORKDIR /app
 
-COPY package.json package-lock.json vite.config.js ./
+COPY package.json package-lock.json vite.config.mjs ./
 RUN npm ci
 
 COPY resources resources

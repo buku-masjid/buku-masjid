@@ -88,19 +88,17 @@ function copyStaticAssets() {
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/js/app.js'],
+            input: ['resources/sass/app.scss', 'resources/js/app.js'],
         }),
         copyStaticAssets(),
     ],
     css: {
         preprocessorOptions: {
             scss: {
-                // Vite 4 only calls Sass through its legacy JS API, so Dart
-                // Sass logs a `legacy-js-api` deprecation on every build. It
-                // is a Vite-side limitation that cannot be fixed here; it
-                // disappears once the project moves to Vite 5+ (which uses
-                // the modern Sass API). Silence it so real warnings stand out.
-                silenceDeprecations: ['legacy-js-api'],
+                // Vite 5 can drive Dart Sass through its modern compiler API,
+                // which runs in a worker and avoids the `legacy-js-api`
+                // deprecation warning entirely.
+                api: 'modern-compiler',
             },
         },
     },

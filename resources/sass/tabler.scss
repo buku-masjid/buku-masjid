@@ -25,9 +25,3 @@
 // ENABLE the following line for Social Icon style support.
 // @use "../../node_modules/@tabler/core/scss/tabler-social";
 
-// Tabler Webfont Icons.
-// Plain CSS imports are not affected by the Sass `@import` deprecation.
-@import "../../node_modules/@tabler/icons-webfont/dist/tabler-icons.css";
-
-// Custom Icon Sizes and Styles
-@import "../css/icon-style.css";

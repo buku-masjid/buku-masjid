@@ -19,7 +19,7 @@
     <meta property="og:title" content="@yield('title') - {{ Setting::get('masjid_name', config('masjid.name')) }}" />
 
     <!-- Styles -->
-    {{ Html::style(Vite::asset('resources/js/app.css')) }}
+    {{ Html::style(Vite::asset('resources/sass/app.scss')) }}
     <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
