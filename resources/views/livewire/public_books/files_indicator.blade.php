@@ -34,7 +34,7 @@
 <script>
     function setResponsiveImage($modalPreview, $img, $downloadButton) {
         const imgEl = $img.get(0)
-        const modalWidthVar = "--tblr-modal-width"
+        const modalWidthVar = "--modal-width"
 
         const windowWidth = window.document.body.clientWidth;
         const windowHeight = window.document.body.clientHeight - 230;

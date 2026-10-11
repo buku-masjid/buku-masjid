@@ -1,35 +1,30 @@
 {
-  "node_modules/@tabler/icons-webfont/fonts/tabler-icons.eot": {
-    "file": "assets/tabler-icons-af5a8337.eot",
-    "src": "node_modules/@tabler/icons-webfont/fonts/tabler-icons.eot"
+  "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.ttf": {
+    "file": "assets/tabler-icons-d291676d.ttf",
+    "src": "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.ttf"
   },
-  "node_modules/@tabler/icons-webfont/fonts/tabler-icons.ttf": {
-    "file": "assets/tabler-icons-fa92836a.ttf",
-    "src": "node_modules/@tabler/icons-webfont/fonts/tabler-icons.ttf"
+  "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.woff": {
+    "file": "assets/tabler-icons-cd3760a3.woff",
+    "src": "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.woff"
   },
-  "node_modules/@tabler/icons-webfont/fonts/tabler-icons.woff": {
-    "file": "assets/tabler-icons-99a345f8.woff",
-    "src": "node_modules/@tabler/icons-webfont/fonts/tabler-icons.woff"
-  },
-  "node_modules/@tabler/icons-webfont/fonts/tabler-icons.woff2": {
-    "file": "assets/tabler-icons-0586ae82.woff2",
-    "src": "node_modules/@tabler/icons-webfont/fonts/tabler-icons.woff2"
+  "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.woff2": {
+    "file": "assets/tabler-icons-5b793bee.woff2",
+    "src": "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.woff2"
   },
   "resources/js/app.css": {
-    "file": "assets/app-85d9b745.css",
+    "file": "assets/app-fec72508.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/tabler-icons-af5a8337.eot",
-      "assets/tabler-icons-0586ae82.woff2",
-      "assets/tabler-icons-99a345f8.woff",
-      "assets/tabler-icons-fa92836a.ttf"
+      "assets/tabler-icons-5b793bee.woff2",
+      "assets/tabler-icons-cd3760a3.woff",
+      "assets/tabler-icons-d291676d.ttf"
     ],
     "css": [
-      "assets/app-85d9b745.css"
+      "assets/app-fec72508.css"
     ],
-    "file": "assets/app-0688ce8c.js",
+    "file": "assets/app-6afe732b.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

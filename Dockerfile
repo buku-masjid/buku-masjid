@@ -8,7 +8,7 @@ ENV SSL_MODE=off
 # ================
 # Frontend Stage
 # ================
-FROM node:18-bullseye-slim AS frontend
+FROM node:20-bullseye-slim AS frontend
 
 WORKDIR /app
 

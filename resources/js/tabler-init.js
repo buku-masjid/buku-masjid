@@ -10,7 +10,15 @@ window.$ = window.jQuery = jQuery;
 Import the Tabler Js with Demo theme
 Ref: (and thanks to) https://github.com/takielias/tablar
 */
-import '../../node_modules/@tabler/core/dist/js/tabler';
+import { bootstrap, tabler } from '@tabler/core';
+
+/*
+ * Tabler 1.6 no longer assigns `globalThis.bootstrap` / `globalThis.tabler`
+ * from the UMD bundle, so re-expose them for legacy views and the jQuery
+ * bridge below.
+ */
+window.bootstrap = bootstrap;
+window.tabler = tabler;
 
 /*
  * Minimal jQuery -> Bootstrap 5 bridge.

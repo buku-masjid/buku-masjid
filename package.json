@@ -7,14 +7,14 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.8",
-        "@tabler/core": "1.0.0-beta20",
-        "@tabler/icons": "^2.32.0",
-        "@tabler/icons-webfont": "^2.32.0",
+        "@tabler/core": "1.6.1",
+        "@tabler/icons": "^3.49.0",
+        "@tabler/icons-webfont": "^3.49.0",
         "axios": "^1.1.2",
         "bootstrap": "5.3.1",
         "jquery": "3.7.*",
         "laravel-vite-plugin": "^0.8.0",
-        "sass": "~1.64.2",
+        "sass": "^1.103.1",
         "sass-loader": "^13.3.1",
         "vite": "^4.0.0"
     }

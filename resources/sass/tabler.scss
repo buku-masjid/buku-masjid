@@ -5,28 +5,28 @@
 
 // Default (LTR) Tabler Styles.
 // DISABLE this line if you want to enable Right-to-Left (RTL) support.
-@import "../../node_modules/@tabler/core/src/scss/tabler";
+@import "../../node_modules/@tabler/core/scss/tabler";
 
 // ENABLE the following line for Right-to-Left (RTL) support.
 // @import "../../node_modules/@tabler/core/dist/css/tabler.rtl.css";
 
 // Tabler Vendor Styles.
-// @import "../../node_modules/@tabler/core/src/scss/tabler-vendors";
+// @import "../../node_modules/@tabler/core/scss/tabler-vendors";
 
 // Tabler Flags Styles.
 // ENABLE the following line for Flags Icon style support.
-// @import "../../node_modules/@tabler/core/src/scss/tabler-flags";
+// @import "../../node_modules/@tabler/core/scss/tabler-flags";
 
 // Tabler Payment Styles.
 // ENABLE the following line for Payment Icon style support.
-// @import "../../node_modules/@tabler/core/src/scss/tabler-payments";
+// @import "../../node_modules/@tabler/core/scss/tabler-payments";
 
 // Tabler Social Styles.
 // ENABLE the following line for Social Icon style support.
-// @import "../../node_modules/@tabler/core/src/scss/tabler-social";
+// @import "../../node_modules/@tabler/core/scss/tabler-social";
 
 // Tabler Webfont Icons
-@import "../../node_modules/@tabler/icons-webfont/tabler-icons.css";
+@import "../../node_modules/@tabler/icons-webfont/dist/tabler-icons.css";
 
 // Custom Icon Sizes and Styles
 @import "../css/icon-style.css";

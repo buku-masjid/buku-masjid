@@ -2,9 +2,11 @@
     margin-bottom: 0 !important;
 }
 
-// Ref: https://tabler.io/docs/getting-started/customize
+// Tabler 1.5+ dropped the Sass `--tblr-` prefix; custom properties are now
+// emitted unprefixed by the source build. See the upgrade guide:
+// https://docs.tabler.io/ui/getting-started/upgrade/#custom-property-prefix-moved-to-postcss
 :root {
-  --tblr-font-sans-serif: 'Trebuchet MS';
+  --font-sans-serif: 'Trebuchet MS';
 }
 
 .table thead th {
