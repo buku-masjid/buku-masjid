@@ -22,14 +22,14 @@ This document contains essential information for understanding the architecture,
 |---|---|
 | Backend | PHP `^8.1`, Laravel `10.x` |
 | Database | MySQL / MariaDB (production), SQLite in-memory (tests) |
-| Frontend | Bootstrap `5.x` (Tabler template), SCSS/Sass, Vanilla JS + jQuery bridge |
-| Asset Bundler | Vite `4.x` (`laravel-vite-plugin`) |
+| Frontend | Bootstrap `5.x` via Tabler `1.6.x`, SCSS/Sass, Vanilla JS + jQuery bridge |
+| Asset Bundler | Vite `5.x` (`laravel-vite-plugin`) |
 | Reactive UI | Livewire `2.x` |
 | API Auth | Laravel Passport `11.x` (OAuth2) |
 | Testing | PHPUnit `10.x`, Laravel BrowserKit Testing |
 | Code Style | Laravel Pint (Laravel preset) |
 | Deployment | Deployer (`deploy.php`) |
-| Package Manager | npm (see `.nvmrc` for Node version; use Node 18) |
+| Package Manager | npm (see `.nvmrc` for Node version; use Node 20) |
 
 ---
 
@@ -78,12 +78,14 @@ npm run build          # Production build (Vite → public/build)
 npm run test:js        # Run JavaScript unit tests
 ```
 
-First-party JavaScript lives in `resources/js` (compiled by Vite); vendored standalone assets live in `resources/vendor`. The Vite plugin in `vite.config.mjs` also copies the hand-maintained public-display and plugin scripts from `resources/assets/js` and `resources/vendor` into `public/js` and `public/css`, which should be treated as generated build output rather than edited source. All generated assets (`public/build`, `public/js`, `public/css`) are committed to git so deployments do not require Node.
+First-party JavaScript lives in `resources/js` (compiled by Vite); vendored standalone assets live in `resources/vendor`. The Vite plugin in `vite.config.mjs` (ESM config, required by `laravel-vite-plugin` 1.x) also copies the hand-maintained public-display and plugin scripts from `resources/assets/js` and `resources/vendor` into `public/js` and `public/css`, which should be treated as generated build output rather than edited source. All generated assets (`public/build`, `public/js`, `public/css`) are committed to git so deployments do not require Node.
+
+Vite builds two entries: `resources/js/app.js` (JS) and `resources/sass/app.scss` (CSS). The CSS entry is loaded by the layouts via `Vite::asset('resources/sass/app.scss')` — it is a separate manifest entry, not the synthetic `resources/js/app.css` key that Vite 4 used to emit. `app.scss` `@use`s `tabler` and `custom`, then `@import`s the Tabler icons and `icon-style.css` at the top level; Vite only processes those plain-CSS imports when they sit in the entry file, not nested inside a `@use`d partial. Sass runs through Vite's modern compiler API (`api: 'modern-compiler'`).
 
 ### Testing
 
 ```bash
-vendor/bin/phpunit                    # Run all tests (395 tests, uses SQLite in-memory)
+vendor/bin/phpunit                    # Run all tests (404 tests, uses SQLite in-memory)
 vendor/bin/phpunit --filter TestName  # Run specific test
 ```
 
@@ -340,12 +342,12 @@ routes/
 
 resources/
 ├── js/
-│   ├── app.js          # Vite entry (Bootstrap 5, jQuery, Axios, Tabler)
+│   ├── app.js          # Vite JS entry (Bootstrap 5, jQuery, Axios, Tabler)
 │   ├── bootstrap.js     # Axios/CSRF setup
 │   └── tabler-init.js   # jQuery → Bootstrap 5 plugin bridge
 ├── sass/
-│   ├── tabler.scss      # Tabler framework styles
-│   └── app.scss         # App custom styles
+│   ├── tabler.scss      # Tabler framework SCSS (@use'd by app.scss)
+│   └── app.scss         # Vite CSS entry: Tabler + custom + icon imports
 ├── assets/
 │   ├── js/plugins/      # App-owned plugin scripts copied to public by Vite
 │   └── js/public_display/ # Public display scripts copied to public by Vite
