@@ -14,8 +14,8 @@
 <div class="page-body">
 <div class="row">
     <div class="col-md-8">
-        <div class="card">
-            <table class="table table-sm table-responsive-sm">
+        <div class="card table-responsive-sm mb-2">
+            <table class="table table-sm align-middle mb-0">
                 <thead>
                     <th class="text-center">{{ __('app.table_no') }}</th>
                     <th>{{ __('file_backup.file_name') }}</th>
@@ -34,15 +34,15 @@
                             <div class="btn-group" role="group">
                                 <a href="{{ route('file_backups.index', ['action' => 'restore', 'file_name' => $backup['filename']]) }}"
                                     id="restore_{{ str_replace('.zip', '', $backup['filename']) }}"
-                                    class="btn btn-warning btn-sm"
+                                    class="btn btn-warning btn-sm p-1"
                                     title="{{ __('file_backup.restore') }}"><i class="ti ti-refresh"></i></a>
                                 <a href="{{ route('file_backups.download', [$backup['filename']]) }}"
                                     id="download_{{ str_replace('.zip', '', $backup['filename']) }}"
-                                    class="btn btn-success btn-sm"
+                                    class="btn btn-success btn-sm p-1"
                                     title="{{ __('file_backup.download') }}"><i class="ti ti-download"></i></a>
                                 <a href="{{ route('file_backups.index', ['action' => 'delete', 'file_name' => $backup['filename']]) }}"
                                     id="del_{{ str_replace('.zip', '', $backup['filename']) }}"
-                                    class="btn btn-danger btn-sm"
+                                    class="btn btn-danger btn-sm p-1"
                                     title="{{ __('file_backup.delete') }}"><i class="ti ti-x"></i></a>
                             </div>
                         </td>

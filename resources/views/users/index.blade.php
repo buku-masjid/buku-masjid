@@ -26,7 +26,7 @@
                 {{ Form::open(['method' => 'get']) }}
                 <div class="row g-2">
                     <div class="col-auto">
-                        {!! FormField::text('q', ['label' => __('user.search'), 'placeholder' => __('user.search_text'), 'class' => 'mx-sm-2', 'style' => 'width: 250px', 'value' => request('q')]) !!}
+                        {!! FormField::text('q', ['label' => false, 'placeholder' => __('user.search'), 'class' => 'mx-sm-2', 'style' => 'width: 250px', 'value' => request('q')]) !!}
                     </div>
                     <div class="col-auto">
                         {{ Form::submit(__('user.search'), ['class' => 'btn']) }}
