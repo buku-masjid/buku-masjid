@@ -8,7 +8,7 @@
                 </small>
             </span>
         </a>
-        <div class="dropdown-menu" data-bs-popper="static">
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" data-bs-popper="static">
             <div class="dropdown-menu-columns">
                 <div class="dropdown-menu-column">
                     {{ Form::open(['route' => 'book_switcher.store']) }}
