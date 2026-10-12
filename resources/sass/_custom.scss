@@ -5,8 +5,11 @@
 // Tabler 1.5+ dropped the Sass `--tblr-` prefix; custom properties are now
 // emitted unprefixed by the source build. See the upgrade guide:
 // https://docs.tabler.io/ui/getting-started/upgrade/#custom-property-prefix-moved-to-postcss
-:root {
+:root:not([data-bs-theme="dark"]):not(.theme-dark) {
   color-scheme: light;
+}
+
+:root {
   --font-sans-serif: 'Trebuchet MS';
 }
 
