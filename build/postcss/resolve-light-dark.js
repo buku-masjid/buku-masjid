@@ -42,7 +42,9 @@ function splitTopLevel(args) {
 
 /**
  * Rewrites every `light-dark(a, b)` inside a single declaration value to `a`.
- * The app is light-only, so the light value is always the correct one.
+ * This produces the LEGACY fallback path: browsers without native
+ * `light-dark()` support get the light argument, while the guarded modern copy
+ * keeps the real `light-dark()` behind `@supports`.
  */
 function replaceLightDark(value) {
     const marker = 'light-dark(';

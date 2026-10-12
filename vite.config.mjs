@@ -103,10 +103,12 @@ export default defineConfig({
     css: {
         postcss: {
             plugins: [
-                // The app is light-only, so every light-dark(a, b) resolves to
-                // its first (light) argument. The preset's own light-dark
-                // fallback is disabled because it emits a toggle variable that
-                // nothing in this project defines.
+                // The plugin emits a light fallback (the first argument) and
+                // keeps the real light-dark() behind @supports, so modern
+                // browsers can honor dark mode while legacy browsers stay
+                // light. The preset's own light-dark fallback is disabled
+                // because it emits a toggle variable that nothing in this
+                // project defines.
                 resolveLightDark.plugin,
                 postcssPresetEnv({
                     browsers: ['firefox 115', 'chrome 109'],
