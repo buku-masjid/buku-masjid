@@ -94,6 +94,80 @@ function replaceLightDark(value) {
 }
 
 /**
+ * True when a rule directly declares a value containing `light-dark()`.
+ */
+function hasLightDarkDeclaration(rule) {
+    return (rule.nodes || []).some(
+        (node) => node.type === 'decl' && String(node.value).includes('light-dark('),
+    );
+}
+
+/**
+ * True when a rule already sits inside a `@supports (color: light-dark(...))`
+ * guard, so the restructuring is idempotent and never re-wraps its own output.
+ */
+function isInsideLightDarkGuard(rule) {
+    let parent = rule.parent;
+
+    while (parent) {
+        if (
+            parent.type === 'atrule'
+            && parent.name === 'supports'
+            && String(parent.params).includes('light-dark')
+        ) {
+            return true;
+        }
+
+        parent = parent.parent;
+    }
+
+    return false;
+}
+
+/**
+ * Rewrite `root` in place: every rule holding a `light-dark()` declaration
+ * keeps a plain light-value copy (the legacy path) and gains a sibling
+ * `@supports (color: light-dark(red, red))` block holding the original
+ * declaration (the modern path).
+ */
+function guardRoot(root) {
+    const postcss = require('postcss');
+    const targets = [];
+
+    root.walkRules((rule) => {
+        if (isInsideLightDarkGuard(rule)) return;
+        if (hasLightDarkDeclaration(rule)) targets.push(rule);
+    });
+
+    targets.forEach((rule) => {
+        const modernRule = rule.clone();
+
+        rule.walkDecls((decl) => {
+            decl.value = replaceLightDark(decl.value);
+        });
+
+        const guard = postcss.atRule({
+            name: 'supports',
+            params: '(color: light-dark(red, red))',
+        });
+        guard.append(modernRule);
+        rule.parent.insertAfter(rule, guard);
+    });
+}
+
+/**
+ * Pure `string -> string` restructuring used by the tests. Keeps the pure
+ * splitter testable without a PostCSS plugin harness.
+ */
+function guardLightDark(css) {
+    const postcss = require('postcss');
+    const root = postcss.parse(css);
+    guardRoot(root);
+
+    return root.toString();
+}
+
+/**
  * Pure `string -> string` transform used by the tests and the build.
  *
  * Parsing through PostCSS guarantees only declarations are visited, so a
@@ -111,14 +185,16 @@ function resolveLightDark(css) {
     return root.toString();
 }
 
+resolveLightDark.guard = guardLightDark;
+
 /**
- * PostCSS 8 plugin object for the Vite build. Registering only the
- * `Declaration` visitor keeps the transform off selectors and at-rule preludes.
+ * PostCSS 8 plugin object for the Vite build. `Once` runs the guard
+ * restructuring across the whole stylesheet.
  */
 resolveLightDark.plugin = {
-    postcssPlugin: 'buku-masjid-resolve-light-dark',
-    Declaration(decl) {
-        decl.value = replaceLightDark(decl.value);
+    postcssPlugin: 'buku-masjid-guard-light-dark',
+    Once(root) {
+        guardRoot(root);
     },
 };
 
