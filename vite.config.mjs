@@ -1,7 +1,10 @@
 import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
+import postcssPresetEnv from 'postcss-preset-env';
 import fs from 'fs';
 import path from 'path';
+
+import resolveLightDark from './build/postcss/resolve-light-dark.js';
 
 const publicDisplayScripts = [
     'shalat-schedule.js',
@@ -92,7 +95,25 @@ export default defineConfig({
         }),
         copyStaticAssets(),
     ],
+    build: {
+        // Windows 7 clients cannot run anything newer than Firefox 115 ESR or
+        // Chrome 109, so the bundle must not rely on newer CSS APIs.
+        target: ['firefox115', 'chrome109'],
+    },
     css: {
+        postcss: {
+            plugins: [
+                // The app is light-only, so every light-dark(a, b) resolves to
+                // its first (light) argument. The preset's own light-dark
+                // fallback is disabled because it emits a toggle variable that
+                // nothing in this project defines.
+                resolveLightDark.plugin,
+                postcssPresetEnv({
+                    browsers: ['firefox 115', 'chrome 109'],
+                    features: {'light-dark-function': false},
+                }),
+            ],
+        },
         preprocessorOptions: {
             scss: {
                 // Vite 5 can drive Dart Sass through its modern compiler API,
