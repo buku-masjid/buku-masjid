@@ -137,8 +137,7 @@ function isInsideLightDarkGuard(rule) {
  * child and destroy its modern path inside the parent's legacy block — the
  * plugin runs before `postcss-preset-env`, so native nesting must survive.
  */
-function guardRoot(root) {
-    const postcss = require('postcss');
+function guardRoot(root, postcss) {
     const targets = [];
 
     root.walkRules((rule) => {
@@ -171,7 +170,7 @@ function guardRoot(root) {
 function guardLightDark(css) {
     const postcss = require('postcss');
     const root = postcss.parse(css);
-    guardRoot(root);
+    guardRoot(root, postcss);
 
     return root.toString();
 }
@@ -205,8 +204,8 @@ resolveLightDark.guard = guardLightDark;
  */
 resolveLightDark.plugin = {
     postcssPlugin: 'buku-masjid-guard-light-dark',
-    Once(root) {
-        guardRoot(root);
+    Once(root, helpers) {
+        guardRoot(root, helpers.postcss);
     },
 };
 
