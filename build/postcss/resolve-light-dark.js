@@ -129,6 +129,13 @@ function isInsideLightDarkGuard(rule) {
  * keeps a plain light-value copy (the legacy path) and gains a sibling
  * `@supports (color: light-dark(red, red))` block holding the original
  * declaration (the modern path).
+ *
+ * Only a rule's DIRECT declaration children are flattened. Nested rules are
+ * left untouched here and, if they carry their own `light-dark()`, are guarded
+ * separately when `walkRules` reaches them (their guard lands as a sibling
+ * inside the parent rule). Flattening them here too would double-guard the
+ * child and destroy its modern path inside the parent's legacy block — the
+ * plugin runs before `postcss-preset-env`, so native nesting must survive.
  */
 function guardRoot(root) {
     const postcss = require('postcss');
@@ -142,8 +149,10 @@ function guardRoot(root) {
     targets.forEach((rule) => {
         const modernRule = rule.clone();
 
-        rule.walkDecls((decl) => {
-            decl.value = replaceLightDark(decl.value);
+        rule.each((node) => {
+            if (node.type === 'decl') {
+                node.value = replaceLightDark(node.value);
+            }
         });
 
         const guard = postcss.atRule({
@@ -168,9 +177,12 @@ function guardLightDark(css) {
 }
 
 /**
- * Pure `string -> string` transform used by the tests and the build.
+ * Pure flatten helper kept for the `resolveLightDark` unit tests: rewrites
+ * every `light-dark(a, b)` to its first (light) argument.
  *
- * Parsing through PostCSS guarantees only declarations are visited, so a
+ * This is NO LONGER the build transform — the Vite build uses the
+ * non-destructive guard via `resolveLightDark.plugin` (see `guardRoot`).
+ * Parsing through PostCSS ensures only declarations are visited, so a
  * `light-dark()` inside an at-rule prelude (e.g.
  * `@supports (color: light-dark(red, red))`) is never rewritten.
  */

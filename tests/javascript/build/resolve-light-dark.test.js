@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const resolveLightDark = require('../../../build/postcss/resolve-light-dark');
-const {guard} = require('../../../build/postcss/resolve-light-dark');
+const {guard} = resolveLightDark;
 
 test('resolves a light-dark() token definition to its light value', () => {
     assert.equal(
@@ -70,5 +70,17 @@ test('keeps the guard inside the same @media as its rule', () => {
     assert.equal(
         guard('@media (min-width:5px){a{color:light-dark(#111,#eee)}}'),
         '@media (min-width:5px){a{color:#111}@supports (color: light-dark(red, red)){a{color:light-dark(#111,#eee)}}}',
+    );
+});
+
+test('is idempotent: guarding twice equals guarding once', () => {
+    const once = guard('a{color:light-dark(#111,#eee)}');
+    assert.equal(guard(once), once);
+});
+
+test('only flattens direct declarations, guarding a nested rule separately', () => {
+    assert.equal(
+        guard('a{color:light-dark(x,y);& b{color:light-dark(p,q)}}'),
+        'a{color:x;& b{color:p}@supports (color: light-dark(red, red)){& b{color:light-dark(p,q)}}}@supports (color: light-dark(red, red)){a{color:light-dark(x,y);& b{color:light-dark(p,q)}}}',
     );
 });
