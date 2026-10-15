@@ -27,6 +27,9 @@
         <main class="py-4">
             <div class="container-xxl">@yield('content')</div>
         </main>
+
+        {{-- Space for the fixed-bottom mobile navigation (56px tall, visible below 576px only). --}}
+        <div id="mobile-nav-spacer" class="d-block d-sm-none" style="height: 3.5rem"></div>
     </div>
     {{ Html::script(Vite::asset('resources/js/app.js')) }}
     @include('layouts._noty')
