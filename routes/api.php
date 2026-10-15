@@ -35,6 +35,13 @@ Route::group(['middleware' => 'auth:api', 'as' => 'api.', 'namespace' => 'Api'],
     Route::apiResource('transactions', 'TransactionsController');
 
     /*
+     * Transaction Attachments Endpoints
+     */
+    Route::apiResource('transactions.files', 'Transactions\FileController')
+        ->only(['index', 'store', 'update', 'destroy'])
+        ->names('transactions.files');
+
+    /*
      * Categories Endpoints
      */
     Route::resource('categories', 'CategoriesController')->names('categories');
