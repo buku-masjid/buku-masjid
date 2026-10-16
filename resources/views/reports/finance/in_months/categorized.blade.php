@@ -26,12 +26,12 @@
 
         @if (!request('action'))
             @can('update', auth()->activeBook())
-                {{ link_to_route(
-                    'reports.finance.categorized',
-                    __('book.change_report_title'),
-                    request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce],
-                    ['class' => 'btn btn-success btn-sm ms-3', 'id' => 'change_report_title']
-                ) }}
+                <a href="{{ route('reports.finance.categorized', request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce]) }}"
+                    id="change_report_title"
+                    class="btn btn-success btn-sm ms-3"
+                    title="{{ __('book.change_report_title') }}">
+                    <i class="ti ti-edit"></i>
+                </a>
             @endcan
         @endif
     </h1>
