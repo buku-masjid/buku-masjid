@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         @if ($lastMonthBalance || auth()->activeBook()->bank_account_id)
-            <tr><th colspan="5" class="text-left">{{ __('transaction.balance') }}</th></tr>
+            <tr><th colspan="5" class="text-start">{{ __('transaction.balance') }}</th></tr>
         @endif
         @if (auth()->activeBook()->bank_account_id)
             <tr>
@@ -33,7 +33,7 @@
             </tr>
         @endif
         <tr><td colspan="5">&nbsp;</td></tr>
-        <tr><th colspan="5" class="text-left">{{ __('transaction.income') }}</th></tr>
+        <tr><th colspan="5" class="text-start">{{ __('transaction.income') }}</th></tr>
         @php
             $key = 0;
         @endphp
@@ -64,7 +64,7 @@
             @endforeach
         @endif
         <tr><td colspan="5">&nbsp;</td></tr>
-        <tr><th colspan="5" class="text-left">{{ __('transaction.spending') }}</th></tr>
+        <tr><th colspan="5" class="text-start">{{ __('transaction.spending') }}</th></tr>
         @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
         <tr>
             <td class="text-center">{{ ++$key }}</td>

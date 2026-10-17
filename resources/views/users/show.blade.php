@@ -8,8 +8,13 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="page-header">
-            <h1 class="page-title">{{ __('user.profile') }}</h1>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">{{ __('user.profile') }}</h2>
+                </div>
+            </div>
         </div>
+        <div class="page-body">
         <div class="card">
             <table class="table card-table table-sm">
                 <tbody>
@@ -25,6 +30,7 @@
                 @endcan
                  {{ link_to_route('users.index', __('user.back_to_index'), [], ['class' => 'btn btn-link']) }}
             </div>
+        </div>
         </div>
     </div>
 </div>

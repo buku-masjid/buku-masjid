@@ -6,8 +6,13 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="page-header">
-            <h1 class="page-title">{{ __('user.create') }}</h1>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">{{ __('user.create') }}</h2>
+                </div>
+            </div>
         </div>
+        <div class="page-body">
         <div class="card">
             {{ Form::open(['route' => 'users.store']) }}
             <div class="card-body">
@@ -31,6 +36,7 @@
                 {{ link_to_route('users.index', __('app.cancel'), [], ['class' => 'btn btn-link']) }}
             </div>
             {{ Form::close() }}
+        </div>
         </div>
     </div>
 </div>

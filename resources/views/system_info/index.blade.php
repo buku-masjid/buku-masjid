@@ -5,14 +5,18 @@
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ __('settings.system_info') }}</h1>
-    <div class="page-subtitle"></div>
-    <div class="page-options d-flex"></div>
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('settings.system_info') }}</h2>
+        </div>
+    </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-3">
         @livewire('system-info.disk-usage')
     </div>
+</div>
 </div>
 @endsection

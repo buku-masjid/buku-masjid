@@ -13,28 +13,36 @@
         @endif
     </h1>
     <div class="page-subtitle"></div>
-    <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('year', __('time.year'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('year', get_years(), $year, ['class' => 'form-control mr-1']) }}
-        {{ Form::select('month', $months, $month, ['class' => 'form-control mr-1']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-            @include('reports.finance._export_pdf_split_button', [
+    <div class="page-options d-flex mb-3">
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2">
+            <div class="col-auto">
+                {{ Form::label('year', __('time.year'), ['class' => 'form-label mt-2']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('year', get_years(), $year, ['class' => 'form-control']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('month', $months, $month, ['class' => 'form-control']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
+                {{ link_to_route('reports.finance.dashboard', __('report.this_month'), [], ['class' => 'btn']) }}
+                {{ link_to_route('reports.finance.dashboard', __('report.this_year'), ['year' => now()->format('Y'), 'month' => '00'], ['class' => 'btn']) }}
+                @include('reports.finance._export_pdf_split_button', [
                 'pdfRoute' => 'reports.finance.dashboard_pdf',
                 'pdfParams' => request()->only(['year', 'month']),
             ])
-        </div>
-        <div class="form-group mt-4 mt-sm-0">
-            @if ($month == '00')
-                {{ link_to_route('reports.finance.dashboard', __('report.prev_year'), ['year' => $year - 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-                {{ link_to_route('reports.finance.dashboard', __('report.next_year'), ['year' => $year + 1, 'month' => '00'], ['class' => 'btn btn-secondary mr-1']) }}
-            @else
-                @livewire('prev-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary mr-1'])
-                @livewire('next-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn btn-secondary'])
-            @endif
+            </div>
+            <div class="col-auto">
+                @if ($month == '00')
+                    {{ link_to_route('reports.finance.dashboard', __('report.prev_year'), ['year' => $year - 1, 'month' => '00'], ['class' => 'btn']) }}
+                    {{ link_to_route('reports.finance.dashboard', __('report.next_year'), ['year' => $year + 1, 'month' => '00'], ['class' => 'btn']) }}
+                @else
+                    @livewire('prev-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn'])
+                    @livewire('next-month-button', ['routeName' => 'reports.finance.dashboard', 'buttonClass' => 'btn'])
+                @endif
+            </div>
         </div>
         {{ Form::close() }}
     </div>

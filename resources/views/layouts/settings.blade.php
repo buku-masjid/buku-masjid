@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Nav tabs -->
-<ul class="nav nav-tabs">
+<ul class="nav nav-bordered mb-4">
     <li class="nav-item">
         {!! link_to_route('profile.show', __('user.profile'), [], ['class' => 'nav-link'.(Request::segment(1) == 'profile' ? ' active' : '')]) !!}
     </li>

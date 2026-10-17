@@ -6,9 +6,9 @@
 <div class="card table-responsive">
     <table class="table table-sm table-bordered mb-0">
         <tr>
-            <td class="col-xs-2 text-center">{{ __('report.current_'.$reportPeriodeCode.'_budget') }}</td>
-            <td class="col-xs-2 text-center">{{ __('report.current_periode_income_total') }}</td>
-            <td class="col-xs-2 text-center strong {{ $budgetDiff > 0 ? 'text-red' : 'text-success' }}">
+            <td class="col-2 text-center">{{ __('report.current_'.$reportPeriodeCode.'_budget') }}</td>
+            <td class="col-2 text-center">{{ __('report.current_periode_income_total') }}</td>
+            <td class="col-2 text-center strong {{ $budgetDiff > 0 ? 'text-red' : 'text-success' }}">
                 @if ($budgetDiff > 0)
                     {{ __('report.current_periode_budget_remaining') }}
                 @else

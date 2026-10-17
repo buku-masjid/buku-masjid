@@ -7,7 +7,7 @@
     ],
     $langKey,
     [
-        'class' => 'btn btn-sm '.(config('app.locale') == $langKey ? 'btn-info' : 'btn-secondary'),
+        'class' => 'btn btn-sm '.(config('app.locale') == $langKey ? 'btn-info' : ''),
         'id' => 'lang_'.$langKey
     ] + (config('app.locale') == $langKey ? ['disabled' => 'disabled'] : []),
     ['lang' => $langKey]

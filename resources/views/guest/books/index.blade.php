@@ -36,7 +36,7 @@
                                         <img src="{{ Storage::url(Setting::for($bankAccount)->get('qris_image_path'))}}" alt="QRIS">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                                     </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                             <div class="p-4">
                                 <h3 class="fs-1">{{ $publicBook->name }}</h3>
                                 @if ($publicBook->budget)
-                                    
+
                                     <div class="progress progress-bar-striped rounded-pill mt-4" style="height: 10px;">
                                         <div class="progress-bar progress-bar-striped rounded-pill bg-{{ $publicBook->progress_percent_color }}" style="width: {{ $publicBook->progress_percent }}%"></div>
                                     </div>

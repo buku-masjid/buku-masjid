@@ -4,7 +4,7 @@
 
 @section('content')
 
-<ul class="nav nav-tabs mb-4">
+<ul class="nav nav-bordered mb-4">
     <li class="nav-item">
         {!! link_to_route('partners.index', __('dashboard.dashboard'), [], ['class' => 'nav-link'.(in_array(Request::segment(2), ['dashboard', null]) ? ' active' : '')]) !!}
     </li>
@@ -14,18 +14,18 @@
 </ul>
 
 <div class="row mt-4 mt-sm-0">
-    <div class="col-md-4 text-center text-sm-left">
+    <div class="col-md-4 text-center text-sm-start">
         <h1 class="page-title">
             {{ __('partner.list') }}
         </h1>
-        <div class="page-subtitle ml-0">
+        <div class="page-subtitle ms-0">
             {{ __('app.total') }} : {{ $partners->total() }} {{ __('partner.partner') }}
             {{ Setting::get('masjid_name') }}.
         </div>
     </div>
     <div class="col-md-4 mt-3 text-center">
     </div>
-    <div class="col-md-4 mt-3 text-center text-sm-right">
+    <div class="col-md-4 mt-3 text-center text-sm-end">
         @can('create', new App\Models\Partner)
             {{ link_to_route('partners.create', __('partner.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
@@ -33,23 +33,47 @@
 </div>
 
 <div class="row">
-    {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mx-3 justify-content-center']) }}
-    {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1 mt-2']) }}
-    {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('type_code', $partnerTypes, request('type_code'), ['placeholder' => __('partner.all_type'), 'class' => 'form-control mr-1 mt-2']) }}
-    @if ($partnerLevels)
-        {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1 mt-2']) }}
-    @endif
-    {{ Form::select('age_group_code', __('partner.age_groups') + ['null' => __('app.unknown')], request('age_group_code'), ['placeholder' => __('partner.age_group'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('work_type_id', __('partner.work_types') + ['null' => __('app.unknown')], request('work_type_id'), ['placeholder' => __('partner.work'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('marital_status_id', __('partner.marital_statuses') + ['null' => __('app.unknown')], request('marital_status_id'), ['placeholder' => __('partner.marital_status'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('financial_status_id', __('partner.financial_statuses') + ['null' => __('app.unknown')], request('financial_status_id'), ['placeholder' => __('partner.financial_status'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('activity_status_id', __('partner.activity_statuses') + ['null' => __('app.unknown')], request('activity_status_id'), ['placeholder' => __('partner.activity_status'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('religion_id', __('partner.religions') + ['null' => __('app.unknown')], request('religion_id'), ['placeholder' => __('partner.religion'), 'class' => 'form-control mr-1 mt-2']) }}
-    {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1 mt-2']) }}
-    <div class="form-group mt-4 mt-sm-2">
-        {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
-        {{ link_to_route('partners.search', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
+    {{ Form::open(['method' => 'get']) }}
+    <div class="row g-2 mt-3 mx-3 justify-content-center">
+        <div class="col-auto">
+            {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('gender_code', $genders, request('gender_code'), ['placeholder' => __('app.gender'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('type_code', $partnerTypes, request('type_code'), ['placeholder' => __('partner.all_type'), 'class' => 'form-control me-1']) }}
+        </div>
+        @if ($partnerLevels)
+            <div class="col-auto">
+                {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control me-1']) }}
+            </div>
+        @endif
+        <div class="col-auto">
+            {{ Form::select('age_group_code', __('partner.age_groups') + ['null' => __('app.unknown')], request('age_group_code'), ['placeholder' => __('partner.age_group'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('work_type_id', __('partner.work_types') + ['null' => __('app.unknown')], request('work_type_id'), ['placeholder' => __('partner.work'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('marital_status_id', __('partner.marital_statuses') + ['null' => __('app.unknown')], request('marital_status_id'), ['placeholder' => __('partner.marital_status'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('financial_status_id', __('partner.financial_statuses') + ['null' => __('app.unknown')], request('financial_status_id'), ['placeholder' => __('partner.financial_status'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('activity_status_id', __('partner.activity_statuses') + ['null' => __('app.unknown')], request('activity_status_id'), ['placeholder' => __('partner.activity_status'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('religion_id', __('partner.religions') + ['null' => __('app.unknown')], request('religion_id'), ['placeholder' => __('partner.religion'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control me-1']) }}
+        </div>
+        <div class="col-auto">
+            {{ Form::submit(__('app.search'), ['class' => 'btn btn-info me-1']) }}
+            {{ link_to_route('partners.search', __('app.reset'), [], ['class' => 'btn me-1']) }}
+        </div>
     </div>
     {{ Form::close() }}
 </div>
@@ -106,13 +130,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-(function () {
-    $('#partnerModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

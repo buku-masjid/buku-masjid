@@ -9,18 +9,26 @@
         {{ get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d')) }}
     </h1>
     <div class="page-subtitle"></div>
-    <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'control-label mr-1']) }}
-        {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
-        {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control mr-1', 'style' => 'width:100px']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            @include('reports.finance._export_pdf_split_button', [
+    <div class="page-options d-flex mb-3">
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2">
+            <div class="col-auto">
+                {{ Form::label('date_range', __('report.view_date_range_label'), ['class' => 'form-label mt-2']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::text('start_date', $startDate->format('Y-m-d'), ['class' => 'date-select form-control', 'style' => 'width:100px']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::text('end_date', $endDate->format('Y-m-d'), ['class' => 'date-select form-control', 'style' => 'width:100px']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
+                {{ link_to_route('reports.finance.dashboard', __('app.reset'), [], ['class' => 'btn']) }}
+                @include('reports.finance._export_pdf_split_button', [
                 'pdfRoute' => 'reports.finance.dashboard_pdf',
                 'pdfParams' => request()->only(['start_date', 'end_date']),
             ])
+            </div>
         </div>
         {{ Form::close() }}
     </div>
@@ -30,18 +38,14 @@
 
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
 <script>
 (function () {
-    $('#reportModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
     $('.date-select').datetimepicker({
         timepicker: false,
         format: 'Y-m-d',

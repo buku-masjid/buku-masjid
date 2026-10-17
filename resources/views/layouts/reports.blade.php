@@ -5,23 +5,20 @@
 @endsection
 
 @section('content')
-</div>
-<div class="container">
-<div class="row">
-    <div class="col-lg-3">
+<div class="row g-0">
+    <div class="col-12 col-md-3">
         @include('layouts._report_nav')
         <hr class="my-2">
     </div>
-    <div class="col-lg-9">
+    <div class="col-12 col-md-9">
         @yield('content-report')
     </div>
 </div>
+<div class="my-6"></div>
 @endsection
 
-@section('styles')
+@push('styles')
 <style>
-.list-group-transparent .list-group-item {
-    padding: 0.5rem 0.5rem;
-}
+.nav-vertical.nav-pills {margin: 0;}
 </style>
-@endsection
+@endpush

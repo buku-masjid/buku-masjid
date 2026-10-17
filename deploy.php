@@ -32,13 +32,9 @@ task('deploy:secrets', function () {
     run('cp $HOME/env/dompet/production/.env {{deploy_path}}/shared');
 });
 
-// Build frontend assets before syncing. public/js and public/css are generated
-// output and are no longer tracked, so they must be compiled on the machine
-// running the deployment (requires Node.js + Yarn).
-task('deploy:build_assets', function () {
-    runLocally('yarn install --frozen-lockfile --non-interactive');
-    runLocally('yarn run prod');
-});
+// Built frontend assets (public/build, public/js, public/css) are tracked in
+// git, so deployments do not need Node.js. Run `npm run build` and commit the
+// output before deploying when frontend sources change.
 
 // Hosts
 host('dompetku') // Name of the server
@@ -56,7 +52,6 @@ task('deploy', [
     'deploy:prepare',
     'deploy:lock',
     'deploy:release',
-    'deploy:build_assets', // Compile frontend assets locally
     'rsync', // Deploy code & built assets
     'deploy:secrets', // Deploy secrets
     'deploy:shared',

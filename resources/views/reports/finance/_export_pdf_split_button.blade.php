@@ -1,7 +1,7 @@
-<div class="btn-group mr-1">
-    <a href="{{ route($pdfRoute, $pdfParams) }}" class="btn btn-secondary">{{ __('report.export_pdf') }}</a>
-    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
+<div class="btn-group" role="group">
+    <a href="{{ route($pdfRoute, $pdfParams) }}" class="btn">{{ __('report.export_pdf') }}</a>
+    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ route($pdfRoute, $pdfParams + ['paper_format' => 'A4']) }}">{{ __('report.paper_format_a4') }}</a>

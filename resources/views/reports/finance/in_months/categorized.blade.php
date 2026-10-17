@@ -26,35 +26,45 @@
 
         @if (!request('action'))
             @can('update', auth()->activeBook())
-                {{ link_to_route(
-                    'reports.finance.categorized',
-                    __('book.change_report_title'),
-                    request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce],
-                    ['class' => 'btn btn-success btn-sm', 'id' => 'change_report_title']
-                ) }}
+                <a href="{{ route('reports.finance.categorized', request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce]) }}"
+                    id="change_report_title"
+                    class="btn btn-success btn-sm ms-3"
+                    title="{{ __('book.change_report_title') }}">
+                    <i class="ti ti-edit"></i>
+                </a>
             @endcan
         @endif
     </h1>
-    <div class="page-options d-flex">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {{ Form::label('month', __('time.month'), ['class' => 'control-label mr-1']) }}
-        {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control mr-1']) }}
-        {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control mr-1']) }}
-        {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control mr-1']) }}
-        <div class="form-group mt-4 mt-sm-0">
-            {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info mr-1']) }}
-            {{ link_to_route('reports.finance.categorized', __('report.this_month'), [], ['class' => 'btn btn-secondary mr-1']) }}
-            @include('reports.finance._export_pdf_split_button', [
+    <div class="page-options d-flex mb-3">
+        {{ Form::open(['method' => 'get']) }}
+        <div class="row g-2">
+            <div class="col-auto">
+                {{ Form::label('month', __('time.month'), ['class' => 'form-label mt-2']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('month', ['00' => '-- '.__('app.all').' --'] + get_months(), request('month', $startDate->format('m')), ['class' => 'form-control']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('year', get_years(), $startDate->format('Y'), ['class' => 'form-control']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::select('bank_account_id', $bankAccounts, request('bank_account_id'), ['placeholder' => __('transaction.origin_destination'), 'class' => 'form-control']) }}
+            </div>
+            <div class="col-auto">
+                {{ Form::submit(__('report.view_report'), ['class' => 'btn btn-info']) }}
+                {{ link_to_route('reports.finance.categorized', __('report.this_month'), [], ['class' => 'btn']) }}
+                @include('reports.finance._export_pdf_split_button', [
                 'pdfRoute' => 'reports.finance.categorized_pdf',
                 'pdfParams' => ['year' => $startDate->format('Y'), 'month' => request('month', $startDate->format('m')), 'bank_account_id' => request('bank_account_id')],
             ])
-        </div>
-        @if (request('month') != '00')
-            <div class="form-group">
-                @livewire('prev-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary mr-1'])
-                @livewire('next-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn btn-secondary'])
             </div>
-        @endif
+            @if (request('month') != '00')
+                <div class="col-auto">
+                    @livewire('prev-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn'])
+                    @livewire('next-month-button', ['routeName' => 'reports.finance.categorized', 'buttonClass' => 'btn'])
+                </div>
+            @endif
+        </div>
         {{ Form::close() }}
     </div>
 </div>
@@ -65,7 +75,7 @@
 
 @if ($groupedTransactions->has(1) && !$groupedTransactions[1]->where('category_id', null)->isEmpty())
     <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
-    <div class="card table-responsive">
+    <div class="card table-responsive mb-2">
         @include('reports.finance._internal_content_categorized', [
             'hasGroupedTransactions' => $groupedTransactions->has(1),
             'transactions' => $groupedTransactions[1]->where('category_id', null),
@@ -76,7 +86,7 @@
 
 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
 <h4 class="mt-0">{{ $incomeCategory->name }}</h4>
-<div class="card table-responsive">
+<div class="card table-responsive mb-2">
     @include('reports.finance._internal_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(1),
         'transactions' => $groupedTransactions[1]->where('category_id', $incomeCategory->id),
@@ -91,7 +101,7 @@
 
 @if ($groupedTransactions->has(0) && !$groupedTransactions[0]->where('category_id', null)->isEmpty())
     <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
-    <div class="card table-responsive">
+    <div class="card table-responsive mb-2">
         @include('reports.finance._internal_content_categorized', [
             'hasGroupedTransactions' => $groupedTransactions->has(0),
             'transactions' => $groupedTransactions[0]->where('category_id', null),
@@ -102,7 +112,7 @@
 
 @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
 <h4 class="mt-0">{{ $spendingCategory->name }}</h4>
-<div class="card table-responsive">
+<div class="card table-responsive mb-2">
     @include('reports.finance._internal_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(0),
         'transactions' => $groupedTransactions[0]->where('category_id', $spendingCategory->id),
@@ -112,13 +122,3 @@
 @endforeach
 @endsection
 
-@push('scripts')
-<script>
-(function () {
-    $('#reportModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush

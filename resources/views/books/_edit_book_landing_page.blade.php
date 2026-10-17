@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <div class="text-center">
             <h4 class="text-primary">{{ __('book.poster_image') }}</h4>
-            <div class="form-group" id="book-poster">
+            <div class="mb-3" id="book-poster">
                 @if (Setting::for($book)->get('poster_image_path'))
                     <img id="book_poster_image_show" class="img-fluid" src="{{ Storage::url(Setting::for($book)->get('poster_image_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
                 @endif
@@ -16,7 +16,7 @@
                     $labelText = __('book.change_poster');
                 }
             @endphp
-            <label for="book_poster_image" class="btn btn-secondary">{{ $labelText }}</label>
+            <label for="book_poster_image" class="btn">{{ $labelText }}</label>
             {!! FormField::file('book_poster_image', [
                 'label' => false,
                 'id' => 'book_poster_image',
@@ -27,7 +27,7 @@
     </div>
     <div class="col-md-4">
         <h4 class="text-primary">{{ __('book.thumbnail_image') }}</h4>
-        <div class="form-group" id="book-thumbnail">
+        <div class="mb-3" id="book-thumbnail">
             @if (Setting::for($book)->get('thumbnail_image_path'))
                 <img id="book_thumbnail_image_show" class="img-fluid" src="{{ Storage::url(Setting::for($book)->get('thumbnail_image_path'))}}" alt="{{ Setting::get('masjid_name') ?? 'buku masjid'}}">
             @endif
@@ -38,7 +38,7 @@
                 $labelText = __('book.change_thumbnail');
             }
         @endphp
-        <label for="book_thumbnail_image" class="btn btn-secondary">{{ $labelText }}</label>
+        <label for="book_thumbnail_image" class="btn">{{ $labelText }}</label>
         {!! FormField::file('book_thumbnail_image', [
             'label' => false,
             'id' => 'book_thumbnail_image',
@@ -48,14 +48,12 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-book-poster" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalBookPoster" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="modal-book-poster" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-labelledby="modalBookPoster" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalBookPoster">{{ __('book.poster_image') }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="img-container">
@@ -70,21 +68,19 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_poster">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
     </div>
 </div>
 
-<div class="modal fade" id="modal-book-thumbnail" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalBookPoster" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="modal-book-thumbnail" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-labelledby="modalBookPoster" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalBookPoster">{{ __('book.thumbnail_image') }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="img-container">
@@ -99,7 +95,7 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop_thumbnail">{{__('app.crop_and_save')}}</button>
         </div>
       </div>

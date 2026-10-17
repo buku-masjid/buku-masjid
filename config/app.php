@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Vite;
+
 return [
 
     /*
@@ -227,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Setting' => Facades\App\Helpers\Setting::class,
+        'Vite' => Vite::class,
 
     ],
 
