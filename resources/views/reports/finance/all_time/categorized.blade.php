@@ -64,7 +64,7 @@
 
 @if ($groupedTransactions->has(1) && !$groupedTransactions[1]->where('category_id', null)->isEmpty())
     <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
-    <div class="card table-responsive">
+    <div class="card table-responsive mb-2">
         @include('reports.finance._internal_content_categorized', [
             'hasGroupedTransactions' => $groupedTransactions->has(1),
             'transactions' => $groupedTransactions[1]->where('category_id', null),
@@ -75,7 +75,7 @@
 
 @foreach($incomeCategories->sortBy('id')->values() as $key => $incomeCategory)
 <h4 class="mt-0">{{ $incomeCategory->name }}</h4>
-<div class="card table-responsive">
+<div class="card table-responsive mb-2">
     @include('reports.finance._internal_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(1),
         'transactions' => $groupedTransactions[1]->where('category_id', $incomeCategory->id),
@@ -90,7 +90,7 @@
 
 @if ($groupedTransactions->has(0) && !$groupedTransactions[0]->where('category_id', null)->isEmpty())
     <h4 class="mt-0 text-danger">~{{ __('transaction.no_category') }}~</h4>
-    <div class="card table-responsive">
+    <div class="card table-responsive mb-2">
         @include('reports.finance._internal_content_categorized', [
             'hasGroupedTransactions' => $groupedTransactions->has(0),
             'transactions' => $groupedTransactions[0]->where('category_id', null),
@@ -101,7 +101,7 @@
 
 @foreach($spendingCategories->sortBy('id')->values() as $key => $spendingCategory)
 <h4 class="mt-0">{{ $spendingCategory->name }}</h4>
-<div class="card table-responsive">
+<div class="card table-responsive mb-2">
     @include('reports.finance._internal_content_categorized', [
         'hasGroupedTransactions' => $groupedTransactions->has(0),
         'transactions' => $groupedTransactions[0]->where('category_id', $spendingCategory->id),

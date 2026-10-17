@@ -60,7 +60,7 @@
     $lastWeekDate = null;
 @endphp
 @foreach($groupedTransactions as $weekNumber => $weekTransactions)
-<div class="card table-responsive">
+<div class="card table-responsive mb-2">
     @php
         $lastWeekDate = $lastWeekDate ?: $lastMonthDate;
     @endphp
