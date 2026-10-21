@@ -64,7 +64,7 @@
 <div class="page-body">
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card mb-2 mb-md-3">
             <table class="table card-table table-sm">
                 <tbody>
                     <tr><td class="col-5">{{ __('transaction.id') }}</td><td>#{{ $transaction->id }}</td></tr>
@@ -128,7 +128,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card">
+        <div class="card mb-2 mb-md-3">
             @if ($isDiskFull)
                 <div class="alert alert-warning m-0 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
             @endif
@@ -162,7 +162,7 @@
             @foreach ($transaction->files as $file)
                 @if (in_array($file->type_code, ['raw_image', 'image']))
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card mb-2 mb-md-3">
                             <div class="card-body">
                                 <div class="mb-4 text-center">
                                     <a href="{{ asset('storage/'.$file->file_path) }}">
