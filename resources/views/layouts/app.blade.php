@@ -26,6 +26,7 @@
 
         <main class="py-4">
             <div class="container-xxl">@yield('content')</div>
+            <div class="py-4"></div>
         </main>
     </div>
     {{ Html::script(Vite::asset('resources/js/app.js')) }}

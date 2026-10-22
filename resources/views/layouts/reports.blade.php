@@ -14,7 +14,6 @@
         @yield('content-report')
     </div>
 </div>
-<div class="my-6"></div>
 @endsection
 
 @push('styles')
