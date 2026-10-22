@@ -1,9 +1,9 @@
-<span class="float-right">{{ $transaction->amount_string }}</span>
+<span class="float-end">{{ $transaction->amount_string }}</span>
 {{ $transaction->date }}
 {!! $transaction->date_alert !!}
 <div>
     {!! nl2br(htmlentities($transaction->description)) !!}
-    <span class="float-right">
+    <span class="float-end">
         @can('update', $transaction)
             @can('manage-transactions', auth()->activeBook())
                 {!! link_to_route(
@@ -26,9 +26,9 @@
                 'end_date' => $endDate,
             ]);
         @endphp
-        <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+        <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
     @endif
-    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
         {{ $transaction->bankAccount->name }}
     </span>
 </div>

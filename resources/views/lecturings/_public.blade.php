@@ -1,5 +1,5 @@
 <div class="card table-responsive-sm">
-    <table class="table table-sm table-hover">
+    <table class="table table-sm card-table table-hover">
         <thead>
             <tr>
                 <th class="text-center">{{ __('app.table_no') }}</th>

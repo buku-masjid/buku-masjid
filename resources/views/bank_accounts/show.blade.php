@@ -5,25 +5,30 @@
 @section('content_settings')
 
 <div class="page-header">
-    <h1 class="page-title">{{ $bankAccount->name }}</h1>
-    <div class="page-subtitle">{{ __('bank_account.bank_account') }}</div>
-    <div class="page-options d-flex">
-        @can('update', $bankAccount)
-            {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success mr-2']) }}
-        @endcan
-        {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn btn-secondary']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ $bankAccount->name }}</h2>
+            <div class="text-secondary mt-1">{{ __('bank_account.bank_account') }}</div>
+        </div>
+        <div class="col-auto text-end">
+            @can('update', $bankAccount)
+                {{ link_to_route('bank_accounts.show', __('bank_account_balance.create'), [$bankAccount, 'action' => 'create_bank_account_balance'], ['id' => 'create-bank_account_balance', 'class' => 'btn btn-success']) }}
+            @endcan
+            {{ link_to_route('bank_accounts.index', __('bank_account.back_to_index'), [], ['class' => 'btn']) }}
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-8">
-        <div class="card table-responsive">
+        <div class="card mb-3 table-responsive">
             <table class="table table-sm table-bordered mb-0">
                 <tr>
-                    <td class="col-xs-2 text-center">{{ __('bank_account.name') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('bank_account.number') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('bank_account.account_name') }}</td>
-                    <td class="col-xs-2 text-center">{{ __('app.status') }}</td>
+                    <td class="col-2 text-center">{{ __('bank_account.name') }}</td>
+                    <td class="col-2 text-center">{{ __('bank_account.number') }}</td>
+                    <td class="col-2 text-center">{{ __('bank_account.account_name') }}</td>
+                    <td class="col-2 text-center">{{ __('app.status') }}</td>
                 </tr>
                 <tr>
                     <td class="text-center lead" style="border-top: none;">{{ $bankAccount->name }}</td>
@@ -42,13 +47,13 @@
             <h2 class="page-title">{{ __('bank_account_balance.bank_account_balance') }}</h2>
         </div>
 
-        <div class="card table-responsive">
+        <div class="card mb-3 table-responsive">
             <table class="table table-sm table-hover mb-0">
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('bank_account_balance.date') }}</th>
-                        <th class="text-nowrap text-right">{{ __('transaction.amount') }}</th>
+                        <th class="text-nowrap text-end">{{ __('transaction.amount') }}</th>
                         <th class="">{{ __('app.description') }}</th>
                         <th class="">{{ __('app.created_by') }}</th>
                         <th class="text-center">{{ __('app.action') }}</th>
@@ -59,7 +64,7 @@
                     <tr>
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td class="text-nowrap">{{ $bankAccountBalance->date }}</td>
-                        <td class="text-nowrap text-right">{{ $bankAccountBalance->amount_string }}</td>
+                        <td class="text-nowrap text-end">{{ $bankAccountBalance->amount_string }}</td>
                         <td class="">{{ $bankAccountBalance->description }}</td>
                         <td class="">{{ $bankAccountBalance->creator->name }}</td>
                         <td class="text-center text-nowrap">
@@ -86,7 +91,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body text-center">
-                <div class="form-group" id="bank_account_qris">
+                <div class="mb-3" id="bank_account_qris">
                     @if (Setting::for($bankAccount)->get('qris_image_path'))
                         <img id="bank_account_qris_image_show" class="img-fluid" src="{{ Storage::url(Setting::for($bankAccount)->get('qris_image_path'))}}" alt="QRIS">
                     @endif
@@ -98,7 +103,7 @@
                             $labelText = __('bank_account.qris_change_image');
                         }
                     @endphp
-                    <label for="bank_account_qris_image" class="btn btn-secondary">{{ $labelText }}</label>
+                    <label for="bank_account_qris_image" class="btn">{{ $labelText }}</label>
                     {!! FormField::file('bank_account_qris_image', [
                         'label' => false,
                         'id' => 'bank_account_qris_image',
@@ -112,14 +117,12 @@
 
 @includeWhen(request('action'), 'bank_accounts._bank_account_balance_forms')
 
-<div class="modal fade" id="modal-masjid" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="modal-masjid" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalLabel">{{ __('bank_account.qris') }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="img-container">
@@ -134,18 +137,19 @@
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('app.cancel')}}</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{__('app.cancel')}}</button>
             <button type="button" class="btn btn-primary" id="crop">{{__('app.crop_and_save')}}</button>
         </div>
       </div>
     </div>
 </div>
+</div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
 {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
@@ -241,10 +245,6 @@
                 });
             }
         });
-    });
-    $('#bankAccountBalanceModal').modal({
-        show: true,
-        backdrop: 'static',
     });
     $('.date-select').datetimepicker({
         timepicker:false,

@@ -15,9 +15,9 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">{{ __('transaction.add_income') }}</h5>
-                    <div class="card-options btn-group">
-                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-gray btn-sm">{{ __('transaction.income') }}</a>
-                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-secondary btn-sm">{{ __('transaction.spending') }}</a>
+                    <div class="card-actions btn-group">
+                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-secondary btn-sm" aria-current="page">{{ __('transaction.income') }}</a>
+                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-sm">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
                 {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
@@ -74,12 +74,12 @@
                         'placeholder' => __('transaction.cash'),
                         'value' => old('bank_account_id', optional($originalTransaction)->bank_account_id),
                     ]) !!}
-                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                    <div class="mb-3 {{ $errors->has('files.*') ? 'is-invalid' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
                         @if($isDiskFull)
                             <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
                         @else
-                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
+                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
                             @if ($errors->has('files.*'))
                                 @foreach ($errors->get('files.*') as $key => $errorMessages)
                                     {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
@@ -91,7 +91,7 @@
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_income'), ['class' => 'btn btn-success']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -101,9 +101,9 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">{{ __('transaction.add_spending') }}</h5>
-                    <div class="card-options btn-group">
-                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-secondary btn-sm">{{ __('transaction.income') }}</a>
-                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-gray btn-sm">{{ __('transaction.spending') }}</a>
+                    <div class="card-actions btn-group">
+                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-income'])) }}" class="btn btn-sm">{{ __('transaction.income') }}</a>
+                        <a href="{{ route('transactions.create', array_merge(request()->only(['action', 'year','month']), ['action' => 'add-spending'])) }}" class="btn btn-secondary btn-sm" aria-current="page">{{ __('transaction.spending') }}</a>
                     </div>
                 </div>
                 {!! Form::open(['route' => 'transactions.store', 'autocomplete' => 'off', 'files' => true]) !!}
@@ -160,12 +160,12 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group {{ $errors->has('files.*') ? 'has-error' : '' }}">
+                    <div class="mb-3 {{ $errors->has('files.*') ? 'is-invalid' : '' }}">
                         <label for="files" class="form-label fw-bold">{{ __('transaction.upload_files') }}</label>
                         @if($isDiskFull)
                             <div class="alert alert-warning my-2 p-2" role="alert">{{ __('transaction.disk_is_full') }}</div>
                         @else
-                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control-file border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
+                            {{ Form::file('files[]', ['multiple' => true, 'class' => 'form-control border p-2 rounded '.($errors->has('files.*') ? 'is-invalid' : ''), 'accept' => 'image/*', 'disabled' => $isDiskFull ? 'disabled' : null]) }}
                             @if ($errors->has('files.*'))
                                 @foreach ($errors->get('files.*') as $key => $errorMessages)
                                     {!! $errors->first($key, '<span class="invalid-feedback" role="alert">:message</span>') !!}
@@ -177,7 +177,7 @@
                 <div class="card-footer">
                     {!! Form::submit(__('transaction.add_spending'), ['class' => 'btn btn-danger']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('transactions.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -187,11 +187,11 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
     {{ Html::style(url('css/plugins/select2.min.css')) }}
     {{ Html::style(url('css/plugins/select2-bootstrap.min.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

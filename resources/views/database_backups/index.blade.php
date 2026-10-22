@@ -4,13 +4,18 @@
 
 @section('content_settings')
 <div class="page-header">
-    <h1 class="page-title">{{ __('database_backup.index_title') }}</h1>
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title">{{ __('database_backup.index_title') }}</h2>
+        </div>
+    </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-8">
-        <div class="card">
-            <table class="table table-sm table-responsive-sm">
+        <div class="card table-responsive-sm mb-2">
+            <table class="table table-sm align-middle mb-0">
                 <thead>
                     <th class="text-center">{{ __('app.table_no') }}</th>
                     <th>{{ __('database_backup.file_name') }}</th>
@@ -29,16 +34,16 @@
                             <div class="btn-group" role="group">
                                 <a href="{{ route('database_backups.index', ['action' => 'restore', 'file_name' => $backup->getFilename()]) }}"
                                     id="restore_{{ str_replace('.gz', '', $backup->getFilename()) }}"
-                                    class="btn btn-warning btn-sm"
-                                    title="{{ __('database_backup.restore') }}"><i class="fe fe-refresh-cw"></i></a>
+                                    class="btn btn-warning btn-sm p-1"
+                                    title="{{ __('database_backup.restore') }}"><i class="ti ti-refresh"></i></a>
                                 <a href="{{ route('database_backups.download', [$backup->getFilename()]) }}"
                                     id="download_{{ str_replace('.gz', '', $backup->getFilename()) }}"
-                                    class="btn btn-success btn-sm"
-                                    title="{{ __('database_backup.download') }}"><i class="fe fe-download"></i></a>
+                                    class="btn btn-success btn-sm p-1"
+                                    title="{{ __('database_backup.download') }}"><i class="ti ti-download"></i></a>
                                 <a href="{{ route('database_backups.index', ['action' => 'delete', 'file_name' => $backup->getFilename()]) }}"
                                     id="del_{{ str_replace('.gz', '', $backup->getFilename()) }}"
-                                    class="btn btn-danger btn-sm"
-                                    title="{{ __('database_backup.delete') }}"><i class="fe fe-x"></i></a>
+                                    class="btn btn-danger btn-sm p-1"
+                                    title="{{ __('database_backup.delete') }}"><i class="ti ti-x"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -54,5 +59,6 @@
     <div class="col-md-4">
         @include('database_backups.forms')
     </div>
+</div>
 </div>
 @endsection

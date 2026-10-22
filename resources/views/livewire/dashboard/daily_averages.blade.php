@@ -9,7 +9,7 @@
                 @foreach ($dailyAveragesSummary as $dailySummary)
                     <tr>
                         <td>{{ $dailySummary->description }}</td>
-                        <td class="text-right" style="color: {{ config('masjid.'.$dailySummary->type_code.'_color') }}">
+                        <td class="text-end" style="color: {{ config('masjid.'.$dailySummary->type_code.'_color') }}">
                             {{ format_number($dailySummary->average) }}
                         </td>
                     </tr>

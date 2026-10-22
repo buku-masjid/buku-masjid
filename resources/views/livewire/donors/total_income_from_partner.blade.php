@@ -9,7 +9,7 @@
             {{ get_months()[$month] ?? '' }}
             {{ $year }}
         </div>
-        <div class="text-muted my-1">{{ __('app.update') }}: {{ $endDate }}</div>
+        <div class="text-body-secondary my-1">{{ __('app.update') }}: {{ $endDate }}</div>
         <div class="h1" style="color: {{ config('masjid.income_color') }}">
             {{ config('money.currency_code') }} {{ format_number($totalIncomeFromPartner) }}
         </div>

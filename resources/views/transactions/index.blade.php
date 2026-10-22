@@ -4,26 +4,29 @@
 
 @section('content')
 <div class="page-header">
-    <h1 class="page-title"><div class="d-none d-sm-inline">{{ __('transaction.list') }}</div> {{ get_months()[$month] }} {{ $year }}</h1>
-    <div class="page-subtitle">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
-    <div class="page-options d-flex">
-        {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn btn-secondary mr-2']) }}
-        @can('create', new App\Transaction)
-            @can('manage-transactions', auth()->activeBook())
-                {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success mr-2']) }}
-                {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger']) }}
+    <div class="row g-2 align-items-center">
+        <div class="col">
+            <h2 class="page-title"><div class="d-inline">{{ __('transaction.list') }}&nbsp;</div>{{ get_months()[$month] }} {{ $year }}</h2>
+            <div class="text-secondary mt-1">{{ __('app.total') }} : {{ $transactions->count() }} {{ __('transaction.transaction') }}</div>
+        </div>
+        <div class="col-sm-auto mt-3 mt-sm-2 ms-auto">
+            {{ link_to_route('transaction_search.index', __('app.search'), [], ['class' => 'btn px-3']) }}
+            @can('create', new App\Transaction)
+                @can('manage-transactions', auth()->activeBook())
+                    {{ link_to_route('transactions.create', __('transaction.add_income'), ['action' => 'add-income', 'month' => $month, 'year' => $year], ['class' => 'btn btn-success px-2']) }}
+                    {{ link_to_route('transactions.create', __('transaction.add_spending'), ['action' => 'add-spending', 'month' => $month, 'year' => $year], ['class' => 'btn btn-danger px-2']) }}
+                @endcan
             @endcan
-        @endcan
+        </div>
     </div>
 </div>
 
+<div class="page-body">
 <div class="row">
     <div class="col-md-12">
         @include('transactions.partials.stats')
+        @include('transactions.partials.index_filters')
         <div class="card table-responsive">
-            <div class="card-header">
-                @include('transactions.partials.index_filters')
-            </div>
             @desktop
             <div class="table-responsive-sm">
                 <table class="table table-sm table-hover table-bordered mb-0">
@@ -32,7 +35,7 @@
                             <th class="text-center">{{ __('app.table_no') }}</th>
                             <th class="text-center">{{ __('app.date') }}</th>
                             <th>{{ __('transaction.description') }}</th>
-                            <th class="text-right">{{ __('transaction.amount') }}</th>
+                            <th class="text-end">{{ __('transaction.amount') }}</th>
                             <th class="text-center">{{ __('app.action') }}</th>
                         </tr>
                     </thead>
@@ -57,10 +60,10 @@
                                 </td>
                             @endif
                             <td>
-                                <span class="float-right">
+                                <span class="float-end">
                                     @if ($transaction->files_count)
-                                        <a href="{{ route('transactions.show', $transaction) }}" class="badge text-dark px-1" style="font-size: 90%;">
-                                            {{ $transaction->files_count }} <i class="fe fe-image"></i>
+                                        <a href="{{ route('transactions.show', $transaction) }}" class="badge bg-gray text-dark" style="font-size: 90%;padding: 0.1em 0.1em">
+                                            {{ $transaction->files_count }} <i class="ti ti-photo fs-4"></i>
                                         </a>
                                     @endif
                                     @if ($transaction->partner)
@@ -71,9 +74,9 @@
                                                 'end_date' => $year.'-'.$month.'-'.date('t'),
                                             ]);
                                         @endphp
-                                        <a class="badge badge-info" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
+                                        <a class="badge bg-info text-info-fg" href="{{ $partnerRoute }}">{{ $transaction->partner->name }}</a>
                                     @endif
-                                    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple' : 'bg-gray'}}">
+                                    <span class="badge {{ $transaction->bankAccount->exists ? 'bg-purple text-purple-fg' : 'bg-secondary text-secondary-fg'}}">
                                         {{ $transaction->bankAccount->name }}
                                     </span>
                                     @if ($transaction->category)
@@ -87,9 +90,9 @@
                                         <a href="{{ $categoryRoute }}">{!! optional($transaction->category)->name_label !!}</a>
                                     @endif
                                 </span>
-                                <div style="max-width: 600px" class="mr-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
+                                <div style="max-width: 600px" class="me-3">{!! $transaction->date_alert !!} {!! nl2br(htmlentities($transaction->description)) !!}</div>
                             </td>
-                            <td class="text-right">{{ $transaction->amount_string }}</td>
+                            <td class="text-end">{{ $transaction->amount_string }}</td>
                             <td class="text-center">
                                 @can('update', $transaction)
                                     @can('manage-transactions', auth()->activeBook())
@@ -122,46 +125,46 @@
                     </tbody>
                     @if (request('category_id') || request('book_id'))
                     <tfoot>
-                        <tr><td colspan="5" class="text-right">&nbsp;</td></tr>
+                        <tr><td colspan="5" class="text-end">&nbsp;</td></tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.income_total') }}</td>
-                            <td class="text-right">{{ format_number($incomeTotal) }}</td>
+                            <td colspan="3" class="text-end">{{ __('transaction.income_total') }}</td>
+                            <td class="text-end">{{ format_number($incomeTotal) }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.spending_total') }}</td>
-                            <td class="text-right">{{ format_number($spendingTotal) }}</td>
+                            <td colspan="3" class="text-end">{{ __('transaction.spending_total') }}</td>
+                            <td class="text-end">{{ format_number($spendingTotal) }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.difference') }}</td>
-                            <td class="text-right">{{ format_number($incomeTotal - $spendingTotal) }}</td>
+                            <td colspan="3" class="text-end">{{ __('transaction.difference') }}</td>
+                            <td class="text-end">{{ format_number($incomeTotal - $spendingTotal) }}</td>
                             <td>&nbsp;</td>
                         </tr>
                     </tfoot>
                     @else
                     <tfoot>
-                        <tr><td colspan="5" class="text-right">&nbsp;</td></tr>
+                        <tr><td colspan="5" class="text-end">&nbsp;</td></tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.start_balance') }}</td>
-                            <td class="text-right">
+                            <td colspan="3" class="text-end">{{ __('transaction.start_balance') }}</td>
+                            <td class="text-end">
                                 {{ format_number($balance = auth()->activeBook()->getBalance(Carbon\Carbon::parse($startDate)->subDay()->format('Y-m-d'))) }}
                             </td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.income_total') }}</td>
-                            <td class="text-right">{{ format_number($incomeTotal) }}</td>
+                            <td colspan="3" class="text-end">{{ __('transaction.income_total') }}</td>
+                            <td class="text-end">{{ format_number($incomeTotal) }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.spending_total') }}</td>
-                            <td class="text-right">{{ format_number($spendingTotal) }}</td>
+                            <td colspan="3" class="text-end">{{ __('transaction.spending_total') }}</td>
+                            <td class="text-end">{{ format_number($spendingTotal) }}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr class="strong">
-                            <td colspan="3" class="text-right">{{ __('transaction.end_balance') }}</td>
-                            <td class="text-right">
+                            <td colspan="3" class="text-end">{{ __('transaction.end_balance') }}</td>
+                            <td class="text-end">
                                 {{ format_number($balance + $incomeTotal - $spendingTotal) }}
                             </td>
                             <td>&nbsp;</td>
@@ -184,5 +187,6 @@
             @enddesktop
         </div>
     </div>
+</div>
 </div>
 @endsection

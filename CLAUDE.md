@@ -22,14 +22,14 @@ This document contains essential information for understanding the architecture,
 |---|---|
 | Backend | PHP `^8.1`, Laravel `10.x` |
 | Database | MySQL / MariaDB (production), SQLite in-memory (tests) |
-| Frontend | Bootstrap `4.0.0`, SCSS/Sass, Vanilla JS |
-| Asset Bundler | Laravel Mix `6.x` (Webpack) |
+| Frontend | Bootstrap `5.x` via Tabler `1.6.x`, SCSS/Sass, Vanilla JS + jQuery bridge |
+| Asset Bundler | Vite `5.x` (`laravel-vite-plugin`) |
 | Reactive UI | Livewire `2.x` |
 | API Auth | Laravel Passport `11.x` (OAuth2) |
 | Testing | PHPUnit `10.x`, Laravel BrowserKit Testing |
 | Code Style | Laravel Pint (Laravel preset) |
 | Deployment | Deployer (`deploy.php`) |
-| Package Manager | Yarn (see `.nvmrc` for Node version) |
+| Package Manager | npm (see `.nvmrc` for Node version; use Node 20) |
 
 ---
 
@@ -72,20 +72,20 @@ php artisan partner:upgrade-type-levels              # One-time migration for pa
 ### Frontend Assets
 
 ```bash
-yarn                   # Install JS dependencies (use yarn, not npm)
-npm run dev            # Development build (one-time)
-npm run watch          # Watch mode for development
-npm run prod           # Production build
+npm install            # Install JS dependencies (use npm, not yarn)
+npm run dev            # Development build (Vite dev server)
+npm run build          # Production build (Vite → public/build)
 npm run test:js        # Run JavaScript unit tests
 ```
 
-First-party JavaScript lives in `resources/assets/js`; vendored standalone assets live in `resources/vendor`.
-Laravel Mix emits browser-facing output into `public/js` and `public/css`, which should be treated as generated build output rather than edited source.
+First-party JavaScript lives in `resources/js` (compiled by Vite); vendored standalone assets live in `resources/vendor`. The Vite plugin in `vite.config.mjs` (ESM config, required by `laravel-vite-plugin` 1.x) also copies the hand-maintained public-display and plugin scripts from `resources/assets/js` and `resources/vendor` into `public/js` and `public/css`, which should be treated as generated build output rather than edited source. All generated assets (`public/build`, `public/js`, `public/css`) are committed to git so deployments do not require Node.
+
+Vite builds two entries: `resources/js/app.js` (JS) and `resources/sass/app.scss` (CSS). The CSS entry is loaded by the layouts via `Vite::asset('resources/sass/app.scss')` — it is a separate manifest entry, not the synthetic `resources/js/app.css` key that Vite 4 used to emit. `app.scss` `@use`s `tabler` and `custom`, then `@import`s the Tabler icons and `icon-style.css` at the top level; Vite only processes those plain-CSS imports when they sit in the entry file, not nested inside a `@use`d partial. Sass runs through Vite's modern compiler API (`api: 'modern-compiler'`).
 
 ### Testing
 
 ```bash
-vendor/bin/phpunit                    # Run all tests (395 tests, uses SQLite in-memory)
+vendor/bin/phpunit                    # Run all tests (404 tests, uses SQLite in-memory)
 vendor/bin/phpunit --filter TestName  # Run specific test
 ```
 
@@ -260,7 +260,7 @@ Transactions can have photo attachments (receipts). File workflow:
 
 A feature for displaying mosque info on a TV screen at `/display`. Controlled by `FEATURES_PUBLIC_DISPLAY_IS_ACTIVE`. Includes real-time shalat time with iqamah countdown, financial summary carousel, and ayat/hadith quotes (configured in `config/public_display.php`).
 
-Public display browser scripts are sourced from `resources/assets/js/public_display` and emitted to `public/js/public_display` by `webpack.mix.js`. The Blade layout passes server-rendered values through one `window.PublicDisplayConfig` object; display scripts should initialize from that explicit config instead of adding new implicit globals.
+Public display browser scripts are sourced from `resources/assets/js/public_display` and emitted to `public/js/public_display` by the Vite config (`vite.config.mjs`). The Blade layout passes server-rendered values through one `window.PublicDisplayConfig` object; display scripts should initialize from that explicit config instead of adding new implicit globals.
 
 ### I. Automated Database Backup
 
@@ -341,12 +341,17 @@ routes/
 └── console.php         # Artisan closure commands
 
 resources/
+├── js/
+│   ├── app.js          # Vite JS entry (Bootstrap 5, jQuery, Axios, Tabler)
+│   ├── bootstrap.js     # Axios/CSRF setup
+│   └── tabler-init.js   # jQuery → Bootstrap 5 plugin bridge
+├── sass/
+│   ├── tabler.scss      # Tabler framework SCSS (@use'd by app.scss)
+│   └── app.scss         # Vite CSS entry: Tabler + custom + icon imports
 ├── assets/
-│   ├── js/app.js       # JS entry (Bootstrap, jQuery, Axios)
-│   ├── js/plugins/     # App-owned standalone plugin scripts emitted by Mix
-│   ├── js/public_display/ # Public display source scripts emitted by Mix
-│   └── sass/app.scss   # SCSS entry; compiled to public/css/app.css
-├── vendor/             # Explicit vendored frontend assets copied by Mix
+│   ├── js/plugins/      # App-owned plugin scripts copied to public by Vite
+│   └── js/public_display/ # Public display scripts copied to public by Vite
+├── vendor/             # Vendored frontend assets copied to public by Vite
 ├── lang/
 │   ├── en/             # English translations
 │   └── id/             # Indonesian translations (default)
@@ -416,7 +421,7 @@ Three workflows in `.github/workflows/`:
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `deploy.yml` | Every push | Runs JS tests, compiles assets (yarn prod), and runs PHPUnit tests |
+| `deploy.yml` | Every push | Runs JS tests, compiles assets (Vite), and runs PHPUnit tests |
 | `pint.yml` | Push to `master` or any PR | Checks code style with Laravel Pint (`--test` mode) |
 | `docker.yml` | (see file) | Builds Docker image |
 
@@ -424,7 +429,7 @@ Three workflows in `.github/workflows/`:
 
 Docker images build frontend assets during the image build. Do not run `php artisan config:cache` or `php artisan route:cache` in the Dockerfile unless runtime feature flags are handled first; routes such as `/display` depend on environment values.
 
-Non-Docker deployments via Deployer (`deploy.php`) compile assets on the machine running the deployment through the `deploy:build_assets` task (`yarn install` + `yarn run prod`). The deployer host therefore needs Node.js and Yarn available locally. Generated assets in `public/js` and `public/css` are gitignored and never synced from the repository.
+Non-Docker deployments via Deployer (`deploy.php`) sync the committed generated assets (`public/build`, `public/js`, `public/css`), so the deployer host does not need Node.js. Run `npm run build` and commit the output whenever frontend sources change.
 
 ---
 

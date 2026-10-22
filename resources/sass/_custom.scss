@@ -1,0 +1,29 @@
+.card-header .mb-3 {
+    margin-bottom: 0 !important;
+}
+
+// Tabler 1.5+ dropped the Sass `--tblr-` prefix; custom properties are now
+// emitted unprefixed by the source build. See the upgrade guide:
+// https://docs.tabler.io/ui/getting-started/upgrade/#custom-property-prefix-moved-to-postcss
+:root:not([data-bs-theme="dark"]):not([data-theme="dark"]):not(.theme-dark) {
+  color-scheme: light;
+}
+
+:root {
+  --font-sans-serif: 'Trebuchet MS';
+}
+
+.table thead th {
+    font-size: 12px;
+}
+
+.table .form-group.mb-3 {
+    margin-bottom: 0 !important;
+}
+.table .form-group.mb-3 .input-group-text, .table .form-group.mb-3 .form-control {
+    padding: .3rem .6rem;
+}
+.form-control-sm, .btn-sm, .btn-group-sm > .btn {
+    font-size: inherit;
+}
+.date-select { padding: 9px; }

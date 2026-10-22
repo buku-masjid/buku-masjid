@@ -56,7 +56,7 @@
             </div>
             <div class="card-footer">
                 {!! Form::submit(__('partner.create'), ['class' => 'btn btn-success']) !!}
-                {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                {{ link_to_route('partners.index', __('app.cancel'), [], ['class' => 'btn']) }}
             </div>
             {{ Form::close() }}
         </div>
@@ -64,9 +64,9 @@
 </div>
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
+@endpush
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

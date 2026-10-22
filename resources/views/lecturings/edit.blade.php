@@ -10,9 +10,9 @@
             <div class="card">
                 <div class="card-header">{{ __('lecturing.delete') }}</div>
                 <div class="card-body">
-                    <label class="control-label text-primary">{{ __('lecturing.title') }}</label>
+                    <label class="form-label text-primary">{{ __('lecturing.title') }}</label>
                     <p>{{ $lecturing->title }}</p>
-                    <label class="control-label text-primary">{{ __('lecturing.description') }}</label>
+                    <label class="form-label text-primary">{{ __('lecturing.description') }}</label>
                     <p>{{ $lecturing->description }}</p>
                     {!! $errors->first('lecturing_id', '<span class="form-error small">:message</span>') !!}
                 </div>
@@ -32,7 +32,7 @@
         @else
         <div class="card">
             <div class="card-header">
-                <span class="card-options">{{ $lecturing->audience }}</span>
+                <span class="card-actions">{{ $lecturing->audience }}</span>
                 {{ __('lecturing.edit') }}
             </div>
             {{ Form::model($lecturing, ['route' => ['lecturings.update', $lecturing], 'method' => 'patch']) }}
@@ -70,7 +70,7 @@
                 {{ Form::submit(__('app.save'), ['class' => 'btn btn-success']) }}
                 {{ link_to_route('lecturings.show', __('app.cancel'), [$lecturing], ['class' => 'btn btn-link']) }}
                 @can('delete', $lecturing)
-                    {{ link_to_route('lecturings.edit', __('app.delete'), [$lecturing, 'action' => 'delete'], ['class' => 'btn btn-danger float-right', 'id' => 'del-lecturing-'.$lecturing->id]) }}
+                    {{ link_to_route('lecturings.edit', __('app.delete'), [$lecturing, 'action' => 'delete'], ['class' => 'btn btn-danger float-end', 'id' => 'del-lecturing-'.$lecturing->id]) }}
                 @endcan
             </div>
             {{ Form::close() }}
@@ -80,29 +80,9 @@
 @endif
 @endsection
 
-@section('styles')
+@push('styles')
     {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
-
-@push('scripts')
-    {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}
-<script>
-(function () {
-    $('.date-select').datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-        closeOnDateSelect: true,
-        scrollInput: false,
-        dayOfWeekStart: 1,
-        inline: true,
-    });
-})();
-</script>
 @endpush
-
-@section('styles')
-    {{ Html::style(url('css/plugins/jquery.datetimepicker.css')) }}
-@endsection
 
 @push('scripts')
     {{ Html::script(url('js/plugins/jquery.datetimepicker.js')) }}

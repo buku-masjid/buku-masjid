@@ -21,7 +21,7 @@
                                 <img src="{{ Storage::url(Setting::for($book->bankAccount)->get('qris_image_path'))}}" alt="{{ __('bank_account.qris') }}">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('app.close') }}</button>
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{ __('app.close') }}</button>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-md-7">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">{{ __('book.detail') }}</div>
             <table class="table table-sm card-table">
                 <tbody>
@@ -37,16 +37,10 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="card-footer">
-                @can('update', $book)
-                    {{ link_to_route('books.edit', __('book.edit'), [$book], ['class' => 'btn btn-warning text-dark', 'id' => 'edit-book-'.$book->id]) }}
-                @endcan
-                {{ link_to_route('books.index', __('book.back_to_index'), [], ['class' => 'btn btn-link']) }}
-            </div>
         </div>
     </div>
     <div class="col-md-5">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">{{ __('report.finance_summary') }}</div>
             <div class="page-options d-flex"></div>
             @livewire('books.financial-summary', ['bookId' => $book->id])

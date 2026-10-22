@@ -7,7 +7,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <span class="card-options">{{ $lecturing->audience }}</span>
+                <span class="card-actions">{{ $lecturing->audience }}</span>
                 {{ __('lecturing.detail') }}
             </div>
             <table class="table table-sm">

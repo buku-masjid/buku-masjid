@@ -8,8 +8,8 @@
             <thead>
                 <tr>
                     <th>{{ __('app.table_no') }}</th>
-                    <th style="width: 70%" class="text-left">{{ __('category.category') }}</th>
-                    <th style="width: 25%" class="text-right">{{ __('transaction.amount') }}</th>
+                    <th style="width: 70%" class="text-start">{{ __('category.category') }}</th>
+                    <th style="width: 25%" class="text-end">{{ __('transaction.amount') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
                                 ]) }}
                             @endif
                         </td>
-                        <td class="text-right" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
+                        <td class="text-end" style="color: {{ config('masjid.'.$typeCode.'_color') }}">
                             @if ($categorySummary->transactions_sum_amount)
                                 {{ format_number($categorySummary->transactions_sum_amount) }}
                             @else

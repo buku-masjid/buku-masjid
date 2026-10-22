@@ -1,14 +1,13 @@
 @if (request('action') == 'create')
 @can('create', new App\Models\Category)
-    <div id="categoryModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div class="modal modal-blur show" id="category_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('category.create') }}</h5>
-                    {{ link_to_route('categories.index', '', [], ['class' => 'close']) }}
+                    {{ link_to_route('categories.index', '', [], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::open(['route' => 'categories.store']) !!}
+                {{ Form::open(['route' => 'categories.store']) }}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-8">
@@ -18,8 +17,8 @@
                             {!! FormField::radios(
                                 'color',
                                 [
-                                    config('masjid.income_color') => '<span class="badge" style="background-color: '.config('masjid.income_color').'">'.__('transaction.income').'</span>',
-                                    config('masjid.spending_color') => '<span class="badge" style="background-color: '.config('masjid.spending_color').'">'.__('transaction.spending').'</span>',
+                                    config('masjid.income_color') => '<span class="badge text-azure-fg" style="background-color: '.config('masjid.income_color').'">'.__('transaction.income').'</span>',
+                                    config('masjid.spending_color') => '<span class="badge text-azure-fg" style="background-color: '.config('masjid.spending_color').'">'.__('transaction.spending').'</span>',
                                 ],
                                 ['required' => true, 'label' => __('category.color'), 'list_style' => 'unstyled']
                             ) !!}
@@ -30,26 +29,26 @@
                 <div class="modal-footer">
                     {!! Form::submit(__('category.create'), ['class' => 'btn btn-success']) !!}
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
 @endcan
 @endif
 
 @if (request('action') == 'edit' && $editableCategory)
 @can('update', $editableCategory)
-    <div id="categoryModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div class="modal modal-blur show" id="category_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('category.edit') }}</h5>
-                    {{ link_to_route('categories.index', '', [], ['class' => 'close']) }}
+                    {{ link_to_route('categories.index', '', [], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::model($editableCategory, ['route' => ['categories.update', $editableCategory], 'method' => 'patch']) !!}
+                {{ Form::model($editableCategory, ['route' => ['categories.update', $editableCategory], 'method' => 'patch']) }}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-8">
@@ -59,8 +58,8 @@
                             {!! FormField::radios(
                                 'color',
                                 [
-                                    '#00AABB' => '<span class="badge" style="background-color: #00AABB">'.__('transaction.income').'</span>',
-                                    '#F16867' => '<span class="badge" style="background-color: #F16867">'.__('transaction.spending').'</span>',
+                                    '#00AABB' => '<span class="badge text-azure-fg" style="background-color: #00AABB">'.__('transaction.income').'</span>',
+                                    '#F16867' => '<span class="badge text-azure-fg" style="background-color: #F16867">'.__('transaction.spending').'</span>',
                                 ],
                                 ['required' => true, 'label' => __('category.color'), 'list_style' => 'unstyled']
                             ) !!}
@@ -82,13 +81,13 @@
                 <div class="modal-footer">
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
                     @can('delete', $editableCategory)
                         {!! link_to_route(
                             'categories.index',
                             __('app.delete'),
                             ['action' => 'delete', 'id' => $editableCategory->id],
-                            ['id' => 'del-category-'.$editableCategory->id, 'class' => 'btn btn-danger float-left']
+                            ['id' => 'del-category-'.$editableCategory->id, 'class' => 'btn btn-danger float-start']
                         ) !!}
                     @endcan
                 </div>
@@ -96,26 +95,26 @@
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
 @endcan
 @endif
 
 @if (request('action') == 'delete' && $editableCategory)
 @can('delete', $editableCategory)
-    <div id="categoryModal" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div class="modal modal-blur show" id="category_modal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('category.delete') }} {{ $editableCategory->type }}</h5>
-                    {{ link_to_route('categories.index', '', [], ['class' => 'close']) }}
+                    {{ link_to_route('categories.index', '', [], ['class' => 'btn-close']) }}
                 </div>
-                {!! Form::open(['url' => route('categories.destroy', $editableCategory), 'method' => 'DELETE']) !!}
+                {{ Form::open(['url' => route('categories.destroy', $editableCategory), 'method' => 'DELETE']) }}
                 <div class="modal-body">
-                    <label class="control-label">{{ __('category.name') }}</label>
+                    <label class="form-label">{{ __('category.name') }}</label>
                     <p>{!! $editableCategory->name_label !!}</p>
-                    <label class="control-label">{{ __('category.description') }}</label>
+                    <label class="form-label">{{ __('category.description') }}</label>
                     <p>{{ $editableCategory->description }}</p>
-                    <label class="control-label">{{ __('book.book') }}</label>
+                    <label class="form-label">{{ __('book.book') }}</label>
                     <p>{{ optional($editableCategory->book)->name }}</p>
                     {!! $errors->first('category_id', '<span class="form-error small">:message</span>') !!}
                 </div>
@@ -129,11 +128,12 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('app.delete_confirm_button'), ['class' => 'btn btn-danger']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
                 </div>
-                {!! Form::close() !!}
+                {{ Form::close() }}
             </div>
         </div>
     </div>
+    <div class="modal-backdrop show"></div>
 @endcan
 @endif

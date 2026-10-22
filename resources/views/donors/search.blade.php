@@ -3,7 +3,7 @@
 @section('title', __('partner.partner_type_donor'))
 
 @section('content')
-<ul class="nav nav-tabs mb-4">
+<ul class="nav nav-bordered mb-4">
     <li class="nav-item">
         {!! link_to_route('donors.index', __('dashboard.dashboard'), [], ['class' => 'nav-link'.(in_array(Request::segment(2), ['dashboard', null]) ? ' active' : '')]) !!}
     </li>
@@ -13,34 +13,41 @@
 </ul>
 
 <div class="row mt-4 mt-sm-0">
-    <div class="col-md-4 text-center text-sm-left">
+    <div class="col-md-4 text-center text-sm-start">
         <h1 class="page-title">{{ __('partner.partner_type_donor') }}</h1>
-        <div class="page-subtitle ml-0">
+        <div class="page-subtitle ms-0">
             {{ __('donor.donor') }} {{ Setting::get('masjid_name') }}.
         </div>
     </div>
     <div class="col-md-4 mt-3 text-center">
         @include('donors._partner_gender_selector')
     </div>
-    <div class="col-md-4 mt-3 text-center text-sm-right">
+    <div class="col-md-4 mt-3 text-center text-sm-end">
         @can('create', new App\Models\Partner)
             {{ link_to_route('donors.create', __('donor.create'), [], ['class' => 'btn btn-success']) }}
         @endcan
     </div>
 </div>
-<div class="row justify-content-center">
-    {{ Form::open(['method' => 'get', 'class' => 'form-inline mt-3 mt-sm-0 mx-3']) }}
-    {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control mr-1']) }}
-    {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control mr-1']) }}
-    {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control mr-1']) }}
-    <div class="form-group mt-4 mt-sm-0">
+{{ Form::open(['method' => 'get']) }}
+<div class="row justify-content-center g-2 mt-3 mt-sm-0">
+    <div class="col-auto">
+        {{ Form::text('search_query', request('search_query'), ['placeholder' => __('partner.search_text'), 'class' => 'date-select form-control me-1']) }}
+    </div>
+    <div class="col-auto">
+        {{ Form::select('level_code', $partnerLevels, request('level_code'), ['placeholder' => __('partner.all_level'), 'class' => 'form-control me-1']) }}
+    </div>
+    <div class="col-auto">
+        {{ Form::select('is_active', [__('app.inactive'), __('app.active')], request('is_active'), ['placeholder' => __('app.status'), 'class' => 'form-control me-1']) }}
+    </div>
+    <div class="col-auto">
         {{ Form::hidden('type_code', request('type_code')) }}
         {{ Form::hidden('gender_code', request('gender_code')) }}
-        {{ Form::submit(__('app.search'), ['class' => 'btn btn-info mr-1']) }}
-        {{ link_to_route('donors.search', __('app.reset'), [], ['class' => 'btn btn-secondary mr-1']) }}
+        {{ Form::submit(__('app.search'), ['class' => 'btn btn-info me-1']) }}
+        {{ link_to_route('donors.search', __('app.reset'), [], ['class' => 'btn me-1']) }}
     </div>
-    {{ Form::close() }}
 </div>
+{{ Form::close() }}
+
 <div class="row mt-3">
     <div class="col-md-12">
         <div class="table-responsive-sm">
@@ -49,7 +56,7 @@
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
                         <th class="text-nowrap">{{ __('partner.name') }}</th>
-                        <th class="text-right">{{ __('transaction.transaction') }}</th>
+                        <th class="text-end">{{ __('transaction.transaction') }}</th>
                         <th class="text-nowrap">{{ __('partner.phone') }}</th>
                         <th class="text-center">{{ __('partner.level') }}</th>
                         <th class="text-center">{{ __('app.status') }}</th>
@@ -71,7 +78,7 @@
                                 {{ $partner->name }}
                             @endcan
                         </td>
-                        <td class="text-nowrap text-right">{{ format_number($partner->transactions_sum_amount ?: 0) }}</td>
+                        <td class="text-nowrap text-end">{{ format_number($partner->transactions_sum_amount ?: 0) }}</td>
                         <td class="text-nowrap">
                             {{ $partner->phone ? link_to('https://wa.me/'.str_replace([' ', '+', '(', ')'], '', $partner->phone), $partner->phone) : '' }}
                         </td>
@@ -93,14 +100,3 @@
 @prepend('scripts')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 @endprepend
-
-@push('scripts')
-<script>
-(function () {
-    $('#partnerModal').modal({
-        show: true,
-        backdrop: 'static',
-    });
-})();
-</script>
-@endpush
