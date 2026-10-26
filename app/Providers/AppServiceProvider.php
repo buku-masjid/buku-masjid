@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Auth\ApiTokenGuard;
 use App\Models\BankAccount;
 use App\Models\Book;
 use App\Transaction;
@@ -9,9 +10,9 @@ use App\User;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Guards\TokenGuard;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->getSession()->get('active_book_id') ?: config('masjid.default_book_id');
         });
-        TokenGuard::macro('activeBook', function () {
+        ApiTokenGuard::macro('activeBook', function () {
             $activeBook = Book::find($this->activeBookId());
             if (is_null($activeBook)) {
                 $activeBook = Book::find(config('masjid.default_book_id'));
@@ -60,8 +61,21 @@ class AppServiceProvider extends ServiceProvider
 
             return $activeBook;
         });
-        TokenGuard::macro('activeBookId', function () {
+        ApiTokenGuard::macro('activeBookId', function () {
             return request()->get('active_book_id') ?: config('masjid.default_book_id');
+        });
+        // Register `api-token` as a driver name backed by our Macroable subclass,
+        // so config('auth.guards.api.driver') = 'api-token' works.
+        Auth::extend('api-token', function ($app, $name, array $config) {
+            $guard = new ApiTokenGuard(
+                $app['auth']->createUserProvider($config['provider'] ?? null),
+                $app['request'],
+                'api_token',
+                'api_token'
+            );
+            $app->refresh('request', $guard, 'setRequest');
+
+            return $guard;
         });
         SessionGuard::macro('setActiveBook', function ($activeBookId) {
             $this->getSession()->put('active_book_id', $activeBookId);
