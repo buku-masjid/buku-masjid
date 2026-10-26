@@ -6,7 +6,6 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class ManageCategoriesTest extends TestCase
@@ -16,8 +15,7 @@ class ManageCategoriesTest extends TestCase
     /** @test */
     public function user_can_see_category_list_in_category_index_page()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
 
         $this->getJson(route('api.categories.index'));
@@ -28,8 +26,7 @@ class ManageCategoriesTest extends TestCase
     /** @test */
     public function user_can_create_a_category()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create();
 
         $this->postJson(route('api.categories.store'), [
@@ -61,8 +58,7 @@ class ManageCategoriesTest extends TestCase
     /** @test */
     public function user_can_update_a_category()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $category = factory(Category::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
         $book = factory(Book::class)->create();
 
@@ -98,8 +94,7 @@ class ManageCategoriesTest extends TestCase
     /** @test */
     public function user_can_delete_a_category_without_deleting_any_transactions()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->create([
             'category_id' => $category->id,
@@ -129,8 +124,7 @@ class ManageCategoriesTest extends TestCase
     /** @test */
     public function user_can_delete_a_category_and_transactions()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->create([
             'category_id' => $category->id,

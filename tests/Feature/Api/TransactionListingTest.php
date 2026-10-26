@@ -5,7 +5,6 @@ namespace Tests\Feature\Api;
 use App\Models\Book;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class TransactionListingTest extends TestCase
@@ -15,8 +14,7 @@ class TransactionListingTest extends TestCase
     /** @test */
     public function user_can_get_their_transaction_list()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
@@ -36,8 +34,7 @@ class TransactionListingTest extends TestCase
     /** @test */
     public function user_can_get_a_transaction_detail()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create();
         $transaction = factory(Transaction::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 

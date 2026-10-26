@@ -20,6 +20,14 @@ abstract class TestCase extends BaseTestCase
         return $user;
     }
 
+    protected function loginAsApiUser($role = 'admin', $userDataOverrides = [])
+    {
+        $user = $this->createUser($role, $userDataOverrides);
+        $this->serverVariables['HTTP_AUTHORIZATION'] = 'Bearer '.$user->api_token;
+
+        return $user;
+    }
+
     protected function createUser($role = 'admin', $userDataOverrides = [])
     {
         if ($role == 'admin') {
