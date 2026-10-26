@@ -202,10 +202,21 @@ Endpoint berikut membutuhkan API token:
 
 | Method | Endpoint | Keterangan |
 |---|---|---|
+| POST | `/api/logout` | Logout: mengganti `api_token` user, token lama langsung tidak berlaku |
 | GET | `/api/user` | Profil user yang sedang login |
 | GET/POST/PUT/DELETE | `/api/transactions` | Data transaksi |
 | GET/POST/PUT/DELETE | `/api/categories` | Kategori pemasukan/pengeluaran |
 | GET/POST/PUT/DELETE | `/api/books` | Buku kas |
+
+Endpoint logout mengganti `api_token` milik user dengan token baru. Karena satu user hanya punya satu token, **semua aplikasi yang memakai token lama ikut logout** dan harus login ulang.
+
+```bash
+curl -X POST http://localhost:8000/api/logout \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer Kb8xWz1sVq7pLm4nRt6yA2cD"
+```
+
+Respons: `{"message": "Anda telah logout."}`
 
 Setiap buku kas memiliki data terpisah. Untuk memilih buku kas aktif pada request API, tambahkan query parameter `active_book_id=<id_buku>`. Jika tidak diisi, API memakai buku kas default (`MASJID_DEFAULT_BOOK_ID`).
 
