@@ -6,15 +6,6 @@ use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-/**
- * The API must authenticate with the plain `users.api_token` column
- * (Laravel `token` guard), not with Laravel Passport.
- *
- * Reason: /api/login already returns that token, and AppServiceProvider
- * registers TokenGuard macros for it. Passport was never installed in
- * production (no oauth keys, empty oauth_clients), which made every
- * auth:api request fail with "Invalid key supplied" (HTTP 500).
- */
 class ApiTokenAuthTest extends TestCase
 {
     use RefreshDatabase;

@@ -40,15 +40,6 @@ class LoginController extends Controller
         return new UserResource($user);
     }
 
-    /**
-     * Log the user out of the API by revoking their current api token.
-     *
-     * The trait implementation is not used: it invalidates the session and
-     * calls a StatefulGuard `logout()`, neither of which exists for the
-     * stateless `api-token` guard (and the API request has no session store).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function logout(Request $request)
     {
         $user = $request->user();

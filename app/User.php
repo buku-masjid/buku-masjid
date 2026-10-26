@@ -54,12 +54,6 @@ class User extends Authenticatable
         return $this->isActive() ? __('app.active') : __('app.inactive');
     }
 
-    /**
-     * A user may only authenticate when the status is exactly 1.
-     * The legacy `2` value (and anything else) is treated as inactive.
-     *
-     * @return bool
-     */
     public function isActive()
     {
         return (int) $this->is_active === 1;
