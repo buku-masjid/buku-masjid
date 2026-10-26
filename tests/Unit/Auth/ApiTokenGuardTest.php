@@ -54,11 +54,52 @@ class ApiTokenGuardTest extends TestCase
         $provider->shouldReceive('retrieveByCredentials')
             ->once()
             ->with(['api_token' => 'a-valid-token'])
-            ->andReturn(new \App\User);
+            ->andReturn(new \App\User(['api_token' => 'a-valid-token']));
 
         $guard = new ApiTokenGuard($provider, Request::create('/', 'GET'));
 
         $this->assertTrue($guard->validate(['api_token' => 'a-valid-token']));
+    }
+
+    /** @test */
+    public function user_is_rejected_when_the_stored_token_only_matches_case_insensitively()
+    {
+        $provider = Mockery::mock(UserProvider::class);
+        $provider->shouldReceive('retrieveByCredentials')
+            ->once()
+            ->andReturn(new \App\User(['api_token' => 'AbCdEfGhIjKlMnOpQrStUvWx']));
+
+        $request = Request::create('/api/user', 'GET', ['api_token' => 'abcdefghijklmnopqrstuvwx']);
+        $guard = new ApiTokenGuard($provider, $request);
+
+        $this->assertNull($guard->user());
+    }
+
+    /** @test */
+    public function user_is_rejected_when_the_token_only_matches_with_trailing_whitespace()
+    {
+        $provider = Mockery::mock(UserProvider::class);
+        $provider->shouldReceive('retrieveByCredentials')
+            ->once()
+            ->andReturn(new \App\User(['api_token' => 'abcdefghijklmnopqrstuvwx']));
+
+        $request = Request::create('/api/user', 'GET', ['api_token' => 'abcdefghijklmnopqrstuvwx ']);
+        $guard = new ApiTokenGuard($provider, $request);
+
+        $this->assertNull($guard->user());
+    }
+
+    /** @test */
+    public function validate_returns_false_when_the_stored_token_only_matches_case_insensitively()
+    {
+        $provider = Mockery::mock(UserProvider::class);
+        $provider->shouldReceive('retrieveByCredentials')
+            ->once()
+            ->andReturn(new \App\User(['api_token' => 'AbCdEfGhIjKlMnOpQrStUvWx']));
+
+        $guard = new ApiTokenGuard($provider, Request::create('/', 'GET'));
+
+        $this->assertFalse($guard->validate(['api_token' => 'abcdefghijklmnopqrstuvwx']));
     }
 
     private function assertUserIsNullAndProviderIsNeverQueried($token): void

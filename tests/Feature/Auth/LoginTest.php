@@ -68,6 +68,26 @@ class LoginTest extends TestCase
     }
 
     /** @test */
+    public function user_with_legacy_inactive_status_cannot_login()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'email@mail.com',
+            'is_active' => 2,
+        ]);
+
+        $this->visit(route('login'));
+
+        $this->submitForm(__('auth.login'), [
+            'email' => 'email@mail.com',
+            'password' => 'secret',
+        ]);
+
+        $this->see(__('auth.user_inactive'));
+        $this->seePageIs(route('login'));
+        $this->dontSeeIsAuthenticated();
+    }
+
+    /** @test */
     public function unauthenticated_users_are_redirects_to_login_page()
     {
         $this->visit(route('home'));

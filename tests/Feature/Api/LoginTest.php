@@ -26,6 +26,44 @@ class LoginTest extends TestCase
     }
 
     /** @test */
+    public function user_cannot_login_via_api_when_the_user_is_inactive()
+    {
+        $user = $this->createUser('admin', [
+            'password' => bcrypt('testing'),
+            'is_active' => 0,
+        ]);
+
+        $this->postJson(route('api.login'), [
+            'email' => $user->email,
+            'password' => 'testing',
+        ]);
+
+        $this->seeStatusCode(422);
+        $this->seeJsonEquals([
+            'message' => 'The given data was invalid.',
+            'errors' => ['email' => [__('auth.user_inactive')]],
+        ]);
+        $this->assertArrayNotHasKey('api_token', $this->response->json());
+    }
+
+    /** @test */
+    public function user_with_legacy_inactive_status_cannot_login_via_api()
+    {
+        $user = $this->createUser('admin', [
+            'password' => bcrypt('testing'),
+            'is_active' => 2,
+        ]);
+
+        $this->postJson(route('api.login'), [
+            'email' => $user->email,
+            'password' => 'testing',
+        ]);
+
+        $this->seeStatusCode(422);
+        $this->assertArrayNotHasKey('api_token', $this->response->json());
+    }
+
+    /** @test */
     public function invalid_user_api_login_returns_proper_message()
     {
         $this->postJson(route('api.login'), [

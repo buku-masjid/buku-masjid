@@ -7,6 +7,7 @@ use App\Http\Resources\User as UserResource;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -22,6 +23,14 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         $user = $request->user();
+
+        if (!$user->isActive()) {
+            $this->guard()->logout();
+
+            throw ValidationException::withMessages([
+                $this->username() => [__('auth.user_inactive')],
+            ]);
+        }
 
         if (empty($user->api_token)) {
             $user->api_token = Str::random(24);

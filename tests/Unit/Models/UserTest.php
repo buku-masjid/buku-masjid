@@ -35,4 +35,13 @@ class UserTest extends TestCase
         $user = factory(User::class)->make(['is_active' => 0]);
         $this->assertEquals(__('app.inactive'), $user->status);
     }
+
+    /** @test */
+    public function user_is_only_active_when_the_status_is_one()
+    {
+        $this->assertTrue(factory(User::class)->make(['is_active' => 1])->isActive());
+
+        $this->assertFalse(factory(User::class)->make(['is_active' => 0])->isActive());
+        $this->assertFalse(factory(User::class)->make(['is_active' => 2])->isActive());
+    }
 }

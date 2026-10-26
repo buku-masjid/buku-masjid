@@ -17,6 +17,22 @@ class ApiTokenGuard extends TokenGuard
     use \Illuminate\Support\Traits\Macroable;
 
     /**
+     * Get the currently authenticated user.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    public function user()
+    {
+        $user = parent::user();
+
+        if (is_null($user) || $this->tokenMatchesStoredToken($user, $this->getTokenForRequest())) {
+            return $user;
+        }
+
+        return $this->user = null;
+    }
+
+    /**
      * Get the token for the current request.
      *
      * @return string|null
@@ -35,11 +51,35 @@ class ApiTokenGuard extends TokenGuard
      */
     public function validate(array $credentials = [])
     {
-        if (!$this->isValidToken($credentials[$this->inputKey] ?? null)) {
+        $token = $credentials[$this->inputKey] ?? null;
+
+        if (!$this->isValidToken($token)) {
             return false;
         }
 
-        return parent::validate($credentials);
+        $user = $this->provider->retrieveByCredentials([
+            $this->storageKey => $this->hash ? hash('sha256', $token) : $token,
+        ]);
+
+        return $user && $this->tokenMatchesStoredToken($user, $token);
+    }
+
+    /**
+     * The stored token column uses a case-insensitive collation on MySQL/MariaDB,
+     * so the provider can return a user whose token only matches case-insensitively
+     * (or ignoring trailing spaces). Verify the exact token before trusting it.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  mixed  $token
+     * @return bool
+     */
+    private function tokenMatchesStoredToken($user, $token)
+    {
+        if ($this->hash) {
+            return true;
+        }
+
+        return is_string($token) && is_string($user->api_token) && hash_equals($user->api_token, $token);
     }
 
     /**
