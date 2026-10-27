@@ -23,6 +23,14 @@
     </div>
     <div class="col-auto">
         {{ Form::submit(__('app.submit'), ['class' => 'btn btn-primary']) }}
+        @if ($allTimeStartDate && $allTimeEndDate)
+            {{ link_to_route(
+                'categories.show',
+                __('time.all_months'),
+                [$category, 'start_date' => $allTimeStartDate, 'end_date' => $allTimeEndDate, 'query' => request('query')],
+                ['class' => 'btn', 'id' => 'show-all-months']
+            ) }}
+        @endif
         {{ link_to_route('categories.show', __('app.reset'), $category, ['class' => 'btn']) }}
         {{ link_to_route('transactions.exports.by_category', __('transaction.download'), [$category] + request()->all(), ['class' => 'btn btn-info']) }}
     </div>

@@ -47,6 +47,12 @@ class CategoriesController extends Controller
         $startDate = request('start_date', $defaultStartDate);
         $endDate = request('end_date', date('Y-m-d'));
 
+        $categoryTransactionDates = $category->transactions()
+            ->selectRaw('MIN(date) as first_date, MAX(date) as last_date')
+            ->first();
+        $allTimeStartDate = $categoryTransactionDates ? $categoryTransactionDates->first_date : null;
+        $allTimeEndDate = $categoryTransactionDates ? $categoryTransactionDates->last_date : null;
+
         $transactions = $this->getCategoryTransactions($category, [
             'start_date' => $startDate,
             'end_date' => $endDate,
@@ -63,7 +69,8 @@ class CategoriesController extends Controller
 
         return view('categories.show', compact(
             'category', 'transactions', 'year', 'incomeTotal', 'spendingTotal',
-            'startDate', 'endDate', 'editableTransaction', 'categories', 'bankAccounts'
+            'startDate', 'endDate', 'editableTransaction', 'categories', 'bankAccounts',
+            'allTimeStartDate', 'allTimeEndDate'
         ));
     }
 
