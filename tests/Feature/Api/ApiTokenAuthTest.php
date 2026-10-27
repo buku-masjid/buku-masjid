@@ -49,6 +49,28 @@ class ApiTokenAuthTest extends TestCase
     }
 
     /** @test */
+    public function request_without_token_is_rejected_with_401_even_without_an_accept_json_header()
+    {
+        $this->get(route('api.user'));
+
+        $this->seeStatusCode(401);
+    }
+
+    /** @test */
+    public function every_api_route_without_token_is_rejected_with_401_even_without_an_accept_json_header()
+    {
+        foreach ([route('api.user'), route('api.transactions.index'), route('api.categories.index'), route('api.books.index')] as $url) {
+            $this->get($url);
+
+            $this->assertSame(401, $this->response->getStatusCode(), 'Failed on '.$url);
+        }
+
+        $this->post(route('api.logout'));
+
+        $this->seeStatusCode(401);
+    }
+
+    /** @test */
     public function request_with_wrong_token_is_rejected_with_401()
     {
         $this->getJson(route('api.user'), [
@@ -180,6 +202,22 @@ class ApiTokenAuthTest extends TestCase
 
             $this->assertSame(401, $this->response->getStatusCode(), 'Failed on '.$url);
         }
+    }
+
+    /** @test */
+    public function a_token_that_only_matches_case_insensitively_is_rejected_through_the_http_layer()
+    {
+        $user = $this->createUser('admin', ['api_token' => 'AbCdEfGhIjKlMnOpQrStUvWx']);
+
+        $provider = \Mockery::mock(\Illuminate\Contracts\Auth\UserProvider::class);
+        $provider->shouldReceive('retrieveByCredentials')
+            ->andReturn($user);
+
+        auth()->guard('api')->setProvider($provider);
+
+        $this->getJson(route('api.user', ['api_token' => 'abcdefghijklmnopqrstuvwx']));
+
+        $this->seeStatusCode(401);
     }
 
     /** @test */

@@ -102,6 +102,36 @@ class ApiTokenGuardTest extends TestCase
         $this->assertFalse($guard->validate(['api_token' => 'abcdefghijklmnopqrstuvwx']));
     }
 
+    /** @test */
+    public function user_returns_the_user_that_was_set_on_the_guard()
+    {
+        $user = new \App\User(['api_token' => 'abcdefghijklmnopqrstuvwx']);
+
+        $provider = Mockery::mock(UserProvider::class);
+        $provider->shouldNotReceive('retrieveByCredentials');
+
+        $guard = new ApiTokenGuard($provider, Request::create('/api/user', 'GET'));
+        $guard->setUser($user);
+
+        $this->assertTrue($guard->hasUser());
+        $this->assertSame($user, $guard->user());
+    }
+
+    /** @test */
+    public function validate_accepts_a_hashed_token_without_reverifying_the_plain_value()
+    {
+        $provider = Mockery::mock(UserProvider::class);
+        $provider->shouldReceive('retrieveByCredentials')
+            ->once()
+            ->with(['api_token' => hash('sha256', 'a-valid-token')])
+            ->andReturn(new \App\User(['api_token' => hash('sha256', 'a-valid-token')]));
+
+        $request = Request::create('/', 'GET');
+        $guard = new ApiTokenGuard($provider, $request, 'api_token', 'api_token', true);
+
+        $this->assertTrue($guard->validate(['api_token' => 'a-valid-token']));
+    }
+
     private function assertUserIsNullAndProviderIsNeverQueried($token): void
     {
         $provider = Mockery::mock(UserProvider::class);

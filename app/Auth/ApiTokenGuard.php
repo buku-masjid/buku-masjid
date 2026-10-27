@@ -11,8 +11,9 @@ class ApiTokenGuard extends TokenGuard
     public function user()
     {
         $user = parent::user();
+        $token = $this->getTokenForRequest();
 
-        if (is_null($user) || $this->tokenMatchesStoredToken($user, $this->getTokenForRequest())) {
+        if (is_null($user) || is_null($token) || $this->tokenMatchesStoredToken($user, $token)) {
             return $user;
         }
 

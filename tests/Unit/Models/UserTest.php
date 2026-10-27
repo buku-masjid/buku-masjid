@@ -44,4 +44,12 @@ class UserTest extends TestCase
         $this->assertFalse(factory(User::class)->make(['is_active' => 0])->isActive());
         $this->assertFalse(factory(User::class)->make(['is_active' => 2])->isActive());
     }
+
+    /** @test */
+    public function user_model_does_not_expose_the_api_token_when_serialized()
+    {
+        $user = factory(User::class)->make();
+
+        $this->assertArrayNotHasKey('api_token', $user->toArray());
+    }
 }
