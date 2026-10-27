@@ -15,28 +15,28 @@ class DefaultUserTableSeeder extends Seeder
             'email' => 'admin@example.net',
             'password' => bcrypt(config('auth.passwords.default')),
             'role_id' => User::ROLE_ADMIN,
-            'api_token' => Str::random(24),
+            'api_token' => Str::random(User::API_TOKEN_LENGTH),
         ]);
         User::create([
             'name' => 'Ketua',
             'email' => 'ketua@example.net',
             'password' => bcrypt(config('auth.passwords.default')),
             'role_id' => User::ROLE_CHAIRMAN,
-            'api_token' => Str::random(24),
+            'api_token' => Str::random(User::API_TOKEN_LENGTH),
         ]);
         User::create([
             'name' => 'Sekretaris',
             'email' => 'sekretaris@example.net',
             'password' => bcrypt(config('auth.passwords.default')),
             'role_id' => User::ROLE_SECRETARY,
-            'api_token' => Str::random(24),
+            'api_token' => Str::random(User::API_TOKEN_LENGTH),
         ]);
         User::create([
             'name' => 'Bendahara',
             'email' => 'bendahara@example.net',
             'password' => bcrypt(config('auth.passwords.default')),
             'role_id' => User::ROLE_FINANCE,
-            'api_token' => Str::random(24),
+            'api_token' => Str::random(User::API_TOKEN_LENGTH),
         ]);
     }
 }

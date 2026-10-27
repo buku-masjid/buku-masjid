@@ -5,6 +5,7 @@ namespace App;
 use App\Traits\Models\ConstantsGetter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -15,6 +16,8 @@ class User extends Authenticatable
     const ROLE_CHAIRMAN = 2;
     const ROLE_SECRETARY = 3;
     const ROLE_FINANCE = 4;
+
+    const API_TOKEN_LENGTH = 24;
 
     /**
      * The attributes that are mass assignable.
@@ -57,5 +60,10 @@ class User extends Authenticatable
     public function isActive()
     {
         return (int) $this->is_active === 1;
+    }
+
+    public function generateApiToken()
+    {
+        return $this->api_token = Str::random(self::API_TOKEN_LENGTH);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -51,13 +50,9 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
-    protected function unauthenticated($request, AuthenticationException $exception)
+    protected function shouldReturnJson($request, Throwable $e)
     {
-        if ($request->is('api/*')) {
-            return response()->json(['message' => $exception->getMessage()], 401);
-        }
-
-        return parent::unauthenticated($request, $exception);
+        return $request->is('api/*') || parent::shouldReturnJson($request, $e);
     }
 
     protected function invalidJson($request, ValidationException $exception)

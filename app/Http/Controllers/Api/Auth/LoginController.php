@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -33,7 +32,7 @@ class LoginController extends Controller
         }
 
         if (empty($user->api_token)) {
-            $user->api_token = Str::random(24);
+            $user->generateApiToken();
             $user->save();
         }
 
@@ -44,7 +43,7 @@ class LoginController extends Controller
     {
         $user = $request->user();
 
-        $user->api_token = Str::random(24);
+        $user->generateApiToken();
         $user->save();
 
         return response()->json([

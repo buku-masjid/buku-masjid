@@ -3,10 +3,13 @@
 namespace App\Auth;
 
 use Illuminate\Auth\TokenGuard;
+use Illuminate\Http\Request;
 
 class ApiTokenGuard extends TokenGuard
 {
     use \Illuminate\Support\Traits\Macroable;
+
+    private $token = null;
 
     public function user()
     {
@@ -22,9 +25,19 @@ class ApiTokenGuard extends TokenGuard
 
     public function getTokenForRequest()
     {
-        $token = parent::getTokenForRequest();
+        if (is_null($this->token)) {
+            $token = parent::getTokenForRequest();
+            $this->token = $this->isValidToken($token) ? $token : false;
+        }
 
-        return $this->isValidToken($token) ? $token : null;
+        return $this->token ?: null;
+    }
+
+    public function setRequest(Request $request)
+    {
+        $this->token = null;
+
+        return parent::setRequest($request);
     }
 
     public function validate(array $credentials = [])
@@ -48,7 +61,7 @@ class ApiTokenGuard extends TokenGuard
             return true;
         }
 
-        return is_string($token) && is_string($user->api_token) && hash_equals($user->api_token, $token);
+        return is_string($user->api_token) && hash_equals($user->api_token, $token);
     }
 
     private function isValidToken($token)

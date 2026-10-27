@@ -35,14 +35,15 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         // Ref: https://dzone.com/articles/how-to-use-laravel-macro-with-example
-        SessionGuard::macro('activeBook', function () {
+        $activeBookMacro = function () {
             $activeBook = Book::find($this->activeBookId());
             if (is_null($activeBook)) {
                 $activeBook = Book::find(config('masjid.default_book_id'));
             }
 
             return $activeBook;
-        });
+        };
+        SessionGuard::macro('activeBook', $activeBookMacro);
         SessionGuard::macro('activeBookId', function () {
             if (($bookId = request()->get('active_book_id')) && ($nonce = request()->get('nonce'))) {
                 $activeBook = Book::find($bookId);
@@ -53,14 +54,7 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->getSession()->get('active_book_id') ?: config('masjid.default_book_id');
         });
-        ApiTokenGuard::macro('activeBook', function () {
-            $activeBook = Book::find($this->activeBookId());
-            if (is_null($activeBook)) {
-                $activeBook = Book::find(config('masjid.default_book_id'));
-            }
-
-            return $activeBook;
-        });
+        ApiTokenGuard::macro('activeBook', $activeBookMacro);
         ApiTokenGuard::macro('activeBookId', function () {
             return request()->get('active_book_id') ?: config('masjid.default_book_id');
         });
@@ -70,8 +64,9 @@ class AppServiceProvider extends ServiceProvider
             $guard = new ApiTokenGuard(
                 $app['auth']->createUserProvider($config['provider'] ?? null),
                 $app['request'],
-                'api_token',
-                'api_token'
+                $config['input_key'] ?? 'api_token',
+                $config['storage_key'] ?? 'api_token',
+                $config['hash'] ?? false
             );
             $app->refresh('request', $guard, 'setRequest');
 

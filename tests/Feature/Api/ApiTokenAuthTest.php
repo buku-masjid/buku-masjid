@@ -2,8 +2,12 @@
 
 namespace Tests\Feature\Api;
 
+use App\Auth\ApiTokenGuard;
 use App\Models\Book;
+use App\Providers\AppServiceProvider;
+use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery;
 use Tests\TestCase;
 
 class ApiTokenAuthTest extends TestCase
@@ -59,7 +63,7 @@ class ApiTokenAuthTest extends TestCase
     /** @test */
     public function every_api_route_without_token_is_rejected_with_401_even_without_an_accept_json_header()
     {
-        foreach ([route('api.user'), route('api.transactions.index'), route('api.categories.index'), route('api.books.index')] as $url) {
+        foreach ($this->protectedApiRoutes() as $url) {
             $this->get($url);
 
             $this->assertSame(401, $this->response->getStatusCode(), 'Failed on '.$url);
@@ -169,16 +173,9 @@ class ApiTokenAuthTest extends TestCase
     public function every_protected_api_route_accepts_the_api_token()
     {
         $user = $this->createUser();
-        $book = factory(Book::class)->create(['manager_id' => $user->id]);
+        factory(Book::class)->create(['manager_id' => $user->id]);
 
-        $protectedRoutes = [
-            route('api.user'),
-            route('api.transactions.index'),
-            route('api.categories.index'),
-            route('api.books.index'),
-        ];
-
-        foreach ($protectedRoutes as $url) {
+        foreach ($this->protectedApiRoutes() as $url) {
             $this->getJson($url, [
                 'Authorization' => 'Bearer '.$user->api_token,
             ]);
@@ -190,14 +187,7 @@ class ApiTokenAuthTest extends TestCase
     /** @test */
     public function every_protected_api_route_rejects_a_request_without_the_api_token()
     {
-        $protectedRoutes = [
-            route('api.user'),
-            route('api.transactions.index'),
-            route('api.categories.index'),
-            route('api.books.index'),
-        ];
-
-        foreach ($protectedRoutes as $url) {
+        foreach ($this->protectedApiRoutes() as $url) {
             $this->getJson($url);
 
             $this->assertSame(401, $this->response->getStatusCode(), 'Failed on '.$url);
@@ -209,7 +199,7 @@ class ApiTokenAuthTest extends TestCase
     {
         $user = $this->createUser('admin', ['api_token' => 'AbCdEfGhIjKlMnOpQrStUvWx']);
 
-        $provider = \Mockery::mock(\Illuminate\Contracts\Auth\UserProvider::class);
+        $provider = Mockery::mock(UserProvider::class);
         $provider->shouldReceive('retrieveByCredentials')
             ->andReturn($user);
 
@@ -227,7 +217,7 @@ class ApiTokenAuthTest extends TestCase
         $this->getJson(route('api.user', ['api_token' => $user->api_token]));
 
         $this->seeStatusCode(200);
-        $this->assertInstanceOf(\App\Auth\ApiTokenGuard::class, auth()->guard('api'));
+        $this->assertInstanceOf(ApiTokenGuard::class, auth()->guard('api'));
     }
 
     /** @test */
@@ -254,7 +244,7 @@ class ApiTokenAuthTest extends TestCase
     /** @test */
     public function the_api_guard_class_does_not_depend_on_passport()
     {
-        $reflection = new \ReflectionClass(\App\Auth\ApiTokenGuard::class);
+        $reflection = new \ReflectionClass(ApiTokenGuard::class);
         $source = file_get_contents($reflection->getFileName());
 
         $this->assertStringNotContainsString('Passport', $source);
@@ -263,9 +253,19 @@ class ApiTokenAuthTest extends TestCase
     /** @test */
     public function the_service_provider_does_not_reference_passport()
     {
-        $reflection = new \ReflectionClass(\App\Providers\AppServiceProvider::class);
+        $reflection = new \ReflectionClass(AppServiceProvider::class);
         $source = file_get_contents($reflection->getFileName());
 
         $this->assertStringNotContainsString('Passport', $source);
+    }
+
+    private function protectedApiRoutes(): array
+    {
+        return [
+            route('api.user'),
+            route('api.transactions.index'),
+            route('api.categories.index'),
+            route('api.books.index'),
+        ];
     }
 }

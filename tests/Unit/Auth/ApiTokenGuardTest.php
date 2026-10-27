@@ -11,27 +11,11 @@ use Tests\TestCase;
 class ApiTokenGuardTest extends TestCase
 {
     /** @test */
-    public function user_returns_null_and_never_queries_the_provider_for_a_boolean_token()
+    public function user_returns_null_and_never_queries_the_provider_for_non_string_or_empty_tokens()
     {
-        $this->assertUserIsNullAndProviderIsNeverQueried(true);
-    }
-
-    /** @test */
-    public function user_returns_null_and_never_queries_the_provider_for_an_array_token()
-    {
-        $this->assertUserIsNullAndProviderIsNeverQueried(['some-token']);
-    }
-
-    /** @test */
-    public function user_returns_null_and_never_queries_the_provider_for_a_null_token()
-    {
-        $this->assertUserIsNullAndProviderIsNeverQueried(null);
-    }
-
-    /** @test */
-    public function user_returns_null_and_never_queries_the_provider_for_an_empty_token()
-    {
-        $this->assertUserIsNullAndProviderIsNeverQueried('');
+        foreach ([true, 123, ['some-token'], null, ''] as $nonStringOrEmptyToken) {
+            $this->assertUserIsNullAndProviderIsNeverQueried($nonStringOrEmptyToken);
+        }
     }
 
     /** @test */
