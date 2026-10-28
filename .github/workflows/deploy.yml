@@ -57,8 +57,5 @@ jobs:
           cp .env.example .env
           echo "FEATURES_PUBLIC_DISPLAY_IS_ACTIVE=true" >> .env
           php artisan key:generate
-      - name: Generate passport keys
-        run: |
-          php artisan passport:keys
       - name: Run tests
         run: ./vendor/bin/phpunit

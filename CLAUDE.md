@@ -25,7 +25,7 @@ This document contains essential information for understanding the architecture,
 | Frontend | Bootstrap `5.x` via Tabler `1.6.x`, SCSS/Sass, Vanilla JS + jQuery bridge |
 | Asset Bundler | Vite `5.x` (`laravel-vite-plugin`) |
 | Reactive UI | Livewire `2.x` |
-| API Auth | Laravel Passport `11.x` (OAuth2) |
+| API Auth | `users.api_token` via `App\Auth\ApiTokenGuard` (plain token) |
 | Testing | PHPUnit `10.x`, Laravel BrowserKit Testing |
 | Code Style | Laravel Pint (Laravel preset) |
 | Deployment | Deployer (`deploy.php`) |
@@ -40,7 +40,6 @@ This document contains essential information for understanding the architecture,
 ```bash
 cp .env.example .env
 php artisan key:generate
-php artisan passport:keys          # Required for API authentication
 php artisan storage:link           # Link public disk for file uploads
 php artisan migrate --seed         # Creates tables + seeds default user/book/categories
 ```
@@ -285,7 +284,7 @@ app/
 │   └── Setting.php             # Key-value settings manager (used as facade)
 ├── Http/
 │   ├── Controllers/
-│   │   ├── Api/                # REST API controllers (Passport-authenticated)
+│   │   ├── Api/                # REST API controllers (api_token-authenticated)
 │   │   ├── Auth/               # Login, profile, change-password
 │   │   ├── BankAccounts/       # Sub-resource: bank account balances
 │   │   ├── Books/              # Sub-resource: book report titles
@@ -337,7 +336,7 @@ config/
 
 routes/
 ├── web.php             # All HTML routes; feature-gated sections via config()
-├── api.php             # REST API routes (public + Passport-authenticated)
+├── api.php             # REST API routes (public + api_token-authenticated)
 └── console.php         # Artisan closure commands
 
 resources/
@@ -394,11 +393,10 @@ Base URL: `/api`
 - `GET /api/schedules` — Today's lecturing schedule
 - `GET /api/masjid_profile` — Mosque public info
 - `GET /api/shalat_time` — Today's prayer times (if feature enabled)
-- `POST /api/login` — Legacy API login
-- `POST /api/auth/login` — Passport login
-- `POST /api/auth/logout` — Passport logout
+- `POST /api/login` — API login, returns the user's `api_token`
 
-**Authenticated (Passport Bearer token):**
+**Authenticated (`Authorization: Bearer <api_token>` or `?api_token=`):**
+- `POST /api/logout` — Revokes the current `api_token`
 - `GET/POST/PUT/DELETE /api/transactions` — Transactions CRUD
 - `GET/POST/PUT/DELETE /api/categories` — Categories CRUD
 - `GET/POST/PUT/DELETE /api/books` — Books CRUD

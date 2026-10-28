@@ -49,7 +49,6 @@ RUN sed 's/DB_HOST=127.0.0.1/DB_HOST=mysql_host/' .env.tmp > .env && rm .env.tmp
 
 # artisan commands
 RUN php ./artisan key:generate && \
-    php ./artisan passport:keys && \
     php ./artisan view:cache && \
     php ./artisan storage:link
 
