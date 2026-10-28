@@ -18,13 +18,6 @@ Route::get('masjid_profile', [App\Http\Controllers\Api\MasjidProfileController::
 // Authentication Routes...
 Route::post('login', 'Api\Auth\LoginController@login')->name('api.login');
 
-// Authentication using Laravel Passport
-// I make in seperate controller and make in different route
-// I think it's better without conflict the main project.
-
-Route::post('auth/login', 'Api\Auth\AuthController@login')->name('api.auth.login');
-Route::middleware('auth:api')->post('auth/logout', 'Api\Auth\AuthController@logout')->name('api.auth.logout');
-
 Route::group(['middleware' => 'auth:api', 'as' => 'api.', 'namespace' => 'Api'], function () {
     /*
      * Authentication Endpoints
