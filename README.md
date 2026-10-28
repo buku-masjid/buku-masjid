@@ -79,12 +79,11 @@ Aplikasi ini dapat diinstal pada server lokal maupun online dengan spesifikasi b
     MONEY_THOUSANDS_SEPARATOR="."
     ```
 8. Jalankan migrasi database: `$ php artisan migrate --seed`
-9. Buat kunci passport: `$ php artisan passport:keys`
-10. Buat tautan penyimpanan: `$ php artisan storage:link`
-11. Instal dependensi frontend: `$ yarn install --frozen-lockfile`
-12. Compile asset frontend: `$ npm run dev`
-13. Mulai server: `$ php artisan serve`
-14. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
+9. Buat tautan penyimpanan: `$ php artisan storage:link`
+10. Instal dependensi frontend: `$ yarn install --frozen-lockfile`
+11. Compile asset frontend: `$ npm run dev`
+12. Mulai server: `$ php artisan serve`
+13. Buka web browser dengan alamat web: http://localhost:8000, kemudian masuk dengan akun bawaan:
     ```
     email: admin@example.net
     password: password

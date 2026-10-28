@@ -6,11 +6,10 @@ use App\Traits\Models\ConstantsGetter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use ConstantsGetter, HasApiTokens, Notifiable;
+    use ConstantsGetter, Notifiable;
 
     const ROLE_ADMIN = 1;
     const ROLE_CHAIRMAN = 2;
