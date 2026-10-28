@@ -159,7 +159,6 @@ function get_age_group_date_ranges()
  * or cannot be read as a date, so the caller can fall back to its default.
  *
  * @param  mixed  $value
- * @return \Carbon\Carbon|null
  */
 function parse_date_input($value): ?Carbon
 {
