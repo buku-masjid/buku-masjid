@@ -20,8 +20,8 @@ class NextWeekButton extends Component
         $startDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
         $startDate = Carbon::now()->startOfWeek($startDayInteger)->addWeek()->format('Y-m-d');
 
-        if (request('start_date')) {
-            $startDate = Carbon::parse(request('start_date'))->addWeek()->format('Y-m-d');
+        if ($requestedStartDate = parse_date_input(request('start_date'))) {
+            $startDate = $requestedStartDate->addWeek()->format('Y-m-d');
         }
 
         $endDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
@@ -31,8 +31,8 @@ class NextWeekButton extends Component
             $endDate = Carbon::now()->endOfWeek($endDayInteger)->subDay()->addWeek()->format('Y-m-d');
         }
 
-        if (request('end_date')) {
-            $endDate = Carbon::parse(request('end_date'))->addWeek()->format('Y-m-d');
+        if ($requestedEndDate = parse_date_input(request('end_date'))) {
+            $endDate = $requestedEndDate->addWeek()->format('Y-m-d');
         }
 
         $this->startDate = $startDate;

@@ -151,3 +151,25 @@ function get_age_group_date_ranges()
 
     return $dateRanges;
 }
+
+/**
+ * Parse a date that comes from user input, such as a query string.
+ *
+ * Returns null when the value is missing, empty, not a string,
+ * or cannot be read as a date, so the caller can fall back to its default.
+ *
+ * @param  mixed  $value
+ * @return \Carbon\Carbon|null
+ */
+function parse_date_input($value): ?Carbon
+{
+    if (!is_string($value) || trim($value) === '') {
+        return null;
+    }
+
+    try {
+        return Carbon::parse($value);
+    } catch (\Throwable $e) {
+        return null;
+    }
+}

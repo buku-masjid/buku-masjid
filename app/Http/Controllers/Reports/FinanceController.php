@@ -58,8 +58,8 @@ class FinanceController extends Controller
     {
         $book = auth()->activeBook();
         if (in_array($book->report_periode_code, ['all_time'])) {
-            if ($request->has('start_date')) {
-                return Carbon::parse($request->get('start_date'));
+            if ($startDate = parse_date_input($request->get('start_date'))) {
+                return $startDate;
             } else {
                 $firstTransaction = $book->transactions()->first();
                 if (is_null($firstTransaction)) {
@@ -70,8 +70,8 @@ class FinanceController extends Controller
             }
         }
         if (in_array($book->report_periode_code, ['in_weeks'])) {
-            if ($request->has('start_date')) {
-                return Carbon::parse($request->get('start_date'));
+            if ($startDate = parse_date_input($request->get('start_date'))) {
+                return $startDate;
             } else {
                 $startDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
 
@@ -101,16 +101,16 @@ class FinanceController extends Controller
     {
         $book = auth()->activeBook();
         if (in_array($book->report_periode_code, ['in_weeks'])) {
-            if ($request->has('end_date')) {
-                return Carbon::parse($request->get('end_date'));
+            if ($endDate = parse_date_input($request->get('end_date'))) {
+                return $endDate;
             } else {
                 $endDayInteger = constant('\Carbon\Carbon::'.strtoupper($book->start_week_day_code));
 
                 return Carbon::now()->addDay()->endOfWeek($endDayInteger)->subDay();
             }
         }
-        if ($request->has('end_date')) {
-            return Carbon::parse($request->get('end_date'));
+        if ($endDate = parse_date_input($request->get('end_date'))) {
+            return $endDate;
         }
 
         if ($request->has('year') && $request->has('month')) {
