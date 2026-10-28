@@ -28,7 +28,6 @@ This document contains essential information for understanding the architecture,
 | API Auth | `users.api_token` via `App\Auth\ApiTokenGuard` (plain token) |
 | Testing | PHPUnit `10.x`, Laravel BrowserKit Testing |
 | Code Style | Laravel Pint (Laravel preset) |
-| Deployment | Deployer (`deploy.php`) |
 | Package Manager | npm (see `.nvmrc` for Node version; use Node 20) |
 
 ---
@@ -427,7 +426,7 @@ Three workflows in `.github/workflows/`:
 
 Docker images build frontend assets during the image build. Do not run `php artisan config:cache` or `php artisan route:cache` in the Dockerfile unless runtime feature flags are handled first; routes such as `/display` depend on environment values.
 
-Non-Docker deployments via Deployer (`deploy.php`) sync the committed generated assets (`public/build`, `public/js`, `public/css`), so the deployer host does not need Node.js. Run `npm run build` and commit the output whenever frontend sources change.
+Generated assets (`public/build`, `public/js`, `public/css`) are committed, so deployments that rsync the repository do not need Node.js. Run `npm run build` and commit the output whenever frontend sources change.
 
 ---
 
