@@ -151,3 +151,34 @@ function get_age_group_date_ranges()
 
     return $dateRanges;
 }
+
+/**
+ * Parse a date that comes from user input, such as a query string.
+ *
+ * Only a real calendar date in Y-m-d format is accepted. Anything else
+ * (missing, empty, not a string, impossible dates like 2026-02-30,
+ * zero dates, relative words like "tomorrow") returns null, so the
+ * caller can fall back to its default range.
+ *
+ * @param  mixed  $value
+ */
+function parse_date_input($value): ?Carbon
+{
+    if (!is_string($value) || trim($value) === '') {
+        return null;
+    }
+
+    $value = trim($value);
+
+    try {
+        $date = Carbon::createFromFormat('!Y-m-d', $value);
+    } catch (\Throwable $e) {
+        return null;
+    }
+
+    if (!$date || $date->format('Y-m-d') !== $value) {
+        return null;
+    }
+
+    return $date;
+}
