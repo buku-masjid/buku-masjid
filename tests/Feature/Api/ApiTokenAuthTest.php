@@ -251,6 +251,33 @@ class ApiTokenAuthTest extends TestCase
     }
 
     /** @test */
+    public function the_passport_auth_endpoints_no_longer_exist()
+    {
+        $this->postJson('/api/auth/login', [
+            'email' => 'admin@example.net',
+            'password' => 'password',
+        ]);
+        $this->seeStatusCode(404);
+
+        $this->postJson('/api/auth/logout');
+        $this->seeStatusCode(404);
+    }
+
+    /** @test */
+    public function the_passport_package_is_not_installed()
+    {
+        $this->assertFalse(class_exists(\Laravel\Passport\Passport::class));
+    }
+
+    /** @test */
+    public function the_passport_package_is_not_a_composer_dependency()
+    {
+        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+
+        $this->assertArrayNotHasKey('laravel/passport', $composer['require']);
+    }
+
+    /** @test */
     public function the_service_provider_does_not_reference_passport()
     {
         $reflection = new \ReflectionClass(AppServiceProvider::class);
