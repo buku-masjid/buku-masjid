@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -20,6 +21,33 @@ class LoginController extends Controller
     {
         $this->clearLoginAttempts($request);
 
-        return new UserResource($request->user());
+        $user = $request->user();
+
+        if (!$user->isActive()) {
+            $this->guard()->logout();
+
+            throw ValidationException::withMessages([
+                $this->username() => [__('auth.user_inactive')],
+            ]);
+        }
+
+        if (empty($user->api_token)) {
+            $user->generateApiToken();
+            $user->save();
+        }
+
+        return new UserResource($user);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+
+        $user->generateApiToken();
+        $user->save();
+
+        return response()->json([
+            'message' => __('auth.logged_out'),
+        ], 200);
     }
 }

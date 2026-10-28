@@ -46,7 +46,7 @@ class UserController extends Controller
         ]);
         $password = $newUser['password'] ?: config('auth.passwords.default');
         $newUser['password'] = bcrypt($password);
-        $newUser['api_token'] = Str::random(24);
+        $newUser['api_token'] = Str::random(User::API_TOKEN_LENGTH);
         $newUser['is_active'] = 1;
 
         $user = User::create($newUser);

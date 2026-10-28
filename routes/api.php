@@ -27,6 +27,11 @@ Route::middleware('auth:api')->post('auth/logout', 'Api\Auth\AuthController@logo
 
 Route::group(['middleware' => 'auth:api', 'as' => 'api.', 'namespace' => 'Api'], function () {
     /*
+     * Authentication Endpoints
+     */
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+    /*
      * User Profile Endpoint
      */
     Route::get('user', 'Auth\ProfileController@show')->name('user');

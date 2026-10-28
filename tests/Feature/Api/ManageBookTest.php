@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class ManageBookTest extends TestCase
@@ -17,8 +16,7 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_see_book_list_in_book_index_page()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
 
         $this->getJson(route('api.books.index'));
@@ -29,8 +27,7 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_create_a_book()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
 
         $this->postJson(route('api.books.store'), [
             'name' => 'Book 1 name',
@@ -53,8 +50,7 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_update_a_book()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create(['name' => 'Testing 123', 'creator_id' => $user->id]);
 
         $this->patchJson(route('api.books.update', $book), [
@@ -78,8 +74,7 @@ class ManageBookTest extends TestCase
     /** @test */
     public function user_can_delete_a_book()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create(['creator_id' => $user->id]);
 
         $this->deleteJson(route('api.books.destroy', $book), [

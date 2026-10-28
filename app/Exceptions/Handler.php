@@ -50,6 +50,11 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+    protected function shouldReturnJson($request, Throwable $e)
+    {
+        return $request->is('api/*') || parent::shouldReturnJson($request, $e);
+    }
+
     protected function invalidJson($request, ValidationException $exception)
     {
         return response()->json([

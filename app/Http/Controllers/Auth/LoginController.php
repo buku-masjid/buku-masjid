@@ -46,7 +46,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if ($user->is_active == 0) {
+        if (!$user->isActive()) {
             $this->guard()->logout();
             $request->session()->flush();
             $request->session()->regenerate();

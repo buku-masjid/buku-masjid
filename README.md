@@ -148,6 +148,86 @@ $ php artisan buku-masjid:remove-demo-data
 
 Lengkapnya dapat dilihat pada: [Dokumentasi buku-masjid/demo-data](https://github.com/buku-masjid/demo-data#cara-pakai).
 
+## API
+
+Aplikasi menyediakan API (base URL `/api`) untuk mengakses data transaksi, kategori, dan buku kas. Autentikasi API menggunakan token pribadi milik user (`users.api_token`), bukan sesi cookie.
+
+### Login untuk Mendapatkan API Token
+
+Kirim email dan password user ke endpoint login. Respons berisi data user beserta `api_token` (24 karakter). Token yang sudah ada akan dikembalikan ulang; jika user belum punya token, aplikasi membuatkannya secara otomatis.
+
+```bash
+curl -X POST http://localhost:8000/api/login \
+  -H "Accept: application/json" \
+  -d "email=admin@example.net" \
+  -d "password=password"
+```
+
+Contoh respons:
+
+```json
+{
+  "data": {
+    "id": 1,
+    "name": "Admin Masjid",
+    "email": "admin@example.net",
+    "status": "Aktif"
+  },
+  "api_token": "Kb8xWz1sVq7pLm4nRt6yA2cD"
+}
+```
+
+### Memakai API Token
+
+Sertakan token pada header `Authorization: Bearer <api_token>` di setiap request:
+
+```bash
+curl http://localhost:8000/api/user \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer Kb8xWz1sVq7pLm4nRt6yA2cD"
+```
+
+Token juga dapat dikirim sebagai query parameter `api_token`:
+
+```bash
+curl "http://localhost:8000/api/user?api_token=Kb8xWz1sVq7pLm4nRt6yA2cD" \
+  -H "Accept: application/json"
+```
+
+Jika token tidak dikirim, tidak cocok, atau bukan berupa string (misalnya berupa array), API membalas `401 Unauthorized`.
+
+### Endpoint Terproteksi
+
+Endpoint berikut membutuhkan API token:
+
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| POST | `/api/logout` | Logout: mengganti `api_token` user, token lama langsung tidak berlaku |
+| GET | `/api/user` | Profil user yang sedang login |
+| GET/POST/PUT/DELETE | `/api/transactions` | Data transaksi |
+| GET/POST/PUT/DELETE | `/api/categories` | Kategori pemasukan/pengeluaran |
+| GET/POST/PUT/DELETE | `/api/books` | Buku kas |
+
+Endpoint logout mengganti `api_token` milik user dengan token baru. Karena satu user hanya punya satu token, **semua aplikasi yang memakai token lama ikut logout** dan harus login ulang.
+
+```bash
+curl -X POST http://localhost:8000/api/logout \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer Kb8xWz1sVq7pLm4nRt6yA2cD"
+```
+
+Respons: `{"message": "Anda telah logout."}`
+
+Setiap buku kas memiliki data terpisah. Untuk memilih buku kas aktif pada request API, tambahkan query parameter `active_book_id=<id_buku>`. Jika tidak diisi, API memakai buku kas default (`MASJID_DEFAULT_BOOK_ID`).
+
+```bash
+curl "http://localhost:8000/api/transactions?active_book_id=2" \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer Kb8xWz1sVq7pLm4nRt6yA2cD"
+```
+
+Endpoint publik yang tidak membutuhkan token antara lain `/api/schedules`, `/api/masjid_profile`, dan `/api/shalat_time` (jika fitur jadwal shalat aktif).
+
 ## Screenshot
 
 #### Laporan Bulanan

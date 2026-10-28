@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Partner;
 use App\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class TransacionEntryTest extends TestCase
@@ -20,8 +19,7 @@ class TransacionEntryTest extends TestCase
         $month = '01';
         $year = '2017';
         $date = '2017-01-01';
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create();
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
         $partner = factory(Partner::class)->create();
@@ -64,8 +62,7 @@ class TransacionEntryTest extends TestCase
         $month = '01';
         $year = '2017';
         $date = '2017-01-01';
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $book = factory(Book::class)->create();
         $category = factory(Category::class)->create(['book_id' => $book->id, 'creator_id' => $user->id]);
 
@@ -104,8 +101,7 @@ class TransacionEntryTest extends TestCase
         $month = '01';
         $year = '2017';
         $date = '2017-01-01';
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $transaction = factory(Transaction::class)->create([
             'in_out' => 0,
             'amount' => 99.99,
@@ -143,8 +139,7 @@ class TransacionEntryTest extends TestCase
     /** @test */
     public function user_can_delete_a_transaction()
     {
-        $user = $this->createUser();
-        Passport::actingAs($user);
+        $user = $this->loginAsApiUser();
         $transaction = factory(Transaction::class)->create([
             'creator_id' => $user->id,
         ]);
