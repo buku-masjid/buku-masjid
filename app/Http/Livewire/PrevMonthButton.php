@@ -12,20 +12,26 @@ class PrevMonthButton extends Component
     public $yearNumber = null;
     public $buttonText = '';
     public $buttonClass = 'btn btn-secondary';
+    public $isDisabled = false;
 
     public function mount()
     {
-        $month = request('month', date('m'));
-        if (!isset(get_months()[$month])) {
-            $month = Carbon::now()->format('m');
+        $validYearMonth = parse_year_month_input(request('year', date('Y')), request('month', date('m')));
+
+        if (is_null($validYearMonth)) {
+            $prevMonthDate = Carbon::now()->startOfMonth()->subMonth();
+        } else {
+            [$year, $month] = $validYearMonth;
+            if ($month == '00') {
+                $month = Carbon::now()->format('m');
+            }
+            $prevMonthDate = Carbon::parse($year.'-'.$month.'-10')->subMonth();
         }
-        $year = (int) request('year', date('Y'));
-        $yearMonth = $year.'-'.$month;
-        $prevMonthDate = Carbon::parse($yearMonth.'-10')->subMonth();
 
         $this->month = $prevMonthDate->format('m');
         $this->year = $prevMonthDate->format('Y');
         $this->buttonText = $this->buttonText ?: __('report.prev_month');
+        $this->isDisabled = $prevMonthDate->copy()->startOfMonth()->lt(get_report_date_bounds(auth()->activeBook())[0]);
     }
 
     public function render()

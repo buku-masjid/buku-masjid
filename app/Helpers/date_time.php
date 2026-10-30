@@ -182,3 +182,71 @@ function parse_date_input($value): ?Carbon
 
     return $date;
 }
+
+/**
+ * Date range that may be opened on the financial report of a book.
+ *
+ * The window is one year before the earliest transaction and one year after
+ * the latest one. The running year window is always included, so a book whose
+ * last transaction is already older than a year still renders its default
+ * report page.
+ *
+ * @param  \App\Models\Book  $book
+ * @return array{0: Carbon, 1: Carbon} [minAllowedStart, maxAllowedEnd]
+ */
+function get_report_date_bounds($book): array
+{
+    $now = Carbon::now();
+
+    $minAllowedStart = $now->copy()->subYear()->startOfDay();
+    $maxAllowedEnd = $now->copy()->addYear()->endOfDay();
+
+    $minDate = $book->transactions()->withoutGlobalScope('forActiveBook')->min('date');
+    $maxDate = $book->transactions()->withoutGlobalScope('forActiveBook')->max('date');
+
+    if (!is_null($minDate)) {
+        $bookMinDate = Carbon::parse($minDate)->subYear()->startOfDay();
+        if ($bookMinDate->lt($minAllowedStart)) {
+            $minAllowedStart = $bookMinDate;
+        }
+    }
+
+    if (!is_null($maxDate)) {
+        $bookMaxDate = Carbon::parse($maxDate)->addYear()->endOfDay();
+        if ($bookMaxDate->gt($maxAllowedEnd)) {
+            $maxAllowedEnd = $bookMaxDate;
+        }
+    }
+
+    return [$minAllowedStart, $maxAllowedEnd];
+}
+
+/**
+ * Validate the shape of the year/month query parameters.
+ *
+ * Returns null when either value is not usable, so the caller falls back to
+ * its default period instead of handing the value to Carbon.
+ *
+ * @param  mixed  $year
+ * @param  mixed  $month
+ */
+function parse_year_month_input($year, $month): ?array
+{
+    if (!is_string($year) && !is_int($year)) {
+        return null;
+    }
+
+    if (!is_string($month)) {
+        return null;
+    }
+
+    if (!preg_match('/^\d{4}$/', (string) $year)) {
+        return null;
+    }
+
+    if ($month !== '00' && !isset(get_months()[$month])) {
+        return null;
+    }
+
+    return [(int) $year, $month];
+}
