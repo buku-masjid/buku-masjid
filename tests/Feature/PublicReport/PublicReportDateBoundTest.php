@@ -109,6 +109,38 @@ class PublicReportDateBoundTest extends TestCase
     }
 
     /** @test */
+    public function an_end_date_before_the_book_bounds_is_not_found(): void
+    {
+        Carbon::setTestNow('2026-10-30 10:00:00');
+        $this->publicBook(Book::REPORT_PERIODE_ALL_TIME);
+        $this->createTransaction('2026-02-01');
+
+        $this->get(route('public_reports.finance.summary', ['end_date' => '2025-03-31']));
+        $this->assertSame(200, $this->response->getStatusCode(), 'An end date inside the lower bound should be reachable.');
+
+        $this->get(route('public_reports.finance.summary', ['end_date' => '1900-01-01']));
+        $this->assertSame(404, $this->response->getStatusCode(), 'An end date before the lower bound should be a 404.');
+
+        Carbon::setTestNow();
+    }
+
+    /** @test */
+    public function a_start_date_after_the_book_bounds_is_not_found(): void
+    {
+        Carbon::setTestNow('2026-10-30 10:00:00');
+        $this->publicBook(Book::REPORT_PERIODE_ALL_TIME);
+        $this->createTransaction('2026-02-01');
+
+        $this->get(route('public_reports.finance.summary', ['start_date' => '2026-10-01', 'end_date' => '2026-10-30']));
+        $this->assertSame(200, $this->response->getStatusCode(), 'A start date inside the upper bound should be reachable.');
+
+        $this->get(route('public_reports.finance.summary', ['start_date' => '2030-01-01', 'end_date' => '2026-10-30']));
+        $this->assertSame(404, $this->response->getStatusCode(), 'A start date after the upper bound should be a 404.');
+
+        Carbon::setTestNow();
+    }
+
+    /** @test */
     public function a_year_outside_the_book_bounds_is_not_found(): void
     {
         Carbon::setTestNow('2026-10-30 10:00:00');

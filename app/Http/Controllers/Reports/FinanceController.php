@@ -158,7 +158,8 @@ class FinanceController extends Controller
 
         [$minAllowedStart, $maxAllowedEnd] = get_report_date_bounds(auth()->activeBook());
 
-        if ($startDate->lt($minAllowedStart) || $endDate->gt($maxAllowedEnd)) {
+        if ($startDate->lt($minAllowedStart) || $endDate->lt($minAllowedStart)
+            || $startDate->gt($maxAllowedEnd) || $endDate->gt($maxAllowedEnd)) {
             abort(404);
         }
 
