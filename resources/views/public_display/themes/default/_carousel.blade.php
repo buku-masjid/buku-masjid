@@ -7,6 +7,9 @@
                 <div class="bg-gray-100 h-full w-full"></div>
             @endif
         </div>
+        @if (config('features.lecturings.is_active'))
+            @livewire('public-display.lecturing-schedules', ['theme' => $theme])
+        @endif
         @livewire('public-display.book-cards', ['theme' => $theme])
     </div>
     
@@ -35,7 +38,7 @@ let autoSlideInterval;
 
 function initCarousel() {
     const track = document.getElementById('carousel-track');
-    const slides = track.children;
+    const slides = track.querySelectorAll('.carousel-slide');
     totalSlides = slides.length;
     
     // Generate indicators
