@@ -201,6 +201,10 @@ function get_report_date_bounds($book): array
     $minAllowedStart = $now->copy()->subYear()->startOfDay();
     $maxAllowedEnd = $now->copy()->addYear()->endOfDay();
 
+    if (is_null($book)) {
+        return [$minAllowedStart, $maxAllowedEnd];
+    }
+
     $minDate = $book->transactions()->withoutGlobalScope('forActiveBook')->min('date');
     $maxDate = $book->transactions()->withoutGlobalScope('forActiveBook')->max('date');
 

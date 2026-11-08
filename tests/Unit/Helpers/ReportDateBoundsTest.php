@@ -93,4 +93,17 @@ class ReportDateBoundsTest extends TestCase
 
         $this->assertSame('2025-01-01', $minAllowedStart->format('Y-m-d'));
     }
+
+    /** @test */
+    public function it_falls_back_to_the_running_year_window_without_a_book(): void
+    {
+        Carbon::setTestNow('2026-10-30 10:00:00');
+
+        [$minAllowedStart, $maxAllowedEnd] = get_report_date_bounds(null);
+
+        $this->assertSame('2025-10-30', $minAllowedStart->format('Y-m-d'));
+        $this->assertSame('2027-10-30', $maxAllowedEnd->format('Y-m-d'));
+
+        Carbon::setTestNow();
+    }
 }
