@@ -17,15 +17,22 @@ class Controller extends BaseController
 
     protected function getYearMonth()
     {
-        $date = request('date');
         $year = request('year', date('Y'));
         $month = request('month', date('m'));
+
+        if (!preg_match('/^\d{4}$/', (string) $year) || !preg_match('/^\d{1,2}$/', (string) $month)) {
+            return date('Y-m');
+        }
+
+        $month = str_pad((string) $month, 2, '0', STR_PAD_LEFT);
         $yearMonth = $year.'-'.$month;
 
         $explodedYearMonth = explode('-', $yearMonth);
 
-        if (count($explodedYearMonth) == 2 && checkdate($explodedYearMonth[1], '01', $explodedYearMonth[0])) {
-            if (checkdate($explodedYearMonth[1], $date, $explodedYearMonth[0])) {
+        if (count($explodedYearMonth) == 2 && checkdate((int) $explodedYearMonth[1], 1, (int) $explodedYearMonth[0])) {
+            $date = request('date');
+
+            if (preg_match('/^\d{1,2}$/', (string) $date) && checkdate((int) $explodedYearMonth[1], (int) $date, (int) $explodedYearMonth[0])) {
                 return $explodedYearMonth[0].'-'.$explodedYearMonth[1].'-'.$date;
             }
 

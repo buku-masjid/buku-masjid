@@ -12,20 +12,26 @@ class NextMonthButton extends Component
     public $yearNumber = null;
     public $buttonText = '';
     public $buttonClass = 'btn btn-secondary';
+    public $isDisabled = false;
 
     public function mount()
     {
-        $month = request('month', date('m'));
-        if (!isset(get_months()[$month])) {
-            $month = Carbon::now()->format('m');
+        $validYearMonth = parse_year_month_input(request('year', date('Y')), request('month', date('m')));
+
+        if (is_null($validYearMonth)) {
+            $nextMonthDate = Carbon::now()->startOfMonth()->addMonth();
+        } else {
+            [$year, $month] = $validYearMonth;
+            if ($month == '00') {
+                $month = Carbon::now()->format('m');
+            }
+            $nextMonthDate = Carbon::parse($year.'-'.$month.'-10')->addMonth();
         }
-        $year = (int) request('year', date('Y'));
-        $yearMonth = $year.'-'.$month;
-        $nextMonthDate = Carbon::parse($yearMonth.'-10')->addMonth();
 
         $this->month = $nextMonthDate->format('m');
         $this->year = $nextMonthDate->format('Y');
         $this->buttonText = $this->buttonText ?: __('report.next_month');
+        $this->isDisabled = $nextMonthDate->copy()->endOfMonth()->gt(get_report_date_bounds(auth()->activeBook())[1]);
     }
 
     public function render()

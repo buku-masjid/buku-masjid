@@ -18,8 +18,7 @@ class PublicFinanceController extends FinanceController
             return redirect()->to('/');
         }
 
-        $startDate = $this->getStartDate($request);
-        $endDate = $this->getEndDate($request);
+        [$startDate, $endDate] = $this->getValidatedDateRange($request);
 
         $groupedTransactions = $this->getWeeklyGroupedTransactions($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))
             ->sortKeysDesc();
@@ -62,8 +61,7 @@ class PublicFinanceController extends FinanceController
             return redirect()->route('public_reports.index');
         }
 
-        $startDate = $this->getStartDate($request);
-        $endDate = $this->getEndDate($request);
+        [$startDate, $endDate] = $this->getValidatedDateRange($request);
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
@@ -103,8 +101,7 @@ class PublicFinanceController extends FinanceController
             return redirect()->route('public_reports.index');
         }
 
-        $startDate = $this->getStartDate($request);
-        $endDate = $this->getEndDate($request);
+        [$startDate, $endDate] = $this->getValidatedDateRange($request);
 
         $groupedTransactions = $this->getTansactionsByDateRange($startDate->format('Y-m-d'), $endDate->format('Y-m-d'))->groupBy('in_out');
         $incomeCategories = isset($groupedTransactions[1]) ? $groupedTransactions[1]->pluck('category')->unique()->filter() : collect([]);
@@ -140,8 +137,7 @@ class PublicFinanceController extends FinanceController
             return redirect()->route('public_reports.index');
         }
 
-        $startDate = $this->getStartDate($request);
-        $endDate = $this->getEndDate($request);
+        [$startDate, $endDate] = $this->getValidatedDateRange($request);
 
         $groupedTransactions = $this->getWeeklyGroupedTransactionsForDetail($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
         $transactionsByInOut = $groupedTransactions->flatten()->groupBy('in_out');

@@ -80,16 +80,17 @@ class FinanceController extends Controller
         }
 
         if ($request->has('year') && $request->has('month')) {
-            $year = (int) $request->get('year');
-            $month = $request->get('month');
-            if ($month == '00') {
-                return Carbon::parse($year.'-01-01');
-            }
-            if (!isset(get_months()[$month])) {
-                $month = Carbon::now()->format('m');
-            }
+            $validYearMonth = parse_year_month_input($request->get('year'), $request->get('month'));
 
-            return Carbon::parse($year.'-'.$month.'-01');
+            if (!is_null($validYearMonth)) {
+                [$year, $month] = $validYearMonth;
+
+                if ($month == '00') {
+                    return Carbon::parse($year.'-01-01');
+                }
+
+                return Carbon::parse($year.'-'.$month.'-01');
+            }
         }
 
         $yearMonth = $this->getYearMonth();
@@ -114,24 +115,25 @@ class FinanceController extends Controller
         }
 
         if ($request->has('year') && $request->has('month')) {
-            $year = (int) $request->get('year');
-            $month = $request->get('month');
-            if ($month == '00') {
-                if ($year == Carbon::now()->format('Y')) {
-                    return Carbon::now();
+            $validYearMonth = parse_year_month_input($request->get('year'), $request->get('month'));
+
+            if (!is_null($validYearMonth)) {
+                [$year, $month] = $validYearMonth;
+
+                if ($month == '00') {
+                    if ($year == Carbon::now()->format('Y')) {
+                        return Carbon::now();
+                    }
+
+                    return Carbon::parse($year.'-12-31');
                 }
 
-                return Carbon::parse($year.'-12-31');
-            }
-            if (!isset(get_months()[$month])) {
-                $month = Carbon::now()->format('m');
-            }
+                if ($year.'-'.$month == Carbon::now()->format('Y-m')) {
+                    return now();
+                }
 
-            if ($year.'-'.$month == Carbon::now()->format('Y-m')) {
-                return now();
+                return Carbon::parse(Carbon::parse($year.'-'.$month.'-10')->format('Y-m-t'));
             }
-
-            return Carbon::parse(Carbon::parse($year.'-'.$month.'-10')->format('Y-m-t'));
         }
 
         $yearMonth = $this->getYearMonth();
@@ -141,6 +143,27 @@ class FinanceController extends Controller
         }
 
         return Carbon::parse($yearMonth.'-01')->endOfMonth();
+    }
+
+    /**
+     * Return [startDate, endDate] after checking them against the book bounds.
+     *
+     * A range outside the bounds results in a 404, so bots cannot crawl the
+     * report of any period forever.
+     */
+    protected function getValidatedDateRange(Request $request): array
+    {
+        $startDate = $this->getStartDate($request);
+        $endDate = $this->getEndDate($request);
+
+        [$minAllowedStart, $maxAllowedEnd] = get_report_date_bounds(auth()->activeBook());
+
+        if ($startDate->lt($minAllowedStart) || $endDate->lt($minAllowedStart)
+            || $startDate->gt($maxAllowedEnd) || $endDate->gt($maxAllowedEnd)) {
+            abort(404);
+        }
+
+        return [$startDate, $endDate];
     }
 
     protected function getWeekLabelsByDateRange(string $startDate, string $endDate, string $startWeekDay)
