@@ -12,13 +12,9 @@ class TransactionStatsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Convert a money string produced by format_number() back into a float,
-     * using the same currency configuration as the application.
-     */
-    private function toNumber(string $formatted): float
+    private function formattedMoneyToFloat(string $formattedMoney): float
     {
-        $value = trim($formatted);
+        $value = trim($formattedMoney);
         $isNegative = str_starts_with($value, '-');
         $value = str_replace(['-', ' '], '', $value);
         $value = str_replace(config('money.thousands_separator'), '', $value);
@@ -27,16 +23,16 @@ class TransactionStatsTest extends TestCase
         return $isNegative ? -(float) $value : (float) $value;
     }
 
-    private function makeBook(): Book
+    private function createBookWithApiUser(): Book
     {
-        $user = $this->loginAsApiUser();
+        $this->loginAsApiUser();
         $book = factory(Book::class)->create();
         session()->put('active_book_id', $book->id);
 
         return $book;
     }
 
-    private function makeTransaction(Book $book, string $date, float $amount, int $inOut = Transaction::TYPE_INCOME): Transaction
+    private function createTransaction(Book $book, string $date, float $amount, int $inOut = Transaction::TYPE_INCOME): Transaction
     {
         return factory(Transaction::class)->create([
             'book_id' => $book->id,
@@ -49,10 +45,10 @@ class TransactionStatsTest extends TestCase
     /** @test */
     public function start_balance_is_the_balance_before_the_earliest_transaction_of_the_period()
     {
-        $book = $this->makeBook();
-        $this->makeTransaction($book, '2026-10-15', 100000);
-        $this->makeTransaction($book, '2026-11-05', 50000);
-        $this->makeTransaction($book, '2026-11-20', 20000, Transaction::TYPE_SPENDING);
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-10-15', 100000);
+        $this->createTransaction($book, '2026-11-05', 50000);
+        $this->createTransaction($book, '2026-11-20', 20000, Transaction::TYPE_SPENDING);
 
         $this->getJson(route('api.transactions.index').'?year=2026&month=11');
 
@@ -66,19 +62,19 @@ class TransactionStatsTest extends TestCase
     /** @test */
     public function start_balance_plus_difference_equals_end_balance()
     {
-        $book = $this->makeBook();
-        $this->makeTransaction($book, '2026-10-15', 100000);
-        $this->makeTransaction($book, '2026-11-05', 50000);
-        $this->makeTransaction($book, '2026-11-20', 20000, Transaction::TYPE_SPENDING);
-        $this->makeTransaction($book, '2026-12-01', 999999);
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-10-15', 100000);
+        $this->createTransaction($book, '2026-11-05', 50000);
+        $this->createTransaction($book, '2026-11-20', 20000, Transaction::TYPE_SPENDING);
+        $this->createTransaction($book, '2026-12-01', 999999);
 
         $this->getJson(route('api.transactions.index').'?year=2026&month=11');
 
         $stats = $this->response->json()['stats'];
 
-        $start = $this->toNumber($stats['start_balance']);
-        $difference = $this->toNumber($stats['difference']);
-        $end = $this->toNumber($stats['end_balance']);
+        $start = $this->formattedMoneyToFloat($stats['start_balance']);
+        $difference = $this->formattedMoneyToFloat($stats['difference']);
+        $end = $this->formattedMoneyToFloat($stats['end_balance']);
 
         $this->assertEqualsWithDelta($end, $start + $difference, 0.01);
     }
@@ -86,11 +82,11 @@ class TransactionStatsTest extends TestCase
     /** @test */
     public function the_stats_do_not_change_when_the_period_has_more_transactions_than_a_single_page()
     {
-        $book = $this->makeBook();
-        $this->makeTransaction($book, '2026-10-15', 100000);
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-10-15', 100000);
 
         foreach (range(1, 120) as $day) {
-            $this->makeTransaction($book, '2026-11-'.str_pad((string) ($day % 28 + 1), 2, '0', STR_PAD_LEFT), 1000);
+            $this->createTransaction($book, '2026-11-'.str_pad((string) ($day % 28 + 1), 2, '0', STR_PAD_LEFT), 1000);
         }
 
         $this->getJson(route('api.transactions.index').'?year=2026&month=11');
@@ -101,8 +97,8 @@ class TransactionStatsTest extends TestCase
         $this->assertSame(format_number(120000), $stats['difference']);
         $this->assertSame(format_number(220000), $stats['end_balance']);
         $this->assertEqualsWithDelta(
-            $this->toNumber($stats['end_balance']),
-            $this->toNumber($stats['start_balance']) + $this->toNumber($stats['difference']),
+            $this->formattedMoneyToFloat($stats['end_balance']),
+            $this->formattedMoneyToFloat($stats['start_balance']) + $this->formattedMoneyToFloat($stats['difference']),
             0.01
         );
     }
@@ -110,10 +106,10 @@ class TransactionStatsTest extends TestCase
     /** @test */
     public function the_stats_of_a_period_are_not_affected_by_transactions_of_other_periods()
     {
-        $book = $this->makeBook();
-        $this->makeTransaction($book, '2026-09-01', 700000);
-        $this->makeTransaction($book, '2026-11-02', 5000);
-        $this->makeTransaction($book, '2026-12-31', 900000);
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-09-01', 700000);
+        $this->createTransaction($book, '2026-11-02', 5000);
+        $this->createTransaction($book, '2026-12-31', 900000);
 
         $this->getJson(route('api.transactions.index').'?year=2026&month=11');
 
@@ -128,7 +124,7 @@ class TransactionStatsTest extends TestCase
     /** @test */
     public function the_stats_stay_consistent_when_a_category_filter_is_applied()
     {
-        $book = $this->makeBook();
+        $book = $this->createBookWithApiUser();
         $category = factory(Category::class)->create(['book_id' => $book->id]);
         $otherCategory = factory(Category::class)->create(['book_id' => $book->id]);
 
@@ -153,8 +149,8 @@ class TransactionStatsTest extends TestCase
         $this->assertSame(format_number(-12000), $stats['difference']);
         $this->assertSame(format_number(18000), $stats['end_balance']);
         $this->assertEqualsWithDelta(
-            $this->toNumber($stats['end_balance']),
-            $this->toNumber($stats['start_balance']) + $this->toNumber($stats['difference']),
+            $this->formattedMoneyToFloat($stats['end_balance']),
+            $this->formattedMoneyToFloat($stats['start_balance']) + $this->formattedMoneyToFloat($stats['difference']),
             0.01
         );
     }
@@ -162,10 +158,10 @@ class TransactionStatsTest extends TestCase
     /** @test */
     public function a_request_without_a_period_filter_keeps_working_as_before()
     {
-        $book = $this->makeBook();
+        $book = $this->createBookWithApiUser();
         $today = date('Y-m-d');
-        $this->makeTransaction($book, '2020-01-01', 40000);
-        $this->makeTransaction($book, $today, 25000);
+        $this->createTransaction($book, '2020-01-01', 40000);
+        $this->createTransaction($book, $today, 25000);
 
         $this->getJson(route('api.transactions.index'));
 

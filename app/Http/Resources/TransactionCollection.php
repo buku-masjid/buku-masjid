@@ -7,31 +7,16 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TransactionCollection extends ResourceCollection
 {
-    /**
-     * Unfetched query of every transaction of the active book, with the request filters applied.
-     *
-     * @var \Illuminate\Database\Eloquent\Builder|null
-     */
-    private $periodQuery;
+    private $transactionsOfPeriodQuery;
 
-    /**
-     * Period in `Y-m` or `Y-m-d` format, as resolved from the request.
-     *
-     * @var string|null
-     */
-    private $yearMonth;
+    private $period;
 
-    /**
-     * @param  mixed  $resource
-     * @param  \Illuminate\Database\Eloquent\Builder|null  $periodQuery
-     * @param  string|null  $yearMonth
-     */
-    public function __construct($resource, $periodQuery = null, $yearMonth = null)
+    public function __construct($resource, $transactionsOfPeriodQuery = null, $period = null)
     {
         parent::__construct($resource);
 
-        $this->periodQuery = $periodQuery;
-        $this->yearMonth = $yearMonth;
+        $this->transactionsOfPeriodQuery = $transactionsOfPeriodQuery;
+        $this->period = $period;
     }
 
     /**
@@ -47,11 +32,11 @@ class TransactionCollection extends ResourceCollection
 
     public function with($request)
     {
-        $period = $this->getPeriod();
-        $incomeTotal = $this->getTransactionTotalOfThePeriod($period, Transaction::TYPE_INCOME);
-        $spendingTotal = $this->getTransactionTotalOfThePeriod($period, Transaction::TYPE_SPENDING);
+        $periodDateRange = $this->getPeriodDateRange();
+        $incomeTotal = $this->sumAmountInPeriod($periodDateRange, Transaction::TYPE_INCOME);
+        $spendingTotal = $this->sumAmountInPeriod($periodDateRange, Transaction::TYPE_SPENDING);
         $difference = $incomeTotal - $spendingTotal;
-        $startBalance = $this->getStartBalance($period);
+        $startBalance = $this->sumAmountBeforePeriod($periodDateRange);
 
         return [
             'stats' => [
@@ -64,69 +49,52 @@ class TransactionCollection extends ResourceCollection
         ];
     }
 
-    /**
-     * The earliest and the latest transaction date of the requested period.
-     *
-     * The boundaries come from the dates of the whole period, never from the
-     * position of a transaction inside the returned collection.
-     *
-     * @return array{start_date: ?string, end_date: ?string}
-     */
-    private function getPeriod(): array
+    private function getPeriodDateRange(): array
     {
-        if (is_null($this->periodQuery) || is_null($this->yearMonth)) {
-            return ['start_date' => null, 'end_date' => null];
+        if (is_null($this->transactionsOfPeriodQuery) || is_null($this->period)) {
+            return ['first_date' => null, 'last_date' => null];
         }
 
-        $aggregate = (clone $this->periodQuery)
-            ->where('date', 'like', $this->yearMonth.'%')
-            ->selectRaw('MIN(date) as start_date, MAX(date) as end_date')
+        $dateRange = (clone $this->transactionsOfPeriodQuery)
+            ->where('date', 'like', $this->period.'%')
+            ->selectRaw('MIN(date) as first_date, MAX(date) as last_date')
             ->first();
 
         return [
-            'start_date' => $aggregate ? $aggregate->start_date : null,
-            'end_date' => $aggregate ? $aggregate->end_date : null,
+            'first_date' => $dateRange ? $dateRange->first_date : null,
+            'last_date' => $dateRange ? $dateRange->last_date : null,
         ];
     }
 
-    /**
-     * The balance right before the earliest transaction of the period.
-     *
-     * It is computed from the same filtered query as the totals, so that
-     * `start_balance + difference = end_balance` always holds — also when a
-     * category, book, bank account, or description filter is applied.
-     */
-    private function getStartBalance(array $period): float
+    private function sumAmountBeforePeriod(array $periodDateRange): float
     {
-        if (is_null($this->periodQuery) || is_null($period['start_date'])) {
+        if (is_null($this->transactionsOfPeriodQuery) || is_null($periodDateRange['first_date'])) {
             return 0;
         }
 
-        $incomeBefore = (float) (clone $this->periodQuery)
-            ->where('date', '<', $period['start_date'])
-            ->where('in_out', Transaction::TYPE_INCOME)
-            ->sum('amount');
-
-        $spendingBefore = (float) (clone $this->periodQuery)
-            ->where('date', '<', $period['start_date'])
-            ->where('in_out', Transaction::TYPE_SPENDING)
-            ->sum('amount');
+        $incomeBefore = $this->sumAmountBeforeDate($periodDateRange['first_date'], Transaction::TYPE_INCOME);
+        $spendingBefore = $this->sumAmountBeforeDate($periodDateRange['first_date'], Transaction::TYPE_SPENDING);
 
         return $incomeBefore - $spendingBefore;
     }
 
-    /**
-     * Total amount of one transaction type across the whole period.
-     */
-    private function getTransactionTotalOfThePeriod(array $period, int $inOut): float
+    private function sumAmountBeforeDate(string $date, int $inOut): float
     {
-        if (is_null($this->periodQuery) || is_null($period['start_date'])) {
+        return (float) (clone $this->transactionsOfPeriodQuery)
+            ->where('date', '<', $date)
+            ->where('in_out', $inOut)
+            ->sum('amount');
+    }
+
+    private function sumAmountInPeriod(array $periodDateRange, int $inOut): float
+    {
+        if (is_null($this->transactionsOfPeriodQuery) || is_null($periodDateRange['first_date'])) {
             return 0;
         }
 
-        return (float) (clone $this->periodQuery)
+        return (float) (clone $this->transactionsOfPeriodQuery)
             ->where('in_out', $inOut)
-            ->whereBetween('date', [$period['start_date'], $period['end_date']])
+            ->whereBetween('date', [$periodDateRange['first_date'], $periodDateRange['last_date']])
             ->sum('amount');
     }
 }

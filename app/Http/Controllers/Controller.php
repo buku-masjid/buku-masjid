@@ -51,14 +51,6 @@ class Controller extends BaseController
             ->get();
     }
 
-    /**
-     * Unfetched query of every transaction of the active book, with the request filters applied.
-     *
-     * The period restriction is left to the caller, because the report statistics
-     * also need the transactions right before the period to compute the balance.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     protected function getTransactionsQuery()
     {
         $categoryId = request('category_id');
