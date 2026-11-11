@@ -1,4 +1,4 @@
-@if ($isDisabled)
+@if ($isOutsideReportRange)
     <span class="{{ $buttonClass }} disabled" aria-disabled="true">{{ $buttonText }}</span>
 @else
     {{ link_to_route(

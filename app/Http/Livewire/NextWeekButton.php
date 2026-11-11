@@ -12,7 +12,7 @@ class NextWeekButton extends Component
     public $endDate = null;
     public $buttonText = '';
     public $buttonClass = 'btn btn-secondary';
-    public $isDisabled = false;
+    public $isOutsideReportRange = false;
 
     public function mount()
     {
@@ -39,14 +39,14 @@ class NextWeekButton extends Component
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->buttonText = $this->buttonText ?: __('report.next_week');
-        $this->isDisabled = $this->isOutsideReportBounds(Carbon::parse($endDate));
+        $this->isOutsideReportRange = $this->isOutsideReportBounds(Carbon::parse($endDate));
     }
 
     private function isOutsideReportBounds(Carbon $targetDate): bool
     {
-        [, $maxAllowedEnd] = get_report_date_bounds(auth()->activeBook());
+        [, $latestAllowedDate] = get_report_date_bounds(auth()->activeBook());
 
-        return $targetDate->gt($maxAllowedEnd);
+        return $targetDate->gt($latestAllowedDate);
     }
 
     public function render()

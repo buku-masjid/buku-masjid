@@ -12,7 +12,7 @@ class PrevMonthButton extends Component
     public $yearNumber = null;
     public $buttonText = '';
     public $buttonClass = 'btn btn-secondary';
-    public $isDisabled = false;
+    public $isOutsideReportRange = false;
 
     public function mount()
     {
@@ -31,7 +31,8 @@ class PrevMonthButton extends Component
         $this->month = $prevMonthDate->format('m');
         $this->year = $prevMonthDate->format('Y');
         $this->buttonText = $this->buttonText ?: __('report.prev_month');
-        $this->isDisabled = $prevMonthDate->copy()->startOfMonth()->lt(get_report_date_bounds(auth()->activeBook())[0]);
+        [$earliestAllowedDate] = get_report_date_bounds(auth()->activeBook());
+        $this->isOutsideReportRange = $prevMonthDate->copy()->startOfMonth()->lt($earliestAllowedDate);
     }
 
     public function render()

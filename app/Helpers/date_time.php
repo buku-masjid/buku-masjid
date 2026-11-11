@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Book;
 use Carbon\Carbon;
 
 /**
@@ -183,57 +184,35 @@ function parse_date_input($value): ?Carbon
     return $date;
 }
 
-/**
- * Date range that may be opened on the financial report of a book.
- *
- * The window is one year before the earliest transaction and one year after
- * the latest one. The running year window is always included, so a book whose
- * last transaction is already older than a year still renders its default
- * report page.
- *
- * @param  \App\Models\Book  $book
- * @return array{0: Carbon, 1: Carbon} [minAllowedStart, maxAllowedEnd]
- */
-function get_report_date_bounds($book): array
+function get_report_date_bounds(?Book $book): array
 {
-    $now = Carbon::now();
-
-    $minAllowedStart = $now->copy()->subYear()->startOfDay();
-    $maxAllowedEnd = $now->copy()->addYear()->endOfDay();
+    $runningYearStart = Carbon::now()->subYear()->startOfDay();
+    $runningYearEnd = Carbon::now()->addYear()->endOfDay();
 
     if (is_null($book)) {
-        return [$minAllowedStart, $maxAllowedEnd];
+        return [$runningYearStart, $runningYearEnd];
     }
 
-    $minDate = $book->transactions()->withoutGlobalScope('forActiveBook')->min('date');
-    $maxDate = $book->transactions()->withoutGlobalScope('forActiveBook')->max('date');
+    $firstTransactionDate = $book->transactions()->withoutGlobalScope('forActiveBook')->min('date');
+    $lastTransactionDate = $book->transactions()->withoutGlobalScope('forActiveBook')->max('date');
 
-    if (!is_null($minDate)) {
-        $bookMinDate = Carbon::parse($minDate)->subYear()->startOfDay();
-        if ($bookMinDate->lt($minAllowedStart)) {
-            $minAllowedStart = $bookMinDate;
+    if (!is_null($firstTransactionDate)) {
+        $yearBeforeFirstTransaction = Carbon::parse($firstTransactionDate)->subYear()->startOfDay();
+        if ($yearBeforeFirstTransaction->lt($runningYearStart)) {
+            $runningYearStart = $yearBeforeFirstTransaction;
         }
     }
 
-    if (!is_null($maxDate)) {
-        $bookMaxDate = Carbon::parse($maxDate)->addYear()->endOfDay();
-        if ($bookMaxDate->gt($maxAllowedEnd)) {
-            $maxAllowedEnd = $bookMaxDate;
+    if (!is_null($lastTransactionDate)) {
+        $yearAfterLastTransaction = Carbon::parse($lastTransactionDate)->addYear()->endOfDay();
+        if ($yearAfterLastTransaction->gt($runningYearEnd)) {
+            $runningYearEnd = $yearAfterLastTransaction;
         }
     }
 
-    return [$minAllowedStart, $maxAllowedEnd];
+    return [$runningYearStart, $runningYearEnd];
 }
 
-/**
- * Validate the shape of the year/month query parameters.
- *
- * Returns null when either value is not usable, so the caller falls back to
- * its default period instead of handing the value to Carbon.
- *
- * @param  mixed  $year
- * @param  mixed  $month
- */
 function parse_year_month_input($year, $month): ?array
 {
     if (!is_string($year) && !is_int($year)) {

@@ -145,21 +145,19 @@ class FinanceController extends Controller
         return Carbon::parse($yearMonth.'-01')->endOfMonth();
     }
 
-    /**
-     * Return [startDate, endDate] after checking them against the book bounds.
-     *
-     * A range outside the bounds results in a 404, so bots cannot crawl the
-     * report of any period forever.
-     */
     protected function getValidatedDateRange(Request $request): array
     {
         $startDate = $this->getStartDate($request);
         $endDate = $this->getEndDate($request);
 
-        [$minAllowedStart, $maxAllowedEnd] = get_report_date_bounds(auth()->activeBook());
+        [$earliestAllowedDate, $latestAllowedDate] = get_report_date_bounds(auth()->activeBook());
 
-        if ($startDate->lt($minAllowedStart) || $endDate->lt($minAllowedStart)
-            || $startDate->gt($maxAllowedEnd) || $endDate->gt($maxAllowedEnd)) {
+        $isStartBeforeRange = $startDate->lt($earliestAllowedDate);
+        $isEndBeforeRange = $endDate->lt($earliestAllowedDate);
+        $isStartAfterRange = $startDate->gt($latestAllowedDate);
+        $isEndAfterRange = $endDate->gt($latestAllowedDate);
+
+        if ($isStartBeforeRange || $isEndBeforeRange || $isStartAfterRange || $isEndAfterRange) {
             abort(404);
         }
 

@@ -12,7 +12,7 @@ class PrevWeekButton extends Component
     public $endDate = null;
     public $buttonText = '';
     public $buttonClass = 'btn btn-secondary';
-    public $isDisabled = false;
+    public $isOutsideReportRange = false;
 
     public function mount()
     {
@@ -39,14 +39,14 @@ class PrevWeekButton extends Component
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->buttonText = $this->buttonText ?: __('report.prev_week');
-        $this->isDisabled = $this->isOutsideReportBounds(Carbon::parse($startDate));
+        $this->isOutsideReportRange = $this->isOutsideReportBounds(Carbon::parse($startDate));
     }
 
     private function isOutsideReportBounds(Carbon $targetDate): bool
     {
-        [$minAllowedStart] = get_report_date_bounds(auth()->activeBook());
+        [$earliestAllowedDate] = get_report_date_bounds(auth()->activeBook());
 
-        return $targetDate->lt($minAllowedStart);
+        return $targetDate->lt($earliestAllowedDate);
     }
 
     public function render()
