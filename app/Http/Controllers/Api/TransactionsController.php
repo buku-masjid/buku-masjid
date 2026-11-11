@@ -18,10 +18,13 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        $yearMonth = $this->getYearMonth();
+        $period = $this->getYearMonth();
+        $transactions = $this->getTansactions($period);
 
         return new TransactionCollection(
-            $this->getTansactions($yearMonth)
+            $transactions,
+            $this->getTransactionsQuery(),
+            $period
         );
     }
 
