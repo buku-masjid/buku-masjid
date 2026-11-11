@@ -80,7 +80,7 @@ class TransactionStatsTest extends TestCase
     }
 
     /** @test */
-    public function the_stats_do_not_change_when_the_period_has_more_transactions_than_a_single_page()
+    public function the_stats_are_computed_from_the_whole_period_not_only_from_its_first_rows()
     {
         $book = $this->createBookWithApiUser();
         $this->createTransaction($book, '2026-10-15', 100000);
@@ -170,5 +170,63 @@ class TransactionStatsTest extends TestCase
 
         $this->assertSame(format_number(40000), $stats['start_balance']);
         $this->assertSame(format_number(65000), $stats['end_balance']);
+    }
+
+    /** @test */
+    public function an_empty_period_returns_the_balance_before_the_period_instead_of_zero()
+    {
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-10-15', 100000);
+
+        $this->getJson(route('api.transactions.index').'?year=2026&month=11');
+
+        $stats = $this->response->json()['stats'];
+
+        $this->assertSame(format_number(100000), $stats['start_balance']);
+        $this->assertSame(format_number(0), $stats['difference']);
+        $this->assertSame(format_number(100000), $stats['end_balance']);
+    }
+
+    /** @test */
+    public function an_empty_period_returns_the_balance_before_the_period_after_a_spending_month()
+    {
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-10-05', 500000);
+        $this->createTransaction($book, '2026-10-20', 150000, Transaction::TYPE_SPENDING);
+
+        $this->getJson(route('api.transactions.index').'?year=2026&month=11');
+
+        $stats = $this->response->json()['stats'];
+
+        $this->assertSame(format_number(350000), $stats['start_balance']);
+        $this->assertSame(format_number(350000), $stats['end_balance']);
+    }
+
+    /** @test */
+    public function an_empty_period_of_a_single_date_filter_returns_the_balance_before_that_date()
+    {
+        $book = $this->createBookWithApiUser();
+        $this->createTransaction($book, '2026-11-01', 75000);
+
+        $this->getJson(route('api.transactions.index').'?year=2026&month=11&date=20');
+
+        $stats = $this->response->json()['stats'];
+
+        $this->assertSame(format_number(75000), $stats['start_balance']);
+        $this->assertSame(format_number(0), $stats['difference']);
+        $this->assertSame(format_number(75000), $stats['end_balance']);
+    }
+
+    /** @test */
+    public function a_period_without_any_transaction_of_the_book_returns_zero()
+    {
+        $book = $this->createBookWithApiUser();
+
+        $this->getJson(route('api.transactions.index').'?year=2026&month=11');
+
+        $stats = $this->response->json()['stats'];
+
+        $this->assertSame(format_number(0), $stats['start_balance']);
+        $this->assertSame(format_number(0), $stats['end_balance']);
     }
 }

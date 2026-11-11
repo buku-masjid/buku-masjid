@@ -60,10 +60,22 @@ class TransactionCollection extends ResourceCollection
             ->selectRaw('MIN(date) as first_date, MAX(date) as last_date')
             ->first();
 
-        return [
-            'first_date' => $dateRange ? $dateRange->first_date : null,
-            'last_date' => $dateRange ? $dateRange->last_date : null,
-        ];
+        if (is_null($dateRange) || is_null($dateRange->first_date)) {
+            $periodStartDate = $this->getPeriodStartDate();
+
+            return ['first_date' => $periodStartDate, 'last_date' => $periodStartDate];
+        }
+
+        return ['first_date' => $dateRange->first_date, 'last_date' => $dateRange->last_date];
+    }
+
+    private function getPeriodStartDate(): string
+    {
+        if (strlen($this->period) === 10) {
+            return $this->period;
+        }
+
+        return $this->period.'-01';
     }
 
     private function sumAmountBeforePeriod(array $periodDateRange): float
