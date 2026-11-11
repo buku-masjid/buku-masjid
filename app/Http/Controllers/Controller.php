@@ -44,52 +44,28 @@ class Controller extends BaseController
 
     protected function getTansactions($yearMonth)
     {
-        $categoryId = request('category_id');
-        $bookId = request('book_id');
-        $bankAccountId = request('bank_account_id');
-
-        $transactionQuery = Transaction::query();
-        $transactionQuery->where('date', 'like', $yearMonth.'%');
-        $transactionQuery->where('description', 'like', '%'.request('query').'%');
-
-        $transactionQuery->when($categoryId, function ($queryBuilder, $categoryId) {
-            if ($categoryId == 'null') {
-                $queryBuilder->whereNull('category_id');
-            } else {
-                $queryBuilder->where('category_id', $categoryId);
-            }
-        });
-
-        $transactionQuery->when($bookId, function ($queryBuilder, $bookId) {
-            if ($bookId == 'null') {
-                $queryBuilder->whereNull('book_id');
-            } else {
-                $queryBuilder->where('book_id', $bookId);
-            }
-        });
-
-        $transactionQuery->when($bankAccountId, function ($queryBuilder, $bankAccountId) {
-            if ($bankAccountId == 'null') {
-                $queryBuilder->whereNull('bank_account_id');
-            } else {
-                $queryBuilder->where('bank_account_id', $bankAccountId);
-            }
-        });
-
-        return $transactionQuery->orderBy('date', 'desc')->orderBy('created_at', 'desc')
+        return $this->getTransactionsQuery()->where('date', 'like', $yearMonth.'%')
+            ->orderBy('date', 'desc')->orderBy('created_at', 'desc')
             ->with('category', 'bankAccount', 'book')
             ->withCount('files')
             ->get();
     }
 
-    protected function getTansactionsByDateRange(string $startDate, string $endDate)
+    /**
+     * Unfetched query of every transaction of the active book, with the request filters applied.
+     *
+     * The period restriction is left to the caller, because the report statistics
+     * also need the transactions right before the period to compute the balance.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function getTransactionsQuery()
     {
         $categoryId = request('category_id');
         $bookId = request('book_id');
         $bankAccountId = request('bank_account_id');
 
         $transactionQuery = Transaction::query();
-        $transactionQuery->whereBetween('date', [$startDate, $endDate]);
         $transactionQuery->where('description', 'like', '%'.request('query').'%');
 
         $transactionQuery->when($categoryId, function ($queryBuilder, $categoryId) {
@@ -116,7 +92,13 @@ class Controller extends BaseController
             }
         });
 
-        return $transactionQuery->orderBy('date', 'asc')->with('category', 'book', 'files')->get();
+        return $transactionQuery;
+    }
+
+    protected function getTansactionsByDateRange(string $startDate, string $endDate)
+    {
+        return $this->getTransactionsQuery()->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', 'asc')->with('category', 'book', 'files')->get();
     }
 
     protected function getIncomeTotal($transactions)
