@@ -11,6 +11,16 @@
             <div class="text-secondary mt-1">{{ __('category.transactions') }}</div>
         </div>
         <div class="col-auto text-end">
+            @can('update', $category)
+                @can('manage-categories', auth()->activeBook())
+                    {{ link_to_route(
+                        'categories.show',
+                        __('app.edit'),
+                        ['category' => $category->id, 'action' => 'edit'],
+                        ['id' => 'edit-category-'.$category->id, 'class' => 'btn btn-warning']
+                    ) }}
+                @endcan
+            @endcan
             {{ link_to_route('categories.index', __('category.back_to_index'), [], ['class' => 'btn']) }}
         </div>
     </div>
@@ -103,6 +113,11 @@
     </div>
 </div>
 </div>
+@if (in_array(request('action'), ['edit', 'delete']))
+    @can('manage-categories', auth()->activeBook())
+        @include('categories.forms')
+    @endcan
+@endif
 @endsection
 
 @push('styles')

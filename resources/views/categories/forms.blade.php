@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('category.edit') }}</h5>
-                    {{ link_to_route('categories.index', '', [], ['class' => 'btn-close']) }}
+                    {{ link_to_route('categories.show', '', $editableCategory, ['class' => 'btn-close']) }}
                 </div>
                 {{ Form::model($editableCategory, ['route' => ['categories.update', $editableCategory], 'method' => 'patch']) }}
                 <div class="modal-body">
@@ -81,12 +81,12 @@
                 <div class="modal-footer">
                     {{ Form::hidden('book_id', auth()->activeBookId()) }}
                     {!! Form::submit(__('category.update'), ['class' => 'btn btn-success']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
+                    {{ link_to_route('categories.show', __('app.cancel'), $editableCategory, ['class' => 'btn']) }}
                     @can('delete', $editableCategory)
                         {!! link_to_route(
-                            'categories.index',
+                            'categories.show',
                             __('app.delete'),
-                            ['action' => 'delete', 'id' => $editableCategory->id],
+                            [$editableCategory, 'action' => 'delete'],
                             ['id' => 'del-category-'.$editableCategory->id, 'class' => 'btn btn-danger float-start']
                         ) !!}
                     @endcan
@@ -106,7 +106,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('category.delete') }} {{ $editableCategory->type }}</h5>
-                    {{ link_to_route('categories.index', '', [], ['class' => 'btn-close']) }}
+                    {{ link_to_route('categories.show', '', $editableCategory, ['class' => 'btn-close']) }}
                 </div>
                 {{ Form::open(['url' => route('categories.destroy', $editableCategory), 'method' => 'DELETE']) }}
                 <div class="modal-body">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(__('app.delete_confirm_button'), ['class' => 'btn btn-danger']) !!}
-                    {{ link_to_route('categories.index', __('app.cancel'), [], ['class' => 'btn']) }}
+                    {{ link_to_route('categories.show', __('app.cancel'), $editableCategory, ['class' => 'btn']) }}
                 </div>
                 {{ Form::close() }}
             </div>

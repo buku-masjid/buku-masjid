@@ -19,10 +19,6 @@ class CategoriesController extends Controller
         $categories = Category::orderBy('name')->with('book')->get();
         $books = $this->getBookList();
 
-        if (in_array(request('action'), ['edit', 'delete']) && request('id') != null) {
-            $editableCategory = Category::find(request('id'));
-        }
-
         return view('categories.index', compact('categories', 'editableCategory', 'books'));
     }
 
@@ -41,6 +37,7 @@ class CategoriesController extends Controller
 
         $categories = [];
         $editableTransaction = null;
+        $editableCategory = null;
         $year = request('year', date('Y'));
 
         $defaultStartDate = date('Y-m').'-01';
@@ -67,9 +64,13 @@ class CategoriesController extends Controller
             $editableTransaction = Transaction::find(request('id'));
         }
 
+        if (in_array(request('action'), ['edit', 'delete'])) {
+            $editableCategory = $category;
+        }
+
         return view('categories.show', compact(
             'category', 'transactions', 'year', 'incomeTotal', 'spendingTotal',
-            'startDate', 'endDate', 'editableTransaction', 'categories', 'bankAccounts',
+            'startDate', 'endDate', 'editableTransaction', 'editableCategory', 'categories', 'bankAccounts',
             'allTimeStartDate', 'allTimeEndDate'
         ));
     }
@@ -80,7 +81,7 @@ class CategoriesController extends Controller
 
         flash(__('category.updated'), 'success');
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.show', $category);
     }
 
     public function destroy(DeleteRequest $categoryDeleteForm, Category $category)

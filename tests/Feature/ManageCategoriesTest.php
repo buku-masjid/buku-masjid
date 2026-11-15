@@ -113,64 +113,87 @@ class ManageCategoriesTest extends TestCase
     }
 
     /** @test */
-    public function user_can_edit_a_category_within_search_query()
+    public function category_index_page_does_not_have_any_edit_link()
     {
         $user = $this->loginAsUser();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
-        $book = factory(Book::class)->create();
 
         $this->visit(route('categories.index'));
+        $this->see($category->name);
+        $this->dontSeeElement('a', ['id' => 'edit-category-'.$category->id]);
+
+        $this->visitRoute('categories.index', ['action' => 'edit', 'id' => $category->id]);
+        $this->dontSeeElement('input', ['value' => __('category.update')]);
+    }
+
+    /** @test */
+    public function user_can_see_the_edit_link_on_the_category_detail_page()
+    {
+        $user = $this->loginAsUser();
+        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+
+        $this->visit(route('categories.show', $category));
+        $this->seeElement('a', [
+            'id' => 'edit-category-'.$category->id,
+            'href' => route('categories.show', ['category' => $category->id, 'action' => 'edit']),
+        ]);
+    }
+
+    /** @test */
+    public function user_can_edit_a_category_from_the_category_detail_page()
+    {
+        $user = $this->loginAsUser();
+        $category = factory(Category::class)->create(['creator_id' => $user->id]);
+
+        $this->visit(route('categories.show', $category));
         $this->click('edit-category-'.$category->id);
-        $this->seePageIs(route('categories.index', ['action' => 'edit', 'id' => $category->id]));
+        $this->seePageIs(route('categories.show', ['category' => $category->id, 'action' => 'edit']));
+        $this->seeElement('input', ['value' => __('category.update')]);
 
         $this->submitForm(__('category.update'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
-            'book_id' => $book->id,
+            'book_id' => $category->book_id,
             'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL,
         ]);
 
-        $this->seePageIs(route('categories.index'));
+        $this->seePageIs(route('categories.show', $category));
 
         $this->seeInDatabase('categories', [
+            'id' => $category->id,
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'color' => '#00AABB',
             'status_id' => Category::STATUS_ACTIVE,
-            'book_id' => $book->id,
+            'book_id' => $category->book_id,
             'report_visibility_code' => Category::REPORT_VISIBILITY_INTERNAL,
         ]);
     }
 
     /** @test */
-    public function user_can_edit_a_category_status()
+    public function user_can_edit_a_category_status_from_the_category_detail_page()
     {
         $user = $this->loginAsUser();
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
-        $book = factory(Book::class)->create();
 
-        $this->visit(route('categories.index'));
-        $this->click('edit-category-'.$category->id);
-        $this->seePageIs(route('categories.index', ['action' => 'edit', 'id' => $category->id]));
-
+        $this->visit(route('categories.show', ['category' => $category->id, 'action' => 'edit']));
         $this->submitForm(__('category.update'), [
             'name' => 'Category 1 name',
             'description' => 'Category 1 description',
             'color' => '#00AABB',
             'status_id' => Category::STATUS_INACTIVE,
-            'book_id' => $book->id,
+            'book_id' => $category->book_id,
         ]);
 
-        $this->seePageIs(route('categories.index'));
+        $this->seePageIs(route('categories.show', $category));
 
         $this->seeInDatabase('categories', [
+            'id' => $category->id,
             'name' => 'Category 1 name',
-            'description' => 'Category 1 description',
-            'color' => '#00AABB',
             'status_id' => Category::STATUS_INACTIVE,
-            'book_id' => $book->id,
+            'book_id' => $category->book_id,
         ]);
     }
 
@@ -184,10 +207,10 @@ class ManageCategoriesTest extends TestCase
         $this->loginAsUser();
         session()->put('active_book_id', $inActiveBook->id);
 
-        $this->visitRoute('categories.index');
+        $this->visitRoute('categories.show', $category);
         $this->dontSeeElement('a', ['id' => 'edit-category-'.$category->id]);
 
-        $this->visitRoute('categories.index', ['action' => 'edit', 'id' => $category->id]);
+        $this->visitRoute('categories.show', ['category' => $category->id, 'action' => 'edit']);
         $this->dontSeeElement('input', ['value' => __('category.update')]);
     }
 
@@ -198,9 +221,9 @@ class ManageCategoriesTest extends TestCase
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
         factory(Transaction::class)->create(['category_id' => $category->id, 'creator_id' => $user->id]);
 
-        $this->visit(route('categories.index', ['action' => 'edit', 'id' => $category->id]));
+        $this->visit(route('categories.show', ['category' => $category->id, 'action' => 'edit']));
         $this->click('del-category-'.$category->id);
-        $this->seePageIs(route('categories.index', ['action' => 'delete', 'id' => $category->id]));
+        $this->seePageIs(route('categories.show', ['category' => $category->id, 'action' => 'delete']));
 
         $this->seeInDatabase('categories', [
             'id' => $category->id,
@@ -210,6 +233,8 @@ class ManageCategoriesTest extends TestCase
             'category_id' => $category->id,
             'delete_transactions' => 1,
         ]);
+
+        $this->seePageIs(route('categories.index'));
 
         $this->dontSeeInDatabase('categories', [
             'id' => $category->id,
@@ -227,7 +252,7 @@ class ManageCategoriesTest extends TestCase
         $category = factory(Category::class)->create(['creator_id' => $user->id]);
         $transaction = factory(Transaction::class)->create(['category_id' => $category->id, 'creator_id' => $user->id]);
 
-        $this->visit(route('categories.index', ['action' => 'delete', 'id' => $category->id]));
+        $this->visit(route('categories.show', ['category' => $category->id, 'action' => 'delete']));
 
         $this->submitForm(__('app.delete_confirm_button'), [
             'category_id' => $category->id,
@@ -253,7 +278,7 @@ class ManageCategoriesTest extends TestCase
         $this->loginAsUser();
         session()->put('active_book_id', $inActiveBook->id);
 
-        $this->visitRoute('categories.index', ['action' => 'delete', 'id' => $category->id]);
+        $this->visitRoute('categories.show', ['category' => $category->id, 'action' => 'delete']);
         $this->dontSeeElement('input', ['value' => __('app.delete_confirm_button')]);
     }
 }

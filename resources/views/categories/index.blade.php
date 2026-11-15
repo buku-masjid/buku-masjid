@@ -51,19 +51,6 @@
                                     ['class' => 'btn btn-sm']
                                 ) }}
                             @endcan
-                            @can('update', $category)
-                                @can('manage-categories', auth()->activeBook())
-                                    {{ link_to_route(
-                                        'categories.index',
-                                        __('app.edit'),
-                                        ['action' => 'edit', 'id' => $category->id],
-                                        [
-                                            'id' => 'edit-category-'.$category->id,
-                                            'class' => 'btn btn-sm btn-warning',
-                                        ]
-                                    ) }}
-                                @endcan
-                            @endcan
                         </td>
                     </tr>
                     @empty
@@ -74,7 +61,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        @if(Request::has('action'))
+        @if(request('action') == 'create')
             @can('manage-categories', auth()->activeBook())
                 @include('categories.forms')
             @endcan
