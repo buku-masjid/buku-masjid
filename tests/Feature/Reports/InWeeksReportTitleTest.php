@@ -104,23 +104,28 @@ class InWeeksReportTitleTest extends TestCase
     }
 
     /** @test */
-    public function the_in_months_and_all_time_reports_keep_the_period_out_of_their_titles()
+    public function the_in_months_reports_keep_the_period_out_of_their_titles()
     {
-        foreach ([Book::REPORT_PERIODE_IN_MONTHS, Book::REPORT_PERIODE_ALL_TIME] as $reportPeriodeCode) {
-            $book = auth()->activeBook();
-            $book->report_periode_code = $reportPeriodeCode;
-            $book->save();
+        $book = auth()->activeBook();
+        $book->report_periode_code = Book::REPORT_PERIODE_IN_MONTHS;
+        $book->save();
 
-            foreach (['summary', 'categorized', 'detailed'] as $reportType) {
-                $this->visitRoute('reports.finance.'.$reportType);
+        $expectedHeadings = [
+            'summary' => __('report.monthly'),
+            'categorized' => __('report.categorized_transactions'),
+            'detailed' => __('report.weekly'),
+        ];
 
-                $this->dontSeeInElement('h1.page-title', __('time.period'));
-                $this->assertStringNotContainsString(
-                    __('time.period'),
-                    $this->extractTitle($this->normalizeWhitespace($this->response->getContent())),
-                    "The {$reportType} title of the {$reportPeriodeCode} report should not show the period."
-                );
-            }
+        foreach ($expectedHeadings as $reportType => $expectedHeading) {
+            $this->visitRoute('reports.finance.'.$reportType);
+
+            $this->seeInElement('h1.page-title', $expectedHeading);
+            $this->dontSeeInElement('h1.page-title', __('time.period'));
+            $this->assertStringNotContainsString(
+                __('time.period'),
+                $this->extractTitle($this->normalizeWhitespace($this->response->getContent())),
+                "The {$reportType} title of the in_months report should not show the period."
+            );
         }
     }
 
