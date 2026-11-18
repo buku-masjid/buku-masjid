@@ -1,6 +1,11 @@
 @extends('layouts.reports')
 
-@section('subtitle', __('report.finance_detailed'))
+@php
+    $reportTitle = auth()->activeBook()->report_titles['finance_detailed'] ?? __('report.finance_detailed');
+    $reportTitleWithPeriod = $reportTitle.' '.__('time.period').' '.get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+@endphp
+
+@section('subtitle', $reportTitleWithPeriod)
 
 @section('content-report')
 
@@ -13,11 +18,7 @@
 
 <div class="page-header mt-0">
     <h1 class="page-title mb-4">
-        @if (isset(auth()->activeBook()->report_titles['finance_detailed']))
-            {{ auth()->activeBook()->report_titles['finance_detailed'] }}
-        @else
-            {{ __('report.finance_detailed') }}
-        @endif
+        {{ $reportTitleWithPeriod }}
 
         @can('update', auth()->activeBook())
             <a href="{{ route('reports.finance.detailed', request()->all() + ['action' => 'change_report_title', 'book_id' => auth()->activeBook()->id, 'nonce' => auth()->activeBook()->nonce]) }}"
