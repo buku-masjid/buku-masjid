@@ -1,6 +1,14 @@
 @extends('layouts.print')
 
-@section('title', __('report.finance_categorized'))
+@php
+    $reportTitleWithPeriod = get_report_title_with_period(
+        auth()->activeBook()->report_titles['finance_categorized'] ?? __('report.finance_categorized'),
+        $startDate->format('Y-m-d'),
+        $endDate->format('Y-m-d')
+    );
+@endphp
+
+@section('title', $reportTitleWithPeriod)
 
 @section('content')
 {{-- ref: https://github.com/niklasravnsborg/laravel-pdf#headers-and-footers --}}
@@ -8,11 +16,7 @@
     @include('reports.partials.letterhead')
 
     <h2 class="text-center strong">
-        @if (isset(auth()->activeBook()->report_titles['finance_categorized']))
-            {{ auth()->activeBook()->report_titles['finance_categorized'] }}
-        @else
-            {{ __('report.finance_categorized') }}
-        @endif
+        @yield('title')
     </h2>
 </htmlpageheader>
 

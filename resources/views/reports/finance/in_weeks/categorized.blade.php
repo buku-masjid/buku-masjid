@@ -1,6 +1,14 @@
 @extends('layouts.reports')
 
-@section('subtitle', __('report.finance_categorized'))
+@php
+    $reportTitleWithPeriod = get_report_title_with_period(
+        auth()->activeBook()->report_titles['finance_categorized'] ?? __('report.finance_categorized'),
+        $startDate->format('Y-m-d'),
+        $endDate->format('Y-m-d')
+    );
+@endphp
+
+@section('subtitle', $reportTitleWithPeriod)
 
 @section('content-report')
 
@@ -13,11 +21,7 @@
 
 <div class="page-header my-0">
     <h1 class="page-title mb-4">
-        @if (isset(auth()->activeBook()->report_titles['finance_categorized']))
-            {{ auth()->activeBook()->report_titles['finance_categorized'] }}
-        @else
-            {{ __('report.finance_categorized') }}
-        @endif
+        {{ $reportTitleWithPeriod }}
 
         @if (!request('action'))
             @can('update', auth()->activeBook())

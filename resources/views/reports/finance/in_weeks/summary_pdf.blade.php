@@ -1,18 +1,21 @@
 @extends('layouts.print')
 
-@section('title', __('report.in_weeks'))
+@php
+    $reportTitleWithPeriod = get_report_title_with_period(
+        auth()->activeBook()->report_titles['finance_summary'] ?? __('report.in_weeks'),
+        $startDate->format('Y-m-d'),
+        $endDate->format('Y-m-d')
+    );
+@endphp
+
+@section('title', $reportTitleWithPeriod)
 
 @section('content')
 <htmlpageheader name="wpHeader">
     @include('reports.partials.letterhead')
 
     <h2 class="text-center strong">
-        @if (isset(auth()->activeBook()->report_titles['finance_summary']))
-            {{ auth()->activeBook()->report_titles['finance_summary'] }}
-        @else
-            {{ __('report.in_weeks') }}
-        @endif
-        {{ __('time.period') }} {{ get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d')) }}
+        @yield('title')
     </h2>
 </htmlpageheader>
 
