@@ -16,6 +16,15 @@ class ReportTitleWithPeriodTest extends TestCase
     }
 
     /** @test */
+    public function it_keeps_both_years_when_the_range_crosses_a_year_boundary()
+    {
+        $this->assertEquals(
+            'Per Pekan Periode 29 Des 2025 - 04 Jan 2026',
+            get_report_title_with_period('Per Pekan', '2025-12-29', '2026-01-04')
+        );
+    }
+
+    /** @test */
     public function it_keeps_a_custom_report_title_intact_before_the_period()
     {
         $this->assertEquals(

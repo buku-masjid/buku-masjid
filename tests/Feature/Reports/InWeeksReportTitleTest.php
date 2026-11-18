@@ -39,7 +39,7 @@ class InWeeksReportTitleTest extends TestCase
     {
         $this->visitRoute('reports.finance.summary', $this->dateRangeQuery);
 
-        $this->assertPageContains('Per Pekan '.$this->expectedPeriodText);
+        $this->assertHeadingContains('Per Pekan '.$this->expectedPeriodText);
         $this->assertPageTitleContains('Per Pekan '.$this->expectedPeriodText);
     }
 
@@ -48,7 +48,7 @@ class InWeeksReportTitleTest extends TestCase
     {
         $this->visitRoute('reports.finance.categorized', $this->dateRangeQuery);
 
-        $this->assertPageContains('Per Kategori '.$this->expectedPeriodText);
+        $this->assertHeadingContains('Per Kategori '.$this->expectedPeriodText);
         $this->assertPageTitleContains('Per Kategori '.$this->expectedPeriodText);
     }
 
@@ -57,7 +57,7 @@ class InWeeksReportTitleTest extends TestCase
     {
         $this->visitRoute('reports.finance.detailed', $this->dateRangeQuery);
 
-        $this->assertPageContains('Rincian Transaksi '.$this->expectedPeriodText);
+        $this->assertHeadingContains('Rincian Transaksi '.$this->expectedPeriodText);
         $this->assertPageTitleContains('Rincian Transaksi '.$this->expectedPeriodText);
     }
 
@@ -91,19 +91,40 @@ class InWeeksReportTitleTest extends TestCase
         $book->save();
 
         $this->visitRoute('reports.finance.summary', $this->dateRangeQuery);
-        $this->assertPageContains('Kas Pekanan '.$this->expectedPeriodText);
+        $this->assertHeadingContains('Kas Pekanan '.$this->expectedPeriodText);
         $this->assertPageTitleContains('Kas Pekanan '.$this->expectedPeriodText);
 
         $this->visitRoute('reports.finance.categorized', $this->dateRangeQuery);
-        $this->assertPageContains('Kas Per Kategori '.$this->expectedPeriodText);
+        $this->assertHeadingContains('Kas Per Kategori '.$this->expectedPeriodText);
         $this->assertPageTitleContains('Kas Per Kategori '.$this->expectedPeriodText);
 
         $this->visitRoute('reports.finance.detailed', $this->dateRangeQuery);
-        $this->assertPageContains('Kas Rincian '.$this->expectedPeriodText);
+        $this->assertHeadingContains('Kas Rincian '.$this->expectedPeriodText);
         $this->assertPageTitleContains('Kas Rincian '.$this->expectedPeriodText);
     }
 
-    private function assertPageContains(string $expectedText): void
+    /** @test */
+    public function the_in_months_and_all_time_reports_keep_the_period_out_of_their_titles()
+    {
+        foreach ([Book::REPORT_PERIODE_IN_MONTHS, Book::REPORT_PERIODE_ALL_TIME] as $reportPeriodeCode) {
+            $book = auth()->activeBook();
+            $book->report_periode_code = $reportPeriodeCode;
+            $book->save();
+
+            foreach (['summary', 'categorized', 'detailed'] as $reportType) {
+                $this->visitRoute('reports.finance.'.$reportType);
+
+                $this->dontSeeInElement('h1.page-title', __('time.period'));
+                $this->assertStringNotContainsString(
+                    __('time.period'),
+                    $this->extractTitle($this->normalizeWhitespace($this->response->getContent())),
+                    "The {$reportType} title of the {$reportPeriodeCode} report should not show the period."
+                );
+            }
+        }
+    }
+
+    private function assertHeadingContains(string $expectedText): void
     {
         $this->seeInElement('h1.page-title', $expectedText);
     }
