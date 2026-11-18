@@ -1,8 +1,11 @@
 @extends('layouts.reports')
 
 @php
-    $reportTitle = auth()->activeBook()->report_titles['finance_categorized'] ?? __('report.finance_categorized');
-    $reportTitleWithPeriod = $reportTitle.' '.__('time.period').' '.get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+    $reportTitleWithPeriod = get_report_title_with_period(
+        auth()->activeBook()->report_titles['finance_categorized'] ?? __('report.finance_categorized'),
+        $startDate->format('Y-m-d'),
+        $endDate->format('Y-m-d')
+    );
 @endphp
 
 @section('subtitle', $reportTitleWithPeriod)

@@ -5,7 +5,7 @@ namespace Tests\Feature\Reports;
 use App\Models\Book;
 use App\Models\Setting as SettingModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Response;
+use Tests\Fakes\FakeMpdfWrapper;
 use Tests\TestCase;
 
 class ReportPaperFormatTest extends TestCase
@@ -108,34 +108,7 @@ class ReportPaperFormatTest extends TestCase
 
     private function assertPdfFormat(string $expectedFormat, array $query)
     {
-        $capturedFormat = null;
-
-        $fakeWrapper = new class($expectedFormat)
-        {
-            public $expectedFormat;
-            public $capturedFormat;
-
-            public function __construct($expectedFormat)
-            {
-                $this->expectedFormat = $expectedFormat;
-            }
-
-            public function loadView($view, $data = [], $mergeData = [], $config = [])
-            {
-                $this->capturedFormat = $config['format'] ?? null;
-
-                return $this;
-            }
-
-            public function stream($filename = null)
-            {
-                $response = new Response;
-                $response->header('Content-Type', 'application/pdf');
-
-                return $response;
-            }
-        };
-
+        $fakeWrapper = new FakeMpdfWrapper;
         $this->app->instance('mpdf.wrapper', $fakeWrapper);
 
         $this->get(route('reports.finance.summary_pdf', $query));

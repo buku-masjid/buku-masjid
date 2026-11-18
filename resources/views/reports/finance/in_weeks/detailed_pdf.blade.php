@@ -1,8 +1,11 @@
 @extends('layouts.print')
 
 @php
-    $reportTitle = auth()->activeBook()->report_titles['finance_detailed'] ?? __('report.finance_detailed');
-    $reportTitleWithPeriod = $reportTitle.' '.__('time.period').' '.get_date_range_text($startDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+    $reportTitleWithPeriod = get_report_title_with_period(
+        auth()->activeBook()->report_titles['finance_detailed'] ?? __('report.finance_detailed'),
+        $startDate->format('Y-m-d'),
+        $endDate->format('Y-m-d')
+    );
 @endphp
 
 @section('title', $reportTitleWithPeriod)
@@ -12,7 +15,7 @@
     @include('reports.partials.letterhead')
 
     <h2 class="text-center strong">
-        {{ $reportTitleWithPeriod }}
+        @yield('title')
     </h2>
 </htmlpageheader>
 

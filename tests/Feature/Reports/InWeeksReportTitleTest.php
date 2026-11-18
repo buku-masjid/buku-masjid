@@ -5,7 +5,7 @@ namespace Tests\Feature\Reports;
 use App\Models\Book;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Response;
+use Tests\Fakes\FakeMpdfWrapper;
 use Tests\TestCase;
 
 class InWeeksReportTitleTest extends TestCase
@@ -92,57 +92,45 @@ class InWeeksReportTitleTest extends TestCase
 
         $this->visitRoute('reports.finance.summary', $this->dateRangeQuery);
         $this->assertPageContains('Kas Pekanan '.$this->expectedPeriodText);
+        $this->assertPageTitleContains('Kas Pekanan '.$this->expectedPeriodText);
 
         $this->visitRoute('reports.finance.categorized', $this->dateRangeQuery);
         $this->assertPageContains('Kas Per Kategori '.$this->expectedPeriodText);
+        $this->assertPageTitleContains('Kas Per Kategori '.$this->expectedPeriodText);
 
         $this->visitRoute('reports.finance.detailed', $this->dateRangeQuery);
         $this->assertPageContains('Kas Rincian '.$this->expectedPeriodText);
+        $this->assertPageTitleContains('Kas Rincian '.$this->expectedPeriodText);
     }
 
     private function assertPageContains(string $expectedText): void
     {
-        $this->assertStringContainsString($expectedText, $this->normalizeWhitespace($this->response->getContent()));
+        $this->seeInElement('h1.page-title', $expectedText);
     }
 
     private function assertPageTitleContains(string $expectedText): void
     {
-        $content = $this->normalizeWhitespace($this->response->getContent());
-        preg_match('/<title>(.*?)<\/title>/s', $content, $matches);
-
-        $this->assertStringContainsString($expectedText, $matches[1] ?? '', 'The page title should show the report period.');
+        $this->assertStringContainsString($expectedText, $this->extractTitle($this->normalizeWhitespace($this->response->getContent())), 'The page title should show the report period.');
     }
 
     private function assertPdfContains(string $routeName, string $expectedText): void
     {
-        $fakeWrapper = new class
-        {
-            public $renderedHtml;
-
-            public function loadView($view, $data = [], $mergeData = [], $config = [])
-            {
-                $this->renderedHtml = view($view, $data, $mergeData)->render();
-
-                return $this;
-            }
-
-            public function stream($filename = null)
-            {
-                $response = new Response;
-                $response->header('Content-Type', 'application/pdf');
-
-                return $response;
-            }
-        };
-
+        $fakeWrapper = new FakeMpdfWrapper;
         $this->app->instance('mpdf.wrapper', $fakeWrapper);
 
         $this->get(route($routeName, $this->dateRangeQuery));
 
         $html = $this->normalizeWhitespace($fakeWrapper->renderedHtml);
 
-        $this->assertStringContainsString($expectedText, $html);
+        $this->assertStringContainsString($expectedText, $this->extractHeading($html), 'The PDF heading should show the report period.');
         $this->assertStringContainsString($expectedText, $this->extractTitle($html), 'The PDF title should show the report period.');
+    }
+
+    private function extractHeading(string $html): string
+    {
+        preg_match('/<h2 class="text-center strong">(.*?)<\/h2>/s', $html, $matches);
+
+        return $matches[1] ?? '';
     }
 
     private function extractTitle(string $html): string

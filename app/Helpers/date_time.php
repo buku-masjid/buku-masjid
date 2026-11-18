@@ -120,6 +120,11 @@ function get_date_range_text(string $startDate, string $endDate): string
     return $startDateText.' - '.$endDateText;
 }
 
+function get_report_title_with_period(string $reportTitle, string $startDate, string $endDate): string
+{
+    return $reportTitle.' '.__('time.period').' '.get_date_range_text($startDate, $endDate);
+}
+
 function get_age_group_date_ranges()
 {
     $currentDate = Carbon::now();
