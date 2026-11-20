@@ -14,6 +14,7 @@ return [
     'detail_for_friday' => 'Detail Jadwal Khatib',
     'not_found' => 'Jadwal :audience belum tersedia.',
     'empty' => 'Belum ada Jadwal Pengajian',
+    'upcoming' => 'Jadwal Pengajian Terdekat',
     'friday_empty' => 'Belum ada Jadwal Khatib',
     'public_empty' => 'Belum ada Jadwal Pengajian Umum',
     'muslimah_empty' => 'Belum ada Jadwal Pengajian Muslimah',

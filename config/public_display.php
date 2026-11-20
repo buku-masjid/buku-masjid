@@ -7,6 +7,8 @@ return [
         'light',
     ],
     'book_carousel_slide_interval_in_seconds' => env('PUBLIC_DISPLAY_BOOK_CAROUSEL_SLIDE_INTERVAL_IN_SECONDS', 10),
+    'lecturing_schedule_days' => env('PUBLIC_DISPLAY_LECTURING_SCHEDULE_DAYS', 7),
+    'lecturing_schedule_max_items' => env('PUBLIC_DISPLAY_LECTURING_SCHEDULE_MAX_ITEMS', 5),
     'iqamah_interval_in_minutes' => [
         'fajr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_FAJR', 25),
         'dzuhr' => env('PUBLIC_DISPLAY_IQAMAH_INTERVAL_IN_MINUTES_DZUHR', 15),

@@ -14,6 +14,7 @@ return [
     'detail_for_friday' => 'Khatib Schedule Detail',
     'not_found' => 'Schedule for :audience is not available.',
     'empty' => 'Lecturing Schedule is empty',
+    'upcoming' => 'Upcoming Lecturing Schedule',
     'friday_empty' => 'Khatib Schedule is empty',
     'public_empty' => 'Public Lecturing Schedule is empty',
     'muslimah_empty' => 'Muslimah Lecturing Schedule is empty',
